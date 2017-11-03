@@ -1,0 +1,123 @@
+<template>
+  <transition name="cube-toast-fade">
+    <cube-popup type="toast" :mask="mask" v-show="isVisible">
+      <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
+      <cube-loading v-show="isLoading"></cube-loading>
+      <div v-show="txt" class="cube-toast-tip">{{txt}}</div>
+    </cube-popup>
+  </transition>
+</template>
+<script type="text/ecmascript-6">
+  import CubeLoading from '../loading/loading.vue'
+  import CubePopup from '../popup/popup.vue'
+  import apiMixin from '../../common/mixins/api'
+
+  const COMPONENT_NAME = 'cube-toast'
+
+  export default {
+    name: COMPONENT_NAME,
+    mixins: [apiMixin],
+    props: {
+      type: {
+        type: String,
+        default: 'loading'
+      },
+      mask: {
+        type: Boolean,
+        default: false
+      },
+      txt: {
+        type: String,
+        default: ''
+      },
+      time: {
+        type: Number,
+        default: 3000
+      }
+    },
+    computed: {
+      iconClass() {
+        const iconClass = {}
+        const classMap = {
+          correct: 'cubeic-right',
+          error: 'cubeic-wrong',
+          warn: 'cubeic-warn'
+        }
+        const icon = classMap[this.type]
+        if (icon) {
+          iconClass[icon] = true
+        }
+        return iconClass
+      },
+      isLoading() {
+        return this.type === 'loading'
+      }
+    },
+    methods: {
+      show() {
+        this.isVisible = true
+        this.clearTimer()
+        this.$nextTick(() => {
+          if (this.time !== 0) {
+            this.timer = setTimeout(() => {
+              this.hide()
+            }, this.time)
+          }
+        })
+      },
+      hide() {
+        this.isVisible = false
+        this.clearTimer()
+      },
+      clearTimer() {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+    },
+    components: {
+      CubePopup,
+      CubeLoading
+    }
+  }
+</script>
+<style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/variable.styl"
+  .cube-toast
+    &.cube-popup
+      z-index: 900
+    .cube-popup-content
+      display: flex
+      align-items: center
+      padding: 13px 16px
+      color: $toast-color
+      background-color: $toast-bgc
+      border-radius: 2px
+  .cube-toast-icon
+    width: 24px
+    height: 24px
+    font-size: $fontsize-large-xxx
+  .cube-toast-tip
+    line-height: 20px
+    font-size: $fontsize-medium
+    max-width: 12em
+    max-height: 40px
+    overflow: hidden
+    margin-left: 8px
+
+  .cube-toast-fade-enter-active
+    animation: toast-in .2s
+  .cube-toast-fade-leave-active
+    animation: toast-out .2s
+
+  @keyframes toast-in
+    0%
+      opacity: 0
+    100%
+      opacity: 0.8
+
+  @keyframes toast-out
+    0%
+      opacity: 0.8
+    100%
+      opacity: 0
+</style>

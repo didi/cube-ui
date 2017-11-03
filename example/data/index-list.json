@@ -1,0 +1,171 @@
+[
+  {
+    "name": "★Hot City",
+    "items": [
+      {
+        "name": "BEIJING",
+        "value": 1
+      },
+      {
+        "name": "SHANGHAI",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "A",
+    "items": [
+      {
+        "name": "ANSHAN",
+        "value": 3
+      },
+      {
+        "name": "ANQING",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "name": "B",
+    "items": [
+      {
+        "name": "BEIJING",
+        "value": 1
+      },
+      {
+        "name": "BAYINGUOLENGZHOU,",
+        "value": 5
+      },
+      {
+        "name": "BOERTALAZHOU",
+        "value": 6
+      }
+    ]
+  },
+  {
+    "name": "C",
+    "items": [
+      {
+        "name": "CHENGDU",
+        "value": 7
+      }
+    ]
+  },
+  {
+    "name": "E",
+    "items": [
+      {
+        "name": "EERDUOSI",
+        "value": 8
+      },
+      {
+        "name": "EZHOU",
+        "value": 9
+      },
+      {
+        "name": "ENSHIZHOU",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "name": "F",
+    "items": [
+      {
+        "name": "FUZHOU",
+        "value": 11
+      },
+      {
+        "name": "FOSHAN",
+        "value": 12
+      },
+      {
+        "name": "FANGCHENGGANG",
+        "value": 13
+      }
+    ]
+  },
+  {
+    "name": "G",
+    "items": [
+      {
+        "name": "GUANGZHOU",
+        "value": 14
+      },
+      {
+        "name": "GUIYANG",
+        "value": 15
+      }
+    ]
+  },
+  {
+    "name": "H",
+    "items": [
+      {
+        "name": "HANGZHOU",
+        "value": 16
+      },
+      {
+        "name": "HETIANDIQU",
+        "value": 17
+      }
+    ]
+  },
+  {
+    "name": "Z",
+    "items": [
+      {
+        "name": "ZHENGZHOU",
+        "value": 18
+      },
+      {
+        "name": "ZHANGJIAKOU",
+        "value": 19
+      },
+      {
+        "name": "ZHANGJIAJIE",
+        "value": 20
+      },
+      {
+        "name": "ZHUHAI",
+        "value": 21
+      },
+      {
+        "name": "ZHONGSHAN",
+        "value": 22
+      },
+      {
+        "name": "ZIGONG",
+        "value": 23
+      },
+      {
+        "name": "ZIYANG",
+        "value": 24
+      },
+      {
+        "name": "ZHAOZHUANG",
+        "value": 25
+      },
+      {
+        "name": "ZHOUSHAN",
+        "value": 26
+      },
+      {
+        "name": "ZUNYI",
+        "value": 27
+      },
+      {
+        "name": "ZIBO",
+        "value": 28
+      },
+      {
+        "name": "ZHUZHOU",
+        "value": 29
+      },
+      {
+        "name": "ZHONGWEI",
+        "value": 30
+      }
+    ]
+  }
+]

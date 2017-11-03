@@ -1,0 +1,9 @@
+.idea/
+.DS_Store
+node_modules/
+npm-debug.log
+deploy/
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+yarn.lock

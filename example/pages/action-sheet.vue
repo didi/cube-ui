@@ -1,0 +1,112 @@
+<template>
+  <cube-page type="action-sheet-view" title="ActionSheet（操作列表）">
+    <div slot="content">
+      <cube-button-group>
+        <cube-button @click="showDefault">ActionSheet</cube-button>
+        <cube-button @click="showActive">ActionSheet - active</cube-button>
+        <cube-button @click="showPickerStyle">ActionSheet - picker style</cube-button>
+      </cube-button-group>
+    </div>
+  </cube-page>
+</template>
+
+<script type="text/ecmascript-6">
+  import CubePage from '../components/cube-page.vue'
+  import CubeButtonGroup from '../components/cube-button-group.vue'
+
+  export default {
+    methods: {
+      showDefault() {
+        this.actionSheet = this.$createActionSheet({
+          title: '我是标题~~~',
+          data: [
+            {
+              content: '<em>舒适型</em>',
+              class: 'cube-foo'
+            },
+            {
+              content: '七座商务',
+              align: 'left'
+            },
+            {
+              content: '豪华型',
+              align: 'right'
+            }
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
+          }
+        })
+        this.actionSheet.show()
+      },
+      showActive() {
+        this.actionSheet = this.$createActionSheet({
+          title: '我是标题~~~',
+          active: 0,
+          data: [
+            {
+              content: '舒适型'
+            },
+            {
+              content: '七座商务'
+            },
+            {
+              content: '豪华型'
+            }
+          ]
+        })
+        this.actionSheet.show()
+      },
+      showPickerStyle() {
+        this.actionSheet = this.$createActionSheet({
+          title: '我是标题~~~',
+          pickerStyle: true,
+          data: [
+            {
+              content: '舒适型'
+            },
+            {
+              content: '七座商务'
+            },
+            {
+              content: '豪华型'
+            }
+          ]
+        })
+        this.actionSheet.show()
+      }
+    },
+    beforeDestroy() {
+      this.actionSheet && this.actionSheet.remove() && (this.actionSheet = null)
+    },
+    components: {
+      CubePage,
+      CubeButtonGroup
+    }
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+  .action-sheet-view
+    .select
+      margin: 0 10px 40px 10px
+      height: 40px
+      line-height: 40px
+      border: 1px solid #e5e5e5
+      text-align: center
+      background: #fff
+
+  .cube-action-sheet-panel
+    .cube-action-sheet-item
+      i, span
+        vertical-align middle
+      &.orange
+        color #fa8919
+  .cube-foo
+    font-weight 800 !important
+
+</style>

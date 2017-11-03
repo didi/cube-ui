@@ -1,0 +1,106 @@
+{
+  "en-US": {
+    "overview": {
+      "name": "Overview",
+      "subList": {
+        "introduction": "Introduction",
+        "quick-start": "QuickStart",
+        "post-compile": "PostCompile"
+      }
+    },
+    "components": {
+      "name": "Components",
+      "subList": {
+        "basic": {
+          "name": "Basic",
+          "subList": {
+            "button": "Button",
+            "checkbox": "Checkbox",
+            "checkbox-group": "CheckboxGroup",
+            "loading": "Loading",
+            "tip": "Tip"
+          }
+        },
+        "popup": {
+          "name": "Popup",
+          "subList": {
+            "popup": "Popup",
+            "toast": "Toast",
+            "picker": "Picker",
+            "time-picker": "TimePicker",
+            "dialog": "Dialog",
+            "action-sheet": "ActionSheet"
+          }
+        },
+        "scroll": {
+          "name": "Scroll",
+          "subList": {
+            "scroll": "Scroll",
+            "slide": "Slide",
+            "index-list": "IndexList"
+          }
+        }
+      }
+    },
+    "modules": {
+      "name": "Modules",
+      "subList": {
+        "style": "style",
+        "create-api": "create-api",
+        "better-scroll": "better-scroll"
+      }
+    }
+  },
+  "zh-CN": {
+    "overview": {
+      "name": "概览",
+      "subList": {
+        "introduction": "介绍",
+        "quick-start": "快速上手",
+        "post-compile": "后编译"
+      }
+    },
+    "components": {
+      "name": "组件",
+      "subList": {
+        "basic": {
+          "name": "基础",
+          "subList": {
+            "button": "Button",
+            "checkbox": "Checkbox",
+            "checkbox-group": "CheckboxGroup",
+            "loading": "Loading",
+            "tip": "Tip"
+          }
+        },
+        "popup": {
+          "name": "弹出层",
+          "subList": {
+            "popup": "Popup",
+            "toast": "Toast",
+            "picker": "Picker",
+            "time-picker": "TimePicker",
+            "dialog": "Dialog",
+            "action-sheet": "ActionSheet"
+          }
+        },
+        "scroll": {
+          "name": "滚动",
+          "subList": {
+            "scroll": "Scroll",
+            "slide": "Slide",
+            "index-list": "IndexList"
+          }
+        }
+      }
+    },
+    "modules": {
+      "name": "模块",
+      "subList": {
+        "style": "style",
+        "create-api": "create-api",
+        "better-scroll": "better-scroll"
+      }
+    }
+  }
+}

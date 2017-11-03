@@ -1,0 +1,28 @@
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": [
+          "> 1%",
+          "last 2 versions",
+          "not ie <= 20",
+          "not ie_mob <= 100",
+          "not ff <= 100",
+          "not and_ff <= 100",
+          "not Edge <= 100",
+          "Android >= 4.0"
+        ]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime", "add-module-exports", "transform-es2015-modules-umd"],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+}
