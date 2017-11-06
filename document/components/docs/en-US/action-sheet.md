@@ -1,166 +1,130 @@
-## Action Sheet 操作列表
+## ActionSheet
 
-`action-sheet`可看做是`dialog`的延伸，二者都属于模态框，但是`action-sheet`提供了更多的功能按钮，提供给用户更多的操作选择。`action-sheet`组件提供了2中常见的操作列表类型。
+`ActionSheet` provides two common styles and it is flexible.
 
-### 单独引入
+### Example
 
-```javascript
-  import { ActionSheet } from 'cube-ui'
+- Basic usage
 
-  export default {
-    components: {
-      CubeActionSheet: ActionSheet
+```html
+<cube-button @click="showActionSheet">action sheet</cube-button>
+```
+```js
+export default {
+  methods: {
+    showDefault() {
+      this.$createActionSheet({
+        title: '我是标题~~~',
+        data: [
+          {
+            content: '<em>舒适型</em>',
+            class: 'cube-foo'
+          },
+          {
+            content: '七座商务',
+            align: 'left'
+          },
+          {
+            content: '豪华型',
+            align: 'right'
+          }
+        ],
+        onSelect: (item, index) => {
+          this.$createToast({
+            txt: `Clicked ${item.content}`,
+            time: 1000
+          }).show()
+        }
+      }).show()
     }
   }
+}
 ```
 
-### 调用方式
+You can create a basic actionsheet by setting `title` and `data` option. Pay attention that `content` in `data` can be a HTML string. Also, setting the custom class by `class` and setting the align of the item's content by `align`.
 
-通过在`action-sheet`组件上添加`ref`属性，获得对于组件的引用，然后调用`action-sheet`组件向外暴露出来的`show`，`hide`方法来控制组件的显示或消失:
+- Highlight item
 
 ```html
-  <template>
-    <div class="action-sheet">
-      <cube-action-sheet ref="actionSheet"></cube-action-sheet>
-      <cube-button @click="showActionSheet">拉起 Action Sheet<cube-button>
-    </div>
-  </template>
-
-  <script>
-    export default {
-      methods: {
-        showActionSheet () {
-          this.$refs.actionSheet.show()
-        }
-      }
-    }
-  </script>
+<cube-button @click="showActive">ActionSheet - active</cube-button>
 ```
-
-### 示例
-
-```html
-  <template>
-    <cube-action-sheet
-      ref="actionSheet"
-      :data="data"
-      :active="actionSheetActiveIndex"
-      :title="title"
-      @select="handleSelect"
-      @cancel="handleCancel"></cube-action-sheet>
-
-    <cube-action-sheet
-      ref="actionSheet2"
-      :data="data2"
-      :active="actionSheetActiveIndex2"
-      :title="title"
-      :style2="true"
-      @select="handleSelect2"
-      @cancel="handleCancel"></cube-action-sheet>
-    <cube-toast
-      ref="toast"
-      :txt="toastTxt"
-      :time=2000></cube-toast>
-  </template>
-
-  <script>
-    const data = [
-      {
-        content: '左对齐',
-        align: 'left'
-      },
-      {
-        content: '右对齐',
-        align: 'right'
-      },
-      {
-        content: '默认居中对齐'
-      },
-      {
-        content: '自定义样式的内容',
-        class: 'orange'
-      },
-      {
-        content: '<i class="didi-icons didi-icons-arrow_lift"></i><span>嵌入了HTML的内容</span>'
-      },
-      {
-        content: '点击我打开一个toast',
-        showToast: true
-      }
-    ]
-    const data2 = [
-      {
-        content: '舒适型'
-      },
-      {
-        content: '七座商务'
-      },
-      {
-        content: '豪华型'
-      }
-    ]
-
-    export default {
-      data () {
-        return {
-          data: data,
-          data2: data2,
-          toastTxt: '',
-          actionSheetActiveIndex: 2,
-          actionSheetActiveIndex2: 0
-        }
-      },
-      methods: {
-        showActionSheet() {
-          this.$refs.actionSheet.show()
-        },
-        showActionSheet2() {
-          this.$refs.actionSheet2.show()
-        },
-        handleSelect (item, index) {
-          console.log(item.content)
-          if (item.showToast) {
-            this.showToast(item.content)
+```js
+export default {
+  methods: {
+    showActive() {
+      this.$createActionSheet({
+        title: '我是标题~~~',
+        active: 0,
+        data: [
+          {
+            content: '舒适型'
+          },
+          {
+            content: '七座商务'
+          },
+          {
+            content: '豪华型'
           }
-          this.actionSheetActiveIndex = index
-        },
-        handleSelect2 (item, index) {
-          console.log(item.content)
-          this.actionSheetActiveIndex2 = index
-        },
-        handleCancel() {
-          console.log('action sheet canceled')
-        },
-        showToast(txt) {
-          this.toastTxt = txt
-          this.$refs.toast.show()
-        }
-      }
+        ]
+      }).show()
     }
-  </script>
+  }
+}
 ```
 
-### Props参数配置
+You can control the highlighted item by setting the `active` option.
 
-| 参数        | 说明           | 类型  | 默认值 |
-| ------------- |:-------------:| ---| ---|
-| data | 需要展示的数据 | Array | [ ] |
-| active | 高亮的选项 | Number | -1 |
-| title | 组件的标题 | String | - |
-| pickerStyle | 样式类型是否为picker型 | Boolean | false |
+- Picker style setting
 
-此外，在传入的`data`数组中，每一项为一个`object`，其中可配置的字段如下:
+```html
+<cube-button @click="showPickerStyle">ActionSheet - picker style</cube-button>
+```
+```js
+export default {
+  methods: {
+    showPickerStyle() {
+      this.$createActionSheet({
+        title: '我是标题~~~',
+        pickerStyle: true,
+        data: [
+          {
+            content: '舒适型'
+          },
+          {
+            content: '七座商务'
+          },
+          {
+            content: '豪华型'
+          }
+        ]
+      }).show()
+    }
+  }
+}
+```
 
-| 参数        | 说明           | 类型  | 可选值 | 默认值 |
-| ------------- |:-------------:| -----:| ---| ---|
-| content | 展示的文案内容 | String | 纯文本/html文本 | - |
-| align | 展示的文案对齐的方式 | String | left/center/right | center |
-| class | 展示文案添加的class属性，用来单独定义样式 | String | - |
+You can use Picker style by setting `pickerStyle` to be true.
 
-### Event事件
+### Props configuration
 
-| 参数        | 说明           | 参数1 | 参数2 |
-| ------------- |:-------------:| --- | --- |
-| cancel | 点击取消按钮向父组件传递的事件，同时action-sheet消失 | - | - |
-| select | 点击action-sheet某项后向父组件传递的事件，同时action-sheet消失 | 选中项 | 选中项的索引值 |
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| title | actionsheet's title | String | - | '' |
+| data | the data list to display | Array | - | [] |
+| active | the highlighted item's index | Number | - | -1 |
+| pickerStyle | Picker style | Boolean | true/false | false |
 
+* `data` sub configuration
+
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| content | the content to display in the actionsheet's item | String | any text, include HTML | '' |
+| align | align the content | String | left/right | '' |
+| class | custom class | String | - | '' |
+
+### Events
+
+| Event Name | Description | Parameters 1 | Parameters 2 |
+| - | - | - | - |
+| cancel | triggers when clicking the cancel button | - | - |
+| select | triggers when clicking some item | the clicked item - data[index] | the index of the clicked item |

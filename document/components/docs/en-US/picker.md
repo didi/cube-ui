@@ -1,186 +1,168 @@
-## Picker组件
+## Picker
 
-`Picker`组件支持多列选择器及数据联动。
+`Picker` component supports multi-column selectors and linkage data.
 
-### 单独引入
+### Example
 
-```javascript
-  import { Picker } from 'cube-ui'
+- Basic usage
 
-  export default {
-    components: {
-      CubePicker: Picker
+```html
+<cube-button @click="showPicker">Picker</cube-button>
+```
+```js
+const col1Data = [{ text: '剧毒', value: 1}, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 2 }]
+export default {
+  mounted () {
+    this.picker = this.$createPicker({
+      title: 'Picker selectors - single column',
+      data: [col1Data]
+    })
+  },
+  methods: {
+    showPicker () {
+      this.picker.show()
     }
   }
+}
 ```
 
-### 调用方式
-
-通过在`picker`组件上添加`ref`属性，获得对于组件的引用，然后调用`picker`组件向外暴露出来的`show`，`hide`方法来控制组件的显示或消失，`show`能接受回调函数:
+- Multi-column selectors
 
 ```html
-  <template>
-    <div class="picker">
-      <cube-picker ref="picker"></cube-picker>
-      <cube-button @click="showPicker">拉起picker<cube-button>
-    </div>
-  </template>
-
-  <script>
-    export default {
-      methods: {
-        showPicker () {
-          this.$refs.picker.show(() => {
-            // do something
-          })
-        }
-      }
+<cube-button @click="showPicker">Picker - multiple Columns</cube-button>
+```
+```js
+const col1Data = [{ text: '剧毒', value: 1}, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 3 }]
+const col2Data = [{ text: '梅肯', value: 's'}, { text: '秘法鞋', value: 'ss' }, { text: '假腿', value: 'sss' }, { text: '飞鞋', value: 'ssss' }, { text: '辉耀', value: 'sssss' }, { text: '金箍棒', value: 'ssssss' }]
+export default {
+  mounted () {
+    this.picker = this.$createPicker({
+      title: 'Picker selectors - multiple columns',
+      data: [col1Data, col2Data]
+    })
+  },
+  methods: {
+    showPicker () {
+      this.picker.show()
     }
-  </script>
+  }
+}
 ```
 
-此外，`picker`还暴露出了`setData`和`setSelectedIndex`2个方法，用以动态设置`picker`需要展示的内容，以及当前被选中的值。
+`data` receives an array, whose length determines the columns of `picker`.
 
-```javascript
-  const data = [{ text: 'a', value: 1}, { text: 'b', value: 2}]
-
-  this.$refs.picker.setData(data)
-  this.$refs.picker.setSelectedIndex([1])
-```
-
-### 示例
-
-#### demo1
+- Linkage selectors
 
 ```html
-  <template>
-    <button @click="setData">改变单列选择器数据</button>
-    <div class="select" @click="showPicker" ref="select0">单列选择器示例 ...</div>
-    <cube-picker
-      ref="picker0"
-      @select="handleSelect"
-      :selected-index="selectedIndex[0]"
-      :title="title"></cube-picker>
-  </template>
+<cube-button @click="showPicker">Picker - linkage</cube-button>
+```
+```js
+import { provinceList, cityList, areaList } from '../data/area'
 
-  <script>
-    let data1 = [{ text: '剧毒', value: 1 }, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 3 }, { text: '主宰', value: 4 }]
-    let data2 = [{ text: '输出', value: 'a' }, { text: '控制', value: 'b' }, { text: '核心', value: 'c' }, { text: '爆发', value: 'd' }, { text: '辅助', value: 'e' }]
-    export default {
-      data () {
-        return {
-          title: '单列选择器',
-          selectedIndex: [0],
-          data: [data1]
-        }
-      },
-      mounted () {
-        this.$nextTick(() => {
-          this.$refs.picker0.setData([data1])
-          this.$refs.picker0.setSelectedIndex([1])
-        })
-      },
-      showPicker () {
-        this.$refs.picker0.show()
-      },
-      methods () {
-        select (selectedVal, selectedIndex) {
-          let text = ''
-          for (let i = 0; i < this.data.length; i++) {
-            text += this.data[i][selectedIndex[i]].text + ' '
-          }
-          this.$refs.select0.innerText = text
-        },
-        setData() {
-          this.data[0] = [data2]
-          this.$refs.picker0.setData([data2])
-          this.$refs.picker0.setSelectedIndex([3])
-        }
-      }
+export default {
+  data () {
+    return {
+      tempIndex: [0, 0, 0]
     }
-  </script>
+  },
+  mounted () {
+    this.picker = this.$createPicker({
+      title: 'Picker - linkage data',
+      data: this.linkageData,
+      onChange: (i, newIndex) => {
+        if (newIndex !== this.tempIndex[i]) {
+          for (let j = 2; j > i; j--) {
+            this.tempIndex.splice(j, 1, 0)
+            this.picker.scrollTo(j, 0)
+          }
+
+          this.tempIndex.splice(i, 1, newIndex)
+          this.picker.setData(this.linkageData, this.tempIndex)
+        }
+      },
+      onSelect: (selectedVal) => {
+        console.log(selectedVal)
+      }
+    })
+  },
+  watch: {
+    linkageData() {
+      this.picker.refresh()
+    }
+  },
+  computed: {
+    linkageData() {
+      const provinces = provinceList
+      const cities = cityList[provinces[this.tempIndex[0]].value]
+      const areas = areaList[cities[this.tempIndex[1]].value]
+
+      return [provinces, cities, areas]
+    }
+  }
+  methods: {
+    showPicker () {
+      this.picker.show()
+    }
+  }
+}
 ```
 
-#### demo2
+By monitoring the `change` event triggered by each roller and invoke `setData` method to dynamicly set values of associated rollers to accomplish linkage selectors.
+
+- Instance method `setData`
 
 ```html
-  <template>
-    <div class="select" @click="showPicker" ref="select1">两列选择器示例 ...</div>
-    <cube-picker
-      ref="picker1"
-      @select="handleSelect"
-      :data="data[1]"
-      :selected-index="selectedIndex"
-      :title="title"
-      :cancelTxt="englishTxt.cancelTxt"
-      :confirmTxt="englishTxt.confirmTxt"></cube-picker>
-  </template>
-
-  <script>
-    let data1 = [{ text: '剧毒', value: 1 }, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 3 }, { text: '主宰', value: 4 }]
-    let data2 = [{ text: '输出', value: 'a' }, { text: '控制', value: 'b' }, { text: '核心', value: 'c' }, { text: '爆发', value: 'd' }, { text: '辅助', value: 'e' }]
-
-    export default {
-      data () {
-        return {
-          data: [data1, data2],
-          selectedIndex: [1, 2],
-          title: '双列选择器',
-          englishTxt: {
-            cancelTxt: 'cancel',
-            confirmTxt: 'confirm'
-          }
-        }
-      },
-      methods: {
-        showPicker () {
-          this.$refs.pick1.show()
-        },
-        handleSelect (selectedVal, selectedIndex) {
-          let text = ''
-          for (let i = 0; i < this.data.length; i++) {
-            text += this.data[i][selectedIndex[i]].text + ' '
-          }
-          this.$refs.select1.innerText = text
-        }
-      }
+<cube-button @click="showPicker">Picker - setData</cube-button>
+```
+```js
+const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
+const col2Data = [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' }, { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' }, { text: '金箍棒', value: '金箍棒' }]
+const col3Data = [{ text: '输出', value: '输出'}, { text: '控制', value: '控制' }, { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
+export default {
+  mounted () {
+    this.picker = this.$createPicker({
+      title: 'Picker-setData'
+    })
+  },
+  methods: {
+    showPicker () {
+      this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
+      this.picker.show()
     }
-  </script>
+  }
+}
 ```
 
-### API
+Instance method `setData` accepts two parameters, both of whom are arrays. The first is data that the roller displays and the second is indexs of selected values.
 
-#### Props参数配置
+### Props configuration
 
-| 参数        | 说明           | 类型  | 默认值 | 示例 |
-| ----- |----------| -----|---| --- |
-| title | 标题 | String | '' | - |
-| data | 传入picker数据，数组的长度决定了picker的列数 | Array | [] | - |
-| cancelTxt | picker左侧按钮文案 | String | '取消' | - |
-| confirmTxt | picker右侧按钮文案 | String | '确定' | - |
-| select-index | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| title | title | String | '' | - |
+| data | data that passed into picker, whose length determines the columns of picker | Array | [] | - |
+| cancelTxt | the text of the left button in picker | String | '取消' | - |
+| confirmTxt | the text of the right button in picker | String | '确定' | - |
+| selectIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
 
-其中传入`picker`的`data`数组中，每一项可配置的属性有：
+* `data` sub configuration
 
-| 参数        | 说明           | 类型  | 默认值 | 示例 |
-| ------------- |-------------| -----| ---| ---|
-| text | picker每一列展示的文案 | String/Number | - | - |
-| value | picker每一列展示的每项文案对应的值 | String/Number/Boolean | - | - |
+| Attribute | Description | Type  | Default | Example |
+| - | - | - | - | - |
+| text | the text displayed in each column of picker | String/Number | - | - |
+| value | corresponding value of the text displayed in each column of picker | String/Number/Boolean | - | - |
 
-#### Event事件
+### Events
 
-| 事件名 | 说明 | 参数1 | 参数2 |
-| ----- | ---- | ----| --- |
-| select | 点击确认按钮触发此事件 | selectedVal: 当前选中项每一列的值，Array类型 | selectedIndex: 当前选中项每一列的索引，Array类型 |
-| change | 滚轴滚动后触发此事件 | selectedVal: 当前选中项每一列的值，Array类型 | selectedIndex: 当前选中项每一列的索引，Array类型 |
-| value-change | 所确认的值变化时触发此事件 | selectedVal: 当前确认项每一列的值，Array类型 | selectedIndex: 当前确认项每一列的索引，Array类型 |
-| cancel | 点击取消按钮触发此事件 | - | - |
+| Event Name | Description | Parameters 1 | Parameters 2 |
+| - | - | - | - |
+| select | triggers when clicking the confirm button | selectedVal: Array, values of each columns in current selected item | selectedIndex: Array, indexes of each columns in current selected item |
+| change | triggers when the roller scrolls | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column |
+| value-change | triggers when confirmed value changes| selectedVal: Array, values of each columns in current confirmed item | selectedIndex: Array, indexes of each columns in current confirmed item |
+| cancel | triggers when clicking the cancel button | - | - |
 
-#### 组件向外暴露方法
+### Instance methods
 
-| 方法名 | 说明 | 接受的参数1 |
-| ----- | ---- | ---- |
-| show | 拉起picker组件 | - |
-| hide | 隐藏picker组件 | - |
-| setData | 设置picker可选项 | picker每列可选项的文案和值，Array类型 |
-| setSelectedIndex | 设置picker选中项 | picker每列选中的索引，Array类型 |
+| Method name | Description | Parameters 1 | Parameters 2 |
+| - | - | - | - |
+| setData | set options in picker| Array, texts and values of options of each columns of picker | Array, indexes of selected item in each column of picker |

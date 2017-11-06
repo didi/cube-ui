@@ -7,13 +7,13 @@
 - 参数：
 
   - `{Function} Vue` Vue 函数
-  - `{Function | Object} Component` 组件类或者组件对象，组件必须有 name
+  - `{Function | Object} Component` Vue 组件，组件必须有 name
   - `{Array} [events]` 组件实例 emit 的事件名集合
   - `{Boolean} [single]` 是否为单例
 
 - 用法：
 
-  - 该方法主要是在 Vue 的 prototype 上增加一个名为 `$create{camelize(Component.name)}` 的方法，这样就可以在其他组件中直接通过 `const instance = this.$createAaBb(config, [renderFn])` 这样来实例化组件了，而且这个实例化组件的元素是被附加到 `body` 元素下的；关于 `$createAaBb` 的参数：
+  - 该方法在 Vue 的 prototype 上增加一个名为 `$create{camelize(Component.name)}` 的方法，这样就可以在其他组件中直接通过 `const instance = this.$createAaBb(config, [renderFn])` 这样来实例化组件了，而且这个实例化组件的元素是被附加到 `body` 元素下的；关于 `$createAaBb` 的参数：
     - `{Object} config` 组件配置参数，默认所有的值都会当做 props 传给组件，但是要排除 `events` 中的事件（默认会做转换，例如：`events` 的值为 `['click']`，那么 `config` 中的 `onClick` 就是作为 `click` 事件的回调函数，而不是作为 props 传递给组件）。
     - `{Function} [renderFn]` 是可选的参数，用于生成子 VNode 节点，一般场景是处理 slot。
   - 注意调用后的返回值 `instance` 就是组件实例，这个实例会被**附加**或者**代理** `remove` 方法，如果调用了，该实例就会被销毁且会从 `body` 下移除。

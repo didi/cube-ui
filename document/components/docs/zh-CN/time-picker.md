@@ -1,6 +1,6 @@
 ## TimePicker组件
 
-TimePicker 组件提供了常用的日期选择功能。
+`TimePicker`组件提供了常用的日期选择功能。
 
 ### 示例
 

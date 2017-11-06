@@ -1,6 +1,6 @@
 ## Toast
 
-`Toast` component.You can use it to show modaless tip message without user interaction. 
+`Toast` component.You can use it to show non-modal tip message without user interaction.
 
 ### Example
 
@@ -34,7 +34,7 @@
   }
   ```
 
-  Set `time` to change the duration of display.If set to 0, it will not turn off automatically and you must invoke the component's `hide` method manually to trun off it.
+  Set `time` to change the duration of display.If set to 0, the toast will not hide automatically and you must invoke the component's `hide` method manually to hide it.
 
 - Show mask layer
 

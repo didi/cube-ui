@@ -9,13 +9,8 @@
 </template>
 
 <script>
+  import { baseUrl } from '../../common/js/utils'
   export default {
-    props: {
-      baseUrl: {
-        type: String,
-        default: 'http://localhost:8081/#/'
-      }
-    },
     data () {
       return {
         hash: '/'
@@ -23,7 +18,7 @@
     },
     computed: {
       ifrSrc () {
-        return `${this.baseUrl}${this.hash}`
+        return `${baseUrl}${this.hash}`
       }
     },
     watch: {

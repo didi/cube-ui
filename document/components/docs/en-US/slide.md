@@ -1,6 +1,6 @@
 ## Slide
 
-`Slide` component, which is also encapsulated based on `better-scroll`,  provides common functions of `slider`  and `swipe`.
+`Slide` component, which is also encapsulated based on `better-scroll`,  provides common functions like `slider`  and `swipe`.
 
 ### Example
 

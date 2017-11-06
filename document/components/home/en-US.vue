@@ -1,7 +1,11 @@
 <template>
   <home>
-    <router-link to="/en-US" class="tab right"><span>Home</span></router-link>
-    <router-link to="/en-US/docs" class="tab right"><span>Docs</span></router-link>
+    <template slot="nav">
+      <router-link to="/en-US" class="tab right" exact><span>Home</span></router-link>
+      <router-link to="/en-US/docs" class="tab right"><span>Docs</span></router-link>
+      <router-link to="/en-US/example" class="tab right"><span>Example</span></router-link>
+    </template>
+    <div slot="home">home</div>
   </home>
 </template>
 

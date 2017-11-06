@@ -1,10 +1,10 @@
-## style 模块
+## style module
 
-style 模块主要包含就是样式部分，包含基础的 reset、基础通用样式以及内置 icon。
+This module contains the common css: reset, base and built-in icons.
 
 ### reset.css
 
-源码地址：[reset](https://github.com/didi/cube-ui/blob/master/src/common/stylus/reset.styl)，使用的就是 Eric Meyer's Reset CSS。
+Based on [Eric Meyer's Reset CSS](http://meyerweb.com/eric/tools/css/reset/) and [modified](https://github.com/didi/cube-ui/blob/master/src/common/stylus/reset.styl).
 
 ```stylus
 /**
@@ -67,7 +67,7 @@ body
 
 ### base.css
 
-源码地址：[base](https://github.com/didi/cube-ui/blob/master/src/common/stylus/base.styl)，主要包含的就是 `html`, `body` 元素的 `font-family`, `line-height` 等的设定，修正浮动影响的 `.clear-fix`，以及上下左右四个边框的绝对 1px 边框的 class：`.border-top-1px`, `.border-right-1px`, `.border-bottom-1px`, `.border-left-1px`。
+The [base css](https://github.com/didi/cube-ui/blob/master/src/common/stylus/base.styl) contains the following styles:
 
 ```stylus
 @import "./variable.styl"
@@ -161,12 +161,10 @@ body, html
       transform: scale(.333) translateZ(0)
 ```
 
-### 内置 icon
+### icon.css
 
-图标是利用 [font-face](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) 规则自定义字体 `"cube-icon"` 实现的。
-
-内置 icon 有 13 个：
+Icons:
 
 ![cube icons](https://raw.githubusercontent.com/didi/cube-ui/master/assets/icon.png)
 
-使用的时候只需要加入对应的类名即可，例如 alert 图标，可以这样用：`<i class="cubeic-alert"></i>`。
+If you want to use them, just add the `cubeic-${name}` class: `<i class="cubeic-alert"></i>`.

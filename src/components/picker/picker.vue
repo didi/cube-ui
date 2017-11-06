@@ -152,7 +152,7 @@
         }
       },
       setData(data, selectedIndex) {
-        this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : [0, 0, 0]
+        this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : []
         this.pickerData = data.slice()
         this.dirty = true
       },
@@ -209,7 +209,7 @@
       _createWheel(wheelWrapper, i) {
         const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
           wheel: {
-            selectedIndex: this.pickerSelectedIndex[i]
+            selectedIndex: this.pickerSelectedIndex[i] || 0
           }
         })
         wheel.on('scrollEnd', () => {

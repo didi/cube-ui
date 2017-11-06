@@ -39,10 +39,10 @@
     display: inline-block
     margin: 0 20px
     a
-      color: $color-orange
+      color: $color-white
       &::after
         content: "/"
         padding: 0 5px
       &.active
-        color: $color-white
+        color: $color-orange
 </style>

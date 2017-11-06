@@ -2,7 +2,7 @@
   <div class="docs-view">
     <side-list :nav-list="navList"></side-list>
     <router-view class="page-doc md-body" v-highlight></router-view>
-    <display :base-url="baseUrl"></display>
+    <display></display>
   </div>
 </template>
 
@@ -11,7 +11,6 @@
   import Display from '../display/display.vue'
   import menuConfig from '../../common/config/menu'
 
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://didi.github.io/cube-ui/example/#/' : 'http://localhost:8081/#/'
   export default {
     props: {
       lang: {
@@ -21,8 +20,7 @@
     },
     data() {
       return {
-        navList: menuConfig[this.lang],
-        baseUrl
+        navList: menuConfig[this.lang]
       }
     },
     components: {
@@ -47,9 +45,11 @@
   .page-doc
     flex: 1
     height: 100%
-    padding: 24px 20px 20px 20px
+    padding: 44px 20px 20px 20px
     box-sizing: border-box
     overflow-y: auto
+    h2:first-child
+      margin-top: 0
   .page-display
     flex: none
     width: 420px

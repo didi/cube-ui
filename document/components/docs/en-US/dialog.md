@@ -1,121 +1,176 @@
 ## Dialog
 
-`Dialog`模态框组件，提供了多种样式及交互形式。
+`Dialog` modal component，provides various styles and interactions.
 
-### 单独引入
+### Example
 
-```javascript
-  import { Dialog } from 'cube-ui'
+- Dialog type
 
+  ```html
+  <cube-button @click="showAlert">Dialog - type</cube-button>
+  ```
+  ```js
   export default {
-    components: {
-      CubeDialog: Dialog
+    methods: {
+      showAlert() {
+        this.$createDialog({
+          type: 'alert',
+          title: 'i am title',
+          content: 'i am content',
+          icon: 'cubeic-alert'
+        }).show()
+      }
     }
   }
-```
+  ```
 
-### 调用方式
+  `type` will be one of the following: `alert`, `confirm`.
 
-通过在`dialog`组件上添加`ref`属性，获得对于组件的引用，然后调用`dialog`组件向外暴露出来的`show`，`hide`方法来控制组件的显示或消失:
+- Button configuration
 
-```html
-  <template>
-    <div class="dialog">
-      <cube-dialog ref="dialog"></cube-dialog>
-      <cube-button @click="showDialog">拉起dialog<cube-button>
-    </div>
-  </template>
-
-  <script>
-    export default {
-      methods: {
-        showDialog () {
-          this.$refs.dialog.show()
-        }
+  ```html
+  <cube-button @click="showBtn">Dialog - btn</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showBtn() {
+        this.$createDialog({
+          type: 'confirm',
+          icon: 'cubeic-alert',
+          title: 'i am title',
+          content: 'i am content',
+          confirmBtn: {
+            text: 'confirm',
+            active: true,
+            href: 'javascript:;'
+          },
+          cancelBtn: {
+            text: 'cancel',
+            active: false,
+            href: 'javascript:;'
+          }
+        }).show()
       }
     }
-  </script>
-```
+  }
+  ```
 
+  Button configuration(`confirmBtn`, `cancelBtn`) can be `String` or `Object` type. When given an Object, `text` can be used to set button content，`active` is used to set button highlight state，`href` is used to set the link that will be jumped to when the button is clicked.
 
-### 示例：确认框
+- Show close button
 
-```html
-  <template>
-    <div class="dialog">
-      <cube-dialog
-        ref="dialog"
-        type="confirm"
-        icon="mfic-dialog-unwifi"
-        title="我是标题"
-        text="我是正文"
-        @confirm="dialogConfirm"
-        @cancel="dialogCancel"
-      ></cube-dialog>
-    </div>
-  </template>
-
-  <script>
-    export default {
-      methods: {
-        showDialog () {
-          this.$refs.dialog.show()
-        },
-        dialogConfirm () {
-          console.log('dialog confirm')
-        },
-        dialogCancel () {
-          console.log('dialog cancel')
-        }
+  ```html
+  <cube-button @click="showClose">Dialog - show close</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showClose() {
+        this.$createDialog({
+          type: 'alert',
+          icon: 'cubeic-alert',
+          showClose: true,
+          title: 'title',
+          onClose: () => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: 'the close button has been clicked'
+            }).show()
+          }
+        }).show()
       }
     }
-  </script>
-```
+  }
+  ```
 
-### Props参数配置
+  You can change `showClose` to decide whether to show the close button. The `close` event will be dispatched when the close button is clicked and the `onClose` callback will be invoked if it is configured.
 
-| 参数        | 说明           | 类型  | 可选值 | 默认值 |
-| ------------- |:-------------:| -----:| ---| ---|
-| type | dialog类型 | String | alert(只有1个按钮)/confirm(2个按钮) | alert |
-| icon | icon | String | [参照icon列表](http://localhost:8083/#/icon) | - |
-| title | 标题 | String | - | - |
-| txt | 正文 | String | - | - |
-| show-close | 是否显示关闭按钮 | Boolean | true/false | false |
-| check | 是否带checkbox | Object | - | - |
-| actions | 平级操作 | Array | - | [ ] |
-| txts | 正文为列表形式 | Array | - | [ ] |
-| link | 文字链接 | String | - | - |
-| cancel-btn-content | 取消按钮文案 | String | - | - |
-| confirm-btn-content | 确认按钮文案 | String | - | - |
-| cancel-btn-href | 取消按钮跳转链接 | String | - | - |
-| confirm-btn-href | 确认按钮跳转链接 | String | - | - |
-| is-cancel-btn-active | 取消按钮是否高亮 | Boolean | true/false | false |
-| is-confirm-btn-active | 确认按钮是否高亮 | Boolean | true/false | true |
+- Slot
 
-其中`check`可配置的属性有:
+  ```html
+  <cube-button @click="showSlot">Dialog - slot</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showSlot() {
+        this.$createDialog({
+          type: 'alert',
+          confirmBtn: {
+            text: 'got it',
+            active: true
+          }
+        }, (createElement) => {
+          return [
+            createElement('div', {
+              'class': {
+                'my-title': true
+              },
+              slot: 'title'
+            }, [
+              createElement('div', {
+                'class': {
+                  'my-title-img': true
+                }
+              }),
+              createElement('p', 'custom title')
+            ]),
+            createElement('p', {
+              'class': {
+                'my-content': true
+              },
+              slot: 'content'
+            }, 'custom content')
+          ]
+        }).show()
+      }
+    }
+  }
+  ```
 
-| 参数        | 说明           | 类型  | 可选值 | 默认值 |
-| ------------- |:-------------:| -----| ---| ---|
-| txt | checkbox提示的文案 | String | - | - |
-| value | 是否被选中 | Boolean | true/false | false |
+  The second parameter of `$createDialog` is [render function](https://vuejs.org/v2/guide/render-function.html), generally it is used to handle slots. Dialog component provides 2 named slots `title` and `content` which are used to distribute title and content.
 
-`actions`可配置的属性有:
+### Props configuration
 
-| 参数        | 说明           | 类型  | 可选值 | 默认值 |
-| ------------- |:-------------:| -----| ---| ---|
-| text | 显示的文案 | String | - | - |
-| active | 是否高亮 | Boolean | true/false | false |
-| href | a标签的href属性 | String | - | - |
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| type | dialog type | String | alert / confirm | alert |
+| icon | icon class name | String | [refer to built-in icons in style module](#/style) | '' |
+| title | title | String | - | '' |
+| content | content | String | - | '' |
+| showClose | whether to show close button | Boolean | true/false | false |
+| confirmBtn | confirm button configuration | Object/String | - | { text: '确定', active: true, href: 'javascript:;' } |
+| cancelBtn | cancel button configuration | Object/String | - | { text: '取消', active: false, href: 'javascript:;' } |
 
+* `confirmBtn` sub configuration
 
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| text | button text | String | - | '确认' |
+| active | whether to highlight | Boolean | true/false | true |
+| href | the link that will be jumped to when the button is clicked | String | - | 'javascript:;' |
 
+* `cancelBtn` sub configuration
 
-### Event事件
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| text | button text | String | - | '取消' |
+| active | whether highlight | Boolean | true/false | false |
+| href | the link that will be jumped to when the button is clicked | String | - | 'javascript:;' |
 
-| 事件名 | 说明 | 参数1 | 参数2 |
-| ----- | ---- | ----| ---- |
-| confirm | 点击确认按钮后触发 | e (event事件对象) | - |
-| cancel | 点击取消按钮后触发 | e (event事件对象) | - |
-| close | 点击关闭按钮后触发 | e (event事件对象) | - |
-| link-click | 点击文字链接后触发 | e (event事件对象) | - |
-| btn-click | 点击actions中配置的按钮后触发 | 被点击的action | e (event事件对象) |
+### Slot
+
+| Name | Description | Scope Parameters |
+| - | - | - |
+| title | title | - |
+| content | content | - |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - | - |
+| confirm | triggers when the confirm button is clicked | e - event target |
+| cancel | triggers when the cancel button is clicked | e - event target |
+| close | triggers when the close button is clicked | e - event target |

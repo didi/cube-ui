@@ -30,3 +30,6 @@ export function getCurrentLang() {
   setItem(itemKey, defaultLang)
   return defaultLang
 }
+
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://didi.github.io/cube-ui/example/#/' : 'http://localhost:8081/#/'
+export { baseUrl }

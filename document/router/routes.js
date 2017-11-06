@@ -1,5 +1,4 @@
 import menuConfig from '../common/config/menu'
-
 const routeMap = {}
 
 Object.keys(menuConfig).forEach((lang) => {
