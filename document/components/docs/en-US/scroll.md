@@ -167,7 +167,7 @@ If you don't like the built-in slots of pulling down refreshing and pulling up l
         <span :class="{rotate: props.bubbleY > 40}">↓</span>
       </div>
       <div class="after-trigger" v-else>
-        <div v-if="props.pulling" class="loading">
+        <div v-if="props.isPullingDown" class="loading">
           <cube-loading></cube-loading>
         </div>
         <div v-else><span>Refresh success</span></div>
@@ -218,7 +218,7 @@ With the parameters that scoped slots provide, you can control the process of an
 
 | Name     | Description                              | Scope Parameters                         |
 | -------- | ---------------------------------------- | ---------------------------------------- |
-| pulldown | located above the list and shown when pulling down refreshing | pullDownRefresh: whether to turn on pulling-down-refreshing function<br>pullDownStyle: the style of showing and fading<br>beforePullDown: whether in pulling down operation<br>pulling: whether in the process of pulling in data<br>bubbleY: the distance of pulling down currently - 50 |
+| pulldown | located above the list and shown when pulling down refreshing | pullDownRefresh: whether to turn on pulling-down-refreshing function<br>pullDownStyle: the style of showing and fading<br>beforePullDown: whether in pulling down operation<br>isPullingDown: whether in the process of pulling in data<br>bubbleY: the distance of pulling down currently - 50 |
 | pullup   | located below the list and shown when pulling up loading | pullUpLoad: whether to turn on pulling-up-loading function<br>isPullUpLoad: whether the data is being loaded |
 
 ### Events

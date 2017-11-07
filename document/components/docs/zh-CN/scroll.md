@@ -165,7 +165,7 @@
           <span :class="{rotate: props.bubbleY > 40}">↓</span>
         </div>
         <div class="after-trigger" v-else>
-          <div v-if="props.pulling" class="loading">
+          <div v-if="props.isPullingDown" class="loading">
             <cube-loading></cube-loading>
           </div>
           <div v-else><span>Refresh success</span></div>
@@ -215,7 +215,7 @@
 
 | 名字 | 说明 | 作用域参数
 | - | - | - |
-| pulldown | 位于列表上方，会在下拉刷新时显示 | pullDownRefresh: 是否开启了下拉刷新功能 <br> pullDownStyle: 移入移出的样式 <br> beforePullDown: 是否正在做下拉操作 <br> pulling: 是否正在拉取数据 <br> bubbleY: 当前下拉的距离 - 50|
+| pulldown | 位于列表上方，会在下拉刷新时显示 | pullDownRefresh: 是否开启了下拉刷新功能 <br> pullDownStyle: 移入移出的样式 <br> beforePullDown: 是否正在做下拉操作 <br> isPullingDown: 是否正在拉取数据 <br> bubbleY: 当前下拉的距离 - 50|
 | pullup | 位于列表下方，会在上拉加载时显示 | pullUpLoad: 是否开启了上拉加载功能 <br> isPullUpLoad: 是否正在加载数据 |
 
 ### 事件
