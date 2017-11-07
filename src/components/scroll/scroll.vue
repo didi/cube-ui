@@ -88,15 +88,12 @@
         default: DIRECTION_V
       },
       scrollbar: {
-        type: null,
         default: false
       },
       pullDownRefresh: {
-        type: null,
         default: false
       },
       pullUpLoad: {
-        type: null,
         default: false
       },
       refreshDelay: {
