@@ -1,8 +1,8 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
-    <div>
+    <div class="cube-scroll-content">
       <slot>
-        <ul ref="list" class="cube-scroll-content">
+        <ul ref="list">
           <li @click="clickItem(item)" class="scroll-item" v-for="item in data">{{item}}</li>
         </ul>
       </slot>
@@ -22,14 +22,14 @@
         :pullDownRefresh="pullDownRefresh"
         :pullDownStyle="pullDownStyle"
         :beforePullDown="beforePullDown"
-        :pulling="pulling"
+        :isPullingDown="isPullingDown"
         :bubbleY="bubbleY">
       <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
         <div class="before-trigger" v-if="beforePullDown">
           <bubble :y="bubbleY"></bubble>
         </div>
         <div class="after-trigger" v-else>
-          <div v-if="pulling" class="loading">
+          <div v-if="isPullingDown" class="loading">
             <loading></loading>
           </div>
           <div v-else><span>{{ refreshTxt }}</span></div>
@@ -43,7 +43,7 @@
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
-  import {getRect} from '../../common/helpers/dom'
+  import { getRect } from '../../common/helpers/dom'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -109,7 +109,6 @@
         beforePullDown: true,
         isRebounding: false,
         isPullingDown: false,
-        pulling: false,
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
@@ -196,7 +195,7 @@
       },
       forceUpdate(dirty) {
         if (this.pullDownRefresh && this.isPullingDown) {
-          this.pulling = false
+          this.isPullingDown = false
           this._reboundPullDown().then(() => {
             this._afterPullDown()
           })
@@ -214,7 +213,6 @@
           this.$emit(EVENT_PULLING_DOWN)
           this.beforePullDown = false
           this.isPullingDown = true
-          this.pulling = true
         })
 
         this.scroll.on('scroll', (pos) => {
@@ -289,5 +287,9 @@
     justify-content: center
     align-items: center
     padding: 16px 0
+
+  .cube-scroll-content
+    position: relative
+    z-index: 1
 </style>
 

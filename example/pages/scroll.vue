@@ -21,7 +21,7 @@
               <span :class="{rotate: props.bubbleY > 40}">↓</span>
             </div>
             <div class="after-trigger" v-else>
-              <div v-if="props.pulling" class="loading">
+              <div v-if="props.isPullingDown" class="loading">
                 <cube-loading></cube-loading>
               </div>
               <div v-else><span>Refresh success</span></div>
