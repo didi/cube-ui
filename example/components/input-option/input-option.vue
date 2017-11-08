@@ -37,15 +37,15 @@
     height: 100%
     justify-content space-between
     align-items stretch
-    padding-left: 15px
     .name
       flex: 0 0 auto
-      width: 8rem
+      width: 120px
+      padding-left: 10px
       display inline-flex
       align-items center
     input
       flex: 1 1 auto
-      padding-left: 0.8rem
+      padding-left: 10px
       background-color: $color-white
       border-left: 1px solid rgba(0, 0, 0, .1)
       box-shadow: 0 0 1px 1px #eee inset
