@@ -31,6 +31,7 @@
       display: inline-block
       margin-bottom: 20px
     .page-display
+      width: 100%
       .display-wrapper
         position: static
         transform: none

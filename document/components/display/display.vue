@@ -44,7 +44,7 @@
     .display-wrapper
       position: absolute
       width: 348px
-      height: 750px
+      height: 756px
       top: 61%
       left: 50%
       transform: translate(-50%, -50%)

@@ -89,24 +89,3 @@
     }
   }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-  .action-sheet-view
-    .select
-      margin: 0 10px 40px 10px
-      height: 40px
-      line-height: 40px
-      border: 1px solid #e5e5e5
-      text-align: center
-      background: #fff
-
-  .cube-action-sheet-panel
-    .cube-action-sheet-item
-      i, span
-        vertical-align middle
-      &.orange
-        color #fa8919
-  .cube-foo
-    font-weight 800 !important
-
-</style>
