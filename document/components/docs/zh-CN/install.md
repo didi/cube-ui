@@ -15,8 +15,8 @@ $ npm install cube-ui
 也可通过 unpkg.com 获取资源，用标签引入 js 和 css 文件使用。
 
 ```html
-<script src=""></script>
-<link rel="stylesheet" href="">
+<script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
 ```
 
 ### 版本日志

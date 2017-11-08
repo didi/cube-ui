@@ -119,4 +119,4 @@ For details, see [create-api module](#/en-US/docs/create-api)。
 
 [better-scroll](https://github.com/ustbhuangyi/better-scroll) is a library in `cube-ui`'s dependencies. To avoid duplicately importing, we expose the module.
 
-For more detailed use, please refer to [official documentation](https://ustbhuangyi.github.io/better-scroll/#/zh)。
+For more detailed use, please refer to [official documentation](https://ustbhuangyi.github.io/better-scroll/)。
