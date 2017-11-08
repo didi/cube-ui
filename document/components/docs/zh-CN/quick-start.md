@@ -30,7 +30,7 @@ $ npm install cube-ui --save
 import 'cube-ui/lib/style.css'
 ```
 
-**注意：** cube-ui 搭配 webpack 2+ 默认就会走[后编译](#/zh-CN/docs/post-compile)，但是后编译需要有一些依赖以及配置（参见本页最后）；如果不想使用后编译的话，可以直接修改 webpack 配置即可：
+**注意：** cube-ui 搭配 webpack 2+ 默认就会使用[后编译](#/zh-CN/docs/post-compile)，但是后编译需要有一些依赖以及配置（参见本页最后）；如果不想使用后编译的话，可以直接修改 webpack 配置即可：
 
 ```js
 // webpack.config.js
@@ -121,13 +121,13 @@ import {
 
 ### 使用后编译
 
-cube-ui 搭配 webpack 2+ 后就会默认走[后编译](#/zh-CN/docs/post-compile)，那么应用就需要兼容 cube-ui 的依赖和配置。
+cube-ui 搭配 webpack 2+ 后就会默认使用[后编译](#/zh-CN/docs/post-compile)，那么应用就需要兼容 cube-ui 的依赖和配置。
 
 1. 修改 package.json
 
   ```json
   {
-    // webpack-post-compile-plugin 使用 compileDependencies
+    // webpack-post-compile-plugin 依赖 compileDependencies
     "compileDependencies": ["cube-ui"],
     "devDependencies": {
       // 新增 stylus 相关依赖
@@ -137,18 +137,19 @@ cube-ui 搭配 webpack 2+ 后就会默认走[后编译](#/zh-CN/docs/post-compil
     }
   }
   ```
-  版本无强制要求。
 
 2. 修改 .babelrc：
 
   ```json
   {
-    "plugins": ["transform-modules", {
-      "cube-ui": {
-        "transform": "cube-ui/src/modules/${member}",
-        "kebabCase": true
-      }
-    }]
+    "plugins": [
+      ["transform-modules", {
+        "cube-ui": {
+          "transform": "cube-ui/src/modules/${member}",
+          "kebabCase": true
+        }
+      }]
+    ]
   }
   ```
 
@@ -166,11 +167,9 @@ cube-ui 搭配 webpack 2+ 后就会默认走[后编译](#/zh-CN/docs/post-compil
   }
   ```
 
-4. 修改 build/utils.js 中的 exports.cssLoaders 函数
+4. 修改 build/utils.js 中的 `exports.cssLoaders` 函数
 
   ```js
-
-  ```
   exports.cssLoaders = function (options) {
     // ...
     const stylusOptions = {
@@ -189,4 +188,4 @@ cube-ui 搭配 webpack 2+ 后就会默认走[后编译](#/zh-CN/docs/post-compil
   }
   ```
 
-  具体参见 https://github.com/vuejs-templates/webpack/pull/970/files
+  具体参见 [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
