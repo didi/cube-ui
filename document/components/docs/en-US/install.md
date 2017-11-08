@@ -1,9 +1,9 @@
-## 安装
+## Install
 
 
 ### NPM
 
-推荐使用 NPM 安装`cube-ui`
+It is recommended to install `cube-ui` via npm.
 
 ```shell
 $ npm install cube-ui
@@ -12,13 +12,13 @@ $ npm install cube-ui
 
 ### CDN
 
-也可通过 unpkg.com 获取资源，用标签引入 js 和 css 文件使用。
+You can also import js and css files from unpkg.com with tags in html.
 
 ```html
 <script src=""></script>
 <link rel="stylesheet" href="">
 ```
 
-### 版本日志
+### Version log
 
-版本的更新日志见 [GitHub](https://github.com/didi/cube-ui/releases)
+For update logs of each version, see [GitHub](https://github.com/didi/cube-ui/releases)

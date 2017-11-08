@@ -1,7 +1,6 @@
 ## IndexList
 
 `IndexList` component, , which is also encapsulated based on `better-scroll`,  provides functions of index lists.
-索引列表，提供了列表索引的功能，也是一个基于`better-scroll`进行封装的组件。
 
 ### Example
 

@@ -95,15 +95,3 @@
     }
   }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-  .picker-view
-    .select
-      margin: 0 10px 40px 10px
-      height: 40px
-      line-height: 40px
-      border: 1px solid #e5e5e5
-      text-align: center
-      background: #fff
-
-</style>
