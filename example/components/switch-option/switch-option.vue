@@ -54,8 +54,8 @@
       margin-top: 5px
       display: inline-block
       position: relative
-      height: 31px
-      width: 51px
+      height: 22px
+      width: 36px
       background-color: $color-white
       border-radius: 1000px
       border: 2px solid rgba(0, 0, 0, .1)
@@ -67,8 +67,8 @@
       .switch-circle
         position: absolute
         display: inline-block
-        height: 27px
-        width: 27px
+        height: 20px
+        width: 20px
         background: white
         border-radius: 50%
         border: 1px solid rgba(0, 0, 0, .1)
@@ -77,7 +77,9 @@
         left: 0
         transition: all 0.3s
         &.active
-          left: 21px
-          transition: all 0.4s ease 0.1s
+          left: 14px
+          border: 1px solid $color-white
+          box-shadow: -1px 1px 1px $color-dark-orange
+          transition: all 0.3s ease 0.05s
 
 </style>
