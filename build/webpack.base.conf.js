@@ -67,7 +67,10 @@ module.exports = {
       {
         test: /\.md$/,
         include: resolve('document'),
-        loader: 'vue-markdown-loader'
+        loader: 'vue-markdown-loader',
+        options: {
+          preventExtract: true
+        }
       }
     ]
   },

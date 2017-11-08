@@ -32,6 +32,7 @@ cube-ui 是基于 Vue.js 实现的精致移动端组件库。
 
 #### 弹层
 
+- [Popup](#/zh-CN/docs/popup)
 - [Toast 提醒](#/zh-CN/docs/toast)
 - [Picker 选择器](#/zh-CN/docs/picker)
 - [TimePicker 时间选择器](#/zh-CN/docs/time-picker)

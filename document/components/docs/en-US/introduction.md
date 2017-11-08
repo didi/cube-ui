@@ -32,6 +32,7 @@ cube-ui is an elegant mobile component library based on Vue.js.
 
 #### Layer
 
+- [Popup](#/en-US/docs/popup)
 - [Toast](#/en-US/docs/toast)
 - [Picker](#/en-US/docs/picker)
 - [TimePicker](#/en-US/docs/time-picker)
