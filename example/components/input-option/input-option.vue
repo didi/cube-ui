@@ -39,8 +39,8 @@
     align-items stretch
     padding-left: 15px
     .name
-      flex: 0 1 auto
-      width: 10rem
+      flex: 0 0 auto
+      width: 8rem
       display inline-flex
       align-items center
     input

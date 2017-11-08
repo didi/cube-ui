@@ -45,12 +45,13 @@
     align-items stretch
     padding-left: 15px
     .name
-      flex: 0 1 auto
-      width: 10rem
+      flex: 0 0 auto
+      width: 8rem
       display inline-flex
       align-items center
     select
       flex: 1 1 auto
+      padding-left: 0.8rem
       background-color: $color-white
       border: none
       border-left: 1px solid rgba(0, 0, 0, .1)

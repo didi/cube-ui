@@ -293,9 +293,6 @@
     .wrapper
       background: $color-white
   .scroll-wrapper
-    display: flex
-    justify-content: space-between
-    flex-wrap: wrap
     .title
       font-size: 1.5rem
       font-weight: 500
@@ -304,10 +301,6 @@
       border-bottom: 1px solid rgba(0, 0, 0, .1)
       margin-bottom: 1rem
     .options
-      @media screen and (min-width: 42rem)
-        flex: 0 1 25%
-      @media screen and (max-width: 42rem)
-        flex: 0 1 100%
         margin-bottom: 1rem
 
       .option-list
