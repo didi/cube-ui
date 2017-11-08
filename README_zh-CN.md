@@ -50,6 +50,8 @@ git clone git@github.com:didi/cube-ui.git
 cd cube-ui
 npm install
 npm run dev
+# or run document development
+npm run doc-dev
 ```
 
 ### Changelog
