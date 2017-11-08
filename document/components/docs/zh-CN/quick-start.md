@@ -12,33 +12,39 @@ $ npm install cube-ui --save
 
 但在使用之前，需要配置下这个插件，修改 .babelrc：
 
-- webpack 1.x
-  ```json
-  {
-    "plugins": ["transform-modules", {
-      "cube-ui": {
-        "transform": "cube-ui/lib/${member}",
-        "kebabCase": true,
-        "style": true
-      }
-    }]
-  }
-  ```
-- webpack 2+
-  ```json
-  {
-    "plugins": ["transform-modules", {
-      "cube-ui": {
-        "transform": "cube-ui/src/modules/${member}",
-        "kebabCase": true
-      }
-    }]
-  }
-  ```
+```json
+{
+  "plugins": ["transform-modules", {
+    "cube-ui": {
+      "transform": "cube-ui/lib/${member}",
+      "kebabCase": true,
+      "style": true
+    }
+  }]
+}
+```
 
-> [为何要区分 webpack 版本？](#/zh-CN/docs/post-compile)
+如果不使用 babel-plugin-transform-modules 插件的话，需要手工引入对应的样式文件：
 
-如果不使用 babel-plugin-transform-modules 插件的话，需要手工引入对应的样式文件。
+```js
+import 'cube-ui/lib/style.css'
+```
+
+**注意：** cube-ui 搭配 webpack 2+ 默认就会走[后编译](#/zh-CN/docs/post-compile)，但是后编译需要有一些依赖以及配置（参见本页最后）；如果不想使用后编译的话，可以直接修改 webpack 配置即可：
+
+```js
+// webpack.config.js
+
+module.exports = {
+  // ...
+  resolve: {
+    // ...
+    // https://webpack.js.org/configuration/resolve/#resolve-mainfields
+    mainFields: ["main"]
+  }
+  // ...
+}
+```
 
 #### 全部引入
 
@@ -112,3 +118,75 @@ import {
   }
 </script>
 ```
+
+### 使用后编译
+
+cube-ui 搭配 webpack 2+ 后就会默认走[后编译](#/zh-CN/docs/post-compile)，那么应用就需要兼容 cube-ui 的依赖和配置。
+
+1. 修改 package.json
+
+  ```json
+  {
+    // webpack-post-compile-plugin 使用 compileDependencies
+    "compileDependencies": ["cube-ui"],
+    "devDependencies": {
+      // 新增 stylus 相关依赖
+      "stylus": "^0.54.5",
+      "stylus-loader": "^2.1.1",
+      "webpack-post-compile-plugin": "^0.1.2"
+    }
+  }
+  ```
+  版本无强制要求。
+
+2. 修改 .babelrc：
+
+  ```json
+  {
+    "plugins": ["transform-modules", {
+      "cube-ui": {
+        "transform": "cube-ui/src/modules/${member}",
+        "kebabCase": true
+      }
+    }]
+  }
+  ```
+
+3. 修改 webpack.base.conf.js
+
+  ```js
+  var PostCompilePlugin = require('webpack-post-compile-plugin')
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      new PostCompilePlugin()
+    ]
+    // ...
+  }
+  ```
+
+4. 修改 build/utils.js 中的 exports.cssLoaders 函数
+
+  ```js
+
+  ```
+  exports.cssLoaders = function (options) {
+    // ...
+    const stylusOptions = {
+      'resolve url': true
+    }
+    // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+    return {
+      css: generateLoaders(),
+      postcss: generateLoaders(),
+      less: generateLoaders('less'),
+      sass: generateLoaders('sass', { indentedSyntax: true }),
+      scss: generateLoaders('sass'),
+      stylus: generateLoaders('stylus', stylusOptions),
+      styl: generateLoaders('stylus', stylusOptions)
+    }
+  }
+  ```
+
+  具体参见 https://github.com/vuejs-templates/webpack/pull/970/files
