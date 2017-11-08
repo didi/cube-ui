@@ -128,11 +128,11 @@
     },
     mounted() {
       setTimeout(() => {
-        this._initScroll()
+        this.initScroll()
       }, 20)
     },
     methods: {
-      _initScroll() {
+      initScroll() {
         if (!this.$refs.wrapper) {
           return
         }
@@ -180,6 +180,9 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+      },
+      destroy() {
+        this.scroll.destroy()
       },
       scrollTo() {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
