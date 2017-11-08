@@ -57,7 +57,21 @@
             {
               content: '豪华型'
             }
-          ]
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              txt: `Clicked canceled`,
+              type: 'warn',
+              time: 1000
+            }).show()
+          }
         })
         this.actionSheet.show()
       },
@@ -75,7 +89,21 @@
             {
               content: '豪华型'
             }
-          ]
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              txt: `Clicked canceled`,
+              type: 'warn',
+              time: 1000
+            }).show()
+          }
         })
         this.actionSheet.show()
       }
