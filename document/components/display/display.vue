@@ -42,7 +42,7 @@
       position: absolute
       width: 348px
       height: 756px
-      top: 61%
+      top: 50%
       left: 50%
       transform: translate(-50%, -50%)
       background: url("./phone.png") no-repeat
