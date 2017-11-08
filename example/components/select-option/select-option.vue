@@ -43,15 +43,15 @@
     height: 100%
     justify-content space-between
     align-items stretch
-    padding-left: 15px
     .name
       flex: 0 0 auto
-      width: 8rem
+      width: 120px
       display inline-flex
+      padding-left: 10px
       align-items center
     select
       flex: 1 1 auto
-      padding-left: 0.8rem
+      padding-left: 10rem
       background-color: $color-white
       border: none
       border-left: 1px solid rgba(0, 0, 0, .1)
