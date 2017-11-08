@@ -8,8 +8,8 @@
       <slot name="desc"></slot>
     </p>
     <div class="ghbtns">
-      <iframe src="https://ghbtns.com/github-btn.html?user=twbs&repo=bootstrap&type=star&count=true" frameborder="0" scrolling="0"></iframe>
-      <iframe src="https://ghbtns.com/github-btn.html?user=twbs&repo=bootstrap&type=fork&count=true" frameborder="0" scrolling="0"></iframe>
+      <iframe src="https://ghbtns.com/github-btn.html?user=didi&repo=cube-ui&type=star&count=true" frameborder="0" scrolling="0"></iframe>
+      <iframe src="https://ghbtns.com/github-btn.html?user=didi&repo=cube-ui&type=fork&count=true" frameborder="0" scrolling="0"></iframe>
     </div>
     <section class="features">
 <!--       <h3>Features</h3> -->
