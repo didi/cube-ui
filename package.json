@@ -15,7 +15,8 @@
     "release-docs": "bash ./build/release/docs.sh",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "test": "npm run unit"
+    "codecov": "codecov",
+    "test": "npm run unit && npm run codecov"
   },
   "files": [
     "src",
@@ -54,6 +55,7 @@
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
+    "codecov": "^3.0.0",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
