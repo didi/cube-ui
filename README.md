@@ -8,7 +8,7 @@
 - [Docs](https://didi.github.io/cube-ui/#/en-US/docs)
 - [Example](https://didi.github.io/cube-ui/example/)
 
-![example QR](./assets/example-qr.png)
+![Example QR](./assets/example-qr.png)
 
 ### Install
 
