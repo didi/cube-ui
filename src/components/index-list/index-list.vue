@@ -243,6 +243,7 @@
   .cube-index-list-item_active
     background: $index-list-item-active-bgc
   .cube-index-list-fixed
+    z-index: 1
     position: absolute
     top: 0
     left: 0
