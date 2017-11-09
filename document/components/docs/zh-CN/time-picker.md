@@ -16,7 +16,22 @@
         this.$createTimePicker({
           showNow: true,
           minuteStep: 5,
-          delay: 15
+          delay: 15,
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `选中的时间戳是 ${selectedTime}`,
+              content: `选中的内容是 ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
+          }
         }).show()
       }
     }
@@ -42,8 +57,20 @@
             filter: ['今天', '明天'],
             format: 'M月d日'
           },
-          onSelect(selectedTime, selectedText) {
-            console.log(selectedTime, selectedText)
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `选中的时间戳是 ${selectedTime}`,
+              content: `选中的内容是 ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
           }
         }).show()
       }
@@ -74,6 +101,21 @@
             len: 5,
             filter: ['今天', '明天', '后天'],
             format: 'M月d日'
+          },
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `选中的时间戳是 ${selectedTime}`,
+              content: `选中的内容是 ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
           }
         })
 

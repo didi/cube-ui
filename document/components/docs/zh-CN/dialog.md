@@ -49,6 +49,20 @@
             text: '取消按钮',
             active: false,
             href: 'javascript:;'
+          },
+          onConfirm: () => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: '点击确认按钮'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: '点击取消按钮'
+            }).show()
           }
         }).show()
       }

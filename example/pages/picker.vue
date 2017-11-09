@@ -21,11 +21,39 @@
     mounted() {
       this.picker = this.$createPicker({
         title: 'Picker-单列',
-        data: [data1]
+        data: [data1],
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
       this.mutiPicker = this.$createPicker({
         title: 'Picker-多列',
-        data: [data1, data2, data3]
+        data: [data1, data2, data3],
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
       this.linkagePicker = this.$createPicker({
         title: 'Picker-数据联动',
@@ -41,12 +69,37 @@
             this.linkagePicker.setData(this.linkageData, this.tempIndex)
           }
         },
-        onSelect: (selectedVal) => {
-          console.log(selectedVal)
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的城市id是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
         }
       })
       this.setDataPicker = this.$createPicker({
-        title: 'Picker-setData'
+        title: 'Picker-setData',
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
     },
     data() {
