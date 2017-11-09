@@ -1,8 +1,8 @@
 <template>
-  <cube-page type="scroll-view" title="Scroll" class="scroll-page">
+  <cube-page type="scroll-view" title="Scroll" class="option-demo">
     <div slot="content" class="scroll-wrapper">
       <div class="options">
-        <div class="title sub">Options</div>
+        <div class="title">Options</div>
         <div class="option-list">
           <div class="group">
             <switch-option class="item" name="Scrollbar" :value="scrollbar"
@@ -289,66 +289,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../src/common/stylus/variable.styl"
 
-  .scroll-page
-    .wrapper
-      background: $color-white
   .scroll-wrapper
-    .title
-      font-size: 1.5rem
-      font-weight: 500
-      color: $color-dark-grey
-      padding: 1rem
-      border-bottom: 1px solid rgba(0, 0, 0, .1)
-      margin-bottom: 1rem
-    .options
-        margin-bottom: 1rem
-      .option-list
-        .group
-          margin-bottom: 1rem
-          border: 1px solid rgba(0, 0, 0, .1)
-          border-radius: $radius-size-medium
-        .item
-          height: 3.2rem
-          border-bottom: 1px solid rgba(0, 0, 0, .1)
-          &.sub
-            font-size: $fontsize-medium
-            background-color: $color-light-grey-opacity
-            &.first
-              box-shadow: 0 1px 1px 1px #eee inset
-            &.last
-              border-bottom: none
-    .demo
-      margin-bottom: 1rem
-      .scroll-list-wrap
-        position relative
-        height: 30rem
-        border: 1px solid rgba(0, 0, 0, .1)
-        border-radius: 5px
-        transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
-        overflow: hidden
-    .methods
-      .method-list
-        .group
-          margin-bottom: 1rem
-          border: 1px solid rgba(0, 0, 0, .1)
-          border-radius: $radius-size-medium
-        .item
-        button
-          height: 2.5rem
-          font-size: $fontsize-large
-        .item
-          background-color: $color-active-light-gray
-          border-bottom: 1px solid rgba(0, 0, 0, .1)
-        button
-          width: 100%
-          height: 2.5rem
-          border-bottom-left-radius: $radius-size-medium
-          border-bottom-right-radius: $radius-size-medium
-          background-color: $color-orange
-          box-shadow: 0 0 0 1px $color-orange
-          border: none
-          outline: none
-          color: $color-white
     .cube-scroll-wrapper
       position: absolute
       left: 0
