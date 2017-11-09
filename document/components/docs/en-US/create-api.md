@@ -20,13 +20,18 @@ This module exports a function called `createAPI` with which you can invoke the 
 
 - Example:
 
-  ```js
-  import Vue form 'vue'
-  import { createAPI } from 'cube-ui'
-  // import Cube from 'cube-ui'
-  // const { createAPI } = Cube
-  // the Vue component which needs to be instantiated in the api form
-  const MyComponent = Vue.extend({
+First we create Hello.vue component：
+
+```vue
+<template>
+  <div @click="clickHandler">
+    {{content}}
+    <slot name="other"></slot>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  export default {
     name: 'hello',
     props: {
       content: {
@@ -34,24 +39,47 @@ This module exports a function called `createAPI` with which you can invoke the 
         default: 'Hello'
       }
     },
-    template: '<div @click="clickHandler">{{content}}<slot name="other"></slot></div>',
     methods: {
       clickHandler(e) {
         this.$emit('click', e)
       }
     }
-  })
-  // register the MyComponent so it can been invoked in api form
-  createAPI(Vue, MyComponent, ['click'], true)
-  // invoke the Vue component in api from
+  }
+</script>
+```
+
+Then we make Hello.vue to an API Style component by calling the `createAPI` method.
+
+```js
+  import Vue from 'vue'
+  import Hello from './Hello.vue'
+  
+  import createAPI from 'cube-ui/lib/create-api'
+  
+  // import Style to load the base style
+  import {
+    Style,
+    Dialog
+  } from 'cube-ui'
+  
+  Vue.use(Dialog)
+  
+  // create this.$createHello API
+  createAPI(Vue, Hello, ['click'], true)
+  
+  // init Vue
   new Vue({
     el: '#app',
-    template: '<button @click="showHello">Show Hello</button>',
+    render: function (h) {
+      return h('button', {
+        on: {
+          click: this.showHello
+        }
+      }, ['Show Hello'])
+    },
     methods: {
       showHello() {
-        /*
-        The first parameter of `$createHello` will be passed to the component as its props except the events in `events`(It will transform by default, eg: If `events` has value `['click']`, then the prop `onClick` will be treated as component's event and not component's props)
-        */
+        /* The first parameter of `$createHello` will be passed to the component as its props except the events in `events`(It will transform by default, eg: If `events` has value `['click']`, then the prop `onClick` will be treated as component's event and not component's props) */
         const instance = this.$createHello({
           content: 'My Hello Content',
           onClick(e) {
@@ -66,13 +94,22 @@ This module exports a function called `createAPI` with which you can invoke the 
         })
         // Also, the event hanlder can be registered by instance's `$on` method
         instance.$on('click', (e) => {
-          console.log('on click', e)
+          const $dialog = this.$createDialog({
+            type: 'confirm',
+            content: 'click confirm to remove current instance',
+            icon: 'cubeic-alert'
+          })
+          $dialog.show()
+  
+          $dialog.$on('confirm', () => {
+            // remove instance
+            instance.remove()
+          }).$on('cancel', () => {
+            console.log('cancel')
+          })
         })
-        // destroy the component and detach the component's content from `body` element
-        instance.remove()
       }
     }
   })
-  ```
-
-  In this example, we create a component `MyComponent` with its name option `hello` which needs to be invoked in api form and we invoke it in another component.The focus is what `showHello()` does: invoking method `this.$createHello(config, renderFn)` to instantiate `MyComponent`.
+```
+In this example, we create a component `Hello` which needs to be invoked in api form and we invoke it in another component.The focus is what `showHello()` does: invoking method `this.$createHello(config, renderFn)` to instantiate `Hello`.
