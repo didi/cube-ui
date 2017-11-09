@@ -10,24 +10,26 @@ $ npm install cube-ui --save
 
 推荐使用 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules) 插件，可以更优雅引入组件模块以及对应的样式。
 
-但在使用之前，需要配置下这个插件，修改 .babelrc：
+但在使用之前，需要先安装：
+
+```shell
+$ npm install babel-plugin-transform-modules --save-dev
+```
+
+然后配置下这个插件，修改 .babelrc：
 
 ```json
 {
-  "plugins": ["transform-modules", {
-    "cube-ui": {
-      "transform": "cube-ui/lib/${member}",
-      "kebabCase": true,
-      "style": true
-    }
-  }]
+  "plugins": [
+    ["transform-modules", {
+      "cube-ui": {
+        "transform": "cube-ui/lib/${member}",
+        "kebabCase": true,
+        "style": true
+      }
+    }]
+  ]
 }
-```
-
-如果不使用 babel-plugin-transform-modules 插件的话，需要手工引入对应的样式文件：
-
-```js
-import 'cube-ui/lib/style.css'
 ```
 
 **注意：** cube-ui 搭配 webpack 2+ 默认就会使用[后编译](#/zh-CN/docs/post-compile)，但是后编译需要有一些依赖以及配置（参见本页最后）；如果不想使用后编译的话，可以直接修改 webpack 配置即可：
@@ -39,8 +41,12 @@ module.exports = {
   // ...
   resolve: {
     // ...
-    // https://webpack.js.org/configuration/resolve/#resolve-mainfields
-    mainFields: ["main"]
+    alias: {
+      // ...
+      'cube-ui': 'cube-ui/lib'
+      // ...
+    }
+    // ...
   }
   // ...
 }
@@ -97,6 +103,13 @@ import {
 } from 'cube-ui'
 ```
 
+**注意：** `better-scroll` 和 `create-api` 两个模块只能通过如下方式使用：
+
+```js
+import BScroll from 'cube-ui/lib/better-scroll'
+import createAPI from 'cube-ui/lib/create-api'
+```
+
 #### 示例
 
 ```html
@@ -130,6 +143,7 @@ cube-ui 搭配 webpack 2+ 后就会默认使用[后编译](#/zh-CN/docs/post-com
     // webpack-post-compile-plugin 依赖 compileDependencies
     "compileDependencies": ["cube-ui"],
     "devDependencies": {
+      "babel-plugin-transform-modules": "^0.0.2",
       // 新增 stylus 相关依赖
       "stylus": "^0.54.5",
       "stylus-loader": "^2.1.1",
@@ -138,13 +152,14 @@ cube-ui 搭配 webpack 2+ 后就会默认使用[后编译](#/zh-CN/docs/post-com
   }
   ```
 
-2. 修改 .babelrc：
+2. 修改 .babelrc，依旧依赖 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules)：
 
   ```json
   {
     "plugins": [
       ["transform-modules", {
         "cube-ui": {
+          // 注意: 这里的路径需要修改到 src/modules 下
           "transform": "cube-ui/src/modules/${member}",
           "kebabCase": true
         }

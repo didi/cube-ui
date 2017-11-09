@@ -14,13 +14,15 @@ Before use, the plugin needs some configuration. Modify .babelrc:
 
 ```json
 {
-  "plugins": ["transform-modules", {
-    "cube-ui": {
-      "transform": "cube-ui/lib/${member}",
-      "kebabCase": true,
-      "style": true
-    }
-  }]
+  "plugins": [
+    ["transform-modules", {
+      "cube-ui": {
+        "transform": "cube-ui/lib/${member}",
+        "kebabCase": true,
+        "style": true
+      }
+    }]
+  ]
 }
 ```
 
@@ -30,7 +32,7 @@ If not using babel-plugin-transform-modules, you need to import corresponding st
 import 'cube-ui/lib/style.css'
 ```
 
-**Notice:** By default cube-ui will use [post-compile](#/en-US/docs/post-compile) with webpack 2+, but post-complie needs some dependencies and configuration. If you don't want to use post-compile, just modify the webpack config file:
+**Notice:** By default cube-ui will use [post-compile](#/en-US/docs/post-compile) with webpack 2+, but post-complie needs some dependencies and configuration(see the last part in this page). If you don't want to use post-compile, just modify the webpack config file:
 
 ```js
 // webpack.config.js
@@ -39,8 +41,12 @@ module.exports = {
   // ...
   resolve: {
     // ...
-    // https://webpack.js.org/configuration/resolve/#resolve-mainfields
-    mainFields: ["main"]
+    alias: {
+      // ...
+      'cube-ui': 'cube-ui/lib'
+      // ...
+    }
+    // ...
   }
   // ...
 }
@@ -96,6 +102,14 @@ import {
 } from 'cube-ui'
 ```
 
+
+**Notice:** `better-scroll` and `create-api` module can only be used as the follows:
+
+```js
+import BScroll from 'cube-ui/lib/better-scroll'
+import createAPI from 'cube-ui/lib/create-api'
+```
+
 #### Examples
 
 ```html
@@ -118,7 +132,6 @@ import {
 </script>
 ```
 
-
 ### Use post-compile
 
 Since cube-ui will use [post-compile](#/en-US/docs/post-compile) with webpack 2+ by default, your application's webpack and babel configuration needs to be compatible with cube-ui.
@@ -132,6 +145,7 @@ Follow the steps below:
     // webpack-post-compile-plugin depends on compileDependencies
     "compileDependencies": ["cube-ui"],
     "devDependencies": {
+      "babel-plugin-transform-modules": "^0.0.2",
       // add stylus dependencies
       "stylus": "^0.54.5",
       "stylus-loader": "^2.1.1",
@@ -140,12 +154,13 @@ Follow the steps below:
   }
   ```
 
-2. Modify .babelrc：
+2. Modify .babelrc, use [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules):
 
   ```json
   {
     "plugins": ["transform-modules", {
       "cube-ui": {
+        // Notice: this path should be changed to `src/modules`
         "transform": "cube-ui/src/modules/${member}",
         "kebabCase": true
       }
