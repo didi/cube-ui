@@ -219,6 +219,7 @@
   .cube-dialog-btns
     overflow: hidden
     width: 100%
+    font-size: 0
   .cube-dialog-btn
     display: inline-block
     width: 100%
