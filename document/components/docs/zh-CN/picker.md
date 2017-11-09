@@ -9,12 +9,26 @@
   <cube-button @click="showPicker">Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: 1}, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 2 }]
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
   export default {
     mounted () {
       this.picker = this.$createPicker({
         title: 'Picker选择器-单列',
-        data: [col1Data]
+        data: [col1Data],
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
     },
     methods: {
@@ -30,13 +44,29 @@
   <cube-button @click="showPicker">Picker - multiple Columns</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: 1}, { text: '蚂蚁', value: 2 }, { text: '幽鬼', value: 3 }]
-  const col2Data = [{ text: '梅肯', value: 's'}, { text: '秘法鞋', value: 'ss' }, { text: '假腿', value: 'sss' }, { text: '飞鞋', value: 'ssss' }, { text: '辉耀', value: 'sssss' }, { text: '金箍棒', value: 'ssssss' }]
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
+  const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' }, { text: '核心', value: '核心'
+}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' }, { text: '打野', value: '打野' }, { text: '逃生', value: '逃生' }, { text: '先手', value: '先手' }]
+  const col3Data =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' }, { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' }, { text: '金箍棒', value: '金箍棒' }]
   export default {
     mounted () {
       this.picker = this.$createPicker({
         title: 'Picker选择器-多列',
-        data: [col1Data, col2Data]
+        data: [col1Data, col2Data, col3Data],
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
     },
     methods: {
@@ -76,8 +106,19 @@
             this.picker.setData(this.linkageData, this.tempIndex)
           }
         },
-        onSelect: (selectedVal) => {
-          console.log(selectedVal)
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的城市id是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -115,7 +156,21 @@
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Picker-setData'
+        title: 'Picker-setData',
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       })
     },
     methods: {
