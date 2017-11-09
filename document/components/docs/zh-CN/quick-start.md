@@ -66,8 +66,14 @@ Vue.use(Cube)
 #### 按需引入
 
 ```javascript
-import { Button } from 'cube-ui'
+import {
+  /* eslint-disable no-unused-vars */
+  Style,
+  Button
+} from 'cube-ui'
 ```
+
+**注意：** 按需引入的话，是不会打包[基础样式](#/zh-CN/docs/style)部分的，所以在使用的时候需要引入 style 模块。
 
 你可以选择全局注册也可以选择局部注册：
 
