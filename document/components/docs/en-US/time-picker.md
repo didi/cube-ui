@@ -17,7 +17,22 @@ export default {
       this.$createTimePicker({
         showNow: true,
         minuteStep: 5,
-        delay: 15
+        delay: 15,
+        onSelect: (selectedTime, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            title: `selected timestamp ${selectedTime}`,
+            content: `selected content ${selectedText}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
+        }
       }).show()
     }
   }
@@ -47,6 +62,21 @@ export default {
         },
         onSelect(selectedTime, selectedText) {
           console.log(selectedTime, selectedText)
+        },
+        onSelect: (selectedTime, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            title: `selected timestamp ${selectedTime}`,
+            content: `selected content ${selectedText}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
         }
       }).show()
     }
@@ -79,6 +109,21 @@ export default {
           len: 5,
           filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
           format: 'M year d day'
+        },
+        onSelect: (selectedTime, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            title: `selected timestamp: ${selectedTime}`,
+            content: `selected content ${selectedText}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Clicked cancel button',
+            time: 1000
+          }).show()
         }
       })
 
