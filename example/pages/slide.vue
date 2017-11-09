@@ -1,15 +1,6 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
     <div slot="content">
-      <div class="options">
-        <div class="title">Options</div>
-        <div class="option-list">
-          <div class="group">
-            <switch-option class="item" name="Loop" :value="loop"
-                           @update:value="updateLoop"></switch-option>
-          </div>
-        </div>
-      </div>
       <div ref="slideWrapper" class="slide-container">
         <cube-slide v-if="ifSlide" ref="slide" @change="changePage" :loop="loop">
           <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
@@ -18,6 +9,14 @@
             </a>
           </cube-slide-item>
         </cube-slide>
+      </div>
+      <div class="options">
+        <div class="option-list">
+          <div class="group">
+            <switch-option class="item" name="Loop" :value="loop"
+                           @update:value="updateLoop"></switch-option>
+          </div>
+        </div>
       </div>
     </div>
   </cube-page>
@@ -88,6 +87,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .slide-container
+    height: 64px
+    margin-bottom: 15px
     transform: translateZ(0px)
     border-radius: 2px
     overflow: hidden
