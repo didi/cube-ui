@@ -141,7 +141,20 @@
         scrollToY: -200,
         scrollToTime: 700,
         scrollToEasing: 'bounce',
-        scrollToEasingOptions: ['bounce', 'swipe', 'swipeBounce'],
+        scrollToEasingOptions: [
+          {
+            text: 'bounce',
+            value: 'bounce'
+          },
+          {
+            text: 'swipe',
+            value: 'swipe'
+          },
+          {
+            text: 'swipeBounce',
+            value: 'swipeBounce'
+          }
+        ],
         customPullDown: false
       }
     },
