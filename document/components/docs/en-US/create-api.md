@@ -22,7 +22,7 @@ This module exports a function called `createAPI` with which you can invoke the 
 
 First we create Hello.vue component：
 
-```vue
+```html
 <template>
   <div @click="clickHandler">
     {{content}}
