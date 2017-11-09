@@ -99,7 +99,7 @@
         margin-bottom: 15px
       .option-list
         .group
-          margin-bottom: 1$fontsize-large
+          margin-bottom: 15px
           border: 1px solid rgba(0, 0, 0, .1)
           border-radius: $radius-size-medium
         .item

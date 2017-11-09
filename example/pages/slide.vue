@@ -2,7 +2,15 @@
   <cube-page type="slide-view" title="Slide" class="option-demo">
     <div slot="content">
       <div ref="slideWrapper" class="slide-container">
-        <cube-slide v-if="ifSlide" ref="slide" @change="changePage" :loop="loop">
+        <cube-slide
+          v-if="ifSlide"
+          ref="slide"
+          :loop="loop"
+          :auto-play="autoPlay"
+          :interval="interval"
+          :threshold="threshold"
+          :speed="speed"
+          @change="changePage">
           <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
             <a :href="item.url">
               <img :src="item.image">
@@ -16,6 +24,20 @@
             <switch-option class="item" name="Loop" :value="loop"
                            @update:value="updateLoop"></switch-option>
           </div>
+          <div class="group">
+            <switch-option class="item" name="Auto Play" :value="autoPlay"
+                           @update:value="updateAutoPlay"></switch-option>
+            <input-option v-if="autoPlay" class="item sub first last" name="interval" :value="interval"
+                           @update:value="updateInterval"></input-option>
+          </div>
+          <div class="group">
+            <input-option class="item" name="Threshold" :value="threshold"
+                           @update:value="updateThreshold"></input-option>
+          </div>
+          <div class="group">
+            <input-option class="item" name="Speed" :value="speed"
+                           @update:value="updateSpeed"></input-option>
+          </div>
         </div>
       </div>
     </div>
@@ -27,7 +49,6 @@
   import CubePage from '../components/cube-page.vue'
   import SwitchOption from '../components/switch-option/switch-option.vue'
   import InputOption from '../components/input-option/input-option.vue'
-  import SelectOption from '../components/select-option/select-option.vue'
 
   export default{
     data() {
@@ -44,18 +65,28 @@
             image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
           }
         ],
+        ifSlide: true,
         loop: true,
-        ifSlide: true
+        autoPlay: true,
+        interval: 4000,
+        threshold: 0.3,
+        speed: 400
       }
     },
     watch: {
-//      scrollbarObj: {
-//        handler() {
-//          this.rebuildScroll()
-//        },
-//        deep: true
-//      },
       loop() {
+        this.rebuildSlide()
+      },
+      autoPlay() {
+        this.rebuildSlide()
+      },
+      interval() {
+        this.rebuildSlide()
+      },
+      threshold() {
+        this.rebuildSlide()
+      },
+      speed() {
         this.rebuildSlide()
       }
     },
@@ -74,13 +105,24 @@
       },
       updateLoop(val) {
         this.loop = val
+      },
+      updateAutoPlay(val) {
+        this.autoPlay = val
+      },
+      updateInterval(val) {
+        this.interval = val
+      },
+      updateThreshold(val) {
+        this.threshold = val
+      },
+      updateSpeed(val) {
+        this.speed = val
       }
     },
     components: {
       CubePage,
       SwitchOption,
-      InputOption,
-      SelectOption
+      InputOption
     }
   }
 </script>
