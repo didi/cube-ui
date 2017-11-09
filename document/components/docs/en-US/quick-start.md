@@ -66,8 +66,14 @@ Vue.use(Cube)
 #### Import on demand
 
 ```javascript
-import { Button } from 'cube-ui'
+import {
+  /* eslint-disable no-unused-vars */
+  Style,
+  Button
+} from 'cube-ui'
 ```
+
+**Notice:** In this case, you also need to import [style module](#/en-US/docs/style).
 
 You can choose to register globally or partially:
 
