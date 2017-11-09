@@ -28,12 +28,6 @@ Before use, the plugin needs some configuration. Modify .babelrc:
 }
 ```
 
-If not using babel-plugin-transform-modules, you need to import corresponding style files by hand:
-
-```js
-import 'cube-ui/lib/style.css'
-```
-
 **Notice:** By default cube-ui will use [post-compile](#/en-US/docs/post-compile) with webpack 2+, but post-complie needs some dependencies and configuration(see the last part in this page). If you don't want to use post-compile, just modify the webpack config file:
 
 ```js
