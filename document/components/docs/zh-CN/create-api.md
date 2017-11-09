@@ -53,20 +53,20 @@
 ```js
   import Vue from 'vue'
   import Hello from './Hello.vue'
-  
-  import createAPI from 'cube-ui/lib/create-api'
-  
+
   // 引入 Style 加载基础样式
   import {
+    /* eslint-disable no-unused-vars */
     Style,
-    Dialog
+    Dialog,
+    createAPI
   } from 'cube-ui'
-  
+
   Vue.use(Dialog)
-  
+
   // 创建 this.$createHello API
   createAPI(Vue, Hello, ['click'], true)
-  
+
   // 初始化 Vue
   new Vue({
     el: '#app',
@@ -103,7 +103,7 @@
             icon: 'cubeic-alert'
           })
           $dialog.show()
-  
+
           $dialog.$on('confirm', () => {
             // 销毁实例
             instance.remove()
