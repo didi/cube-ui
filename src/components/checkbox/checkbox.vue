@@ -106,7 +106,7 @@
     box-sizing: border-box
     width: 100%
     height: 100%
-    padding: 11px 0 11px $ui-width
+    padding: 11px 0
     line-height: 1.5
     word-break: break-word
     word-wrap: break-word
@@ -119,10 +119,10 @@
     height: 100%
     opacity: 0
   .cube-checkbox-ui
-    position: absolute
-    left: 0
+    position: relative
     width: 1em
     height: 1em
+    margin-right: $ui-width - 1em
     line-height: 1
     border-radius: 50%
     &::before, i

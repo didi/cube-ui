@@ -1,11 +1,7 @@
 <template>
   <div class="select-option">
     <span class="name">{{ name }}</span>
-    <select v-model="selected">
-      <option v-for="option in options"  :value="option">
-        {{ option }}
-      </option>
-    </select>
+    <span class="select" @click="showPicker">{{ selected }}</span>
   </div>
 </template>
 
@@ -31,6 +27,23 @@
       selected: function (newValue) {
         this.$emit('update:value', newValue)
       }
+    },
+    mounted() {
+      const self = this
+      this.picker = this.$createPicker({
+        title: `Choose ${this.name}`,
+        data: [this.options],
+        cancelTxt: 'cancel',
+        confirmTxt: 'confirm',
+        onValueChange(selectedVal) {
+          self.selected = selectedVal[0]
+        }
+      })
+    },
+    methods: {
+      showPicker() {
+        this.picker.show()
+      }
     }
   }
 </script>
@@ -49,15 +62,13 @@
       display inline-flex
       padding-left: 10px
       align-items center
-    select
+    .select
       flex: 1 1 auto
-      padding-left: 10rem
-      background-color: $color-white
-      border: none
+      display inline-flex
+      align-items center
+      padding-left: 10px
       border-left: 1px solid rgba(0, 0, 0, .1)
       box-shadow: 0 0 1px 1px #eee inset
-      outline: none
-      border-radius: 0
       &:focus
         border: 1px solid $color-orange
 
