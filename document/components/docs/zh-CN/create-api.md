@@ -22,7 +22,7 @@
 
 我们先编写一个 Hello.vue 组件：
 
-```vue
+```html
 <template>
   <div @click="clickHandler">
     {{content}}
