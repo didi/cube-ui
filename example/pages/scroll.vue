@@ -1,5 +1,5 @@
 <template>
-  <cube-page type="scroll-view" title="Scroll">
+  <cube-page type="scroll-view" title="Scroll" class="scroll-page">
     <div slot="content" class="scroll-wrapper">
       <div class="options">
         <div class="title sub">Options</div>
@@ -289,7 +289,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../src/common/stylus/variable.styl"
 
-  .cube-page
+  .scroll-page
     .wrapper
       background: $color-white
   .scroll-wrapper
@@ -302,7 +302,6 @@
       margin-bottom: 1rem
     .options
         margin-bottom: 1rem
-
       .option-list
         .group
           margin-bottom: 1rem
@@ -313,34 +312,21 @@
           border-bottom: 1px solid rgba(0, 0, 0, .1)
           &.sub
             font-size: $fontsize-medium
-            background-color: $color-active-light-gray
+            background-color: $color-light-grey-opacity
             &.first
               box-shadow: 0 1px 1px 1px #eee inset
             &.last
               border-bottom: none
-
     .demo
-      @media screen and (min-width: 42rem)
-        flex: 0 0 23rem
-      @media screen and (max-width: 42rem)
-        flex: 0 0 100%
-        margin-bottom: 1rem
-
+      margin-bottom: 1rem
       .scroll-list-wrap
         position relative
-        @media screen and (min-width: 42rem)
-          height: 30rem
-        @media screen and (max-width: 42rem)
-          height: 26rem
+        height: 30rem
         border: 1px solid rgba(0, 0, 0, .1)
-        border-radius: $radius-size-medium
+        border-radius: 5px
         transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
         overflow: hidden
     .methods
-      @media screen and (min-width: 42rem)
-        flex: 0 1 25%
-      @media screen and (max-width: 42rem)
-        flex: 0 1 100%
       .method-list
         .group
           margin-bottom: 1rem
@@ -363,33 +349,32 @@
           border: none
           outline: none
           color: $color-white
-
-  .cube-scroll-wrapper
-    position: absolute
-    left: 0
-    top: 0
-    right: 0
-    bottom: 0
-    overflow: hidden
-    background: #fff
-    .cube-scroll-content
-      position: relative
-      z-index: 10
+    .cube-scroll-wrapper
+      position: absolute
+      left: 0
+      top: 0
+      right: 0
+      bottom: 0
+      overflow: hidden
       background: #fff
-      .scroll-item
-        height: 60px
-        line-height: 60px
-        font-size: 18px
-        padding-left: 20px
-        border-bottom: 1px solid #e5e5e5
-    .cube-pulldown-wrapper
-      .before-trigger
-        font-size: 30px
-        align-self: flex-end
-        span
-          display: inline-block
-          transition: all 0.3s
-          color: #666
-          &.rotate
-            transform: rotate(180deg)
+      .cube-scroll-content
+        position: relative
+        z-index: 10
+        background: #fff
+        .scroll-item
+          height: 60px
+          line-height: 60px
+          font-size: 18px
+          padding-left: 20px
+          border-bottom: 1px solid #e5e5e5
+      .cube-pulldown-wrapper
+        .before-trigger
+          font-size: 30px
+          align-self: flex-end
+          span
+            display: inline-block
+            transition: all 0.3s
+            color: #666
+            &.rotate
+              transform: rotate(180deg)
 </style>
