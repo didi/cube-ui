@@ -14,3 +14,7 @@ node ./build/release/replace-version.js
 npm publish
 # checkout src/index.js
 git checkout src/index.js
+git checkout dev
+git rebase master
+git push origin dev
+git checkout master
