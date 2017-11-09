@@ -39,7 +39,6 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  $width = 20px
   .cube-loading
      display: flex
      padding: 8px
