@@ -48,25 +48,25 @@ First we create Hello.vue component：
 </script>
 ```
 
-Then we make Hello.vue to an API Style component by calling the `createAPI` method.
+Then we make Hello.vue to an API style component by calling the `createAPI` method.
 
 ```js
   import Vue from 'vue'
   import Hello from './Hello.vue'
-  
-  import createAPI from 'cube-ui/lib/create-api'
-  
+
   // import Style to load the base style
   import {
+    /* eslint-disable no-unused-vars */
     Style,
-    Dialog
+    Dialog,
+    createAPI
   } from 'cube-ui'
-  
+
   Vue.use(Dialog)
-  
+
   // create this.$createHello API
   createAPI(Vue, Hello, ['click'], true)
-  
+
   // init Vue
   new Vue({
     el: '#app',
@@ -100,7 +100,7 @@ Then we make Hello.vue to an API Style component by calling the `createAPI` meth
             icon: 'cubeic-alert'
           })
           $dialog.show()
-  
+
           $dialog.$on('confirm', () => {
             // remove instance
             instance.remove()

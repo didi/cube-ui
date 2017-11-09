@@ -25,7 +25,9 @@ $ npm install babel-plugin-transform-modules --save-dev
       "cube-ui": {
         "transform": "cube-ui/lib/${member}",
         "kebabCase": true,
-        "style": true
+        "style": {
+          "ignore": ["create-api", "better-scroll"]
+        }
       }
     }]
   ]
@@ -109,11 +111,10 @@ import {
 } from 'cube-ui'
 ```
 
-**注意：** `better-scroll` 和 `create-api` 两个模块只能通过如下方式使用：
+也可以引入[create-api](#/zh-CN/docs/create-api)和[better-scroll](#/zh-CN/docs/better-scroll)模块：
 
 ```js
-import BScroll from 'cube-ui/lib/better-scroll'
-import createAPI from 'cube-ui/lib/create-api'
+import { createAPI, BetterScroll } from 'cube-ui'
 ```
 
 #### 示例

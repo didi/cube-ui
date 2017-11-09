@@ -19,7 +19,9 @@ Before use, the plugin needs some configuration. Modify .babelrc:
       "cube-ui": {
         "transform": "cube-ui/lib/${member}",
         "kebabCase": true,
-        "style": true
+        "style": {
+          "ignore": ["create-api", "better-scroll"]
+        }
       }
     }]
   ]
@@ -108,12 +110,10 @@ import {
 } from 'cube-ui'
 ```
 
-
-**Notice:** `better-scroll` and `create-api` module can only be used as the follows:
+You can also import [create-api](#/en-US/docs/create-api) and [better-scroll](#/en-US/docs/better-scroll) module:
 
 ```js
-import BScroll from 'cube-ui/lib/better-scroll'
-import createAPI from 'cube-ui/lib/create-api'
+import { createAPI, BetterScroll } from 'cube-ui'
 ```
 
 #### Examples
