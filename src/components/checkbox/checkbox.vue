@@ -2,7 +2,7 @@
   <div class="cube-checkbox" :class="_containerClass" :data-pos="position">
     <label class="cube-checkbox-wrap" :class="_wrapClass">
       <input class="cube-checkbox-input" type="checkbox" :disabled="disabled" v-model="checkValue">
-      <span class="cube-checkbox-ui cubeic-round-border-new">
+      <span class="cube-checkbox-ui cubeic-round-border">
         <i class="cubeic-right"></i>
       </span>
       <span class="cube-checkbox-label">
