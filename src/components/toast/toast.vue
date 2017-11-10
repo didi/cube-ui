@@ -113,11 +113,11 @@
     0%
       opacity: 0
     100%
-      opacity: 0.8
+      opacity: 1
 
   @keyframes toast-out
     0%
-      opacity: 0.8
+      opacity: 1
     100%
       opacity: 0
 </style>
