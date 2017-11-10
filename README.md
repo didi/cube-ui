@@ -10,6 +10,10 @@
 
 ![Example QR](./assets/example-qr.png)
 
+### Communication
+
+![QQ Community QR](./assets/cube-qq-QR.jpg)
+
 ### Install
 
 ```shell
