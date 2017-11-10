@@ -17,15 +17,15 @@
           title: '我是标题~~~',
           data: [
             {
-              content: '<em>舒适型</em>',
+              content: '<em>default</em>',
               class: 'cube-foo'
             },
             {
-              content: '七座商务',
+              content: 'align - left',
               align: 'left'
             },
             {
-              content: '豪华型',
+              content: 'align - right',
               align: 'right'
             }
           ],
