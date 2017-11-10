@@ -6,13 +6,13 @@
 
 - The size of icon
 
-Default is `24px` and can be configured by setting `size`.
+  Default is `24px` and can be configured by setting `size`.
 
-```html
-<cube-loading></cube-loading>
-<cube-loading :size="28"></cube-loading>
-<cube-loading :size="34"></cube-loading>
-```
+  ```html
+  <cube-loading></cube-loading>
+  <cube-loading :size="28"></cube-loading>
+  <cube-loading :size="34"></cube-loading>
+  ```
 
 ### Props configuration
 

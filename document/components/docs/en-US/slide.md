@@ -90,16 +90,16 @@
 
 ### Props configuration
 
-| Attribute | Description                          | Type    | Accepted Values | Default |
-| --------- | ------------------------------------ | ------- | --------------- | ------- |
-| loop      | whether to loop play                 | Boolean | true/false      | true    |
-| autoPlay  | whether to play  automatically       | Boolean | true/false      | true    |
-| interval  | interval of play                     | Number  | -               | 4000    |
-| threshold | sliding threshold of switching pages | Number  | (0, 1)          | 0.3     |
-| speed     | speed of switching pages             | Number  | -               | 400     |
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| loop | whether to loop play | Boolean | true/false | true |
+| autoPlay | whether to play  automatically | Boolean | true/false | true |
+| interval | interval of play | Number | - | 4000 |
+| threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
+| speed | speed of switching pages | Number | - | 400 |
 
 ### 事件
 
-| Event Name | Description                         | Parameters             |
-| ---------- | ----------------------------------- | ---------------------- |
-| change     | triggers when current slide changes | index of current slide |
+| Event Name | Description | Parameters |
+| - | - | - |
+| change | triggers when current slide changes | index of current slide |

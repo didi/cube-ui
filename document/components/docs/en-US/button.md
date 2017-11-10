@@ -6,40 +6,40 @@
 
 - Button type
 
-The default type is `button`, and you can set that to `submit` in form.
+  The default type is `button`, and you can set that to `submit` in form.
 
-```html
-<cube-button>Button</cube-button>
-<cube-button type="submit">Submit Button</cube-button>
-```
+  ```html
+  <cube-button>Button</cube-button>
+  <cube-button type="submit">Submit Button</cube-button>
+  ```
 
 - Button state
 
-Default is normal, can be set to active or disabled state.
+  Default is normal, can be set to active or disabled state.
 
-```html
-<cube-button :active="true">Active Button</cube-button>
-<cube-button :disabled="true">Disabled Button</cube-button>
-```
+  ```html
+  <cube-button :active="true">Active Button</cube-button>
+  <cube-button :disabled="true">Disabled Button</cube-button>
+  ```
 
 - Icon
 
-You can set the class of `icon`.
+  You can set the class of `icon`.
 
-```html
-<cube-button icon="cubeic-right">Button With Icon</cube-button>
-```
+  ```html
+  <cube-button icon="cubeic-right">Button With Icon</cube-button>
+  ```
 
 - Style
 
-You can set attributes like `light`, `inline`, `outline`, and `primary` to change the button's style.
+  You can set attributes like `light`, `inline`, `outline`, and `primary` to change the button's style.
 
-```html
-<cube-button :light="true">Light Button</cube-button>
-<cube-button :inline="true">Inline Button</cube-button>
-<cube-button :outline="true">Outline Button</cube-button>
-<cube-button :primary="true">Primary Button</cube-button>
-```
+  ```html
+  <cube-button :light="true">Light Button</cube-button>
+  <cube-button :inline="true">Inline Button</cube-button>
+  <cube-button :outline="true">Outline Button</cube-button>
+  <cube-button :primary="true">Primary Button</cube-button>
+  ```
 
 ### Props configuration
 
