@@ -10,6 +10,10 @@
 
 ![Example QR](./assets/example-qr.png)
 
+### Communication
+
+![WeChat Community QR](./assets/wechat-qr.png)
+
 ### Install
 
 ```shell
