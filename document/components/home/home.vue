@@ -5,7 +5,7 @@
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
-      <div class="tabs" :class="{ active: showTabs }">
+      <div class="tabs">
         <slot name="nav"></slot>
         <site-lang></site-lang>
       </div>
@@ -50,6 +50,8 @@
     line-height: 70px
     margin-top: -70px
     background-color: $color-regular-blue
+    transition: all 0.5s ease
+    overflow: hidden
     .toggle
       @media screen and (min-width: 960px)
         display: none
@@ -60,7 +62,7 @@
         top: 0
         color: $color-white
     &.active
-      height: auto
+      height: 255px
     .logo
       @media screen and (min-width: 960px)
         float: left
@@ -86,7 +88,7 @@
         float: right
         padding: 0 30px
       @media screen and (max-width: 960px)
-        display: none
+        border-top: solid 1px rgba(255, 255, 255, 0.5)
       .tab
         @media screen and (min-width: 960px)
           display: inline-block
@@ -95,13 +97,10 @@
           display: block
           line-height: 45px
           padding: 0 20px
-          border-top: solid 1px rgba(255, 255, 255, 0.5)
         color: $color-white
         transition: color .2s
         &:hover
           color: $color-orange
       .router-link-active
         color: $color-orange
-      &.active
-        display: block
 </style>

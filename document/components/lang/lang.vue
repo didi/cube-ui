@@ -43,7 +43,6 @@
       display: block
       line-height: 45px
       padding: 0 20px
-      border-top: solid 1px rgba(255, 255, 255, 0.5)
     a
       color: $color-white
       &::after
