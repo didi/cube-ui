@@ -37,7 +37,13 @@
   @import "~@/common/stylus/variable.styl"
   .langs
     display: inline-block
-    margin: 0 20px
+    @media screen and (min-width: 960px)
+      margin: 0 20px
+    @media screen and (max-width: 960px)
+      display: block
+      line-height: 45px
+      padding: 0 20px
+      border-top: solid 1px rgba(255, 255, 255, 0.5)
     a
       color: $color-white
       &::after

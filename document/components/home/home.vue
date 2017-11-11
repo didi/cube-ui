@@ -1,8 +1,8 @@
 <template>
   <div class="home-view">
-    <div class="navigator">
+    <div class="navigator" :class="{ active: showTabs }">
+      <span class="toggle" @click="toggle"><img src="https://raw.githubusercontent.com/didi/cube-ui/master/assets/" alt="Nav"></span>
       <h1 class="logo">
-        <span class="toggle" @click="toggle">=</span>
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
       <div class="tabs" :class="{ active: showTabs }">
@@ -38,7 +38,7 @@
   @import "~@/common/stylus/variable.styl"
 
   .home-view
-    @media screen and (min-width: 1200px)
+    @media screen and (min-width: 960px)
       min-width: 800px
     height: 100%
     padding-top: 70px
@@ -50,19 +50,26 @@
     line-height: 70px
     margin-top: -70px
     background-color: $color-regular-blue
+    .toggle
+      @media screen and (min-width: 960px)
+        display: none
+      @media screen and (max-width: 960px)
+        padding: 0 10px
+        position: absolute
+        left: 10px
+        top: 0
+        color: $color-white
+    &.active
+      height: auto
     .logo
-      @media screen and (min-width: 1200px)
+      @media screen and (min-width: 960px)
         float: left
         background-color: $color-orange
-        .toggle
-          display: none
-      @media screen and (max-width: 1200px)
+      @media screen and (max-width: 960px)
         text-align: center
-        .toggle
-          float: left
-          color: #c6c7c8
       a
-        display: block
+        @media screen and (min-width: 960px)
+          display: block
         padding: 0 28px
         color: $color-white
         font-size: $fontsize-large-xx
@@ -75,23 +82,26 @@
           margin-right: 10px
           vertical-align: middle
     .tabs
-      padding: 0 30px
-      @media screen and (min-width: 1200px)
+      @media screen and (min-width: 960px)
         float: right
-      @media screen and (max-width: 1200px)
+        padding: 0 30px
+      @media screen and (max-width: 960px)
         display: none
       .tab
-        display: inline-block
+        @media screen and (min-width: 960px)
+          display: inline-block
+          margin: 0 10px
+        @media screen and (max-width: 960px)
+          display: block
+          line-height: 45px
+          padding: 0 20px
+          border-top: solid 1px rgba(255, 255, 255, 0.5)
         color: $color-white
-        margin: 0 10px
         transition: color .2s
         &:hover
           color: $color-orange
       .router-link-active
         color: $color-orange
-
       &.active
-        @media screen and (max-width: 1200px)
-          display: block
-          height: 200px
+        display: block
 </style>
