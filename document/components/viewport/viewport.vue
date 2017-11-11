@@ -35,22 +35,37 @@
     display: flex
     width: 100%
     height: 100%
+    flex-wrap: wrap
   .page-sidelist
-    flex: none
-    width: 190px
-    height: 100%
+    @media screen and (min-width: 960px)
+      flex: none
+      width: 190px
+      height: 100%
+    @media screen and (max-width: 960px)
+      flex: 1 1 100%
+      height: 40px
     padding: 40px 20px
     box-sizing: border-box
     overflow-y: auto
   .page-doc
-    flex: 1
-    height: 100%
+    @media screen and (min-width: 960px)
+      flex: 1
+      height: 100%
+    @media screen and (max-width: 960px)
+      flex: 1 1 100%
+      height: 600px
     padding: 44px 20px 20px 20px
     box-sizing: border-box
     overflow-y: auto
     h2:first-child
       margin-top: 0
   .page-display
+    @media screen and (min-width: 960px)
+      flex: 1
+      height: 100%
+    @media screen and (max-width: 960px)
+      flex: 1 1 100%
+      height: 800px
     flex: none
     width: 420px
     height: 100%
