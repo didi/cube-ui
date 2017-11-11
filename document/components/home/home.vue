@@ -50,7 +50,7 @@
     line-height: 70px
     margin-top: -70px
     background-color: $color-regular-blue
-    transition: all 0.5s ease
+    transition: all 0.4s ease
     overflow: hidden
     .toggle
       @media screen and (min-width: 960px)
