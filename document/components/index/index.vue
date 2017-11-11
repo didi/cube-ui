@@ -38,9 +38,9 @@
     background: url("//webapp.didistatic.com/static/webapp/shield/cube-ui-home-index-background.png") no-repeat fixed center
     background-size: cover
     > h2
-      @media screen and (min-width: 1200px)
+      @media screen and (min-width: 960px)
         margin: 80px 0 20px
-      @media screen and (max-width: 1200px)
+      @media screen and (max-width: 960px)
         margin: 50px 0 10px
       font-size: 30px
       p
@@ -62,9 +62,9 @@
       &:last-child
         margin-left: 40px
   .features
-    @media screen and (min-width: 1200px)
+    @media screen and (min-width: 960px)
       margin: 60px auto 40px
-    @media screen and (max-width: 1200px)
+    @media screen and (max-width: 960px)
       margin: 30px auto 10px
     > ul
       display: flex
@@ -75,10 +75,10 @@
       text-align: left
       color: #666
       li
-        @media screen and (min-width: 1200px)
+        @media screen and (min-width: 960px)
           flex: 1
           max-width: 160px
-        @media screen and (max-width: 1200px)
+        @media screen and (max-width: 960px)
           flex: 1 1 100%
           margin-bottom: 20px
         padding: 10px 16px 20px
