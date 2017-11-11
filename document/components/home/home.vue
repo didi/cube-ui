@@ -1,7 +1,9 @@
 <template>
   <div class="home-view">
     <div class="navigator" :class="{ active: showTabs }">
-      <span class="toggle" @click="toggle"><img src="https://raw.githubusercontent.com/didi/cube-ui/master/assets/" alt="Nav"></span>
+      <span class="toggle" @click="toggle">
+        <img src="https://raw.githubusercontent.com/didi/cube-ui/master/assets/" alt="Nav">
+      </span>
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
