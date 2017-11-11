@@ -62,15 +62,21 @@
     margin: 60px auto 40px
     > ul
       display: flex
+      padding: 0 10px
+      flex-wrap: wrap
       align-items: stretch
       justify-content: center
       text-align: left
       color: #666
       li
+        @media screen and (min-width: 1200px)
+          flex: 1
+          max-width: 160px
+        @media screen and (max-width: 1200px)
+          flex: 1 1 100%
+          margin-bottom: 10px
         padding: 10px 16px 20px
         margin: 0 10px
-        max-width: 160px
-        flex: 1
         border-top: 1px solid #4a4c5b
         font-size: 13px
         line-height: 1.4
