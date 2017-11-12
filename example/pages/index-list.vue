@@ -48,5 +48,5 @@
       height: 98%
       width: 94%
       margin: 0 auto
-
+      overflow: hidden
 </style>
