@@ -95,7 +95,7 @@ import {
 
 ```html
 <template>
-  <cube-button @click="showDiaog">show dialog<cube-button>
+  <cube-button @click="showDialog">show dialog</cube-button>
 </template>
 
 <script>
