@@ -43,7 +43,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../src/common/stylus/variable.styl"
+  @import "~@/common/stylus/variable.styl"
 
   .cube-page
     position: fixed
@@ -114,13 +114,6 @@
               border-bottom: none
       .demo
         margin-bottom: 15px
-        .scroll-list-wrap
-          position relative
-          height: 480px
-          border: 1px solid rgba(0, 0, 0, .1)
-          border-radius: 5px
-          transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
-          overflow: hidden
       .methods
         .method-list
           .group

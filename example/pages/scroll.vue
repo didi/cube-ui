@@ -300,7 +300,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../src/common/stylus/variable.styl"
+  @import "~@/common/stylus/variable.styl"
 
   .scroll-wrapper
     .cube-scroll-wrapper
@@ -331,4 +331,11 @@
             color: #666
             &.rotate
               transform: rotate(180deg)
+  .scroll-list-wrap
+    position relative
+    height: 480px
+    border: 1px solid rgba(0, 0, 0, .1)
+    border-radius: 5px
+    transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
+    overflow: hidden
 </style>
