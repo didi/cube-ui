@@ -98,8 +98,10 @@ All the components that can be imported on demand are listed below:
 import {
   Button,
   Checkbox,
+  CheckboxGroup,
   Loading,
   Tip,
+  Popup,
   Toast,
   Picker,
   TimePicker,

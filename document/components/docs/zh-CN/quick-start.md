@@ -106,8 +106,10 @@ Vue.use(Button)
 import {
   Button,
   Checkbox,
+  CheckboxGroup,
   Loading,
   Tip,
+  Popup,
   Toast,
   Picker,
   TimePicker,
