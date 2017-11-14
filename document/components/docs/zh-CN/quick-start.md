@@ -158,7 +158,7 @@ cube-ui 搭配 webpack 2+ 后就会默认使用[后编译](#/zh-CN/docs/post-com
     // webpack-post-compile-plugin 依赖 compileDependencies
     "compileDependencies": ["cube-ui"],
     "devDependencies": {
-      "babel-plugin-transform-modules": "^0.0.2",
+      "babel-plugin-transform-modules": "^0.1.0",
       // 新增 stylus 相关依赖
       "stylus": "^0.54.5",
       "stylus-loader": "^2.1.1",

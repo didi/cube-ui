@@ -152,7 +152,7 @@ Follow the steps below:
     // webpack-post-compile-plugin depends on compileDependencies
     "compileDependencies": ["cube-ui"],
     "devDependencies": {
-      "babel-plugin-transform-modules": "^0.0.2",
+      "babel-plugin-transform-modules": "^0.1.0",
       // add stylus dependencies
       "stylus": "^0.54.5",
       "stylus-loader": "^2.1.1",
