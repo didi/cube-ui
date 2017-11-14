@@ -2,7 +2,7 @@
   <div class="docs-view">
     <div class="nav-list-wrapper" :class="{ active: showNavList }">
       <div class="toggle" @click="toggle">
-        <img src="https://raw.githubusercontent.com/didi/cube-ui/master/assets/" alt=""> Catalog
+        <embed src="https://raw.githubusercontent.com/didi/cube-ui/dev/assets/catalog.svg" type="image/svg+xml" />
       </div>
       <side-list :nav-list="navList"></side-list>
     </div>

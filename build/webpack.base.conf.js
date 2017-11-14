@@ -58,7 +58,7 @@ module.exports = {
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
-        include: srcAndExampleAndTestAndDocument,
+        include: srcAndExampleAndTestAndDocument.concat([resolve('assets')]),
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')

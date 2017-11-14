@@ -1,9 +1,6 @@
 <template>
   <div class="home-view">
     <div class="navigator" :class="{ active: showTabs }">
-      <span class="toggle" @click="toggle">
-        <img src="https://raw.githubusercontent.com/didi/cube-ui/master/assets/" alt="Nav">
-      </span>
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
@@ -11,6 +8,9 @@
         <slot name="nav"></slot>
         <site-lang></site-lang>
       </div>
+      <span class="toggle" @click="toggle">
+        <img src="../../../assets/nav.svg"/>
+      </span>
     </div>
     <div class="router-view">
       <router-view></router-view>
@@ -58,9 +58,9 @@
       @media screen and (min-width: 960px)
         display: none
       @media screen and (max-width: 960px)
-        padding: 0 10px
+        padding: 10px 10px
         position: absolute
-        left: 10px
+        right: 10px
         top: 0
         color: $color-white
     &.active
