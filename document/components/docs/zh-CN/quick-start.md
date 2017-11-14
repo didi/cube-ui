@@ -9,7 +9,7 @@ $ npm install cube-ui --save
 
 或者 CDN:
 
-```js
+```html
 <script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
 ```
