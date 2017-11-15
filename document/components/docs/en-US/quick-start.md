@@ -8,7 +8,7 @@ If you are going to create a new project with cube-ui, use the [cli tools](https
 $ vue init cube-ui/cube-template projectname
 ```
 
-If you are going to use cube-ui in an existing project, see the Install part first. 
+If you are going to use cube-ui in an existing project, see the Install part first.
 
 ### Install
 
@@ -21,122 +21,122 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
 
 - post-compile
 
-1. Modify package.json and install the dependencies
+  1. Modify package.json and install the dependencies
 
-  ```json
-  {
-    // webpack-post-compile-plugin depends on compileDependencies
-    "compileDependencies": ["cube-ui"],
-    "devDependencies": {
-      "babel-plugin-transform-modules": "^0.1.0",
-      // add stylus dependencies
-      "stylus": "^0.54.5",
-      "stylus-loader": "^2.1.1",
-      "webpack-post-compile-plugin": "^0.1.2"
-    }
-  }
-  ```
-
-2. Modify .babelrc, use [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules):
-
-  ```json
-  {
-    "plugins": ["transform-modules", {
-      "cube-ui": {
-        // Notice: this path should be changed to `src/modules`
-        "transform": "cube-ui/src/modules/${member}",
-        "kebabCase": true
+    ```json
+    {
+      // webpack-post-compile-plugin depends on compileDependencies
+      "compileDependencies": ["cube-ui"],
+      "devDependencies": {
+        "babel-plugin-transform-modules": "^0.1.0",
+        // add stylus dependencies
+        "stylus": "^0.54.5",
+        "stylus-loader": "^2.1.1",
+        "webpack-post-compile-plugin": "^0.1.2"
       }
-    }]
-  }
-  ```
-
-3. Modify webpack.base.conf.js
-
-  ```js
-  var PostCompilePlugin = require('webpack-post-compile-plugin')
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      new PostCompilePlugin()
-    ]
-    // ...
-  }
-  ```
-
-4. Modify `exports.cssLoaders` function in build/utils.js
-
-  ```js
-  exports.cssLoaders = function (options) {
-    // ...
-    const stylusOptions = {
-      'resolve url': true
     }
-    // https://vue-loader.vuejs.org/en/configurations/extract-css.html
-    return {
-      css: generateLoaders(),
-      postcss: generateLoaders(),
-      less: generateLoaders('less'),
-      sass: generateLoaders('sass', { indentedSyntax: true }),
-      scss: generateLoaders('sass'),
-      stylus: generateLoaders('stylus', stylusOptions),
-      styl: generateLoaders('stylus', stylusOptions)
-    }
-  }
-  ```
+    ```
 
-  See [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
-  
-- normal compile  
+  2. Modify .babelrc, use [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules):
 
-1. Modify package.json and install the dependencies
-
-  ```json
-  {
-    "devDependencies": {
-      "babel-plugin-transform-modules": "^0.1.0"
-    }
-  }
-  ```
-  
-2. Modify .babelrc
-  
-  ```json
-  {
-    "plugins": [
-      ["transform-modules", {
+    ```json
+    {
+      "plugins": ["transform-modules", {
         "cube-ui": {
-          "transform": "cube-ui/lib/${member}",
-          "kebabCase": true,
-          "style": {
-            "ignore": ["create-api", "better-scroll"]
-          }
+          // Notice: this path should be changed to `src/modules`
+          "transform": "cube-ui/src/modules/${member}",
+          "kebabCase": true
         }
       }]
-    ]
-  }
-  ```
-  
-3. Modify webpack config
-  
-  ```js
-  // webpack.config.js
-  
-  module.exports = {
-    // ...
-    resolve: {
+    }
+    ```
+
+  3. Modify webpack.base.conf.js
+
+    ```js
+    var PostCompilePlugin = require('webpack-post-compile-plugin')
+    module.exports = {
       // ...
-      alias: {
+      plugins: [
         // ...
-        'cube-ui': 'cube-ui/lib'
+        new PostCompilePlugin()
+      ]
+      // ...
+    }
+    ```
+
+  4. Modify `exports.cssLoaders` function in build/utils.js
+
+    ```js
+    exports.cssLoaders = function (options) {
+      // ...
+      const stylusOptions = {
+        'resolve url': true
+      }
+      // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+      return {
+        css: generateLoaders(),
+        postcss: generateLoaders(),
+        less: generateLoaders('less'),
+        sass: generateLoaders('sass', { indentedSyntax: true }),
+        scss: generateLoaders('sass'),
+        stylus: generateLoaders('stylus', stylusOptions),
+        styl: generateLoaders('stylus', stylusOptions)
+      }
+    }
+    ```
+
+    See [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
+
+- Normal compile
+
+  1. Modify package.json and install the dependencies
+
+    ```json
+    {
+      "devDependencies": {
+        "babel-plugin-transform-modules": "^0.1.0"
+      }
+    }
+    ```
+
+  2. Modify .babelrc
+
+    ```json
+    {
+      "plugins": [
+        ["transform-modules", {
+          "cube-ui": {
+            "transform": "cube-ui/lib/${member}",
+            "kebabCase": true,
+            "style": {
+              "ignore": ["create-api", "better-scroll"]
+            }
+          }
+        }]
+      ]
+    }
+    ```
+
+  3. Modify webpack config
+
+    ```js
+    // webpack.config.js
+
+    module.exports = {
+      // ...
+      resolve: {
+        // ...
+        alias: {
+          // ...
+          'cube-ui': 'cube-ui/lib'
+          // ...
+        }
         // ...
       }
       // ...
     }
-    // ...
-  }
-  ```
+    ```
 
 #### CDN
 
