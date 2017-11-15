@@ -2,8 +2,8 @@
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
       <slot>
-        <ul ref="list" class="scorll-list">
-          <li @click="clickItem(item)" class="scroll-item" v-for="item in data">{{item}}</li>
+        <ul ref="list" class="cube-scroll-list">
+          <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
         </ul>
       </slot>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
@@ -270,6 +270,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+
+  .cube-scroll-wrapper
+    height: 100%
+
   .cube-pulldown-wrapper
     position: absolute
     width: 100%
@@ -291,13 +296,11 @@
   .cube-scroll-content
     position: relative
     z-index: 1
-    .scorll-list
-      height: 100%
-      .scroll-item
-        height: 60px
-        line-height: 60px
-        font-size: 18px
-        padding-left: 20px
-        border-bottom: 1px solid #e5e5e5
+    background-color: $scroll-content-bgc
+  .cube-scroll-item
+    height: 60px
+    line-height: 60px
+    font-size: $fontsize-large-x
+    padding-left: 20px
 </style>
 
