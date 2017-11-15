@@ -19,25 +19,18 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import Lang from '../lang/lang.vue'
   export default {
     data() {
       return {
         showTabs: false,
-        isDocs: this.$route.path.includes('/docs'),
-        showCatalog: false
+        isDocs: this.$route.path.includes('/docs')
       }
     },
     watch: {
       $route(val) {
         this.isDocs = val.path.includes('/docs')
-        Vue.nextTick(() => {
-        })
-        setTimeout(() => {
-          this.showTabs = false
-          this.showCatalog = false
-        }, 100)
+        this.showTabs = false
       }
     },
     components: {

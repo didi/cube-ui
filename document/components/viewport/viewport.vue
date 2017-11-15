@@ -29,6 +29,11 @@
         showCatalog: false
       }
     },
+    watch: {
+      $route() {
+        this.showCatalog = false
+      }
+    },
     methods: {
       toggleCatalog() {
         this.showCatalog = !this.showCatalog
@@ -49,6 +54,7 @@
     width: 100%
     height: 100%
     flex-wrap: wrap
+    overflow: hidden
     @media screen and (max-width: 960px)
       position: relative
       height: auto
@@ -69,7 +75,7 @@
         background-color: $color-white
         z-index: 1
         overflow: hidden
-        transition: all 250ms ease
+        transition: all 0.4s ease
         &.active
           transform: translate(-70%, 0)
         .active-toggle-catalog
@@ -80,7 +86,7 @@
       left: 0
       width: 100%
       height: 100%
-      transition: all 250ms ease
+      transition: all 0.4s ease
       &.active
         background-color: rgba(0, 0, 0 ,0.2)
   .page-sidelist
