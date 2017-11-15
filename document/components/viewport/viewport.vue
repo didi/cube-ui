@@ -1,10 +1,9 @@
 <template>
   <div class="docs-view">
-    <img class="toggle" @click="toggle" src="../../../assets/catalog.svg"/>
-    <div class="nav-list-wrapper" :class="{ active: showCatalog }">
+    <div class="nav-list-wrapper">
       <side-list :nav-list="navList"></side-list>
     </div>
-    <router-view class="page-doc md-body" v-highlight @catalog-toggle="catalogToggle"></router-view>
+    <router-view class="page-doc md-body" v-highlight></router-view>
     <display></display>
   </div>
 </template>
@@ -27,12 +26,6 @@
         showCatalog: false
       }
     },
-    methods: {
-      toggle() {
-        this.showCatalog = !this.showCatalog
-        this.$emit('catalog-toggle', this.showCatalog)
-      }
-    },
     components: {
       SideList,
       Display
@@ -48,7 +41,7 @@
     width: 100%
     height: 100%
     flex-wrap: wrap
-    .toggle
+    .catalog-toggle
       display: none
       @media screen and (max-width: 960px)
         display: block
@@ -61,8 +54,6 @@
         height: 100%
         overflow: hidden
         transition: all 250ms ease
-        &.active
-          left: 0
   .page-sidelist
     flex: none
     width: 190px

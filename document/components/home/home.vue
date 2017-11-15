@@ -1,6 +1,7 @@
 <template>
   <div class="home-view" :class="{ right: showCatalog}">
     <div class="navigator" :class="{ active: showTabs }">
+      <img v-show="isDocs" class="toggle-catalog" @click="toggleCatalog" src="../../../assets/catalog.svg"/>
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
@@ -8,7 +9,7 @@
         <slot name="nav"></slot>
         <site-lang></site-lang>
       </div>
-      <span class="toggle" @click="toggle">
+      <span class="toggle-nav" @click="toggleNav">
         <img src="../../../assets/nav.svg"/>
       </span>
     </div>
@@ -23,15 +24,26 @@
   export default {
     data() {
       return {
-        showTabs: false
+        showTabs: false,
+        isDocs: this.$route.path.includes('/docs'),
+        showCatalog: false
+      }
+    },
+    watch: {
+      $route(val) {
+        this.isDocs = val.path.includes('/docs')
+        console.log(val)
       }
     },
     components: {
       SiteLang: Lang
     },
     methods: {
-      toggle() {
+      toggleNav() {
         this.showTabs = !this.showTabs
+      },
+      toggleCatalog() {
+        this.showCatalog = !this.showCatalog
       }
     }
   }
@@ -57,10 +69,18 @@
     background-color: $color-regular-blue
     transition: all 0.4s ease
     overflow: hidden
-    .toggle
-      @media screen and (min-width: 960px)
-        display: none
+    .toggle-catalog
+      display: none
       @media screen and (max-width: 960px)
+        display: block
+        padding: 10px 10px
+        position: absolute
+        left: 10px
+        top: 10px
+    .toggle-nav
+      display: none
+      @media screen and (max-width: 960px)
+        display: block
         padding: 10px 10px
         position: absolute
         right: 10px
@@ -68,6 +88,7 @@
         color: $color-white
     &.active
       height: 255px
+
     .logo
       @media screen and (min-width: 960px)
         float: left
@@ -95,13 +116,13 @@
       @media screen and (max-width: 960px)
         border-top: solid 1px rgba(255, 255, 255, 0.5)
       .tab
-        @media screen and (min-width: 960px)
-          display: inline-block
-          margin: 0 10px
+        display: inline-block
+        margin: 0 10px
         @media screen and (max-width: 960px)
           display: block
           line-height: 45px
-          padding: 0 20px
+          margin: 0 20px
+          text-align: center
         color: $color-white
         transition: color .2s
         &:hover
