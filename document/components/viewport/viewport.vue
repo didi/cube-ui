@@ -5,7 +5,7 @@
       <img v-show="showCatalog" class="active-toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
       <side-list :nav-list="navList"></side-list>
     </div>
-    <div v-show="showCatalog" class="mask" @click="toggleCatalog"></div>
+    <div v-show="showCatalog" class="mask" :class="{ active: showCatalog }" @click="toggleCatalog"></div>
     <router-view class="page-doc md-body" v-highlight></router-view>
     <display></display>
   </div>
@@ -80,8 +80,9 @@
       left: 0
       width: 100%
       height: 100%
-      background-color: rgba(0, 0, 0 ,0.2)
       transition: all 250ms ease
+      &.active
+        background-color: rgba(0, 0, 0 ,0.2)
   .page-sidelist
     flex: none
     width: 190px
