@@ -1,5 +1,5 @@
 <template>
-  <div class="home-view">
+  <div class="home-view" :class="{ right: showCatalog}">
     <div class="navigator" :class="{ active: showTabs }">
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
@@ -45,6 +45,9 @@
     height: 100%
     padding-top: 70px
     box-sizing: border-box
+    transition: all 250ms ease
+    &.right
+      transform: translate(190px, 0)
     .router-view
       height: 100%
   .navigator

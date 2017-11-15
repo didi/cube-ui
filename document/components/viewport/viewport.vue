@@ -1,12 +1,10 @@
 <template>
   <div class="docs-view">
-    <div class="nav-list-wrapper" :class="{ active: showNavList }">
-      <div class="toggle" @click="toggle">
-        <embed src="https://raw.githubusercontent.com/didi/cube-ui/dev/assets/catalog.svg" type="image/svg+xml" />
-      </div>
+    <img class="toggle" @click="toggle" src="../../../assets/catalog.svg"/>
+    <div class="nav-list-wrapper" :class="{ active: showCatalog }">
       <side-list :nav-list="navList"></side-list>
     </div>
-    <router-view class="page-doc md-body" v-highlight></router-view>
+    <router-view class="page-doc md-body" v-highlight @catalog-toggle="catalogToggle"></router-view>
     <display></display>
   </div>
 </template>
@@ -26,12 +24,13 @@
     data() {
       return {
         navList: menuConfig[this.lang],
-        showNavList: false
+        showCatalog: false
       }
     },
     methods: {
       toggle() {
-        this.showNavList = !this.showNavList
+        this.showCatalog = !this.showCatalog
+        this.$emit('catalog-toggle', this.showCatalog)
       }
     },
     components: {
@@ -49,55 +48,46 @@
     width: 100%
     height: 100%
     flex-wrap: wrap
+    .toggle
+      display: none
+      @media screen and (max-width: 960px)
+        display: block
+        margin: -68px 0 0 20px
     .nav-list-wrapper
       @media screen and (max-width: 960px)
-        width: 100%
-        height: 46px
+        position: fixed
+        left: -190px
+        top: 0
+        height: 100%
         overflow: hidden
+        transition: all 250ms ease
         &.active
-          height: auto
-          border-bottom: solid 1px $color-grey-opacity
-      .toggle
-        @media screen and (min-width: 960px)
-          display: none
-        @media screen and (max-width: 960px)
-          display: block
-          line-height: 45px
-          margin: 0 20px
-          border-bottom: solid 1px $color-grey-opacity
+          left: 0
   .page-sidelist
-    @media screen and (min-width: 960px)
-      flex: none
-      width: 190px
-      height: 100%
-      padding: 40px 20px
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: 150px
-      margin: 20px
+    flex: none
+    width: 190px
+    height: 100%
+    padding: 40px 20px
     box-sizing: border-box
     overflow-y: auto
   .page-doc
-    @media screen and (min-width: 960px)
-      flex: 1
-      height: 100%
-      padding: 44px 20px 20px 20px
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: 600px
-      padding: 20px
+    flex: 1
+    height: 100%
+    padding: 44px 20px 20px 20px
     box-sizing: border-box
     overflow-y: auto
+    @media screen and (max-width: 960px)
+      flex: 1 1 100%
+      height: auto
+      padding: 20px 20px 0 20px
     h2:first-child
       margin-top: 0
   .page-display
-    @media screen and (min-width: 960px)
-      flex: 1
-      height: 100%
+    flex: none
+    height: 100%
+    width: 420px
+    overflow-y: auto
     @media screen and (max-width: 960px)
       flex: 1 1 100%
       height: 800px
-    flex: none
-    width: 420px
-    overflow-y: auto
 </style>
