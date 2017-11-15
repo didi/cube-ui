@@ -1,7 +1,7 @@
 <template>
   <div class="home-view" :class="{ right: showCatalog}">
     <div class="navigator" :class="{ active: showTabs }">
-      <img v-show="isDocs" class="toggle-catalog" @click="toggleCatalog" src="../../../assets/catalog.svg"/>
+      <img v-show="isDocs" class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
@@ -10,7 +10,7 @@
         <site-lang></site-lang>
       </div>
       <span class="toggle-nav" @click="toggleNav">
-        <img src="../../../assets/nav.svg"/>
+        <img src="./nav.svg"/>
       </span>
     </div>
     <div class="router-view">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import Lang from '../lang/lang.vue'
   export default {
     data() {
@@ -32,7 +33,12 @@
     watch: {
       $route(val) {
         this.isDocs = val.path.includes('/docs')
-        console.log(val)
+        Vue.nextTick(() => {
+        })
+        setTimeout(() => {
+          this.showTabs = false
+          this.showCatalog = false
+        }, 100)
       }
     },
     components: {
@@ -52,12 +58,12 @@
   @import "~@/common/stylus/variable.styl"
 
   .home-view
-    @media screen and (min-width: 960px)
-      min-width: 800px
     height: 100%
     padding-top: 70px
     box-sizing: border-box
     transition: all 250ms ease
+    @media screen and (min-width: 960px)
+      min-width: 800px
     &.right
       transform: translate(190px, 0)
     .router-view
@@ -122,7 +128,6 @@
           display: block
           line-height: 45px
           margin: 0 20px
-          text-align: center
         color: $color-white
         transition: color .2s
         &:hover
