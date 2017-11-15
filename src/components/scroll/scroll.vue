@@ -2,7 +2,7 @@
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
       <slot>
-        <ul ref="list">
+        <ul ref="list" class="scorll-list">
           <li @click="clickItem(item)" class="scroll-item" v-for="item in data">{{item}}</li>
         </ul>
       </slot>
@@ -279,7 +279,7 @@
     align-items: center
     transition: all
     .after-trigger
-      margin-top: 10px
+      margin-top: 5px
 
   .cube-pullup-wrapper
     width: 100%
@@ -291,5 +291,13 @@
   .cube-scroll-content
     position: relative
     z-index: 1
+    .scorll-list
+      height: 100%
+      .scroll-item
+        height: 60px
+        line-height: 60px
+        font-size: 18px
+        padding-left: 20px
+        border-bottom: 1px solid #e5e5e5
 </style>
 

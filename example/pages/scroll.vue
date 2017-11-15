@@ -315,12 +315,6 @@
         position: relative
         z-index: 10
         background: #fff
-        .scroll-item
-          height: 60px
-          line-height: 60px
-          font-size: 18px
-          padding-left: 20px
-          border-bottom: 1px solid #e5e5e5
       .cube-pulldown-wrapper
         .before-trigger
           font-size: 30px
