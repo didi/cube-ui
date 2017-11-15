@@ -1,7 +1,6 @@
 <template>
-  <div class="home-view" :class="{ right: showCatalog}">
+  <div class="home-view">
     <div class="navigator" :class="{ active: showTabs }">
-      <img v-show="isDocs" class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
       <h1 class="logo">
         <router-link to="/"><span>cube-ui</span></router-link>
       </h1>
@@ -64,8 +63,6 @@
     transition: all 250ms ease
     @media screen and (min-width: 960px)
       min-width: 800px
-    &.right
-      transform: translate(190px, 0)
     .router-view
       height: 100%
   .navigator
@@ -73,28 +70,18 @@
     line-height: 70px
     margin-top: -70px
     background-color: $color-regular-blue
-    transition: all 0.4s ease
+    transition: all 0.3s ease
     overflow: hidden
-    .toggle-catalog
-      display: none
-      @media screen and (max-width: 960px)
-        display: block
-        padding: 10px 10px
-        position: absolute
-        left: 10px
-        top: 10px
     .toggle-nav
       display: none
       @media screen and (max-width: 960px)
         display: block
         padding: 10px 10px
         position: absolute
-        right: 10px
+        left: 10px
         top: 0
-        color: $color-white
     &.active
       height: 255px
-
     .logo
       @media screen and (min-width: 960px)
         float: left
