@@ -1,30 +1,108 @@
 ## 快速上手
 
+### 脚手架
+
+如果你打算用在一个新项目中使用 cube-ui，可以通过我们提供的一套基于 [vue-cli](https://github.com/vuejs/vue-cli) 实现的[脚手架](https://github.com/cube-ui/cube-template)去初始化 cube-ui 项目的配置和基础代码，这样你就可以忽略后续的安装步骤，直接看使用部分。
+
+```shell
+$ vue init cube-ui/cube-template projectname
+```
+
+如果你打算在现有项目中使用 cube-ui，请先参考安装部分。
+
 ### 安装
 
-NPM:
+#### NPM
+
 ```shell
 $ npm install cube-ui --save
 ```
 
-或者 CDN:
+cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通编译 2 种构建方式（默认使用后编译），使用前都需要修改应用的依赖和配置。
 
-```html
-<script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
-```
+- 后编译
 
-### 使用
+1. 修改 package.json 并安装依赖
 
-推荐使用 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules) 插件，可以更优雅引入组件模块以及对应的样式。
+  ```json
+  {
+    // webpack-post-compile-plugin 依赖 compileDependencies
+    "compileDependencies": ["cube-ui"],
+    "devDependencies": {
+      "babel-plugin-transform-modules": "^0.1.0",
+      // 新增 stylus 相关依赖
+      "stylus": "^0.54.5",
+      "stylus-loader": "^2.1.1",
+      "webpack-post-compile-plugin": "^0.1.2"
+    }
+  }
+  ```
 
-但在使用之前，需要先安装：
+2. 修改 .babelrc，依赖 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules)：
 
-```shell
-$ npm install babel-plugin-transform-modules --save-dev
-```
+  ```json
+  {
+    "plugins": [
+      ["transform-modules", {
+        "cube-ui": {
+          // 注意: 这里的路径需要修改到 src/modules 下
+          "transform": "cube-ui/src/modules/${member}",
+          "kebabCase": true
+        }
+      }]
+    ]
+  }
+  ```
 
-然后配置下这个插件，修改 .babelrc：
+3. 修改 webpack.base.conf.js
+
+  ```js
+  var PostCompilePlugin = require('webpack-post-compile-plugin')
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      new PostCompilePlugin()
+    ]
+    // ...
+  }
+  ```
+
+4. 修改 build/utils.js 中的 `exports.cssLoaders` 函数
+
+  ```js
+  exports.cssLoaders = function (options) {
+    // ...
+    const stylusOptions = {
+      'resolve url': true
+    }
+    // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+    return {
+      css: generateLoaders(),
+      postcss: generateLoaders(),
+      less: generateLoaders('less'),
+      sass: generateLoaders('sass', { indentedSyntax: true }),
+      scss: generateLoaders('sass'),
+      stylus: generateLoaders('stylus', stylusOptions),
+      styl: generateLoaders('stylus', stylusOptions)
+    }
+  }
+  ```
+
+  具体参见 [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
+
+- 普通编译
+
+1. 修改 package.json 并安装依赖
+  ```json
+  {
+    "devDependencies": {
+      "babel-plugin-transform-modules": "^0.1.0"
+    }
+  }
+  ```
+
+2. 修改 .babelrc
 
 ```json
 {
@@ -42,7 +120,7 @@ $ npm install babel-plugin-transform-modules --save-dev
 }
 ```
 
-**注意：** cube-ui 搭配 webpack 2+ 默认就会使用[后编译](#/zh-CN/docs/post-compile)，但是后编译需要有一些依赖以及配置（参见本页最后）；如果不想使用后编译的话，可以直接修改 webpack 配置即可：
+3. 修改 webpack 配置：
 
 ```js
 // webpack.config.js
@@ -61,6 +139,15 @@ module.exports = {
   // ...
 }
 ```
+
+#### CDN
+
+```html
+<script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
+```
+
+### 使用
 
 #### 全部引入
 
@@ -148,76 +235,3 @@ import { createAPI, BetterScroll } from 'cube-ui'
   }
 </script>
 ```
-
-### 使用后编译
-
-cube-ui 搭配 webpack 2+ 后就会默认使用[后编译](#/zh-CN/docs/post-compile)，那么应用就需要兼容 cube-ui 的依赖和配置。
-
-1. 修改 package.json
-
-  ```json
-  {
-    // webpack-post-compile-plugin 依赖 compileDependencies
-    "compileDependencies": ["cube-ui"],
-    "devDependencies": {
-      "babel-plugin-transform-modules": "^0.1.0",
-      // 新增 stylus 相关依赖
-      "stylus": "^0.54.5",
-      "stylus-loader": "^2.1.1",
-      "webpack-post-compile-plugin": "^0.1.2"
-    }
-  }
-  ```
-
-2. 修改 .babelrc，依旧依赖 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules)：
-
-  ```json
-  {
-    "plugins": [
-      ["transform-modules", {
-        "cube-ui": {
-          // 注意: 这里的路径需要修改到 src/modules 下
-          "transform": "cube-ui/src/modules/${member}",
-          "kebabCase": true
-        }
-      }]
-    ]
-  }
-  ```
-
-3. 修改 webpack.base.conf.js
-
-  ```js
-  var PostCompilePlugin = require('webpack-post-compile-plugin')
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      new PostCompilePlugin()
-    ]
-    // ...
-  }
-  ```
-
-4. 修改 build/utils.js 中的 `exports.cssLoaders` 函数
-
-  ```js
-  exports.cssLoaders = function (options) {
-    // ...
-    const stylusOptions = {
-      'resolve url': true
-    }
-    // https://vue-loader.vuejs.org/en/configurations/extract-css.html
-    return {
-      css: generateLoaders(),
-      postcss: generateLoaders(),
-      less: generateLoaders('less'),
-      sass: generateLoaders('sass', { indentedSyntax: true }),
-      scss: generateLoaders('sass'),
-      stylus: generateLoaders('stylus', stylusOptions),
-      styl: generateLoaders('stylus', stylusOptions)
-    }
-  }
-  ```
-
-  具体参见 [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
