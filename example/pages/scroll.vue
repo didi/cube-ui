@@ -300,31 +300,17 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
-
   .scroll-wrapper
-    .cube-scroll-wrapper
-      position: absolute
-      left: 0
-      top: 0
-      right: 0
-      bottom: 0
-      overflow: hidden
-      background: #fff
-      .cube-scroll-content
-        position: relative
-        z-index: 10
-        background: #fff
-      .cube-pulldown-wrapper
-        .before-trigger
-          font-size: 30px
-          align-self: flex-end
-          span
-            display: inline-block
-            transition: all 0.3s
-            color: #666
-            &.rotate
-              transform: rotate(180deg)
+    .cube-pulldown-wrapper
+      .before-trigger
+        font-size: 30px
+        align-self: flex-end
+        span
+          display: inline-block
+          transition: all 0.3s
+          color: #666
+          &.rotate
+            transform: rotate(180deg)
   .scroll-list-wrap
     position relative
     height: 480px
