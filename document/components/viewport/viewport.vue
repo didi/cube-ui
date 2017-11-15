@@ -1,8 +1,11 @@
 <template>
   <div class="docs-view">
-    <div class="nav-list-wrapper">
+    <img v-show="!showCatalog" class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
+    <div class="nav-list-wrapper" :class="{ active: showCatalog }">
+      <img v-show="showCatalog" class="active-toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
       <side-list :nav-list="navList"></side-list>
     </div>
+    <div v-show="showCatalog" class="mask" @click="toggleCatalog"></div>
     <router-view class="page-doc md-body" v-highlight></router-view>
     <display></display>
   </div>
@@ -26,6 +29,11 @@
         showCatalog: false
       }
     },
+    methods: {
+      toggleCatalog() {
+        this.showCatalog = !this.showCatalog
+      }
+    },
     components: {
       SideList,
       Display
@@ -41,19 +49,39 @@
     width: 100%
     height: 100%
     flex-wrap: wrap
-    .catalog-toggle
+    @media screen and (max-width: 960px)
+      position: relative
+      height: auto
+    .toggle-catalog
       display: none
       @media screen and (max-width: 960px)
         display: block
-        margin: -68px 0 0 20px
+        position: absolute
+        right: 20px
+        top: 20px
     .nav-list-wrapper
       @media screen and (max-width: 960px)
-        position: fixed
-        left: -190px
+        width: 100%
+        position: absolute
+        right: -100%
         top: 0
         height: 100%
+        background-color: $color-white
+        z-index: 1
         overflow: hidden
         transition: all 250ms ease
+        &.active
+          transform: translate(-70%, 0)
+        .active-toggle-catalog
+          margin: 20px 0 0 20px
+    .mask
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-color: rgba(0, 0, 0 ,0.2)
+      transition: all 250ms ease
   .page-sidelist
     flex: none
     width: 190px
@@ -61,6 +89,10 @@
     padding: 40px 20px
     box-sizing: border-box
     overflow-y: auto
+    @media screen and (max-width: 960px)
+      width: 70%
+      height: 100%
+      padding: 5px 20px
   .page-doc
     flex: 1
     height: 100%
