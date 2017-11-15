@@ -81,7 +81,7 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
   .cube-toast
     &.cube-popup
       z-index: 900

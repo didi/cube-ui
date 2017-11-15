@@ -83,9 +83,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/base.styl"
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/base.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
 
   .cube-action-sheet-fade-enter, .cube-action-sheet-fade-leave-active
     opacity: 0
