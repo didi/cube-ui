@@ -57,12 +57,13 @@
   @import "~@/common/stylus/variable.styl"
 
   .home-view
+    min-width: 800px
     height: 100%
     padding-top: 70px
     box-sizing: border-box
     transition: all 250ms ease
-    @media screen and (min-width: 960px)
-      min-width: 800px
+    @media screen and (max-width: 960px)
+      min-width: initial
     .router-view
       height: 100%
   .navigator
@@ -83,17 +84,19 @@
     &.active
       height: 255px
     .logo
-      @media screen and (min-width: 960px)
-        float: left
-        background-color: $color-orange
+      float: left
+      background-color: $color-orange
       @media screen and (max-width: 960px)
+        float: none
+        background-color: transparent
         text-align: center
       a
-        @media screen and (min-width: 960px)
-          display: block
+        display: block
         padding: 0 28px
         color: $color-white
         font-size: $fontsize-large-xx
+        @media screen and (max-width: 960px)
+          display: inline-block
         &::before
           content: ""
           display: inline-block
@@ -103,10 +106,11 @@
           margin-right: 10px
           vertical-align: middle
     .tabs
-      @media screen and (min-width: 960px)
-        float: right
-        padding: 0 30px
+      float: right
+      padding: 0 30px
       @media screen and (max-width: 960px)
+        float: none
+        padding: 0
         border-top: solid 1px rgba(255, 255, 255, 0.5)
       .tab
         display: inline-block
