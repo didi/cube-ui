@@ -201,9 +201,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/base.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/base.styl"
 
   .cube-index-list
     position: relative

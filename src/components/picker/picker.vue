@@ -235,8 +235,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
 
   $picker-lr-padding = 16px
 

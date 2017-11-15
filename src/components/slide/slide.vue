@@ -172,7 +172,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
   .cube-slide
     min-height: 1px
 
