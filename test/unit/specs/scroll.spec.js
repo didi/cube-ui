@@ -60,6 +60,7 @@ describe('Scroll', () => {
       'pulling-down': pullingDownHandle
     })
     vm.$refs.wrapper.style.height = '200px'
+    vm.refresh()
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -107,6 +108,7 @@ describe('Scroll', () => {
       'pulling-up': pullingUpHandle
     })
     vm.$refs.wrapper.style.height = '200px'
+    vm.refresh()
 
     return new Promise((resolve) => {
       setTimeout(() => {
