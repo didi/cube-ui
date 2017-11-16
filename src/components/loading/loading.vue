@@ -33,6 +33,8 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+  .cube-loading
+    font-size: 0
   .cube-loading-spinners
     position: relative
     display: inline-block
