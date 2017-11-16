@@ -44,7 +44,8 @@
       const matcher = window.location.hash.match(pattern)
       if (matcher) {
         const anchor = matcher[1]
-        mdBodyEle.querySelector(`#${anchor}`).scrollIntoView()
+        const el = mdBodyEle.querySelector(`#${anchor}`)
+        el && el.scrollIntoView()
       }
     },
     components: {

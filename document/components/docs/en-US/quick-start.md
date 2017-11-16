@@ -2,17 +2,17 @@
 
 ### CLI
 
-If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the Install steps and see the Usage part directly.
+If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the <a href="#cube-Install-anchor" class="anchor">Install</a> steps and see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
 
 ```shell
 $ vue init cube-ui/cube-template projectname
 ```
 
-If you are going to use cube-ui in an existing project, see the Install part first.
+If you are going to use cube-ui in an existing project, see the <a href="#cube-Install-anchor" class="anchor">Install</a> part first.
 
 ### Install
 
-#### NPM:
+#### NPM
 ```shell
 $ npm install cube-ui --save
 ```
