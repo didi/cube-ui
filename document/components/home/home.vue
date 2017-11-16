@@ -9,7 +9,7 @@
         <site-lang></site-lang>
       </div>
       <span class="toggle-nav" @click="toggleNav">
-        <img src="./nav.svg"/>
+        <img src="./nav.svg">
       </span>
     </div>
     <div class="router-view">
@@ -50,13 +50,10 @@
   @import "~@/common/stylus/variable.styl"
 
   .home-view
-    min-width: 800px
     height: 100%
     padding-top: 70px
     box-sizing: border-box
     transition: all 250ms ease
-    @media screen and (max-width: 960px)
-      min-width: initial
     .router-view
       height: 100%
   .navigator
@@ -69,11 +66,19 @@
     .toggle-nav
       display: none
       @media screen and (max-width: 960px)
-        display: block
-        padding: 10px 10px
+        display: flex
         position: absolute
         left: 10px
         top: 0
+        width: 40px
+        height: 70px
+        align-items: center
+        justify-content: center
+      &:active
+        opacity: .6
+      img
+        width: 20px
+        height: 20px
     &.active
       height: 255px
     .logo

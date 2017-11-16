@@ -1,8 +1,7 @@
 <template>
   <div class="docs-view">
-    <img v-show="!showCatalog" class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
+    <img class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg">
     <div class="nav-list-wrapper" :class="{ active: showCatalog }">
-      <img v-show="showCatalog" class="active-toggle-catalog" @click="toggleCatalog" src="./catalog.svg"/>
       <side-list :nav-list="navList"></side-list>
     </div>
     <div v-show="showCatalog" class="mask" :class="{ active: showCatalog }" @click="toggleCatalog"></div>
@@ -65,30 +64,36 @@
         position: absolute
         right: 20px
         top: 20px
+        width: 20px
+        height: 20px
+        padding: 10px
+        background-color: $color-white
+        box-shadow: $box-shadow-content
+      &:active
+        opacity: .6
     .nav-list-wrapper
       @media screen and (max-width: 960px)
-        width: 100%
         position: absolute
-        right: -100%
+        right: 0
         top: 0
         height: 100%
         background-color: $color-white
         z-index: 1
         overflow: hidden
+        transform: translate(100%, 0)
         transition: all 0.4s ease
         &.active
-          transform: translate(-70%, 0)
-        .active-toggle-catalog
-          margin: 20px 0 0 20px
+          transform: translate(0, 0)
     .mask
       position: absolute
       top: 0
       left: 0
       width: 100%
       height: 100%
-      transition: all 0.4s ease
+      background-color: transparent
       &.active
         background-color: rgba(0, 0, 0 ,0.2)
+        transition: all 0.4s ease
   .page-sidelist
     flex: none
     width: 190px
@@ -97,7 +102,6 @@
     box-sizing: border-box
     overflow-y: auto
     @media screen and (max-width: 960px)
-      width: 70%
       height: 100%
       padding: 5px 20px
   .page-doc

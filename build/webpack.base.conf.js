@@ -9,7 +9,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const srcAndExampleAndTestAndDocument = [resolve('src'), resolve('example'), resolve('test'), resolve('document')]
+const allSource = [resolve('src'), resolve('example'), resolve('test'), resolve('document')]
 
 module.exports = {
   output: {
@@ -31,7 +31,7 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: srcAndExampleAndTestAndDocument,
+        include: allSource,
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -44,21 +44,21 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: srcAndExampleAndTestAndDocument
+        include: allSource
       },
       {
-        test: /\.(png|jpe?g|gif)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
-        include: srcAndExampleAndTestAndDocument,
+        include: allSource,
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
-        include: srcAndExampleAndTestAndDocument.concat([resolve('assets')]),
+        include: allSource,
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
