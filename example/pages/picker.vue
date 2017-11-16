@@ -36,7 +36,7 @@
             time: 1000
           }).show()
         }
-      })
+      }, false)
       this.mutiPicker = this.$createPicker({
         title: 'Picker-多列',
         data: [data1, data2, data3],
@@ -54,7 +54,7 @@
             time: 1000
           }).show()
         }
-      })
+      }, false)
       this.linkagePicker = this.$createPicker({
         title: 'Picker-数据联动',
         data: this.linkageData,
@@ -83,7 +83,7 @@
             time: 1000
           }).show()
         }
-      })
+      }, false)
       this.setDataPicker = this.$createPicker({
         title: 'Picker-setData',
         onSelect: (selectedText, selectedIndex) => {
@@ -100,7 +100,7 @@
             time: 1000
           }).show()
         }
-      })
+      }, false)
     },
     data() {
       return {
