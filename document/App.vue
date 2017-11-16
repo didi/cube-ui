@@ -41,12 +41,14 @@ export default {
           hash = matcher[0]
         }
       }
-      matcher = hash.match(pattern)
-      newUrl = this.oldPath + hash
-      window.location.hash = newUrl
-      const anchor = matcher[1]
-      const el = document.querySelector(`#${anchor}`)
-      el && el.scrollIntoView()
+      if (hash) {
+        matcher = hash.match(pattern)
+        newUrl = this.oldPath + hash
+        window.location.hash = newUrl
+        const anchor = matcher[1]
+        const el = document.querySelector(`#${anchor}`)
+        el && el.scrollIntoView()
+      }
     }
   }
 }
