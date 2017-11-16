@@ -28,7 +28,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }
@@ -68,7 +68,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }
@@ -113,7 +113,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }

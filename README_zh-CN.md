@@ -29,7 +29,12 @@ Vue.use(Cube)
 
 ```js
 import Vue from 'vue'
-import { Button, ActionSheet } from 'cube-ui'
+import {
+  /* eslint-disable no-unused-vars */
+  Style,
+  Button,
+  ActionSheet
+} from 'cube-ui'
 
 Vue.use(Button)
 Vue.use(ActionSheet)
@@ -50,6 +55,8 @@ git clone git@github.com:didi/cube-ui.git
 cd cube-ui
 npm install
 npm run dev
+# or run document development
+npm run doc-dev
 ```
 
 ### Changelog

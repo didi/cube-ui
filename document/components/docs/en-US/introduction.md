@@ -6,11 +6,11 @@ cube-ui is an elegant mobile component library based on Vue.js.
 
 - **Quality**
 
-   Extracted from DiDi interior component library and has been put to business test for more than one year. Every component has full unit tests to provide assurance for continuous integration.
+  Extracted from DiDi interior component library and has been put to business test for more than one year. Every component has full unit tests to provide assurance for continuous integration.
 
 - **Experience**
 
-   Make quick response, fluent animation and close to native components as the goal, and pursue the perfection of the interactive experience.
+  Make quick response, fluent animation and close to native components as the goal, and pursue the perfection of the interactive experience.
 
 - **Standard**
 

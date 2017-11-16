@@ -74,8 +74,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
   btn-active($bg, $border = $bg)
     &.cube-btn_active, &:active
       background: $bg

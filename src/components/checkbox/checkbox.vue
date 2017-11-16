@@ -2,7 +2,7 @@
   <div class="cube-checkbox" :class="_containerClass" :data-pos="position">
     <label class="cube-checkbox-wrap" :class="_wrapClass">
       <input class="cube-checkbox-input" type="checkbox" :disabled="disabled" v-model="checkValue">
-      <span class="cube-checkbox-ui cubeic-round-border-new">
+      <span class="cube-checkbox-ui cubeic-round-border">
         <i class="cubeic-right"></i>
       </span>
       <span class="cube-checkbox-label">
@@ -81,8 +81,8 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
 
   $ui-width = 1.42em
   .cube-checkbox
@@ -106,7 +106,7 @@
     box-sizing: border-box
     width: 100%
     height: 100%
-    padding: 11px 0 11px $ui-width
+    padding: 11px 0
     line-height: 1.5
     word-break: break-word
     word-wrap: break-word
@@ -119,10 +119,10 @@
     height: 100%
     opacity: 0
   .cube-checkbox-ui
-    position: absolute
-    left: 0
+    position: relative
     width: 1em
     height: 1em
+    margin-right: $ui-width - 1em
     line-height: 1
     border-radius: 50%
     &::before, i

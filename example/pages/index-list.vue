@@ -2,7 +2,6 @@
   <cube-page type="index-list"
                title="IndexList">
     <div slot="content">
-      <div class="split"></div>
       <div class="view-wrapper">
         <div class="index-list-wrapper">
           <cube-index-list :data="cityData" :title="title" @select="selectItem" @title-click="clickTitle"></cube-index-list>
@@ -39,14 +38,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .split
-    position: relative
-    z-index: 10
-    width: 100%
-    height: 10px
-    margin-top: -10px
-    background: #efeff4
-
   .view-wrapper
     position: fixed
     top: 54px
@@ -57,5 +48,5 @@
       height: 98%
       width: 94%
       margin: 0 auto
-
+      overflow: hidden
 </style>

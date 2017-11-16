@@ -20,14 +20,18 @@
 
 - 示例：
 
-  ```js
-  import Vue form 'vue'
-  // 得到 createAPI
-  import { createAPI } from 'cube-ui'
-  // or import Cube from 'cube-ui'
-  // const { createAPI } = Cube
-  // 需要提供 API 方式实例化的组件
-  const MyComponent = Vue.extend({
+我们先编写一个 Hello.vue 组件：
+
+```html
+<template>
+  <div @click="clickHandler">
+    {{content}}
+    <slot name="other"></slot>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  export default {
     name: 'hello',
     props: {
       content: {
@@ -35,19 +39,44 @@
         default: 'Hello'
       }
     },
-    template: '<div @click="clickHandler">{{content}}<slot name="other"></slot></div>',
     methods: {
       clickHandler(e) {
         this.$emit('click', e)
       }
     }
-  })
-  // 调用
-  createAPI(Vue, MyComponent, ['click'], true)
-  // 在其他组件中使用
+  }
+</script>
+```
+
+然后我们再通过 `createAPI` 把 Hello.vue 变成一个 API 式调用的组件并调用。
+
+```js
+  import Vue from 'vue'
+  import Hello from './Hello.vue'
+
+  // 引入 Style 加载基础样式
+  import {
+    /* eslint-disable no-unused-vars */
+    Style,
+    Dialog,
+    createAPI
+  } from 'cube-ui'
+
+  Vue.use(Dialog)
+
+  // 创建 this.$createHello API
+  createAPI(Vue, Hello, ['click'], true)
+
+  // 初始化 Vue
   new Vue({
     el: '#app',
-    template: '<button @click="showHello">Show Hello</button>',
+    render: function (h) {
+      return h('button', {
+        on: {
+          click: this.showHello
+        }
+      }, ['Show Hello'])
+    },
     methods: {
       showHello() {
         // 直接调用
@@ -68,13 +97,23 @@
         })
         // 通过 Vue 组件的 $on 也是可以监听的，看使用场景
         instance.$on('click', (e) => {
-          console.log('on click', e)
+          const $dialog = this.$createDialog({
+            type: 'confirm',
+            content: '点击确定关闭当前实例',
+            icon: 'cubeic-alert'
+          })
+          $dialog.show()
+
+          $dialog.$on('confirm', () => {
+            // 销毁实例
+            instance.remove()
+          }).$on('cancel', () => {
+            console.log('cancel')
+          })
         })
-        // 移除销毁
-        instance.remove()
       }
     }
   })
-  ```
+```
 
-  示例中就是创建了一个需要 API 调用的组件 `MyComponent`，名字为 `hello`，然后在其他组件中去使用，重点就是 `showHello()` 方法做的事情：调用 `this.$createHello(config, renderFn)` 实现组件的实例化。
+示例中就是创建了一个需要 API 调用的组件 `Hello`，然后在其他组件中去使用，重点就是 `showHello()` 方法做的事情：调用 `this.$createHello(config, renderFn)` 实现组件的实例化。

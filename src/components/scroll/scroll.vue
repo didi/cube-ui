@@ -2,8 +2,8 @@
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
       <slot>
-        <ul ref="list">
-          <li @click="clickItem(item)" class="scroll-item" v-for="item in data">{{item}}</li>
+        <ul ref="list" class="cube-scroll-list">
+          <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
         </ul>
       </slot>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
@@ -128,11 +128,11 @@
     },
     mounted() {
       setTimeout(() => {
-        this._initScroll()
+        this.initScroll()
       }, 20)
     },
     methods: {
-      _initScroll() {
+      initScroll() {
         if (!this.$refs.wrapper) {
           return
         }
@@ -180,6 +180,9 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+      },
+      destroy() {
+        this.scroll.destroy()
       },
       scrollTo() {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
@@ -267,6 +270,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+
+  .cube-scroll-wrapper
+    height: 100%
+
   .cube-pulldown-wrapper
     position: absolute
     width: 100%
@@ -276,7 +284,7 @@
     align-items: center
     transition: all
     .after-trigger
-      margin-top: 10px
+      margin-top: 5px
 
   .cube-pullup-wrapper
     width: 100%
@@ -288,5 +296,11 @@
   .cube-scroll-content
     position: relative
     z-index: 1
+    background-color: $scroll-content-bgc
+  .cube-scroll-item
+    height: 60px
+    line-height: 60px
+    font-size: $fontsize-large-x
+    padding-left: 20px
 </style>
 
