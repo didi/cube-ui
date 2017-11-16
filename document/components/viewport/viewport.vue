@@ -39,6 +39,15 @@
         this.showCatalog = !this.showCatalog
       }
     },
+    mounted () {
+      const mdBodyEle = document.querySelector('.md-body')
+      const pattern = /#cube-(.*)-anchor/
+      const matcher = window.location.hash.match(pattern)
+      if (matcher) {
+        const anchor = matcher[1]
+        mdBodyEle.querySelector(`#${anchor}`).scrollIntoView()
+      }
+    },
     components: {
       SideList,
       Display
