@@ -26,7 +26,6 @@ export default {
   },
   watch: {
     $route (to, from) {
-      debugger
       this.oldPath = `#${to.path}`
       this.scrollToHash()
     }
