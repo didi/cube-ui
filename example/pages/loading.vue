@@ -3,7 +3,7 @@
     <div slot="content">
       <cube-loading></cube-loading>
       <cube-loading :size="28"></cube-loading>
-      <cube-loading :size="34"></cube-loading>
+      <cube-loading :size="40"></cube-loading>
     </div>
   </cube-page>
 </template>
