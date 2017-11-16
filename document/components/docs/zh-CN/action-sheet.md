@@ -17,7 +17,7 @@
           title: '我是标题~~~',
           data: [
             {
-              content: '<em>default</em>',
+              content: '<em>align - center</em>',
               class: 'cube-foo'
             },
             {

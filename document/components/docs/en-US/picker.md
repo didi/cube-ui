@@ -125,7 +125,7 @@
 
         return [provinces, cities, areas]
       }
-    }
+    },
     methods: {
       showPicker () {
         this.picker.show()
