@@ -6,62 +6,62 @@
 
 - Basic usage
 
-Construct data like `cityData` in the example below and pass it into `data` in `cube-index-list` component.
+  Construct data like `cityData` in the example below and pass it into `data` in `cube-index-list` component.
 
-```html
-<cube-index-list
-  :data="cityData"
-  :title="title"
-  @select="selectItem"
-  @title-click="clickTitle"></cube-index-list>
-```
-```javascript
-const cityData = [
-  {
-    "name": "★Hot City",
-    "items": [
-      {
-        "name": "BEIJING",
-        "value": 1
-      },
-      {
-        "name": "SHANGHAI",
-        "value": 2
-      }
-    ]
-  },
-  {
-    "name": "A",
-    "items": [
-      {
-        "name": "ANSHAN",
-        "value": 3
-      },
-      {
-        "name": "ANQING",
-        "value": 4
-      }
-    ]
-  }
-]
-
-export default {
-  data() {
-    return {
-      title: 'Current City: BEIJING',
-      cityData: cityData
-    }
-  },
-  methods: {
-    selectItem(item) {
-      console.log(item.name)
+  ```html
+  <cube-index-list
+    :data="cityData"
+    :title="title"
+    @select="selectItem"
+    @title-click="clickTitle"></cube-index-list>
+  ```
+  ```javascript
+  const cityData = [
+    {
+      "name": "★Hot City",
+      "items": [
+        {
+          "name": "BEIJING",
+          "value": 1
+        },
+        {
+          "name": "SHANGHAI",
+          "value": 2
+        }
+      ]
     },
-    clickTitle(title) {
-      console.log(title)
+    {
+      "name": "A",
+      "items": [
+        {
+          "name": "ANSHAN",
+          "value": 3
+        },
+        {
+          "name": "ANQING",
+          "value": 4
+        }
+      ]
+    }
+  ]
+
+  export default {
+    data() {
+      return {
+        title: 'Current City: BEIJING',
+        cityData: cityData
+      }
+    },
+    methods: {
+      selectItem(item) {
+        console.log(item.name)
+      },
+      clickTitle(title) {
+        console.log(title)
+      }
     }
   }
-}
-```
+  ```
 
 ### Props configuration
 

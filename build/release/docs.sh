@@ -8,3 +8,7 @@ npm run doc-demo-build
 git add docs/
 git commit -m 'docs build'
 git push origin master
+git checkout dev
+git rebase master
+git push origin dev
+git checkout master

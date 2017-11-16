@@ -38,6 +38,10 @@
   .langs
     display: inline-block
     margin: 0 20px
+    @media screen and (max-width: 960px)
+      display: block
+      line-height: 45px
+      margin: 0 20px
     a
       color: $color-white
       &::after

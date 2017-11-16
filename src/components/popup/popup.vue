@@ -53,7 +53,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
   .cube-popup
     position: fixed
     left: 0

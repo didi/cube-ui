@@ -6,132 +6,132 @@
 
 - Basic usage
 
-```html
-<cube-button @click="showActionSheet">action sheet</cube-button>
-```
-```js
-export default {
-  methods: {
-    showDefault() {
-      this.$createActionSheet({
-        title: '我是标题~~~',
-        data: [
-          {
-            content: '<em>舒适型</em>',
-            class: 'cube-foo'
-          },
-          {
-            content: '七座商务',
-            align: 'left'
-          },
-          {
-            content: '豪华型',
-            align: 'right'
+  ```html
+  <cube-button @click="showActionSheet">action sheet</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showDefault() {
+        this.$createActionSheet({
+          title: '我是标题~~~',
+          data: [
+            {
+              content: '<em>default</em>',
+              class: 'cube-foo'
+            },
+            {
+              content: 'align - left',
+              align: 'left'
+            },
+            {
+              content: 'align - right',
+              align: 'right'
+            }
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              time: 1000
+            }).show()
           }
-        ],
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            time: 1000
-          }).show()
-        }
-      }).show()
+        }).show()
+      }
     }
   }
-}
-```
+  ```
 
-You can create a basic actionsheet by setting `title` and `data` option. Pay attention that `content` in `data` can be a HTML string. Also, setting the custom class by `class` and setting the align of the item's content by `align`.
+  You can create a basic actionsheet by setting `title` and `data` option. Pay attention that `content` in `data` can be a HTML string. Also, setting the custom class by `class` and setting the align of the item's content by `align`.
 
 - Highlight item
 
-```html
-<cube-button @click="showActive">ActionSheet - active</cube-button>
-```
-```js
-export default {
-  methods: {
-    showActive() {
-      this.$createActionSheet({
-        title: '我是标题~~~',
-        active: 0,
-        data: [
-          {
-            content: '舒适型'
+  ```html
+  <cube-button @click="showActive">ActionSheet - active</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showActive() {
+        this.$createActionSheet({
+          title: '我是标题~~~',
+          active: 0,
+          data: [
+            {
+              content: '舒适型'
+            },
+            {
+              content: '七座商务'
+            },
+            {
+              content: '豪华型'
+            }
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
           },
-          {
-            content: '七座商务'
-          },
-          {
-            content: '豪华型'
+          onCancel: () => {
+            this.$createToast({
+              txt: `Clicked canceled`,
+              type: 'warn',
+              time: 1000
+            }).show()
           }
-        ],
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            type: 'correct',
-            time: 1000
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            txt: `Clicked canceled`,
-            type: 'warn',
-            time: 1000
-          }).show()
-        }
-      }).show()
+        }).show()
+      }
     }
   }
-}
-```
+  ```
 
-You can control the highlighted item by setting the `active` option.
+  You can control the highlighted item by setting the `active` option.
 
 - Picker style setting
 
-```html
-<cube-button @click="showPickerStyle">ActionSheet - picker style</cube-button>
-```
-```js
-export default {
-  methods: {
-    showPickerStyle() {
-      this.$createActionSheet({
-        title: '我是标题~~~',
-        pickerStyle: true,
-        data: [
-          {
-            content: '舒适型'
+  ```html
+  <cube-button @click="showPickerStyle">ActionSheet - picker style</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showPickerStyle() {
+        this.$createActionSheet({
+          title: '我是标题~~~',
+          pickerStyle: true,
+          data: [
+            {
+              content: '舒适型'
+            },
+            {
+              content: '七座商务'
+            },
+            {
+              content: '豪华型'
+            }
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
           },
-          {
-            content: '七座商务'
-          },
-          {
-            content: '豪华型'
+          onCancel: () => {
+            this.$createToast({
+              txt: `Clicked canceled`,
+              type: 'warn',
+              time: 1000
+            }).show()
           }
-        ],
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            type: 'correct',
-            time: 1000
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            txt: `Clicked canceled`,
-            type: 'warn',
-            time: 1000
-          }).show()
-        }
-      }).show()
+        }).show()
+      }
     }
   }
-}
-```
+  ```
 
-You can use Picker style by setting `pickerStyle` to be true.
+  You can use Picker style by setting `pickerStyle` to be true.
 
 ### Props configuration
 

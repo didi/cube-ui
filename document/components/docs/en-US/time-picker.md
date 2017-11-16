@@ -6,135 +6,135 @@
 
 - Basic usage
 
-```html
-<cube-button @click="showTimePicker">TimePicker</cube-button>
-```
+  ```html
+  <cube-button @click="showTimePicker">TimePicker</cube-button>
+  ```
 
-```js
-export default {
-  methods: {
-    showTimePicker () {
-      this.$createTimePicker({
-        showNow: true,
-        minuteStep: 5,
-        delay: 15,
-        onSelect: (selectedTime, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            title: `selected timestamp ${selectedTime}`,
-            content: `selected content ${selectedText}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Clicked cancel button',
-            time: 1000
-          }).show()
-        }
-      }).show()
+  ```js
+  export default {
+    methods: {
+      showTimePicker () {
+        this.$createTimePicker({
+          showNow: true,
+          minuteStep: 5,
+          delay: 15,
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `selected timestamp ${selectedTime}`,
+              content: `selected content ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
+          }
+        }).show()
+      }
     }
   }
-}
-```
+  ```
 
-`showNow` is uesed to control whether the time "now" is displayed. `minuteStep` is used to control the step of the minute. `delay` represents the time that postponed backwards from now, which determines the minimal optional time.
+  `showNow` is uesed to control whether the time "now" is displayed. `minuteStep` is used to control the step of the minute. `delay` represents the time that postponed backwards from now, which determines the minimal optional time.
 
 - Configuration of date options
 
-```html
-<cube-button @click="showTimePicker">TimePicker - day options</cube-button>
-```
+  ```html
+  <cube-button @click="showTimePicker">TimePicker - day options</cube-button>
+  ```
 
-```js
-export default {
-  methods: {
-    showTimePicker () {
-      this.$createTimePicker({
-        showNow: true,
-        minuteStep: 10,
-        delay: 10,
-        day: {
-          len: 5,
-          filter: ['Today', 'Tomorrow'],
-          format: 'M year d day'
-        },
-        onSelect(selectedTime, selectedText) {
-          console.log(selectedTime, selectedText)
-        },
-        onSelect: (selectedTime, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            title: `selected timestamp ${selectedTime}`,
-            content: `selected content ${selectedText}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Clicked cancel button',
-            time: 1000
-          }).show()
-        }
-      }).show()
+  ```js
+  export default {
+    methods: {
+      showTimePicker () {
+        this.$createTimePicker({
+          showNow: true,
+          minuteStep: 10,
+          delay: 10,
+          day: {
+            len: 5,
+            filter: ['Today', 'Tomorrow'],
+            format: 'M year d day'
+          },
+          onSelect(selectedTime, selectedText) {
+            console.log(selectedTime, selectedText)
+          },
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `selected timestamp ${selectedTime}`,
+              content: `selected content ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
+          }
+        }).show()
+      }
     }
   }
-}
-```
+  ```
 
-`len` attribute in `day` can set the length of date displayed in the first column.
+  `len` attribute in `day` can set the length of date displayed in the first column.
 
-`filter` attribute can set the text of the date displayed in the first column.
+  `filter` attribute can set the text of the date displayed in the first column.
 
-`format` attribute can set the text in `M year d day` format when the `len` is greater than the length of `filter` array.
+  `format` attribute can set the text in `M year d day` format when the `len` is greater than the length of `filter` array.
 
 - Set time manually
 
-```html
-<cube-button @click="showTimePicker">TimePicker - setTime(next hour)</cube-button>
-```
+  ```html
+  <cube-button @click="showTimePicker">TimePicker - setTime(next hour)</cube-button>
+  ```
 
-```js
-export default {
-  methods: {
-    const time = new Date().valueOf() + 1 * 60 * 60 * 1000
-    showTimePicker () {
-      const timePicker = this.$createTimePicker({
-        showNow: true,
-        minuteStep: 10,
-        delay: 15,
-        day: {
-          len: 5,
-          filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
-          format: 'M year d day'
-        },
-        onSelect: (selectedTime, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            title: `selected timestamp: ${selectedTime}`,
-            content: `selected content ${selectedText}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Clicked cancel button',
-            time: 1000
-          }).show()
-        }
-      })
+  ```js
+  export default {
+    methods: {
+      const time = new Date().valueOf() + 1 * 60 * 60 * 1000
+      showTimePicker () {
+        const timePicker = this.$createTimePicker({
+          showNow: true,
+          minuteStep: 10,
+          delay: 15,
+          day: {
+            len: 5,
+            filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
+            format: 'M year d day'
+          },
+          onSelect: (selectedTime, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              title: `selected timestamp: ${selectedTime}`,
+              content: `selected content ${selectedText}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Clicked cancel button',
+              time: 1000
+            }).show()
+          }
+        })
 
-      timePicker.setTime(time)
-      timePicker.show()
+        timePicker.setTime(time)
+        timePicker.show()
+      }
     }
   }
-}
-```
+  ```
 
-`timePicker` instance exports `setTime` methos to set time manually with the time stamp as time format. When the time stamp is lower than current time stamp, `timePicker` displays current time by default.
+  `timePicker` instance exports `setTime` methos to set time manually with the time stamp as time format. When the time stamp is lower than current time stamp, `timePicker` displays current time by default.
 
 
 ### Props configuration

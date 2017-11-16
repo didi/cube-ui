@@ -137,9 +137,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/base.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/base.styl"
 
   .cube-dialog-main
     width: 270px
@@ -219,6 +219,7 @@
   .cube-dialog-btns
     overflow: hidden
     width: 100%
+    font-size: 0
   .cube-dialog-btn
     display: inline-block
     width: 100%

@@ -6,7 +6,7 @@
       :center="false"
       v-show="isVisible"
       @touchmove.prevent
-      @click="cancel">
+      @mask-click="cancel">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
@@ -235,8 +235,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
 
   $picker-lr-padding = 16px
 

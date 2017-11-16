@@ -8,7 +8,11 @@
 - [Docs](https://didi.github.io/cube-ui/#/en-US/docs)
 - [Example](https://didi.github.io/cube-ui/example/)
 
-![example QR](./assets/example-qr.png)
+![Example QR](./assets/example-qr.png)
+
+### Communication
+
+![QQ Community QR](./assets/cube-qq-QR.jpg)
 
 ### Install
 
@@ -29,7 +33,12 @@ Vue.use(Cube)
 
 ```js
 import Vue from 'vue'
-import { Button, ActionSheet } from 'cube-ui'
+import {
+  /* eslint-disable no-unused-vars */
+  Style,
+  Button,
+  ActionSheet
+} from 'cube-ui'
 
 Vue.use(Button)
 Vue.use(ActionSheet)
@@ -50,6 +59,8 @@ git clone git@github.com:didi/cube-ui.git
 cd cube-ui
 npm install
 npm run dev
+# or run document development
+npm run doc-dev
 ```
 
 ### Changelog

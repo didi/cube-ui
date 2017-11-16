@@ -19,7 +19,5 @@ describe('Loading.vue', () => {
     vm = instantiateComponent(Vue, Loading, {})
     expect(vm.$el.className)
       .to.equal('cube-loading')
-    expect(vm.$el.querySelector('img').src)
-      .to.not.be.empty
   })
 })
