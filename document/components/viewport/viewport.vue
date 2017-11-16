@@ -31,6 +31,7 @@
     watch: {
       $route() {
         this.showCatalog = false
+        window.scrollTo(0, 0)
       }
     },
     methods: {
