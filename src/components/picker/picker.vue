@@ -6,7 +6,7 @@
       :center="false"
       v-show="isVisible"
       @touchmove.prevent
-      @click="cancel">
+      @mask-click="cancel">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
