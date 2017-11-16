@@ -87,7 +87,6 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
     "lolex": "^1.5.2",
-    "markdown-it-anchor": "^4.0.0",
     "markdown-it-anchor-cube": "0.0.1",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
