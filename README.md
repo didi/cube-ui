@@ -14,6 +14,14 @@
 
 ![QQ Community QR](./assets/cube-qq-QR.jpg)
 
+### New cube-ui project ?
+
+Recommend use the [CLI tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code:
+
+```shell
+$ vue init cube-ui/cube-template projectname
+```
+
 ### Install
 
 ```shell
