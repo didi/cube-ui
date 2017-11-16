@@ -103,7 +103,7 @@
   ```
   这样就实现了一个上层封装的 CubeExtendPopup 组件，自带了一些样式，支持传入内容还有默认插槽，点击内容可隐藏。你可以这样使用（需要全局注册或者局部注册到使用的组件中）：
   ```html
-  <cube-extend-popup content="lala" ref="extendPopup"></cube-extend-popup>
+  <cube-extend-popup content="click here hide" ref="extendPopup"></cube-extend-popup>
   <cube-button @click="$refs.extendPopup.show()">
     Show Extend Popup
   </cube-button>
