@@ -116,7 +116,7 @@ describe('Scroll', () => {
         dispatchSwipe(listItem, [
           {
             pageX: 10,
-            pageY: 160
+            pageY: 200
           },
           {
             pageX: 10,
