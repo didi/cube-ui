@@ -18,8 +18,10 @@
             </slot>
           </div>
           <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm}">
-            <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
-            <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active}" @click="confirm">{{_confirmBtn.text}}</a>
+            <slot name="btns">
+              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
+              <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active}" @click="confirm">{{_confirmBtn.text}}</a>
+            </slot>
           </div>
         </div>
       </div>
