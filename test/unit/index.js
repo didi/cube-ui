@@ -6,8 +6,8 @@ Vue.config.productionTip = false
 const testsContext = require.context('./specs', true, /\.spec$/)
 testsContext.keys().forEach(testsContext)
 
-// require all src files except components/supper-shot & components/time-counter for coverage.
+// require all src files except src/index.js and src/module.js for coverage.
 // you can also change this to match only the subset of files that
 // you want coverage for.
-const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/)
+const srcContext = require.context('../../src', true, /^\.\/\w+\/.+$/)
 srcContext.keys().forEach(srcContext)
