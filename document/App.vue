@@ -14,12 +14,12 @@ export default {
   mounted () {
     const docViewEle = document.body
     docViewEle.addEventListener('click', (e) => {
-      e.preventDefault()
       let target = e.target
       while (target && target.className !== 'anchor') {
         target = target.parentNode
       }
       if (target) {
+        e.preventDefault()
         this.scrollToHash(target.getAttribute('href'))
       }
     })
