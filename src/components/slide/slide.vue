@@ -142,7 +142,10 @@
       }
     },
     mounted() {
-      setTimeout(() => {
+      this.$nextTick(() => {
+        if (this._isDestroyed) {
+          return
+        }
         this._setSlideWidth()
         this._initDots()
         this._initSlide()
@@ -150,7 +153,7 @@
         if (this.autoPlay) {
           this._play()
         }
-      }, 20)
+      })
 
       window.addEventListener('resize', this._resizeHandler)
     },
@@ -165,8 +168,10 @@
     },
     destroyed() {
       this._deactivated()
-      this.slide.destroy()
-      this.slide = null
+      if (this.slide) {
+        this.slide.destroy()
+        this.slide = null
+      }
     }
   }
 </script>
