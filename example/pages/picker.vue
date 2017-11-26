@@ -22,12 +22,13 @@
   const year = range(2010, 2020)
   const month = range(1, 12)
 
-  function range(n, m) {
+  function range(n, m, polyfill = false) {
     let arr = []
     for (let i = n; i <= m; i++) {
+      let value = polyfill && i < 10 ? '0' + i : i
       arr.push({
-        text: i,
-        value: i
+        text: value,
+        value: value
       })
     }
     return arr
@@ -140,6 +141,26 @@
           }).show()
         }
       }, false)
+
+      this.secondPicker = this.$createPicker({
+        title: 'HH:MM:SS',
+        data: [range(0, 23, true), range(0, 59, true), range(0, 59, true)],
+        selectedIndex: [10, 20, 59],
+        onSelect: (selectedText, selectedIndex) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `HH:MM:SS：${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
+        }
+      }, false)
     },
     data() {
       return {
@@ -194,11 +215,11 @@
         this.dayPicker.show()
       },
       showSecondPicker() {
-        this.dayPicker.show()
+        this.secondPicker.show()
       }
     },
     beforeDestroy () {
-      ['picker', 'mutiPicker', 'linkagePicker', 'setDataPicker'].forEach((picker) => {
+      ['picker', 'mutiPicker', 'linkagePicker', 'setDataPicker', 'dayPicker', 'secondPicker'].forEach((picker) => {
         this[picker] && this[picker].remove() && (this[picker] = null)
       })
     },
