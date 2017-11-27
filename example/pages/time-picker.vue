@@ -98,9 +98,6 @@
         this.timePicker.show()
       }
     },
-    beforeDestroy () {
-      this.timePicker && this.timePicker.remove() && (this.timePicker = null)
-    },
     components: {
       CubePage,
       CubeButtonGroup

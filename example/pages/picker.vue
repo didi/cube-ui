@@ -53,7 +53,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
       this.mutiPicker = this.$createPicker({
         title: 'Picker-多列',
         data: [data1, data2, data3],
@@ -71,7 +71,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
       this.linkagePicker = this.$createPicker({
         title: 'Picker-数据联动',
         data: this.linkageData,
@@ -100,7 +100,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
       this.setDataPicker = this.$createPicker({
         title: 'Picker-setData',
         onSelect: (selectedText, selectedIndex) => {
@@ -117,7 +117,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
 
       this.dayPicker = this.$createPicker({
         title: 'Year-Month-Day',
@@ -140,7 +140,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
 
       this.secondPicker = this.$createPicker({
         title: 'HH:MM:SS',
@@ -160,7 +160,7 @@
             time: 1000
           }).show()
         }
-      }, false)
+      })
     },
     data() {
       return {
@@ -217,11 +217,6 @@
       showSecondPicker() {
         this.secondPicker.show()
       }
-    },
-    beforeDestroy () {
-      ['picker', 'mutiPicker', 'linkagePicker', 'setDataPicker', 'dayPicker', 'secondPicker'].forEach((picker) => {
-        this[picker] && this[picker].remove() && (this[picker] = null)
-      })
     },
     components: {
       CubePage,
