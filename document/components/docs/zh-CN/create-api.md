@@ -13,9 +13,10 @@
 
 - 用法：
 
-  - 该方法在 Vue 的 prototype 上增加一个名为 `$create{camelize(Component.name)}` 的方法，这样就可以在其他组件中直接通过 `const instance = this.$createAaBb(config, [renderFn])` 这样来实例化组件了，而且这个实例化组件的元素是被附加到 `body` 元素下的；关于 `$createAaBb` 的参数：
+  - 该方法在 Vue 的 prototype 上增加一个名为 `$create{camelize(Component.name)}` 的方法，这样就可以在其他组件中直接通过 `const instance = this.$createAaBb(config, [renderFn, single])` 这样来实例化组件了，而且这个实例化组件的元素是被附加到 `body` 元素下的；关于 `$createAaBb` 的参数：
     - `{Object} config` 组件配置参数，默认所有的值都会当做 props 传给组件，但是要排除 `events` 中的事件（默认会做转换，例如：`events` 的值为 `['click']`，那么 `config` 中的 `onClick` 就是作为 `click` 事件的回调函数，而不是作为 props 传递给组件）。
-    - `{Function} [renderFn]` 是可选的参数，用于生成子 VNode 节点，一般场景是处理 slot。
+    - `{Function} [renderFn]` 可选参数，用于生成子 VNode 节点，一般场景是处理 slot。
+    - `{Boolean} [single]` 可选参数，创建的时候决定是否是单例的，优先级更高，如果没有传入 renderFn 的话，single 的值就是第二个参数的值。
   - 注意调用后的返回值 `instance` 就是组件实例，这个实例会被**附加**或者**代理** `remove` 方法，如果调用了，该实例就会被销毁且会从 `body` 下移除。
 
 - 示例：
