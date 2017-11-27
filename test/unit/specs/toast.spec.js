@@ -89,7 +89,8 @@ describe('Toast', () => {
               txt: 'error txt',
               time: 200
             })
-            ins = this.$toast.warn({
+            ins = this.$createToast({
+              type: 'warn',
               txt: 'toast api content',
               time: 100
             })
