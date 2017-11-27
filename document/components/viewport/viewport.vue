@@ -83,11 +83,11 @@
       &:active
         opacity: .6
     .nav-list-wrapper
+      height: 100%
       @media screen and (max-width: 960px)
         position: absolute
         right: 0
         top: 0
-        height: 100%
         background-color: $color-white
         z-index: 1
         overflow: hidden
