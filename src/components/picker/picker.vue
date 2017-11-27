@@ -1,12 +1,12 @@
 <template>
   <transition name="cube-picker-fade">
     <cube-popup
-      type="picker"
-      :mask="true"
-      :center="false"
-      v-show="isVisible"
-      @touchmove.prevent
-      @mask-click="cancel">
+        type="picker"
+        :mask="true"
+        :center="false"
+        v-show="isVisible"
+        @touchmove.prevent
+        @mask-click="cancel">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
@@ -200,22 +200,26 @@
         wheel.wheelTo(dist)
       },
       refresh() {
-        setTimeout(() => {
+        this.$nextTick(() => {
           this.wheels.forEach((wheel) => {
             wheel.refresh()
           })
-        }, 200)
+        })
       },
       _createWheel(wheelWrapper, i) {
-        const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
-          wheel: {
-            selectedIndex: this.pickerSelectedIndex[i] || 0
-          }
-        })
-        wheel.on('scrollEnd', () => {
-          this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
-        })
-        return wheel
+        if (!this.wheels[i]) {
+          const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
+            wheel: {
+              selectedIndex: this.pickerSelectedIndex[i] || 0
+            }
+          })
+          wheel.on('scrollEnd', () => {
+            this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
+          })
+        } else {
+          this.wheels[i].refresh()
+        }
+        return this.wheels[i]
       },
       _canConfirm() {
         return this.wheels.every((wheel) => {

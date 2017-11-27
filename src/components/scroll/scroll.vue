@@ -127,9 +127,9 @@
       this.pullDownInitTop = -50
     },
     mounted() {
-      setTimeout(() => {
+      this.$nextTick(() => {
         this.initScroll()
-      }, 20)
+      })
     },
     methods: {
       initScroll() {
