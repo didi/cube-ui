@@ -148,17 +148,21 @@ describe('Scroll', () => {
   it('should trigger click', function () {
     this.timeout(10000)
 
-    const clickHandle = sinon.spy()
-    vm = createScroll(props, {
-      click: clickHandle
+    const clickHandler = sinon.spy()
+    vm = createScroll({
+      ...props,
+      click: false
+    }, {
+      click: clickHandler
     })
     vm.$refs.wrapper.style.height = '200px'
+    vm.refresh()
 
     return new Promise((resolve) => {
       setTimeout(() => {
         const listItem = vm.$el.querySelector('.cube-scroll-content li')
         listItem.click()
-        expect(clickHandle).to.be.calledWith(props.data[0])
+        expect(clickHandler).to.be.calledWith(props.data[0])
         resolve()
       }, 50)
     })
