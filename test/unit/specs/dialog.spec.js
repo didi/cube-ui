@@ -105,7 +105,8 @@ describe('Dialog', () => {
         template: '<div>xx</div>',
         methods: {
           showAPI() {
-            ins = this.$dialog.confirm({
+            ins = this.$createDialog({
+              type: 'confirm',
               showClose: true,
               title: 'dialog api title',
               content: 'dialog api content',
