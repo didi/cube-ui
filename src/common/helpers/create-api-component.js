@@ -24,8 +24,12 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       const originRemove = component.remove
 
       component.remove = function () {
+        if (instance.__cube__destroyed) {
+          return
+        }
         originRemove && originRemove.call(this)
         instance.destroy()
+        instance.__cube__destroyed = true
         if (instanceSingle) {
           singleComponent = null
           singleInstance = null
@@ -49,7 +53,20 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       return component
     },
     create(config, renderFn, single) {
-      return api.open(parseRenderData(config, events), renderFn, single)
+      const ownerInstance = this
+      const component = api.open(parseRenderData(config, events), renderFn, single)
+      if (component.__cube__parent !== ownerInstance) {
+        component.__cube__parent = ownerInstance
+        const beforeDestroy = function () {
+          if (component.__cube__parent === ownerInstance) {
+            component.remove()
+          }
+          ownerInstance.$off('hook:beforeDestroy', beforeDestroy)
+          component.__cube__parent = null
+        }
+        ownerInstance.$on('hook:beforeDestroy', beforeDestroy)
+      }
+      return component
     }
   }
   return api
