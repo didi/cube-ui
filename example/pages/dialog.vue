@@ -108,9 +108,6 @@
         this.dialog.show()
       }
     },
-    beforeDestroy() {
-      this.dialog && this.dialog.remove() && (this.dialog = null)
-    },
     components: {
       CubeButtonGroup,
       CubePage

@@ -108,9 +108,6 @@
         this.actionSheet.show()
       }
     },
-    beforeDestroy() {
-      this.actionSheet && this.actionSheet.remove() && (this.actionSheet = null)
-    },
     components: {
       CubePage,
       CubeButtonGroup

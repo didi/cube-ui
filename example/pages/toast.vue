@@ -49,9 +49,6 @@
         this.toast.show()
       }
     },
-    beforeDestroy() {
-      this.toast && this.toast.remove() && (this.toast = null)
-    },
     components: {
       CubeButtonGroup,
       CubePage
