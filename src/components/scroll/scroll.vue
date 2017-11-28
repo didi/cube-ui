@@ -58,6 +58,14 @@
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
 
+  const DEFAULT_OPTIONS = {
+    click: true,
+    probeType: 1,
+    scrollbar: false,
+    pullDownRefresh: false,
+    pullUpLoad: false
+  }
+
   export default {
     name: COMPONENT_NAME,
     props: {
@@ -67,13 +75,11 @@
           return []
         }
       },
-      probeType: {
-        type: Number,
-        default: 1
-      },
-      click: {
-        type: Boolean,
-        default: true
+      options: {
+        type: Object,
+        default() {
+          return {}
+        }
       },
       listenScroll: {
         type: Boolean,
@@ -86,15 +92,6 @@
       direction: {
         type: String,
         default: DIRECTION_V
-      },
-      scrollbar: {
-        default: false
-      },
-      pullDownRefresh: {
-        default: false
-      },
-      pullUpLoad: {
-        default: false
       },
       refreshDelay: {
         type: Number,
@@ -113,14 +110,22 @@
       }
     },
     computed: {
+      pullUpLoad() {
+        return this.options.pullUpLoad
+      },
+      pullDownRefresh() {
+        return this.options.pullDownRefresh
+      },
       pullUpTxt() {
-        const moreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.more || DEFAULT_LOAD_TXT_MORE
-        const noMoreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
+        const pullUpLoad = this.pullUpLoad
+        const moreTxt = pullUpLoad && pullUpLoad.txt && pullUpLoad.txt.more || DEFAULT_LOAD_TXT_MORE
+        const noMoreTxt = pullUpLoad && pullUpLoad.txt && pullUpLoad.txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
       refreshTxt() {
-        return this.pullDownRefresh && this.pullDownRefresh.txt || DEFAULT_REFRESH_TXT
+        const pullDownRefresh = this.pullDownRefresh
+        return pullDownRefresh && pullDownRefresh.txt || DEFAULT_REFRESH_TXT
       }
     },
     created() {
@@ -140,15 +145,10 @@
           this.$refs.list.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
         }
 
-        let options = {
-          probeType: this.probeType,
-          click: this.click,
+        let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
-          scrollX: this.direction === DIRECTION_H,
-          scrollbar: this.scrollbar,
-          pullDownRefresh: this.pullDownRefresh,
-          pullUpLoad: this.pullUpLoad
-        }
+          scrollX: this.direction === DIRECTION_H
+        }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
@@ -298,6 +298,7 @@
     position: relative
     z-index: 1
     background-color: $scroll-content-bgc
+
   .cube-scroll-item
     height: 60px
     line-height: 60px
