@@ -185,7 +185,6 @@
             }
           }
           this.pickerSelectedIndex[index] = dist
-          wheel.destroy()
           this.$nextTick(() => {
             // recreate wheel so that the wrapperHeight will be correct.
             wheel = this._createWheel(wheelWrapper, index)
