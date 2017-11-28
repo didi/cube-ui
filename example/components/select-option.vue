@@ -49,7 +49,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "../../../src/common/stylus/variable.styl"
+  @import "~@/common/stylus/variable.styl"
 
   .select-option
     display: flex

@@ -47,8 +47,8 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option/switch-option.vue'
-  import InputOption from '../components/input-option/input-option.vue'
+  import SwitchOption from '../components/switch-option'
+  import InputOption from '../components/input-option'
 
   export default{
     data() {
