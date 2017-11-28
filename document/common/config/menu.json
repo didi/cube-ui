@@ -6,7 +6,8 @@
         "introduction": "Introduction",
         "quick-start": "QuickStart",
         "post-compile": "PostCompile",
-        "theme": "Theme"
+        "theme": "Theme",
+        "singleton": "Singleton"
       }
     },
     "components": {
@@ -59,7 +60,8 @@
         "introduction": "介绍",
         "quick-start": "快速上手",
         "post-compile": "后编译",
-        "theme": "主题"
+        "theme": "主题",
+        "singleton": "单例模式"
       }
     },
     "components": {
