@@ -46,9 +46,7 @@
           <cube-scroll
               ref="scroll"
               :data="items"
-              :scrollbar="scrollbarObj"
-              :pull-down-refresh="pullDownRefreshObj"
-              :pull-up-load="pullUpLoadObj"
+              :options="scrollOptions"
               @pulling-down="onPullingDown"
               @pulling-up="onPullingUp">
             <template v-if="customPullDown" slot="pulldown" slot-scope="props">
@@ -188,6 +186,13 @@
       }
     },
     computed: {
+      scrollOptions() {
+        return {
+          pullDownRefresh: this.pullDownRefreshObj,
+          pullUpLoad: this.pullUpLoadObj,
+          scrollbar: this.scrollbarObj
+        }
+      },
       scrollbarObj: function () {
         return this.scrollbar ? {fade: this.scrollbarFade} : false
       },
@@ -311,6 +316,7 @@
           color: #666
           &.rotate
             transform: rotate(180deg)
+
   .scroll-list-wrap
     position relative
     height: 480px
