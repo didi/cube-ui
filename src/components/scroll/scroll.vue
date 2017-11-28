@@ -118,8 +118,9 @@
       },
       pullUpTxt() {
         const pullUpLoad = this.pullUpLoad
-        const moreTxt = pullUpLoad && pullUpLoad.txt && pullUpLoad.txt.more || DEFAULT_LOAD_TXT_MORE
-        const noMoreTxt = pullUpLoad && pullUpLoad.txt && pullUpLoad.txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
+        const txt = pullUpLoad && pullUpLoad.txt
+        const moreTxt = txt && txt.more || DEFAULT_LOAD_TXT_MORE
+        const noMoreTxt = txt && txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
