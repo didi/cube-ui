@@ -274,6 +274,7 @@
 
   .cube-scroll-wrapper
     height: 100%
+    background-color: $scroll-content-bgc
 
   .cube-pulldown-wrapper
     position: absolute
