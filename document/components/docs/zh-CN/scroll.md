@@ -14,56 +14,55 @@
   </div>
   ```
 
-- 滚动条
+- 配置 better-scroll 选项
+
+  通过 options 属性可以配置 better-scroll 的选项，包括滚动条、下拉刷新、上拉加载等，具体可查看 better-scroll 的[官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/)，这里仅对几个常用的配置项进行介绍说明。
+
+  1）滚动条
 
   默认无滚动条，还可设为淡入淡出滚动条或一直显示滚动条。
 
   ```html
-  <!-- 淡入淡出滚动条 -->
-  <cube-scroll :data="items" :scrollbar="true"></cube-scroll>
-  <!-- 一直显示滚动条 -->
-  <cube-scroll :data="items" :scrollbar="scrollbar"></cube-scroll>
+  <cube-scroll :data="items" :options="options"></cube-scroll>
   ```
   ```javascript
   export default {
     data() {
       return {
         items: [1, 2, 3, 4, 5],
-        scrollbar: {
-          fade: false
+        options: {
+          scrollbar: {
+            fade: false
+          }
         }
       }
     }
   }
   ```
 
-- 下拉刷新
+  2）下拉刷新
 
-  默认无下拉刷新功能，可通过配置`pull-down-refresh`属性开启`pulling-down`事件派发和下拉动画，你可以监听`pulling-down`事件更新数据。
+  默认无下拉刷新功能，可通过配置项`pullDownRefresh`开启`pulling-down`事件派发和下拉动画，你可以监听`pulling-down`事件更新数据。
 
   ```html
-  <!-- 开启下拉刷新功能，并使用默认参数 -->
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-down-refresh="true"
-    @pulling-down="onPullingDown"></cube-scroll>
-  <!-- 开启下拉刷新功能，并使用自定义参数 -->
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :pull-down-refresh="pullDownRefresh"
-    @pulling-down="onPullingDown"></cube-scroll>
+    :options="options"
+    @pulling-down="onPullingDown">
+  </cube-scroll>
   ```
   ```javascript
   export default {
     data() {
       return {
         items: [1, 2, 3, 4, 5],
-        pullDownRefresh: {
-          threshold: 90,
-          stop: 40,
-          txt: 'Refresh success'
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: 'Refresh success'
+          }
         }
       }
     },
@@ -84,22 +83,15 @@
   }
   ```
 
-- 上拉加载
+  3）上拉加载
 
-  默认无上拉加载功能，可通过配置`pull-up-load`属性开启`pulling-up`事件派发和上拉动画，你可以监听`pulling-up`事件更新数据。
+  默认无上拉加载功能，可通过配置项`pullUpLoad`开启`pulling-up`事件派发和上拉动画，你可以监听`pulling-up`事件更新数据。
 
   ```html
-  <!-- 开启上拉加载功能，并使用默认参数 -->
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-up-load="true"
-    @pulling-up="onPullingUp"></cube-scroll>
-  <!-- 开启上拉加载功能，并使用自定义参数 -->
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :pull-up-load="pullUpLoad"
+    :options="options"
     @pulling-up="onPullingUp"></cube-scroll>
   ```
   ```javascript
@@ -108,11 +100,13 @@
       return {
         items: [1, 2, 3, 4, 5],
         itemIndex: 5,
-        pullUpLoad: {
-          threshold: 0,
-          txt: {
-            more: 'Load more',
-            noMore: 'No more data'
+        options: {
+          pullUpLoad: {
+            threshold: 0,
+            txt: {
+              more: 'Load more',
+              noMore: 'No more data'
+            }
           }
         }
       }
@@ -149,8 +143,7 @@
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-down-refresh="pullDownRefresh"
-    :pull-up-load="pullUpLoad"
+    :options="options"
     @pulling-down="onPullingDown"
     @pulling-up="onPullingUp">
     <template slot="pulldown" slot-scope="props">
@@ -182,21 +175,19 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | data | 用于列表渲染的数据 | Array | - | [] |
+| options | better-scroll 配置项 | Object | - | {<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
-| scrollbar | 滚动条配置项 | Boolean/Object | - | false |
-| pullDownRefresh | 下拉刷新配置项 | Boolean/Object | - | false |
-| pullUpLoad | 上拉加载配置项 | Boolean/Object | - | false |
 | listenScroll | 是否派发 scroll 事件 | Boolean | true/false | false |
-| probeType | scroll 事件的派发时机 <br> 1为非实时派发; <br> 2为滚动操作过程实时派发; <br> 3为包括惯性滚动的整个滚动过程实时派发 | Number | 1, 2, 3 | 0 |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
+| refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
 
-- `scrollbar` 子配置项
+- options 的常用子配置项：`scrollbar`
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | fade | 是否淡入淡出 | Boolean | true/false | false |
 
-- `pullDownRefresh` 子配置项
+- options 的常用子配置项：`pullDownRefresh`
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
@@ -204,7 +195,7 @@
 | stop | 回弹停留的位置 | Number | - | 40 |
 | txt | 刷新成功的文案 | String | - | 'Refresh success' |
 
-- `pullUpLoad` 子配置项
+- options 的常用子配置项：`pullUpLoad`
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
