@@ -7,7 +7,7 @@
         <cube-button @click="showPickerLinkage">Linkage Picker</cube-button>
         <cube-button @click="showPickerSetData">SetData Picker</cube-button>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
-        <cube-button @click="showNormalTimePicker">Time Picker</cube-button>
+        <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -86,9 +86,6 @@
     watch: {
       linkageData() {
         this.linkagePicker.refresh()
-      },
-      dayData() {
-        this.dayPicker.refresh()
       }
     },
     computed: {

@@ -13,12 +13,12 @@
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Picker选择器-单列',
+        title: 'Single Column',
         data: [col1Data],
-        onSelect: (selectedText, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -50,12 +50,12 @@
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Picker选择器-多列',
+        title: 'Multiple Columns',
         data: [col1Data, col2Data, col3Data],
-        onSelect: (selectedText, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -92,23 +92,23 @@
     },
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Picker-数据联动',
+        title: 'Linkage Picker',
         data: this.linkageData,
         onChange: (i, newIndex) => {
           if (newIndex !== this.tempIndex[i]) {
             for (let j = 2; j > i; j--) {
               this.tempIndex.splice(j, 1, 0)
-              this.picker.scrollTo(j, 0)
+              this.linkagePicker.scrollTo(j, 0)
             }
 
             this.tempIndex.splice(i, 1, newIndex)
-            this.picker.setData(this.linkageData, this.tempIndex)
+            this.linkagePicker.setData(this.linkageData, this.tempIndex)
           }
         },
-        onSelect: (selectedText, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `选中的城市id是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -156,10 +156,10 @@
     mounted () {
       this.picker = this.$createPicker({
         title: 'Picker-setData',
-        onSelect: (selectedText, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -181,7 +181,50 @@
   }
   ```
   实例方法`setData`可接受2个参数，都为数组类型。第一个参数为滚轴需要显示的数据，第二个参数为选中值的索引。
+  
+- 扩展组件：日期选择器
 
+  除了直接调用，我们还可以基于扩展 picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 picker 组件二次封装一个 date-picker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件 createAPI 后，便可如下使用。
+  
+  ```html
+  <cube-button @click="showDatePicker">Date Picker</cube-button>
+  ```
+  ```js
+    import Vue from 'vue'
+    import createAPI from '@/modules/create-api'
+    import DatePicker from 'example/components/date-picker.vue'
+  
+    createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+  
+    export default {
+      mounted () {
+        this.datePicker = this.$createDatePicker({
+          min: [2008, 8, 8],
+          max: [2020, 10, 20],
+          onSelect: (selectedVal, selectedIndex, selectedText) => {
+            this.$createDialog({
+              type: 'warn',
+              content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+              icon: 'cubeic-alert'
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Picker canceled',
+              time: 1000
+            }).show()
+          }
+        })
+      },
+      methods: {
+        showDatePicker () {
+          this.datePicker.show()
+        }
+      }
+    }
+    ```
+  
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
@@ -201,11 +244,11 @@
 
 ### 事件
 
-| 事件名 | 说明 | 参数1 | 参数2 |
-| - | - | - | - |
-| select | 点击确认按钮触发此事件 | selectedVal: 当前选中项每一列的值，Array类型 | selectedIndex: 当前选中项每一列的索引，Array类型 |
+| 事件名 | 说明 | 参数1 | 参数2 | 参数3 |
+| - | - | - | - | - |
+| select | 点击确认按钮触发此事件 | selectedVal: 当前选中项每一列的值，Array类型 | selectedIndex: 当前选中项每一列的索引，Array类型 | selectedText: 当前选中项每一列的文案，Array类型 |
 | change | 滚轴滚动后触发此事件 | index: 当前滚动列次序，Number类型 | selectedIndex: 当前列选中项的索引，Number类型 |
-| value-change | 所确认的值变化时触发此事件 | selectedVal: 当前确认项每一列的值，Array类型 | selectedIndex: 当前确认项每一列的索引，Array类型 |
+| value-change | 所确认的值变化时触发此事件 | selectedVal: 当前确认项每一列的值，Array类型 | selectedIndex: 当前确认项每一列的索引，Array类型 | selectedText: 当前选中项每一列的文案，Array类型 |
 | cancel | 点击取消按钮触发此事件 | - | - |
 
 ### 实例方法
