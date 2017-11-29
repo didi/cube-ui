@@ -184,7 +184,7 @@
   
 - 扩展组件：日期选择器
 
-  除了直接调用，我们还可以基于扩展 picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 picker 组件二次封装一个 date-picker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件 createAPI 后，便可如下使用。
+  除了直接调用，我们还可以基于扩展 Picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 Picker 组件二次封装一个 DatePicker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件 createAPI 后，便可如下使用。
   
   ```html
   <cube-button @click="showDatePicker">Date Picker</cube-button>
