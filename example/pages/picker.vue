@@ -2,11 +2,11 @@
   <cube-page type="picker-view" title="Picker（选择器）" desc="">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showTimePicker">Picker</cube-button>
-        <cube-button @click="showTimePickerMuti">Picker - multiple Columns</cube-button>
-        <cube-button @click="showTimePickerLinkage">Picker - linkage</cube-button>
-        <cube-button @click="showTimePickerSetData">Picker - setData</cube-button>
-        <cube-button @click="showDayPicker">Year-Month-Day</cube-button>
+        <cube-button @click="showPicker">Picker</cube-button>
+        <cube-button @click="showPickerMuti">Picker - multiple Columns</cube-button>
+        <cube-button @click="showPickerLinkage">Picker - linkage</cube-button>
+        <cube-button @click="showPickerSetData">Picker - setData</cube-button>
+        <cube-button @click="showDatePicker">Year-Month-Day</cube-button>
         <cube-button @click="showSecondPicker">HH:MM:SS</cube-button>
       </cube-button-group>
     </div>
@@ -14,13 +14,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import CubeButtonGroup from '../components/cube-button-group.vue'
-  import { provinceList, cityList, areaList } from '../data/area'
-  import { data1, data2, data3 } from '../data/picker'
+  import CubePage from 'example/components/cube-page.vue'
+  import CubeButtonGroup from 'example/components/cube-button-group.vue'
+  import DatePicker from 'example/components/date-picker.vue'
+  import { provinceList, cityList, areaList } from 'example/data/area'
+  import { data1, data2, data3 } from 'example/data/picker'
+  import Vue from 'vue'
+  import createAPI from '@/modules/create-api'
 
-  const year = range(2010, 2020)
-  const month = range(1, 12)
+  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
 
   function range(n, m, polyfill = false) {
     let arr = []
@@ -119,17 +121,11 @@
         }
       })
 
-      this.dayPicker = this.$createPicker({
-        title: 'Year-Month-Day',
-        data: this.dayData,
-        onChange: (i, newIndex) => {
-          this.tempIndexDay.splice(i, 1, newIndex)
-          this.dayPicker.setData(this.dayData, this.tempIndexDay)
-        },
-        onSelect: (selectedText, selectedIndex) => {
+      this.datePicker = this.$createDatePicker({
+        onSelect: (selectedVal, selectedIndex) => {
           this.$createDialog({
             type: 'warn',
-            content: `Year-Month-Day：${selectedText.join('-')} <br/> selected index: ${selectedIndex.join(',')}`,
+            content: `Year-Month-Day：${selectedVal.join('-')} <br/> selected index: ${selectedIndex.join(',')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -146,10 +142,10 @@
         title: 'HH:MM:SS',
         data: [range(0, 23, true), range(0, 59, true), range(0, 59, true)],
         selectedIndex: [10, 20, 59],
-        onSelect: (selectedText, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex) => {
           this.$createDialog({
             type: 'warn',
-            content: `HH:MM:SS：${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
+            content: `HH:MM:SS：${selectedVal.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -184,35 +180,24 @@
         const areas = areaList[cities[this.tempIndex[1]].value]
 
         return [provinces, cities, areas]
-      },
-      dayData() {
-        let day = 30
-        if ([0, 2, 4, 6, 7, 9, 11].includes(this.tempIndexDay[1])) {
-          day = 31
-        } else {
-          if (this.tempIndexDay[1] === 1) {
-            day = this.tempIndexDay[0] % 4 ? 28 : 29
-          }
-        }
-        return [year, month, range(1, day)]
       }
     },
     methods: {
-      showTimePicker() {
+      showPicker() {
         this.picker.show()
       },
-      showTimePickerMuti() {
+      showPickerMuti() {
         this.mutiPicker.show()
       },
-      showTimePickerLinkage() {
+      showPickerLinkage() {
         this.linkagePicker.show()
       },
-      showTimePickerSetData() {
+      showPickerSetData() {
         this.setDataPicker.setData([data1, data2, data3], [1, 2, 3])
         this.setDataPicker.show()
       },
-      showDayPicker() {
-        this.dayPicker.show()
+      showDatePicker() {
+        this.datePicker.show()
       },
       showSecondPicker() {
         this.secondPicker.show()
