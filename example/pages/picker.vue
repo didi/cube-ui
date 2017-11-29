@@ -2,12 +2,12 @@
   <cube-page type="picker-view" title="Picker（选择器）" desc="">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showPicker">Picker</cube-button>
-        <cube-button @click="showPickerMuti">Picker - multiple Columns</cube-button>
-        <cube-button @click="showPickerLinkage">Picker - linkage</cube-button>
-        <cube-button @click="showPickerSetData">Picker - setData</cube-button>
-        <cube-button @click="showDatePicker">Year-Month-Day</cube-button>
-        <cube-button @click="showSecondPicker">HH:MM:SS</cube-button>
+        <cube-button @click="showPicker">Single Column Picker</cube-button>
+        <cube-button @click="showPickerMuti">Multiple Columns Picker</cube-button>
+        <cube-button @click="showPickerLinkage">Linkage Picker</cube-button>
+        <cube-button @click="showPickerSetData">SetData Picker</cube-button>
+        <cube-button @click="showDatePicker">Date Picker</cube-button>
+        <cube-button @click="showSecondPicker">Time Picker</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -41,38 +41,14 @@
       this.picker = this.$createPicker({
         title: 'Picker-单列',
         data: [data1],
-        onSelect: (selectedText, selectedIndex) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
       this.mutiPicker = this.$createPicker({
         title: 'Picker-多列',
         data: [data1, data2, data3],
-        onSelect: (selectedText, selectedIndex) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
       this.linkagePicker = this.$createPicker({
         title: 'Picker-数据联动',
@@ -88,76 +64,28 @@
             this.linkagePicker.setData(this.linkageData, this.tempIndex)
           }
         },
-        onSelect: (selectedText, selectedIndex) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `选中的城市id是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
       this.setDataPicker = this.$createPicker({
         title: 'Picker-setData',
-        onSelect: (selectedText, selectedIndex) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `选中的内容是：${selectedText.join(',')} <br/> 选中的索引是 ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
 
       this.datePicker = this.$createDatePicker({
         min: [2008, 8, 8],
         max: [2024, 10, 20],
-        onSelect: (selectedVal, selectedIndex) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Year-Month-Day：${selectedVal.join('-')} <br/> selected index: ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
 
       this.secondPicker = this.$createPicker({
         title: 'HH:MM:SS',
         data: [range(0, 23, true), range(0, 59, true), range(0, 59, true)],
         selectedIndex: [10, 20, 59],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `HH:MM:SS：${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     data() {
@@ -203,6 +131,20 @@
       },
       showSecondPicker() {
         this.secondPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `selected item: ${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     },
     components: {
