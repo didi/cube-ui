@@ -22,7 +22,7 @@
   import Vue from 'vue'
   import createAPI from '@/modules/create-api'
 
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+  createAPI(Vue, DatePicker, ['min', 'max', 'select', 'cancel'], false)
 
   function range(n, m, polyfill = false) {
     let arr = []
@@ -122,6 +122,8 @@
       })
 
       this.datePicker = this.$createDatePicker({
+        min: [2008, 8, 8],
+        max: [2024, 10, 20],
         onSelect: (selectedVal, selectedIndex) => {
           this.$createDialog({
             type: 'warn',
@@ -142,10 +144,10 @@
         title: 'HH:MM:SS',
         data: [range(0, 23, true), range(0, 59, true), range(0, 59, true)],
         selectedIndex: [10, 20, 59],
-        onSelect: (selectedVal, selectedIndex) => {
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `HH:MM:SS：${selectedVal.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
+            content: `HH:MM:SS：${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
             icon: 'cubeic-alert'
           }).show()
         },

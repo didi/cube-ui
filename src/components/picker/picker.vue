@@ -95,24 +95,28 @@
         this.hide()
 
         let changed = false
+        let pickerSelectedText = []
         for (let i = 0; i < this.pickerData.length; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
 
           let value = null
+          let text = ''
           if (this.pickerData[i].length) {
             value = this.pickerData[i][index].value
+            text = this.pickerData[i][index].text
           }
           if (this.pickerSelectedVal[i] !== value) {
             changed = true
           }
           this.pickerSelectedVal[i] = value
+          pickerSelectedText[i] = text
         }
 
-        this.$emit(EVENT_SELECT, this.pickerSelectedVal, this.pickerSelectedIndex)
+        this.$emit(EVENT_SELECT, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
 
         if (changed) {
-          this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex)
+          this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
       },
       cancel() {
