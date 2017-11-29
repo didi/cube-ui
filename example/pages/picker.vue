@@ -1,5 +1,5 @@
 <template>
-  <cube-page type="picker-view" title="Picker（选择器）" desc="">
+  <cube-page type="picker-view" title="Picker" desc="">
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showPicker">Single Column Picker</cube-button>
@@ -7,7 +7,7 @@
         <cube-button @click="showPickerLinkage">Linkage Picker</cube-button>
         <cube-button @click="showPickerSetData">SetData Picker</cube-button>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
-        <cube-button @click="showSecondPicker">Time Picker</cube-button>
+        <cube-button @click="showNormalTimePicker">Time Picker</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -17,41 +17,31 @@
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import DatePicker from 'example/components/date-picker.vue'
+  import NormalTimePicker from 'example/components/normal-time-picker.vue'
   import { provinceList, cityList, areaList } from 'example/data/area'
   import { data1, data2, data3 } from 'example/data/picker'
   import Vue from 'vue'
   import createAPI from '@/modules/create-api'
 
-  createAPI(Vue, DatePicker, ['min', 'max', 'select', 'cancel'], false)
-
-  function range(n, m, polyfill = false) {
-    let arr = []
-    for (let i = n; i <= m; i++) {
-      let value = polyfill && i < 10 ? '0' + i : i
-      arr.push({
-        text: value,
-        value: value
-      })
-    }
-    return arr
-  }
+  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+  createAPI(Vue, NormalTimePicker, ['select', 'cancel'], false)
 
   export default {
     mounted() {
       this.picker = this.$createPicker({
-        title: 'Picker-单列',
+        title: 'Single Column',
         data: [data1],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
       this.mutiPicker = this.$createPicker({
-        title: 'Picker-多列',
+        title: 'Multiple Columns',
         data: [data1, data2, data3],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
       this.linkagePicker = this.$createPicker({
-        title: 'Picker-数据联动',
+        title: 'Linkage Picker',
         data: this.linkageData,
         onChange: (i, newIndex) => {
           if (newIndex !== this.tempIndex[i]) {
@@ -68,21 +58,19 @@
         onCancel: this.cancelHandle
       })
       this.setDataPicker = this.$createPicker({
-        title: 'Picker-setData',
+        title: 'SetData Picker',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
 
       this.datePicker = this.$createDatePicker({
         min: [2008, 8, 8],
-        max: [2024, 10, 20],
+        max: [2020, 10, 20],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
 
-      this.secondPicker = this.$createPicker({
-        title: 'HH:MM:SS',
-        data: [range(0, 23, true), range(0, 59, true), range(0, 59, true)],
+      this.normalTimePicker = this.$createNormalTimePicker({
         selectedIndex: [10, 20, 59],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
@@ -129,13 +117,13 @@
       showDatePicker() {
         this.datePicker.show()
       },
-      showSecondPicker() {
-        this.secondPicker.show()
+      showNormalTimePicker() {
+        this.normalTimePicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({
           type: 'warn',
-          content: `selected item: ${selectedText.join(':')} <br/> selected index: ${selectedIndex.join(',')}`,
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
           icon: 'cubeic-alert'
         }).show()
       },
