@@ -14,68 +14,67 @@
   </div>
   ```
 
-- Scroll bar
+- Config the options of better-scroll
+
+  By setting `options`, you can config the options of better-scroll, includes scrollbar, pull-down-to-refresh, pull-up-to-load etc. Detailed options are shown in [the Document of better-scroll](https://ustbhuangyi.github.io/better-scroll/doc/en/). We just introduce several common options here.
+
+  1  Scroll bar
 
   Default is without scroll bar. You can set it to fade-in-fade-out or always-show style.
 
   ```html
-  <!-- fade-in-fade-out style -->
-  <cube-scroll :data="items" :scrollbar="true"></cube-scroll>
-  <!-- always-show style -->
-  <cube-scroll :data="items" :scrollbar="scrollbar"></cube-scroll>
+  <cube-scroll :data="items" :options="options"></cube-scroll>
   ```
   ```javascript
   export default {
     data() {
       return {
         items: [1, 2, 3, 4, 5],
-        scrollbar: {
-          fade: false
+        options: {
+          scrollbar: {
+            fade: false
+          }
         }
       }
     }
   }
   ```
 
-- Pull down to refresh
+  2  Pull down to refresh
 
-  There is no pull-down-to-refresh function by default. Configuring `pull-down-refresh` can turn on the dispatching of the event `pulling-down` and the animation of pulling down. You can listen to `pulling-down` event to update data.
+  There is no pull-down-to-refresh function by default. Configuring `pullDownRefresh` option can turn on the dispatching of the event `pulling-down` and the animation of pulling down. You can listen to `pulling-down` event to update data.
 
   ```html
-  <!-- turn on the pull-down-to-refresh function and use default configuration -->
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-down-refresh="true"
-    @pulling-down="onPullingDown"></cube-scroll>
-  <!-- turn on the pull-down-to-refresh function and use custom configuration -->
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :pull-down-refresh="pullDownRefresh"
-    @pulling-down="onPullingDown"></cube-scroll>
+    :options="options"
+    @pulling-down="onPullingDown">
+  </cube-scroll>
   ```
   ```javascript
   export default {
     data() {
       return {
         items: [1, 2, 3, 4, 5],
-        pullDownRefresh: {
-          threshold: 90,
-          stop: 40,
-          txt: 'Refresh success'
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: 'Refresh success'
+          }
         }
       }
     },
     methods: {
       onPullingDown() {
-        // simulate updating data
+        // 模拟更新数据
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // if new data
+            // 如果有新数据
             this.items.unshift('I am new data: ' + +new Date())
           } else {
-            // if no new data
+            // 如果没有新数据
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
@@ -86,20 +85,13 @@
 
 - Pulling up to load
 
-  There is no pull-up-to-load function by default. Configuring `pull-up-load` can turn on the dispatching of the event `pulling-up` and the animation of pulling up. You can listen to `pulling-up` event to update data.
+  There is no pull-up-to-load function by default. Configuring `pullUpLoad` option can turn on the dispatching of the event `pulling-up` and the animation of pulling up. You can listen to `pulling-up` event to update data.
 
   ```html
-  <!-- turn on the pull-up-to-load function and use default configuration -->
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-up-load="true"
-    @pulling-up="onPullingUp"></cube-scroll>
-  <!-- turn on the pull-up-to-load function and use custom configuration -->
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :pull-up-load="pullUpLoad"
+    :options="options"
     @pulling-up="onPullingUp"></cube-scroll>
   ```
   ```javascript
@@ -108,21 +100,23 @@
       return {
         items: [1, 2, 3, 4, 5],
         itemIndex: 5,
-        pullUpLoad: {
-          threshold: 0,
-          txt: {
-            more: 'Load more',
-            noMore: 'No more data'
+        options: {
+          pullUpLoad: {
+            threshold: 0,
+            txt: {
+              more: 'Load more',
+              noMore: 'No more data'
+            }
           }
         }
       }
     },
     methods: {
       onPullingUp() {
-        // simulate updating data
+        // 更新数据
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // if new data
+            // 如果有新数据
             let newPage = [
               'I am line ' + ++this.itemIndex,
               'I am line ' + ++this.itemIndex,
@@ -133,7 +127,7 @@
 
             this.items = this.items.concat(newPage)
           } else {
-            // if  no new data
+            // 如果没有新数据
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
@@ -150,8 +144,7 @@
   <cube-scroll
     ref="scroll"
     :data="items"
-    :pull-down-refresh="pullDownRefresh"
-    :pull-up-load="pullUpLoad"
+    :options="options"
     @pulling-down="onPullingDown"
     @pulling-up="onPullingUp">
     <template slot="pulldown" slot-scope="props">
@@ -183,13 +176,11 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | data | data used for list rendering | Array | - | [] |
+| options | the options of better-scroll | Object | - | {<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | scrolling direction | String | 'vertical', 'horizontal' | 'vertical' |
-| scrollbar | configuration for scroll bar | Boolean/Object | - | false |
-| pullDownRefresh | configuration for pulling down refreshing | Boolean/Object | - | false |
-| pullUpLoad | configuration for pulling up loading | Boolean/Object | - | false |
 | listenScroll | whether to dispatch scroll event | Boolean | true/false | false |
-| probeType | the dispatching time of  scroll event <br>1. non-real-time dispatching; <br>2. real-time dispatching during the scrolling; <br>3. real-time dispatching during the entire scrolling including inertial stage | Number | 1, 2, 3 | 0 |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event | Boolean | true/false | false |
+| refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
 
 - `scrollbar` sub configuration
 

@@ -139,6 +139,7 @@
 - 自定义下拉刷新和上拉加载动画
 
   如果你不喜欢内置的下载刷新插槽和上拉加载，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。下面这个示例，就是用作用域插槽对下拉刷新做了自定义动画，而上拉加载则保留了缺省的内置动画。
+
   ```html
   <cube-scroll
     ref="scroll"
@@ -181,13 +182,13 @@
 | listenBeforeScroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
 
-- options 的常用子配置项：`scrollbar`
+- `scrollbar` 子配置项
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | fade | 是否淡入淡出 | Boolean | true/false | false |
 
-- options 的常用子配置项：`pullDownRefresh`
+- `pullDownRefresh` 子配置项
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
@@ -195,7 +196,7 @@
 | stop | 回弹停留的位置 | Number | - | 40 |
 | txt | 刷新成功的文案 | String | - | 'Refresh success' |
 
-- options 的常用子配置项：`pullUpLoad`
+- `pullUpLoad` 子配置项
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
