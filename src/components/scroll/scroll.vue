@@ -59,6 +59,7 @@
   const EVENT_PULLING_UP = 'pulling-up'
 
   const DEFAULT_OPTIONS = {
+    observeDOM: true,
     click: true,
     probeType: 1,
     scrollbar: false,
