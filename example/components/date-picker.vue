@@ -39,8 +39,13 @@
     },
     data() {
       return {
-        tempIndex: [0, 0, 0]
+        tempIndex: [0, 0, 0],
+        values: [0, 0, 0]
       }
+    },
+    mounted() {
+      this.values = [this.years[this.selectedIndex[0]], this.month[this.selectedIndex[1]], this.day[this.selectedIndex[2]]]
+      this.tempIndex = this.selectedIndex
     },
     computed: {
       years() {
@@ -67,15 +72,19 @@
 
         let minDay = !this.tempIndex[0] && !this.tempIndex[1] ? this.min[2] : 1
         let maxDay = this.tempIndex[0] === this.years.length - 1 && this.tempIndex[1] === this.months.length - 1 ? this.max[2] : day
+        let days = range(minDay, maxDay, false, '日')
 
-        return range(minDay, maxDay, false, '日')
+        this.$refs.picker.setData([this.years, this.months, this.days], this.tempIndex)
+
+        return days
       },
       dateData() {
         return [this.years, this.months, this.days]
       }
     },
     watch: {
-      dateData() {
+      days() {
+        this.$refs.picker.setData(this.dateData, [this.yearIndex, this.monthIndex, this.dayIndex])
         this.$refs.picker.refresh()
       }
     },
@@ -89,7 +98,9 @@
       change(i, newIndex) {
         if (newIndex !== this.tempIndex[i]) {
           this.tempIndex.splice(i, 1, newIndex)
-          this.$refs.picker.setData(this.dateData, this.tempIndex)
+        }
+        if (this.dateData[i][newIndex] !== this.value[i]) {
+          this.values.splice(i, 1, this.dateData[i][newIndex])
         }
       },
       select(selectedVal, selectedIndex, selectedText) {
