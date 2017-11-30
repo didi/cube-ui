@@ -3,7 +3,7 @@
     <cube-scroll
       ref="indexList"
       :listen-scroll="listenScroll"
-      :probe-type="probeType"
+      :options="options"
       :data="data"
       @scroll="scroll">
       <div class="cube-index-list-content" ref="content">
@@ -72,11 +72,13 @@
       return {
         currentIndex: 0,
         scrollY: -1,
-        diff: -1
+        diff: -1,
+        options: {
+          probeType: 3
+        }
       }
     },
     created() {
-      this.probeType = 3
       this.listenScroll = true
       this.listHeight = []
       this.touch = {}
