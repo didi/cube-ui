@@ -75,7 +75,8 @@
             threshold: this.threshold,
             speed: this.speed
           },
-          click: true
+          click: true,
+          observeDOM: false
         })
 
         this.slide.on('scrollEnd', this._onScrollEnd)

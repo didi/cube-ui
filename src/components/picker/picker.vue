@@ -214,7 +214,8 @@
           const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
             wheel: {
               selectedIndex: this.pickerSelectedIndex[i] || 0
-            }
+            },
+            observeDOM: false
           })
           wheel.on('scrollEnd', () => {
             this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())

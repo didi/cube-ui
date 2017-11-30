@@ -5,7 +5,6 @@
       :listen-scroll="listenScroll"
       :probe-type="probeType"
       :data="data"
-      :click="true"
       @scroll="scroll">
       <div class="cube-index-list-content" ref="content">
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
