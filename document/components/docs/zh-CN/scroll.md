@@ -16,7 +16,7 @@
 
 - 配置 better-scroll 选项
 
-  通过 options 属性可以配置 better-scroll 的选项，包括滚动条、下拉刷新、上拉加载等，具体可查看 better-scroll 的[官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/)，这里仅对几个常用的配置项进行介绍说明。
+  通过 options 属性可以配置 better-scroll 的选项，包括滚动条、下拉刷新、上拉加载等，具体可查看 better-scroll 的[官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)，这里仅对几个常用的配置项进行介绍说明。
 
   1）滚动条
 

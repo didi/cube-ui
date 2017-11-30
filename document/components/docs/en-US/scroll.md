@@ -16,7 +16,7 @@
 
 - Config the options of better-scroll
 
-  By setting `options`, you can config the options of better-scroll, includes scrollbar, pull-down-to-refresh, pull-up-to-load etc. Detailed options are shown in [the Document of better-scroll](https://ustbhuangyi.github.io/better-scroll/doc/en/). We just introduce several common options here.
+  By setting `options`, you can config the options of better-scroll, includes scrollbar, pull-down-to-refresh, pull-up-to-load etc. Detailed options are shown in [the Document of better-scroll](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html). We just introduce several common options here.
 
   1  Scroll bar
 
