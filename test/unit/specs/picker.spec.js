@@ -110,7 +110,6 @@ describe('Picker', () => {
           on: events
         })
         vm.$parent.$forceUpdate()
-        vm.refresh()
       }, 30)
       setTimeout(() => {
         vm.show()

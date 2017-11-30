@@ -9,16 +9,18 @@ const props = {
     '我是第 3 行',
     '我是第 4 行'
   ],
-  pullDownRefresh: {
-    threshold: 10,
-    stop: 40,
-    txt: '刷新成功'
-  },
-  pullUpLoad: {
-    threshold: 0,
-    txt: {
-      more: '加载更多订单',
-      noMore: '没有更多订单了'
+  options: {
+    pullDownRefresh: {
+      threshold: 10,
+      stop: 40,
+      txt: '刷新成功'
+    },
+    pullUpLoad: {
+      threshold: 0,
+      txt: {
+        more: '加载更多订单',
+        noMore: '没有更多订单了'
+      }
     }
   },
   listenScroll: true,
@@ -151,7 +153,10 @@ describe('Scroll', () => {
     const clickHandler = sinon.spy()
     vm = createScroll({
       ...props,
-      click: false
+      options: {
+        ...props.options,
+        click: false
+      }
     }, {
       click: clickHandler
     })

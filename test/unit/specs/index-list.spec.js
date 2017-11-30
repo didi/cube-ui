@@ -86,7 +86,6 @@ describe('IndexList', () => {
             on: {}
           })
           vm.$parent.$forceUpdate()
-          vm.refresh()
         }, 30)
         setTimeout(() => {
           const zEle = vm.$el.querySelector('.cube-index-list-nav li[data-index="2"]')
