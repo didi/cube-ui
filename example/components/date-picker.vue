@@ -44,13 +44,13 @@
     },
     computed: {
       years() {
-        return range(this.min[0], this.max[0], false, ' 年')
+        return range(this.min[0], this.max[0], false, '年')
       },
       months() {
         let minMonth = !this.tempIndex[0] ? this.min[1] : 1
         let maxMonth = this.tempIndex[0] === this.years.length - 1 ? this.max[1] : 12
 
-        return range(minMonth, maxMonth, false, ' 月')
+        return range(minMonth, maxMonth, false, '月')
       },
       days() {
         const currentYear = this.years[this.tempIndex[0]].value
@@ -68,10 +68,15 @@
         let minDay = !this.tempIndex[0] && !this.tempIndex[1] ? this.min[2] : 1
         let maxDay = this.tempIndex[0] === this.years.length - 1 && this.tempIndex[1] === this.months.length - 1 ? this.max[2] : day
 
-        return range(minDay, maxDay, false, ' 日')
+        return range(minDay, maxDay, false, '日')
       },
       dateData() {
         return [this.years, this.months, this.days]
+      }
+    },
+    watch: {
+      dateData() {
+        this.$refs.picker.refresh()
       }
     },
     methods: {
@@ -82,8 +87,10 @@
         this.$refs.picker.hide()
       },
       change(i, newIndex) {
-        this.tempIndex.splice(i, 1, newIndex)
-        this.$refs.picker.setData(this.dateData, this.tempIndex)
+        if (newIndex !== this.tempIndex[i]) {
+          this.tempIndex.splice(i, 1, newIndex)
+          this.$refs.picker.setData(this.dateData, this.tempIndex)
+        }
       },
       select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
