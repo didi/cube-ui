@@ -144,6 +144,7 @@
         this.dateData = [this.years, this.months, this.days]
         // make sure picker render before call refillColumn
         this.$nextTick(() => {
+          this.$refs.picker.refresh()
           this.$refs.picker.scrollTo(1, this.tempIndex[1])
           this.$refs.picker.scrollTo(2, this.tempIndex[2])
         })
