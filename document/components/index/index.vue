@@ -8,8 +8,9 @@
       <slot name="desc"></slot>
     </p>
     <div class="ghbtns">
-      <iframe src="https://ghbtns.com/github-btn.html?user=didi&repo=cube-ui&type=star&count=true" frameborder="0" scrolling="0"></iframe>
-      <iframe src="https://ghbtns.com/github-btn.html?user=didi&repo=cube-ui&type=fork&count=true" frameborder="0" scrolling="0"></iframe>
+      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/stars/didi/cube-ui.svg?style=social&label=Star"></a>
+      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/forks/didi/cube-ui.svg?style=social&label=Fork"></a>
+      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/watchers/wepyjs/wepy.svg?style=social&label=Watch"></a>
     </div>
     <section class="features">
 <!--       <h3>Features</h3> -->
@@ -55,11 +56,8 @@
         padding: 10px 20px
         color: #666
   .ghbtns
-    iframe
-      width: 56px
-      height: 20px
-      &:last-child
-        margin-left: 40px
+    a
+      display: inline-block
   .features
     margin: 60px auto 40px
     @media screen and (max-width: 960px)
