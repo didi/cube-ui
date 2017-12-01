@@ -176,7 +176,7 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | data | data used for list rendering | Array | - | [] |
-| options | the options of better-scroll | Object | - | {<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
+| options | the options of better-scroll | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | scrolling direction | String | 'vertical', 'horizontal' | 'vertical' |
 | listenScroll | whether to dispatch scroll event | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event | Boolean | true/false | false |
