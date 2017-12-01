@@ -13,9 +13,10 @@ This module exports a function called `createAPI` with which you can invoke the 
 
 - Usage:
 
-  - This method will add a method which is named `$create{camelize(Component.name)}` to Vue's prototype, so you can instantiate the Vue component by `const instance = this.$createAaBb(config, [renderFn])` in other components. The instantiated component's template content will be attached to `body` element.The parameters of the `$createAaBb`：
+  - This method will add a method which is named `$create{camelize(Component.name)}` to Vue's prototype, so you can instantiate the Vue component by `const instance = this.$createAaBb(config, [renderFn, single])` in other components. The instantiated component's template content will be attached to `body` element.The parameters of the `$createAaBb`：
     - `{Object} config` It will be passed to the component as its props except the events in `events`(It will transform by default, eg: If `events` has value `['click']`, then the prop `onClick` will be treated as component's event and not component's props).
     - `{Function} [renderFn]` Optional, used to generate the VNode child node in the slot scene in general.
+    - `{Boolean} [single]` Optional, whether the instantiated component is a singleton or not. If two parameters are provided and the `renderFn`'s type is not function, then the `single` value is the sencond parameter's value.
   - The return of the method `instance` is a instantiated Vue component，and the `remove` method will be **attached** to this instance.You can invoke the `remove` method to destroy the component and detach the component's content from `body` element.
 
 - Example:
