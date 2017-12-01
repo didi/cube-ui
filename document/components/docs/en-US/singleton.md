@@ -26,4 +26,3 @@ dialog.show()
 In general cases, default behavior can meet the demand, except you have special need.
 
 **Note:** Considering the scenes of Picker and TimePicker, neither of them support singleton pattern.
-**注：** 限于 Picker 和 TimePicker 的场景，不支持单例模式。
