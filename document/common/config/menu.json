@@ -6,7 +6,8 @@
         "introduction": "Introduction",
         "quick-start": "QuickStart",
         "post-compile": "PostCompile",
-        "theme": "Theme"
+        "theme": "Theme",
+        "singleton": "Singleton"
       }
     },
     "components": {
