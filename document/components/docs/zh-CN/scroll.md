@@ -176,7 +176,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | data | 用于列表渲染的数据 | Array | - | [] |
-| options | better-scroll 配置项 | Object | - | {<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
+| options | better-scroll 配置项 | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
 | listenScroll | 是否派发 scroll 事件 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
