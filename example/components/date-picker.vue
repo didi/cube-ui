@@ -39,68 +39,45 @@
     },
     data() {
       return {
+        dateData: [],
         tempIndex: [0, 0, 0],
-        values: [0, 0, 0]
-      }
-    },
-    mounted() {
-      this.values = [this.years[this.selectedIndex[0]], this.month[this.selectedIndex[1]], this.day[this.selectedIndex[2]]]
-      this.tempIndex = this.selectedIndex
-    },
-    computed: {
-      years() {
-        return range(this.min[0], this.max[0], false, '年')
-      },
-      months() {
-        let minMonth = !this.tempIndex[0] ? this.min[1] : 1
-        let maxMonth = this.tempIndex[0] === this.years.length - 1 ? this.max[1] : 12
-
-        return range(minMonth, maxMonth, false, '月')
-      },
-      days() {
-        const currentYear = this.years[this.tempIndex[0]].value
-        const currentMonth = this.months[this.tempIndex[1]].value
-
-        let day = 30
-        if ([1, 3, 5, 7, 8, 10, 12].includes(currentMonth)) {
-          day = 31
-        } else {
-          if (currentMonth === 2) {
-            day = !(currentYear % 400) || (!(currentYear % 4) && currentYear % 100) ? 29 : 28
-          }
-        }
-
-        let minDay = !this.tempIndex[0] && !this.tempIndex[1] ? this.min[2] : 1
-        let maxDay = this.tempIndex[0] === this.years.length - 1 && this.tempIndex[1] === this.months.length - 1 ? this.max[2] : day
-        let days = range(minDay, maxDay, false, '日')
-
-        this.$refs.picker.setData([this.years, this.months, this.days], this.tempIndex)
-
-        return days
-      },
-      dateData() {
-        return [this.years, this.months, this.days]
+        years: [],
+        months: [],
+        days: [],
+        year: 0,
+        month: 0,
+        day: 0
       }
     },
     watch: {
-      days() {
-        this.$refs.picker.setData(this.dateData, [this.yearIndex, this.monthIndex, this.dayIndex])
-        this.$refs.picker.refresh()
+      year() {
+        this.updateMonths()
+      },
+      month() {
+        this.updateDays()
       }
     },
     methods: {
       show() {
         this.$refs.picker.show()
+        this.years = range(this.min[0], this.max[0], false, '年')
+        this.year = this.years[this.selectedIndex[0]].value
+        this.updateMonths()
+        this.month = this.months[this.selectedIndex[1]].value
+        this.updateDays()
+        this.day = this.days[this.selectedIndex[2]].value
+        this.tempIndex = this.selectedIndex
       },
       hide() {
         this.$refs.picker.hide()
       },
       change(i, newIndex) {
         if (newIndex !== this.tempIndex[i]) {
-          this.tempIndex.splice(i, 1, newIndex)
+          this.tempIndex[i] = newIndex
         }
-        if (this.dateData[i][newIndex] !== this.value[i]) {
-          this.values.splice(i, 1, this.dateData[i][newIndex])
+        const keyMap = ['year', 'month', 'day']
+        if (this.dateData[i][newIndex] !== this[keyMap[i]]) {
+          this[keyMap[i]] = this.dateData[i][newIndex].value
         }
       },
       select(selectedVal, selectedIndex, selectedText) {
@@ -108,6 +85,62 @@
       },
       cancel() {
         this.$emit(EVENT_CANCEL)
+      },
+      updateMonths() {
+        let minMonth = this.year === this.min[0] ? this.min[1] : 1
+        let maxMonth = this.year === this.max[0] ? this.max[1] : 12
+
+        this.months = range(minMonth, maxMonth, false, '月')
+
+        /* Try to keep the same month */
+        const findIndex = this.months.findIndex((item) => {
+          return item.value === this.month
+        })
+        if (findIndex !== -1) {
+          this.tempIndex.splice(1, 1, findIndex)
+          this.updateDays()
+        } else {
+          if (this.month < this.months[0].value) {
+            this.month = this.months[0].value
+            this.tempIndex[1] = 0
+          } else {
+            this.month = this.months[this.months.length - 1].value
+            this.tempIndex[1] = this.months.length - 1
+          }
+        }
+      },
+      updateDays() {
+        let day = 30
+        if ([1, 3, 5, 7, 8, 10, 12].includes(this.month)) {
+          day = 31
+        } else {
+          if (this.month === 2) {
+            day = !(this.year % 400) || (!(this.year % 4) && this.year % 100) ? 29 : 28
+          }
+        }
+
+        let minDay = this.year === this.min[0] && this.month === this.min[1] ? this.min[2] : 1
+        let maxDay = this.year === this.max[0] && this.month === this.max[1] ? this.max[2] : day
+
+        this.days = range(minDay, maxDay, false, '日')
+
+        /* Try to keep the same day */
+        const self = this
+        const findIndex = this.days.findIndex((item) => {
+          return item.value === self.day
+        })
+        if (findIndex !== -1) {
+          this.tempIndex[2] = findIndex
+        } else {
+          this.day = this.day < this.days[0].value ? this.days[0].value : this.days[this.days.length - 1].value
+        }
+
+        this.dateData = [this.years, this.months, this.days]
+        // make sure picker render before call refillColumn
+        this.$nextTick(() => {
+          this.$refs.picker.scrollTo(1, this.tempIndex[1])
+          this.$refs.picker.scrollTo(2, this.tempIndex[2])
+        })
       }
     }
   }
