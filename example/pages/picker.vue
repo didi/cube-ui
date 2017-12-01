@@ -2,10 +2,10 @@
   <cube-page type="picker-view" title="Picker" desc="">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showPicker">Single Column Picker</cube-button>
-        <cube-button @click="showPickerMuti">Multiple Columns Picker</cube-button>
+        <cube-button @click="showPicker">Picker</cube-button>
+        <cube-button @click="showPickerMuti">Multi-column Picker</cube-button>
         <cube-button @click="showPickerLinkage">Linkage Picker</cube-button>
-        <cube-button @click="showPickerSetData">SetData Picker</cube-button>
+        <cube-button @click="showPickerSetData">Use SetData</cube-button>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
         <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
       </cube-button-group>
@@ -29,13 +29,13 @@
   export default {
     mounted() {
       this.picker = this.$createPicker({
-        title: 'Single Column',
+        title: 'Picker',
         data: [data1],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
       this.mutiPicker = this.$createPicker({
-        title: 'Multiple Columns',
+        title: 'Multi-column Picker',
         data: [data1, data2, data3],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
@@ -58,7 +58,7 @@
         onCancel: this.cancelHandle
       })
       this.setDataPicker = this.$createPicker({
-        title: 'SetData Picker',
+        title: 'Use SetData',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })

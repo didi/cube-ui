@@ -5,20 +5,23 @@
 ### 示例
 
 - 基本用法
+
   ```html
   <cube-button @click="showPicker">Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+    { text: '幽鬼', value: '幽鬼' }]
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Single Column',
+        title: 'Picker',
         data: [col1Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -40,22 +43,29 @@
   ```
 
 - 多列选择器
+
   ```html
-  <cube-button @click="showPicker">Picker - multiple Columns</cube-button>
+  <cube-button @click="showPicker">Multiple Columns Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' }, { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' }, { text: '打野', value: '打野' }, { text: '逃生', value: '逃生' }, { text: '先手', value: '先手' }]
-  const col3Data =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' }, { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' }, { text: '金箍棒', value: '金箍棒' }]
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+    { text: '幽鬼', value: '幽鬼' }]
+  const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
+    { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' },
+    { text: '打野', value: '打野' }, { text: '逃生', value: '逃生' }, { text: '先手', value: '先手' }]
+  const col3Data =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
+    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
+    { text: '金箍棒', value: '金箍棒' }]
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Multiple Columns',
+        title: 'Multi-column Picker',
         data: [col1Data, col2Data, col3Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -75,11 +85,13 @@
     }
   }
   ```
+  
   `data`字段接收一个数组，其长度决定了`picker`的列数。
 
 - 联动选择器
+
   ```html
-  <cube-button @click="showPicker">Picker - linkage</cube-button>
+  <cube-button @click="showPicker">Linkage Picker</cube-button>
   ```
   ```js
   import { provinceList, cityList, areaList } from '../data/area'
@@ -108,7 +120,8 @@
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -142,24 +155,31 @@
     }
   }
   ```
+  
   通过监听每个滚轴触发的`change`事件，然后调用`setData`方法去动态设置相关联的滚轴的值来完成联动选择的功能。
 
 - 实例方法 `setData`
+
   ```html
-  <cube-button @click="showPicker">Picker - setData</cube-button>
+  <cube-button @click="showPicker">SetData Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' }, { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' }, { text: '金箍棒', value: '金箍棒' }]
-  const col3Data = [{ text: '输出', value: '输出'}, { text: '控制', value: '控制' }, { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
+    { text: '幽鬼', value: '幽鬼' }]
+  const col2Data = [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
+    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
+    { text: '金箍棒', value: '金箍棒' }]
+  const col3Data = [{ text: '输出', value: '输出'}, { text: '控制', value: '控制' },
+    { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
   export default {
     mounted () {
       this.picker = this.$createPicker({
-        title: 'Picker-setData',
+        title: 'Use SetData',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
             icon: 'cubeic-alert'
           }).show()
         },
@@ -180,11 +200,12 @@
     }
   }
   ```
+  
   实例方法`setData`可接受2个参数，都为数组类型。第一个参数为滚轴需要显示的数据，第二个参数为选中值的索引。
   
 - 扩展组件：日期选择器
 
-  除了直接调用，我们还可以基于扩展 Picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 Picker 组件二次封装一个 DatePicker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件 createAPI 后，便可如下使用。
+  除了直接调用，我们还可以基于扩展 Picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 Picker 组件二次封装一个 DatePicker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件`createAPI`后，便可如下使用。
   
   ```html
   <cube-button @click="showDatePicker">Date Picker</cube-button>
@@ -204,7 +225,8 @@
           onSelect: (selectedVal, selectedIndex, selectedText) => {
             this.$createDialog({
               type: 'warn',
-              content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+              content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+                - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -223,7 +245,7 @@
         }
       }
     }
-    ```
+  ```
   
 ### Props 配置
 
