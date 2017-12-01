@@ -132,7 +132,13 @@
         if (findIndex !== -1) {
           this.tempIndex[2] = findIndex
         } else {
-          this.day = this.day < this.days[0].value ? this.days[0].value : this.days[this.days.length - 1].value
+          if (this.day < this.days[0].value) {
+            this.day = this.days[0].value
+            this.tempIndex[2] = 0
+          } else {
+            this.day = this.days[this.days.length - 1].value
+            this.tempIndex[2] = this.days.length - 1
+          }
         }
 
         this.dateData = [this.years, this.months, this.days]
