@@ -204,8 +204,6 @@
         &::after
           right: 50%
           border-color: $dialog-btns-split-color
-  .cube-icon-confirm
-    background-size: 262px 53px
   .cube-dialog-close
     display: flex
     align-items: center
