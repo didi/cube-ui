@@ -76,7 +76,7 @@
       width: 1px
       height: 1px
       background-color: rgba(0, 0, 0, .1)
-      margin-left: -2px
+      margin-left: -10px
   .cube-popup-container
     transform: translate(100%, 100%)
   .cube-popup-content
