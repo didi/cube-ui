@@ -19,8 +19,8 @@
           </div>
           <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm}">
             <slot name="btns">
-              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
-              <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active}" @click="confirm">{{_confirmBtn.text}}</a>
+              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active, 'cube-dialog-btn_disabled': _cancelBtn.disabled}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
+              <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active, 'cube-dialog-btn_disabled': _confirmBtn.disabled}" @click="confirm">{{_confirmBtn.text}}</a>
             </slot>
           </div>
         </div>
@@ -42,11 +42,13 @@
   const defConfirmBtn = {
     text: '确定',
     active: true,
+    disabled: false,
     href: defHref
   }
   const defCancelBtn = {
     text: '取消',
     active: false,
+    disabled: false,
     href: defHref
   }
   const parseBtn = (btn, defBtn) => {
@@ -120,10 +122,16 @@
     },
     methods: {
       confirm(e) {
+        if (this._confirmBtn.disabled) {
+          return
+        }
         this.hide()
         this.$emit(EVENT_CONFIRM, e)
       },
       cancel(e) {
+        if (this._cancelBtn.disabled) {
+          return
+        }
         this.hide()
         this.$emit(EVENT_CANCEL, e)
       },
