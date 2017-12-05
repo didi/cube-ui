@@ -1,11 +1,13 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
-      <slot>
-        <ul ref="list" class="cube-scroll-list">
-          <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
-        </ul>
-      </slot>
+      <div ref="listWrapper">
+        <slot>
+          <ul class="cube-scroll-list">
+            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+          </ul>
+        </slot>
+      </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
         <div class="cube-pullup-wrapper" v-if="pullUpLoad">
           <div class="before-trigger" v-if="!isPullUpLoad">
@@ -97,6 +99,10 @@
       refreshDelay: {
         type: Number,
         default: 20
+      },
+      listRef: {
+        type: String,
+        default: 'list'
       }
     },
     data() {
@@ -143,8 +149,8 @@
         if (!this.$refs.wrapper) {
           return
         }
-        if (this.$refs.list && (this.pullDownRefresh || this.pullUpLoad)) {
-          this.$refs.list.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
+        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
+          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
         }
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
