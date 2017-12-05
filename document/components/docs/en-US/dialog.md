@@ -43,11 +43,13 @@
           confirmBtn: {
             text: 'confirm',
             active: true,
+            disabled: false,
             href: 'javascript:;'
           },
           cancelBtn: {
             text: 'cancel',
             active: false,
+            disabled: false,
             href: 'javascript:;'
           },
           onConfirm: () => {
@@ -70,7 +72,7 @@
   }
   ```
 
-  Button configuration(`confirmBtn`, `cancelBtn`) can be `String` or `Object` type. When given an Object, `text` can be used to set button content，`active` is used to set button highlight state，`href` is used to set the link that will be jumped to when the button is clicked.
+  Button configuration(`confirmBtn`, `cancelBtn`) can be `String` or `Object` type. When given an Object, `text` can be used to set button content，`active` is used to set button highlight state，`disabled` is used to set button disabled state，`href` is used to set the link that will be jumped to when the button is clicked.
 
 - Show close button
 
@@ -164,6 +166,7 @@
 | - | - | - | - | - |
 | text | button text | String | - | '确认' |
 | active | whether to highlight | Boolean | true/false | true |
+| disabled | whether to disabled button | Boolean | true/false | false |
 | href | the link that will be jumped to when the button is clicked | String | - | 'javascript:;' |
 
 * `cancelBtn` sub configuration
@@ -172,6 +175,7 @@
 | - | - | - | - | - |
 | text | button text | String | - | '取消' |
 | active | whether highlight | Boolean | true/false | false |
+| disabled | whether to disabled button | Boolean | true/false | false |
 | href | the link that will be jumped to when the button is clicked | String | - | 'javascript:;' |
 
 ### Slot
