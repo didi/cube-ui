@@ -98,8 +98,15 @@
 | threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
 | speed | speed of switching pages | Number | - | 400 |
 
-### 事件
+### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |
 | change | triggers when current slide changes | index of current slide |
+
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| refresh | You can call this method when slide items added or removed |

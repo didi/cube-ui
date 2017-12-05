@@ -45,7 +45,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Vue from 'vue'
   import CubePage from '../components/cube-page.vue'
   import SwitchOption from '../components/switch-option'
   import InputOption from '../components/input-option'
@@ -98,10 +97,11 @@
         console.log(item, index)
       },
       rebuildSlide() {
-        this.ifSlide = false
-        Vue.nextTick(() => {
-          this.ifSlide = true
-        })
+        this.$refs.slide.refresh()
+        // this.ifSlide = false
+        // this.$nextTick(() => {
+        //   this.ifSlide = true
+        // })
       },
       updateLoop(val) {
         this.loop = val
