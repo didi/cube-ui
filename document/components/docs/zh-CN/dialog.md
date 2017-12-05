@@ -43,11 +43,13 @@
           confirmBtn: {
             text: '确定按钮',
             active: true,
+            disabled: false,
             href: 'javascript:;'
           },
           cancelBtn: {
             text: '取消按钮',
             active: false,
+            disabled: false,
             href: 'javascript:;'
           },
           onConfirm: () => {
@@ -70,7 +72,7 @@
   }
   ```
 
-  按钮设置可接受 `String` 或 `Object` 类型数据，当传入 `Object` 类型的数据时，可通过 `text` 字段来设置按钮文案内容、`active` 字段来设置按钮文案是否高亮、`href` 字段为按钮的跳转链接。
+  按钮设置可接受 `String` 或 `Object` 类型数据，当传入 `Object` 类型的数据时，可通过 `text` 字段来设置按钮文案内容、`active` 字段来设置按钮文案是否高亮、`disabled` 字段来设置按钮是否禁用、`href` 字段为按钮的跳转链接。
 
 - 关闭按钮
 
@@ -164,6 +166,7 @@
 | - | - | - | - | - |
 | text | 按钮文案 | String | - | '确认' |
 | active | 是否高亮 | Boolean | true/false | true |
+| disabled | 是否禁用 | Boolean | true/false | false |
 | href | 点击按钮后的跳转链接 | String | - | 'javascript:;' |
 
 * `cancelBtn` 子配置项
@@ -172,6 +175,7 @@
 | - | - | - | - | - |
 | text | 按钮文案 | String | - | '取消' |
 | active | 是否高亮 | Boolean | true/false | false |
+| disabled | 是否禁用 | Boolean | true/false | false |
 | href | 点击按钮后的跳转链接 | String | - | 'javascript:;' |
 
 ### 插槽
