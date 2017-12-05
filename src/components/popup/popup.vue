@@ -66,7 +66,17 @@
     width: 100%
     height: 100%
   .cube-popup-mask
+    overflow: hidden
     background-color: $popup-mask-bgc
+    opacity: $popup-mask-opacity
+    // fix some android webview opacity render bug
+    &::before
+      content: "."
+      display: block
+      width: 1px
+      height: 1px
+      background-color: rgba(0, 0, 0, .1)
+      margin-left: -2px
   .cube-popup-container
     transform: translate(100%, 100%)
   .cube-popup-content
