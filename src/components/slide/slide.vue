@@ -48,11 +48,11 @@
     methods: {
       refresh() {
         this.slide && this.slide.destroy()
+        clearTimeout(this._timer)
         this.$nextTick(() => {
           if (this.slide === null) {
             return
           }
-          clearTimeout(this._timer)
           this.currentPageIndex = 0
           this.dots = 0
           this._setSlideWidth()
