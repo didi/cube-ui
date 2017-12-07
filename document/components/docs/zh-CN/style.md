@@ -70,7 +70,7 @@ body
 源码地址：[base](https://github.com/didi/cube-ui/blob/master/src/common/stylus/base.styl)，主要包含的就是 `html`, `body` 元素的 `font-family`, `line-height` 等的设定，修正浮动影响的 `.clear-fix`，以及上下左右四个边框的绝对 1px 边框的 class：`.border-top-1px`, `.border-right-1px`, `.border-bottom-1px`, `.border-left-1px`。
 
 ```stylus
-@import "./variable.styl"
+@require "./variable.styl"
 
 body, html
   line-height: 1

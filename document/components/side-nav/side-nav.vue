@@ -30,7 +30,7 @@
 </script>
 
 <style lang="stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "~@/common/stylus/variable.styl"
   .nav-ul
     font-size: 100%
     .nav-ul

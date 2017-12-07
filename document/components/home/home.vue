@@ -47,7 +47,7 @@
   }
 </script>
 <style lang="stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "~@/common/stylus/variable.styl"
 
   .home-view
     height: 100%
