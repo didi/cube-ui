@@ -57,7 +57,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "~@/common/stylus/variable.styl"
 
   .docs-view
     display: flex

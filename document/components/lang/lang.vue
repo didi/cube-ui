@@ -34,7 +34,7 @@
 </script>
 
 <style lang="stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "~@/common/stylus/variable.styl"
   .langs
     display: inline-block
     margin: 0 20px
