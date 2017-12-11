@@ -307,7 +307,7 @@
       top: 0
       background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
     > .border-top-1px
-      bottom: 1px
+      bottom: 0
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
 
   .cube-picker-wheel-wrapper
