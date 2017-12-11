@@ -2,7 +2,7 @@
   <cube-picker
       ref="picker"
       :title="title"
-      :data="data"
+      :data="pickerData"
       :selected-index="selectedIndex"
       @select="_pickerSelect"
       @cancel="_pickerCancel"
@@ -41,6 +41,50 @@
     },
     data () {
       return {
+        tempIndex: []
+      }
+    },
+    computed: {
+      depth() {
+        let depth = 0
+        if (this.data.length) {
+          depth++
+          let data = this.data[0]
+          while (data.children) {
+            depth++
+            data = data.children[0]
+          }
+        }
+        return depth
+      },
+      pickerData() {
+        const pickerData = []
+        let data = this.data
+        console.log(this.data)
+        console.log(data)
+        for (let i = 0; i < this.depth; i++) {
+          let columnData = []
+          data.forEach((item) => {
+            columnData.push({
+              value: item.value,
+              text: item.text
+            })
+          })
+          pickerData.push(columnData)
+
+          /* remain value  */
+//          const findIndex = columnData.findIndex((item) => {
+//          })
+//          const nextI = findIndex !== -1 ? findIndex : 0
+          data = data[this.tempIndex[i]].children
+        }
+
+        return pickerData
+      }
+    },
+    created() {
+      for (let i = 0; i < this.depth; i++) {
+        this.tempIndex.push(0)
       }
     },
     methods: {
@@ -56,8 +100,12 @@
       _pickerCancel() {
         this.$emit(EVENT_CANCEL)
       },
-      _pickerChange(index, selectedIndex) {
-        this.$emit(EVENT_CHANGE, index, selectedIndex)
+      _pickerChange(i, newIndex) {
+        if (newIndex !== this.tempIndex[i]) {
+          this.tempIndex.splice(i, 1, newIndex)
+          this.$refs.picker.refresh()
+        }
+        this.$emit(EVENT_CHANGE, i, newIndex)
       }
     },
     components: {
