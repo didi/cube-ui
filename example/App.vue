@@ -57,6 +57,10 @@
             text: 'Picker'
           },
           {
+            path: '/linkage-picker',
+            text: 'Linkage Picker'
+          },
+          {
             path: '/time-picker',
             text: 'TimePicker'
           },
