@@ -17,12 +17,14 @@
     },
     props: {
       size: {
-        type: Number,
-        default: 24
+        type: Number
       }
     },
     computed: {
       style() {
+        if (!this.size) {
+          return
+        }
         const value = `${this.size}px`
         return {
           width: value,
@@ -33,18 +35,20 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+
   .cube-loading
-    font-size: 0
+    font-size: $fontsize-large-xxx
   .cube-loading-spinners
     position: relative
-    display: inline-block
-    width: 20px
-    height: 20px
+    display: block
+    width: 1em
+    height: 1em
   .cube-loading-spinner
     position: absolute
     left: 44.5%
     top: 37%
-    width: 10%
+    width: 2PX // for rem
     height: 25%
     border-radius: 50%/20%
     opacity: .25
