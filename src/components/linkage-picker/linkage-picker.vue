@@ -24,7 +24,7 @@
     props: {
       title: {
         type: String,
-        default: '选择时间'
+        default: 'Linkage Picker'
       },
       data: {
         type: Array,
@@ -41,7 +41,8 @@
     },
     data () {
       return {
-        tempIndex: []
+        tempIndex: [],
+        changeI: 0
       }
     },
     computed: {
@@ -56,36 +57,13 @@
           }
         }
         return depth
-      },
-      pickerData() {
-        const pickerData = []
-        let data = this.data
-        console.log(this.data)
-        console.log(data)
-        for (let i = 0; i < this.depth; i++) {
-          let columnData = []
-          data.forEach((item) => {
-            columnData.push({
-              value: item.value,
-              text: item.text
-            })
-          })
-          pickerData.push(columnData)
-
-          /* remain value  */
-//          const findIndex = columnData.findIndex((item) => {
-//          })
-//          const nextI = findIndex !== -1 ? findIndex : 0
-          data = data[this.tempIndex[i]].children
-        }
-
-        return pickerData
       }
     },
     created() {
       for (let i = 0; i < this.depth; i++) {
         this.tempIndex.push(0)
       }
+      this.updatePickerData(true)
     },
     methods: {
       show() {
@@ -102,10 +80,44 @@
       },
       _pickerChange(i, newIndex) {
         if (newIndex !== this.tempIndex[i]) {
+          this.changeI = i
           this.tempIndex.splice(i, 1, newIndex)
-          this.$refs.picker.refresh()
+          this.updatePickerData()
         }
         this.$emit(EVENT_CHANGE, i, newIndex)
+      },
+      updatePickerData(init) {
+        const pickerData = []
+        let data = this.data
+        for (let i = 0; i < this.depth; i++) {
+          let columnData = []
+          data.forEach((item) => {
+            columnData.push({
+              value: item.value,
+              text: item.text
+            })
+          })
+          pickerData.push(columnData)
+
+          if (!init && i > this.changeI) {
+            /* try to remain same value  */
+            const findIndex = columnData.findIndex((item) => {
+              return item.value === this.pickerData[i][this.tempIndex[i]].value
+            })
+            this.tempIndex[i] = findIndex !== -1 ? findIndex : 0
+          }
+
+          data = data[this.tempIndex[i]].children
+        }
+
+        this.pickerData = pickerData
+        if (!init) {
+          this.$refs.picker.setData(this.pickerData, this.tempIndex)
+          this.$refs.picker.refresh()
+          for (let j = this.changeI + 1; j < this.depth; j++) {
+            this.$refs.picker.scrollTo(j, this.tempIndex[j])
+          }
+        }
       }
     },
     components: {

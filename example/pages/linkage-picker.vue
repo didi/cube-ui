@@ -56,12 +56,12 @@
           text: '苏州市',
           children: [
             {
-              value: '3区',
-              text: '3区'
+              value: '2区',
+              text: '2区'
             },
             {
-              value: '4区',
-              text: '4区'
+              value: '3区',
+              text: '3区'
             }
           ]
         }
