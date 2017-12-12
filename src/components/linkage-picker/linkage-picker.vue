@@ -43,25 +43,12 @@
       return {
         linkageData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex.slice(),
-        tempIndex: [],
-        changeI: 0
-      }
-    },
-    computed: {
-      depth() {
-        let depth = 0
-        if (this.linkageData.length) {
-          depth++
-          let data = this.linkageData[0]
-          while (data.children) {
-            depth++
-            data = data.children[0]
-          }
-        }
-        return depth
+        pickerData: []
       }
     },
     created() {
+      this.tempIndex = []
+      this.changeI = 0
       this.updatePickerData(true)
     },
     methods: {
@@ -93,7 +80,8 @@
       updatePickerData(init) {
         const pickerData = []
         let data = this.linkageData
-        for (let i = 0; i < this.depth; i++) {
+        let i = 0
+        while (Array.isArray(data) && data.length) {
           let columnData = []
           data.forEach((item) => {
             columnData.push({
@@ -116,13 +104,14 @@
           }
 
           data = data[this.tempIndex[i]].children
+          i++
         }
 
         this.pickerData = pickerData
         if (!init) {
           this.$refs.picker.setData(this.pickerData, this.tempIndex)
           this.$refs.picker.refresh()
-          for (let j = this.changeI + 1; j < this.depth; j++) {
+          for (let j = this.changeI + 1; j < this.tempIndex.length; j++) {
             this.$refs.picker.scrollTo(j, this.tempIndex[j])
           }
         }

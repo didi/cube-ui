@@ -49,9 +49,6 @@
         onCancel: this.cancelHandle
       })
     },
-    data() {
-      return {}
-    },
     methods: {
       showPicker() {
         this.picker.show()
