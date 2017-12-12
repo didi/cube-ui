@@ -354,7 +354,6 @@
             transform: rotate(180deg)
 
   .scroll-list-wrap
-    position relative
     height: 480px
     border: 1px solid rgba(0, 0, 0, .1)
     border-radius: 5px

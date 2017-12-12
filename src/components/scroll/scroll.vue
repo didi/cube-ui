@@ -281,7 +281,9 @@
   @require "../../common/stylus/variable.styl"
 
   .cube-scroll-wrapper
+    position: relative
     height: 100%
+    overflow: hidden
     background-color: $scroll-content-bgc
 
   .cube-pulldown-wrapper
