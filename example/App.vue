@@ -58,7 +58,7 @@
           },
           {
             path: '/linkage-picker',
-            text: 'Linkage Picker'
+            text: 'LinkagePicker'
           },
           {
             path: '/time-picker',

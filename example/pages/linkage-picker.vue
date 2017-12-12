@@ -14,54 +14,208 @@
 
   const linkageData = [
     {
-      value: '北京',
-      text: '北京',
+      value: 'Fruit',
+      text: 'Fruit',
       children: [
         {
-          value: '北京市',
-          text: '北京市',
+          value: 'Apple',
+          text: 'Apple',
           children: [
             {
-              value: '海淀区',
-              text: '海淀区'
+              value: 1,
+              text: 'One'
             },
             {
-              value: '海淀区',
-              text: '海淀区'
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            }
+          ]
+        },
+        {
+          value: 'Orange',
+          text: 'Orange',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            },
+            {
+              value: 4,
+              text: 'Four'
+            }
+          ]
+        },
+        {
+          value: 'Lemon',
+          text: 'Lemon',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            },
+            {
+              value: 4,
+              text: 'Four'
+            },
+            {
+              value: 5,
+              text: 'Five'
             }
           ]
         }
       ]
     },
     {
-      value: '江苏省',
-      text: '江苏省',
+      value: 'Drink',
+      text: 'Drink',
       children: [
         {
-          value: '南京市',
-          text: '南京市',
+          value: 'Coffee',
+          text: 'Coffee',
           children: [
             {
-              value: '1区',
-              text: '1区'
+              value: 1,
+              text: 'One'
             },
             {
-              value: '2区',
-              text: '2区'
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
             }
           ]
         },
         {
-          value: '苏州市',
-          text: '苏州市',
+          value: 'Tee',
+          text: 'Tee',
           children: [
             {
-              value: '2区',
-              text: '2区'
+              value: 1,
+              text: 'One'
             },
             {
-              value: '3区',
-              text: '3区'
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            },
+            {
+              value: 4,
+              text: 'Four'
+            }
+          ]
+        },
+        {
+          value: 'Juice',
+          text: 'Juice',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      value: 'Dessert',
+      text: 'Dessert',
+      children: [
+        {
+          value: 'Chocolate',
+          text: 'Chocolate',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            },
+            {
+              value: 4,
+              text: 'Four'
+            },
+            {
+              value: 5,
+              text: 'Five'
+            }
+          ]
+        },
+        {
+          value: 'cheese',
+          text: 'cheese',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
+            },
+            {
+              value: 4,
+              text: 'Four'
+            }
+          ]
+        },
+        {
+          value: 'cake',
+          text: 'cake',
+          children: [
+            {
+              value: 1,
+              text: 'One'
+            },
+            {
+              value: 2,
+              text: 'Two'
+            },
+            {
+              value: 3,
+              text: 'Three'
             }
           ]
         }
@@ -74,7 +228,7 @@
       this.linkagePicker = this.$createLinkagePicker({
         title: 'Linkage Picker',
         data: linkageData,
-        selectedIndex: [1, 1, 0],
+        selectedIndex: [1, 0, 0],
         onChange: () => {
           console.log('change')
         },

@@ -60,9 +60,6 @@
       }
     },
     created() {
-      for (let i = 0; i < this.depth; i++) {
-        this.tempIndex.push(this.selectedIndex[i] || 0)
-      }
       this.updatePickerData(true)
     },
     methods: {
@@ -98,6 +95,10 @@
             })
           })
           pickerData.push(columnData)
+
+          if (init) {
+            this.tempIndex[i] = this.selectedIndex[i] || 0
+          }
 
           if (!init && i > this.changeI) {
             /* try to remain same value  */
