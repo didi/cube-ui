@@ -205,7 +205,7 @@
 
 ### 插槽
 
-| 名字 | 说明 | 作用域参数
+| 名字 | 说明 | 作用域参数 |
 | - | - | - |
 | default | 基于`data`属性渲染的列表 | - |
 | pulldown | 位于列表上方，会在下拉刷新时显示 | pullDownRefresh: 是否开启了下拉刷新功能 <br> pullDownStyle: 移入移出的样式 <br> beforePullDown: 是否正在做下拉操作 <br> isPullingDown: 是否正在拉取数据 <br> bubbleY: 当前下拉的距离 - 50|
