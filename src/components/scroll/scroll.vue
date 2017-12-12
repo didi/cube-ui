@@ -218,9 +218,9 @@
       },
       _initPullDownRefresh() {
         this.scroll.on('pullingDown', () => {
-          this.$emit(EVENT_PULLING_DOWN)
           this.beforePullDown = false
           this.isPullingDown = true
+          this.$emit(EVENT_PULLING_DOWN)
         })
 
         this.scroll.on('scroll', (pos) => {
@@ -238,8 +238,8 @@
       },
       _initPullUpLoad() {
         this.scroll.on('pullingUp', () => {
-          this.$emit(EVENT_PULLING_UP)
           this.isPullUpLoad = true
+          this.$emit(EVENT_PULLING_UP)
         })
       },
       _reboundPullDown() {
