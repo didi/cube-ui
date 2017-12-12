@@ -3,6 +3,7 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showLinkagePicker">Linkage Picker</cube-button>
+        <cube-button @click="showCityPicker">City Picker</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -11,6 +12,7 @@
 <script>
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
+  import { provinceList, cityList, areaList } from 'example/data/area'
 
   const linkageData = [
     {
@@ -223,26 +225,51 @@
     }
   ]
 
+  const cityData = provinceList
+  cityData.forEach(province => {
+    province.children = cityList[province.value]
+    province.children.forEach(city => {
+      city.children = areaList[city.value]
+    })
+  })
+
   export default {
     mounted() {
       this.linkagePicker = this.$createLinkagePicker({
         title: 'Linkage Picker',
         data: linkageData,
         selectedIndex: [1, 0, 0],
-        onChange: () => {
-          console.log('change')
-        },
-        onSelect: () => {
-          console.log('select')
-        },
-        onCancel: () => {
-          console.log('cancel')
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+      this.cityPicker = this.$createLinkagePicker({
+        title: 'City Picker',
+        data: cityData,
+        selectedIndex: [1, 0, 0],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
       showLinkagePicker() {
         this.linkagePicker.show()
+      },
+      showCityPicker() {
+        this.cityPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     },
     components: {
