@@ -5,6 +5,7 @@
         <cube-button @click="showLinkagePicker">Linkage Picker</cube-button>
         <cube-button @click="showCityPicker">City Picker</cube-button>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
+        <cube-button @click="showSetDataPicker">Set Data</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -240,10 +241,15 @@
   })
 
   export default {
+    data() {
+      return {
+        data: linkageData
+      }
+    },
     mounted() {
       this.linkagePicker = this.$createLinkagePicker({
         title: 'Linkage Picker',
-        data: linkageData,
+        data: this.data,
         selectedIndex: [1, 0, 0],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
@@ -252,7 +258,6 @@
       this.cityPicker = this.$createLinkagePicker({
         title: 'City Picker',
         data: cityData,
-        selectedIndex: [1, 0, 0],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -260,6 +265,12 @@
       this.datePicker = this.$createDatePicker({
         min: [2008, 8, 8],
         max: [2020, 10, 20],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+
+      this.setDataPicker = this.$createLinkagePicker({
+        title: 'Set Data',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -273,6 +284,10 @@
       },
       showDatePicker() {
         this.datePicker.show()
+      },
+      showSetDataPicker() {
+        this.setDataPicker.setData(linkageData, [1, 1, 1])
+        this.setDataPicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({

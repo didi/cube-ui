@@ -3,7 +3,7 @@
       ref="picker"
       :title="title"
       :data="pickerData"
-      :selected-index="selectedIndex"
+      :selected-index="pickerSelectedIndex"
       @select="_pickerSelect"
       @cancel="_pickerCancel"
       @change="_pickerChange"></cube-picker>
@@ -41,6 +41,8 @@
     },
     data () {
       return {
+        linkageData: this.data.slice(),
+        pickerSelectedIndex: this.selectedIndex.slice(),
         tempIndex: [],
         changeI: 0
       }
@@ -48,9 +50,9 @@
     computed: {
       depth() {
         let depth = 0
-        if (this.data.length) {
+        if (this.linkageData.length) {
           depth++
-          let data = this.data[0]
+          let data = this.linkageData[0]
           while (data.children) {
             depth++
             data = data.children[0]
@@ -69,6 +71,11 @@
       hide() {
         this.$refs.picker.hide()
       },
+      setData(data, selectedIndex) {
+        this.linkageData = data
+        this.pickerSelectedIndex = selectedIndex
+        this.updatePickerData(true)
+      },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
       },
@@ -85,7 +92,7 @@
       },
       updatePickerData(init) {
         const pickerData = []
-        let data = this.data
+        let data = this.linkageData
         for (let i = 0; i < this.depth; i++) {
           let columnData = []
           data.forEach((item) => {
@@ -97,7 +104,7 @@
           pickerData.push(columnData)
 
           if (init) {
-            this.tempIndex[i] = this.selectedIndex[i] || 0
+            this.tempIndex[i] = this.pickerSelectedIndex[i] || 0
           }
 
           if (!init && i > this.changeI) {
