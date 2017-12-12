@@ -1,13 +1,12 @@
 <template>
-  <cube-picker
-    ref="picker"
-    title="Choose Date"
-    :data="dateData"
+  <cube-linkage-picker
+    ref="linkagePicker"
+    title="Date Picker"
+    :data="data"
     :selectedIndex="selectedIndex"
-    @change="change"
     @select="select"
     @cancel="cancel">
-  </cube-picker>
+  </cube-linkage-picker>
 </template>
 
 <script>
@@ -39,115 +38,49 @@
     },
     data() {
       return {
-        dateData: [],
-        tempIndex: [0, 0, 0],
-        years: [],
-        months: [],
-        days: [],
-        year: 0,
-        month: 0,
-        day: 0
       }
     },
-    watch: {
-      year() {
-        this.updateMonths()
-      },
-      month() {
-        this.updateDays()
+    computed: {
+      data() {
+        let data = range(this.min[0], this.max[0], false, '年')
+
+        data.forEach(year => {
+          let minMonth = year.value === this.min[0] ? this.min[1] : 1
+          let maxMonth = year.value === this.max[0] ? this.max[1] : 12
+
+          year.children = range(minMonth, maxMonth, false, '月')
+          year.children.forEach(month => {
+            let day = 30
+            if ([1, 3, 5, 7, 8, 10, 12].includes(month.value)) {
+              day = 31
+            } else {
+              if (month.value === 2) {
+                day = !(year.value % 400) || (!(year.value % 4) && year.value % 100) ? 29 : 28
+              }
+            }
+
+            let minDay = year.value === this.min[0] && month.value === this.min[1] ? this.min[2] : 1
+            let maxDay = year.value === this.max[0] && month.value === this.max[1] ? this.max[2] : day
+
+            month.children = range(minDay, maxDay, false, '日')
+          })
+        })
+
+        return data
       }
     },
     methods: {
       show() {
-        this.$refs.picker.show()
-        this.years = range(this.min[0], this.max[0], false, '年')
-        this.year = this.years[this.selectedIndex[0]].value
-        this.updateMonths()
-        this.month = this.months[this.selectedIndex[1]].value
-        this.updateDays()
-        this.day = this.days[this.selectedIndex[2]].value
-        this.tempIndex = this.selectedIndex
+        this.$refs.linkagePicker.show()
       },
       hide() {
-        this.$refs.picker.hide()
-      },
-      change(i, newIndex) {
-        if (newIndex !== this.tempIndex[i]) {
-          this.tempIndex[i] = newIndex
-        }
-        const keyMap = ['year', 'month', 'day']
-        if (this.dateData[i][newIndex] !== this[keyMap[i]]) {
-          this[keyMap[i]] = this.dateData[i][newIndex].value
-        }
+        this.$refs.linkagePicker.hide()
       },
       select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
       },
       cancel() {
         this.$emit(EVENT_CANCEL)
-      },
-      updateMonths() {
-        let minMonth = this.year === this.min[0] ? this.min[1] : 1
-        let maxMonth = this.year === this.max[0] ? this.max[1] : 12
-
-        this.months = range(minMonth, maxMonth, false, '月')
-
-        /* Try to keep the same month */
-        const findIndex = this.months.findIndex((item) => {
-          return item.value === this.month
-        })
-        if (findIndex !== -1) {
-          this.tempIndex.splice(1, 1, findIndex)
-          this.updateDays()
-        } else {
-          if (this.month < this.months[0].value) {
-            this.month = this.months[0].value
-            this.tempIndex[1] = 0
-          } else {
-            this.month = this.months[this.months.length - 1].value
-            this.tempIndex[1] = this.months.length - 1
-          }
-        }
-      },
-      updateDays() {
-        let day = 30
-        if ([1, 3, 5, 7, 8, 10, 12].includes(this.month)) {
-          day = 31
-        } else {
-          if (this.month === 2) {
-            day = !(this.year % 400) || (!(this.year % 4) && this.year % 100) ? 29 : 28
-          }
-        }
-
-        let minDay = this.year === this.min[0] && this.month === this.min[1] ? this.min[2] : 1
-        let maxDay = this.year === this.max[0] && this.month === this.max[1] ? this.max[2] : day
-
-        this.days = range(minDay, maxDay, false, '日')
-
-        /* Try to keep the same day */
-        const self = this
-        const findIndex = this.days.findIndex((item) => {
-          return item.value === self.day
-        })
-        if (findIndex !== -1) {
-          this.tempIndex[2] = findIndex
-        } else {
-          if (this.day < this.days[0].value) {
-            this.day = this.days[0].value
-            this.tempIndex[2] = 0
-          } else {
-            this.day = this.days[this.days.length - 1].value
-            this.tempIndex[2] = this.days.length - 1
-          }
-        }
-
-        this.dateData = [this.years, this.months, this.days]
-        // make sure picker render before call refillColumn
-        this.$nextTick(() => {
-          this.$refs.picker.refresh()
-          this.$refs.picker.scrollTo(1, this.tempIndex[1])
-          this.$refs.picker.scrollTo(2, this.tempIndex[2])
-        })
       }
     }
   }

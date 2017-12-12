@@ -13,7 +13,7 @@
   import CubePicker from '../picker/picker.vue'
   import apiMixin from '../../common/mixins/api'
 
-  const COMPONENT_NAME = 'linkage-picker'
+  const COMPONENT_NAME = 'cube-linkage-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
