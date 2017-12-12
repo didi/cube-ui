@@ -83,7 +83,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "../../common/stylus/base.styl"
   @require "../../common/stylus/mixin.styl"
   @require "../../common/stylus/variable.styl"
 
