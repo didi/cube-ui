@@ -61,7 +61,7 @@
     },
     created() {
       for (let i = 0; i < this.depth; i++) {
-        this.tempIndex.push(0)
+        this.tempIndex.push(this.selectedIndex[i] || 0)
       }
       this.updatePickerData(true)
     },

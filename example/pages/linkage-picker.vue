@@ -74,6 +74,7 @@
       this.linkagePicker = this.$createLinkagePicker({
         title: 'Linkage Picker',
         data: linkageData,
+        selectedIndex: [1, 1, 0],
         onChange: () => {
           console.log('change')
         },
