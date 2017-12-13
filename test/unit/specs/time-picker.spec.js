@@ -121,6 +121,19 @@ describe('TimePicker', () => {
       }, 100)
     })
   })
+
+  it('should add warn log when sigle is false', () => {
+    const app = new Vue()
+    const originWarn = console.warn
+    const msgs = []
+    console.warn = function (...args) {
+      msgs.push(args.join('#'))
+    }
+    vm = app.$createTimePicker({}, true)
+    expect(msgs.length)
+      .to.equal(1)
+    console.warn = originWarn
+  })
 })
 
 function createPicker(props = {}, events = {}) {

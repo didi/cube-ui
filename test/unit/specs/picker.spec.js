@@ -58,6 +58,7 @@ describe('Picker', () => {
     Vue.use(Picker)
     expect(Vue.component(Picker.name))
       .to.be.a('function')
+    expect(Vue.prototype.$createPicker).to.be.a('function')
   })
 
   it('should render correct contents', function () {
@@ -153,6 +154,23 @@ describe('Picker', () => {
         done()
       })
     }, 150)
+  })
+
+  it('should add warn log when sigle is false', () => {
+    const app = new Vue()
+    const originWarn = console.warn
+    const msgs = []
+    console.warn = function (...args) {
+      msgs.push(args.join('#'))
+    }
+    vm = app.$createPicker({
+      title: '变化选择器',
+      data: [data1],
+      selectedIndex: [1]
+    }, true)
+    expect(msgs.length)
+      .to.equal(1)
+    console.warn = originWarn
   })
 
   function createPicker(props = {}, events = {}) {
