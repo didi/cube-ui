@@ -47,7 +47,7 @@
       }
     },
     created() {
-      this.updatePickerData(0)
+      this.updatePickerData()
     },
     methods: {
       show() {
@@ -59,7 +59,7 @@
       setData(data, selectedIndex = []) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex
-        this.updatePickerData(0)
+        this.updatePickerData()
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
@@ -74,11 +74,11 @@
         }
         this.$emit(EVENT_CHANGE, i, newIndex)
       },
-      updatePickerData(refillColumnIndex) {
+      updatePickerData(fromColumn = 0) {
         let data = this.cascadeData
         let i = 0
         while (Array.isArray(data) && data.length) {
-          if (i >= refillColumnIndex) {
+          if (i >= fromColumn) {
             let columnData = []
             data.forEach((item) => {
               columnData.push({
@@ -88,8 +88,8 @@
             })
             this.pickerData[i] = columnData
             /* refillColumn could only be called after show() */
-            this.pickerSelectedIndex[i] = refillColumnIndex === 0
-              ? (this.pickerSelectedIndex[i] < data.length - 1 ? this.pickerSelectedIndex[i] || 0 : 0)
+            this.pickerSelectedIndex[i] = fromColumn === 0
+              ? (this.pickerSelectedIndex[i] < data.length ? this.pickerSelectedIndex[i] || 0 : 0)
               : this.$refs.picker.refillColumn(i, columnData)
           }
           data = data[this.pickerSelectedIndex[i]].children
