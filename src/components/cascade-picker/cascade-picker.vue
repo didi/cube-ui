@@ -88,32 +88,14 @@
               text: item.text
             })
           })
-          pickerData.push(columnData)
-
-          if (init) {
-            this.pickerSelectedIndex[i] = this.pickerSelectedIndex[i] || 0
-          }
-
-          if (!init && i > this.changedColumnIndex) {
-            /* try to remain same value  */
-            const findIndex = columnData.findIndex((item) => {
-              return item.value === this.pickerData[i][this.pickerSelectedIndex[i]].value
-            })
-            this.pickerSelectedIndex[i] = findIndex !== -1 ? findIndex : 0
-          }
-
+          pickerData[i] = columnData
+          this.pickerSelectedIndex[i] = init ? this.pickerSelectedIndex[i] || 0 : this.$refs.picker.refillColumn(i, columnData)
           data = data[this.pickerSelectedIndex[i]].children
+
           i++
         }
 
         this.pickerData = pickerData
-        if (!init) {
-          this.$refs.picker.setData(this.pickerData, this.pickerSelectedIndex)
-          this.$refs.picker.refresh()
-          for (let j = this.changedColumnIndex + 1; j < this.pickerSelectedIndex.length; j++) {
-            this.$refs.picker.scrollTo(j, this.pickerSelectedIndex[j])
-          }
-        }
       }
     },
     components: {
