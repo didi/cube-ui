@@ -57,8 +57,8 @@
             text: 'Picker'
           },
           {
-            path: '/linkage-picker',
-            text: 'LinkagePicker'
+            path: '/cascade-picker',
+            text: 'CascadePicker'
           },
           {
             path: '/time-picker',

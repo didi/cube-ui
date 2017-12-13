@@ -13,7 +13,7 @@
   import CubePicker from '../picker/picker.vue'
   import apiMixin from '../../common/mixins/api'
 
-  const COMPONENT_NAME = 'cube-linkage-picker'
+  const COMPONENT_NAME = 'cube-cascade-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
@@ -24,7 +24,7 @@
     props: {
       title: {
         type: String,
-        default: 'Linkage Picker'
+        default: 'Cascade Picker'
       },
       data: {
         type: Array,
@@ -41,7 +41,7 @@
     },
     data () {
       return {
-        linkageData: this.data.slice(),
+        cascadeData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex.slice(),
         pickerData: []
       }
@@ -59,7 +59,7 @@
         this.$refs.picker.hide()
       },
       setData(data, selectedIndex) {
-        this.linkageData = data
+        this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex
         this.updatePickerData(true)
       },
@@ -79,7 +79,7 @@
       },
       updatePickerData(init) {
         const pickerData = []
-        let data = this.linkageData
+        let data = this.cascadeData
         let i = 0
         while (Array.isArray(data) && data.length) {
           let columnData = []

@@ -1,12 +1,12 @@
 <template>
-  <cube-linkage-picker
-    ref="linkagePicker"
+  <cube-cascade-picker
+    ref="cascadePicker"
     title="Date Picker"
     :data="data"
     :selectedIndex="selectedIndex"
     @select="select"
     @cancel="cancel">
-  </cube-linkage-picker>
+  </cube-cascade-picker>
 </template>
 
 <script>
@@ -71,10 +71,10 @@
     },
     methods: {
       show() {
-        this.$refs.linkagePicker.show()
+        this.$refs.cascadePicker.show()
       },
       hide() {
-        this.$refs.linkagePicker.hide()
+        this.$refs.cascadePicker.hide()
       },
       select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
