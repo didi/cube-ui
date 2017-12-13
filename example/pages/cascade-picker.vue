@@ -31,15 +31,10 @@
   })
 
   export default {
-    data() {
-      return {
-        data: cascadeData
-      }
-    },
     mounted() {
       this.cascadePicker = this.$createCascadePicker({
         title: 'Cascade Picker',
-        data: this.data,
+        data: cascadeData,
         selectedIndex: [1, 0, 0],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle

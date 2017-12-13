@@ -94,8 +94,8 @@ export const cascadeData = [
         ]
       },
       {
-        value: 'Tee',
-        text: 'Tee',
+        value: 'Tea',
+        text: 'Tea',
         children: [
           {
             value: 1,
