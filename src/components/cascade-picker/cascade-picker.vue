@@ -47,8 +47,7 @@
       }
     },
     created() {
-      this.changedColumnIndex = 0
-      this.updatePickerData(true)
+      this.updatePickerData(0)
     },
     methods: {
       show() {
@@ -60,7 +59,7 @@
       setData(data, selectedIndex) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex
-        this.updatePickerData(true)
+        this.updatePickerData(0)
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
@@ -70,32 +69,33 @@
       },
       _pickerChange(i, newIndex) {
         if (newIndex !== this.pickerSelectedIndex[i]) {
-          this.changedColumnIndex = i
           this.pickerSelectedIndex.splice(i, 1, newIndex)
-          this.updatePickerData()
+          this.updatePickerData(i + 1)
         }
         this.$emit(EVENT_CHANGE, i, newIndex)
       },
-      updatePickerData(init) {
-        const pickerData = []
+      updatePickerData(refillColumnIndex) {
         let data = this.cascadeData
         let i = 0
         while (Array.isArray(data) && data.length) {
-          let columnData = []
-          data.forEach((item) => {
-            columnData.push({
-              value: item.value,
-              text: item.text
+          if (i >= refillColumnIndex) {
+            let columnData = []
+            data.forEach((item) => {
+              columnData.push({
+                value: item.value,
+                text: item.text
+              })
             })
-          })
-          pickerData[i] = columnData
-          this.pickerSelectedIndex[i] = init ? this.pickerSelectedIndex[i] || 0 : this.$refs.picker.refillColumn(i, columnData)
+            this.pickerData[i] = columnData
+            /* refillColumn could only be called after show() */
+            this.pickerSelectedIndex[i] = refillColumnIndex === 0 ? this.pickerSelectedIndex[i] || 0 : this.$refs.picker.refillColumn(i, columnData)
+          }
           data = data[this.pickerSelectedIndex[i]].children
 
           i++
         }
 
-        this.pickerData = pickerData
+        this.pickerData = this.pickerData.slice()
       }
     },
     components: {
