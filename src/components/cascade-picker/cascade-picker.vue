@@ -56,7 +56,7 @@
       hide() {
         this.$refs.picker.hide()
       },
-      setData(data, selectedIndex) {
+      setData(data, selectedIndex = []) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex
         this.updatePickerData(0)
@@ -88,7 +88,9 @@
             })
             this.pickerData[i] = columnData
             /* refillColumn could only be called after show() */
-            this.pickerSelectedIndex[i] = refillColumnIndex === 0 ? this.pickerSelectedIndex[i] || 0 : this.$refs.picker.refillColumn(i, columnData)
+            this.pickerSelectedIndex[i] = refillColumnIndex === 0
+              ? (this.pickerSelectedIndex[i] < data.length - 1 ? this.pickerSelectedIndex[i] || 0 : 0)
+              : this.$refs.picker.refillColumn(i, columnData)
           }
           data = data[this.pickerSelectedIndex[i]].children
 

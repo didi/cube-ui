@@ -76,8 +76,11 @@
         this.datePicker.show()
       },
       showSetDataPicker() {
-        this.setDataPicker.setData(cascadeData, [1, 1, 1])
+        this.setDataPicker.setData(cascadeData)
         this.setDataPicker.show()
+        setTimeout(() => {
+          this.setDataPicker.setData(cityData, [1, 1, 0])
+        }, 1000)
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({
