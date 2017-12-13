@@ -47,8 +47,7 @@
       }
     },
     created() {
-      this.tempIndex = []
-      this.changeI = 0
+      this.changedColumnIndex = 0
       this.updatePickerData(true)
     },
     methods: {
@@ -70,9 +69,9 @@
         this.$emit(EVENT_CANCEL)
       },
       _pickerChange(i, newIndex) {
-        if (newIndex !== this.tempIndex[i]) {
-          this.changeI = i
-          this.tempIndex.splice(i, 1, newIndex)
+        if (newIndex !== this.pickerSelectedIndex[i]) {
+          this.changedColumnIndex = i
+          this.pickerSelectedIndex.splice(i, 1, newIndex)
           this.updatePickerData()
         }
         this.$emit(EVENT_CHANGE, i, newIndex)
@@ -92,27 +91,27 @@
           pickerData.push(columnData)
 
           if (init) {
-            this.tempIndex[i] = this.pickerSelectedIndex[i] || 0
+            this.pickerSelectedIndex[i] = this.pickerSelectedIndex[i] || 0
           }
 
-          if (!init && i > this.changeI) {
+          if (!init && i > this.changedColumnIndex) {
             /* try to remain same value  */
             const findIndex = columnData.findIndex((item) => {
-              return item.value === this.pickerData[i][this.tempIndex[i]].value
+              return item.value === this.pickerData[i][this.pickerSelectedIndex[i]].value
             })
-            this.tempIndex[i] = findIndex !== -1 ? findIndex : 0
+            this.pickerSelectedIndex[i] = findIndex !== -1 ? findIndex : 0
           }
 
-          data = data[this.tempIndex[i]].children
+          data = data[this.pickerSelectedIndex[i]].children
           i++
         }
 
         this.pickerData = pickerData
         if (!init) {
-          this.$refs.picker.setData(this.pickerData, this.tempIndex)
+          this.$refs.picker.setData(this.pickerData, this.pickerSelectedIndex)
           this.$refs.picker.refresh()
-          for (let j = this.changeI + 1; j < this.tempIndex.length; j++) {
-            this.$refs.picker.scrollTo(j, this.tempIndex[j])
+          for (let j = this.changedColumnIndex + 1; j < this.pickerSelectedIndex.length; j++) {
+            this.$refs.picker.scrollTo(j, this.pickerSelectedIndex[j])
           }
         }
       }
