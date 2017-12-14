@@ -2,6 +2,7 @@ import Vue from 'vue2'
 import CascadePicker from '@/modules/cascade-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { cascadeData } from 'example/data/cascade'
+import { dispatchSwipe } from '../utils/event'
 
 describe('CascadePicker', () => {
   let vm
@@ -53,9 +54,11 @@ describe('CascadePicker', () => {
 
     const selectHandle = sinon.spy()
     const cancelHandle = sinon.spy()
+    const changeHandle = sinon.spy()
     const events = {
       select: selectHandle,
-      cancel: cancelHandle
+      cancel: cancelHandle,
+      change: changeHandle
     }
 
     vm = createCascadePicker({
@@ -64,19 +67,38 @@ describe('CascadePicker', () => {
 
     vm.show()
     setTimeout(() => {
-      const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
-      cancelBtn.click()
-      expect(cancelHandle)
-        .to.be.callCount(1)
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      const firstWheelItems = wheels[0].querySelectorAll('li')
 
-      vm.show()
+      dispatchSwipe(firstWheelItems[1], [
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: firstWheelItems[1].offsetTop + 10
+        },
+        {
+          pageX: 300,
+          pageY: 380
+        }
+      ], 100)
+
       setTimeout(() => {
+        expect(changeHandle)
+          .to.be.callCount(1)
+
         const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
         confirmBtn.click()
         expect(selectHandle)
           .to.be.callCount(1)
-        done()
-      }, 100)
+
+        vm.show()
+        setTimeout(() => {
+          const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+          cancelBtn.click()
+          expect(cancelHandle)
+            .to.be.callCount(1)
+          done()
+        }, 100)
+      }, 1000)
     }, 150)
   })
 
@@ -86,8 +108,12 @@ describe('CascadePicker', () => {
     vm = createCascadePicker()
 
     vm.setData(cascadeData, [1, 1, 1])
-    // expect(vm.pickerData[2])
-    //   .to.deepEqual(cascadeData[1].children[1].children)
+
+    /* expect vm.pickerData[2] equal to cascadeData[1].children[1].children */
+    expect(vm.pickerData[2].length)
+      .to.equal(cascadeData[1].children[1].children.length)
+    expect(vm.pickerData[2][0].value)
+      .to.equal(cascadeData[1].children[1].children[0].value)
   })
 
   function createCascadePicker(props = {}, events = {}) {

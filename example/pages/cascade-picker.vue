@@ -37,7 +37,10 @@
         data: cascadeData,
         selectedIndex: [1, 0, 0],
         onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
+        onCancel: this.cancelHandle,
+        onChange: () => {
+          console.log('change')
+        }
       })
 
       this.cityPicker = this.$createCascadePicker({
