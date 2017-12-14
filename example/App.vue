@@ -57,6 +57,10 @@
             text: 'Picker'
           },
           {
+            path: '/cascade-picker',
+            text: 'CascadePicker'
+          },
+          {
             path: '/time-picker',
             text: 'TimePicker'
           },

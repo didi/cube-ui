@@ -156,7 +156,7 @@ describe('Picker', () => {
     }, 150)
   })
 
-  it('should add warn log when sigle is false', () => {
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
@@ -171,6 +171,36 @@ describe('Picker', () => {
     expect(msgs.length)
       .to.equal(1)
     console.warn = originWarn
+  })
+
+  it('setData when picker is invisible', function (done) {
+    this.timeout(10000)
+    vm = createPicker()
+    vm.setData([data1], [1])
+    vm.show()
+    setTimeout(() => {
+      vm.confirm()
+      expect(vm.pickerSelectedIndex[0]).to.equal(1)
+      expect(vm.pickerSelectedVal[0]).to.equal(data1[1].value)
+      done()
+    }, 150)
+  })
+
+  it('setData when picker is visible', function (done) {
+    this.timeout(10000)
+    vm = createPicker({
+      data: [data1]
+    })
+    vm.show()
+    setTimeout(() => {
+      vm.setData([data2], [2])
+      setTimeout(() => {
+        vm.confirm()
+        expect(vm.pickerSelectedIndex[0]).to.equal(2)
+        expect(vm.pickerSelectedVal[0]).to.equal(data2[2].value)
+        done()
+      }, 150)
+    }, 150)
   })
 
   function createPicker(props = {}, events = {}) {

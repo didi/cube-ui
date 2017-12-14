@@ -11,6 +11,7 @@ import ActionSheet from './modules/action-sheet'
 import Slide from './modules/slide'
 import IndexList from './modules/index-list'
 import TimePicker from './modules/time-picker'
+import CascadePicker from './modules/cascade-picker'
 import Scroll from './modules/scroll'
 
 import BScroll from './modules/better-scroll'
@@ -28,6 +29,7 @@ export {
   Popup,
   Picker,
   TimePicker,
+  CascadePicker,
   Dialog,
   Tip,
   Toast,
