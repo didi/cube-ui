@@ -122,7 +122,7 @@ describe('TimePicker', () => {
     })
   })
 
-  it('should add warn log when sigle is false', () => {
+  it('should add warn log when sigle is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
