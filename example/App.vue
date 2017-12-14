@@ -12,14 +12,14 @@
         </li>
       </ul>
     </section>
-    <transition name="move">
-      <router-view class="cube-view"></router-view>
-    </transition>
+    <cube-view></cube-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import CubeView from './components/cube-view.vue'
+
   export default {
     data() {
       return {
@@ -90,6 +90,9 @@
           click: true
         })
       })
+    },
+    components: {
+      CubeView
     }
   }
 </script>
@@ -137,11 +140,4 @@
             right: 0
             padding: 0 5px
             color: #ccc
-
-  .cube-view
-    transition: all 0.3s
-    transform: translate3d(0, 0, 0)
-    &.move-enter-active, &.move-leave-active
-      transform: translate3d(100%, 0, 0)
-
 </style>

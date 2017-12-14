@@ -47,7 +47,7 @@
 
   .cube-page
     position: fixed
-    z-index: 20
+    z-index: 10
     top: 0
     left: 0
     width: 100%
@@ -62,7 +62,7 @@
       box-shadow: 0 1px 6px #ccc
       -webkit-backface-visibility: hidden
       backface-visibility: hidden
-      z-index: 99
+      z-index: 5
       h1
         font-size: 16px
         font-weight: 700
