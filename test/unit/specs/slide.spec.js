@@ -67,7 +67,7 @@ function createSlide (items, changeHandler) {
   const vm = createVue({
     template: `
       <cube-slide :interval="interval" @change="change" style="width:300px;height:100px;">
-        <cube-slide-item v-for="item in items" key="item"><a>{{item}}</a></cube-slide-item>
+        <cube-slide-item v-for="item in items" :key="item"><a>{{item}}</a></cube-slide-item>
       </cube-slide>
     `,
     data: {
