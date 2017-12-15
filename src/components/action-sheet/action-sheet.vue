@@ -94,7 +94,7 @@
   .cube-action-sheet-panel
     text-align: center
     font-size: $fontsize-medium
-    background-color: $color-white
+    background-color: $action-sheet-bgc
   .cube-action-sheet-move-enter, .cube-action-sheet-move-leave-active
     transform: translate3d(0, 100%, 0)
   .cube-action-sheet-move-enter-active, .cube-action-sheet-move-leave-active
