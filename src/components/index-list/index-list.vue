@@ -11,19 +11,21 @@
           {{title}}
         </h1>
         <ul ref="groups">
-          <li v-for="group in data" ref="listGroup">
-            <h2 class="cube-index-list-anchor">{{group.name}}</h2>
-            <ul>
-              <li
-                class="cube-index-list-item border-bottom-1px"
-                v-for="item in group.items"
-                @touchstart="addActiveCls"
-                @touchend="removeActiveCls"
-                @click="selectItem(item)">
-                {{item.name}}
-              </li>
-            </ul>
-          </li>
+          <slot>
+            <li v-for="group in data" ref="listGroup">
+              <h2 class="cube-index-list-anchor">{{group.name}}</h2>
+              <ul>
+                <li
+                  class="cube-index-list-item border-bottom-1px"
+                  v-for="item in group.items"
+                  @touchstart="addActiveCls"
+                  @touchend="removeActiveCls"
+                  @click="selectItem(item)">
+                  {{item.name}}
+                </li>
+              </ul>
+            </li>
+          </slot>
         </ul>
       </div>
     </cube-scroll>
