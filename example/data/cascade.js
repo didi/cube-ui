@@ -26,14 +26,6 @@ export const cascadeData = [
         text: 'Orange',
         children: [
           {
-            value: 1,
-            text: 'One'
-          },
-          {
-            value: 2,
-            text: 'Two'
-          },
-          {
             value: 3,
             text: 'Three'
           },

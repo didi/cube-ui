@@ -35,7 +35,7 @@
       this.cascadePicker = this.$createCascadePicker({
         title: 'Cascade Picker',
         data: cascadeData,
-        selectedIndex: [1, 0, 0],
+        selectedIndex: [0, 1, 0],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle,
         onChange: () => {

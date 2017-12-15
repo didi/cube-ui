@@ -29,6 +29,7 @@
             "popup": "Popup",
             "toast": "Toast",
             "picker": "Picker",
+            "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
@@ -83,6 +84,7 @@
             "popup": "Popup",
             "toast": "Toast",
             "picker": "Picker",
+            "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
