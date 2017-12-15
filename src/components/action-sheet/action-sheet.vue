@@ -9,7 +9,7 @@
       @touchmove.prevent="noop"
       @click="cancel">
       <transition name="cube-action-sheet-move">
-        <div class="cube-action-sheet-panel" v-show="isVisible" @click.stop="noop">
+        <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop="noop">
           <h1 class="cube-action-sheet-title border-bottom-1px" v-show="pickerStyle || title">{{title}}</h1>
           <div class="cube-action-sheet-content">
             <ul class="cube-action-sheet-list">
@@ -94,6 +94,7 @@
   .cube-action-sheet-panel
     text-align: center
     font-size: $fontsize-medium
+    background-color: $color-white
   .cube-action-sheet-move-enter, .cube-action-sheet-move-leave-active
     transform: translate3d(0, 100%, 0)
   .cube-action-sheet-move-enter-active, .cube-action-sheet-move-leave-active
@@ -142,6 +143,8 @@
 
   .cube-action-sheet-space
     height: 6px
+    background-color: $popup-mask-bgc
+    opacity: 0.4
 
   .cube-action-sheet-item_active
     color: $action-sheet-active-color
