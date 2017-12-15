@@ -14,8 +14,7 @@
     name: COMPONENT_NAME,
     props: {
       value: {
-        type: Array,
-        require: true
+        type: Array
       },
       horizontal: {
         type: Boolean,

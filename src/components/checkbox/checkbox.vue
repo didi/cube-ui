@@ -22,8 +22,7 @@
     name: COMPONENT_NAME,
     props: {
       value: {
-        type: [Boolean, String],
-        require: true
+        type: [Boolean, String]
       },
       label: {
         type: [Boolean, String]
