@@ -14,10 +14,6 @@ export const cascadeData = [
           {
             value: 2,
             text: 'Two'
-          },
-          {
-            value: 3,
-            text: 'Three'
           }
         ]
       },
