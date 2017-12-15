@@ -4,7 +4,9 @@
       <slot></slot>
     </div>
     <div class="cube-slide-dots">
-      <span :class="{active: currentPageIndex === index}" v-for="(item, index) in dots"></span>
+      <slot name="dots" :current="currentPageIndex" :dots="dots">
+        <span :class="{active: currentPageIndex === index}" v-for="(item, index) in dots"></span>
+      </slot>
     </div>
   </div>
 </template>
@@ -18,6 +20,10 @@
   export default {
     name: COMPONENT_NAME,
     props: {
+      initialIndex: {
+        type: Number,
+        default: 0
+      },
       loop: {
         type: Boolean,
         default: true
@@ -42,7 +48,14 @@
     data() {
       return {
         dots: 0,
-        currentPageIndex: 0
+        currentPageIndex: this.initialIndex || 0
+      }
+    },
+    watch: {
+      initialIndex(newIndex) {
+        if (newIndex !== this.currentPageIndex) {
+          this.slide && this.slide.goToPage(newIndex)
+        }
       }
     },
     methods: {
@@ -53,7 +66,9 @@
           if (this.slide === null) {
             return
           }
-          this.currentPageIndex = 0
+          if (this.slide !== undefined) {
+            this.currentPageIndex = 0
+          }
           this.dots = 0
           this._setSlideWidth()
           this._initDots()
@@ -97,6 +112,8 @@
           observeDOM: false
         })
 
+        this.slide.goToPage(this.currentPageIndex, 0, 0)
+
         this.slide.on('scrollEnd', this._onScrollEnd)
 
         this.slide.on('touchend', () => {
@@ -113,9 +130,6 @@
       },
       _onScrollEnd() {
         let pageIndex = this.slide.getCurrentPage().pageX
-        if (this.loop) {
-          pageIndex -= 1
-        }
         if (this.currentPageIndex !== pageIndex) {
           this.currentPageIndex = pageIndex
           this.$emit(EVENT_CHANGE, this.currentPageIndex)
@@ -129,13 +143,9 @@
         this.dots = new Array(this.children.length)
       },
       _play() {
-        let pageIndex = this.currentPageIndex + 1
-        if (this.loop) {
-          pageIndex += 1
-        }
         clearTimeout(this._timer)
         this._timer = setTimeout(() => {
-          this.slide.goToPage(pageIndex, 0, 400)
+          this.slide.next()
         }, this.interval)
       },
       _deactivated() {
