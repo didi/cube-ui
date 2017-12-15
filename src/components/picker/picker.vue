@@ -8,7 +8,7 @@
         @touchmove.prevent
         @mask-click="cancel">
       <transition name="cube-picker-move">
-        <div class="cube-picker-panel" v-show="isVisible" @click.stop>
+        <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
             <span data-action="cancel" @click="cancel">{{cancelTxt}}</span>
             <span data-action="confirm" @click="confirm">{{confirmTxt}}</span>
