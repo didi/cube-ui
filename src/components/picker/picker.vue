@@ -158,16 +158,7 @@
       setData(data, selectedIndex) {
         this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : []
         this.pickerData = data.slice()
-        if (this.isVisible) {
-          this.$nextTick(() => {
-            this.wheels.forEach((wheel, i) => {
-              wheel.refresh()
-              wheel.wheelTo(this.pickerSelectedIndex[i])
-            })
-          })
-        } else {
-          this.dirty = true
-        }
+        this.dirty = true
       },
       refill(datas) {
         let ret = []
