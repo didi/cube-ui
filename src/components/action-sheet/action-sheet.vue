@@ -143,8 +143,7 @@
 
   .cube-action-sheet-space
     height: 6px
-    background-color: $popup-mask-bgc
-    opacity: 0.4
+    background-color: $action-sheet-space-bgc
 
   .cube-action-sheet-item_active
     color: $action-sheet-active-color

@@ -57,7 +57,7 @@ bg-image($url, $ext = ".png")
 
 functions = constant env
 safe-area-fn(fn, position)
-  s('%s(safe-area-inset-%s)', fn, position)
+  s("%s(safe-area-inset-%s)", fn, position)
 safe-area-mixin(property, position, important = false)
   for fn in functions
-    {property} safe-area-fn(fn, position) important == true ? !important : unquote('')
+    {property} safe-area-fn(fn, position) important == true ? !important : unquote("")
