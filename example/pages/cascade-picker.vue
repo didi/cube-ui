@@ -74,9 +74,12 @@
         this.datePicker.show()
       },
       showSetDataPicker() {
+        /* setData when the picker is invisible */
         this.setDataPicker.setData(cascadeData)
+
         this.setDataPicker.show()
         setTimeout(() => {
+          /* setData when the picker is visible */
           this.setDataPicker.setData(cityData, [1, 1, 0])
         }, 1000)
       },
