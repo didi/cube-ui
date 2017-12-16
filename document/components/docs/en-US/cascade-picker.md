@@ -110,7 +110,7 @@
 
 - Date Picker
 
-  It's same to date picker. Just construct the cascading data. Besides, we have written a [`DatePicker` component in example](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue), which could help you constructing the cascade date with start date and end date.
+  It's same to date picker. Just construct the cascading data. Besides, we have written a [DatePicker component in example](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue), which could help you constructing the cascading data with start date and end date.
 
   ```html
   <cube-button @click="showDatePicker">Date Picker</cube-button>
@@ -143,7 +143,7 @@
 
 - Instance method `setData`
 
-  You could use `setData` to reset the data and selected index of the `CascadePicker` instance whether it's visible.
+  You could use `setData` to reset the cascading data and selected index of `CascadePicker` instance no matter whether the picker is visible.
 
   ```html
   <cube-button @click="showPicker">SetData Picker</cube-button>
@@ -163,18 +163,19 @@
     },
     methods: {
       showSetDataPicker() {
-        // setData when picker is invisible
+        /* setData when the picker is invisible */
         this.setDataPicker.setData(cascadeData)
+
         this.setDataPicker.show()
         setTimeout(() => {
-          // setData when picker is visible
+          /* setData when the picker is visible */
           this.setDataPicker.setData(cityData, [1, 1, 0])
         }, 1000)
       }
     }
   }
   ```
-  One more thing, although `setData` is available when visible. But considering user experience, it is demand to maintain the number of column unchanging when picker is visible.
+  One more thing, although `setData` is available when visible. But considering user experience, it is demand to maintain the number of column unchanging when the picker is visible.
 
 ### Props configuration
 
@@ -203,4 +204,4 @@
 
 | Method name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
-| setData | set options in picker| Array, the cascading data | Array, the indexes of selected item in each column |
+| setData | reset the cascading data and selected index | Array, the cascading data | Array, the indexes of selected item in each column |
