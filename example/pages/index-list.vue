@@ -5,11 +5,11 @@
       <div class="view-wrapper">
         <div class="index-list-wrapper">
           <cube-index-list :data="cityData" :title="title" @select="selectItem" @title-click="clickTitle">
-            <cube-index-list-group v-for="group in cityData" :group="group">
-              <cube-index-list-item v-for="item in group.items">
-                我是自定义{{item.name}}
-              </cube-index-list-item>
-            </cube-index-list-group>
+            <!--<cube-index-list-group v-for="group in cityData" :group="group">-->
+              <!--<cube-index-list-item v-for="item in group.items">-->
+                <!--我是自定义{{item.name}}-->
+              <!--</cube-index-list-item>-->
+            <!--</cube-index-list-group>-->
           </cube-index-list>
         </div>
       </div>
