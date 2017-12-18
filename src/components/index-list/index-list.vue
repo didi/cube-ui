@@ -40,11 +40,12 @@
   import CubeScroll from '../scroll/scroll.vue'
 
   const COMPONENT_NAME = 'cube-index-list'
-  const EVENT_TITLE_CLICK = 'title-click'
+
   /* eslint-disable no-unused-vars */
   const EVENT_SELECT = 'select' // emit in index-list-item.vue
-  const ACTIVE_CLS = 'cube-index-list-item_active'
+  const EVENT_TITLE_CLICK = 'title-click'
 
+  const ACTIVE_CLS = 'cube-index-list-item_active'
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
 
   export default {
@@ -95,7 +96,7 @@
       },
       shortcutList() {
         return this.data.map((group) => {
-          return group.name.substr(0, 1)
+          return group.shortcut || group.name.substr(0, 1)
         })
       }
     },
