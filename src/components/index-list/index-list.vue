@@ -57,7 +57,9 @@
       },
       data: {
         type: Array,
-        default: []
+        default() {
+          return []
+        }
       }
     },
     data() {
@@ -76,16 +78,16 @@
       this.groupList = []
       this.listHeight = []
       this.touch = {}
-      this.subTitleHeight = 40
+      this.subTitleHeight = 0
     },
     mounted() {
-      setTimeout(() => {
-        this.titleHeight = this.title ? getRect(this.$refs.title).height : 0
+      this.$nextTick(() => {
+        this.titleHeight = this.title && this.$refs.title ? getRect(this.$refs.title).height : 0
 
         const subTitleEl = this.$el.querySelector('.cube-index-list-anchor')
         this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
         this._calculateHeight()
-      }, 20)
+      })
     },
     computed: {
       fixedTitle() {
