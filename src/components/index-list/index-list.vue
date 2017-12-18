@@ -139,15 +139,24 @@
         removeClass(e.currentTarget, ACTIVE_CLS)
       },
       _calculateHeight() {
-        const list = this.$refs.listGroup
-        if (!list) {
-          return
+        this.groupList = []
+        if (this.$refs.listGroup) {
+          this.groupList = this.$refs.listGroup
+        } else {
+          if (!this.$slots.default) {
+            return
+          }
+
+          this.$slots.default.forEach(item => {
+            this.groupList.push(item.elm)
+          })
         }
+
         this.listHeight = []
         let height = TITLE_HEIGHT
         this.listHeight.push(height)
-        for (let i = 0; i < list.length; i++) {
-          let item = list[i]
+        for (let i = 0; i < this.groupList.length; i++) {
+          let item = this.groupList[i]
           height += item.clientHeight
           this.listHeight.push(height)
         }
@@ -158,7 +167,7 @@
         } else if (index > this.listHeight.length - 2) {
           index = this.listHeight.length - 2
         }
-        this.$refs.indexList.scrollToElement(this.$refs.listGroup[index], 0)
+        this.$refs.indexList.scrollToElement(this.groupList[index], 0)
         this.scrollY = this.$refs.indexList.scroll.y
       }
     },
