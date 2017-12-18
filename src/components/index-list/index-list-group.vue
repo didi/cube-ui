@@ -1,5 +1,5 @@
 <template>
-  <div ref="listGroup" class="cube-index-list-group">
+  <div class="cube-index-list-group">
     <h2 class="cube-index-list-anchor">{{group.name}}</h2>
     <ul>
       <slot>
@@ -24,6 +24,7 @@
 
   const COMPONENT_NAME = 'cube-index-list-group'
   const ACTIVE_CLS = 'cube-index-list-item_active'
+  const EVENT_SELECT = 'select'
 
   export default {
     name: COMPONENT_NAME,
@@ -41,6 +42,9 @@
       },
       removeActiveCls(e) {
         removeClass(e.currentTarget, ACTIVE_CLS)
+      },
+      selectItem(item) {
+        this.$emit(EVENT_SELECT, item)
       }
     }
   }

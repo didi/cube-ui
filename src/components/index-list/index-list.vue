@@ -12,19 +12,8 @@
         </h1>
         <ul ref="groups">
           <slot>
-            <li v-for="group in data" ref="listGroup">
-              <h2 class="cube-index-list-anchor">{{group.name}}</h2>
-              <ul>
-                <li
-                  class="cube-index-list-item border-bottom-1px"
-                  v-for="item in group.items"
-                  @touchstart="addActiveCls"
-                  @touchend="removeActiveCls"
-                  @click="selectItem(item)">
-                  {{item.name}}
-                </li>
-              </ul>
-            </li>
+            <cube-index-list-group v-for="(group, index) in data" :key="index" :group="group" @select="selectItem">
+            </cube-index-list-group>
           </slot>
         </ul>
       </div>
@@ -55,7 +44,6 @@
   const EVENT_TITLE_CLICK = 'title-click'
   const ACTIVE_CLS = 'cube-index-list-item_active'
 
-  const SUBTITLE_HEIGHT = 40
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
 
   export default {
@@ -83,13 +71,17 @@
     },
     created() {
       this.listenScroll = true
-      this.list = []
+      this.groupList = []
       this.listHeight = []
       this.touch = {}
+      this.subTitleHeight = 40
     },
     mounted() {
       setTimeout(() => {
         this.titleHeight = this.title ? getRect(this.$refs.title).height : 0
+
+        const subTitleEl = this.$el.querySelector('.cube-index-list-anchor')
+        this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
         this._calculateHeight()
       }, 20)
     },
@@ -142,16 +134,10 @@
         removeClass(e.currentTarget, ACTIVE_CLS)
       },
       _calculateHeight() {
-        if (this.$refs.listGroup) {
-          this.groupList = this.$refs.listGroup
-        } else {
-          if (!this.$slots.default) {
-            return
-          }
+        this.groupList = this.$el.querySelectorAll('.cube-index-list-group')
 
-          this.$slots.default.forEach(item => {
-            this.groupList.push(item.elm)
-          })
+        if (!this.groupList) {
+          return
         }
 
         this.listHeight = []
@@ -180,7 +166,7 @@
         }, 20)
       },
       diff(newVal) {
-        let fixedTop = (newVal > 0 && newVal < SUBTITLE_HEIGHT) ? newVal - SUBTITLE_HEIGHT : 0
+        let fixedTop = (newVal > 0 && newVal < this.subTitleHeight) ? newVal - this.subTitleHeight : 0
         if (this.fixedTop === fixedTop) {
           return
         }
