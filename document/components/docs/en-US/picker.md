@@ -88,76 +88,6 @@
 
   `data` receives an array, whose length determines the columns of `picker`.
 
-- Linkage Picker
-
-  ```html
-  <cube-button @click="showPicker">Linkage Picker</cube-button>
-  ```
-  ```js
-  import { provinceList, cityList, areaList } from '../data/area'
-
-  export default {
-    data () {
-      return {
-        tempIndex: [0, 0, 0]
-      }
-    },
-    mounted () {
-      this.picker = this.$createPicker({
-        title: 'Linkage Picker',
-        data: this.linkageData,
-        onChange: (i, newIndex) => {
-          if (newIndex !== this.tempIndex[i]) {
-            for (let j = 2; j > i; j--) {
-              this.tempIndex.splice(j, 1, 0)
-              this.linkagePicker.scrollTo(j, 0)
-            }
-
-            this.tempIndex.splice(i, 1, newIndex)
-            this.linkagePicker.setData(this.linkageData, this.tempIndex)
-          }
-        },
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    watch: {
-      linkageData() {
-        this.picker.refresh()
-      }
-    },
-    computed: {
-      linkageData() {
-        const provinces = provinceList
-        const cities = cityList[provinces[this.tempIndex[0]].value]
-        const areas = areaList[cities[this.tempIndex[1]].value]
-
-        return [provinces, cities, areas]
-      }
-    },
-    methods: {
-      showPicker () {
-        this.picker.show()
-      }
-    }
-  }
-  ```
-
-  By monitoring the `change` event triggered by each roller and invoke `setData` method to dynamicly set values of associated rollers to accomplish linkage selectors.
-
 - Instance method `setData`
 
   ```html
@@ -202,50 +132,6 @@
   ```
 
   Instance method `setData` accepts two parameters, both of whom are arrays. The first is data that the roller displays and the second is indexs of selected values.
-  
-- Extended component: Date Picker
-
-  Besides use directly, we could extend many common pickers based on the raw Picker, such as Date Picker and Time Picker. As for Extended pickers, the method of API calling is also recommended. Take Date Picker as an example, We wrote a post-packaging Date Picker component ([source code](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)) at first. And after `createAPI` for this component, it could be used as following.
-
-  ```html
-  <cube-button @click="showDatePicker">Date Picker</cube-button>
-  ```
-  ```js
-    import Vue from 'vue'
-    import createAPI from '@/modules/create-api'
-    import DatePicker from 'example/components/date-picker.vue'
-  
-    createAPI(Vue, DatePicker, ['select', 'cancel'], false)
-  
-    export default {
-      mounted () {
-        this.datePicker = this.$createDatePicker({
-          min: [2008, 8, 8],
-          max: [2020, 10, 20],
-          onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.$createDialog({
-              type: 'warn',
-              content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-                - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-              icon: 'cubeic-alert'
-            }).show()
-          },
-          onCancel: () => {
-            this.$createToast({
-              type: 'correct',
-              txt: 'Picker canceled',
-              time: 1000
-            }).show()
-          }
-        })
-      },
-      methods: {
-        showDatePicker () {
-          this.datePicker.show()
-        }
-      }
-    }
-  ```
     
 ### Props configuration
 
@@ -255,7 +141,7 @@
 | data | data that passed into picker, whose length determines the columns of picker | Array | [] | - |
 | cancelTxt | the text of the left button in picker | String | '取消' | - |
 | confirmTxt | the text of the right button in picker | String | '确定' | - |
-| selectIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| selectedIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
 
 * `data` sub configuration
 
