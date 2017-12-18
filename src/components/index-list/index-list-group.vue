@@ -3,28 +3,14 @@
     <h2 class="cube-index-list-anchor">{{group.name}}</h2>
     <ul>
       <slot>
-        <li
-            class="cube-index-list-item border-bottom-1px"
-            v-for="item in group.items"
-            @touchstart="addActiveCls"
-            @touchend="removeActiveCls"
-            @click="selectItem(item)">
-          {{item.name}}
-        </li>
+        <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item"></cube-index-list-item>
       </slot>
     </ul>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    addClass,
-    removeClass
-  } from '../../common/helpers/dom'
-
   const COMPONENT_NAME = 'cube-index-list-group'
-  const ACTIVE_CLS = 'cube-index-list-item_active'
-  const EVENT_SELECT = 'select'
 
   export default {
     name: COMPONENT_NAME,
@@ -34,17 +20,6 @@
         default() {
           return {}
         }
-      }
-    },
-    methods: {
-      addActiveCls(e) {
-        addClass(e.currentTarget, ACTIVE_CLS)
-      },
-      removeActiveCls(e) {
-        removeClass(e.currentTarget, ACTIVE_CLS)
-      },
-      selectItem(item) {
-        this.$emit(EVENT_SELECT, item)
       }
     }
   }
