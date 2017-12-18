@@ -44,7 +44,8 @@
   import {
     getData,
     addClass,
-    removeClass
+    removeClass,
+    getRect
   } from '../../common/helpers/dom'
 
   import CubeScroll from '../scroll/scroll.vue'
@@ -54,7 +55,6 @@
   const EVENT_TITLE_CLICK = 'title-click'
   const ACTIVE_CLS = 'cube-index-list-item_active'
 
-  const TITLE_HEIGHT = 50
   const SUBTITLE_HEIGHT = 40
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
 
@@ -77,22 +77,25 @@
         diff: -1,
         options: {
           probeType: 3
-        }
+        },
+        titleHeight: null
       }
     },
     created() {
       this.listenScroll = true
+      this.list = []
       this.listHeight = []
       this.touch = {}
     },
     mounted() {
       setTimeout(() => {
+        this.titleHeight = this.title ? getRect(this.$refs.title).height : 0
         this._calculateHeight()
       }, 20)
     },
     computed: {
       fixedTitle() {
-        if (this.scrollY > -TITLE_HEIGHT) {
+        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
           return ''
         }
         return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
@@ -139,7 +142,6 @@
         removeClass(e.currentTarget, ACTIVE_CLS)
       },
       _calculateHeight() {
-        this.groupList = []
         if (this.$refs.listGroup) {
           this.groupList = this.$refs.listGroup
         } else {
@@ -153,7 +155,7 @@
         }
 
         this.listHeight = []
-        let height = TITLE_HEIGHT
+        let height = this.titleHeight
         this.listHeight.push(height)
         for (let i = 0; i < this.groupList.length; i++) {
           let item = this.groupList[i]
@@ -188,7 +190,7 @@
       scrollY(newY) {
         const listHeight = this.listHeight
         // top
-        if (newY > -TITLE_HEIGHT) {
+        if (newY > -this.titleHeight) {
           this.currentIndex = 0
           return
         }
