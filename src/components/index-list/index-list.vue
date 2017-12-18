@@ -32,8 +32,6 @@
 <script type="text/ecmascript-6">
   import {
     getData,
-    addClass,
-    removeClass,
     getRect
   } from '../../common/helpers/dom'
 
@@ -128,12 +126,6 @@
 
         this._scrollTo(anchorIndex)
       },
-      addActiveCls(e) {
-        addClass(e.currentTarget, ACTIVE_CLS)
-      },
-      removeActiveCls(e) {
-        removeClass(e.currentTarget, ACTIVE_CLS)
-      },
       _calculateHeight() {
         this.groupList = this.$el.querySelectorAll('.cube-index-list-group')
 
@@ -162,9 +154,15 @@
     },
     watch: {
       data() {
-        setTimeout(() => {
+        this.$nextTick(() => {
           this._calculateHeight()
-        }, 20)
+        })
+      },
+      title(newVal) {
+        this.$nextTick(() => {
+          this.titleHeight = newVal && this.$refs.title ? getRect(this.$refs.title).height : 0
+          this._calculateHeight()
+        })
       },
       diff(newVal) {
         let fixedTop = (newVal > 0 && newVal < this.subTitleHeight) ? newVal - this.subTitleHeight : 0
