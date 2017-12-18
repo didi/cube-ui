@@ -1,12 +1,12 @@
 ## CascadePicker
 
-`CascadePicker` component is used to implement the cascading change between picker columns. What is the effect of cascade? Considering the usage of province-city-area picker, when province is changed, you may want the city column display the exactly cities of current province, so does the area column. And the `CascadePicker` is here to help you handle this.
+`CascadePicker` component is used to implement the cascading change between picker columns. What is the effect of cascade? Considering the usage of province-city-area picker, when the province is changed, you may want the city column to display the exact cities of current province, so does the area column. And the `CascadePicker` is here to help you handle this.
 
 ### Example
 
 - Basic usage
 
-  Comparing to `Picker`, the required structure of props data is different for `CascadePicker`. The data structure of `Picker` is a two-dimensional array, and each column corresponds to an array. As in `CascadePicker`, there is a tree, that each item of first column has a `children` property which contains the corresponding data of following columns. Here is an example.
+  Comparing to `Picker`, the required structure of props data is different for `CascadePicker`. The data structure of `Picker` is a two-dimensional array, and each column corresponds to an array. As in `CascadePicker`, we need a tree structure, that each item of first column has a `children` property which contains the corresponding data of following columns. Here is an example.
 
   ```html
   <cube-button @click="showCascadePicker">Cascade Picker</cube-button>
@@ -67,7 +67,7 @@
     }
   }
   ```
-  When the first column goes to `Fruit`, the data of second column are `Apple` and `Orange`. And when the second column goes to on `Orange`, the data of third column are `Three` and `Four`.
+  When the first column goes to `Fruit`, the data of second column are `Apple` and `Orange`. And so on, when the second column goes to on `Orange`, the data of third column are `Three` and `Four`.
 
 - Province-city-area Picker
 
@@ -110,7 +110,7 @@
 
 - Date Picker
 
-  As same as province-city-area picker, you just need to construct the cascading data. Besides, we have written a [DatePicker component in example](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue), which could help you constructing the cascading data with start date and end date.
+  As same as province-city-area picker, you just need to construct the cascading data. Besides, we have written a [DatePicker component in example](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue), which could help you construct the cascading data with start date and end date.
 
   ```html
   <cube-button @click="showDatePicker">Date Picker</cube-button>
@@ -175,7 +175,7 @@
     }
   }
   ```
-  One more thing, although `setData` is available when visible. But considering user experience, you can't change the number of column when the picker is visible.
+  One more thing, although `setData` is available when visible, considering user experience, you can't change the number of columns when the picker is visible.
 
 ### Props configuration
 
