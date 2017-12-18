@@ -88,76 +88,6 @@
   
   `data`字段接收一个数组，其长度决定了`picker`的列数。
 
-- 联动选择器
-
-  ```html
-  <cube-button @click="showPicker">Linkage Picker</cube-button>
-  ```
-  ```js
-  import { provinceList, cityList, areaList } from '../data/area'
-
-  export default {
-    data () {
-      return {
-        tempIndex: [0, 0, 0]
-      }
-    },
-    mounted () {
-      this.picker = this.$createPicker({
-        title: 'Linkage Picker',
-        data: this.linkageData,
-        onChange: (i, newIndex) => {
-          if (newIndex !== this.tempIndex[i]) {
-            for (let j = 2; j > i; j--) {
-              this.tempIndex.splice(j, 1, 0)
-              this.linkagePicker.scrollTo(j, 0)
-            }
-
-            this.tempIndex.splice(i, 1, newIndex)
-            this.linkagePicker.setData(this.linkageData, this.tempIndex)
-          }
-        },
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    watch: {
-      linkageData() {
-        this.picker.refresh()
-      }
-    },
-    computed: {
-      linkageData() {
-        const provinces = provinceList
-        const cities = cityList[provinces[this.tempIndex[0]].value]
-        const areas = areaList[cities[this.tempIndex[1]].value]
-
-        return [provinces, cities, areas]
-      }
-    },
-    methods: {
-      showPicker () {
-        this.picker.show()
-      }
-    }
-  }
-  ```
-  
-  通过监听每个滚轴触发的`change`事件，然后调用`setData`方法去动态设置相关联的滚轴的值来完成联动选择的功能。
-
 - 实例方法 `setData`
 
   ```html
@@ -203,50 +133,6 @@
   
   实例方法`setData`可接受2个参数，都为数组类型。第一个参数为滚轴需要显示的数据，第二个参数为选中值的索引。
   
-- 扩展组件：日期选择器
-
-  除了直接调用，我们还可以基于扩展 Picker 组件扩展出很多常用的选择器，如日期选择器、时间选择器。对于扩展的选择器组件，我们依然推荐以 API 的形式调用，以日期选择器为例，首先基于 Picker 组件二次封装一个 DatePicker 组件（[源码](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)），然后对该组件`createAPI`后，便可如下使用。
-  
-  ```html
-  <cube-button @click="showDatePicker">Date Picker</cube-button>
-  ```
-  ```js
-    import Vue from 'vue'
-    import createAPI from '@/modules/create-api'
-    import DatePicker from 'example/components/date-picker.vue'
-  
-    createAPI(Vue, DatePicker, ['select', 'cancel'], false)
-  
-    export default {
-      mounted () {
-        this.datePicker = this.$createDatePicker({
-          min: [2008, 8, 8],
-          max: [2020, 10, 20],
-          onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.$createDialog({
-              type: 'warn',
-              content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-                - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-              icon: 'cubeic-alert'
-            }).show()
-          },
-          onCancel: () => {
-            this.$createToast({
-              type: 'correct',
-              txt: 'Picker canceled',
-              time: 1000
-            }).show()
-          }
-        })
-      },
-      methods: {
-        showDatePicker () {
-          this.datePicker.show()
-        }
-      }
-    }
-  ```
-  
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
@@ -255,7 +141,7 @@
 | data | 传入picker数据，数组的长度决定了picker的列数 | Array | [] | - |
 | cancelTxt | picker左侧按钮文案 | String | '取消' | - |
 | confirmTxt | picker右侧按钮文案 | String | '确定' | - |
-| selectIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
+| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
 
 * `data`子配置项
 
