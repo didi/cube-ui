@@ -20,6 +20,8 @@ import ActionSheet from './pages/action-sheet.vue'
 import Scroll from './pages/scroll.vue'
 import Slide from './pages/slide.vue'
 import IndexList from './pages/index-list.vue'
+import IndexListDefault from './pages/index-list-default.vue'
+import IndexListCustom from './pages/index-list-custom.vue'
 
 Vue.use(Cube)
 Vue.use(VueRouter)
@@ -83,7 +85,17 @@ const routes = [
   },
   {
     path: '/index-list',
-    component: IndexList
+    component: IndexList,
+    children: [
+      {
+        path: 'default',
+        component: IndexListDefault
+      },
+      {
+        path: 'custom',
+        component: IndexListCustom
+      }
+    ]
   }
 ]
 
