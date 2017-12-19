@@ -11,19 +11,10 @@
           {{title}}
         </h1>
         <ul ref="groups">
-          <li v-for="group in data" ref="listGroup">
-            <h2 class="cube-index-list-anchor">{{group.name}}</h2>
-            <ul>
-              <li
-                class="cube-index-list-item border-bottom-1px"
-                v-for="item in group.items"
-                @touchstart="addActiveCls"
-                @touchend="removeActiveCls"
-                @click="selectItem(item)">
-                {{item.name}}
-              </li>
-            </ul>
-          </li>
+          <slot>
+            <cube-index-list-group v-for="(group, index) in data" :key="index" :group="group" @select="selectItem">
+            </cube-index-list-group>
+          </slot>
         </ul>
       </div>
     </cube-scroll>
@@ -41,8 +32,7 @@
 <script type="text/ecmascript-6">
   import {
     getData,
-    addClass,
-    removeClass
+    getRect
   } from '../../common/helpers/dom'
 
   import CubeScroll from '../scroll/scroll.vue'
@@ -50,10 +40,7 @@
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
-  const ACTIVE_CLS = 'cube-index-list-item_active'
 
-  const TITLE_HEIGHT = 50
-  const SUBTITLE_HEIGHT = 40
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
 
   export default {
@@ -65,7 +52,9 @@
       },
       data: {
         type: Array,
-        default: []
+        default() {
+          return []
+        }
       }
     },
     data() {
@@ -75,33 +64,41 @@
         diff: -1,
         options: {
           probeType: 3
-        }
+        },
+        titleHeight: null
       }
     },
     created() {
       this.listenScroll = true
+      this.groupList = []
       this.listHeight = []
       this.touch = {}
+      this.subTitleHeight = 0
     },
     mounted() {
-      setTimeout(() => {
+      this.$nextTick(() => {
+        this.titleHeight = this.title && this.$refs.title ? getRect(this.$refs.title).height : 0
+
+        const subTitleEl = this.$el.querySelector('.cube-index-list-anchor')
+        this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
         this._calculateHeight()
-      }, 20)
+      })
     },
     computed: {
       fixedTitle() {
-        if (this.scrollY > -TITLE_HEIGHT) {
+        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
           return ''
         }
         return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
       },
       shortcutList() {
         return this.data.map((group) => {
-          return group.name.substr(0, 1)
+          return group ? group.shortcut || group.name.substr(0, 1) : ''
         })
       }
     },
     methods: {
+      /* TODO: remove refresh next minor version */
       refresh() {
         this.$refs.indexList.refresh()
       },
@@ -130,22 +127,18 @@
 
         this._scrollTo(anchorIndex)
       },
-      addActiveCls(e) {
-        addClass(e.currentTarget, ACTIVE_CLS)
-      },
-      removeActiveCls(e) {
-        removeClass(e.currentTarget, ACTIVE_CLS)
-      },
       _calculateHeight() {
-        const list = this.$refs.listGroup
-        if (!list) {
+        this.groupList = this.$el.querySelectorAll('.cube-index-list-group')
+
+        if (!this.groupList) {
           return
         }
+
         this.listHeight = []
-        let height = TITLE_HEIGHT
+        let height = this.titleHeight
         this.listHeight.push(height)
-        for (let i = 0; i < list.length; i++) {
-          let item = list[i]
+        for (let i = 0; i < this.groupList.length; i++) {
+          let item = this.groupList[i]
           height += item.clientHeight
           this.listHeight.push(height)
         }
@@ -156,18 +149,24 @@
         } else if (index > this.listHeight.length - 2) {
           index = this.listHeight.length - 2
         }
-        this.$refs.indexList.scrollToElement(this.$refs.listGroup[index], 0)
+        this.$refs.indexList.scrollToElement(this.groupList[index], 0)
         this.scrollY = this.$refs.indexList.scroll.y
       }
     },
     watch: {
       data() {
-        setTimeout(() => {
+        this.$nextTick(() => {
           this._calculateHeight()
-        }, 20)
+        })
+      },
+      title(newVal) {
+        this.$nextTick(() => {
+          this.titleHeight = newVal && this.$refs.title ? getRect(this.$refs.title).height : 0
+          this._calculateHeight()
+        })
       },
       diff(newVal) {
-        let fixedTop = (newVal > 0 && newVal < SUBTITLE_HEIGHT) ? newVal - SUBTITLE_HEIGHT : 0
+        let fixedTop = (newVal > 0 && newVal < this.subTitleHeight) ? newVal - this.subTitleHeight : 0
         if (this.fixedTop === fixedTop) {
           return
         }
@@ -177,7 +176,7 @@
       scrollY(newY) {
         const listHeight = this.listHeight
         // top
-        if (newY > -TITLE_HEIGHT) {
+        if (newY > -this.titleHeight) {
           this.currentIndex = 0
           return
         }

@@ -28,15 +28,17 @@ describe('IndexList', () => {
         vm = null
       }
     })
+
     it('use', () => {
       Vue.use(IndexList)
       expect(Vue.component(IndexList.name))
         .to.be.a('function')
     })
+
     it('should render correct contents', () => {
-      vm = createIndexList()
-      expect(vm.$el.querySelector('.cube-index-list-title').textContent.trim())
-        .to.equal('当前城市：北京市')
+      vm = createIndexList({
+        data
+      })
       const navItems = vm.$el.querySelectorAll('.cube-index-list-nav li')
       expect(navItems.length)
         .to.equal(9)
@@ -60,6 +62,9 @@ describe('IndexList', () => {
       const titleClickHandler = sinon.spy()
 
       vm = createIndexList({
+        title,
+        data
+      }, {
         select: selectHandler,
         'title-click': titleClickHandler
       })
@@ -75,7 +80,7 @@ describe('IndexList', () => {
 
     it('should fixed title', function () {
       this.timeout(10000)
-      vm = createIndexList({}, [])
+      vm = createIndexList()
       return new Promise((resolve) => {
         setTimeout(() => {
           vm.$parent.updateRenderData({
@@ -125,9 +130,26 @@ describe('IndexList', () => {
       })
     })
 
+    it('run normal when group or item undefined', () => {
+      vm = createIndexList({
+        data: [
+          undefined, // props group in index-list-group.vue
+          {
+            name: 'default',
+            items: [
+              undefined // props item in index-list-item.vue
+            ]
+          }
+        ]
+      })
+    })
+
     it('should handle condition of unexpected param', function () {
       this.timeout(10000)
-      vm = createIndexList()
+      vm = createIndexList({
+        title,
+        data
+      })
       return new Promise((resolve) => {
         setTimeout(() => {
           const bEl = vm.$el.querySelector('.cube-index-list-nav li[data-index="2"]')
@@ -171,8 +193,7 @@ describe('IndexList', () => {
       })
     })
 
-    function createIndexList (events = {}, _data = data) {
-      const props = {title: title, data: _data}
+    function createIndexList (props = {}, events = {}) {
       return instantiateComponent(Vue, IndexList, {
         props: props,
         on: events
