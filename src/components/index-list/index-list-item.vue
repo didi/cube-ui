@@ -38,7 +38,7 @@
         removeClass(e.currentTarget, ACTIVE_CLS)
       },
       selectItem() {
-        this.$parent.$parent.$parent.$emit(EVENT_SELECT, this.item)
+        this.$emit(EVENT_SELECT, this.item)
       }
     }
   }

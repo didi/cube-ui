@@ -12,7 +12,7 @@
         </h1>
         <ul ref="groups">
           <slot>
-            <cube-index-list-group v-for="(group, index) in data" :key="index" :group="group">
+            <cube-index-list-group v-for="(group, index) in data" :key="index" :group="group" @select="selectItem">
             </cube-index-list-group>
           </slot>
         </ul>
@@ -38,12 +38,9 @@
   import CubeScroll from '../scroll/scroll.vue'
 
   const COMPONENT_NAME = 'cube-index-list'
-
-  /* eslint-disable no-unused-vars */
-  const EVENT_SELECT = 'select' // emit in index-list-item.vue
+  const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
 
-  const ACTIVE_CLS = 'cube-index-list-item_active'
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
 
   export default {
@@ -101,8 +98,12 @@
       }
     },
     methods: {
+      /* TODO: remove refresh next minor version */
       refresh() {
         this.$refs.indexList.refresh()
+      },
+      selectItem(item) {
+        this.$emit(EVENT_SELECT, item)
       },
       scroll(pos) {
         this.scrollY = pos.y
