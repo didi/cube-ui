@@ -93,7 +93,7 @@
       },
       shortcutList() {
         return this.data.map((group) => {
-          return group.shortcut || group.name.substr(0, 1)
+          return group ? group.shortcut || group.name.substr(0, 1) : ''
         })
       }
     },
