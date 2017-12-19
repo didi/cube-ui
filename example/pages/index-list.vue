@@ -1,58 +1,33 @@
 <template>
-  <cube-page type="index-list"
-               title="IndexList">
+  <cube-page type="index-list" title="IndexList">
     <div slot="content">
-      <div class="view-wrapper">
-        <div class="index-list-wrapper">
-          <cube-index-list :data="cityData" :title="title" @title-click="clickTitle">
-            <cube-index-list-group v-for="group in cityData" :group="group">
-              <cube-index-list-item v-for="item in group.items" :item="item" @select="selectItem">
-                我是自定义{{item.name}}
-              </cube-index-list-item>
-            </cube-index-list-group>
-          </cube-index-list>
-        </div>
-      </div>
+      <cube-button-group>
+        <cube-button @click="goTo('default')">Default</cube-button>
+        <cube-button @click="goTo('custom')">Custom</cube-button>
+      </cube-button-group>
+      <cube-view></cube-view>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import cityData from '../data/index-list.json'
+  import CubePage from 'example/components/cube-page.vue'
+  import CubeButtonGroup from 'example/components/cube-button-group.vue'
+  import CubeView from 'example/components/cube-view.vue'
 
   export default {
     components: {
-      CubePage
-    },
-    data() {
-      return {
-        title: 'Current City: BEIJING',
-        cityData: cityData
-      }
+      CubePage,
+      CubeButtonGroup,
+      CubeView
     },
     methods: {
-      selectItem(item) {
-        console.log(item.name)
-      },
-      clickTitle(title) {
-        console.log(title)
+      goTo(subPath) {
+        this.$router.push('/index-list/' + subPath)
       }
     }
   }
-
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .view-wrapper
-    position: fixed
-    top: 54px
-    left: 0
-    bottom: 0
-    width: 100%
-    .index-list-wrapper
-      height: 98%
-      width: 94%
-      margin: 0 auto
-      overflow: hidden
 </style>
