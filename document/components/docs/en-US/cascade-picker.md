@@ -52,6 +52,8 @@
         title: 'Cascade Picker',
         data: cascadeData,
         selectedIndex: [1, 0, 0],
+        cancelTxt: 'Cancel',
+        confirmTxt: 'Confirm',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           console.log('select', selectedVal, selectedIndex, selectedText)
         },
@@ -184,6 +186,8 @@
 | title | title | String | '' | - |
 | data | the cascading data used to init option items | Array | [] | - |
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| cancelTxt | the text of the left button in picker | String | '取消' | - |
+| confirmTxt | the text of the right button in picker | String | '确定' | - |
 
 * `data` sub configuration
 

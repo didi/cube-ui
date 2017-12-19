@@ -52,6 +52,8 @@
         title: 'Cascade Picker',
         data: cascadeData,
         selectedIndex: [1, 0, 0],
+        cancelTxt: 'Cancel',
+        confirmTxt: 'Confirm',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           console.log('select', selectedVal, selectedIndex, selectedText)
         },
@@ -184,6 +186,8 @@
 | title | 标题 | String | '' | - |
 | data | 级联选择器的树形数据，用于初始化选项 | Array | [] | - |
 | selectedIndex | 被选中的索引值，拉起选择器后显示这个索引值对应的内容 | Array | [] | [1] |
+| cancelTxt | 选择器左侧按钮文案 | String | '取消' | - |
+| confirmTxt | 选择器右侧按钮文案 | String | '确定' | - |
 
 * `data`子配置项
 
