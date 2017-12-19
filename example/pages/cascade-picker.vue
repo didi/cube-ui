@@ -36,6 +36,8 @@
         title: 'Cascade Picker',
         data: cascadeData,
         selectedIndex: [0, 1, 0],
+        cancelTxt: 'Cancel',
+        confirmTxt: 'Confirm',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle,
         onChange: () => {
