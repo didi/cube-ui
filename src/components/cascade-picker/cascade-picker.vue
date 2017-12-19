@@ -4,6 +4,8 @@
       :title="title"
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
+      :cancelTxt="cancelTxt"
+      :confirmTxt="confirmTxt"
       @select="_pickerSelect"
       @cancel="_pickerCancel"
       @change="_pickerChange"></cube-picker>
@@ -37,6 +39,14 @@
         default() {
           return []
         }
+      },
+      cancelTxt: {
+        type: String,
+        default: '取消'
+      },
+      confirmTxt: {
+        type: String,
+        default: '确定'
       }
     },
     data () {
