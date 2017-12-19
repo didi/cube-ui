@@ -28,11 +28,13 @@ describe('IndexList', () => {
         vm = null
       }
     })
+
     it('use', () => {
       Vue.use(IndexList)
       expect(Vue.component(IndexList.name))
         .to.be.a('function')
     })
+
     it('should render correct contents', () => {
       vm = createIndexList({
         data
@@ -125,6 +127,20 @@ describe('IndexList', () => {
             ], 100)
           }, 20)
         }, 150)
+      })
+    })
+
+    it('run normal when group or item undefined', () => {
+      vm = createIndexList({
+        data: [
+          undefined, // props group in index-list-group.vue
+          {
+            name: 'default',
+            items: [
+              undefined // props item in index-list-item.vue
+            ]
+          }
+        ]
       })
     })
 
