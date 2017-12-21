@@ -44,6 +44,7 @@
   const EVENT_TITLE_CLICK = 'title-click'
 
   const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
+  const transformStyleKey = prefixStyle('transform')
 
   export default {
     name: COMPONENT_NAME,
@@ -173,7 +174,7 @@
           return
         }
         this.fixedTop = fixedTop
-        this.$refs.fixed.style[prefixStyle('transform')] = `translate3d(0,${fixedTop}px,0)`
+        this.$refs.fixed.style[transformStyleKey] = `translate3d(0,${fixedTop}px,0)`
       },
       scrollY(newY) {
         const listHeight = this.listHeight
