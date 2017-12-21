@@ -39,11 +39,11 @@ export function getRect(el) {
 let vendor = (() => {
   let elementStyle = document.createElement('div').style
   let transformNames = {
+    standard: 'transform',
     webkit: 'webkitTransform',
     Moz: 'MozTransform',
     O: 'OTransform',
-    ms: 'msTransform',
-    standard: 'transform'
+    ms: 'msTransform'
   }
 
   for (let key in transformNames) {
