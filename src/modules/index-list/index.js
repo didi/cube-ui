@@ -8,7 +8,7 @@ IndexList.install = function (Vue) {
   Vue.component(IndexListItem.name, IndexListItem)
 }
 
-IndexList.group = IndexListGroup
-IndexList.item = IndexListItem
+IndexList.Group = IndexListGroup
+IndexList.Item = IndexListItem
 
 export default IndexList

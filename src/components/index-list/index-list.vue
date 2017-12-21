@@ -36,6 +36,7 @@
   } from '../../common/helpers/dom'
 
   import CubeScroll from '../scroll/scroll.vue'
+  import CubeIndexListGroup from './index-list-group.vue'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -195,7 +196,8 @@
       }
     },
     components: {
-      CubeScroll
+      CubeScroll,
+      CubeIndexListGroup
     }
   }
 </script>
