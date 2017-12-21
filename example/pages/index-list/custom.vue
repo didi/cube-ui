@@ -6,8 +6,12 @@
           <cube-index-list
             :data="cityData"
             :title="title"
-            @select="selectItem"
             @title-click="clickTitle">
+            <cube-index-list-group v-for="(group, index) in cityData" :key="index" :group="group">
+              <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
+                我是自定义{{item.name}}
+              </cube-index-list-item>
+            </cube-index-list-group>
           </cube-index-list>
         </div>
       </div>
@@ -16,8 +20,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import cityData from '../data/index-list.json'
+  import CubePage from '../../components/cube-page.vue'
+  import cityData from '../../data/index-list.json'
 
   export default {
     components: {
