@@ -10,6 +10,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import CubeIndexListItem from './index-list-item.vue'
+
   const COMPONENT_NAME = 'cube-index-list-group'
   const EVENT_SELECT = 'select'
 
@@ -27,6 +29,9 @@
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)
       }
+    },
+    components: {
+      CubeIndexListItem
     }
   }
 </script>
