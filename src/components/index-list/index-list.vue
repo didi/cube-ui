@@ -32,7 +32,8 @@
 <script type="text/ecmascript-6">
   import {
     getData,
-    getRect
+    getRect,
+    prefixStyle
   } from '../../common/helpers/dom'
 
   import CubeScroll from '../scroll/scroll.vue'
@@ -172,7 +173,7 @@
           return
         }
         this.fixedTop = fixedTop
-        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
+        this.$refs.fixed.style[prefixStyle('transform')] = `translate3d(0,${fixedTop}px,0)`
       },
       scrollY(newY) {
         const listHeight = this.listHeight
