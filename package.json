@@ -38,7 +38,7 @@
   ],
   "license": "Apache",
   "dependencies": {
-    "better-scroll": "^1.6.0"
+    "better-scroll": "^1.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
