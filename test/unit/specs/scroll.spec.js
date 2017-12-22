@@ -1,5 +1,4 @@
 import Vue from 'vue2'
-import 'basic-mouse-event-polyfill-phantomjs'
 import Scroll from '@/modules/scroll'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'

@@ -1,5 +1,4 @@
 import Vue from 'vue2'
-import 'basic-mouse-event-polyfill-phantomjs'
 import Slide from '@/modules/slide'
 import createVue from '../utils/create-vue'
 import { dispatchSwipe } from '../utils/event'
