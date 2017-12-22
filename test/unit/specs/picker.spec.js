@@ -1,4 +1,5 @@
 import Vue from 'vue2'
+import 'basic-mouse-event-polyfill-phantomjs'
 import Picker from '@/modules/picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 
