@@ -1,4 +1,5 @@
 import Vue from 'vue2'
+import 'basic-mouse-event-polyfill-phantomjs'
 import CascadePicker from '@/modules/cascade-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { cascadeData } from 'example/data/cascade'
