@@ -103,6 +103,7 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
+          bounce: false,
           snap: {
             loop: this.loop,
             threshold: this.threshold,
