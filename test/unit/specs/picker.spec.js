@@ -37,12 +37,6 @@ const data2 = [
     value: 'e'
   }
 ]
-const props = {
-  title: '两列选择器',
-  data: [data1, data2],
-  cancelTxt: '关闭',
-  confirmTxt: '好的'
-}
 
 describe('Picker', () => {
   let vm
@@ -62,7 +56,12 @@ describe('Picker', () => {
   })
 
   it('should render correct contents', function () {
-    vm = createPicker(props)
+    vm = createPicker({
+      title: '两列选择器',
+      data: [data1, data2],
+      cancelTxt: '关闭',
+      confirmTxt: '好的'
+    })
 
     const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
     expect(cancelBtn.textContent.trim())
@@ -89,6 +88,23 @@ describe('Picker', () => {
       .to.equal('辅助')
   })
 
+  it('should render correct contents when use alias', function () {
+    vm = createPicker({
+      data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+      alias: {
+        value: 'id',
+        text: 'name'
+      }
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    const firstWheelItems = wheels[0].querySelectorAll('li')
+    expect(firstWheelItems.length)
+      .to.equal(3)
+    expect(firstWheelItems[1].textContent.trim())
+      .to.equal('B')
+  })
+
   it('should trigger events', function () {
     this.timeout(10000)
 
@@ -107,7 +123,12 @@ describe('Picker', () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         vm.$parent.updateRenderData({
-          props: props,
+          props: {
+            title: '两列选择器',
+            data: [data1, data2],
+            cancelTxt: '关闭',
+            confirmTxt: '好的'
+          },
           on: events
         })
         vm.$parent.$forceUpdate()
