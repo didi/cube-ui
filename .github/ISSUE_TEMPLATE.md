@@ -1,26 +1,10 @@
-### A feature or reporting a bug?
+<!--
+IMPORTANT: Please use the following link to create a new issue:
 
+  https://cube-ui.github.io/cube-issue-helper/
 
-### What is the current behavior?
+If your issue was not created using the app above, it will be closed immediately.
 
-
-### What is the expected behavior?
-
-
-### How to reproduce the current behavior (if this is a bug)?
-
-
-#### Provide the test code and the tested page URL (if applicable)
-
-Tested page URL:
-
-Test code
-
-```js
-
-```
-
-### Specify your
-
-* vue version:
-* cube-ui version:
+中文用户请注意：
+请使用上面的链接来创建新的 issue。如果不是用上述工具创建的 issue 会被自动关闭。
+-->
