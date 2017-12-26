@@ -3,8 +3,9 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showPicker">Picker</cube-button>
-        <cube-button @click="showPickerMuti">Multi-column Picker</cube-button>
-        <cube-button @click="showPickerSetData">Use SetData</cube-button>
+        <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
+        <cube-button @click="showAliasPicker">Use Alias</cube-button>
+        <cube-button @click="showSetDataPicker">Use SetData</cube-button>
         <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
       </cube-button-group>
     </div>
@@ -43,6 +44,17 @@
         onCancel: this.cancelHandle
       })
 
+      this.aliasPicker = this.$createPicker({
+        title: 'Use Alias',
+        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+        alias: {
+          value: 'id',
+          text: 'name'
+        },
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+
       this.normalTimePicker = this.$createNormalTimePicker({
         selectedIndex: [10, 20, 59],
         onSelect: this.selectHandle,
@@ -53,10 +65,13 @@
       showPicker() {
         this.picker.show()
       },
-      showPickerMuti() {
+      showMutiPicker() {
         this.mutiPicker.show()
       },
-      showPickerSetData() {
+      showAliasPicker() {
+        this.aliasPicker.show()
+      },
+      showSetDataPicker() {
         this.setDataPicker.setData([data1, data2, data3], [1, 2, 3])
         this.setDataPicker.show()
       },

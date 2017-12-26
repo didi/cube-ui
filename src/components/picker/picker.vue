@@ -20,7 +20,7 @@
             <div class="cube-picker-wheel-wrapper" ref="wheelWrapper">
               <div v-for="data in pickerData">
                 <ul class="wheel-scroll">
-                  <li v-for="item in data" class="wheel-item">{{item.text}}</li>
+                  <li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>
                 </ul>
               </div>
             </div>
@@ -43,6 +43,11 @@
   const EVENT_VALUE_CHANGE = 'value-change'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
+
+  const DEFAULT_KEYS = {
+    value: 'value',
+    text: 'text'
+  }
 
   export default {
     name: COMPONENT_NAME,
@@ -70,12 +75,26 @@
         default() {
           return []
         }
+      },
+      alias: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
     },
     data() {
       return {
         pickerData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex
+      }
+    },
+    computed: {
+      valueKey() {
+        return this.alias.value || DEFAULT_KEYS.value
+      },
+      textKey() {
+        return this.alias.text || DEFAULT_KEYS.text
       }
     },
     created() {
@@ -103,8 +122,8 @@
           let value = null
           let text = ''
           if (this.pickerData[i].length) {
-            value = this.pickerData[i][index].value
-            text = this.pickerData[i][index].text
+            value = this.pickerData[i][index][this.valueKey]
+            text = this.pickerData[i][index][this.textKey]
           }
           if (this.pickerSelectedVal[i] !== value) {
             changed = true
@@ -189,9 +208,9 @@
           this.$set(this.pickerData, index, data)
           let selectedIndex = wheel.getSelectedIndex()
           if (oldData.length) {
-            let oldValue = oldData[selectedIndex].value
+            let oldValue = oldData[selectedIndex][this.valueKey]
             for (let i = 0; i < data.length; i++) {
-              if (data[i].value === oldValue) {
+              if (data[i][this.valueKey] === oldValue) {
                 dist = i
                 break
               }

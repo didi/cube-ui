@@ -43,9 +43,11 @@
   ```
 
 - 多列选择器
+  
+  `data`字段接收一个数组，其长度决定了`picker`的列数。
 
   ```html
-  <cube-button @click="showPicker">Multiple Columns Picker</cube-button>
+  <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
@@ -79,19 +81,59 @@
       })
     },
     methods: {
-      showPicker () {
-        this.picker.show()
+      showMutiPicker() {
+        this.mutiPicker.show()
       }
     }
   }
   ```
   
-  `data`字段接收一个数组，其长度决定了`picker`的列数。
+- 配置别名
+  
+  可通过`alias`属性配置`value`和`text`的别名。如，用`id`代表`value`，用`name`代表`text`。
+
+  ```html
+  <cube-button @click="showAliasPicker">Use Alias</cube-button>
+  ```
+  ```js
+  export default {
+    mounted () {
+      this.aliasPicker = this.$createPicker({
+        title: 'Use Alias',
+        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+        alias: {
+          value: 'id',
+          text: 'name'
+        },
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
+        }
+      })
+    },
+    methods: {
+      showAliasPicker() {
+        this.aliasPicker.show()
+      }
+    }
+  }
+  ``` 
 
 - 实例方法 `setData`
 
   ```html
-  <cube-button @click="showPicker">SetData Picker</cube-button>
+  <cube-button @click="showSetDataPicker">Use SetData</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
@@ -123,7 +165,7 @@
       })
     },
     methods: {
-      showPicker () {
+      showSetDataPicker () {
         this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
         this.picker.show()
       }
@@ -139,9 +181,10 @@
 | - | - | - | - | - |
 | title | 标题 | String | '' | - |
 | data | 传入picker数据，数组的长度决定了picker的列数 | Array | [] | - |
+| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
 | cancelTxt | picker左侧按钮文案 | String | '取消' | - |
 | confirmTxt | picker右侧按钮文案 | String | '确定' | - |
-| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
+| alias | 配置`value`和`text`的别名 | Object | {} | { value: 'id', text: 'name'} |
 
 * `data`子配置项
 
