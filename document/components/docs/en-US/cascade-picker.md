@@ -188,6 +188,7 @@
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
 | cancelTxt | the text of the left button in picker | String | '取消' | - |
 | confirmTxt | the text of the right button in picker | String | '确定' | - |
+| alias | configure the alias of `value` and `text`, used as same as the alias of `Picker` component | Object | {} | { value: 'id', text: 'name'} |
 
 * `data` sub configuration
 

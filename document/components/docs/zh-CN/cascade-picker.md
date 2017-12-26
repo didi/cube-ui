@@ -188,6 +188,7 @@
 | selectedIndex | 被选中的索引值，拉起选择器后显示这个索引值对应的内容 | Array | [] | [1] |
 | cancelTxt | 选择器左侧按钮文案 | String | '取消' | - |
 | confirmTxt | 选择器右侧按钮文案 | String | '确定' | - |
+| alias | 配置`value`和`text`的别名，用法同`Picker`组件 | Object | {} | { value: 'id', text: 'name'} |
 
 * `data`子配置项
 
