@@ -6,7 +6,6 @@
       :selected-index="pickerSelectedIndex"
       :cancelTxt="cancelTxt"
       :confirmTxt="confirmTxt"
-      :alias="alias"
       @select="_pickerSelect"
       @cancel="_pickerCancel"
       @change="_pickerChange"></cube-picker>
@@ -112,8 +111,8 @@
             let columnData = []
             data.forEach((item) => {
               columnData.push({
-                [this.valueKey]: item[this.valueKey],
-                [this.textKey]: item[this.textKey]
+                value: item[this.valueKey],
+                text: item[this.textKey]
               })
             })
             this.pickerData[i] = columnData
