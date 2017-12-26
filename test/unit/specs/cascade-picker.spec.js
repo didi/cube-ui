@@ -49,6 +49,24 @@ describe('CascadePicker', () => {
       .to.equal('Four')
   })
 
+  it('should render correct contents when use alias', function () {
+    vm = createCascadePicker({
+      data: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }],
+      selectedIndex: [1, 1, 3],
+      alias: {
+        value: 'id',
+        text: 'name'
+      }
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    const firstWheelItems = wheels[0].querySelectorAll('li')
+    expect(firstWheelItems.length)
+      .to.equal(3)
+    expect(firstWheelItems[1].textContent.trim())
+      .to.equal('B')
+  })
+
   it('should trigger events', function (done) {
     this.timeout(10000)
 

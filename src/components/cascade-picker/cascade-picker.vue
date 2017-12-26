@@ -20,6 +20,11 @@
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
 
+  const DEFAULT_KEYS = {
+    value: 'value',
+    text: 'text'
+  }
+
   export default {
     name: COMPONENT_NAME,
     mixins: [apiMixin],
@@ -47,6 +52,12 @@
       confirmTxt: {
         type: String,
         default: '确定'
+      },
+      alias: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
     },
     data () {
@@ -54,6 +65,14 @@
         cascadeData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex.slice(),
         pickerData: []
+      }
+    },
+    computed: {
+      valueKey() {
+        return this.alias.value || DEFAULT_KEYS.value
+      },
+      textKey() {
+        return this.alias.text || DEFAULT_KEYS.text
       }
     },
     created() {
@@ -92,8 +111,8 @@
             let columnData = []
             data.forEach((item) => {
               columnData.push({
-                value: item.value,
-                text: item.text
+                value: item[this.valueKey],
+                text: item[this.textKey]
               })
             })
             this.pickerData[i] = columnData

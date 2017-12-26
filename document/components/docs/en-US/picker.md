@@ -44,8 +44,10 @@
 
 - Multi-column Picker
 
+  `data` receives an array, whose length determines the columns of `picker`.
+
   ```html
-  <cube-button @click="showPicker">Multi-column Picker</cube-button>
+  <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
@@ -79,19 +81,61 @@
       })
     },
     methods: {
-      showPicker () {
-        this.picker.show()
+      showMutiPicker() {
+        this.mutiPicker.show()
       }
     }
   }
   ```
+  
+- Alias
+  
+  You can configure the `alias` of `value` and `text`, such as, use `id` to represent `value`, `name` to represent `text`.
 
-  `data` receives an array, whose length determines the columns of `picker`.
+  ```html
+  <cube-button @click="showAliasPicker">Use Alias</cube-button>
+  ```
+  ```js
+  export default {
+    mounted () {
+      this.aliasPicker = this.$createPicker({
+        title: 'Use Alias',
+        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+        alias: {
+          value: 'id',
+          text: 'name'
+        },
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
+        }
+      })
+    },
+    methods: {
+      showAliasPicker() {
+        this.aliasPicker.show()
+      }
+    }
+  }
+  ``` 
 
 - Instance method `setData`
 
+  Instance method `setData` accepts two parameters, both of whom are arrays. The first is data that the roller displays and the second is indexs of selected values.
+
   ```html
-  <cube-button @click="showPicker">SetData Picker</cube-button>
+  <cube-button @click="showSetDataPicker">Use SetData</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
@@ -123,15 +167,13 @@
       })
     },
     methods: {
-      showPicker () {
+      showSetDataPicker () {
         this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
         this.picker.show()
       }
     }
   }
   ```
-
-  Instance method `setData` accepts two parameters, both of whom are arrays. The first is data that the roller displays and the second is indexs of selected values.
     
 ### Props configuration
 
@@ -139,9 +181,10 @@
 | - | - | - | - | - |
 | title | title | String | '' | - |
 | data | data that passed into picker, whose length determines the columns of picker | Array | [] | - |
+| selectedIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
 | cancelTxt | the text of the left button in picker | String | '取消' | - |
 | confirmTxt | the text of the right button in picker | String | '确定' | - |
-| selectedIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| alias | configure the alias of `value` and `text` | Object | {} | { value: 'id', text: 'name'} |
 
 * `data` sub configuration
 

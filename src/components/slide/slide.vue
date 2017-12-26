@@ -43,6 +43,10 @@
       speed: {
         type: Number,
         default: 400
+      },
+      allowVertical: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -103,6 +107,8 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
+          bounce: false,
+          eventPassthrough: this.allowVertical ? 'vertical' : '',
           snap: {
             loop: this.loop,
             threshold: this.threshold,
@@ -116,11 +122,13 @@
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        this.slide.on('touchend', () => {
+        window.removeEventListener('touchend', this._touchEndEvent, false)
+        this._touchEndEvent = () => {
           if (this.autoPlay) {
             this._play()
           }
-        })
+        }
+        window.addEventListener('touchend', this._touchEndEvent, false)
 
         this.slide.on('beforeScrollStart', () => {
           if (this.autoPlay) {
@@ -152,6 +160,7 @@
         clearTimeout(this._timer)
         clearTimeout(this._resizeTimer)
         window.removeEventListener('resize', this._resizeHandler)
+        window.removeEventListener('touchend', this._touchEndEvent, false)
       },
       _resizeHandler() {
         if (!this.slide) {
