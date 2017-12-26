@@ -3,9 +3,9 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showPicker">Picker</cube-button>
-        <cube-button @click="showPickerMuti">Multi-column Picker</cube-button>
-        <cube-button @click="showPickerSetData">Use SetData</cube-button>
-        <cube-button @click="showPickerAlias">Use Alias</cube-button>
+        <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
+        <cube-button @click="showAliasPicker">Use Alias</cube-button>
+        <cube-button @click="showSetDataPicker">Use SetData</cube-button>
         <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
       </cube-button-group>
     </div>
@@ -65,15 +65,15 @@
       showPicker() {
         this.picker.show()
       },
-      showPickerMuti() {
+      showMutiPicker() {
         this.mutiPicker.show()
       },
-      showPickerSetData() {
+      showAliasPicker() {
+        this.aliasPicker.show()
+      },
+      showSetDataPicker() {
         this.setDataPicker.setData([data1, data2, data3], [1, 2, 3])
         this.setDataPicker.show()
-      },
-      showPickerAlias() {
-        this.aliasPicker.show()
       },
       showNormalTimePicker() {
         this.normalTimePicker.show()
