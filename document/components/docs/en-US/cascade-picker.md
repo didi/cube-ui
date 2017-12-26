@@ -55,10 +55,19 @@
         cancelTxt: 'Cancel',
         confirmTxt: 'Confirm',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -95,10 +104,19 @@
         title: 'City Picker',
         data: cityData,
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -128,10 +146,19 @@
         min: [2008, 8, 8],
         max: [2020, 10, 20],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -156,10 +183,19 @@
       this.setDataPicker = this.$createCascadePicker({
         title: 'Set Data',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -188,6 +224,7 @@
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
 | cancelTxt | the text of the left button in picker | String | '取消' | - |
 | confirmTxt | the text of the right button in picker | String | '确定' | - |
+| alias | configure the alias of `value` and `text`, used as same as the alias of `Picker` component | Object | {} | { value: 'id', text: 'name'} |
 
 * `data` sub configuration
 
