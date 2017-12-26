@@ -11,6 +11,7 @@
           :interval="interval"
           :threshold="threshold"
           :speed="speed"
+          :allow-vertical="allowVertical"
           @change="changePage">
           <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
             <a :href="item.url">
@@ -45,6 +46,10 @@
           <div class="group">
             <input-option class="item" name="Speed" :value="speed"
                            @update:value="updateSpeed"></input-option>
+          </div>
+          <div class="group">
+            <switch-option class="item" name="Allow Vertical" :value="allowVertical"
+                           @update:value="updateAllowVertical"></switch-option>
           </div>
           <div class="group">
             <switch-option class="item" name="Add Slide Item3" :value="addItem3"
@@ -87,6 +92,7 @@
         interval: 4000,
         threshold: 0.3,
         speed: 400,
+        allowVertical: false,
         initialIndex: 1,
         dotsSlot: false,
         addItem3: false
@@ -111,6 +117,9 @@
       speed() {
         this.rebuildSlide()
       },
+      allowVertical() {
+        this.rebuildSlide()
+      },
       addItem3(newV) {
         if (newV) {
           this.items.push(item3)
@@ -129,10 +138,6 @@
       },
       rebuildSlide() {
         this.$refs.slide.refresh()
-        // this.ifSlide = false
-        // this.$nextTick(() => {
-        //   this.ifSlide = true
-        // })
       },
       updateItem3(val) {
         this.addItem3 = val
@@ -163,6 +168,9 @@
         if (val) {
           this.speed = val
         }
+      },
+      updateAllowVertical(val) {
+        this.allowVertical = val
       },
       updateInitialIndex(val) {
         if (val) {
