@@ -18,19 +18,10 @@
         title: 'Picker',
         data: [col1Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
+          console.log('select', selectedVal, selectedIndex, selectedText)
         },
         onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
+          console.log('cancel')
         }
       })
     },
@@ -44,8 +35,10 @@
 
 - Multi-column Picker
 
+  `data` receives an array, whose length determines the columns of `picker`.
+
   ```html
-  <cube-button @click="showPicker">Multi-column Picker</cube-button>
+  <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
@@ -62,36 +55,58 @@
         title: 'Multi-column Picker',
         data: [col1Data, col2Data, col3Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
+          console.log('select', selectedVal, selectedIndex, selectedText)
         },
         onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
+          console.log('cancel')
         }
       })
     },
     methods: {
-      showPicker () {
-        this.picker.show()
+      showMutiPicker() {
+        this.mutiPicker.show()
       }
     }
   }
   ```
-
-  `data` receives an array, whose length determines the columns of `picker`.
+  
+  - Alias
+  
+    You can configure `alias` of `value` and `text`. Such as use `id` to represent `value`, `name` to represent `text`.
+  
+    ```html
+    <cube-button @click="showAliasPicker">Use Alias</cube-button>
+    ```
+    ```js
+    export default {
+      mounted () {
+        this.aliasPicker = this.$createPicker({
+          title: 'Use Alias',
+          data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+          alias: {
+            value: 'id',
+            text: 'name'
+          },
+          onSelect: (selectedVal, selectedIndex, selectedText) => {
+            console.log('select', selectedVal, selectedIndex, selectedText)
+          },
+          onCancel: () => {
+            console.log('cancel')
+          }
+        })
+      },
+      methods: {
+        showAliasPicker() {
+          this.aliasPicker.show()
+        }
+      }
+    }
+    ``` 
 
 - Instance method `setData`
 
   ```html
-  <cube-button @click="showPicker">SetData Picker</cube-button>
+  <cube-button @click="showSetDataPicker">Use SetData</cube-button>
   ```
   ```js
   const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
@@ -106,24 +121,15 @@
       this.picker = this.$createPicker({
         title: 'Use SetData',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
+          console.log('select', selectedVal, selectedIndex, selectedText)
         },
         onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
+          console.log('cancel')
         }
       })
     },
     methods: {
-      showPicker () {
+      showSetDataPicker () {
         this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
         this.picker.show()
       }
