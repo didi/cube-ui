@@ -18,10 +18,19 @@
         title: 'Picker',
         data: [col1Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -55,10 +64,19 @@
         title: 'Multi-column Picker',
         data: [col1Data, col2Data, col3Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -70,38 +88,47 @@
   }
   ```
   
-  - 配置别名
+- 配置别名
   
-    可通过`alias`属性配置`value`和`text`的别名。如，用`id`代表`value`，用`name`代表`text`。
-  
-    ```html
-    <cube-button @click="showAliasPicker">Use Alias</cube-button>
-    ```
-    ```js
-    export default {
-      mounted () {
-        this.aliasPicker = this.$createPicker({
-          title: 'Use Alias',
-          data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
-          alias: {
-            value: 'id',
-            text: 'name'
-          },
-          onSelect: (selectedVal, selectedIndex, selectedText) => {
-            console.log('select', selectedVal, selectedIndex, selectedText)
-          },
-          onCancel: () => {
-            console.log('cancel')
-          }
-        })
-      },
-      methods: {
-        showAliasPicker() {
-          this.aliasPicker.show()
+  可通过`alias`属性配置`value`和`text`的别名。如，用`id`代表`value`，用`name`代表`text`。
+
+  ```html
+  <cube-button @click="showAliasPicker">Use Alias</cube-button>
+  ```
+  ```js
+  export default {
+    mounted () {
+      this.aliasPicker = this.$createPicker({
+        title: 'Use Alias',
+        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+        alias: {
+          value: 'id',
+          text: 'name'
+        },
+        onSelect: (selectedVal, selectedIndex, selectedText) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onCancel: () => {
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
+      })
+    },
+    methods: {
+      showAliasPicker() {
+        this.aliasPicker.show()
       }
     }
-    ``` 
+  }
+  ``` 
 
 - 实例方法 `setData`
 
@@ -121,10 +148,19 @@
       this.picker = this.$createPicker({
         title: 'Use SetData',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
+              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            icon: 'cubeic-alert'
+          }).show()
         },
         onCancel: () => {
-          console.log('cancel')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Picker canceled',
+            time: 1000
+          }).show()
         }
       })
     },
@@ -145,9 +181,10 @@
 | - | - | - | - | - |
 | title | 标题 | String | '' | - |
 | data | 传入picker数据，数组的长度决定了picker的列数 | Array | [] | - |
+| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
 | cancelTxt | picker左侧按钮文案 | String | '取消' | - |
 | confirmTxt | picker右侧按钮文案 | String | '确定' | - |
-| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
+| alias | 配置`value`和`text`的别名 | Object | {} | { value: 'id', text: 'name'} |
 
 * `data`子配置项
 
