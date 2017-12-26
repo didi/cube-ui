@@ -96,6 +96,14 @@
   <cube-slide :speed="200"></cube-slide>
   ```
 
+- 允许纵向滚动
+
+  默认在 Slide 区域的时候，竖向是不能滚动的，如果想要竖向可以滚动，可以设置 `allowVertical` 为 `true`。
+
+  ```html
+  <cube-slide :allow-vertical="true"></cube-slide>
+  ```
+
 - refresh 方法
 
   当新增或者删除 Slide Item 项或者修改 Slide 配置的时候，可以调用实例的 refresh 方法更新 Slide。
@@ -164,6 +172,7 @@
 | interval | 播放间隔 | Number | - | 4000 |
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
+| allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
 
 ### 插槽
 
