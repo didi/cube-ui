@@ -20,6 +20,7 @@ function install(Vue) {
   if (install.installed) {
     return
   }
+  install.installed = true
   const components = [
     Style,
     Button,
