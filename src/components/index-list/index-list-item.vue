@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cube-index-list-item border-bottom-1px"
+    class="cube-index-list-item"
     @touchstart="addActiveCls"
     @touchend="removeActiveCls"
     @click="selectItem()">
