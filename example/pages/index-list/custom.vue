@@ -9,7 +9,7 @@
             @title-click="clickTitle">
             <cube-index-list-group v-for="(group, index) in cityData" :key="index" :group="group">
               <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
-                <div class="cube-index-list-item">我是自定义 {{item.name}}</div>
+                <div class="custom-item">我是自定义 {{item.name}}</div>
               </cube-index-list-item>
             </cube-index-list-group>
           </cube-index-list>
@@ -61,7 +61,7 @@
       margin: 0 auto
       overflow: hidden
       &.custom
-        .cube-index-list-item
+        .custom-item
           position: relative
           height: 50px
           line-height: 50px

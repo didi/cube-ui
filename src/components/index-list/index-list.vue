@@ -23,7 +23,7 @@
         <li v-for="(item, index) in shortcutList" :data-index="index" :class="{active: currentIndex === index}">{{item}}</li>
       </ul>
     </div>
-    <div class="cube-index-list-fixed" ref="fixed" v-show="fixedTitle">
+    <div class="cube-index-list-fixed cube-index-list-anchor" ref="fixed" v-show="fixedTitle">
       {{fixedTitle}}
     </div>
   </div>
@@ -58,6 +58,10 @@
         default() {
           return []
         }
+      },
+      speed: {
+        type: Number,
+        default: 300
       }
     },
     data() {
@@ -152,7 +156,7 @@
         } else if (index > this.listHeight.length - 2) {
           index = this.listHeight.length - 2
         }
-        this.$refs.indexList.scrollToElement(this.groupList[index], 0)
+        this.$refs.indexList.scrollToElement(this.groupList[index], this.speed)
         this.scrollY = this.$refs.indexList.scroll.y
       }
     },
@@ -210,7 +214,6 @@
 
   .cube-index-list
     position: relative
-    width: 100%
     height: 100%
     .cube-scroll-wrapper
       position: absolute
@@ -228,29 +231,18 @@
     font-size: $fontsize-medium
     line-height: 1.6
     color: $index-list-title-color
-  .cube-index-list-anchor, .cube-index-list-fixed
+  .cube-index-list-anchor
     padding: 16px 16px 10px 16px
     line-height: 1
     font-size: $fontsize-medium
     color: $index-list-anchor-color
     background: $index-list-anchor-bgc
-  .cube-index-list-item
-    position: relative
-    height: 50px
-    line-height: 50px
-    padding: 0 16px
-    font-size: $fontsize-medium
-    color: $index-list-item-color
-    &:last-child
-      border-none()
-  .cube-index-list-item_active
-    background: $index-list-item-active-bgc
   .cube-index-list-fixed
     z-index: 1
     position: absolute
     top: 0
     left: 0
-    width: 100%
+    right: 0
     box-sizing: border-box
   .cube-index-list-nav
     position: absolute
