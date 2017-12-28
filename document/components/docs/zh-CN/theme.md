@@ -18,6 +18,7 @@ $action-sheet-active-color := $color-orange
 $action-sheet-bgc := $color-white
 $action-sheet-active-bgc := $color-light-grey-opacity
 $action-sheet-title-color := $color-dark-grey
+$action-sheet-space-bgc := $color-mask-bg
 /// picker style
 $action-sheet-picker-cancel-color := $color-light-grey
 $action-sheet-picker-cancel-active-color := $color-light-grey-s
@@ -108,7 +109,8 @@ $picker-cancel-btn-active-color := $color-light-grey-s
 $picker-item-color := $color-dark-grey
 
 // popup
-$popup-mask-bgc := $color-mask-bg
+$popup-mask-bgc := rgb(37, 38, 45)
+$popup-mask-opacity := .4
 
 // scroll
 $scroll-content-bgc := $color-white
