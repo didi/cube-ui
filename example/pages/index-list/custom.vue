@@ -4,9 +4,7 @@
       <div class="view-wrapper">
         <div class="index-list-wrapper custom">
           <cube-index-list
-            :data="cityData"
-            :title="title"
-            @title-click="clickTitle">
+            :data="cityData">
             <cube-index-list-group v-for="(group, index) in cityData" :key="index" :group="group">
               <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
                 <div class="custom-item">我是自定义 {{item.name}}</div>
@@ -29,7 +27,6 @@
     },
     data() {
       return {
-        title: 'Current City: BEIJING',
         cityData: cityData
       }
     },
@@ -61,13 +58,27 @@
       margin: 0 auto
       overflow: hidden
       &.custom
+        .cube-index-list-content
+          background-color: #222
+          color: #909090
+        .cube-index-list-anchor
+          background-color: #333
+          height: 30px
+          line-height: 30px
+          padding: 0 0 0 20px
         .custom-item
           position: relative
-          height: 50px
-          line-height: 50px
+          height: 70px
+          line-height: 70px
           padding: 0 16px
           font-size: $fontsize-medium
-          color: $index-list-item-color
-          &:last-child
-            border-none()
+        .cube-index-list-nav
+          padding: 20px 0
+          border-radius: 10px
+          background: rgba(0,0,0,.3)
+          >ul
+            >li
+              padding: 3px
+              font-size: 12px
+              color: #909090
 </style>
