@@ -37,6 +37,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+
   .cube-index-list-anchor
     padding: 16px 16px 10px 16px
     line-height: 1
