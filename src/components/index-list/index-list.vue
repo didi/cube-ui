@@ -10,7 +10,7 @@
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
           {{title}}
         </h1>
-        <ul ref="groups">
+        <ul>
           <slot>
             <cube-index-list-group v-for="(group, index) in data" :key="index" :group="group" @select="selectItem">
             </cube-index-list-group>
@@ -135,7 +135,7 @@
         this._scrollTo(anchorIndex)
       },
       _calculateHeight() {
-        this.groupList = this.$el.querySelectorAll('.cube-index-list-group')
+        this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
 
         if (!this.groupList) {
           return
