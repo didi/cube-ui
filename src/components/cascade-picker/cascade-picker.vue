@@ -106,7 +106,7 @@
       updatePickerData(fromColumn = 0) {
         let data = this.cascadeData
         let i = 0
-        while (Array.isArray(data) && data.length) {
+        while (data) {
           if (i >= fromColumn) {
             let columnData = []
             data.forEach((item) => {
@@ -121,7 +121,7 @@
               ? (this.pickerSelectedIndex[i] < data.length ? this.pickerSelectedIndex[i] || 0 : 0)
               : this.$refs.picker.refillColumn(i, columnData)
           }
-          data = data[this.pickerSelectedIndex[i]].children
+          data = data.length ? data[this.pickerSelectedIndex[i]].children : null
 
           i++
         }

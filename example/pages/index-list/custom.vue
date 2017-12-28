@@ -44,7 +44,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../../src/common/stylus/variable.styl"
-  @require "../../../src/common/stylus/mixin.styl"
 
   .view-wrapper
     position: fixed
