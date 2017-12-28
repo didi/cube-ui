@@ -86,7 +86,8 @@ describe('IndexList', () => {
           vm.$parent.updateRenderData({
             props: {
               title: title,
-              data: data
+              data: data,
+              speed: 0
             },
             on: {}
           })
@@ -148,7 +149,8 @@ describe('IndexList', () => {
       this.timeout(10000)
       vm = createIndexList({
         title,
-        data
+        data,
+        speed: 0
       })
       return new Promise((resolve) => {
         setTimeout(() => {

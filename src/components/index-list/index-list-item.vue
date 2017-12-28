@@ -1,10 +1,11 @@
 <template>
-  <div @click="selectItem()">
+  <div
+    class="cube-index-list-item border-bottom-1px"
+    @touchstart="addActiveCls"
+    @touchend="removeActiveCls"
+    @click="selectItem()">
     <slot>
-      <div
-        class="cube-index-list-item border-bottom-1px"
-        @touchstart="addActiveCls"
-        @touchend="removeActiveCls">
+      <div class="cube-index-list-item-def border-bottom-1px">
         {{item.name}}
       </div>
     </slot>
@@ -49,7 +50,7 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
-  .cube-index-list-item
+  .cube-index-list-item-def
     position: relative
     height: 50px
     line-height: 50px
