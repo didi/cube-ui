@@ -81,4 +81,6 @@
               padding: 3px
               font-size: 12px
               color: #909090
+              &.active
+                color: #ffcd32
 </style>
