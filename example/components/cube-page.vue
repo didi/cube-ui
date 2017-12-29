@@ -46,7 +46,7 @@
   @import "~@/common/stylus/variable.styl"
 
   .cube-page
-    position: fixed
+    position: absolute
     z-index: 10
     top: 0
     left: 0
@@ -72,8 +72,7 @@
         left: 0
         padding: 0 15px
         color: #fc9153
-    .wrapper
-      width: 100%
+    >.wrapper
       height: calc(100% - 44px)
       overflow: auto
       -webkit-overflow-scrolling: touch
