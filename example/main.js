@@ -6,6 +6,9 @@ import Cube from '../src/index'
 import App from './App.vue'
 import router from './router'
 
+/* eslint-disable no-unused-vars */
+// import vConsole from 'vconsole'
+
 Vue.use(Cube)
 Vue.use(VueRouter)
 
