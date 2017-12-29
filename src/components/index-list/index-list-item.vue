@@ -1,5 +1,5 @@
 <template>
-  <div
+  <li
     class="cube-index-list-item"
     @touchstart="addActiveCls"
     @touchend="removeActiveCls"
@@ -9,7 +9,7 @@
         {{item.name}}
       </div>
     </slot>
-  </div>
+  </li>
 </template>
 
 <script type="text/ecmascript-6">
