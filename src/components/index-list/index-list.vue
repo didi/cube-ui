@@ -215,6 +215,7 @@
   .cube-index-list
     position: relative
     height: 100%
+    overflow: hidden
     .cube-scroll-wrapper
       position: absolute
       left: 0
