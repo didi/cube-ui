@@ -38,7 +38,8 @@
   ],
   "license": "Apache",
   "dependencies": {
-    "better-scroll": "^1.6.3"
+    "better-scroll": "^1.6.3",
+    "fastclick": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
