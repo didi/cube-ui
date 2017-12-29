@@ -1,12 +1,12 @@
 <template>
-  <div class="cube-index-list-group">
+  <li class="cube-index-list-group">
     <h2 class="cube-index-list-anchor">{{group.name}}</h2>
     <ul>
       <slot>
         <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem"></cube-index-list-item>
       </slot>
     </ul>
-  </div>
+  </li>
 </template>
 
 <script type="text/ecmascript-6">

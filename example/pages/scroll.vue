@@ -96,7 +96,7 @@
       <div class="methods">
         <div class="title sub">Methods</div>
         <ul class="method-list">
-          <div class="group">
+          <li class="group">
             <input-option class="item" name="x" :value="scrollToX"
                           @update:value="updateScrollToX"></input-option>
             <input-option class="item" name="y" :value="scrollToY"
@@ -106,7 +106,7 @@
             <select-option class="item" name="easing" :value="scrollToEasing" :options="scrollToEasingOptions"
                            @update:value="updateScrollToEasing"></select-option>
             <button @click="scrollTo">scrollTo</button>
-          </div>
+          </li>
         </ul>
       </div>
 
