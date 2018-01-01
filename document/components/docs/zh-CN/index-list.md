@@ -62,14 +62,14 @@
     }
   }
   ```
-  
+
 - 自定义插槽
-  
+
   除了默认结构，你还可以根据自己的需要自定义每一项的内容。如下所示，将你的自定义内容项填入`cube-index-list-item`的插槽。除非你真的知道自己在做什么，否则不要修改`cube-index-list-group`和`cube-index-list-item`的用法。
-  
+
   ```html
   <cube-index-list :data="cityData">
-    <cube-index-list-group 
+    <cube-index-list-group
       v-for="(group, index) in cityData"
       :key="index"
       :group="group">
@@ -108,7 +108,7 @@
     line-height: 70px
     padding: 0 16px
     font-size: $fontsize-medium
-  
+
   // 用自定义样式，覆写内置的默认样式
   .cube-index-list-content
     background-color: #222
@@ -137,7 +137,7 @@
 | - | - | - | - |
 | title | 标题 | String | - |
 | data | 需要展示的数据 | Array | [] |
-| speed | 点击导航栏索引时，滚动到相应位置的动画时间（单位：ms） | number | 300 |
+| speed | 点击导航栏索引时，滚动到相应位置的动画时间（单位：ms） | number | 0 |
 
 - `data` 子配置项
 

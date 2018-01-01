@@ -61,7 +61,7 @@
       },
       speed: {
         type: Number,
-        default: 300
+        default: 0
       }
     },
     data() {
@@ -85,9 +85,6 @@
     mounted() {
       this.$nextTick(() => {
         this.titleHeight = this.title && this.$refs.title ? getRect(this.$refs.title).height : 0
-
-        const subTitleEl = this.$el.querySelector('.cube-index-list-anchor')
-        this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
         this._calculateHeight()
       })
     },
@@ -136,12 +133,14 @@
       },
       _calculateHeight() {
         this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
+        const subTitleEl = this.$el.getElementsByClassName('cube-index-list-anchor')[0]
+        this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
+        this.listHeight = []
 
         if (!this.groupList) {
           return
         }
 
-        this.listHeight = []
         let height = this.titleHeight
         this.listHeight.push(height)
         for (let i = 0; i < this.groupList.length; i++) {
