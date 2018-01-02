@@ -223,6 +223,7 @@
     transform: translateZ(1px)
     > span
       display: inline-block
+      vertical-align: bottom
       margin: 0 1px
       width: 10px
       height: 1px
