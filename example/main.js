@@ -6,6 +6,7 @@ import Cube from '../src/index'
 import App from './App.vue'
 import router from './router'
 import FastClick from 'fastclick'
+import VueLazyload from 'vue-lazyload'
 
 FastClick.attach(document.body) //  hack the active pseudo-classes failure caused by -webkit-overflow-scrolling touch
 
@@ -14,6 +15,7 @@ FastClick.attach(document.body) //  hack the active pseudo-classes failure cause
 
 Vue.use(Cube)
 Vue.use(VueRouter)
+Vue.use(VueLazyload)
 
 /* eslint-disable no-new */
 new Vue({
