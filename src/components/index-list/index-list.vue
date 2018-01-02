@@ -224,7 +224,6 @@
       overflow: hidden
   .cube-index-list-content
     background: $index-list-bgc
-    box-shadow: $index-list-box-shadow
     border-radius: 2px
   .cube-index-list-title
     padding: 14px 16px
