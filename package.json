@@ -109,6 +109,7 @@
     "url-loader": "^0.5.8",
     "vconsole": "^2.5.2",
     "vue": "^2.5.3",
+    "vue-lazyload": "^1.1.4",
     "vue-loader": "^12.1.0",
     "vue-markdown-loader": "^2.2.1",
     "vue-router": "^2.7.0",

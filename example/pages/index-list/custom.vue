@@ -3,11 +3,13 @@
     <div slot="content">
       <div class="view-wrapper">
         <div class="index-list-wrapper custom">
-          <cube-index-list
-            :data="cityData">
-            <cube-index-list-group v-for="(group, index) in cityData" :key="index" :group="group">
+          <cube-index-list :data="singerData">
+            <cube-index-list-group v-for="(group, index) in singerData" :key="index" :group="group">
               <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
-                <div class="custom-item">我是自定义 {{item.name}}</div>
+                <div class="custom-item">
+                  <img class="avatar" v-lazy="item.avatar">
+                  <span class="name">{{item.name}}</span>
+                </div>
               </cube-index-list-item>
             </cube-index-list-group>
           </cube-index-list>
@@ -19,7 +21,7 @@
 
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
-  import cityData from '../../data/index-list.json'
+  import singerData from '../../data/singer.json'
 
   export default {
     components: {
@@ -27,7 +29,7 @@
     },
     data() {
       return {
-        cityData: cityData
+        singerData: singerData
       }
     },
     methods: {
@@ -60,17 +62,25 @@
         .cube-index-list-content
           background-color: #222
           color: #909090
+        .cube-index-list-group
+          padding-bottom: 30px
         .cube-index-list-anchor
           background-color: #333
           height: 30px
           line-height: 30px
           padding: 0 0 0 20px
         .custom-item
-          position: relative
-          height: 70px
-          line-height: 70px
-          padding: 0 16px
-          font-size: $fontsize-medium
+          display: flex
+          align-items: center
+          padding: 20px 0 0 30px
+          .avatar
+            width: 50px
+            height: 50px
+            border-radius: 50%
+          .name
+            margin-left: 20px
+            color: $color-text-l
+            font-size: $font-size-medium
         .cube-index-list-nav
           padding: 20px 0
           border-radius: 10px
