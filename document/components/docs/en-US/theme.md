@@ -90,7 +90,6 @@ $dialog-btns-split-color := $color-row-line
 
 // index-list
 $index-list-bgc := $color-white
-$index-list-box-shadow := 0 3px 6px $color-light-grey-ss
 $index-list-title-color := $color-dark-grey
 $index-list-anchor-color := $color-light-grey
 $index-list-anchor-bgc := #f7f7f7
