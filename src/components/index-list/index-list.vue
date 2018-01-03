@@ -8,7 +8,7 @@
       @scroll="scroll">
       <div class="cube-index-list-content" ref="content">
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
-          {{title}}
+          {{ title }}
         </h1>
         <ul>
           <slot>
@@ -19,12 +19,16 @@
       </div>
     </cube-scroll>
     <div class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
-      <ul>
-        <li v-for="(item, index) in shortcutList" :data-index="index" :class="{active: currentIndex === index}">{{item}}</li>
+      <ul class="cube-index-list-nav-list">
+        <li
+          v-for="(item, index) in shortcutList"
+          :data-index="index"
+          class="cube-index-list-nav-item"
+          :class="{active: currentIndex === index}">{{ item }}</li>
       </ul>
     </div>
     <div class="cube-index-list-fixed cube-index-list-anchor" ref="fixed" v-show="fixedTitle">
-      {{fixedTitle}}
+      {{ fixedTitle }}
     </div>
   </div>
 </template>

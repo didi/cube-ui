@@ -1,10 +1,22 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
-    <div ref="listWrapper" class="cube-scroll-content">
-      <slot>
-        <ul class="cube-scroll-list">
-          <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
-        </ul>
+    <div class="cube-scroll-content">
+      <div ref="listWrapper" class="cube-scroll-list-wrapper">
+        <slot>
+          <ul class="cube-scroll-list">
+            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+          </ul>
+        </slot>
+      </div>
+      <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
+        <div class="cube-pullup-wrapper" v-if="pullUpLoad">
+          <div class="before-trigger" v-if="!isPullUpLoad && pullUpTxt">
+            <span>{{ pullUpTxt }}</span>
+          </div>
+          <div class="after-trigger" v-if="isPullUpLoad">
+            <loading></loading>
+          </div>
+        </div>
       </slot>
     </div>
     <slot
@@ -26,11 +38,6 @@
         </div>
       </div>
     </slot>
-    <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
-      <div v-if="pullUpLoad && isPullUpLoad" class="cube-pullup-wrapper" :style="pullUpStyle">
-        <loading></loading>
-      </div>
-    </slot>
   </div>
 </template>
 
@@ -43,8 +50,6 @@
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
-  const DEFAULT_LOAD_TXT_MORE = 'Load more'
-  const DEFAULT_LOAD_TXT_NO_MORE = 'No more data'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
 
   const EVENT_SCROLL = 'scroll'
@@ -106,8 +111,7 @@
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
-        pullDownStyle: '',
-        pullUpStyle: ''
+        pullDownStyle: ''
       }
     },
     computed: {
@@ -120,8 +124,8 @@
       pullUpTxt() {
         const pullUpLoad = this.pullUpLoad
         const txt = pullUpLoad && pullUpLoad.txt
-        const moreTxt = txt && txt.more || DEFAULT_LOAD_TXT_MORE
-        const noMoreTxt = txt && txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
+        const moreTxt = txt && txt.more || ''
+        const noMoreTxt = txt && txt.noMore || ''
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
@@ -143,9 +147,7 @@
         if (!this.$refs.wrapper) {
           return
         }
-        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
-          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
-        }
+        this._calculateMinHeight()
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
@@ -181,6 +183,7 @@
         this.scroll && this.scroll.enable()
       },
       refresh() {
+        this._calculateMinHeight()
         this.scroll && this.scroll.refresh()
       },
       destroy() {
@@ -210,6 +213,11 @@
           this.refresh()
         }
       },
+      _calculateMinHeight() {
+        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
+          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
+        }
+      },
       _initPullDownRefresh() {
         this.scroll.on('pullingDown', () => {
           this.beforePullDown = false
@@ -231,10 +239,6 @@
         this.scroll.on('pullingUp', () => {
           this.isPullUpLoad = true
           this.$emit(EVENT_PULLING_UP)
-        })
-
-        this.scroll.on('scroll', (pos) => {
-          this.pullUpStyle = `bottom:${Math.min(this.scroll.maxScrollY - pos.y - 50)}px`
         })
       },
       _reboundPullDown() {
@@ -262,6 +266,11 @@
         setTimeout(() => {
           this.forceUpdate(true)
         }, this.refreshDelay)
+      },
+      isPullUpLoad() {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       }
     },
     components: {
@@ -293,13 +302,14 @@
       margin-top: 5px
 
   .cube-pullup-wrapper
-    position: absolute
     width: 100%
-    left: 0
     display: flex
     justify-content: center
     align-items: center
-    height: 50px
+    .before-trigger
+      padding: 22px 0
+    .after-trigger
+      padding: 18px 0
 
   .cube-scroll-content
     position: relative
