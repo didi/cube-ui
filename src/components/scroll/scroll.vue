@@ -288,7 +288,6 @@
     position: relative
     height: 100%
     overflow: hidden
-    background-color: inherit
 
   .cube-pulldown-wrapper
     position: absolute
@@ -314,7 +313,6 @@
   .cube-scroll-content
     position: relative
     z-index: 1
-    background-color: inherit
 
   .cube-scroll-item
     height: 60px
