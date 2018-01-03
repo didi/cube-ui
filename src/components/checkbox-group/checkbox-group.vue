@@ -80,7 +80,13 @@
         border-color: $checkbox-group-horizontal-bdc
       &:last-child
         border-none()
+      &[data-pos="right"]
+        .cube-checkbox-ui
+          position: relative
+          margin-left: .42em
+          order: 1
+        .cube-checkbox-label
+          margin-right: 0
     .cube-checkbox-wrap
-      display: inline-flex
-      width: auto
+      justify-content: center
 </style>
