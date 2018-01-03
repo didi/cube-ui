@@ -13,6 +13,7 @@
       </span>
     </div>
     <div class="router-view">
+      <nav-loading></nav-loading>
       <router-view></router-view>
     </div>
   </div>
@@ -20,6 +21,7 @@
 
 <script>
   import Lang from '../lang/lang.vue'
+  import NavLoading from '../nav-loading/nav-loading.vue'
   export default {
     data() {
       return {
@@ -34,7 +36,8 @@
       }
     },
     components: {
-      SiteLang: Lang
+      SiteLang: Lang,
+      NavLoading
     },
     methods: {
       toggleNav() {
