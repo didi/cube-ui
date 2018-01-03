@@ -1,13 +1,11 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
-    <div class="cube-scroll-content">
-      <div ref="listWrapper">
-        <slot>
-          <ul class="cube-scroll-list">
-            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
-          </ul>
-        </slot>
-      </div>
+    <div ref="listWrapper" class="cube-scroll-content">
+      <slot>
+        <ul class="cube-scroll-list">
+          <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+        </ul>
+      </slot>
     </div>
     <slot
         name="pulldown"
@@ -225,9 +223,6 @@
             this.pullDownStyle = `top:${Math.min(pos.y + this.pullDownInitTop, 10)}px`
           } else {
             this.bubbleY = 0
-          }
-
-          if (this.isRebounding) {
             this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
           }
         })
@@ -284,7 +279,7 @@
     position: relative
     height: 100%
     overflow: hidden
-    background-color: $scroll-content-bgc
+    background-color: inherit
 
   .cube-pulldown-wrapper
     position: absolute
@@ -309,7 +304,7 @@
   .cube-scroll-content
     position: relative
     z-index: 1
-    background-color: $scroll-content-bgc
+    background-color: inherit
 
   .cube-scroll-item
     height: 60px
