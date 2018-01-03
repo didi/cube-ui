@@ -201,7 +201,7 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | threshold | the threshold of  distance that pulling up for  loading | Number | - | 0 |
-| txt | the text shown when pulling up loading | Object | - | { more: 'Load more', noMore: 'No more data' } |
+| txt | the text shown when pulling up loading | Object | - | { more: '', noMore: '' } |
 
 ### Slot
 
