@@ -8,16 +8,6 @@
           </ul>
         </slot>
       </div>
-      <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
-        <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-          <div class="before-trigger" v-if="!isPullUpLoad">
-            <span>{{ pullUpTxt }}</span>
-          </div>
-          <div class="after-trigger" v-else>
-            <loading></loading>
-          </div>
-        </div>
-      </slot>
     </div>
     <slot
         name="pulldown"
@@ -36,6 +26,11 @@
           </div>
           <div v-else><span>{{ refreshTxt }}</span></div>
         </div>
+      </div>
+    </slot>
+    <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
+      <div v-if="pullUpLoad && isPullUpLoad" class="cube-pullup-wrapper" :style="pullUpStyle">
+        <loading></loading>
       </div>
     </slot>
   </div>
@@ -113,7 +108,8 @@
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
-        pullDownStyle: ''
+        pullDownStyle: '',
+        pullUpStyle: ''
       }
     },
     computed: {
@@ -241,6 +237,10 @@
           this.isPullUpLoad = true
           this.$emit(EVENT_PULLING_UP)
         })
+
+        this.scroll.on('scroll', (pos) => {
+          this.pullUpStyle = `bottom:${Math.min(this.scroll.maxScrollY - pos.y - 50)}px`
+        })
       },
       _reboundPullDown() {
         const {stopTime = 600} = this.pullDownRefresh
@@ -298,11 +298,13 @@
       margin-top: 5px
 
   .cube-pullup-wrapper
+    position: absolute
     width: 100%
+    left: 0
     display: flex
     justify-content: center
     align-items: center
-    padding: 16px 0
+    height: 50px
 
   .cube-scroll-content
     position: relative
