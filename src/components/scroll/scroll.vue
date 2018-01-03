@@ -1,7 +1,7 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
-      <div ref="listWrapper">
+      <div ref="listWrapper" class="cube-scroll-list-wrapper">
         <slot>
           <ul class="cube-scroll-list">
             <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
@@ -10,10 +10,10 @@
       </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
         <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-          <div class="before-trigger" v-if="!isPullUpLoad">
+          <div class="before-trigger" v-if="!isPullUpLoad && pullUpTxt">
             <span>{{ pullUpTxt }}</span>
           </div>
-          <div class="after-trigger" v-else>
+          <div class="after-trigger" v-if="isPullUpLoad">
             <loading></loading>
           </div>
         </div>
@@ -50,8 +50,6 @@
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
-  const DEFAULT_LOAD_TXT_MORE = 'Load more'
-  const DEFAULT_LOAD_TXT_NO_MORE = 'No more data'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
 
   const EVENT_SCROLL = 'scroll'
@@ -126,8 +124,8 @@
       pullUpTxt() {
         const pullUpLoad = this.pullUpLoad
         const txt = pullUpLoad && pullUpLoad.txt
-        const moreTxt = txt && txt.more || DEFAULT_LOAD_TXT_MORE
-        const noMoreTxt = txt && txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
+        const moreTxt = txt && txt.more || ''
+        const noMoreTxt = txt && txt.noMore || ''
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
@@ -229,9 +227,6 @@
             this.pullDownStyle = `top:${Math.min(pos.y + this.pullDownInitTop, 10)}px`
           } else {
             this.bubbleY = 0
-          }
-
-          if (this.isRebounding) {
             this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
           }
         })
@@ -267,6 +262,11 @@
         setTimeout(() => {
           this.forceUpdate(true)
         }, this.refreshDelay)
+      },
+      isPullUpLoad() {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       }
     },
     components: {
@@ -284,7 +284,7 @@
     position: relative
     height: 100%
     overflow: hidden
-    background-color: $scroll-content-bgc
+    background-color: inherit
 
   .cube-pulldown-wrapper
     position: absolute
@@ -302,12 +302,15 @@
     display: flex
     justify-content: center
     align-items: center
-    padding: 16px 0
+    .before-trigger
+      padding: 22px 0
+    .after-trigger
+      padding: 18px 0
 
   .cube-scroll-content
     position: relative
     z-index: 1
-    background-color: $scroll-content-bgc
+    background-color: inherit
 
   .cube-scroll-item
     height: 60px
