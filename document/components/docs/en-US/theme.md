@@ -111,9 +111,6 @@ $picker-item-color := $color-dark-grey
 $popup-mask-bgc := rgb(37, 38, 45)
 $popup-mask-opacity := .4
 
-// scroll
-$scroll-content-bgc := $color-white
-
 // slide
 $slide-dot-bgc := $color-light-grey-s
 $slide-dot-active-bgc := $color-orange
