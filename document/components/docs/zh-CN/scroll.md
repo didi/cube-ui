@@ -201,7 +201,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | threshold | 上拉刷新动作的上拉距离阈值 | Number | - | 0 |
-| txt | 上拉加载的相关文案 | Object | - | { more: 'Load more', noMore: 'No more data' } |
+| txt | 上拉加载的相关文案 | Object | - | { more: '', noMore: '' } |
 
 ### 插槽
 
