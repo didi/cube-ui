@@ -10,10 +10,10 @@
       </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
         <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-          <div class="before-trigger" v-if="!isPullUpLoad && pullUpTxt">
+          <div class="before-trigger" v-if="!isPullUpLoad">
             <span>{{ pullUpTxt }}</span>
           </div>
-          <div class="after-trigger" v-if="isPullUpLoad">
+          <div class="after-trigger" v-else>
             <loading></loading>
           </div>
         </div>
@@ -266,11 +266,6 @@
         setTimeout(() => {
           this.forceUpdate(true)
         }, this.refreshDelay)
-      },
-      isPullUpLoad() {
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
       }
     },
     components: {
@@ -307,6 +302,7 @@
     align-items: center
     .before-trigger
       padding: 22px 0
+      min-height: 1em
     .after-trigger
       padding: 18px 0
 
