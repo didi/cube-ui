@@ -304,7 +304,7 @@
       padding: 22px 0
       min-height: 1em
     .after-trigger
-      padding: 18px 0
+      padding: 19px 0
 
   .cube-scroll-content
     position: relative
