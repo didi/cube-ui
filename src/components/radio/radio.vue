@@ -1,0 +1,199 @@
+<template>
+  <div class="cube-radio-group" :class="_groupClass" :data-horz="horizontal">
+    <div class="cube-radio" v-for="option in options" :class="_containerClass" :data-pos="position">
+      <label class="cube-radio-wrap" :class="_wrapClass(option)">
+        <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
+        <span class="cube-radio-ui cubeic-round-border">
+          <i></i>
+        </span>
+        <span class="cube-radio-label">{{option.label || option}}</span>
+      </label>
+    </div>
+  </div>
+</template>
+<script type="text/ecmascript-6">
+  const COMPONENT_NAME = 'cube-radio'
+
+  const EVENT_INPUT = 'input'
+
+  export default {
+    name: COMPONENT_NAME,
+    props: {
+      value: String,
+      options: {
+        type: Array,
+        required: true,
+        default() {
+          return []
+        }
+      },
+      position: {
+        type: String,
+        default: 'left'
+      },
+      horizontal: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data() {
+      return {
+        radioValue: this.value
+      }
+    },
+    computed: {
+      _containerClass() {
+        if (this.horizontal) {
+          return 'border-right-1px'
+        }
+      },
+      _groupClass() {
+        if (!this.horizontal) {
+          return 'border-top-1px border-bottom-1px'
+        }
+      }
+    },
+    watch: {
+      value(newV) {
+        this.radioValue = newV
+      },
+      radioValue(newV) {
+        this.$emit(EVENT_INPUT, newV)
+      }
+    },
+    methods: {
+      _wrapClass(option) {
+        return {
+          'cube-radio_selected': this.radioValue === (option.value || option),
+          'cube-radio_disabled': option.disabled,
+          'border-bottom-1px': !this.horizontal
+        }
+      }
+    }
+  }
+</script>
+<style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+
+  $ui-width = 1.42em
+  .cube-radio-group[data-horz="true"]
+    display: flex
+    padding-left: 0
+    border-1px($checkbox-group-horizontal-bdc, 2px)
+    border-radius: 2px
+    .cube-radio
+      flex-fix()
+      text-align: center
+      padding-left: 10px
+      padding-right: 10px
+      &:after
+        border-color: $checkbox-group-horizontal-bdc
+      &:last-child
+        border-none()
+      &:last-child
+        border-none()
+      &[data-pos="right"]
+        .cube-radio-ui
+          position: relative
+          margin-left: .42em
+          order: 1
+        .cube-radio-label
+          margin-right: 0
+    .cube-radio-wrap
+      justify-content: center
+  .cube-radio
+    position: relative
+    padding: 0 16px
+    text-align: left
+    font-size: 100%
+    color: $checkbox-color
+    background-color: $checkbox-bgc
+    &[data-pos="right"]
+      .cube-radio-ui
+        margin-right: 0
+        position: absolute
+        right: 0
+      .cube-radio-label
+        margin-right: $ui-width
+    &:last-child
+      .cube-radio-wrap
+        border-none()
+  .cube-radio-wrap
+    position: relative
+    display: flex
+    align-items: center
+    box-sizing: border-box
+    width: 100%
+    height: 100%
+    padding: 11px 0
+    line-height: 1.5
+    word-break: break-word
+    word-wrap: break-word
+  .cube-radio-input
+    z-index: 1
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+  .cube-radio-ui
+    position: relative
+    width: 1em
+    height: 1em
+    margin-right: $ui-width - 1em
+    line-height: 1
+    border-radius: 50%
+    &::before, i
+      transition: all .2s
+    &::before
+      color: $checkbox-icon-color
+      display: inline-block
+      transform: scale(1.2)
+    i
+      position: absolute
+      top: 0
+      left: 0
+      overflow: hidden
+      width: 100%
+      height: 100%
+      color: transparent
+      border-radius: 50%
+      background-color: currentColor
+      transform: scale(.4)
+      &::before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 50%
+        height: 50%
+        transform: translate(-50%, -50%) scale(.8)
+        background-color: #fff
+        border-radius: 50%
+  .cube-radio_selected
+    .cube-radio-ui
+      &::before
+        color: transparent
+      i
+        color: $checkbox-checked-icon-color
+        transform: scale(1)
+  .cube-radio_disabled
+    .cube-radio-ui
+      background-color: $checkbox-disabled-icon-bgc
+      &::before, i
+        transition: none
+      &::before
+        color: transparent
+      i
+        color: $checkbox-disabled-icon-color
+        &::before
+          background-color: $checkbox-disabled-icon-color
+  .cube-radio_selected.cube-radio_disabled
+    .cube-radio-ui
+      background-color: $checkbox-checked-icon-bgc
+      i
+        &::before
+          background-color: #fff
+</style>
