@@ -147,9 +147,7 @@
         if (!this.$refs.wrapper) {
           return
         }
-        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
-          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
-        }
+        this._calculateMinHeight()
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
@@ -185,6 +183,7 @@
         this.scroll && this.scroll.enable()
       },
       refresh() {
+        this._calculateMinHeight()
         this.scroll && this.scroll.refresh()
       },
       destroy() {
@@ -212,6 +211,11 @@
           this.refresh()
         } else {
           this.refresh()
+        }
+      },
+      _calculateMinHeight() {
+        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
+          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
         }
       },
       _initPullDownRefresh() {
