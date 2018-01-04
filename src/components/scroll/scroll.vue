@@ -106,7 +106,6 @@
     data() {
       return {
         beforePullDown: true,
-        isRebounding: false,
         isPullingDown: false,
         isPullUpLoad: false,
         pullUpDirty: true,
@@ -202,15 +201,15 @@
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
           this._reboundPullDown().then(() => {
-            this._afterPullDown()
+            this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
           this.pullUpDirty = dirty
-          this.refresh()
+          dirty && this.refresh()
         } else {
-          this.refresh()
+          dirty && this.refresh()
         }
       },
       _calculateMinHeight() {
@@ -245,19 +244,17 @@
         const {stopTime = 600} = this.pullDownRefresh
         return new Promise((resolve) => {
           setTimeout(() => {
-            this.isRebounding = true
             this.scroll.finishPullDown()
             this.isPullingDown = false
             resolve()
           }, stopTime)
         })
       },
-      _afterPullDown() {
+      _afterPullDown(dirty) {
         setTimeout(() => {
           this.pullDownStyle = `top:${this.pullDownInitTop}px`
           this.beforePullDown = true
-          this.isRebounding = false
-          this.refresh()
+          dirty && this.refresh()
         }, this.scroll.options.bounceTime)
       }
     },
