@@ -22,10 +22,7 @@
       value: String,
       options: {
         type: Array,
-        required: true,
-        default() {
-          return []
-        }
+        required: true
       },
       position: {
         type: String,
