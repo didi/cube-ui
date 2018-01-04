@@ -5,32 +5,40 @@
 ### 示例
 
 - 基本用法
+
   ```html
   <cube-checkbox v-model="checked">
     Checkbox
   </cube-checkbox>
   ```
   如果选中了，则 `checked` 的值就为 `true`。
+
 - 禁用状态
+
   ```html
   <cube-checkbox v-model="checked" :disabled="true">
     Disabled Checkbox
   </cube-checkbox>
   ```
-  设置 `disabled` 为 `true` 即为禁用状态
+  设置 `disabled` 为 `true` 即为禁用状态。
+
 - 复选框图标位置
+
   ```html
   <cube-checkbox v-model="checked" position="right">
     Position Checkbox
   </cube-checkbox>
   ```
-  设置 `position` 为 `'right'` 则复选框图标位置在右边
+  设置 `position` 为 `'right'` 则复选框图标位置在右边。
+
 - 改变 model 的值
+
   ```html
   <cube-checkbox v-model="checked" label="labelValue">
     Set label Checkbox
   </cube-checkbox>
   ```
+
   设置 `label`，当复选框选中的时候，`checked` 的值就是 `'labelValue'`，当未选中的时候，`checked` 的值就是 `false`；所以其实在单个复选框的场景下，最好不要设置 `label`。
 
 ### Props 配置
@@ -40,9 +48,3 @@
 | disabled | 是否被禁用 | Boolean | true/false | false |
 | position | 位置 | String | left/right | left |
 | label | 如果选中的话，则是把该值映射到 v-model 上 | Boolean/String | - | '' |
-
-### 事件
-
-| 事件名 | 说明 | 参数 |
-| - | - | - |
-| input | 选中状态发生改变时触发 | 设置的 label 的值或者是否选中的布尔值 |

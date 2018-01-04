@@ -51,10 +51,3 @@
 | disabled | whether disabled | Boolean | true/false | false |
 | position | position | String | left/right | left |
 | label | if selected, then map the value to v-model | Boolean/String | - | '' |
-
-### Events
-
-| Event Name | Description | Parameters |
-| - | - | - |
-| input | triggers when the selecting state changes | the value of label if setted or boolean value which represents whether selected |
-

@@ -45,9 +45,3 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | horizontal | whether in horizontal order | Boolean | true/false | false |
-
-### Events
-
-| Event Name | Description | Parameters |
-| - | - | - |
-| input | triggers when the selecting state in the group changes | the set of values of selected checkboxs, which type is Array |
