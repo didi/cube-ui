@@ -1,11 +1,11 @@
 <template>
   <cube-page type="radio-view" title="Radio">
     <template slot="content">
-      <cube-radio v-model="selected" :options="options">radio</cube-radio>
+      <cube-radio v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
-      <cube-radio v-model="selected2" :options="options2" position="right">radio</cube-radio>
+      <cube-radio v-model="selected2" :options="options2" position="right" />
       <p>selected value: {{selected2}}</p>
-      <cube-radio v-model="selected3" :options="options3" :horizontal="true">radio</cube-radio>
+      <cube-radio v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>
     </template>
   </cube-page>
