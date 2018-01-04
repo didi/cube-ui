@@ -27,6 +27,7 @@ cube-ui is an elegant mobile component library based on Vue.js.
 - [Button](#/en-US/docs/button)
 - [Checkbox](#/en-US/docs/checkbox)
 - [CheckboxGroup](#/en-US/docs/checkbox-group)
+- [Radio](#/zh-CN/docs/radio)
 - [Loading](#/en-US/docs/loading)
 - [Tip](#/en-US/docs/tip)
 

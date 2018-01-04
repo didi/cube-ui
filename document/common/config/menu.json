@@ -19,6 +19,7 @@
             "button": "Button",
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
+            "radio": "Radio",
             "loading": "Loading",
             "tip": "Tip"
           }
@@ -74,6 +75,7 @@
             "button": "Button",
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
+            "radio": "Radio",
             "loading": "Loading",
             "tip": "Tip"
           }
