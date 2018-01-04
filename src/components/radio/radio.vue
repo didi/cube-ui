@@ -107,8 +107,8 @@
     padding: 0 16px
     text-align: left
     font-size: 100%
-    color: $checkbox-color
-    background-color: $checkbox-bgc
+    color: $radio-color
+    background-color: $radio-bgc
     &[data-pos="right"]
       .cube-radio-ui
         margin-right: 0
@@ -144,11 +144,12 @@
     height: 1em
     margin-right: $ui-width - 1em
     line-height: 1
+    color: transparent
     border-radius: 50%
     &::before, i
       transition: all .2s
     &::before
-      color: $checkbox-icon-color
+      color: $radio-icon-color
       display: inline-block
       transform: scale(1.2)
     i
@@ -158,7 +159,6 @@
       overflow: hidden
       width: 100%
       height: 100%
-      color: transparent
       border-radius: 50%
       background-color: currentColor
       transform: scale(.4)
@@ -170,30 +170,23 @@
         width: 50%
         height: 50%
         transform: translate(-50%, -50%) scale(.8)
-        background-color: #fff
+        background-color: currentColor
         border-radius: 50%
   .cube-radio_selected
     .cube-radio-ui
+      color: $radio-selected-icon-color
       &::before
         color: transparent
       i
-        color: $checkbox-checked-icon-color
         transform: scale(1)
+        &::before
+          background-color: $radio-selected-icon-bgc
   .cube-radio_disabled
     .cube-radio-ui
-      background-color: $checkbox-disabled-icon-bgc
+      color: $radio-disabled-icon-color
+      background-color: $radio-disabled-icon-bgc
       &::before, i
         transition: none
       &::before
         color: transparent
-      i
-        color: $checkbox-disabled-icon-color
-        &::before
-          background-color: $checkbox-disabled-icon-color
-  .cube-radio_selected.cube-radio_disabled
-    .cube-radio-ui
-      background-color: $checkbox-checked-icon-bgc
-      i
-        &::before
-          background-color: #fff
 </style>
