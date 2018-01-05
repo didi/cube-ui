@@ -15,6 +15,8 @@ import TimePicker from './modules/time-picker'
 import CascadePicker from './modules/cascade-picker'
 import Scroll from './modules/scroll'
 
+import Upload from './modules/upload'
+
 import BScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
 
@@ -42,6 +44,7 @@ export {
   SlideItem,
   Loading,
   IndexList,
+  Upload,
   BScroll,
   createAPI
 }

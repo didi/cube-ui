@@ -16,6 +16,7 @@ import Slide from '../pages/slide.vue'
 import IndexList from '../pages/index-list/index-list.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
+import Upload from '../pages/upload.vue'
 
 const routes = [
   {
@@ -91,6 +92,10 @@ const routes = [
         component: IndexListCustom
       }
     ]
+  },
+  {
+    path: '/upload',
+    component: Upload
   }
 ]
 

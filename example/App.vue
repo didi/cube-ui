@@ -86,6 +86,10 @@
           {
             path: '/index-list',
             text: 'IndexList'
+          },
+          {
+            path: '/upload',
+            text: 'Upload'
           }
         ]
       }
