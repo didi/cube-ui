@@ -15,14 +15,14 @@
   .cube-slide-item
     float: left
     box-sizing: border-box
+    height: 100%
     text-align: center
     > a
       display: block
-      width: 100%
+      height: 100%
       overflow: hidden
       text-decoration: none
       > img
-        width: 100%
-        height: 100%
         display: block
+        height: 100%
 </style>

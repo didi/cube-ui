@@ -188,7 +188,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .slide-container
-    height: 64px
+    height: 75px
     margin-bottom: 15px
     transform: translateZ(0px)
     border-radius: 2px

@@ -206,10 +206,13 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
   .cube-slide
+    position: relative
     min-height: 1px
+    height: 100%
 
   .cube-slide-group
     position: relative
+    height: 100%
     overflow: hidden
     white-space: nowrap
 
@@ -219,6 +222,7 @@
     right: 0
     left: 0
     padding: 0 6px
+    font-size: 0
     text-align: center
     transform: translateZ(1px)
     > span
