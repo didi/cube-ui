@@ -79,18 +79,19 @@
       margin-left: -10px
   .cube-popup-container
     transform: translate(100%, 100%)
-  .cube-popup-content
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    box-sizing: border-box
-    transform: translate(-100%, -100%)
-  .cube-popup-center
     .cube-popup-content
       position: absolute
-      top: -50%
-      left: -50%
-      width: auto
-      transform: translate(-50%, -50%)
+      top: 0
+      left: 0
+      width: 100%
+      box-sizing: border-box
+      transform: translate(-100%, -100%)
+    &.cube-popup-center
+      transform: translate(50%, 50%)
+      .cube-popup-content
+        position: absolute
+        top: 0
+        left: 0
+        width: auto
+        transform: translate(-50%, -50%)
 </style>
