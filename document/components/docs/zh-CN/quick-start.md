@@ -87,6 +87,19 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
       }
     }
     ```
+    
+  5. 修改 vue-loader.conf.js
+  
+  ```javascript
+  module.exports = {
+    loaders: utils.cssLoaders({
+      sourceMap: sourceMapEnabled,
+      extract: false
+    }),
+    // ...
+  }
+
+  ```
 
     具体参见 [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
 

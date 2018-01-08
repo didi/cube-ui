@@ -85,6 +85,18 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
       }
     }
     ```
+  5. Modify vue-loader.conf.js
+    
+    ```javascript
+    module.exports = {
+      loaders: utils.cssLoaders({
+        sourceMap: sourceMapEnabled,
+        extract: false
+      }),
+      // ...
+    }
+  
+    ```
 
     See [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
 
