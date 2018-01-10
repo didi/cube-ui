@@ -52,7 +52,7 @@ export default function ajaxUpload(file, options, changeHandler) {
       setStatus('error')
       return
     }
-    let response = file.responseText || file.response
+    let response = xhr.responseText || xhr.response
     try {
       response = JSON.parse(response)
     } catch (e) {}

@@ -65,12 +65,14 @@
         const newFiles = []
         const maxLen = this.max - filesLen
         let i = 0
-        while (i < maxLen) {
-          if (!files[i] || files[i].ignore) {
-            break
+        while (newFiles.length < maxLen && files[i]) {
+          if (files[i].ignore) {
+            i++
+            continue
+          } else {
+            newFiles.push(files[i++])
+            this.files.push(newFile())
           }
-          newFiles.push(files[i++])
-          this.files.push(newFile())
         }
         parseFiles(newFiles, (file, index) => {
           this.$set(this.files, filesLen + index, file)
