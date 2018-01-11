@@ -79,9 +79,6 @@
       autoPlay() {
         this.refresh()
       },
-      interval() {
-        this.refresh()
-      },
       threshold() {
         this.refresh()
       },
