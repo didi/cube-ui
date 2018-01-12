@@ -1,7 +1,9 @@
 <template>
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
-      <slot></slot>
+      <slot>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="select(item, index)" :item="item"></cube-slide-item>
+      </slot>
     </div>
     <div class="cube-slide-dots">
       <slot name="dots" :current="currentPageIndex" :dots="dots">
@@ -16,10 +18,17 @@
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
+  const EVENT_SELECT = 'select'
 
   export default {
     name: COMPONENT_NAME,
     props: {
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
       initialIndex: {
         type: Number,
         default: 0
@@ -55,6 +64,14 @@
         currentPageIndex: this.initialIndex || 0
       }
     },
+    created() {
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      needRefreshProps.forEach((key) => {
+        this.$watch(key, () => {
+          this.refresh()
+        })
+      })
+    },
     watch: {
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
@@ -63,6 +80,9 @@
       }
     },
     methods: {
+      select(item, index) {
+        this.$emit(EVENT_SELECT, item, index)
+      },
       refresh() {
         this.slide && this.slide.destroy()
         clearTimeout(this._timer)
