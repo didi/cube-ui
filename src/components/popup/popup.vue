@@ -92,5 +92,6 @@
       top: -50%
       left: -50%
       width: auto
+      max-width: 100%
       transform: translate(-50%, -50%)
 </style>
