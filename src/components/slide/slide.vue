@@ -64,29 +64,19 @@
         currentPageIndex: this.initialIndex || 0
       }
     },
+    created() {
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      needRefreshProps.forEach((key) => {
+        this.$watch(key, () => {
+          this.refresh()
+        })
+      })
+    },
     watch: {
-      data() {
-        this.refresh()
-      },
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
           this.slide && this.slide.goToPage(newIndex)
         }
-      },
-      loop() {
-        this.refresh()
-      },
-      autoPlay() {
-        this.refresh()
-      },
-      threshold() {
-        this.refresh()
-      },
-      speed() {
-        this.refresh()
-      },
-      allowVertical() {
-        this.refresh()
       }
     },
     methods: {
