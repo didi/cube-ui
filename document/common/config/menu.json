@@ -5,7 +5,9 @@
       "subList": {
         "introduction": "Introduction",
         "quick-start": "QuickStart",
-        "post-compile": "PostCompile"
+        "post-compile": "PostCompile",
+        "theme": "Theme",
+        "singleton": "Singleton"
       }
     },
     "components": {
@@ -27,6 +29,7 @@
             "popup": "Popup",
             "toast": "Toast",
             "picker": "Picker",
+            "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
@@ -57,7 +60,9 @@
       "subList": {
         "introduction": "介绍",
         "quick-start": "快速上手",
-        "post-compile": "后编译"
+        "post-compile": "后编译",
+        "theme": "主题",
+        "singleton": "单例模式"
       }
     },
     "components": {
@@ -79,6 +84,7 @@
             "popup": "Popup",
             "toast": "Toast",
             "picker": "Picker",
+            "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"

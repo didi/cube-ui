@@ -35,6 +35,10 @@
                           @update:value="updatePullUpLoadNoMoreTxt"></input-option>
           </div>
           <div class="group">
+            <switch-option class="item" name="Custom List" :value="customList"
+                           @update:value="updateCustomList"></switch-option>
+          </div>
+          <div class="group">
             <input-option class="item" name="startY" :value="startY"
                           @update:value="updateStartY"></input-option>
           </div>
@@ -44,13 +48,29 @@
         <div class="title sub">Demo</div>
         <div class="scroll-list-wrap">
           <cube-scroll
-              ref="scroll"
-              :data="items"
-              :scrollbar="scrollbarObj"
-              :pull-down-refresh="pullDownRefreshObj"
-              :pull-up-load="pullUpLoadObj"
-              @pulling-down="onPullingDown"
-              @pulling-up="onPullingUp">
+            ref="scroll"
+            :data="items"
+            :options="scrollOptions"
+            @pulling-down="onPullingDown"
+            @pulling-up="onPullingUp">
+            <ul v-if="customList" class="foods-wrapper">
+              <li @click="selectFood(food,$event)" v-for="food in items" class="food-item border-1px">
+                <div class="icon">
+                  <img width="57" height="57" :src="food.icon">
+                </div>
+                <div class="food-content">
+                  <h2 class="name">{{food.name}}</h2>
+                  <p class="description">{{food.description}}</p>
+                  <div class="extra">
+                    <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+                  </div>
+                  <div class="price">
+                    <span class="now">￥{{food.price}}</span>
+                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
             <template v-if="customPullDown" slot="pulldown" slot-scope="props">
               <div
                   v-if="props.pullDownRefresh"
@@ -76,7 +96,7 @@
       <div class="methods">
         <div class="title sub">Methods</div>
         <ul class="method-list">
-          <div class="group">
+          <li class="group">
             <input-option class="item" name="x" :value="scrollToX"
                           @update:value="updateScrollToX"></input-option>
             <input-option class="item" name="y" :value="scrollToY"
@@ -86,7 +106,7 @@
             <select-option class="item" name="easing" :value="scrollToEasing" :options="scrollToEasingOptions"
                            @update:value="updateScrollToEasing"></select-option>
             <button @click="scrollTo">scrollTo</button>
-          </div>
+          </li>
         </ul>
       </div>
 
@@ -97,9 +117,10 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option/switch-option.vue'
-  import InputOption from '../components/input-option/input-option.vue'
-  import SelectOption from '../components/select-option/select-option.vue'
+  import SwitchOption from '../components/switch-option'
+  import InputOption from '../components/input-option'
+  import SelectOption from '../components/select-option'
+  import goodsData from 'example/data/goods-list.json'
 
   import { ease } from '../data/ease'
 
@@ -121,6 +142,12 @@
     'I am line 15'
   ]
 
+  let _foods = []
+
+  goodsData.goods.forEach((item) => {
+    _foods = _foods.concat(item.foods)
+  })
+
   export default {
     data() {
       return {
@@ -128,6 +155,7 @@
         itemIndex: _data.length,
         scrollbar: true,
         scrollbarFade: true,
+        customList: false,
         pullDownRefresh: true,
         pullDownRefreshThreshold: 90,
         pullDownRefreshStop: 40,
@@ -171,6 +199,9 @@
         },
         deep: true
       },
+      customList(newVal) {
+        this.items = newVal ? _foods : _data
+      },
       pullDownRefreshObj: {
         handler() {
           this.rebuildScroll()
@@ -188,6 +219,13 @@
       }
     },
     computed: {
+      scrollOptions() {
+        return {
+          pullDownRefresh: this.pullDownRefreshObj,
+          pullUpLoad: this.pullUpLoadObj,
+          scrollbar: this.scrollbarObj
+        }
+      },
       scrollbarObj: function () {
         return this.scrollbar ? {fade: this.scrollbarFade} : false
       },
@@ -211,7 +249,7 @@
         setTimeout(() => {
           if (Math.random() > 0.5) {
             // 如果有新数据
-            this.items.unshift('I am new data: ' + +new Date())
+            this.items.unshift(this.customList ? _foods[1] : `I am new data: ${+new Date()}`)
           } else {
             // 如果没有新数据
             this.$refs.scroll.forceUpdate()
@@ -223,7 +261,7 @@
         setTimeout(() => {
           if (Math.random() > 0.5) {
             // 如果有新数据
-            let newPage = [
+            let newPage = this.customList ? _foods.slice(0, 5) : [
               'I am line ' + ++this.itemIndex,
               'I am line ' + ++this.itemIndex,
               'I am line ' + ++this.itemIndex,
@@ -243,6 +281,9 @@
       },
       updateScrollbar(val) {
         this.scrollbar = val
+      },
+      updateCustomList(val) {
+        this.customList = val
       },
       updateScrollbarFade(val) {
         this.scrollbarFade = val
@@ -300,35 +341,66 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../src/common/stylus/variable.styl"
-
   .scroll-wrapper
-    .cube-scroll-wrapper
-      position: absolute
-      left: 0
-      top: 0
-      right: 0
-      bottom: 0
-      overflow: hidden
-      background: #fff
-      .cube-scroll-content
-        position: relative
-        z-index: 10
-        background: #fff
-        .scroll-item
-          height: 60px
-          line-height: 60px
-          font-size: 18px
-          padding-left: 20px
-          border-bottom: 1px solid #e5e5e5
-      .cube-pulldown-wrapper
-        .before-trigger
-          font-size: 30px
-          align-self: flex-end
-          span
-            display: inline-block
-            transition: all 0.3s
-            color: #666
-            &.rotate
-              transform: rotate(180deg)
+    .cube-pulldown-wrapper
+      .before-trigger
+        font-size: 30px
+        align-self: flex-end
+        span
+          display: inline-block
+          transition: all 0.3s
+          color: #666
+          &.rotate
+            transform: rotate(180deg)
+
+  .scroll-list-wrap
+    height: 480px
+    border: 1px solid rgba(0, 0, 0, .1)
+    border-radius: 5px
+    transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
+    overflow: hidden
+  .foods-wrapper
+    .food-item
+      display: flex
+      padding: 18px
+      border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+      &:last-child
+        border-none()
+        margin-bottom: 0
+      .icon
+        flex: 0 0 57px
+        margin-right: 10px
+      .food-content
+        flex: 1
+        .name
+          margin: 2px 0 8px 0
+          height: 14px
+          line-height: 14px
+          font-size: 14px
+          color: rgb(7, 17, 27)
+        .description, .extra
+          line-height: 10px
+          font-size: 10px
+          color: rgb(147, 153, 159)
+        .description
+          line-height: 12px
+          margin-bottom: 8px
+        .extra
+          .count
+            margin-right: 12px
+        .price
+          font-weight: 700
+          line-height: 24px
+          .now
+            margin-right: 8px
+            font-size: 14px
+            color: rgb(240, 20, 20)
+          .old
+            text-decoration: line-through
+            font-size: 10px
+            color: rgb(147, 153, 159)
+        .cartcontrol-wrapper
+          position: absolute
+          right: 0
+          bottom: 12px
 </style>

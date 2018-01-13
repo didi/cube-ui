@@ -116,7 +116,7 @@ All of the built-in popup type components are implemented based on this componen
   An upper layer encapsulated CubeExtendPopup component with some styles is implemented. It supports passing the content on, has default slot and can be hidden if clicking the content. You can use it in this way (need to be registers globally or partially):
 
   ```html
-  <cube-extend-popup content="lala" ref="extendPopup"></cube-extend-popup>
+  <cube-extend-popup content="click here hide" ref="extendPopup"></cube-extend-popup>
   <cube-button @click="$refs.extendPopup.show()">
     Show Extend Popup
   </cube-button>

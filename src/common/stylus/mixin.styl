@@ -1,4 +1,4 @@
-border-1px($color = #ccc, $radius = 2px, $style = solid)
+border-1px($color = #ccc, $radius = 2PX, $style = solid)
   position: relative
   &::after
     content: ""
@@ -8,7 +8,7 @@ border-1px($color = #ccc, $radius = 2px, $style = solid)
     left: 0
     top: 0
     transform-origin: 0 0
-    border: 1px $style $color
+    border: 1PX $style $color
     border-radius: $radius
     box-sizing border-box
     width 100%
@@ -54,3 +54,10 @@ bg-image($url, $ext = ".png")
   background-image: url($url + "@2x" + $ext)
   @media (min-resolution: 3dppx)
     background-image: url($url + "@3x" + $ext)
+
+functions = constant env
+safe-area-fn(fn, position)
+  s("%s(safe-area-inset-%s)", fn, position)
+safe-area-mixin(property, position, important = false)
+  for fn in functions
+    {property} safe-area-fn(fn, position) important == true ? !important : unquote("")

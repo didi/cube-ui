@@ -14,8 +14,7 @@
     name: COMPONENT_NAME,
     props: {
       value: {
-        type: Array,
-        require: true
+        type: Array
       },
       horizontal: {
         type: Boolean,
@@ -57,8 +56,8 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
 
   .cube-checkbox-group
     z-index: 1
@@ -81,7 +80,13 @@
         border-color: $checkbox-group-horizontal-bdc
       &:last-child
         border-none()
+      &[data-pos="right"]
+        .cube-checkbox-ui
+          position: relative
+          margin-left: .42em
+          order: 1
+        .cube-checkbox-label
+          margin-right: 0
     .cube-checkbox-wrap
-      display: inline-flex
-      width: auto
+      justify-content: center
 </style>

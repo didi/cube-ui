@@ -1,5 +1,11 @@
 import createAPI from '../../common/helpers/create-api'
+import { warn } from '../../common/helpers/debug'
 
 export default function addTimePicker (Vue, TimePicker) {
-  createAPI(Vue, TimePicker, ['select', 'cancel', 'change'])
+  const timePickerAPI = createAPI(Vue, TimePicker, ['select', 'cancel', 'change'])
+  timePickerAPI.before((data, renderFn, single) => {
+    if (single) {
+      warn('TimePicker component can not be a singleton.')
+    }
+  })
 }

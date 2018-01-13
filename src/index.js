@@ -4,6 +4,7 @@ import {
   Scroll,
   Popup,
   TimePicker,
+  CascadePicker,
   Dialog,
   Tip,
   Toast,
@@ -19,10 +20,12 @@ function install(Vue) {
   if (install.installed) {
     return
   }
+  install.installed = true
   const components = [
     Style,
     Button,
     TimePicker,
+    CascadePicker,
     Dialog,
     Tip,
     Toast,

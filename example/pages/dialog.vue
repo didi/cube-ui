@@ -35,11 +35,13 @@
           confirmBtn: {
             text: '确定按钮',
             active: true,
+            disabled: false,
             href: 'javascript:;'
           },
           cancelBtn: {
             text: '取消按钮',
             active: false,
+            disabled: false,
             href: 'javascript:;'
           },
           onConfirm: () => {
@@ -107,9 +109,6 @@
         })
         this.dialog.show()
       }
-    },
-    beforeDestroy() {
-      this.dialog && this.dialog.remove() && (this.dialog = null)
     },
     components: {
       CubeButtonGroup,

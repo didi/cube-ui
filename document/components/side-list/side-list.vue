@@ -23,7 +23,7 @@
 </script>
 
 <style lang="stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "~@/common/stylus/variable.styl"
 
   .page-sidelist
     font-size: $fontsize-large

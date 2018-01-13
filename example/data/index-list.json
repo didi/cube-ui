@@ -1,6 +1,7 @@
 [
   {
-    "name": "★Hot City",
+    "name": "★ Hot City",
+    "shortcut": "★",
     "items": [
       {
         "name": "BEIJING",
@@ -33,7 +34,7 @@
         "value": 1
       },
       {
-        "name": "BAYINGUOLENGZHOU,",
+        "name": "BAYINGUOLENGZHOU",
         "value": 5
       },
       {

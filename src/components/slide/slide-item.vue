@@ -1,13 +1,25 @@
 <template>
   <div class="cube-slide-item">
-    <slot></slot>
+    <slot>
+      <a :href="item.url">
+        <img :src="item.image">
+      </a>
+    </slot>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-slide-item'
   export default {
-    name: COMPONENT_NAME
+    name: COMPONENT_NAME,
+    props: {
+      item: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    }
   }
 </script>
 
@@ -15,14 +27,14 @@
   .cube-slide-item
     float: left
     box-sizing: border-box
+    height: 100%
     text-align: center
     > a
       display: block
-      width: 100%
+      height: 100%
       overflow: hidden
       text-decoration: none
-      > img
-        width: 100%
-        height: 100%
-        display: block
+    img
+      display: block
+      height: 100%
 </style>

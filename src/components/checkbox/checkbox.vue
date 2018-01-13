@@ -22,8 +22,7 @@
     name: COMPONENT_NAME,
     props: {
       value: {
-        type: [Boolean, String],
-        require: true
+        type: [Boolean, String]
       },
       label: {
         type: [Boolean, String]
@@ -81,8 +80,8 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
-  @import "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
 
   $ui-width = 1.42em
   .cube-checkbox
@@ -93,12 +92,12 @@
     color: $checkbox-color
     background-color: $checkbox-bgc
     &[data-pos="right"]
-      .cube-checkbox-wrap
-        padding-left: 0
-        padding-right: $ui-width
       .cube-checkbox-ui
-        left: auto
+        margin-right: 0
+        position: absolute
         right: 0
+      .cube-checkbox-label
+        margin-right: $ui-width
   .cube-checkbox-wrap
     position: relative
     display: flex

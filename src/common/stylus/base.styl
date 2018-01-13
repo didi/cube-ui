@@ -1,4 +1,5 @@
-@import "./variable.styl"
+@require "./variable.styl"
+@require "./mixin.styl"
 
 body, html
   line-height: 1
@@ -22,7 +23,7 @@ body, html
 
 .border-top-1px
   &::before
-    border-top: 1px solid $color-row-line
+    border-top: 1PX solid $color-row-line
     left: 0
     top: 0
     width: 100%
@@ -30,7 +31,7 @@ body, html
 
 .border-right-1px
   &::after
-    border-right: 1px solid $color-col-line
+    border-right: 1PX solid $color-col-line
     top: 0
     right: 0
     height: 100%
@@ -38,7 +39,7 @@ body, html
 
 .border-bottom-1px
   &::after
-    border-bottom: 1px solid $color-row-line
+    border-bottom: 1PX solid $color-row-line
     left: 0
     bottom: 0
     width: 100%
@@ -46,11 +47,14 @@ body, html
 
 .border-left-1px
   &::before
-    border-left: 1px solid $color-col-line
+    border-left: 1PX solid $color-col-line
     top: 0
     left: 0
     height: 100%
     transform-origin: left 0
+
+.cube-safe-area-pb
+  safe-area-mixin(padding-bottom, bottom, true)
 
 @media (min-resolution: 2dppx)
   .border-top-1px

@@ -10,6 +10,14 @@
 
 ![示例二维码](./assets/example-qr.png)
 
+### 新项目？
+
+推荐使用基于 [vue-cli](https://github.com/vuejs/vue-cli) 的 [CLI 工具](https://github.com/cube-ui/cube-template) 来初始化配置和代码：
+
+```shell
+$ vue init cube-ui/cube-template projectname
+```
+
 ### 安装
 
 ```shell

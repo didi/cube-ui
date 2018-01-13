@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import cookie from 'js-cookie'
 
 export function setItem(k, v) {
@@ -31,5 +32,8 @@ export function getCurrentLang() {
   return defaultLang
 }
 
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://didi.github.io/cube-ui/example/#/' : 'http://localhost:8081/#/'
-export { baseUrl }
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://didi.github.io/cube-ui/example/#/' : `http://${window.location.hostname}:8081/#/`
+
+const eventHub = new Vue()
+
+export { baseUrl, eventHub }

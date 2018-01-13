@@ -1,8 +1,13 @@
 export default function instantiateComponent(Vue, Component, data, renderFn) {
   let renderData
+  let childrenRenderFn
   const instance = new Vue({
     render(createElement) {
-      return createElement(Component, renderData, renderFn ? [renderFn(createElement)] : [])
+      let children = childrenRenderFn && childrenRenderFn(createElement)
+      if (children && !Array.isArray(children)) {
+        children = [children]
+      }
+      return createElement(Component, renderData, children || [])
     },
     methods: {
       init() {
@@ -14,10 +19,11 @@ export default function instantiateComponent(Vue, Component, data, renderFn) {
       }
     }
   })
-  instance.updateRenderData = function (data) {
+  instance.updateRenderData = function (data, render) {
     renderData = data
+    childrenRenderFn = render
   }
-  instance.updateRenderData(data)
+  instance.updateRenderData(data, renderFn)
   instance.$mount()
   instance.init()
   const component = instance.$children[0]

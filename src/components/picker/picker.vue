@@ -1,14 +1,14 @@
 <template>
   <transition name="cube-picker-fade">
     <cube-popup
-      type="picker"
-      :mask="true"
-      :center="false"
-      v-show="isVisible"
-      @touchmove.prevent
-      @click="cancel">
+        type="picker"
+        :mask="true"
+        :center="false"
+        v-show="isVisible"
+        @touchmove.prevent
+        @mask-click="cancel">
       <transition name="cube-picker-move">
-        <div class="cube-picker-panel" v-show="isVisible" @click.stop>
+        <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
             <span data-action="cancel" @click="cancel">{{cancelTxt}}</span>
             <span data-action="confirm" @click="confirm">{{confirmTxt}}</span>
@@ -20,7 +20,7 @@
             <div class="cube-picker-wheel-wrapper" ref="wheelWrapper">
               <div v-for="data in pickerData">
                 <ul class="wheel-scroll">
-                  <li v-for="item in data" class="wheel-item">{{item.text}}</li>
+                  <li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>
                 </ul>
               </div>
             </div>
@@ -43,6 +43,11 @@
   const EVENT_VALUE_CHANGE = 'value-change'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
+
+  const DEFAULT_KEYS = {
+    value: 'value',
+    text: 'text'
+  }
 
   export default {
     name: COMPONENT_NAME,
@@ -70,12 +75,26 @@
         default() {
           return []
         }
+      },
+      alias: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
     },
     data() {
       return {
         pickerData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex
+      }
+    },
+    computed: {
+      valueKey() {
+        return this.alias.value || DEFAULT_KEYS.value
+      },
+      textKey() {
+        return this.alias.text || DEFAULT_KEYS.text
       }
     },
     created() {
@@ -95,24 +114,28 @@
         this.hide()
 
         let changed = false
+        let pickerSelectedText = []
         for (let i = 0; i < this.pickerData.length; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
 
           let value = null
+          let text = ''
           if (this.pickerData[i].length) {
-            value = this.pickerData[i][index].value
+            value = this.pickerData[i][index][this.valueKey]
+            text = this.pickerData[i][index][this.textKey]
           }
           if (this.pickerSelectedVal[i] !== value) {
             changed = true
           }
           this.pickerSelectedVal[i] = value
+          pickerSelectedText[i] = text
         }
 
-        this.$emit(EVENT_SELECT, this.pickerSelectedVal, this.pickerSelectedIndex)
+        this.$emit(EVENT_SELECT, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
 
         if (changed) {
-          this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex)
+          this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
       },
       cancel() {
@@ -154,7 +177,16 @@
       setData(data, selectedIndex) {
         this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : []
         this.pickerData = data.slice()
-        this.dirty = true
+        if (this.isVisible) {
+          this.$nextTick(() => {
+            this.wheels.forEach((wheel, i) => {
+              wheel.refresh()
+              wheel.wheelTo(this.pickerSelectedIndex[i])
+            })
+          })
+        } else {
+          this.dirty = true
+        }
       },
       refill(datas) {
         let ret = []
@@ -176,16 +208,15 @@
           this.$set(this.pickerData, index, data)
           let selectedIndex = wheel.getSelectedIndex()
           if (oldData.length) {
-            let oldValue = oldData[selectedIndex].value
+            let oldValue = oldData[selectedIndex][this.valueKey]
             for (let i = 0; i < data.length; i++) {
-              if (data[i].value === oldValue) {
+              if (data[i][this.valueKey] === oldValue) {
                 dist = i
                 break
               }
             }
           }
           this.pickerSelectedIndex[index] = dist
-          wheel.destroy()
           this.$nextTick(() => {
             // recreate wheel so that the wrapperHeight will be correct.
             wheel = this._createWheel(wheelWrapper, index)
@@ -200,22 +231,27 @@
         wheel.wheelTo(dist)
       },
       refresh() {
-        setTimeout(() => {
+        this.$nextTick(() => {
           this.wheels.forEach((wheel) => {
             wheel.refresh()
           })
-        }, 200)
+        })
       },
       _createWheel(wheelWrapper, i) {
-        const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
-          wheel: {
-            selectedIndex: this.pickerSelectedIndex[i] || 0
-          }
-        })
-        wheel.on('scrollEnd', () => {
-          this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
-        })
-        return wheel
+        if (!this.wheels[i]) {
+          const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
+            wheel: {
+              selectedIndex: this.pickerSelectedIndex[i] || 0
+            },
+            observeDOM: false
+          })
+          wheel.on('scrollEnd', () => {
+            this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
+          })
+        } else {
+          this.wheels[i].refresh()
+        }
+        return this.wheels[i]
       },
       _canConfirm() {
         return this.wheels.every((wheel) => {
@@ -235,8 +271,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/mixin.styl"
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
 
   $picker-lr-padding = 16px
 
@@ -299,7 +335,7 @@
       top: 0
       background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
     > .border-top-1px
-      bottom: 1px
+      bottom: 0
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))
 
   .cube-picker-wheel-wrapper

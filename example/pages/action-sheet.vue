@@ -21,7 +21,7 @@
           title: '我是标题~~~',
           data: [
             {
-              content: '<em>default</em>',
+              content: '<em>align - center</em>',
               class: 'cube-foo'
             },
             {
@@ -107,9 +107,6 @@
         })
         this.actionSheet.show()
       }
-    },
-    beforeDestroy() {
-      this.actionSheet && this.actionSheet.remove() && (this.actionSheet = null)
     },
     components: {
       CubePage,

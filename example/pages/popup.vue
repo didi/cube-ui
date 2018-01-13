@@ -18,7 +18,7 @@
         <cube-button @click="showPopup('myPopup4')">Show Popup - bottom</cube-button>
       </div>
       <div>
-        <cube-extend-popup content="lala" ref="extendPopup"></cube-extend-popup>
+        <cube-extend-popup content="click here hide" ref="extendPopup"></cube-extend-popup>
         <cube-button @click="$refs.extendPopup.show()">Show Extend Popup</cube-button>
       </div>
     </template>

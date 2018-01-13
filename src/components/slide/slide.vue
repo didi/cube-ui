@@ -1,10 +1,14 @@
 <template>
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
-      <slot></slot>
+      <slot>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="select(item, index)" :item="item"></cube-slide-item>
+      </slot>
     </div>
     <div class="cube-slide-dots">
-      <span :class="{active: currentPageIndex === index}" v-for="(item, index) in dots"></span>
+      <slot name="dots" :current="currentPageIndex" :dots="dots">
+        <span :class="{active: currentPageIndex === index}" v-for="(item, index) in dots"></span>
+      </slot>
     </div>
   </div>
 </template>
@@ -14,10 +18,21 @@
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
+  const EVENT_SELECT = 'select'
 
   export default {
     name: COMPONENT_NAME,
     props: {
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
+      initialIndex: {
+        type: Number,
+        default: 0
+      },
       loop: {
         type: Boolean,
         default: true
@@ -37,16 +52,58 @@
       speed: {
         type: Number,
         default: 400
+      },
+      allowVertical: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
         dots: 0,
-        currentPageIndex: 0
+        currentPageIndex: this.initialIndex || 0
+      }
+    },
+    created() {
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      needRefreshProps.forEach((key) => {
+        this.$watch(key, () => {
+          this.refresh()
+        })
+      })
+    },
+    watch: {
+      initialIndex(newIndex) {
+        if (newIndex !== this.currentPageIndex) {
+          this.slide && this.slide.goToPage(newIndex)
+        }
       }
     },
     methods: {
+      select(item, index) {
+        this.$emit(EVENT_SELECT, item, index)
+      },
       refresh() {
+        this.slide && this.slide.destroy()
+        clearTimeout(this._timer)
+        this.$nextTick(() => {
+          if (this.slide === null) {
+            return
+          }
+          if (this.slide !== undefined) {
+            this.currentPageIndex = 0
+          }
+          this.dots = 0
+          this._setSlideWidth()
+          this._initDots()
+          this._initSlide()
+
+          if (this.autoPlay) {
+            this._play()
+          }
+        })
+      },
+      _refresh() {
         this._setSlideWidth(true)
         this.slide.refresh()
       },
@@ -70,21 +127,28 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
+          bounce: false,
+          eventPassthrough: this.allowVertical ? 'vertical' : '',
           snap: {
             loop: this.loop,
             threshold: this.threshold,
             speed: this.speed
           },
-          click: true
+          click: true,
+          observeDOM: false
         })
+
+        this.slide.goToPage(this.currentPageIndex, 0, 0)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        this.slide.on('touchend', () => {
+        window.removeEventListener('touchend', this._touchEndEvent, false)
+        this._touchEndEvent = () => {
           if (this.autoPlay) {
             this._play()
           }
-        })
+        }
+        window.addEventListener('touchend', this._touchEndEvent, false)
 
         this.slide.on('beforeScrollStart', () => {
           if (this.autoPlay) {
@@ -94,9 +158,6 @@
       },
       _onScrollEnd() {
         let pageIndex = this.slide.getCurrentPage().pageX
-        if (this.loop) {
-          pageIndex -= 1
-        }
         if (this.currentPageIndex !== pageIndex) {
           this.currentPageIndex = pageIndex
           this.$emit(EVENT_CHANGE, this.currentPageIndex)
@@ -110,19 +171,16 @@
         this.dots = new Array(this.children.length)
       },
       _play() {
-        let pageIndex = this.currentPageIndex + 1
-        if (this.loop) {
-          pageIndex += 1
-        }
         clearTimeout(this._timer)
         this._timer = setTimeout(() => {
-          this.slide.goToPage(pageIndex, 0, 400)
+          this.slide.next()
         }, this.interval)
       },
       _deactivated() {
         clearTimeout(this._timer)
         clearTimeout(this._resizeTimer)
         window.removeEventListener('resize', this._resizeHandler)
+        window.removeEventListener('touchend', this._touchEndEvent, false)
       },
       _resizeHandler() {
         if (!this.slide) {
@@ -137,20 +195,12 @@
               this._play()
             }
           }
-          this.refresh()
+          this._refresh()
         }, 60)
       }
     },
     mounted() {
-      setTimeout(() => {
-        this._setSlideWidth()
-        this._initDots()
-        this._initSlide()
-
-        if (this.autoPlay) {
-          this._play()
-        }
-      }, 20)
+      this.refresh()
 
       window.addEventListener('resize', this._resizeHandler)
     },
@@ -165,19 +215,24 @@
     },
     destroyed() {
       this._deactivated()
-      this.slide.destroy()
-      this.slide = null
+      if (this.slide) {
+        this.slide.destroy()
+        this.slide = null
+      }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
   .cube-slide
+    position: relative
     min-height: 1px
+    height: 100%
 
   .cube-slide-group
     position: relative
+    height: 100%
     overflow: hidden
     white-space: nowrap
 
@@ -187,10 +242,12 @@
     right: 0
     left: 0
     padding: 0 6px
+    font-size: 0
     text-align: center
     transform: translateZ(1px)
     > span
       display: inline-block
+      vertical-align: bottom
       margin: 0 1px
       width: 10px
       height: 1px

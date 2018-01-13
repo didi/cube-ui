@@ -53,6 +53,28 @@ describe('Dialog', () => {
         .to.equal(2)
     })
 
+    it('should render correct contents - confirmBtn/cancelBtn', () => {
+      const href = 'https://didichuxing.com/'
+      vm = createDialog({
+        type: 'confirm',
+        content: 'dialog',
+        confirmBtn: '确定1',
+        cancelBtn: {
+          text: '取消1',
+          active: false,
+          disabled: false,
+          href: href
+        }
+      })
+      const btns = vm.$el.querySelector('.cube-dialog-btns').getElementsByTagName('a')
+      expect(btns.length)
+        .to.equal(2)
+      expect(btns[0].href).to.equal(href)
+      expect(btns[0].textContent).to.equal('取消1')
+      expect(btns[1].href).to.equal('javascript:;')
+      expect(btns[1].textContent).to.equal('确定1')
+    })
+
     it('should trigger events', () => {
       const confirmHandler = sinon.spy()
       const cancelHandler = sinon.spy()
@@ -87,6 +109,37 @@ describe('Dialog', () => {
         .to.be.calledOnce
     })
 
+    it('should not trigger events when btn is disabled', () => {
+      const confirmHandler = sinon.spy()
+      const cancelHandler = sinon.spy()
+      vm = createDialog({
+        type: 'confirm',
+        title: 'dialog title',
+        content: 'dialog',
+        confirmBtn: {
+          disabled: true
+        },
+        cancelBtn: {
+          disabled: true
+        }
+      }, {
+        confirm: confirmHandler,
+        cancel: cancelHandler
+      })
+      vm.show()
+      // confirm click
+      vm.$el.querySelector('.cube-dialog-btns a:last-child').click()
+      expect(vm.isVisible)
+        .to.be.true
+      expect(confirmHandler)
+        .to.have.callCount(0)
+      vm.$el.querySelector('.cube-dialog-btns a').click()
+      expect(vm.isVisible)
+        .to.be.true
+      expect(cancelHandler)
+        .to.have.callCount(0)
+    })
+
     function createDialog (props = {}, events = {}) {
       return instantiateComponent(Vue, Dialog, {
         props: props,
@@ -105,7 +158,8 @@ describe('Dialog', () => {
         template: '<div>xx</div>',
         methods: {
           showAPI() {
-            ins = this.$dialog.confirm({
+            ins = this.$createDialog({
+              type: 'confirm',
               showClose: true,
               title: 'dialog api title',
               content: 'dialog api content',

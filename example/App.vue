@@ -12,14 +12,13 @@
         </li>
       </ul>
     </section>
-    <transition name="move">
-      <router-view class="cube-view"></router-view>
-    </transition>
+    <cube-view></cube-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import BScroll from 'better-scroll'
+  import CubeView from './components/cube-view.vue'
+
   export default {
     data() {
       return {
@@ -57,6 +56,10 @@
             text: 'Picker'
           },
           {
+            path: '/cascade-picker',
+            text: 'CascadePicker'
+          },
+          {
             path: '/time-picker',
             text: 'TimePicker'
           },
@@ -83,23 +86,21 @@
         ]
       }
     },
-    mounted() {
-      this.$nextTick(() => {
-        /* eslint-disable no-new */
-        new BScroll(this.$refs.mfct, {
-          click: true
-        })
-      })
+    components: {
+      CubeView
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  html, body, #app
+    height: 100%
   body
     background-color: #fff
+    overflow: hidden
   .cube-bar
-    position: fixed
     z-index: 10
+    position: absolute
     right: 0
     left: 0
     height: 44px
@@ -114,12 +115,13 @@
       font-weight: 500
 
   .cube-content
-    position: fixed
-    width: 100%
+    position: absolute
     top: 44px
     left: 0
+    right: 0
     bottom: 0
     overflow: scroll
+    -webkit-overflow-scrolling: touch
     .cube-list
       padding-left: 10px
       .cube-item
@@ -137,11 +139,4 @@
             right: 0
             padding: 0 5px
             color: #ccc
-
-  .cube-view
-    transition: all 0.3s
-    transform: translate3d(0, 0, 0)
-    &.move-enter-active, &.move-leave-active
-      transform: translate3d(100%, 0, 0)
-
 </style>

@@ -31,7 +31,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }
@@ -59,7 +59,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }
@@ -88,7 +88,7 @@
           onCancel: () => {
             this.$createToast({
               type: 'correct',
-              txt: 'Clicked cancel button',
+              txt: 'Picker canceled',
               time: 1000
             }).show()
           }
@@ -97,9 +97,6 @@
         this.timePicker.setTime(time)
         this.timePicker.show()
       }
-    },
-    beforeDestroy () {
-      this.timePicker && this.timePicker.remove() && (this.timePicker = null)
     },
     components: {
       CubePage,

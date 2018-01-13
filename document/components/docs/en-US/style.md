@@ -70,7 +70,7 @@ body
 The [base css](https://github.com/didi/cube-ui/blob/master/src/common/stylus/base.styl) contains the following styles:
 
 ```stylus
-@import "./variable.styl"
+@require "./variable.styl"
 
 body, html
   line-height: 1

@@ -1,4 +1,4 @@
-@import "~@/common/stylus/variable.styl"
+@require "~@/common/stylus/variable.styl"
 
 .md-body
   font-size: $fontsize-medium
@@ -6,6 +6,8 @@
   color: $color-dark-grey
   p
     margin: 1.2em 0
+    .anchor
+      display: inline-block
   h2
     margin-top: 1.2em
     margin-bottom: .8em
@@ -28,11 +30,14 @@
     width: 100%
     color: $color-blue
     box-sizing: border-box
+    table-layout: fixed
     th, td
       padding: 6px 13px
       border: 1px solid rgb(223, 226, 229)
       vertical-align: middle
       text-align: left
+      word-wrap: break-word
+      word-break: break-word
     th
       font-weight: 600
       background-color: $color-row-line
@@ -43,6 +48,18 @@
     margin: 1em 0
   ul
     padding-left: 20px
+  h1, h2, h3, h4
+    .anchor
+      display: none
+  h1:hover, h2:hover, h3:hover, h4:hover
+    .anchor
+      display: inline-block
+      float: left
+      margin-left: -20px
+      position relative
+      top: 6px
+      padding-right: 4px
+      line-height: 1
   img
     max-width: 100%
 pre

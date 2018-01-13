@@ -53,7 +53,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
   .cube-popup
     position: fixed
     left: 0
@@ -66,7 +66,17 @@
     width: 100%
     height: 100%
   .cube-popup-mask
+    overflow: hidden
     background-color: $popup-mask-bgc
+    opacity: $popup-mask-opacity
+    // fix some android webview opacity render bug
+    &::before
+      content: "."
+      display: block
+      width: 1px
+      height: 1px
+      background-color: rgba(0, 0, 0, .1)
+      margin-left: -10px
   .cube-popup-container
     transform: translate(100%, 100%)
   .cube-popup-content
@@ -82,5 +92,6 @@
       top: -50%
       left: -50%
       width: auto
+      max-width: 100%
       transform: translate(-50%, -50%)
 </style>

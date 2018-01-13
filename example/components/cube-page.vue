@@ -43,11 +43,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../src/common/stylus/variable.styl"
+  @import "~@/common/stylus/variable.styl"
 
   .cube-page
-    position: fixed
-    z-index: 20
+    position: absolute
+    z-index: 10
     top: 0
     left: 0
     width: 100%
@@ -62,7 +62,7 @@
       box-shadow: 0 1px 6px #ccc
       -webkit-backface-visibility: hidden
       backface-visibility: hidden
-      z-index: 99
+      z-index: 5
       h1
         font-size: 16px
         font-weight: 700
@@ -72,8 +72,7 @@
         left: 0
         padding: 0 15px
         color: #fc9153
-    .wrapper
-      width: 100%
+    >.wrapper
       height: calc(100% - 44px)
       overflow: auto
       -webkit-overflow-scrolling: touch
@@ -114,13 +113,6 @@
               border-bottom: none
       .demo
         margin-bottom: 15px
-        .scroll-list-wrap
-          position relative
-          height: 480px
-          border: 1px solid rgba(0, 0, 0, .1)
-          border-radius: 5px
-          transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
-          overflow: hidden
       .methods
         .method-list
           .group

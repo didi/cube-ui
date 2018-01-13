@@ -1,12 +1,20 @@
+import { eventHub } from '../common/js/utils'
 import menuConfig from '../common/config/menu'
 const routeMap = {}
 
 Object.keys(menuConfig).forEach((lang) => {
+  const loadingNotify = (p) => {
+    eventHub.$emit('begin-loading')
+    return p.then((r) => {
+      eventHub.$emit('finish-loading')
+      return r
+    })
+  }
   const docsChildrenRoute = []
   const docsRoute = {
     path: 'docs',
     redirect: './docs/introduction',
-    component: () => import(`../components/docs/${lang}.vue`),
+    component: () => loadingNotify(import(`../components/docs/${lang}.vue`)),
     children: docsChildrenRoute
   }
   routeMap[lang] = [docsRoute]
@@ -15,7 +23,7 @@ Object.keys(menuConfig).forEach((lang) => {
     getSubList(groups[name]).forEach((key) => {
       docsChildrenRoute.push({
         path: key,
-        component: () => import(`../components/docs/${lang}/${key}.md`)
+        component: () => loadingNotify(import(`../components/docs/${lang}/${key}.md`))
       })
     })
   })

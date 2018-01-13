@@ -1,11 +1,13 @@
 <template>
   <div ref="wrapper" class="cube-scroll-wrapper">
     <div class="cube-scroll-content">
-      <slot>
-        <ul ref="list">
-          <li @click="clickItem(item)" class="scroll-item" v-for="item in data">{{item}}</li>
-        </ul>
-      </slot>
+      <div ref="listWrapper" class="cube-scroll-list-wrapper">
+        <slot>
+          <ul class="cube-scroll-list">
+            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+          </ul>
+        </slot>
+      </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
         <div class="cube-pullup-wrapper" v-if="pullUpLoad">
           <div class="before-trigger" v-if="!isPullUpLoad">
@@ -48,8 +50,6 @@
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
-  const DEFAULT_LOAD_TXT_MORE = 'Load more'
-  const DEFAULT_LOAD_TXT_NO_MORE = 'No more data'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
 
   const EVENT_SCROLL = 'scroll'
@@ -57,6 +57,15 @@
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
+
+  const DEFAULT_OPTIONS = {
+    observeDOM: true,
+    click: true,
+    probeType: 1,
+    scrollbar: false,
+    pullDownRefresh: false,
+    pullUpLoad: false
+  }
 
   export default {
     name: COMPONENT_NAME,
@@ -67,13 +76,11 @@
           return []
         }
       },
-      probeType: {
-        type: Number,
-        default: 1
-      },
-      click: {
-        type: Boolean,
-        default: false
+      options: {
+        type: Object,
+        default() {
+          return {}
+        }
       },
       listenScroll: {
         type: Boolean,
@@ -87,24 +94,18 @@
         type: String,
         default: DIRECTION_V
       },
-      scrollbar: {
-        default: false
-      },
-      pullDownRefresh: {
-        default: false
-      },
-      pullUpLoad: {
-        default: false
-      },
       refreshDelay: {
         type: Number,
         default: 20
+      },
+      listRef: {
+        type: String,
+        default: 'list'
       }
     },
     data() {
       return {
         beforePullDown: true,
-        isRebounding: false,
         isPullingDown: false,
         isPullUpLoad: false,
         pullUpDirty: true,
@@ -113,42 +114,44 @@
       }
     },
     computed: {
+      pullUpLoad() {
+        return this.options.pullUpLoad
+      },
+      pullDownRefresh() {
+        return this.options.pullDownRefresh
+      },
       pullUpTxt() {
-        const moreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.more || DEFAULT_LOAD_TXT_MORE
-        const noMoreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
+        const pullUpLoad = this.pullUpLoad
+        const txt = pullUpLoad && pullUpLoad.txt
+        const moreTxt = txt && txt.more || ''
+        const noMoreTxt = txt && txt.noMore || ''
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
       refreshTxt() {
-        return this.pullDownRefresh && this.pullDownRefresh.txt || DEFAULT_REFRESH_TXT
+        const pullDownRefresh = this.pullDownRefresh
+        return pullDownRefresh && pullDownRefresh.txt || DEFAULT_REFRESH_TXT
       }
     },
     created() {
       this.pullDownInitTop = -50
     },
     mounted() {
-      setTimeout(() => {
+      this.$nextTick(() => {
         this.initScroll()
-      }, 20)
+      })
     },
     methods: {
       initScroll() {
         if (!this.$refs.wrapper) {
           return
         }
-        if (this.$refs.list && (this.pullDownRefresh || this.pullUpLoad)) {
-          this.$refs.list.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
-        }
+        this._calculateMinHeight()
 
-        let options = {
-          probeType: this.probeType,
-          click: this.click,
+        let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
-          scrollX: this.direction === DIRECTION_H,
-          scrollbar: this.scrollbar,
-          pullDownRefresh: this.pullDownRefresh,
-          pullUpLoad: this.pullUpLoad
-        }
+          scrollX: this.direction === DIRECTION_H
+        }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
@@ -179,6 +182,7 @@
         this.scroll && this.scroll.enable()
       },
       refresh() {
+        this._calculateMinHeight()
         this.scroll && this.scroll.refresh()
       },
       destroy() {
@@ -197,22 +201,27 @@
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
           this._reboundPullDown().then(() => {
-            this._afterPullDown()
+            this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
           this.pullUpDirty = dirty
-          this.refresh()
+          dirty && this.refresh()
         } else {
-          this.refresh()
+          dirty && this.refresh()
+        }
+      },
+      _calculateMinHeight() {
+        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
+          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
         }
       },
       _initPullDownRefresh() {
         this.scroll.on('pullingDown', () => {
-          this.$emit(EVENT_PULLING_DOWN)
           this.beforePullDown = false
           this.isPullingDown = true
+          this.$emit(EVENT_PULLING_DOWN)
         })
 
         this.scroll.on('scroll', (pos) => {
@@ -221,36 +230,31 @@
             this.pullDownStyle = `top:${Math.min(pos.y + this.pullDownInitTop, 10)}px`
           } else {
             this.bubbleY = 0
-          }
-
-          if (this.isRebounding) {
             this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
           }
         })
       },
       _initPullUpLoad() {
         this.scroll.on('pullingUp', () => {
-          this.$emit(EVENT_PULLING_UP)
           this.isPullUpLoad = true
+          this.$emit(EVENT_PULLING_UP)
         })
       },
       _reboundPullDown() {
         const {stopTime = 600} = this.pullDownRefresh
         return new Promise((resolve) => {
           setTimeout(() => {
-            this.isRebounding = true
             this.scroll.finishPullDown()
             this.isPullingDown = false
             resolve()
           }, stopTime)
         })
       },
-      _afterPullDown() {
+      _afterPullDown(dirty) {
         setTimeout(() => {
           this.pullDownStyle = `top:${this.pullDownInitTop}px`
           this.beforePullDown = true
-          this.isRebounding = false
-          this.refresh()
+          dirty && this.refresh()
         }, this.scroll.options.bounceTime)
       }
     },
@@ -270,6 +274,13 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @require "../../common/stylus/variable.styl"
+
+  .cube-scroll-wrapper
+    position: relative
+    height: 100%
+    overflow: hidden
+
   .cube-pulldown-wrapper
     position: absolute
     width: 100%
@@ -279,17 +290,27 @@
     align-items: center
     transition: all
     .after-trigger
-      margin-top: 10px
+      margin-top: 5px
 
   .cube-pullup-wrapper
     width: 100%
     display: flex
     justify-content: center
     align-items: center
-    padding: 16px 0
+    .before-trigger
+      padding: 22px 0
+      min-height: 1em
+    .after-trigger
+      padding: 19px 0
 
   .cube-scroll-content
     position: relative
     z-index: 1
+
+  .cube-scroll-item
+    height: 60px
+    line-height: 60px
+    font-size: $fontsize-large-x
+    padding-left: 20px
 </style>
 
