@@ -3,8 +3,8 @@
     <div slot="content">
       <div ref="slideWrapper" class="slide-container">
         <cube-slide
-          v-if="ifSlide"
           ref="slide"
+          :data="items"
           :initial-index="initialIndex"
           :loop="loop"
           :auto-play="autoPlay"
@@ -12,12 +12,8 @@
           :threshold="threshold"
           :speed="speed"
           :allow-vertical="allowVertical"
-          @change="changePage">
-          <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
-            <a :href="item.url">
-              <img :src="item.image">
-            </a>
-          </cube-slide-item>
+          @change="changePage"
+          @click="clickPage">
           <template v-if="dotsSlot" slot="dots" slot-scope="props">
             <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots">{{index + 1}}</span>
           </template>
@@ -86,7 +82,6 @@
             image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide02.png'
           }
         ],
-        ifSlide: true,
         loop: true,
         autoPlay: true,
         interval: 4000,
@@ -99,45 +94,20 @@
       }
     },
     watch: {
-      loop() {
-        this.rebuildSlide()
-      },
-      dotsSlot() {
-        this.rebuildSlide()
-      },
-      autoPlay() {
-        this.rebuildSlide()
-      },
-      interval() {
-        this.rebuildSlide()
-      },
-      threshold() {
-        this.rebuildSlide()
-      },
-      speed() {
-        this.rebuildSlide()
-      },
-      allowVertical() {
-        this.rebuildSlide()
-      },
       addItem3(newV) {
         if (newV) {
           this.items.push(item3)
         } else {
           this.items.pop()
         }
-        this.rebuildSlide()
       }
     },
     methods: {
       changePage(current) {
         console.log('当前轮播图序号为:' + current)
       },
-      clickHandler(item, index) {
+      clickPage(item, index) {
         console.log(item, index)
-      },
-      rebuildSlide() {
-        this.$refs.slide.refresh()
       },
       updateItem3(val) {
         this.addItem3 = val
@@ -188,7 +158,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .slide-container
-    height: 64px
+    height: 75px
     margin-bottom: 15px
     transform: translateZ(0px)
     border-radius: 2px

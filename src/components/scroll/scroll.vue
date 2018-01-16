@@ -10,10 +10,10 @@
       </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
         <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-          <div class="before-trigger" v-if="!isPullUpLoad && pullUpTxt">
+          <div class="before-trigger" v-if="!isPullUpLoad">
             <span>{{ pullUpTxt }}</span>
           </div>
-          <div class="after-trigger" v-if="isPullUpLoad">
+          <div class="after-trigger" v-else>
             <loading></loading>
           </div>
         </div>
@@ -106,7 +106,6 @@
     data() {
       return {
         beforePullDown: true,
-        isRebounding: false,
         isPullingDown: false,
         isPullUpLoad: false,
         pullUpDirty: true,
@@ -202,15 +201,15 @@
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
           this._reboundPullDown().then(() => {
-            this._afterPullDown()
+            this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
           this.pullUpDirty = dirty
-          this.refresh()
+          dirty && this.refresh()
         } else {
-          this.refresh()
+          dirty && this.refresh()
         }
       },
       _calculateMinHeight() {
@@ -245,19 +244,17 @@
         const {stopTime = 600} = this.pullDownRefresh
         return new Promise((resolve) => {
           setTimeout(() => {
-            this.isRebounding = true
             this.scroll.finishPullDown()
             this.isPullingDown = false
             resolve()
           }, stopTime)
         })
       },
-      _afterPullDown() {
+      _afterPullDown(dirty) {
         setTimeout(() => {
           this.pullDownStyle = `top:${this.pullDownInitTop}px`
           this.beforePullDown = true
-          this.isRebounding = false
-          this.refresh()
+          dirty && this.refresh()
         }, this.scroll.options.bounceTime)
       }
     },
@@ -266,11 +263,6 @@
         setTimeout(() => {
           this.forceUpdate(true)
         }, this.refreshDelay)
-      },
-      isPullUpLoad() {
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
       }
     },
     components: {
@@ -307,8 +299,9 @@
     align-items: center
     .before-trigger
       padding: 22px 0
+      min-height: 1em
     .after-trigger
-      padding: 18px 0
+      padding: 19px 0
 
   .cube-scroll-content
     position: relative

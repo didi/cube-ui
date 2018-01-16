@@ -1,7 +1,9 @@
 <template>
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
-      <slot></slot>
+      <slot>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)" :item="item"></cube-slide-item>
+      </slot>
     </div>
     <div class="cube-slide-dots">
       <slot name="dots" :current="currentPageIndex" :dots="dots">
@@ -16,10 +18,17 @@
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
+  const EVENT_SELECT = 'click'
 
   export default {
     name: COMPONENT_NAME,
     props: {
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
       initialIndex: {
         type: Number,
         default: 0
@@ -55,6 +64,14 @@
         currentPageIndex: this.initialIndex || 0
       }
     },
+    created() {
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      needRefreshProps.forEach((key) => {
+        this.$watch(key, () => {
+          this.refresh()
+        })
+      })
+    },
     watch: {
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
@@ -63,6 +80,9 @@
       }
     },
     methods: {
+      clickItem(item, index) {
+        this.$emit(EVENT_SELECT, item, index)
+      },
       refresh() {
         this.slide && this.slide.destroy()
         clearTimeout(this._timer)
@@ -206,10 +226,13 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
   .cube-slide
+    position: relative
     min-height: 1px
+    height: 100%
 
   .cube-slide-group
     position: relative
+    height: 100%
     overflow: hidden
     white-space: nowrap
 
@@ -219,6 +242,7 @@
     right: 0
     left: 0
     padding: 0 6px
+    font-size: 0
     text-align: center
     transform: translateZ(1px)
     > span
