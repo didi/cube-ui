@@ -134,6 +134,19 @@ describe('CascadePicker', () => {
       .to.equal(cascadeData[1].children[1].children[0].value)
   })
 
+  it('should add warn log when sigle is true', () => {
+    const app = new Vue()
+    const originWarn = console.warn
+    const msgs = []
+    console.warn = function (...args) {
+      msgs.push(args.join('#'))
+    }
+    vm = app.$createCascadePicker({}, true)
+    expect(msgs.length)
+      .to.equal(1)
+    console.warn = originWarn
+  })
+
   function createCascadePicker(props = {}, events = {}) {
     return instantiateComponent(Vue, CascadePicker, {
       props: props,
