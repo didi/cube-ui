@@ -47,6 +47,9 @@
         return STATUS_CLASS_MAP[status]
       },
       fileProgress() {
+        if (this.statusClass) {
+          return '100%'
+        }
         const p = Math.min(Math.floor(this.file.progress * 100), 99)
         return `${p}%`
       }

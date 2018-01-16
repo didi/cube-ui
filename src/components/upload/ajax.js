@@ -32,6 +32,7 @@ export default function ajaxUpload(file, options, changeHandler) {
         } else {
           // first time
           computed()
+          progressTid = 1
         }
       }
       function computed() {

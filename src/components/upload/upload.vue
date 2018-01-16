@@ -123,13 +123,13 @@
         this.upload()
       },
       pause() {
+        this.paused = true
         this.files.forEach((file) => {
           if (file.status === 'uploading') {
             file.xhr.abort()
             file.status = 'ready'
           }
         })
-        this.paused = true
       },
       retry() {
         this.retryId = Date.now()
