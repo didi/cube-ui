@@ -2,7 +2,7 @@
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
       <slot>
-        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="select(item, index)" :item="item"></cube-slide-item>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)" :item="item"></cube-slide-item>
       </slot>
     </div>
     <div class="cube-slide-dots">
@@ -18,7 +18,7 @@
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
-  const EVENT_SELECT = 'select'
+  const EVENT_SELECT = 'click'
 
   export default {
     name: COMPONENT_NAME,
@@ -80,7 +80,7 @@
       }
     },
     methods: {
-      select(item, index) {
+      clickItem(item, index) {
         this.$emit(EVENT_SELECT, item, index)
       },
       refresh() {

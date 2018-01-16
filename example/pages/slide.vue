@@ -13,7 +13,7 @@
           :speed="speed"
           :allow-vertical="allowVertical"
           @change="changePage"
-          @select="selectPage">
+          @click="clickPage">
           <template v-if="dotsSlot" slot="dots" slot-scope="props">
             <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots">{{index + 1}}</span>
           </template>
@@ -106,7 +106,7 @@
       changePage(current) {
         console.log('当前轮播图序号为:' + current)
       },
-      selectPage(item, index) {
+      clickPage(item, index) {
         console.log(item, index)
       },
       updateItem3(val) {
