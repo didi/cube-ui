@@ -38,6 +38,12 @@
       simultaneousUploads: {
         type: Number,
         default: 3
+      },
+      parseFile: {
+        type: Function,
+        default: function (file, cb) {
+          cb(file)
+        }
       }
     },
     data() {
@@ -74,7 +80,7 @@
             this.files.push(newFile())
           }
         }
-        parseFiles(newFiles, (file, index) => {
+        parseFiles(newFiles, this.parseFile, (file, index) => {
           this.$set(this.files, filesLen + index, file)
         }, () => {
           // waiting ui
