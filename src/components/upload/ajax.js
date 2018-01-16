@@ -6,7 +6,7 @@ export default function ajaxUpload(file, options, changeHandler) {
     fileName = 'file',
     withCredentials,
     timeout,
-    targetInFile = 'file',
+    prop = 'file',
     progressInterval = 100
   } = options
 
@@ -43,7 +43,7 @@ export default function ajaxUpload(file, options, changeHandler) {
   }
 
   const formData = new window.FormData()
-  formData.append(fileName, file[targetInFile])
+  formData.append(fileName, file[prop])
   Object.keys(data).forEach((key) => {
     formData.append(key, data[key])
   })

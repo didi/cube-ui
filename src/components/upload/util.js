@@ -26,12 +26,14 @@ export function parseFile(file, i, eachParseFile, cb) {
 }
 
 export function newFile(name = '', size = 0, status = '', progress = 0, file = null) {
-  let url = createURL(file)
+  const base64 = file && file.base64 || ''
+  const url = base64 ? '' : createURL(file)
 
   return {
     name,
     size,
     url,
+    base64,
     status,
     progress,
     file

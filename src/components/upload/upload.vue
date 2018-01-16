@@ -16,6 +16,7 @@
 
   const COMPONENT_NAME = 'cube-upload'
   const EVENT_ADDED = 'files-added'
+  const EVENT_SUBMITTED = 'file-submitted'
   const EVENT_REMOVED = 'file-removed'
   const EVENT_SUCCESS = 'file-success'
   const EVENT_ERROR = 'file-error'
@@ -82,6 +83,7 @@
         }
         parseFiles(newFiles, this.parseFile, (file, index) => {
           this.$set(this.files, filesLen + index, file)
+          this.$emit(EVENT_SUBMITTED, file)
         }, () => {
           // waiting ui
           setTimeout(() => {

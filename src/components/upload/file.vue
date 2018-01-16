@@ -34,7 +34,7 @@
         }
       },
       fileStyle() {
-        const url = this.file.url
+        const url = this.file.url || this.file.base64
         if (!url) {
           return
         }
