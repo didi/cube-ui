@@ -49,5 +49,5 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | disabled | whether disabled | Boolean | true/false | false |
-| position | position | String | left/right | left |
+| position | icon position | String | left/right | left |
 | label | if selected, then map the value to v-model | Boolean/String | - | '' |
