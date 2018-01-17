@@ -1,8 +1,8 @@
 <template>
-  <div class="cube-upload-file">
+  <div class="cube-upload-file" @click="clickHandler">
     <slot>
       <div class="cube-upload-file-def" :style="fileStyle">
-        <i class="cubeic-wrong" @click="removeFile"></i>
+        <i class="cubeic-wrong" @click.stop="removeFile"></i>
         <div class="cube-upload-file-state" :class="fileStatus">
           <i class="cube-upload-file-status" :class="statusClass"></i>
           <span class="cube-upload-file-progress">{{fileProgress}}</span>
@@ -17,6 +17,7 @@
     success: 'cubeic-right',
     error: 'cubeic-warn'
   }
+  const EVENT_CLICK = 'click'
   export default {
     name: COMPONENT_NAME,
     props: {
@@ -55,6 +56,9 @@
       }
     },
     methods: {
+      clickHandler() {
+        this.$emit(EVENT_CLICK, this.file)
+      },
       removeFile() {
         this.$parent.removeFile(this.file)
       }

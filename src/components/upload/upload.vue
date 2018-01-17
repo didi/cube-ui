@@ -2,7 +2,7 @@
   <div class="cube-upload">
     <slot>
       <div class="cube-upload-def clear-fix">
-        <upload-file v-for="(file, i) in files" :file="file" :key="i"></upload-file>
+        <upload-file v-for="(file, i) in files" :file="file" :key="i" @click="fileClick"></upload-file>
         <upload-btn></upload-btn>
       </div>
     </slot>
@@ -20,6 +20,7 @@
   const EVENT_REMOVED = 'file-removed'
   const EVENT_SUCCESS = 'file-success'
   const EVENT_ERROR = 'file-error'
+  const EVENT_CLICK = 'file-click'
 
   export default {
     name: COMPONENT_NAME,
@@ -100,6 +101,9 @@
         const index = this.files.indexOf(file)
         this.files.splice(index, 1)
         this.upload()
+      },
+      fileClick(file) {
+        this.$emit(EVENT_CLICK, file)
       },
       upload(retry) {
         const options = this.actionOptions
