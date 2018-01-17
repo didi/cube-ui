@@ -1,10 +1,10 @@
-## Radio 单选框组
+## Radio
 
-复选框组，可设置复选框组内容，样式等。
+Radio component. You can set the options, set the position of the radio's icon.
 
-### 示例
+### Example
 
-- 基本用法
+- Basic usage
 
   ```html
   <cube-radio v-model="selected" :options="options" />
@@ -20,9 +20,9 @@
   }
   ```
 
-  `options` 为选项数组，默认不选中任何的选项，点击其中一个，则对应的 `selected` 的值就为选中项的值。
+  The value of `options` is an array. The default `selected` value is  `''`, so there are no option is selected by defaut. If you clicked one radio option, then the `selected` is the option's value.
 
-- 设置 value，禁用状态，图标位置
+- Set value, disabled state and position of the icon
 
   ```html
   <cube-radio v-model="selected2" :options="options2" position="right" />
@@ -52,11 +52,11 @@
   }
   ```
 
-  `options` 的值可以是对象组成的数组，默认可以设置 `label` 和 `value` 分别代表的是显示文案和单选框的值，如果对象中包含了 `disabled` 为 `true` 的值，那么此单选框就处于禁用状态。
+  The `options` value can be an array which have some object items. You can set `label` and `value` in each item, and if setting `disabled` to `true`, then the radio item's state is disabled.
 
-  设置 `position` 为 `'right'`，则单选框图标位置在右边。
+  If setting `position` to `'right'`, the position of the radio's icon is on the right.
 
-- 水平排列
+- Horizontal order
 
   ```html
   <cube-radio v-model="selected3" :options="options3" :horizontal="true" />
@@ -86,22 +86,22 @@
   }
   ```
 
-  可通过设置 `horizontal` 为 `true` 改变样式为水平排列。
+  You can set `horizontal` to change the style to horizontal order.
 
-### Props 配置
+### Props configuration
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| options | 选项数组 | Array | - | - |
-| position | 图标位置 | String | left/right | left |
-| horizontal | 是否水平排列 | Boolean | true/false | false |
+| options | array of radio options | Array | - | - |
+| position | icon position | String | left/right | left |
+| horizontal | whether in horizontal order | Boolean | true/false | false |
 
-* `options` 子配置项
+* `options` sub configuration
 
-| 参数 | 说明 | 类型 |
+| Attribute | Description | Type  |
 | - | - | - |
-| label | 单选框显示文字 | String |
-| value | 单选框的值 | String/Number |
-| disabled | 单选框是否被禁用 | Boolean |
+| label | label content | String |
+| value | radio item value | String/Number |
+| disabled | whether disabled | Boolean |
 
-注：如果 `options` 中的项为字符串也是可以的，此时默认 `label` 和 `value` 的值都为该字符串的值。
+Note: each `options` item can be an string value, now both the`label` and `value` values are the string value.
