@@ -254,7 +254,7 @@ describe('Upload.vue', () => {
     }, 200)
   })
 
-  function createUpload(props = { action: '/upload', simultaneousUploads: 1 }, events = {}) {
+  function createUpload(props = { action: '/upload' }, events = {}) {
     const vm = instantiateComponent(Vue, Upload, {
       props,
       on: events
@@ -274,7 +274,6 @@ describe('Upload.vue', () => {
           'my-header': 'my-header'
         }
       },
-      simultaneousUploads: 1,
       max
     }, events)
     const uploadBtn = vm.$children[0]
