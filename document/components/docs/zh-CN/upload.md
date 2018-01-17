@@ -86,16 +86,16 @@
 
 如果 `action` 是字符串，则会被处理成 `{ target: action }` 这样结构。
 
-| 参数 | 说明 | 类型 | 默认值 | 示例 |
-| - | - | - | - | - |
-| target | 上传目标 URL | String | - | - |
-| fileName | 上传文件时文件的参数名 | String | 'file' | - |
-| prop | 上传的时候使用文件对象的 prop 属性所对应的值 | String | 'file' | - |
-| headers | 自定义请求头 | Object | {} | - |
-| data | 上传需要附加数据 | Object | {} | - |
-| withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false | - |
-| timeout | 请求超时时间 | Number | 0 | - |
-| progressInterval | 进度回调间隔 | Number | 100 | - |
+| 参数 | 说明 | 类型 | 默认值 |
+| - | - | - | - |
+| target | 上传目标 URL | String | - |
+| fileName | 上传文件时文件的参数名 | String | 'file' |
+| prop | 上传的时候使用文件对象的 prop 属性所对应的值 | String | 'file' |
+| headers | 自定义请求头 | Object | {} |
+| data | 上传需要附加数据 | Object | {} |
+| withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false |
+| timeout | 请求超时时间 | Number | 0 | |
+| progressInterval | 进度回调间隔 | Number | 100 |
 
 * `parseFile` 子配置项
 
