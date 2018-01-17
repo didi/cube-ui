@@ -58,7 +58,6 @@
     box-sizing: border-box
     background-color: $upload-btn-bgc
     box-shadow: $upload-btn-box-shadow
-    box-shadow-content
     border-radius: 2px
     border-1px($upload-btn-border-color, 2px)
     > i

@@ -101,6 +101,7 @@
     overflow: hidden
     opacity: 0
     background-color: $upload-file-state-bgc
+    border-radius: 2px
     transition: opacity .1s
     &::before
       content: "."
