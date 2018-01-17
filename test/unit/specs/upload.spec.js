@@ -208,15 +208,61 @@ describe('Upload.vue', () => {
     }, 200)
   })
 
+  it('should trigger events', function (done) {
+    this.timeout(1000)
+    const filesAddedHandler = sinon.spy()
+    const fileSubmittedHandler = sinon.spy()
+    const fileRemovedHandler = sinon.spy()
+    const fileSuccessHandler = sinon.spy()
+    const fileErrorHandler = sinon.spy()
+    const fileClickHandler = sinon.spy()
+    vm = createFilesUpload(3, {
+      'files-added': filesAddedHandler,
+      'file-submitted': fileSubmittedHandler,
+      'file-removed': fileRemovedHandler,
+      'file-success': fileSuccessHandler,
+      'file-error': fileErrorHandler,
+      'file-click': fileClickHandler
+    })
+    expect(filesAddedHandler)
+      .to.be.calledOnce
+    expect(filesAddedHandler.getCall(0).args[0].length)
+      .to.equal(4)
+    expect(fileSubmittedHandler)
+      .to.have.callCount(3)
+    setTimeout(() => {
+      // remove
+      const firstFile = vm.files[0]
+      const allFiles = vm.$el.getElementsByClassName('cube-upload-file')
+      // click remove ele
+      allFiles[0].querySelector('.cubeic-wrong').click()
+      expect(fileRemovedHandler)
+        .to.be.calledWith(firstFile)
+      // success
+      vm.files[0].xhr.triggerSuccess()
+      expect(fileSuccessHandler)
+        .to.be.calledWith(vm.files[0])
+      // error
+      vm.files[1].xhr.triggerError()
+      expect(fileErrorHandler)
+        .to.be.calledWith(vm.files[1])
+      // click
+      allFiles[1].click()
+      expect(fileClickHandler)
+        .to.be.calledWith(vm.files[0])
+      done()
+    }, 200)
+  })
+
   function createUpload(props = { action: '/upload', simultaneousUploads: 1 }, events = {}) {
     const vm = instantiateComponent(Vue, Upload, {
       props,
-      events
+      on: events
     })
     return vm
   }
 
-  function createFilesUpload(max = 2) {
+  function createFilesUpload(max = 2, events = {}) {
     const vm = createUpload({
       action: {
         target: '/upload',
@@ -230,7 +276,7 @@ describe('Upload.vue', () => {
       },
       simultaneousUploads: 1,
       max
-    })
+    }, events)
     const uploadBtn = vm.$children[0]
     uploadBtn.changeHandler({
       currentTarget: {
