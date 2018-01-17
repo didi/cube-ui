@@ -21,7 +21,8 @@
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "upload": "Upload"
           }
         },
         "popup": {
@@ -77,7 +78,8 @@
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "upload": "Upload"
           }
         },
         "popup": {

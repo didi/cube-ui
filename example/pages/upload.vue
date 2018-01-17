@@ -3,7 +3,7 @@
     <template slot="content">
       <p>Normal upload: </p>
       <div>
-        <cube-upload ref="upload" :action="action" :simultaneous-uploads="1"></cube-upload>
+        <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" />
         <cube-button @click="upload" v-if="!isUploading">Upload</cube-button>
         <cube-button @click="pause" v-else>Pause</cube-button>
         <cube-button @click="retry">Retry</cube-button>
@@ -15,7 +15,7 @@
           :action="action2"
           :simultaneous-uploads="1"
           :parse-file="parseFile"
-          @file-submitted="fileSubmitted"></cube-upload>
+          @file-submitted="fileSubmitted" />
       </div>
     </template>
   </cube-page>
