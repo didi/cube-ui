@@ -28,6 +28,9 @@ XMLHttpRequest.prototype = {
   setRequestHeader(key, value) {
     this.headers[key] = value
   },
+  getAllResponseHeaders() {
+    return ''
+  },
   triggerProgress(loaded = 0, total) {
     this.upload.onprogress && this.upload.onprogress.call(this, {
       loaded,

@@ -101,7 +101,7 @@
       },
       removeFile(file) {
         this.$emit(EVENT_REMOVED, file)
-        file.xhr && file.xhr.abort()
+        file._xhr && file._xhr.abort()
         if (file.url) {
           URL.revokeObjectURL(file.url)
         }
@@ -146,7 +146,7 @@
         this.paused = true
         this.files.forEach((file) => {
           if (file.status === STATUS_UPLOADING) {
-            file.xhr.abort()
+            file._xhr.abort()
             file.status = STATUS_READY
           }
         })
