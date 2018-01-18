@@ -10,8 +10,10 @@ import {
   Toast,
   ActionSheet,
   CheckboxGroup,
+  Radio,
   Slide,
   IndexList,
+  Upload,
   BScroll,
   createAPI
 } from './module'
@@ -30,11 +32,13 @@ function install(Vue) {
     Tip,
     Toast,
     CheckboxGroup,
+    Radio,
     Slide,
     IndexList,
     ActionSheet,
     Scroll,
-    Popup
+    Popup,
+    Upload
   ]
   components.forEach((Component) => {
     Component.install(Vue)

@@ -36,6 +36,10 @@
             text: 'CheckboxGroup'
           },
           {
+            path: '/radio',
+            text: 'Radio'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
@@ -82,6 +86,10 @@
           {
             path: '/index-list',
             text: 'IndexList'
+          },
+          {
+            path: '/upload',
+            text: 'Upload'
           }
         ]
       }

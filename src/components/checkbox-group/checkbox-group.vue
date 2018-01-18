@@ -1,9 +1,16 @@
 <template>
   <div class="cube-checkbox-group" ref="group" :class="groupClass" :data-horz="horizontal">
-    <slot></slot>
+    <slot>
+      <cube-checkbox
+        v-for="(option, index) in options"
+        :key="index"
+        :label="option.value || option"
+        :disabled="option.disabled">{{option.label || option}}</cube-checkbox>
+    </slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import CubeCheckbox from '../checkbox/checkbox.vue'
   const COMPONENT_NAME = 'cube-checkbox-group'
 
   const EVENT_INPUT = 'input'
@@ -19,6 +26,12 @@
       horizontal: {
         type: Boolean,
         default: false
+      },
+      options: {
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
     data () {
@@ -52,6 +65,9 @@
         this._value.splice(index, 1)
         this.$emit(EVENT_INPUT, this._value)
       })
+    },
+    components: {
+      CubeCheckbox
     }
   }
 </script>

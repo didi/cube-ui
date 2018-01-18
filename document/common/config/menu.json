@@ -19,6 +19,7 @@
             "button": "Button",
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
+            "radio": "Radio",
             "loading": "Loading",
             "tip": "Tip"
           }
@@ -41,6 +42,12 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList"
+          }
+        },
+        "advanced": {
+          "name": "Advanced",
+          "subList": {
+            "upload": "Upload"
           }
         }
       }
@@ -74,6 +81,7 @@
             "button": "Button",
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
+            "radio": "Radio",
             "loading": "Loading",
             "tip": "Tip"
           }
@@ -96,6 +104,12 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList"
+          }
+        },
+        "advanced": {
+          "name": "高级",
+          "subList": {
+            "upload": "Upload"
           }
         }
       }
