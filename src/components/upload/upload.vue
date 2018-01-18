@@ -94,9 +94,9 @@
           this.$emit(EVENT_SUBMITTED, file)
         }, () => {
           // waiting ui
-          setTimeout(() => {
+          this.$nextTick(() => {
             this.upload()
-          }, 100)
+          })
         })
       },
       removeFile(file) {
@@ -128,7 +128,8 @@
               if (status === STATUS_ERROR) {
                 file.retryId = this.retryId
               }
-              this._done(file, retry)
+              this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
+              this.upload(retry)
             })
             uploadingCount++
           } else if (status === STATUS_UPLOADING) {
@@ -154,10 +155,6 @@
         this.retryId = Date.now()
         this.paused = false
         this.upload(true)
-      },
-      _done(file, retry) {
-        this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
-        this.upload(retry)
       }
     },
     components: {

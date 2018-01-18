@@ -3,8 +3,8 @@
     <slot>
       <div class="cube-upload-file-def" :style="fileStyle">
         <i class="cubeic-wrong" @click.stop="removeFile"></i>
-        <div class="cube-upload-file-state" :class="fileStatus">
-          <i class="cube-upload-file-status" :class="statusClass"></i>
+        <div class="cube-upload-file-state" :class="fileStatusCls">
+          <i class="cube-upload-file-status" :class="statusCls"></i>
           <span class="cube-upload-file-progress">{{fileProgress}}</span>
         </div>
       </div>
@@ -30,7 +30,7 @@
       }
     },
     computed: {
-      fileStatus() {
+      fileStatusCls() {
         const file = this.file
         const status = file.status
         if (file.progress >= 0.01 || status === STATUS_SUCCESS || status === STATUS_ERROR) {
@@ -46,12 +46,12 @@
           'background-image': `url("${url}")`
         }
       },
-      statusClass() {
+      statusCls() {
         const status = this.file.status
         return STATUS_CLASS_MAP[status]
       },
       fileProgress() {
-        if (this.statusClass) {
+        if (this.statusCls) {
           return '100%'
         }
         const p = Math.min(Math.floor(this.file.progress * 100), 99)
