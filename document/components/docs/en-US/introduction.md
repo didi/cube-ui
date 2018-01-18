@@ -30,6 +30,7 @@ cube-ui is an elegant mobile component library based on Vue.js.
 - [Radio](#/zh-CN/docs/radio)
 - [Loading](#/en-US/docs/loading)
 - [Tip](#/en-US/docs/tip)
+- [Upload](#/en-US/docs/upload)
 
 #### Layer
 
