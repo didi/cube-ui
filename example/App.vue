@@ -48,6 +48,10 @@
             text: 'Tip'
           },
           {
+            path: '/upload',
+            text: 'Upload'
+          },
+          {
             path: '/popup',
             text: 'Popup'
           },
@@ -86,10 +90,6 @@
           {
             path: '/index-list',
             text: 'IndexList'
-          },
-          {
-            path: '/upload',
-            text: 'Upload'
           }
         ]
       }

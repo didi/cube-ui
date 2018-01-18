@@ -44,6 +44,10 @@ const routes = [
     component: Tip
   },
   {
+    path: '/upload',
+    component: Upload
+  },
+  {
     path: '/popup',
     component: Popup
   },
@@ -92,10 +96,6 @@ const routes = [
         component: IndexListCustom
       }
     ]
-  },
-  {
-    path: '/upload',
-    component: Upload
   }
 ]
 
