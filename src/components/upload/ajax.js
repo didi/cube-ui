@@ -20,7 +20,7 @@ export default function ajaxUpload(file, options, changeHandler) {
   file.status = STATUS_UPLOADING
 
   const xhr = new window.XMLHttpRequest()
-  file.xhr = xhr
+  // file.xhr = xhr
   let progressTid = 0
   if (xhr.upload) {
     let lastProgressTime = Date.now()
@@ -64,6 +64,7 @@ export default function ajaxUpload(file, options, changeHandler) {
       response = JSON.parse(response)
     } catch (e) {}
     file.response = response
+    file.responseHeaders = xhr.getAllResponseHeaders()
     setStatus(STATUS_SUCCESS)
   }
   xhr.onerror = function () {
