@@ -3,7 +3,7 @@
     <template slot="content">
       <p>Normal upload: </p>
       <div>
-        <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" />
+        <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" @files-added="filesAdded" />
         <cube-button @click="upload" v-if="!isUploading">Upload</cube-button>
         <cube-button @click="pause" v-else>Pause</cube-button>
         <cube-button @click="retry">Retry</cube-button>
@@ -47,6 +47,14 @@
       },
       retry() {
         this.$refs.upload.retry()
+      },
+      filesAdded(files) {
+        const maxSize = 1 * 1024 * 1024 // 1M
+        for (let file in files) {
+          if (file.size > maxSize) {
+            file.ignore = true
+          }
+        }
       },
       parseFile(file, next) {
         compress(file, {
