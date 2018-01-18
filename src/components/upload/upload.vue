@@ -12,7 +12,15 @@
   import UploadBtn from './btn.vue'
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'
-  import { parseFiles, newFile, URL } from './util'
+  import {
+    parseFiles,
+    newFile,
+    URL,
+    STATUS_READY,
+    STATUS_UPLOADING,
+    STATUS_ERROR,
+    STATUS_SUCCESS
+  } from './util'
 
   const COMPONENT_NAME = 'cube-upload'
   const EVENT_ADDED = 'files-added'
@@ -73,14 +81,13 @@
         const newFiles = []
         const maxLen = this.max - filesLen
         let i = 0
-        while (newFiles.length < maxLen && files[i]) {
-          if (files[i].ignore) {
-            i++
-            continue
-          } else {
-            newFiles.push(files[i++])
+        let file = files[i]
+        while (newFiles.length < maxLen && file) {
+          if (!file.ignore) {
+            newFiles.push(file)
             this.files.push(newFile())
           }
+          file = files[++i]
         }
         parseFiles(newFiles, this.parseFile, (file, index) => {
           this.$set(this.files, filesLen + index, file)
@@ -116,15 +123,15 @@
         while (i < len && uploadingCount < this.simultaneousUploads) {
           const file = this.files[i]
           const status = file.status
-          if (status === 'ready' || (retry && status === 'error' && file.retryId !== this.retryId)) {
+          if (status === STATUS_READY || (retry && status === STATUS_ERROR && file.retryId !== this.retryId)) {
             ajaxUpload(file, options, (file) => {
-              if (status === 'error') {
+              if (status === STATUS_ERROR) {
                 file.retryId = this.retryId
               }
               this._done(file, retry)
             })
             uploadingCount++
-          } else if (status === 'uploading') {
+          } else if (status === STATUS_UPLOADING) {
             uploadingCount++
           }
           i++
@@ -137,9 +144,9 @@
       pause() {
         this.paused = true
         this.files.forEach((file) => {
-          if (file.status === 'uploading') {
+          if (file.status === STATUS_UPLOADING) {
             file.xhr.abort()
-            file.status = 'ready'
+            file.status = STATUS_READY
           }
         })
       },
@@ -149,7 +156,7 @@
         this.upload(true)
       },
       _done(file, retry) {
-        this.$emit(file.status === 'success' ? EVENT_SUCCESS : EVENT_ERROR, file)
+        this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
         this.upload(retry)
       }
     },
@@ -163,6 +170,7 @@
   @require "../../common/stylus/variable.styl"
   .cube-upload
     position: relative
+
   .cube-upload-def
     margin-right: -10px
     .cube-upload-btn, .cube-upload-file

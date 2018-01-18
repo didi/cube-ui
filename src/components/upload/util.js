@@ -1,6 +1,9 @@
-const URL = window.URL || window.webkitURL || window.mozURL
+export const URL = window.URL || window.webkitURL || window.mozURL
 
-export { URL }
+export const STATUS_READY = 'ready'
+export const STATUS_UPLOADING = 'uploading'
+export const STATUS_ERROR = 'error'
+export const STATUS_SUCCESS = 'success'
 
 export function parseFiles(files, eachParseFile, eachCb, cb) {
   const fileItems = []
@@ -20,7 +23,7 @@ export function parseFiles(files, eachParseFile, eachCb, cb) {
 
 export function parseFile(file, i, eachParseFile, cb) {
   eachParseFile(file, function (file) {
-    const item = newFile(file.name, file.size, 'ready', 0, file)
+    const item = newFile(file.name, file.size, STATUS_READY, 0, file)
     cb(item, i)
   })
 }

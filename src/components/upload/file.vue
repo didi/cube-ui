@@ -12,12 +12,15 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import { STATUS_SUCCESS, STATUS_ERROR } from './util'
+
   const COMPONENT_NAME = 'cube-upload-file'
   const STATUS_CLASS_MAP = {
     success: 'cubeic-right',
     error: 'cubeic-warn'
   }
   const EVENT_CLICK = 'click'
+
   export default {
     name: COMPONENT_NAME,
     props: {
@@ -30,7 +33,7 @@
       fileStatus() {
         const file = this.file
         const status = file.status
-        if (file.progress >= 0.01 || status === 'success' || status === 'error') {
+        if (file.progress >= 0.01 || status === STATUS_SUCCESS || status === STATUS_ERROR) {
           return 'cube-upload-file_stat'
         }
       },
@@ -70,6 +73,7 @@
   @require "../../common/stylus/mixin.styl"
   .cube-upload-file
     position: relative
+
   .cube-upload-file-def
     position: relative
     width: 80px
@@ -91,6 +95,7 @@
         display: inline-block
         transform: scale(1.625)
         transform-origin: center
+
   .cube-upload-file-state
     position: relative
     width: 100%
@@ -112,19 +117,24 @@
       height: 1px
       margin-left: -1px
       background-color: rgba(0, 0, 0, .1)
+
   .cube-upload-file_stat
     opacity: 1
+
   .cube-upload-file-status
     position: relative
     z-index: 1
     font-size: $fontsize-large-xxxx
     display: none
+
   .cube-upload-file-status.cubeic-right
     display: block
     color: $upload-file-success-color
+
   .cube-upload-file-status.cubeic-warn
     display: block
     color: $upload-file-error-color
+
   .cube-upload-file-status.cubeic-right, .cube-upload-file-status.cubeic-warn
     &::after
       content: ""
@@ -138,8 +148,9 @@
       border-radius: 50%
       background-color: $upload-file-status-bgc
     +
-      .cube-upload-file-progress
-        display: none
+    .cube-upload-file-progress
+      display: none
+
   .cube-upload-file-progress
     color: $upload-file-progress-color
     font-size: $fontsize-large-xx
