@@ -1,7 +1,7 @@
 <template>
   <cube-page type="upload-view" title="Upload">
     <template slot="content">
-      <p>Normal upload: </p>
+      <p>Normal upload(File max size 1MB): </p>
       <div>
         <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" @files-added="filesAdded" />
         <cube-button @click="upload" v-if="!isUploading">Upload</cube-button>
@@ -50,7 +50,8 @@
       },
       filesAdded(files) {
         const maxSize = 1 * 1024 * 1024 // 1M
-        for (let file in files) {
+        for (let k in files) {
+          const file = files[k]
           if (file.size > maxSize) {
             file.ignore = true
           }
