@@ -147,9 +147,8 @@
       height: .56em
       border-radius: 50%
       background-color: $upload-file-status-bgc
-    +
-    .cube-upload-file-progress
-      display: none
+    + .cube-upload-file-progress
+        display: none
 
   .cube-upload-file-progress
     color: $upload-file-progress-color
