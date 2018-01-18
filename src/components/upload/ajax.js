@@ -1,3 +1,9 @@
+import {
+  STATUS_SUCCESS,
+  STATUS_UPLOADING,
+  STATUS_ERROR
+} from './util'
+
 export default function ajaxUpload(file, options, changeHandler) {
   const {
     target,
@@ -11,7 +17,7 @@ export default function ajaxUpload(file, options, changeHandler) {
   } = options
 
   file.progress = 0
-  file.status = 'uploading'
+  file.status = STATUS_UPLOADING
 
   const xhr = new window.XMLHttpRequest()
   file.xhr = xhr
@@ -50,7 +56,7 @@ export default function ajaxUpload(file, options, changeHandler) {
 
   xhr.onload = function () {
     if (xhr.status < 200 || xhr.status >= 300) {
-      setStatus('error')
+      setStatus(STATUS_ERROR)
       return
     }
     let response = xhr.responseText || xhr.response
@@ -58,13 +64,13 @@ export default function ajaxUpload(file, options, changeHandler) {
       response = JSON.parse(response)
     } catch (e) {}
     file.response = response
-    setStatus('success')
+    setStatus(STATUS_SUCCESS)
   }
   xhr.onerror = function () {
-    setStatus('error')
+    setStatus(STATUS_ERROR)
   }
   xhr.ontimeout = function () {
-    setStatus('error')
+    setStatus(STATUS_ERROR)
   }
 
   xhr.open('POST', target, true)
