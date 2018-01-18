@@ -1,6 +1,7 @@
 import Button from '../pages/button.vue'
 import Checkbox from '../pages/checkbox.vue'
 import CheckboxGroup from '../pages/checkbox-group.vue'
+import Radio from '../pages/radio.vue'
 import Loading from '../pages/loading.vue'
 import Tip from '../pages/tip.vue'
 import Popup from '../pages/popup.vue'
@@ -15,6 +16,7 @@ import Slide from '../pages/slide.vue'
 import IndexList from '../pages/index-list/index-list.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
+import Upload from '../pages/upload.vue'
 
 const routes = [
   {
@@ -28,6 +30,10 @@ const routes = [
   {
     path: '/checkbox-group',
     component: CheckboxGroup
+  },
+  {
+    path: '/radio',
+    component: Radio
   },
   {
     path: '/loading',
@@ -86,6 +92,10 @@ const routes = [
         component: IndexListCustom
       }
     ]
+  },
+  {
+    path: '/upload',
+    component: Upload
   }
 ]
 

@@ -25,6 +25,43 @@
   ```
   `checkList` 的值是一个数组，代表的是选中的复选框 `label` 的值的集合。
 
+- 设置 options
+
+  还可以通过 options 生成各个复选框
+
+  ```html
+  <cube-checkbox-group v-model="checkList" :options="options" />
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        checkList: ['1', '4'],
+        options: [
+          {
+            label: 'Option1',
+            value: '1'
+          },
+          {
+            label: 'Option2',
+            value: '2'
+          },
+          {
+            label: 'Option3',
+            value: '3',
+            disabled: true
+          },
+          {
+            label: 'Option4',
+            value: '4',
+            disabled: true
+          }
+        ]
+      }
+    }
+  }
+  ```
+
 - 水平排列
 
   可通过设置 `horizontal` 改变样式为水平排列
@@ -42,9 +79,14 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
+| options | 选项数组 | Array | - | - |
 
-### 事件
+* `options` 子配置项
 
-| 事件名 | 说明 | 参数 |
+| 参数 | 说明 | 类型 |
 | - | - | - |
-| input | 组内可选项选中状态发生改变时触发 | 选中的复选框的值的集合，类型数组 |
+| label | 复选框显示文字 | String |
+| value | 复选框的值 | String/Number |
+| disabled | 复选框是否被禁用 | Boolean |
+
+注：如果 `options` 中的项为字符串也是可以的，此时默认 `label` 和 `value` 的值都为该字符串的值。

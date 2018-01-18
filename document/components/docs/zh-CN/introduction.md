@@ -27,6 +27,7 @@ cube-ui 是基于 Vue.js 实现的精致移动端组件库。
 - [Button 按钮](#/zh-CN/docs/button)
 - [Checkbox 复选框](#/zh-CN/docs/checkbox)
 - [CheckboxGroup 复选框组](#/zh-CN/docs/checkbox-group)
+- [Radio 单选框](#/zh-CN/docs/radio)
 - [Loading 加载中](#/zh-CN/docs/loading)
 - [Tip 提示](#/zh-CN/docs/tip)
 
@@ -99,6 +100,10 @@ API 调用：
 - [IndexList 索引列表](#/zh-CN/docs/index-list)
 
 滚动类组件都是基于 [better-scroll](https://github.com/ustbhuangyi/better-scroll) 实现，而 `Scroll` 组件就是对 better-scroll 的封装。
+
+#### 高级
+
+- [Upload 上传](#/zh-CN/docs/upload)
 
 ### 模块
 
