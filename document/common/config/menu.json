@@ -21,8 +21,7 @@
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
             "loading": "Loading",
-            "tip": "Tip",
-            "upload": "Upload"
+            "tip": "Tip"
           }
         },
         "popup": {
@@ -43,6 +42,12 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList"
+          }
+        },
+        "advanced": {
+          "name": "Advanced",
+          "subList": {
+            "upload": "Upload"
           }
         }
       }
@@ -78,8 +83,7 @@
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
             "loading": "Loading",
-            "tip": "Tip",
-            "upload": "Upload"
+            "tip": "Tip"
           }
         },
         "popup": {
@@ -100,6 +104,12 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList"
+          }
+        },
+        "advanced": {
+          "name": "高级",
+          "subList": {
+            "upload": "Upload"
           }
         }
       }

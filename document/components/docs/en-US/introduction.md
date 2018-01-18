@@ -30,7 +30,6 @@ cube-ui is an elegant mobile component library based on Vue.js.
 - [Radio](#/zh-CN/docs/radio)
 - [Loading](#/en-US/docs/loading)
 - [Tip](#/en-US/docs/tip)
-- [Upload](#/en-US/docs/upload)
 
 #### Layer
 
@@ -100,6 +99,10 @@ Pay attention that the name of the API is `$create` + `${component name}`. For e
 - [IndexList](#/en-US/docs/index-list)
 
 Scroll Components are all implemented based on [better-scroll](https://github.com/ustbhuangyi/better-scroll) and `Scroll` Component is the encapsulation of better-scroll.
+
+#### Advanced
+
+- [Upload](#/en-US/docs/upload)
 
 ### Modules
 
