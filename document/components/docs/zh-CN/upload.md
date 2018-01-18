@@ -10,7 +10,7 @@
   size, // 文件大小
   url, // 文件 url，通过 URL.createObjectURL 获得
   base64, // 文件 base64 的值，这个会从原始文件的 base64 属性获得（默认是没有的，但是插件可以添加，例如下边演示的压缩 compress 插件就会添加 base64 值）
-  status, // 文件状态，包含三个： ready, success, error
+  status, // 文件状态，包含四个： ready, uploading, success, error
   progress, // 文件上传进度，小数 0~1
   file // 原始文件
 }
@@ -23,10 +23,28 @@
   ```html
   <cube-upload
     action="//jsonplaceholder.typicode.com/photos/"
-    :simultaneous-uploads="1" />
+    :simultaneous-uploads="1"
+    @files-added="filesAdded" />
+  ```
+  ```js
+  export default {
+    methods: {
+      filesAdded(files) {
+        const maxSize = 1 * 1024 * 1024 // 1M
+        for (let file in files) {
+          if (file.size > maxSize) {
+            // filter this file
+            file.ignore = true
+          }
+        }
+      }
+    }
+  }
   ```
 
   配置 `action` 表示上传的 URL 地址，而 `simultaneous-uploads` 则表示支持的并发上传个数。
+
+  通过 `files-added` 事件可以实现文件过滤，设置 `file.ignore = true` 即可。
 
 - 压缩图片且通过 Base64 上传
 
@@ -105,7 +123,7 @@
 
 | 事件名 | 说明 | 参数 |
 | - | - | - |
-| files-added | 选择完文件后触发 | 原始文件列表 |
+| files-added | 选择完文件后触发，一般可用作文件过滤 | 原始文件列表 |
 | file-submitted | 每个文件处理完后添加到 `upload` 实例的 `files` 数组中后触发 | 文件对象 |
 | file-removed | 文件被删除后触发 | 文件对象 |
 | file-success | 文件上传成功后触发 | 文件对象 |

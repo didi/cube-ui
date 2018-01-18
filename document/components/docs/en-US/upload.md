@@ -10,7 +10,7 @@
   size, // file size
   url, // file url, created by URL.createObjectURL, for preview
   base64, // file base64 value, the value is equaled to the original file's base64 value. It is `''` by default, but you can have some plugins to added this `base64` value, like the compress plugin below.
-  status, // file status, one of: ready, success, error
+  status, // file status, one of: ready, uploading, success, error
   progress, // file progress, number 0~1
   file // the original file
 }
@@ -23,12 +23,30 @@
   ```html
   <cube-upload
     action="//jsonplaceholder.typicode.com/photos/"
-    :simultaneous-uploads="1"></cube-upload>
+    :simultaneous-uploads="1"
+    @files-added="filesAdded" />
+  ```
+  ```js
+  export default {
+    methods: {
+      filesAdded(files) {
+        const maxSize = 1 * 1024 * 1024 // 1M
+        for (let file in files) {
+          if (file.size > maxSize) {
+            // filter this file
+            file.ignore = true
+          }
+        }
+      }
+    }
+  }
   ```
 
   Set `action` to change the upload target URL for the multipart POST request.
 
   Set `simultaneous-uploads` to change the number of simultaneous uploads.
+
+  The `files-added` event is used for file validation, just set `file.ignore = true` to filter file.
 
 - Compress and uploaded through Base64
 
@@ -107,7 +125,7 @@ A function, this function have two parameters: `(file, next)`, the `file` is the
 
 | Event Name | Description | Parameters |
 | - | - | - |
-| files-added | triggers when files are added | original files |
+| files-added | triggers when files are added, used for file validation normally | original files |
 | file-submitted | triggers when one file is added to the `upload.files` | the file object |
 | file-removed | triggers when one file is removed | the file object |
 | file-success | triggers when one file is uploaded successfully | the file object |
