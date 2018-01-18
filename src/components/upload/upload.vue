@@ -123,10 +123,10 @@
         while (i < len && uploadingCount < this.simultaneousUploads) {
           const file = this.files[i]
           const status = file.status
-          if (status === STATUS_READY || (retry && status === STATUS_ERROR && file.retryId !== this.retryId)) {
+          if (status === STATUS_READY || (retry && status === STATUS_ERROR && file._retryId !== this.retryId)) {
             ajaxUpload(file, options, (file) => {
               if (status === STATUS_ERROR) {
-                file.retryId = this.retryId
+                file._retryId = this.retryId
               }
               this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
               this.upload(retry)

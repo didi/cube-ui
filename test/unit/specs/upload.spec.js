@@ -71,7 +71,7 @@ describe('Upload.vue', () => {
     // start uploading
     setTimeout(() => {
       // check data state
-      expect(vm.files[0].xhr)
+      expect(vm.files[0]._xhr)
         .not.to.be.null
       expect(vm.files[0].status)
         .to.equal('uploading')
@@ -80,7 +80,7 @@ describe('Upload.vue', () => {
       expect(vm.files[1].status)
         .to.equal('ready')
       // progress
-      vm.files[0].xhr.triggerProgress(1, vm.files[0].size)
+      vm.files[0]._xhr.triggerProgress(1, vm.files[0].size)
       expect(vm.files[0].progress.toFixed(2))
         .to.equal('0.33')
 
@@ -92,13 +92,13 @@ describe('Upload.vue', () => {
           .to.equal('33%')
 
         // progress agagin
-        vm.files[0].xhr.triggerProgress(2, vm.files[0].size)
+        vm.files[0]._xhr.triggerProgress(2, vm.files[0].size)
 
         setTimeout(() => {
           expect(vm.files[0].progress.toFixed(2))
             .to.equal('0.67')
           // success
-          vm.files[0].xhr.triggerSuccess()
+          vm.files[0]._xhr.triggerSuccess()
           expect(vm.files[0].progress)
             .to.equal(1)
           expect(vm.files[0].status)
@@ -109,14 +109,14 @@ describe('Upload.vue', () => {
               .to.equal('cube-upload-file-status cubeic-right')
 
             // next file
-            expect(vm.files[1].xhr)
+            expect(vm.files[1]._xhr)
               .not.to.be.null
             expect(vm.files[1].status)
               .to.equal('uploading')
             expect(vm.files[1].progress)
               .to.equal(0)
             // error
-            vm.files[1].xhr.triggerError()
+            vm.files[1]._xhr.triggerError()
             expect(vm.files[1].progress)
               .to.equal(1)
             expect(vm.files[1].status)
@@ -196,8 +196,8 @@ describe('Upload.vue', () => {
     vm = createFilesUpload()
 
     setTimeout(() => {
-      vm.files[0].xhr.triggerError()
-      vm.files[1].xhr.triggerError()
+      vm.files[0]._xhr.triggerError()
+      vm.files[1]._xhr.triggerError()
 
       vm.retry()
       expect(vm.files[0].retryId)
@@ -239,11 +239,11 @@ describe('Upload.vue', () => {
       expect(fileRemovedHandler)
         .to.be.calledWith(firstFile)
       // success
-      vm.files[0].xhr.triggerSuccess()
+      vm.files[0]._xhr.triggerSuccess()
       expect(fileSuccessHandler)
         .to.be.calledWith(vm.files[0])
       // error
-      vm.files[1].xhr.triggerError()
+      vm.files[1]._xhr.triggerError()
       expect(fileErrorHandler)
         .to.be.calledWith(vm.files[1])
       // click
