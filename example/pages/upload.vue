@@ -14,7 +14,7 @@
           ref="upload2"
           :action="action2"
           :simultaneous-uploads="1"
-          :parse-file="parseFile"
+          :process-file="processFile"
           @file-submitted="fileSubmitted" />
       </div>
     </template>
@@ -57,7 +57,7 @@
           }
         }
       },
-      parseFile(file, next) {
+      processFile(file, next) {
         compress(file, {
           compress: {
             width: 1600,

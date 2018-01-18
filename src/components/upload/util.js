@@ -5,24 +5,24 @@ export const STATUS_UPLOADING = 'uploading'
 export const STATUS_ERROR = 'error'
 export const STATUS_SUCCESS = 'success'
 
-export function parseFiles(files, eachParseFile, eachCb, cb) {
+export function processFiles(files, eachProcessFile, eachCb, cb) {
   const fileItems = []
   const len = files.length
-  let parsedLen = 0
+  let processedLen = 0
   for (let i = 0; i < len; i++) {
-    parseFile(files[i], i, eachParseFile, function (item, index) {
-      parsedLen++
+    processFile(files[i], i, eachProcessFile, function (item, index) {
+      processedLen++
       fileItems[index] = item
       eachCb(item, index)
-      if (parsedLen === len) {
+      if (processedLen === len) {
         return cb(fileItems)
       }
     })
   }
 }
 
-export function parseFile(file, i, eachParseFile, cb) {
-  eachParseFile(file, function (file) {
+export function processFile(file, i, eachProcessFile, cb) {
+  eachProcessFile(file, function (file) {
     const item = newFile(file.name, file.size, STATUS_READY, 0, file)
     cb(item, i)
   })

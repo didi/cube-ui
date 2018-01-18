@@ -4,17 +4,17 @@
 
 **Notice:** In this document, all the original File will be called **original file**, since the wrapped file object will be called **file object**. The structure of **file object** show as following:
 
-```js
-{
-  name, // file name
-  size, // file size
-  url, // file url, created by URL.createObjectURL, for preview
-  base64, // file base64 value, the value is equaled to the original file's base64 value. It is `''` by default, but you can have some plugins to added this `base64` value, like the compress plugin below.
-  status, // file status, one of: ready, uploading, success, error
-  progress, // file progress, number 0~1
-  file // the original file
-}
-```
+| Attribute | Description | Type |
+| - | - | - |
+| name | file name | String |
+| size | file size | Number |
+| url | file url, created by URL.createObjectURL, for preview | String |
+| base64 | file base64 value, the value is equaled to the original file's base64 value. It is `''` by default, but you can have some plugins to added this `base64` value, like the compress plugin below | String |
+| status | file status, one of: ready, uploading, success, error | String |
+| progress | file progress, number 0~1 | Number |
+| file | the original file | File |
+| response | response data(try to parse to JSON）| Object/Array/String |
+| responseHeaders | all response headers | String |
 
 ### Example
 
@@ -55,7 +55,7 @@
     ref="upload2"
     :action="action2"
     :simultaneous-uploads="1"
-    :parse-file="parseFile"
+    :process-file="processFile"
     @file-submitted="fileSubmitted"></cube-upload>
   ```
   ```js
@@ -70,7 +70,7 @@
       }
     },
     methods: {
-      parseFile(file, next) {
+      processFile(file, next) {
         compress(file, {
           compress: {
             width: 1600,
@@ -79,8 +79,8 @@
           }
         }, next)
       },
-      fileSubmitted(parsedFile) {
-        parsedFile.base64Value = parsedFile.file.base64
+      fileSubmitted(file) {
+        file.base64Value = file.file.base64
       }
     }
   }
@@ -88,9 +88,9 @@
 
   The `action` is an object which contains `target` and `prop`. the `prop` could configure which property  in file object will be uploaded).
 
-  The `parse-file` is a function which is used to parse the original file, like compress, `next` must be called with the parsed file.
+  The `process-file` is a function which is used to process the original file, like compress, `next` must be called with the processed file.
 
-  The `file-submitted` event will be trigged after the file is parsed and added to the `upload.files` with a parameter -- the file object.
+  The `file-submitted` event will be trigged after the file is processed and added to the `upload.files` with a parameter -- the file object.
 
 ### Props configuration
 
@@ -100,7 +100,7 @@
 | max | max upload files number | Number | 10 | - |
 | auto | whether auto start upload | Boolean | true | - |
 | simultaneousUploads | the number of simultaneous uploads | Number | 1 | - |
-| parseFile | parse the original file | Function | function (file, next) { next(parsedFile) } | - |
+| processFile | process the original file | Function | function (file, next) { next(file) } | - |
 
 * `action` sub configuration
 
@@ -117,9 +117,9 @@ If `action` is a string, it will be transformed into `{ target: action }`.
 | timeout | upload request timeout value | Number | 0 |
 | progressInterval | The time interval between progress reports (Unit: ms) | Number | 100 |
 
-* `parseFile` sub configuration
+* `processFile` sub configuration
 
-A function with two parameters: `(file, next)`, the `file` is the original file and the `next` callback must be called with the parsed file.
+A function with two parameters: `(file, next)`, the `file` is the original file and the `next` callback must be called with the processed file.
 
 ### Events
 

@@ -13,7 +13,7 @@
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'
   import {
-    parseFiles,
+    processFiles,
     newFile,
     URL,
     STATUS_READY,
@@ -49,7 +49,7 @@
         type: Number,
         default: 1
       },
-      parseFile: {
+      processFile: {
         type: Function,
         default: function (file, cb) {
           cb(file)
@@ -89,7 +89,7 @@
           }
           file = files[++i]
         }
-        parseFiles(newFiles, this.parseFile, (file, index) => {
+        processFiles(newFiles, this.processFile, (file, index) => {
           this.$set(this.files, filesLen + index, file)
           this.$emit(EVENT_SUBMITTED, file)
         }, () => {

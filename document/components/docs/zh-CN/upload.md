@@ -4,17 +4,17 @@
 
 **注：** 本文中所有的原始文件对象统称为**原始文件**，而经过包装后的文件对象称为**文件对象**，这个文件对象的结构如下：
 
-```js
-{
-  name, // 文件名
-  size, // 文件大小
-  url, // 文件 url，通过 URL.createObjectURL 获得
-  base64, // 文件 base64 的值，这个会从原始文件的 base64 属性获得（默认是没有的，但是插件可以添加，例如下边演示的压缩 compress 插件就会添加 base64 值）
-  status, // 文件状态，包含四个： ready, uploading, success, error
-  progress, // 文件上传进度，小数 0~1
-  file // 原始文件
-}
-```
+| 属性 | 说明 | 类型 |
+| - | - | - |
+| name | 文件名 | String |
+| size | 文件大小 | Number |
+| url | 文件 url，通过 URL.createObjectURL 获得 | String |
+| base64 | 文件 base64 的值，这个会从原始文件的 base64 属性获得（默认是没有的，但是插件可以添加，例如下边演示的压缩 compress 插件就会添加 base64 值）| String |
+| status | 文件状态，包含四个： ready, uploading, success, error | String |
+| progress | 文件上传进度，小数 0~1 | Number |
+| file | 原始文件 | File |
+| response | 响应内容（自动转 JSON） | Object/Array/String |
+| responseHeaders | 响应头 | String |
 
 ### 示例
 
@@ -53,7 +53,7 @@
     ref="upload2"
     :action="action2"
     :simultaneous-uploads="1"
-    :parse-file="parseFile"
+    :process-file="processFile"
     @file-submitted="fileSubmitted" />
   ```
   ```js
@@ -68,7 +68,7 @@
       }
     },
     methods: {
-      parseFile(file, next) {
+      processFile(file, next) {
         compress(file, {
           compress: {
             width: 1600,
@@ -77,8 +77,8 @@
           }
         }, next)
       },
-      fileSubmitted(parsedFile) {
-        parsedFile.base64Value = parsedFile.file.base64
+      fileSubmitted(file) {
+        file.base64Value = file.file.base64
       }
     }
   }
@@ -86,9 +86,9 @@
 
   `action` 中除了有 `target` 目标上传地址外；还有 `prop` 配置，表示上传的时候采用处理后的 `file` 普通对象的哪个属性所对应的值上传，这里设置的就是 `base64Value` 的值。
 
-  `parse-file` 则是一个函数，主要用于处理原生文件的，调用 `next` 回调的话，参数是处理完的文件对象，这里示例的就是调用 `compress` 做压缩，处理完后会回调 `next`。
+  `process-file` 则是一个函数，主要用于处理原生文件的，调用 `next` 回调的话，参数是处理完的文件对象，这里示例的就是调用 `compress` 做压缩，处理完后会回调 `next`。
 
-  `file-submitted` 事件则是每个文件处理完后添加到 `upload` 实例的 `files` 数组中后触发，参数就是一个处理后的 `parsedFile` 文件对象，原始的文件则从其 `file` 属性获得。
+  `file-submitted` 事件则是每个文件处理完后添加到 `upload` 实例的 `files` 数组中后触发，参数就是一个处理后的文件对象。
 
 ### Props 配置
 
@@ -98,7 +98,7 @@
 | max | 最大上传文件个数 | Number | 10 | - |
 | auto | 是否自动上传，即选择完文件后自动开始上传 | Boolean | true | - |
 | simultaneousUploads | 并发上传数 | Number | 1 | - |
-| parseFile | 处理原始文件函数 | Function | function (file, next) { next(file) } | - |
+| processFile | 处理原始文件函数 | Function | function (file, next) { next(file) } | - |
 
 * `action` 子配置项
 
@@ -115,7 +115,7 @@
 | timeout | 请求超时时间 | Number | 0 | |
 | progressInterval | 进度回调间隔（单位：ms） | Number | 100 |
 
-* `parseFile` 子配置项
+* `processFile` 子配置项
 
 一个函数，这个函数有两个参数：`(file, next)`，`file` 就是原始文件，`next` 为处理完毕后的回调函数，调用的时候需要传入处理后的文件。
 
