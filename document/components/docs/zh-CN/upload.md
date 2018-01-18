@@ -113,7 +113,7 @@
 | data | 上传需要附加数据 | Object | {} |
 | withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false |
 | timeout | 请求超时时间 | Number | 0 | |
-| progressInterval | 进度回调间隔 | Number | 100 |
+| progressInterval | 进度回调间隔（单位：ms） | Number | 100 |
 
 * `parseFile` 子配置项
 

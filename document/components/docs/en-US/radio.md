@@ -1,6 +1,6 @@
 ## Radio
 
-Radio component. You can set the options, set the position of the radio's icon.
+Radio component. You could set the options and the position of the radio's icon.
 
 ### Example
 
@@ -20,9 +20,9 @@ Radio component. You can set the options, set the position of the radio's icon.
   }
   ```
 
-  The value of `options` is an array. The default `selected` value is  `''`, so there are no option is selected by defaut. If you clicked one radio option, then the `selected` is the option's value.
+  The value of `options` is an array. The default `selected` value is  `''`, which means no option will be selected by defaut. If you clicked one radio option, the `selected` will be set as the value of this option.
 
-- Set value, disabled state and position of the icon
+- Configure the label, value, disabled state of options and the position of icon.
 
   ```html
   <cube-radio v-model="selected2" :options="options2" position="right" />
@@ -52,9 +52,9 @@ Radio component. You can set the options, set the position of the radio's icon.
   }
   ```
 
-  The `options` value can be an array which have some object items. You can set `label` and `value` in each item, and if setting `disabled` to `true`, then the radio item's state is disabled.
+  The `options` value can be an array which has some object items. You can set `label` and `value` in each item, and use `disabled` to configure whether the radio item's state is disabled.
 
-  If setting `position` to `'right'`, the position of the radio's icon is on the right.
+  If the `position` is set as `'right'`, the radio's icon will be posited at the right of the label.
 
 - Horizontal order
 
@@ -86,22 +86,22 @@ Radio component. You can set the options, set the position of the radio's icon.
   }
   ```
 
-  You can set `horizontal` to change the style to horizontal order.
+  You can use `horizontal` to configure the style to horizontal layout.
 
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| options | array of radio options | Array | - | - |
+| options | the array of radio options | Array | - | - |
 | position | icon position | String | left/right | left |
-| horizontal | whether in horizontal order | Boolean | true/false | false |
+| horizontal | whether use horizontal layout | Boolean | true/false | false |
 
 * `options` sub configuration
 
 | Attribute | Description | Type  |
 | - | - | - |
-| label | label content | String |
-| value | radio item value | String/Number |
-| disabled | whether disabled | Boolean |
+| label | the text of label | String |
+| value | the value of radio item | String/Number |
+| disabled | whether the item is disabled | Boolean |
 
-Note: each `options` item can be an string value, now both the`label` and `value` values are the string value.
+Note: Each item of `options` can be an string, Which means both the `label` and `value` will be set as this string.

@@ -2,7 +2,7 @@
 
 `Upload` component.
 
-**Notice:** all the original File will be called **original file** and the wrapped file object will be called **file object** in this document. The **file object** will be like:
+**Notice:** In this document, all the original File will be called **original file**, since the wrapped file object will be called **file object**. The structure of **file object** show as following:
 
 ```js
 {
@@ -42,11 +42,11 @@
   }
   ```
 
-  Set `action` to change the upload target URL for the multipart POST request.
+  Set `action` to configure the upload target URL for the multipart POST request.
 
-  Set `simultaneous-uploads` to change the number of simultaneous uploads.
+  Set `simultaneous-uploads` to configure the max number of files uploading simultaneously .
 
-  The `files-added` event is used for file validation, just set `file.ignore = true` to filter file.
+  The `files-added` event is used for file validation, and you can filter file by setting `file.ignore = true`.
 
 - Compress and uploaded through Base64
 
@@ -86,11 +86,11 @@
   }
   ```
 
-  The `action` is an object which contains `target` and `prop`(the target property `prop` value in file object will be uploaded).
+  The `action` is an object which contains `target` and `prop`. the `prop` could configure which property  in file object will be uploaded).
 
-  The `parse-file` is a function which is used to handle the original file, like compress, `next` must be called with the handled file.
+  The `parse-file` is a function which is used to parse the original file, like compress, `next` must be called with the parsed file.
 
-  The `file-submitted` event will be trigged after the file is parsed and added to the `upload.files`. This event will be passed the file object as parameter.
+  The `file-submitted` event will be trigged after the file is parsed and added to the `upload.files` with a parameter -- the file object.
 
 ### Props configuration
 
@@ -100,43 +100,43 @@
 | max | max upload files number | Number | 10 | - |
 | auto | whether auto start upload | Boolean | true | - |
 | simultaneousUploads | the number of simultaneous uploads | Number | 1 | - |
-| parseFile | handle the original file | Function | function (file, next) { next(file) } | - |
+| parseFile | parse the original file | Function | function (file, next) { next(parsedFile) } | - |
 
 * `action` sub configuration
 
-If `action` is a string, then it will be parsed to `{ target: action }`.
+If `action` is a string, it will be transformed into `{ target: action }`.
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
 | target | the upload target URL for the multipart POST request | String | - |
 | fileName | the name of the multipart POST parameter | String | 'file' |
-| prop | the target property `prop` value in file object will be uploaded | String | 'file' |
+| prop | which property in file object will be uploaded | String | 'file' |
 | headers | extra headers to include in the multipart POST | Object | {} |
 | data | extra data to include in the multipart POST | Object | {} |
-| withCredentials | Standard CORS requests do not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true | Boolean | false |
+| withCredentials | Standard CORS requests would not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true | Boolean | false |
 | timeout | upload request timeout value | Number | 0 |
-| progressInterval | The time interval in milliseconds between progress reports | Number | 100 |
+| progressInterval | The time interval between progress reports (Unit: ms) | Number | 100 |
 
 * `parseFile` sub configuration
 
-A function, this function have two parameters: `(file, next)`, the `file` is the original file and the `next` callback must be called with the handled file.
+A function with two parameters: `(file, next)`, the `file` is the original file and the `next` callback must be called with the parsed file.
 
 ### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |
-| files-added | triggers when files are added, used for file validation normally | original files |
-| file-submitted | triggers when one file is added to the `upload.files` | the file object |
-| file-removed | triggers when one file is removed | the file object |
-| file-success | triggers when one file is uploaded successfully | the file object |
-| file-error | triggers when one file is uploaded unsuccessfully | the file object |
-| file-click | triggers when one file clicked | the file object |
+| files-added | triggers when files are added, usually used for file validation | original files |
+| file-submitted | triggers when a file is added to the `upload.files` | the file object |
+| file-removed | triggers when a file is removed | the file object |
+| file-success | triggers when a file is uploaded successfully | the file object |
+| file-error | triggers when a file is failed to upload | the file object |
+| file-click | triggers when a file is clicked | the file object |
 
 ### Instance methods
 
 | Method name | Description | Parameter |
 | - | - | - |
-| start | start upload | - |
-| pause | pause upload | - |
-| retry | retry upload | - |
+| start | start uploading | - |
+| pause | pause uploading | - |
+| retry | retry uploading | - |
 | removeFile | remove file | the file object |
