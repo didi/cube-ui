@@ -31,9 +31,9 @@
     methods: {
       filesAdded(files) {
         const maxSize = 1 * 1024 * 1024 // 1M
-        for (let file in files) {
+        for (let k in files) {
+          const file = files[k]
           if (file.size > maxSize) {
-            // filter this file
             file.ignore = true
           }
         }
