@@ -67,6 +67,9 @@ describe('Upload.vue', () => {
         .to.equal('cube-upload-file-status')
       expect(allFiles[0].querySelector('.cube-upload-file-progress').textContent.trim())
         .to.equal('0%')
+      // hide upload btn
+      expect(vm.$el.querySelector('.cube-upload-btn').style.display)
+        .to.equal('none')
     }, 50)
     // start uploading
     setTimeout(() => {
