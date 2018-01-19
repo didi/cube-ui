@@ -3,7 +3,7 @@
     <slot>
       <div class="cube-upload-def clear-fix">
         <upload-file v-for="(file, i) in files" :file="file" :key="i" @click="fileClick"></upload-file>
-        <upload-btn></upload-btn>
+        <upload-btn v-show="isShowBtn"></upload-btn>
       </div>
     </slot>
   </div>
@@ -72,6 +72,9 @@
         } else {
           return action
         }
+      },
+      isShowBtn() {
+        return this.files.length < this.max
       }
     },
     methods: {
