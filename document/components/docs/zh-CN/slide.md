@@ -41,7 +41,7 @@
       changePage(current) {
         console.log('当前轮播图序号为:' + current)
       },
-      clickHandle(item, index) {
+      clickHandler(item, index) {
         console.log(item, index)
       }
     }
