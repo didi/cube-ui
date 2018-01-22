@@ -39,7 +39,7 @@
       changePage(current) {
         console.log('The index of current slide is ' + current)
       },
-      clickHandle(item, index) {
+      clickHandler(item, index) {
         console.log(item, index)
       }
     }
