@@ -1,14 +1,15 @@
 <template>
   <div class="cube-radio-group" :class="_groupClass" :data-horz="horizontal">
-    <div class="cube-radio" v-for="option in options" :class="_containerClass" :data-pos="position">
-      <label class="cube-radio-wrap" :class="_wrapClass(option)">
-        <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
-        <span class="cube-radio-ui cubeic-round-border">
-          <i></i>
-        </span>
-        <span class="cube-radio-label">{{option.label || option}}</span>
-      </label>
-    </div>
+    <slot>
+      <cube-radio-item
+        v-for="(option, index) in options"
+        :key="index"
+        :option="option"
+        :position="position"
+        :horizontal="horizontal"
+        v-model="radioValue">
+      </cube-radio-item>
+    </slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -38,32 +39,15 @@
         radioValue: this.value
       }
     },
-    computed: {
-      _containerClass() {
-        if (this.horizontal) {
-          return 'border-right-1px'
-        }
-      },
-      _groupClass() {
-        if (!this.horizontal) {
-          return 'border-top-1px border-bottom-1px'
-        }
-      }
-    },
     watch: {
-      value(newV) {
-        this.radioValue = newV
-      },
       radioValue(newV) {
         this.$emit(EVENT_INPUT, newV)
       }
     },
-    methods: {
-      _wrapClass(option) {
-        return {
-          'cube-radio_selected': this.radioValue === (option.value || option),
-          'cube-radio_disabled': option.disabled,
-          'border-bottom-1px': !this.horizontal
+    computed: {
+      _groupClass() {
+        if (!this.horizontal) {
+          return 'border-top-1px border-bottom-1px'
         }
       }
     }

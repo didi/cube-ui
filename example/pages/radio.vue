@@ -7,6 +7,16 @@
       <p>selected value: {{selected2}}</p>
       <cube-radio v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>
+      <cube-radio :options="options4">
+        <cube-radio-item
+          v-for="(option, index) in options4"
+          :key="index"
+          :option="option"
+          v-model="selected4">
+          <img :src="option.src" />
+        </cube-radio-item>
+      </cube-radio>
+      <p>selected img: {{selected4}}</p>
     </template>
   </cube-page>
 </template>
@@ -48,6 +58,25 @@
           {
             label: '3',
             value: '3',
+            disabled: true
+          }
+        ],
+        selected4: '1',
+        options4: [
+          {
+            label: '1',
+            value: '1',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+          },
+          {
+            label: '2',
+            value: '2',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+          },
+          {
+            label: '3',
+            value: '3',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg',
             disabled: true
           }
         ]
