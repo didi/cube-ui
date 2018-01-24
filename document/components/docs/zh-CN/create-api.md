@@ -121,7 +121,7 @@
 
 ### 如何在普通 js 文件中调用
 
-一般当你在 vue 实例中，你可以直接通过 `this.$createHello(config, renderFn)` 调用该组件。而如果在普通 JS 中 this 不是 vue 实例，这时就需要通过 Vue.prototye 或者创建一个 vue 实例来调用`$createHello`方法了，比如：
+一般当你在 vue 实例中，你可以直接通过 `this.$createHello(config, renderFn)` 调用该组件。而如果在普通 JS 中`this`不是 vue 实例，这时就需要通过`Vue.prototye`或者创建一个 vue 实例来调用`$createHello`方法了，比如：
 
 ```js
 import Vue from 'vue'
@@ -133,4 +133,4 @@ const vm = new Vue()
 vm.$createHello(config, renderFn)
 ```
 
-还有一种思路是通过数据驱动，比如用 vuex 维护一个全局 state，需要弹窗的时候去更新状态，然后在 App.vue 里去 watch 这个状态变化来调用该组件。
+还有一种思路是通过数据驱动，比如用 vuex 维护一个全局 state，在需要调用该组件时更新状态，然后在 App.vue 里去 watch 这个状态变化来调用该组件。

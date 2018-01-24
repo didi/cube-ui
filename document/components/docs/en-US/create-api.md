@@ -114,3 +114,19 @@ This module exports a function called `createAPI` with which you can invoke the 
     })
   ```
   In this example, we create a component `Hello` which needs to be invoked in api form and we invoke it in another component.The focus is what `showHello()` does: invoking method `this.$createHello(config, renderFn)` to instantiate `Hello`.
+
+### How to use in general JS files
+
+In vue component, you could call by `this.$createHello(config, renderFn)` because the `this` is just a vue instance. But in general JS files, you need to call `$createHello` method by `Vue.prototype` or create a vue instance. As shown below:
+
+```js
+import Vue from 'vue'
+
+Vue.prototype.$createHello(config, renderFn)
+
+// or
+const vm = new Vue()
+vm.$createHello(config, renderFn)
+```
+
+There is another idea which used the mode of data-driven. For example, in vuex, you could use a global state to label whether to call the component, and watch this state in App.vue to handle this component.
