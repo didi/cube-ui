@@ -1,21 +1,21 @@
 <template>
-  <cube-page type="radio-view" title="Radio">
+  <cube-page type="radio-group-view" title="RadioGroup">
     <template slot="content">
-      <cube-radio v-model="selected" :options="options" />
+      <cube-radio-group v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
-      <cube-radio v-model="selected2" :options="options2" position="right" />
+      <cube-radio-group v-model="selected2" :options="options2" position="right" />
       <p>selected value: {{selected2}}</p>
-      <cube-radio v-model="selected3" :options="options3" :horizontal="true" />
+      <cube-radio-group v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>
-      <cube-radio :options="options4">
-        <cube-radio-item
+      <cube-radio-group :options="options4">
+        <cube-radio
           v-for="(option, index) in options4"
           :key="index"
           :option="option"
           v-model="selected4">
           <img :src="option.src" />
-        </cube-radio-item>
-      </cube-radio>
+        </cube-radio>
+      </cube-radio-group>
       <p>selected img: {{selected4}}</p>
     </template>
   </cube-page>
@@ -89,7 +89,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .radio-view
+  .radio-group-view
     .content
       >
         *
