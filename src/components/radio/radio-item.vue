@@ -1,7 +1,7 @@
 <template>
   <div class="cube-radio" :class="_containerClass" :data-pos="position">
     <label class="cube-radio-wrap" :class="_wrapClass(option)">
-      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
+      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue"   :value="option.value || option">
       <span class="cube-radio-ui cubeic-round-border">
         <i></i>
       </span>
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      radioValue: ''
+      radioValue: this.value
     }
   },
   watch: {

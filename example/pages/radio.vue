@@ -94,4 +94,6 @@
       >
         *
           margin: 10px 0
+    img
+      width: 100px
 </style>
