@@ -1,5 +1,5 @@
 import Vue from 'vue2'
-import Radio from '@/modules/radio-group'
+import RadioGroup from '@/modules/radio-group'
 import createVue from '../utils/create-vue'
 
 describe('RadioGroup.vue', () => {
@@ -11,8 +11,8 @@ describe('RadioGroup.vue', () => {
     }
   })
   it('use', () => {
-    Vue.use(Radio)
-    expect(Vue.component(Radio.name))
+    Vue.use(RadioGroup)
+    expect(Vue.component(RadioGroup.name))
       .to.be.a('function')
   })
   it('should render correct contents', () => {
