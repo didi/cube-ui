@@ -1,4 +1,4 @@
-import RadioGroup from '../../components/radio-group/radio-group.vue'
+import RadioGroup from '../../components/radio/radio-group.vue'
 import Radio from '../../components/radio/radio.vue'
 
 RadioGroup.install = function (Vue) {

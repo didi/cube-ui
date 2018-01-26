@@ -8,28 +8,6 @@
 
   默认就是垂直排列样式
   ```html
-  <cube-checkbox-group v-model="checkList">
-    <cube-checkbox label="1">
-      Checkbox 1
-    </cube-checkbox>
-    <cube-checkbox label="2">
-      Checkbox 2
-    </cube-checkbox>
-    <cube-checkbox label="3" :disabled="true">
-      Disabled Checkbox
-    </cube-checkbox>
-    <cube-checkbox label="4" :disabled="true">
-      Disabled & Checked Checkbox
-    </cube-checkbox>
-  </cube-checkbox-group>
-  ```
-  `checkList` 的值是一个数组，代表的是选中的复选框 `label` 的值的集合。
-
-- 设置 options
-
-  还可以通过 options 生成各个复选框
-
-  ```html
   <cube-checkbox-group v-model="checkList" :options="options" />
   ```
   ```js
@@ -38,21 +16,15 @@
       return {
         checkList: ['1', '4'],
         options: [
+          '1',
+          '2',
           {
-            label: 'Option1',
-            value: '1'
-          },
-          {
-            label: 'Option2',
-            value: '2'
-          },
-          {
-            label: 'Option3',
+            label: '3',
             value: '3',
             disabled: true
           },
           {
-            label: 'Option4',
+            label: '4',
             value: '4',
             disabled: true
           }
@@ -61,18 +33,28 @@
     }
   }
   ```
+  `checkList` 的值是一个数组，代表的是选中的复选框 `value` 的值的集合。
 
 - 水平排列
 
   可通过设置 `horizontal` 改变样式为水平排列
+
   ```html
-  <cube-checkbox-group v-model="checkList" :horizontal="true">
-    <cube-checkbox label="1">1</cube-checkbox>
-    <cube-checkbox label="2">2</cube-checkbox>
-    <cube-checkbox label="3" :disabled="true">3</cube-checkbox>
-    <cube-checkbox label="4" :disabled="true">4</cube-checkbox>
+  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" />
+  ```
+
+- 自定义 label
+
+  ```html
+  <cube-checkbox-group v-model="checkList">
+    <cube-checkbox option="1"><i>Checkbox 1</i></cube-checkbox>
+    <cube-checkbox option="2"><i>Checkbox 2</i></cube-checkbox>
+    <cube-checkbox :option="{value: '3', disabled: true}"><i>Disabled Checkbox</i></cube-checkbox>
+    <cube-checkbox :option="{value: '4', disabled: true}"><i>Disabled & Checked Checkbox</i></cube-checkbox>
   </cube-checkbox-group>
   ```
+
+  可通过默认插槽插入 `cube-checkbox` 实现自定义每项的结构样子，关于 `cube-checkbox`，请参考其[文档](#/zh-CN/docs/checkbox)。
 
 ### Props 配置
 

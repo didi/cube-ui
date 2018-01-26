@@ -14,16 +14,6 @@
 
   If selected, the value of `checked` is `true`.
 
-- Disabled state
-
-  ```html
-  <cube-checkbox v-model="checked" :disabled="true">
-    Disabled Checkbox
-  </cube-checkbox>
-  ```
-
-  Set `disabled` to `true` to turn into the disabled state.
-
 - Position of the checkbox icon
 
   ```html
@@ -37,17 +27,44 @@
 - Change the value of model
 
   ```html
-  <cube-checkbox v-model="checked" label="labelValue">
-    Set label Checkbox
-  </cube-checkbox>
+  <cube-checkbox v-model="checked" :option="option" />
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        checked: false,
+        option: {
+          label: 'Option Checkbox',
+          value: 'optionValue',
+          disabled: false
+        }
+      }
+    }
+  }
   ```
 
-  If `label` is setted, and when the checkbox is selected, the value of `checked` is `'labelValue'`. When not selected, the value is `false`; Therefore, in circumstances of single checkbox, better not set `label`.
+  If `option` is setted, and when the checkbox is selected, the value of `checked` is `'optionValue'`. When not selected, the value is `false`; Therefore, in circumstances of single checkbox, better not set `option`.
+
+- Disabled state
+
+  ```html
+  <cube-checkbox v-model="checked" :option="{disabled: true}">
+    Disabled Checkbox
+  </cube-checkbox>
+  ```
 
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| disabled | whether disabled | Boolean | true/false | false |
+| option | option value | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
-| label | if selected, then map the value to v-model | Boolean/String | - | '' |
+
+* `option` sub configuration
+
+| Attribute | Description | Type  |
+| - | - | - |
+| label | the text of label | String |
+| value | the value of checkbox item | String/Number |
+| disabled | whether the checkbox item is disabled | Boolean |

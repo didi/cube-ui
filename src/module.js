@@ -2,7 +2,7 @@ import Style from './modules/style'
 
 import Button from './modules/button'
 import CheckboxGroup from './modules/checkbox-group'
-import Radio from './modules/radio-group'
+import RadioGroup from './modules/radio'
 import Popup from './modules/popup'
 import Dialog from './modules/dialog'
 import Toast from './modules/toast'
@@ -24,6 +24,7 @@ const Picker = TimePicker.Picker
 const Checkbox = CheckboxGroup.Checkbox
 const Loading = Toast.Loading
 const SlideItem = Slide.Item
+const Radio = RadioGroup.Radio
 
 export {
   Style,
@@ -38,8 +39,9 @@ export {
   Toast,
   ActionSheet,
   Checkbox,
-  Radio,
   CheckboxGroup,
+  Radio,
+  RadioGroup,
   Slide,
   SlideItem,
   Loading,

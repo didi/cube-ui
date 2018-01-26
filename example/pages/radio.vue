@@ -1,5 +1,5 @@
 <template>
-  <cube-page type="radio-group-view" title="RadioGroup">
+  <cube-page type="radio-view" title="Radio">
     <template slot="content">
       <cube-radio-group v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
@@ -89,7 +89,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .radio-group-view
+  .radio-view
     .content
       >
         *

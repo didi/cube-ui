@@ -6,7 +6,6 @@
         :key="index"
         :option="option"
         :position="position"
-        :horizontal="horizontal"
         v-model="radioValue">
       </cube-radio>
     </slot>

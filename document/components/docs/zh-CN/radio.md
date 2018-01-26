@@ -1,6 +1,6 @@
 ## Radio 单选框组
 
-复选框组，可设置复选框组内容，样式等。
+单选框组，可设置单选框组内容，样式等。
 
 ### 示例
 
@@ -90,25 +90,25 @@
 
 - 自定义 label
 
-```html
-<cube-radio-group>
-  <cube-radio
-    v-for="(option, index) in options4"
-    :key="index"
-    :option="option"
-    v-model="selected4">
-    <img :src="option.src" />
-  </cube-radio>
-</cube-radio-group>
-```
+  ```html
+  <cube-radio-group>
+    <cube-radio
+      v-for="(option, index) in options4"
+      :key="index"
+      :option="option"
+      v-model="selected4">
+      <img :src="option.src" />
+    </cube-radio>
+  </cube-radio-group>
+  ```
 
-```js
-export default {
-  data() {
-    return {
-      selected4: '1',
-      options4: [
-        {
+  ```js
+  export default {
+    data() {
+      return {
+        selected4: '1',
+        options4: [
+          {
             label: '1',
             value: '1',
             src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
@@ -123,12 +123,12 @@ export default {
             value: '3',
             src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg',
             disabled: true
-      ]
+          }
+        ]
+      }
     }
   }
-}
-```
-
+  ```
 
 ### Props 配置
 
@@ -137,18 +137,6 @@ export default {
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
-
-### 插槽
-
-| 名字 | 说明 | 作用域参数 |
-| - | - | - |
-| default | 默认内容，由 cube-radio 构成 | - |
-
-### cube-radio 的插槽
-
-| 名字 | 说明 | 作用域参数 |
-| - | - | - |
-| default | 自定义 label 的内容，如 img 元素 | - |
 
 * `options` 子配置项
 
@@ -159,3 +147,18 @@ export default {
 | disabled | 单选框是否被禁用 | Boolean |
 
 注：如果 `options` 中的项为字符串也是可以的，此时默认 `label` 和 `value` 的值都为该字符串的值。
+
+### cube-radio Props 配置
+
+| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| - | - | - | - | - |
+| option | 选项配置 | Object/String | - | - |
+| position | 图标位置 | String | left/right | left |
+
+* `option` 子配置项
+
+| 参数 | 说明 | 类型 |
+| - | - | - |
+| label | 单选框显示文字 | String |
+| value | 单选框的值 | String/Number |
+| disabled | 单选框是否被禁用 | Boolean |
