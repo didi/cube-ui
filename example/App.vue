@@ -40,6 +40,10 @@
             text: 'Radio'
           },
           {
+            path: '/switch',
+            text: 'Switch'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
