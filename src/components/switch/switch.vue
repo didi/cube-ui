@@ -1,6 +1,6 @@
 <template>
   <div class="cube-switch">
-    <input class="cube-switch-input" type="checkbox" v-model="checkboxValue">
+    <input class="cube-switch-input" type="checkbox" v-model="checkboxValue" :disabled="disabled">
     <span class="cube-switch-icon"></span>
     <label class="cube-switch-label"><slot></slot></label>
   </div>
@@ -15,6 +15,10 @@
     name: COMPONENT_NAME,
     props: {
       value: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }
@@ -32,7 +36,7 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
   @import "~@/common/stylus/variable.styl"
 
   $switch-width = 48px
@@ -49,19 +53,21 @@
       height: $switch-height
       opacity: 0
       &:checked + .cube-switch-icon
-        border-color: $switch-open-color
+        border-color: $switch-on-bgc
         &:before
           transform: scale(0)
         &:after
           transform: translateX($switch-width - $switch-height)
+      &:disabled + .cube-switch-icon
+        opacity: 0.3
     .cube-switch-icon
       position: relative
       display: inline-block
       width: $switch-width
       height: $switch-height
-      border: 1px solid $switch-close-border-color
+      border: 1px solid $switch-off-border-color
       border-radius: $switch-height
-      background-color: $switch-open-color
+      background-color: $switch-on-bgc
       transition: border .3s
       &:before, &:after
         content: ""
@@ -71,7 +77,7 @@
         width: 100%
         height: 100%
         border-radius: $switch-height
-        background-color: $switch-close-color
+        background-color: $switch-off-bgc
         transition: transform .3s
       &:after
         width: $switch-height
