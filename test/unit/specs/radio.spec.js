@@ -1,5 +1,5 @@
 import Vue from 'vue2'
-import RadioGroup from '@/modules/radio-group'
+import RadioGroup from '@/modules/radio'
 import createVue from '../utils/create-vue'
 
 describe('RadioGroup.vue', () => {
