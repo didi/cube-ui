@@ -3,6 +3,7 @@ import Style from './modules/style'
 import Button from './modules/button'
 import CheckboxGroup from './modules/checkbox-group'
 import RadioGroup from './modules/radio'
+import Switch from './modules/switch'
 import Popup from './modules/popup'
 import Dialog from './modules/dialog'
 import Toast from './modules/toast'
@@ -42,6 +43,7 @@ export {
   CheckboxGroup,
   Radio,
   RadioGroup,
+  Switch,
   Slide,
   SlideItem,
   Loading,
