@@ -13,15 +13,6 @@
   ```
   如果选中了，则 `checked` 的值就为 `true`。
 
-- 禁用状态
-
-  ```html
-  <cube-checkbox v-model="checked" :disabled="true">
-    Disabled Checkbox
-  </cube-checkbox>
-  ```
-  设置 `disabled` 为 `true` 即为禁用状态。
-
 - 复选框图标位置
 
   ```html
@@ -34,17 +25,44 @@
 - 改变 model 的值
 
   ```html
-  <cube-checkbox v-model="checked" label="labelValue">
-    Set label Checkbox
-  </cube-checkbox>
+  <cube-checkbox v-model="checked" :option="option" />
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        checked: false,
+        option: {
+          label: 'Option Checkbox',
+          value: 'optionValue',
+          disabled: false
+        }
+      }
+    }
+  }
   ```
 
-  设置 `label`，当复选框选中的时候，`checked` 的值就是 `'labelValue'`，当未选中的时候，`checked` 的值就是 `false`；所以其实在单个复选框的场景下，最好不要设置 `label`。
+  设置 `option`，当复选框选中的时候，`checked` 的值就是 `'optionValue'`，当未选中的时候，`checked` 的值就是 `false`；所以其实在单个复选框的场景下，最好不要设置 `option`。
+
+- 禁用状态
+
+  ```html
+  <cube-checkbox v-model="checked" :option="{disabled: true}">
+    Disabled Checkbox
+  </cube-checkbox>
+  ```
 
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| disabled | 是否被禁用 | Boolean | true/false | false |
+| option | 配置项 | Boolean/String/Object | - | - |
 | position | 位置 | String | left/right | left |
-| label | 如果选中的话，则是把该值映射到 v-model 上 | Boolean/String | - | '' |
+
+* `option` 子配置项
+
+| 参数 | 说明 | 类型 |
+| - | - | - |
+| label | 复选框显示文字 | String |
+| value | 复选框的值 | String/Number |
+| disabled | 复选框是否被禁用 | Boolean |

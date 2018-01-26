@@ -1,104 +1,69 @@
 <template>
-  <div class="cube-radio-group" :class="_groupClass" :data-horz="horizontal">
-    <div class="cube-radio" v-for="option in options" :class="_containerClass" :data-pos="position">
-      <label class="cube-radio-wrap" :class="_wrapClass(option)">
-        <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
-        <span class="cube-radio-ui cubeic-round-border">
-          <i></i>
-        </span>
+  <div class="cube-radio" :class="_containerClass" :data-pos="position">
+    <label class="cube-radio-wrap" :class="_wrapClass(option)">
+      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue"   :value="option.value || option">
+      <span class="cube-radio-ui cubeic-round-border">
+        <i></i>
+      </span>
+      <slot>
         <span class="cube-radio-label">{{option.label || option}}</span>
-      </label>
-    </div>
+      </slot>
+    </label>
   </div>
 </template>
-<script type="text/ecmascript-6">
-  const COMPONENT_NAME = 'cube-radio'
 
-  const EVENT_INPUT = 'input'
+<script  type="text/ecmascript-6">
+const COMPONENT_NAME = 'cube-radio'
+const EVENT_INPUT = 'input'
 
-  export default {
-    name: COMPONENT_NAME,
-    props: {
-      value: String,
-      options: {
-        type: Array,
-        required: true
-      },
-      position: {
-        type: String,
-        default: 'left'
-      },
-      horizontal: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  name: COMPONENT_NAME,
+  props: {
+    value: String,
+    option: {
+      type: [String, Object],
+      required: true
     },
-    data() {
+    position: {
+      type: String,
+      default: 'left'
+    }
+  },
+  data() {
+    return {
+      radioValue: this.value
+    }
+  },
+  watch: {
+    value(newV) {
+      this.radioValue = newV
+    },
+    radioValue(newV) {
+      this.$emit(EVENT_INPUT, newV)
+    }
+  },
+  computed: {
+    _containerClass() {
+      if (this.$parent.horizontal) {
+        return 'border-right-1px'
+      }
+    }
+  },
+  methods: {
+    _wrapClass(option) {
       return {
-        radioValue: this.value
-      }
-    },
-    computed: {
-      _containerClass() {
-        if (this.horizontal) {
-          return 'border-right-1px'
-        }
-      },
-      _groupClass() {
-        if (!this.horizontal) {
-          return 'border-top-1px border-bottom-1px'
-        }
-      }
-    },
-    watch: {
-      value(newV) {
-        this.radioValue = newV
-      },
-      radioValue(newV) {
-        this.$emit(EVENT_INPUT, newV)
-      }
-    },
-    methods: {
-      _wrapClass(option) {
-        return {
-          'cube-radio_selected': this.radioValue === (option.value || option),
-          'cube-radio_disabled': option.disabled,
-          'border-bottom-1px': !this.horizontal
-        }
+        'cube-radio_selected': this.radioValue === (option.value || option),
+        'cube-radio_disabled': option.disabled,
+        'border-bottom-1px': !this.$parent.horizontal
       }
     }
   }
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
-
   $ui-width = 1.42em
-  .cube-radio-group[data-horz="true"]
-    display: flex
-    padding-left: 0
-    border-1px($checkbox-group-horizontal-bdc, 2px)
-    border-radius: 2px
-    .cube-radio
-      flex-fix()
-      text-align: center
-      padding-left: 10px
-      padding-right: 10px
-      &:after
-        border-color: $checkbox-group-horizontal-bdc
-      &:last-child
-        border-none()
-      &:last-child
-        border-none()
-      &[data-pos="right"]
-        .cube-radio-ui
-          position: relative
-          margin-left: .42em
-          order: 1
-        .cube-radio-label
-          margin-right: 0
-    .cube-radio-wrap
-      justify-content: center
   .cube-radio
     position: relative
     padding: 0 16px
@@ -187,3 +152,4 @@
       &::before
         color: transparent
 </style>
+

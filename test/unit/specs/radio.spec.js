@@ -1,8 +1,8 @@
 import Vue from 'vue2'
-import Radio from '@/modules/radio'
+import RadioGroup from '@/modules/radio'
 import createVue from '../utils/create-vue'
 
-describe('Radio.vue', () => {
+describe('RadioGroup.vue', () => {
   let vm
   afterEach(() => {
     if (vm) {
@@ -11,12 +11,12 @@ describe('Radio.vue', () => {
     }
   })
   it('use', () => {
-    Vue.use(Radio)
-    expect(Vue.component(Radio.name))
+    Vue.use(RadioGroup)
+    expect(Vue.component(RadioGroup.name))
       .to.be.a('function')
   })
   it('should render correct contents', () => {
-    vm = createRadio()
+    vm = createRadioGroup()
     const el = vm.$el
     expect(el.className)
       .to.equal('cube-radio-group my-radio border-top-1px border-bottom-1px')
@@ -47,7 +47,7 @@ describe('Radio.vue', () => {
       .to.equal('Option3')
   })
   it('should render correct contents - horizontal', () => {
-    vm = createRadio(true)
+    vm = createRadioGroup(true)
     const el = vm.$el
     expect(el.className)
       .to.equal('cube-radio-group my-radio')
@@ -65,7 +65,7 @@ describe('Radio.vue', () => {
       .to.equal('cube-radio-wrap cube-radio_selected cube-radio_disabled')
   })
   it('should toggle v-model value', (done) => {
-    vm = createRadio()
+    vm = createRadioGroup()
     expect(vm.$parent.selected)
       .to.equal('3')
     vm.$el.querySelector('.cube-radio-input').click()
@@ -77,10 +77,10 @@ describe('Radio.vue', () => {
   })
 })
 
-function createRadio (horizontal = false) {
+function createRadioGroup (horizontal = false) {
   const vm = createVue({
     template: `
-      <cube-radio v-model="selected" :options="options" class="my-radio" position="right" :horizontal="${horizontal}"></cube-radio>
+      <cube-radio-group v-model="selected" :options="options" class="my-radio" position="right" :horizontal="${horizontal}"></cube-radio-group>
     `,
     data: {
       selected: '3',
