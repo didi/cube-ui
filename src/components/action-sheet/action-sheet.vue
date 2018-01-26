@@ -8,7 +8,7 @@
       :z-index="zIndex"
       v-show="isVisible"
       @touchmove.prevent="noop"
-      @click="cancel">
+      @mask-click="cancel">
       <transition name="cube-action-sheet-move">
         <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop="noop">
           <h1 class="cube-action-sheet-title border-bottom-1px" v-show="pickerStyle || title">{{title}}</h1>
