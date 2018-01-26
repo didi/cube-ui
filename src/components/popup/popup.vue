@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-popup" :class="typeClass" v-show="isVisible">
+  <div class="cube-popup" :style="{'z-index': zIndex}" :class="typeClass" v-show="isVisible">
     <div class="cube-popup-mask" v-show="mask" @click="maskClick">
       <slot name="mask"></slot>
     </div>
@@ -37,6 +37,10 @@
       center: {
         type: Boolean,
         default: true
+      },
+      zIndex: {
+        type: Number,
+        default: 100
       }
     },
     computed: {
