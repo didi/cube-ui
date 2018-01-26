@@ -7,7 +7,7 @@
 - 基本用法
 
   ```html
-  <cube-radio v-model="selected" :options="options" />
+  <cube-radio-group v-model="selected" :options="options" />
   ```
   ```js
   export default {
@@ -25,7 +25,7 @@
 - 设置 value，禁用状态，图标位置
 
   ```html
-  <cube-radio v-model="selected2" :options="options2" position="right" />
+  <cube-radio-group v-model="selected2" :options="options2" position="right" />
   ```
   ```js
   export default {
@@ -59,7 +59,7 @@
 - 水平排列
 
   ```html
-  <cube-radio v-model="selected3" :options="options3" :horizontal="true" />
+  <cube-radio-group v-model="selected3" :options="options3" :horizontal="true" />
   ```
   ```js
   export default {
@@ -88,6 +88,48 @@
 
   可通过设置 `horizontal` 为 `true` 改变样式为水平排列。
 
+- 自定义 label
+
+```html
+<cube-radio-group>
+  <cube-radio
+    v-for="(option, index) in options4"
+    :key="index"
+    :option="option"
+    v-model="selected4">
+    <img :src="option.src" />
+  </cube-radio>
+</cube-radio-group>
+```
+
+```js
+export default {
+  data() {
+    return {
+      selected4: '1',
+      options4: [
+        {
+            label: '1',
+            value: '1',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+          },
+          {
+            label: '2',
+            value: '2',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+          },
+          {
+            label: '3',
+            value: '3',
+            src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg',
+            disabled: true
+      ]
+    }
+  }
+}
+```
+
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -95,6 +137,18 @@
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
+
+### 插槽
+
+| 名字 | 说明 | 作用域参数 |
+| - | - | - |
+| default | 默认内容，由 cube-radio 构成 | - |
+
+### cube-radio 的插槽
+
+| 名字 | 说明 | 作用域参数 |
+| - | - | - |
+| default | 自定义 label 的内容，如 img 元素 | - |
 
 * `options` 子配置项
 

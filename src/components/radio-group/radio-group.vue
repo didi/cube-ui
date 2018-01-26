@@ -23,7 +23,9 @@
       value: String,
       options: {
         type: Array,
-        required: true
+        default() {
+          return []
+        }
       },
       position: {
         type: String,

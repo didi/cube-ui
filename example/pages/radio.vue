@@ -7,7 +7,7 @@
       <p>selected value: {{selected2}}</p>
       <cube-radio-group v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>
-      <cube-radio-group :options="options4">
+      <cube-radio-group>
         <cube-radio
           v-for="(option, index) in options4"
           :key="index"
