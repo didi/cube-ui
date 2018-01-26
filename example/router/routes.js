@@ -1,7 +1,7 @@
 import Button from '../pages/button.vue'
 import Checkbox from '../pages/checkbox.vue'
 import CheckboxGroup from '../pages/checkbox-group.vue'
-import RadioGroup from '../pages/radio-group.vue'
+import Radio from '../pages/radio.vue'
 import Loading from '../pages/loading.vue'
 import Tip from '../pages/tip.vue'
 import Popup from '../pages/popup.vue'
@@ -32,8 +32,8 @@ const routes = [
     component: CheckboxGroup
   },
   {
-    path: '/radio-group',
-    component: RadioGroup
+    path: '/radio',
+    component: Radio
   },
   {
     path: '/loading',

@@ -36,8 +36,8 @@
             text: 'CheckboxGroup'
           },
           {
-            path: '/radio-group',
-            text: 'RadioGroup'
+            path: '/radio',
+            text: 'Radio'
           },
           {
             path: '/loading',
