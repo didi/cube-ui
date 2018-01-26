@@ -5,9 +5,9 @@
       <p>switch value: {{values[0]}}</p>
       <cube-switch v-model="values[1]">Switch</cube-switch>
       <p>switch value: {{values[1]}}</p>
-      <cube-switch v-model="values[2]" :disabled="disabled">Switch</cube-switch>
+      <cube-switch v-model="values[2]" :disabled="disabled">Disbled Switch</cube-switch>
       <p>switch value: {{values[2]}}</p>
-      <cube-switch v-model="values[3]" :disabled="disabled">Switch</cube-switch>
+      <cube-switch v-model="values[3]" :disabled="disabled">Disbled Switch</cube-switch>
       <p>switch value: {{values[3]}}</p>
     </template>
   </cube-page>
