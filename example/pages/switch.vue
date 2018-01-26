@@ -1,8 +1,14 @@
 <template>
   <cube-page type="switch-view" title="Switch">
     <template slot="content">
-      <cube-switch v-model="value"> Switch</cube-switch>
-      <p>switch value: {{value}}</p>
+      <cube-switch v-model="values[0]">Switch</cube-switch>
+      <p>switch value: {{values[0]}}</p>
+      <cube-switch v-model="values[1]">Switch</cube-switch>
+      <p>switch value: {{values[1]}}</p>
+      <cube-switch v-model="values[2]" :disabled="disabled">Switch</cube-switch>
+      <p>switch value: {{values[2]}}</p>
+      <cube-switch v-model="values[3]" :disabled="disabled">Switch</cube-switch>
+      <p>switch value: {{values[3]}}</p>
     </template>
   </cube-page>
 </template>
@@ -13,7 +19,8 @@
   export default {
     data() {
       return {
-        value: true
+        values: [true, false, true, false],
+        disabled: true
       }
     },
     components: {
