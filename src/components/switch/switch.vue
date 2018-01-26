@@ -1,8 +1,8 @@
 <template>
   <div class="cube-switch">
     <input class="cube-switch-input" type="checkbox" v-model="checkboxValue" :disabled="disabled">
-    <span class="cube-switch-icon"></span>
-    <label class="cube-switch-label"><slot></slot></label>
+    <i class="cube-switch-ui"></i>
+    <span class="cube-switch-label"><slot></slot></span>
   </div>
 </template>
 
@@ -37,7 +37,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+  @require "../../common/stylus/variable.styl"
 
   $switch-width = 48px
   $switch-height = 28px
@@ -52,24 +52,24 @@
       width: $switch-width
       height: $switch-height
       opacity: 0
-      &:checked + .cube-switch-icon
+      &:checked + .cube-switch-ui
         border-color: $switch-on-bgc
-        &:before
+        background-color: $switch-on-bgc
+        &::before
           transform: scale(0)
-        &:after
+        &::after
           transform: translateX($switch-width - $switch-height)
-      &:disabled + .cube-switch-icon
+      &:disabled + .cube-switch-ui
         opacity: 0.3
-    .cube-switch-icon
+    .cube-switch-ui
       position: relative
       display: inline-block
       width: $switch-width
       height: $switch-height
       border: 1px solid $switch-off-border-color
       border-radius: $switch-height
-      background-color: $switch-on-bgc
-      transition: border .3s
-      &:before, &:after
+      background-color: $switch-off-border-color
+      &::before, &::after
         content: ""
         position: absolute
         top: 0
@@ -78,8 +78,8 @@
         height: 100%
         border-radius: $switch-height
         background-color: $switch-off-bgc
-        transition: transform .3s
-      &:after
+        transition: transform .4s cubic-bezier(.25, .1, .25, 1.28)
+      &::after
         width: $switch-height
         background-color: $color-white
         box-shadow: 0 1px 3px rgba(0, 0, 0, .4)
