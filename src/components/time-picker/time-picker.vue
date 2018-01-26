@@ -4,6 +4,7 @@
     :title="title"
     :data="data"
     :selected-index="selectedIndex"
+    :z-index="zIndex"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange"></cube-picker>
@@ -68,6 +69,9 @@
       minuteStep: {
         type: Number,
         default: MINUTE_STEP
+      },
+      zIndex: {
+        type: Number
       }
     },
     data() {

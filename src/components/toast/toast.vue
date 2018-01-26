@@ -1,6 +1,6 @@
 <template>
   <transition name="cube-toast-fade">
-    <cube-popup type="toast" :mask="mask" v-show="isVisible">
+    <cube-popup type="toast" :z-index="zIndex" :mask="mask" v-show="isVisible">
       <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
       <cube-loading v-show="isLoading"></cube-loading>
       <div v-show="txt" class="cube-toast-tip">{{txt}}</div>
@@ -33,6 +33,10 @@
       time: {
         type: Number,
         default: 3000
+      },
+      zIndex: {
+        type: Number,
+        default: 900
       }
     },
     computed: {

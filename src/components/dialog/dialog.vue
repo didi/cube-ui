@@ -1,6 +1,6 @@
 <template>
   <transition name="cube-dialog-fade">
-    <cube-popup type="dialog" :mask="true" :center="true" v-show="isVisible">
+    <cube-popup type="dialog" :z-index="zIndex" :mask="true" :center="true" v-show="isVisible">
       <div class="cube-dialog-main">
         <span class="cube-dialog-close" v-show="showClose" @click="close"><i class="cubeic-close"></i></span>
         <div :class="containerClass">
@@ -99,6 +99,9 @@
             ...defCancelBtn
           }
         }
+      },
+      zIndex: {
+        type: Number
       }
     },
     data() {

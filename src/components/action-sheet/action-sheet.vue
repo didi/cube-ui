@@ -5,6 +5,7 @@
       :class="{'cube-action-sheet_picker': pickerStyle}"
       :center="false"
       :mask="true"
+      :z-index="zIndex"
       v-show="isVisible"
       @touchmove.prevent="noop"
       @click="cancel">
@@ -62,6 +63,9 @@
       pickerStyle: {
         type: Boolean,
         default: false
+      },
+      zIndex: {
+        type: Number
       }
     },
     methods: {

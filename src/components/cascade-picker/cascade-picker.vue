@@ -4,6 +4,7 @@
       :title="title"
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
+      :z-index="zIndex"
       :cancelTxt="cancelTxt"
       :confirmTxt="confirmTxt"
       @select="_pickerSelect"
@@ -58,6 +59,9 @@
         default() {
           return {}
         }
+      },
+      zIndex: {
+        type: Number
       }
     },
     data () {

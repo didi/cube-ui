@@ -4,6 +4,7 @@
         type="picker"
         :mask="true"
         :center="false"
+        :z-index="zIndex"
         v-show="isVisible"
         @touchmove.prevent
         @mask-click="cancel">
@@ -81,6 +82,9 @@
         default() {
           return {}
         }
+      },
+      zIndex: {
+        type: Number
       }
     },
     data() {
