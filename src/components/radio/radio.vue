@@ -27,10 +27,6 @@ export default {
     position: {
       type: String,
       default: 'left'
-    },
-    horizontal: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -48,7 +44,7 @@ export default {
   },
   computed: {
     _containerClass() {
-      if (this.horizontal) {
+      if (this.$parent.horizontal) {
         return 'border-right-1px'
       }
     }
@@ -58,7 +54,7 @@ export default {
       return {
         'cube-radio_selected': this.radioValue === (option.value || option),
         'cube-radio_disabled': option.disabled,
-        'border-bottom-1px': !this.horizontal
+        'border-bottom-1px': !this.$parent.horizontal
       }
     }
   }
@@ -155,26 +151,5 @@ export default {
         transition: none
       &::before
         color: transparent
-.cube-radio-group[data-horz="true"]
-  .cube-radio
-    flex-fix()
-    text-align: center
-    padding-left: 10px
-    padding-right: 10px
-    &:after
-      border-color: $radio-group-horizontal-bdc
-    &:last-child
-      border-none()
-    &:last-child
-      border-none()
-    &[data-pos="right"]
-      .cube-radio-ui
-        position: relative
-        margin-left: .42em
-        order: 1
-      .cube-radio-label
-        margin-right: 0
-  .cube-radio-wrap
-    justify-content: center
 </style>
 

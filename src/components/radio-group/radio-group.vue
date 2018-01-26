@@ -67,4 +67,24 @@
     padding-left: 0
     border-1px($radio-group-horizontal-bdc, 2px)
     border-radius: 2px
+    .cube-radio
+      flex-fix()
+      text-align: center
+      padding-left: 10px
+      padding-right: 10px
+      &:after
+        border-color: $radio-group-horizontal-bdc
+      &:last-child
+        border-none()
+      &:last-child
+        border-none()
+      &[data-pos="right"]
+        .cube-radio-ui
+          position: relative
+          margin-left: .42em
+          order: 1
+        .cube-radio-label
+          margin-right: 0
+    .cube-radio-wrap
+      justify-content: center
 </style>
