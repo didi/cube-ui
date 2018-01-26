@@ -2,6 +2,8 @@
 
 # git pull
 git pull origin master
+# npm install
+npm install
 # build
 npm run build
 # ADD commit
