@@ -1,22 +1,16 @@
 <template>
   <cube-page type="checkbox-group-view" title="CheckboxGroup">
     <template slot="content">
-      <cube-checkbox-group v-model="checkList">
-        <cube-checkbox label="1">Checkbox 1</cube-checkbox>
-        <cube-checkbox label="2">Checkbox 2</cube-checkbox>
-        <cube-checkbox label="3" :disabled="true">Disabled Checkbox</cube-checkbox>
-        <cube-checkbox label="4" :disabled="true">Disabled & Checked Checkbox</cube-checkbox>
-      </cube-checkbox-group>
+      <cube-checkbox-group v-model="checkList" :options="options" />
       <p>checkList value : {{checkList}}</p>
       <br>
-      <cube-checkbox-group v-model="checkList" :options="options">
-      </cube-checkbox-group>
+      <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" />
       <br>
-      <cube-checkbox-group v-model="checkList" :horizontal="true">
-        <cube-checkbox label="1">1</cube-checkbox>
-        <cube-checkbox label="2">2</cube-checkbox>
-        <cube-checkbox label="3" :disabled="true">3</cube-checkbox>
-        <cube-checkbox label="4" :disabled="true">4</cube-checkbox>
+      <cube-checkbox-group v-model="checkList">
+        <cube-checkbox option="1"><i>Checkbox 1</i></cube-checkbox>
+        <cube-checkbox option="2"><i>Checkbox 2</i></cube-checkbox>
+        <cube-checkbox :option="{value: '3', disabled: true}"><i>Disabled Checkbox</i></cube-checkbox>
+        <cube-checkbox :option="{value: '4', disabled: true}"><i>Disabled & Checked Checkbox</i></cube-checkbox>
       </cube-checkbox-group>
     </template>
   </cube-page>
@@ -30,21 +24,15 @@
       return {
         checkList: ['1', '4'],
         options: [
+          '1',
+          '2',
           {
-            label: 'Option1',
-            value: '1'
-          },
-          {
-            label: 'Option2',
-            value: '2'
-          },
-          {
-            label: 'Option3',
+            label: '3',
             value: '3',
             disabled: true
           },
           {
-            label: 'Option4',
+            label: '4',
             value: '4',
             disabled: true
           }

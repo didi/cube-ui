@@ -4,8 +4,7 @@
       <cube-checkbox
         v-for="(option, index) in options"
         :key="index"
-        :label="option.value || option"
-        :disabled="option.disabled">{{option.label || option}}</cube-checkbox>
+        :option="option" />
     </slot>
   </div>
 </template>

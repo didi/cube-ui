@@ -1,12 +1,12 @@
 <template>
   <div class="cube-checkbox" :class="_containerClass" :data-pos="position">
     <label class="cube-checkbox-wrap" :class="_wrapClass">
-      <input class="cube-checkbox-input" type="checkbox" :disabled="disabled" v-model="checkValue">
+      <input class="cube-checkbox-input" type="checkbox" :disabled="computedOption.disabled" v-model="checkValue">
       <span class="cube-checkbox-ui cubeic-round-border">
         <i class="cubeic-right"></i>
       </span>
       <span class="cube-checkbox-label">
-        <slot>{{label}}</slot>
+        <slot>{{computedOption.label}}</slot>
       </span>
     </label>
   </div>
@@ -31,6 +31,14 @@
         type: Boolean,
         default: false
       },
+      option: {
+        type: [Boolean, String, Object],
+        default () {
+          return {
+            _def_option: true
+          }
+        }
+      },
       position: {
         type: String,
         default: 'left'
@@ -46,20 +54,40 @@
       }
     },
     computed: {
+      computedOption() {
+        let option = this.option
+        const label = this.label
+        const disabled = this.disabled
+        if (option._def_option === true) {
+          option = {
+            label,
+            value: label,
+            disabled
+          }
+        } else if (typeof option === 'string') {
+          option = {
+            label: option,
+            value: option,
+            disabled: false
+          }
+        }
+        return option
+      },
       checkValue: {
         get () {
           if (this.isInGroup) {
-            return this.$parent.value.indexOf(this.label) > -1
+            return this.$parent.value.indexOf(this.computedOption.value) > -1
           } else {
             return Boolean(this.value)
           }
         },
         set (newValue) {
-          const emitValue = this.label && newValue ? this.label : newValue
+          const value = this.computedOption.value
+          const emitValue = value && newValue ? value : newValue
           const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCLE_CHECKED
           this.$emit(EVENT_INPUT, emitValue)
           if (this.isInGroup) {
-            this.$parent.$emit(parentEmitEvent, this.label || newValue, this)
+            this.$parent.$emit(parentEmitEvent, value || newValue, this)
           }
         }
       },
@@ -72,7 +100,7 @@
         const isInHorizontalGroup = this.isInHorizontalGroup
         return {
           'cube-checkbox_checked': this.checkValue,
-          'cube-checkbox_disabled': this.disabled,
+          'cube-checkbox_disabled': this.computedOption.disabled,
           'border-bottom-1px': this.isInGroup && !isInHorizontalGroup
         }
       }
