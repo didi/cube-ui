@@ -2,8 +2,8 @@
   <div class="cube-checkbox" :class="_containerClass" :data-pos="position">
     <label class="cube-checkbox-wrap" :class="_wrapClass">
       <input class="cube-checkbox-input" type="checkbox" :disabled="computedOption.disabled" v-model="checkValue">
-      <span class="cube-checkbox-ui cubeic-round-border">
-        <i class="cubeic-right"></i>
+      <span class="cube-checkbox-ui" :class="_borderIcon">
+        <i :class="_rightIcon"></i>
       </span>
       <span class="cube-checkbox-label">
         <slot>{{computedOption.label}}</slot>
@@ -42,6 +42,10 @@
       position: {
         type: String,
         default: 'left'
+      },
+      shape: {
+        type: String,
+        default: 'circle'
       }
     },
     data () {
@@ -103,6 +107,12 @@
           'cube-checkbox_disabled': this.computedOption.disabled,
           'border-bottom-1px': this.isInGroup && !isInHorizontalGroup
         }
+      },
+      _borderIcon() {
+        return this.shape === 'square' ? 'cubeic-square-border' : 'cubeic-round-border'
+      },
+      _rightIcon() {
+        return this.shape === 'square' ? 'cubeic-square-right' : 'cubeic-right'
       }
     }
   }
