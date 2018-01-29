@@ -162,6 +162,8 @@
     margin-right: $ui-width - 1em
     line-height: 1
     border-radius: 50%
+    &.cubeic-square-border
+      border-radius: 2px
     &::before, i
       transition: all .2s
     &::before
