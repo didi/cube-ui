@@ -5,7 +5,7 @@
       <p>checked value: {{checked}}</p>
       <cube-checkbox v-model="checked" position="right">Position Checkbox</cube-checkbox>
       <br><br>
-      <cube-checkbox v-model="checked2" :option="optionValue"></cube-checkbox>
+      <cube-checkbox v-model="checked2" :option="optionValue" shape="square"></cube-checkbox>
       <p>checked value (with option) : {{checked2}}</p>
       <cube-checkbox v-model="checked2" :option="{disabled: true}">
         Disabled Checkbox
