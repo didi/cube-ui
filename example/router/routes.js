@@ -7,6 +7,7 @@ import Loading from '../pages/loading.vue'
 import Tip from '../pages/tip.vue'
 import Popup from '../pages/popup.vue'
 import Toast from '../pages/toast.vue'
+import Input from '../pages/input.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
@@ -35,6 +36,10 @@ const routes = [
   {
     path: '/radio',
     component: Radio
+  },
+  {
+    path: '/input',
+    component: Input
   },
   {
     path: '/switch',
