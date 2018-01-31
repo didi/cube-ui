@@ -8,6 +8,7 @@ import Popup from './modules/popup'
 import Dialog from './modules/dialog'
 import Toast from './modules/toast'
 import Input from './modules/input'
+import Validator from './modules/validator'
 
 import Tip from './modules/tip'
 import ActionSheet from './modules/action-sheet'
@@ -40,6 +41,7 @@ export {
   Tip,
   Toast,
   Input,
+  Validator,
   ActionSheet,
   Checkbox,
   CheckboxGroup,
