@@ -6,6 +6,7 @@
     <div slot="content">
       <cube-input
         :type="type"
+        placeholder="please type here..."
         :disabled="disabled"
         :readonly="readonly"
         :useClear="useClear"

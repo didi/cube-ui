@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       value: '',
-      placeholder: '请输入内容',
+      placeholder: 'please type here...',
       type: 'password',
       readonly: true,
       maxlength: 100,

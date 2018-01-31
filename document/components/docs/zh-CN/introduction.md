@@ -28,6 +28,7 @@ cube-ui 是基于 Vue.js 实现的精致移动端组件库。
 - [Checkbox 复选框](#/zh-CN/docs/checkbox)
 - [CheckboxGroup 复选框组](#/zh-CN/docs/checkbox-group)
 - [Radio 单选框](#/zh-CN/docs/radio)
+- [Input 输入框](#/zh-CN/docs/input)
 - [Loading 加载中](#/zh-CN/docs/loading)
 - [Tip 提示](#/zh-CN/docs/tip)
 
