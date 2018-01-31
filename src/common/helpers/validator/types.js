@@ -10,7 +10,7 @@ const types = {
     return Array.isArray(val)
   },
   date: (val) => {
-    return !!(new Date(val))
+    return !isNaN(Number(val))
   },
   email: (val) => {
     return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)+$/i.test(val)

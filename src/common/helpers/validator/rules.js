@@ -3,11 +3,8 @@ import { types } from './types'
 
 const rules = {
   required: (val, required, type) => {
-    if (!required) {
-      return true
-    }
     type = type || (Array.isArray(val) ? 'array' : typeof val)
-    if (type === 'array') {
+    if (type === 'array' && Array.isArray(val)) {
       return val.length > 0
     }
     return val !== '' && val !== undefined
@@ -40,7 +37,7 @@ const rules = {
     }
   },
   notWhitespace: (val, config, type) => {
-    return !config || !/^\s+$/.test(val)
+    return !/^\s+$/.test(val)
   },
   pattern: (val, pattern, type) => {
     return pattern.test(val)

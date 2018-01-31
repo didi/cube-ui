@@ -88,7 +88,7 @@
         },
         checkList: [],
         rule4: {
-          len: 2
+          required: true
         },
         rate: 0,
         rule5: {
