@@ -9,6 +9,7 @@ import Dialog from './modules/dialog'
 import Toast from './modules/toast'
 import Input from './modules/input'
 import Validator from './modules/validator'
+import Rate from './modules/rate'
 
 import Tip from './modules/tip'
 import ActionSheet from './modules/action-sheet'
@@ -40,8 +41,12 @@ export {
   Dialog,
   Tip,
   Toast,
+<<<<<<< HEAD
   Input,
   Validator,
+=======
+  Rate,
+>>>>>>> <feat> support rate component resolve #87
   ActionSheet,
   Checkbox,
   CheckboxGroup,

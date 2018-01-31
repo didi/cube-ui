@@ -68,6 +68,10 @@
             text: 'Validator'
           },
           {
+            path: '/rate',
+            text: 'Rate'
+          },
+          {
             path: '/picker',
             text: 'Picker'
           },
