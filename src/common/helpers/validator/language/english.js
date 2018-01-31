@@ -1,42 +1,42 @@
 export default {
-  required: '此为必填项',
+  required: 'Required',
   type: {
-    string: '请输入字符',
-    number: '请输入数字',
-    array: '请选择一项或多项', // used in checkbox-group
-    date: '请选择有效日期',
-    email: '请输入有效邮箱',
-    tel: '请输入有效的手机号码',
-    url: '请输入有效网址'
+    string: 'Please input characters.',
+    number: 'Please input numbers.',
+    array: 'Please select one or more items.',
+    date: 'Please select a valid date.',
+    email: 'Please input a valid E-mail.',
+    tel: 'Please input a valid telphone number.',
+    url: 'Please input a valid web site.'
   },
   min: {
-    string: (config) => `至少输入 ${config} 位字符`,
-    number: (config) => `不得小于 ${config}`,
-    array: (config) => `请选择至少 ${config} 项`,
-    date: (config) => `请选择 ${config} 之后的时间`, // TODO: transform to year-month-day-hh-mm-ss
-    email: (config) => `至少输入 ${config} 位字符`,
-    tel: (config) => `至少输入 ${config} 位字符`,
-    url: (config) => `至少输入 ${config} 位字符`
+    string: (config) => `Please input at least ${config} characters.`,
+    number: (config) => `The number could not smaller than ${config}.`,
+    array: (config) => `Please select at least ${config} items.`,
+    date: (config) => `Please select a date after ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    email: (config) => `Please input at least ${config} characters.`,
+    tel: (config) => `Please input at least ${config} characters.`,
+    url: (config) => `Please input at least ${config} characters.`
   },
   max: {
-    string: (config) => `请勿超过 ${config} 位字符`,
-    number: (config) => `请勿大于 ${config}`,
-    array: (config) => `最多选择 ${config} 项`,
-    date: (config) => `请选择 ${config} 之前的时间`, // TODO: transform to year-month-day-hh-mm-ss
-    email: (config) => `请勿超过 ${config} 位字符`,
-    tel: (config) => `请勿超过 ${config} 位字符`,
-    url: (config) => `请勿超过 ${config} 位字符`
+    string: (config) => `Please input no more than ${config} characters.`,
+    number: (config) => `The number could not bigger than ${config}`,
+    array: (config) => `Please select no more than  ${config} items`,
+    date: (config) => `Please select a date before ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    email: (config) => `Please input no more than ${config} characters.`,
+    tel: (config) => `Please input no more than ${config} characters.`,
+    url: (config) => `Please input no more than ${config} characters.`
   },
   len: {
-    string: (config) => `请输入 ${config} 位字符`,
-    number: (config) => `需等于 ${config}`,
-    array: (config) => `Please select ${config} item`,
-    date: (config) => `请选择 ${config}`, // TODO: transform to year-month-day-hh-mm-ss
-    email: (config) => `请输入 ${config} 位字符`,
-    tel: (config) => `请输入 ${config} 位字符`,
-    url: (config) => `请输入 ${config} 位字符`
+    string: (config) => `Please input ${config} characters.`,
+    number: (config) => `The number should equal ${config}`,
+    array: (config) => `Please select ${config} items`,
+    date: (config) => `Please select ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    email: (config) => `Please input ${config} characters.`,
+    tel: (config) => `Please input ${config} characters.`,
+    url: (config) => `Please input ${config} characters.`
   },
-  pattern: '格式错误',
-  custom: '未通过校验',
-  notWhitespace: '空白内容无效'
+  pattern: 'The input don"t match pattern.',
+  custom: 'Invalid.',
+  notWhitespace: 'Whitespace is invalid.'
 }

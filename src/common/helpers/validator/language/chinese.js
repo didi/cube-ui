@@ -3,7 +3,7 @@ export default {
   type: {
     string: '请输入字符',
     number: '请输入数字',
-    array: '请选择一项或多项', // used in checkbox-group
+    array: '请选择一项或多项',
     date: '请选择有效日期',
     email: '请输入有效邮箱',
     tel: '请输入有效的手机号码',
