@@ -6,7 +6,7 @@
 
 - 基本用法
 
-使用 v-model 对输入内容双向绑定。
+使用`v-model`对输入内容双向绑定。
 
 ```html
 <cube-input v-model="value" ></cube-input>
@@ -24,7 +24,7 @@ export default {
 
 - 多项配置
 
-支持原生组件的大部分配置，另外可通过`useClear`配置不显示清空按钮。
+支持原生组件的大部分配置，另外可通过`useClear`切换清空按钮。
 
 ```html
 <cube-input
@@ -58,7 +58,7 @@ export default {
 }
 ```
 
-### Props配置
+### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |

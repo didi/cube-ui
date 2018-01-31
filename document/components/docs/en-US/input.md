@@ -1,12 +1,12 @@
 ## Input
 
-Input component. Compared with the native input element, this component supports data binding using v-model and has a clear button.
+Input component. You can use the `v-model` directive to create two-way data bindings and use a clear button to clear the content.
 
-### 示例
+### Example
 
 - Basic usage
 
-Use v-model to bind the data bidirectionally
+You can use the `v-model` directive to create two-way data bindings
 
 ```html
 <cube-input v-model="value" ></cube-input>
@@ -24,7 +24,7 @@ export default {
 
 - Multiple configurations
 
-Support most of the attributes of the input element. In addition you can configure the useClear attribute to toggle the clear button.
+Support most of the attributes of the input element. In addition you can use the `useClear` attribute to toggle the clear button.
 
 ```html
 <cube-input
@@ -58,23 +58,23 @@ export default {
 }
 ```
 
-### Props配置
+### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | type | type of input | String | text/number/password/date | text |
-| v-model | bound value | String | - | 空 |
+| v-model | bound value | String | - | empty |
 | disabled | disabled status | Boolean | true/false | false |
 | readonly | readonly status | Boolean | true/false | false |
 | maxlength | maxlength of input | Number | - | 60 |
-| placeholder | placeholder of input | String | - | 空 |
+| placeholder | placeholder of input | String | - | empty |
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
 | useClear | whether to show clear button | Boolean | true/false | true |
 
-### 事件
+### Event
 
 | Event Name | Description | Parameters |
 | - | - | - |
 | focus | This event is triggered after the input box is focused. If input is disabled, it will not be triggered | e - event |
-| blur | This event is triggered after the input box is out of focus | e - event |
+| blur | This event is triggered after the input box blur | e - event |
