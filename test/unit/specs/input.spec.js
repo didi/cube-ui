@@ -20,13 +20,13 @@ describe('Input.vue', () => {
     const el = vm.$el
     expect(el.className)
       .to.equal('cube-input-wrapper')
-    expect(el.children[1].tagName.toLowerCase())
-      .to.equal('input')
+    expect(el.querySelector('input'))
+      .to.be.ok
   })
   it('should not show clear button when no text', () => {
     vm = createInput()
-    expect(vm.$el.querySelector('.cube-input-clear').style.display)
-      .to.equal('none')
+    expect(vm.$el.querySelector('.cube-input-clear'))
+      .to.be.null
   })
   it('should show clear button when has text', () => {
     vm = createInput(1)
