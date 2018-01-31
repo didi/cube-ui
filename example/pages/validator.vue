@@ -36,7 +36,7 @@
         <cube-rate v-model="rate" :max="10"></cube-rate>
         <cube-validator v-model="isValid[4]" :for="rate" :rule="rule5" :trigger="trigger"></cube-validator>
       </div> -->
-      <cube-button @click="submit">提交</cube-button>
+      <cube-button @click="submit">Submit</cube-button>
     </div>
   </cube-page>
 </template>
@@ -51,6 +51,7 @@
   Validator.addType('email', (val) => {
     return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
   })
+  Validator.setLanguage('en')
 
   export default {
     data() {
