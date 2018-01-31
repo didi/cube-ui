@@ -19,9 +19,9 @@
             <i class="border-bottom-1px"></i>
             <i class="border-top-1px"></i>
             <div class="cube-picker-wheel-wrapper" ref="wheelWrapper">
-              <div v-for="data in pickerData">
+              <div v-for="(data,index) in pickerData" :key=index>
                 <ul class="wheel-scroll">
-                  <li v-for="item in data" class="wheel-item">{{item[textKey]}}</li>
+                  <li v-for="(item,index) in data" class="wheel-item" :key=index>{{item[textKey]}}</li>
                 </ul>
               </div>
             </div>
