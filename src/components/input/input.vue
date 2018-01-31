@@ -1,7 +1,7 @@
 <template>
   <div
     class="cube-input-wrapper">
-    <div class="cube-input-clear" v-show="_showClear" @click="handleClear">
+    <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
       <slot>
         <i class="cubeic-wrong"></i>
       </slot>

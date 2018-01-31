@@ -2,7 +2,7 @@
   <cube-page
     type="input-view"
     title="Input"
-    desc="输入框组件。相较于原生的 input 组件，本组件支持使用 v-model 对数据双向绑定，支持一键清空。">
+    class="option-demo">
     <div slot="content">
       <cube-input
         :type="type"
@@ -12,18 +12,29 @@
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
-      <cube-button-group>
-        <cube-button @click="handleDisabled">{{ disabled ? 'disabled=true' : 'disabled=false' }}</cube-button>
-        <cube-button @click="handleReadonly">{{ readonly ? 'readonly=true' : 'readonly=false' }}</cube-button>
-        <cube-button @click="handleUseclear">{{ useClear ? 'useClear=true' : 'useClear=false' }}</cube-button>
-      </cube-button-group>
+      <div class="options">
+        <div class="option-list">
+          <div class="group">
+            <switch-option class="item" name="disabled" :value="disabled"
+                            @update:value="updateDisabled"></switch-option>
+          </div>
+          <div class="group">
+            <switch-option class="item" name="readonly" :value="readonly"
+                            @update:value="updateReadonly"></switch-option>
+          </div>
+          <div class="group">
+            <switch-option class="item" name="useClear" :value="useClear"
+                            @update:value="updateUseClear"></switch-option>
+          </div>
+        </div>
+      </div>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
   import CubePage from '../components/cube-page.vue'
-  import CubeButtonGroup from '../components/cube-button-group.vue'
+  import SwitchOption from '../components/switch-option'
 
   export default {
     data() {
@@ -36,24 +47,28 @@
       }
     },
     methods: {
-      handleDisabled() {
-        this.disabled = !this.disabled
+      updateDisabled(val) {
+        this.disabled = val
       },
-      handleReadonly() {
-        this.readonly = !this.readonly
+      updateReadonly(val) {
+        this.readonly = val
       },
-      handleUseclear() {
-        this.useClear = !this.useClear
+      updateUseClear(val) {
+        this.useClear = val
       }
     },
     components: {
       CubePage,
-      CubeButtonGroup
+      SwitchOption
     }
   }
 </script>
 
 <style lang="stylus">
+.cube-page.option-demo.input-view .wrapper
+  background-color: #efeff4
+  .group
+    background-color: white
   .value
-    margin: 5px
+    margin: 15px 5px
 </style>
