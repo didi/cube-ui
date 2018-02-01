@@ -9,6 +9,8 @@ import Popup from '../pages/popup.vue'
 import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
 import Picker from '../pages/picker.vue'
+import PcPicker from '../pages/pc-picker.vue'
+
 import CascadePicker from '../pages/cascade-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
 import Dialog from '../pages/dialog.vue'
@@ -64,6 +66,10 @@ const routes = [
   {
     path: '/picker',
     component: Picker
+  },
+  {
+    path: '/pc-picker',
+    component: PcPicker
   },
   {
     path: '/cascade-picker',
