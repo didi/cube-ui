@@ -6,57 +6,57 @@ Input component. You can use the `v-model` directive to create two-way data bind
 
 - Basic usage
 
-You can use the `v-model` directive to create two-way data bindings
+  You can use the `v-model` directive to create two-way data bindings
 
-```html
-<cube-input v-model="value" ></cube-input>
-```
+  ```html
+  <cube-input v-model="value" ></cube-input>
+  ```
 
-```javascript
-export default {
-  data() {
-    return {
-      value: ''
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: ''
+      }
     }
   }
-}
-```
+  ```
 
 - Multiple configurations
 
-Support most of the attributes of the input element. In addition you can use the `useClear` attribute to toggle the clear button.
+  Support most of the attributes of the input element. In addition you can use the `useClear` attribute to toggle the clear button.
 
-```html
-<cube-input
-  v-model="value"
-  :placeholder="placeholder"
-  :type="type"
-  :maxlength="maxlength"
-  :readonly="readonly"
-  :disabled="disabled"
-  :autofocus="autofocus"
-  :autocomplete="autocomplete"
-  :useClear="useClear"
-></cube-input>
-```
+  ```html
+  <cube-input
+    v-model="value"
+    :placeholder="placeholder"
+    :type="type"
+    :maxlength="maxlength"
+    :readonly="readonly"
+    :disabled="disabled"
+    :autofocus="autofocus"
+    :autocomplete="autocomplete"
+    :use-clear="useClear"
+  ></cube-input>
+  ```
 
-```javascript
-export default {
-  data() {
-    return {
-      value: '',
-      placeholder: 'please type here...',
-      type: 'password',
-      readonly: true,
-      maxlength: 100,
-      disabled: true,
-      autofocus: true,
-      autocomplete: true,
-      useClear: false
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: '',
+        placeholder: 'please type here...',
+        type: 'password',
+        readonly: true,
+        maxlength: 100,
+        disabled: true,
+        autofocus: true,
+        autocomplete: true,
+        useClear: false
+      }
     }
   }
-}
-```
+  ```
 
 ### Props configuration
 
@@ -70,7 +70,7 @@ export default {
 | placeholder | placeholder of input | String | - | empty |
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
-| useClear | whether to show clear button | Boolean | true/false | true |
+| use-clear | whether to show clear button | Boolean | true/false | true |
 
 ### Event
 

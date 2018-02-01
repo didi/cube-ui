@@ -16,6 +16,7 @@
       :maxlength="maxlength"
       :autocomplete="autocomplete"
       :autofocus="autofocus"
+      v-bind="$props"
       @focus="handleFocus"
       @blur="handleBlur"
     >
@@ -32,7 +33,6 @@
     name: COMPONENT_NAME,
     data() {
       return {
-        isFocus: false,
         inputValue: this.value
       }
     },
@@ -109,7 +109,6 @@
       line-height: 1
       color: $input-font-color
       background-color: $input-bgc
-      width: 100%
       input
         width: 100%
         padding: 10px
@@ -122,13 +121,13 @@
           outline-offset: -1px
     .cube-input-clear
       position: absolute
-      width: 1em
-      height: 1em
       right: 0
-      padding: 10px 8px
       top: 0
       bottom: 0
       margin: auto
+      padding: 10px 8px
+      width: 1em
+      height: 1em
       color: $input-clear-icon-color
       + input
         padding-right: 32px

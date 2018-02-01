@@ -52,7 +52,7 @@ function createInput (value) {
       <cube-input
         :disabled="disabled"
         :readonly="readonly"
-        :useClear="useClear"
+        :use-clear="useClear"
         v-model="value"
       >
       </cube-input>
