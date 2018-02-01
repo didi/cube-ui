@@ -9,7 +9,7 @@
         @touchmove.prevent
         @mask-click="cancel">
       <transition name="cube-picker-move">
-        <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
+        <div class="cube-picker-panel" v-show="isVisible" @click.stop>
           <div class="cube-picker-content">
             <i class="border-bottom-1px"></i>
             <i class="border-top-1px"></i>
