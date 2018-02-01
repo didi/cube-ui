@@ -271,7 +271,10 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "./mixin.styl"
+  flex-fix()
+    flex: 1
+    flex-basis: 0.000000001px
+    width: 1%
 
   .cube-picker-fade-enter, .cube-picker-fade-leave-active
     opacity: 0
