@@ -26,6 +26,12 @@
             "tip": "Tip"
           }
         },
+        "form": {
+          "name": "Form",
+          "subList": {
+            "validator": "Validator"
+          }
+        },
         "popup": {
           "name": "Popup",
           "subList": {
@@ -88,6 +94,12 @@
             "switch": "Switch",
             "loading": "Loading",
             "tip": "Tip"
+          }
+        },
+        "form": {
+          "name": "表单",
+          "subList": {
+            "validator": "Validator"
           }
         },
         "popup": {

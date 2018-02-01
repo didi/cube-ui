@@ -2,12 +2,12 @@
   <cube-page type="validator-view" title="Validator" desc="">
     <div slot="content">
       <!-- <div class="validator-item">
-        <cube-input v-model="text1" placeholder="邮箱"></cube-input>
+        <cube-input v-model="text1" placeholder="E-mail"></cube-input>
         <cube-validator v-model="isValid[0]" :for="text1" :rule="rule1" :messages="messages1" :trigger="trigger"></cube-validator>
       </div>
       <div class="validator-item">
         <cube-validator v-model="isValid[1]" :for="text2" :rule="rule2" :messages="messages2" :trigger="trigger">
-          <cube-input v-model="text2" placeholder="组件名"></cube-input>
+          <cube-input v-model="text2" placeholder="component name"></cube-input>
           <div slot="message" class="custom-msg" slot-scope="props">
             <div v-if="(props.dirty || trigger) && !isValid[1]">
               <i class="dd-cubeic-important"></i> {{ props.message }}
@@ -62,14 +62,14 @@
         rule1: {
           required: true,
           type: 'email',
-          pattern: /qq.com$/,
+          pattern: /didi.com$/,
           custom: (val) => {
             return val.length >= 12
           }
         },
         messages1: {
-          pattern: '邮箱后缀必须为 qq.com',
-          custom: '至少 12 个字符'
+          pattern: 'The E-mail suffix need to be didi.com.',
+          custom: 'The E-mail need contain at least 12 characters.'
         },
         text2: '',
         rule2: {
@@ -79,7 +79,7 @@
           max: 10
         },
         messages2: {
-          pattern: '请以cube-开头'
+          pattern: 'The component name need start with "cube-"'
         },
         text3: '100',
         rule3: {
@@ -103,7 +103,11 @@
           this.trigger = true
         }
         if (this.isValid.every(item => item)) {
-          console.log('submited')
+          this.$createToast({
+            type: 'correct',
+            txt: 'Submited',
+            time: 1000
+          }).show()
         }
       }
     },
