@@ -102,6 +102,10 @@
           {
             path: '/upload',
             text: 'Upload'
+          },
+          {
+            path: '/swipe',
+            text: 'Swipe'
           }
         ]
       }
@@ -115,9 +119,11 @@
 <style lang="stylus" rel="stylesheet/stylus">
   html, body, #app
     height: 100%
+
   body
     background-color: #fff
     overflow: hidden
+
   .cube-bar
     z-index: 10
     position: absolute

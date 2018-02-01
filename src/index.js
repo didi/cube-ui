@@ -17,6 +17,7 @@ import {
   Slide,
   IndexList,
   Upload,
+  Swipe,
   BScroll,
   createAPI
 } from './module'
@@ -44,7 +45,8 @@ function install(Vue) {
     ActionSheet,
     Scroll,
     Popup,
-    Upload
+    Upload,
+    Swipe
   ]
   components.forEach((Component) => {
     Component.install(Vue)

@@ -20,6 +20,7 @@ import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
 import Upload from '../pages/upload.vue'
 import Validator from '../pages/validator.vue'
+import Swipe from '../pages/swipe.vue'
 
 const routes = [
   {
@@ -111,6 +112,10 @@ const routes = [
   {
     path: '/validator',
     component: Validator
+  },
+  {
+    path: '/swipe',
+    component: Swipe
   }
 ]
 

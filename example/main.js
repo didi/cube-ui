@@ -11,7 +11,7 @@ import VueLazyload from 'vue-lazyload'
 FastClick.attach(document.body) //  hack the active pseudo-classes failure caused by -webkit-overflow-scrolling touch
 
 /* eslint-disable no-unused-vars */
-// import vConsole from 'vconsole'
+import vConsole from 'vconsole'
 
 Vue.use(Cube)
 Vue.use(VueRouter)
