@@ -9,7 +9,7 @@
         placeholder="please type here..."
         :disabled="disabled"
         :readonly="readonly"
-        :useClear="useClear"
+        :use-clear="useClear"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>

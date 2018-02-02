@@ -9,6 +9,7 @@
     <input
       ref="input"
       v-model="inputValue"
+      v-bind="$props"
       :type="type"
       :disabled="disabled"
       :readonly="readonly"
@@ -16,7 +17,6 @@
       :maxlength="maxlength"
       :autocomplete="autocomplete"
       :autofocus="autofocus"
-      v-bind="$props"
       @focus="handleFocus"
       @blur="handleBlur"
     >
@@ -124,10 +124,10 @@
       right: 0
       top: 0
       bottom: 0
-      margin: auto
-      padding: 10px 8px
       width: 1em
       height: 1em
+      padding: 10px 8px
+      margin: auto
       color: $input-clear-icon-color
       + input
         padding-right: 32px
