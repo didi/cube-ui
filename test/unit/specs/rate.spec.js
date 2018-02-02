@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Rate from '@/modules/rate'
 import createVue from '../utils/create-vue'
-import { dispatchSwipe, dispatchClick } from '../utils/event'
+import { dispatchSwipe, dispatchMouse } from '../utils/event'
 
 describe('Rate.vue', () => {
   let vm
@@ -55,7 +55,9 @@ describe('Rate.vue', () => {
     const changeHandler = sinon.spy()
     vm = createRate(changeHandler)
     const star = vm.$el.querySelector('.cube-rate-item')
-    dispatchClick(star)
+    dispatchMouse(star, 'mousedown')
+    dispatchMouse(star, 'mousemove')
+    dispatchMouse(star, 'mouseup')
     setTimeout(() => {
       const actives = vm.$el.querySelectorAll('.cube-rate-item.active')
       expect(actives.length)
@@ -73,7 +75,7 @@ function createRate (changeHanlder) {
     data: {
       disabled: false,
       value: 3,
-      max: 8
+      max: 5
     },
     watch: {
       value(newVal) {

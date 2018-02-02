@@ -1,22 +1,27 @@
 <template>
   <cube-page
     type="rate-view"
-    title="Rate">
+    title="Rate"
+    class="option-demo">
     <div slot="content">
       <div class="rate-wrapper">
         <cube-rate v-model="value" :disabled="disabled" :max="max">
           <cube-rate-item v-for="n in max" :key="n" :value="value" :index="n">
-            <!-- 定制星星示例 -->
-            <!-- <div class="rate-item"></div> -->
+            <div class="rate-item" v-if="customStar"></div>
           </cube-rate-item>
         </cube-rate>
-        <div class="rate-text">{{ value }} star</div>
       </div>
-      <cube-button-group>
-        <switch-option class="item" name="disabled" :value="disabled"
-                           @update:value="updateDisabled"></switch-option>
-        <cube-button @click="handleChange">{{ max }} star(s)</cube-button>
-      </cube-button-group>
+      <div class="options">
+        <div class="title">Options</div>
+        <div class="option-list">
+          <switch-option class="item" name="customStar" :value="customStar"
+                            @update:value="updateRateItem"></switch-option>
+          <switch-option class="item" name="disabled" :value="disabled"
+                            @update:value="updateDisabled"></switch-option>
+          <select-option class="item" name="star numbers" :value="max"
+                            @update:value="updateStarNumbers" :options="options"></select-option>
+        </div>
+      </div>
     </div>
   </cube-page>
 </template>
@@ -25,6 +30,7 @@
   import CubePage from '../components/cube-page.vue'
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import SwitchOption from '../components/switch-option.vue'
+  import SelectOption from '../components/select-option'
 
   export default {
     data() {
@@ -32,51 +38,36 @@
         disabled: false,
         max: 5,
         value: 3,
-        image: 'https://p3.pstatp.com/large/593c0006340abbabefa0'
+        image: 'https://p3.pstatp.com/large/593c0006340abbabefa0',
+        customStar: false,
+        options: [
+          {
+            text: '5',
+            value: 5
+          },
+          {
+            text: '10',
+            value: 10
+          }
+        ]
       }
-    },
-    mounted() {
-      this.mutiPicker = this.$createPicker({
-        title: 'choose star number',
-        data: [[{
-          text: '5',
-          value: 5
-        }, {
-          text: '6',
-          value: 6
-        }, {
-          text: '7',
-          value: 7
-        }, {
-          text: '8',
-          value: 8
-        }, {
-          text: '9',
-          value: 9
-        }, {
-          text: '10',
-          value: 10
-        }]],
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
     },
     methods: {
       updateDisabled(val) {
         this.disabled = val
       },
-      handleChange() {
-        this.mutiPicker.show()
+      updateStarNumbers(val) {
+        this.max = val
       },
-      selectHandle(val, index, text) {
-        this.max = val[0]
-      },
-      cancelHandle() {}
+      updateRateItem(val) {
+        this.customStar = val
+      }
     },
     components: {
       CubePage,
       CubeButtonGroup,
-      SwitchOption
+      SwitchOption,
+      SelectOption
     }
   }
 </script>
