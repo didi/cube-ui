@@ -246,7 +246,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       string: (config) => `Please input at least ${config} characters.`,
       number: (config) => `The number could not smaller than ${config}.`,
       array: (config) => `Please select at least ${config} items.`,
-      date: (config) => `Please select a date after ${config}`,
+      date: (config) => `Please select a date after ${toLocaleDateString(config, 'en')}`,
       email: (config) => `Please input at least ${config} characters.`,
       tel: (config) => `Please input at least ${config} characters.`,
       url: (config) => `Please input at least ${config} characters.`
@@ -255,7 +255,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       string: (config) => `Please input no more than ${config} characters.`,
       number: (config) => `The number could not bigger than ${config}`,
       array: (config) => `Please select no more than  ${config} items`,
-      date: (config) => `Please select a date before ${config}`,
+      date: (config) => `Please select a date before ${toLocaleDateString(config, 'en')}`,
       email: (config) => `Please input no more than ${config} characters.`,
       tel: (config) => `Please input no more than ${config} characters.`,
       url: (config) => `Please input no more than ${config} characters.`
@@ -264,7 +264,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       string: (config) => `Please input ${config} characters.`,
       number: (config) => `The number should equal ${config}`,
       array: (config) => `Please select ${config} items`,
-      date: (config) => `Please select ${config}`,
+      date: (config) => `Please select ${toLocaleDateString(config, 'en')}`,
       email: (config) => `Please input ${config} characters.`,
       tel: (config) => `Please input ${config} characters.`,
       url: (config) => `Please input ${config} characters.`

@@ -252,7 +252,7 @@
       string: (config) => `至少输入 ${config} 位字符`,
       number: (config) => `不得小于 ${config}`,
       array: (config) => `请选择至少 ${config} 项`,
-      date: (config) => `请选择 ${config} 之后的时间`,
+      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')} 之后的时间`,
       email: (config) => `至少输入 ${config} 位字符`,
       tel: (config) => `至少输入 ${config} 位字符`,
       url: (config) => `至少输入 ${config} 位字符`
@@ -261,7 +261,7 @@
       string: (config) => `请勿超过 ${config} 位字符`,
       number: (config) => `请勿大于 ${config}`,
       array: (config) => `最多选择 ${config} 项`,
-      date: (config) => `请选择 ${config} 之前的时间`,
+      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')} 之前的时间`,
       email: (config) => `请勿超过 ${config} 位字符`,
       tel: (config) => `请勿超过 ${config} 位字符`,
       url: (config) => `请勿超过 ${config} 位字符`
@@ -270,7 +270,7 @@
       string: (config) => `请输入 ${config} 位字符`,
       number: (config) => `需等于 ${config}`,
       array: (config) => `请选择 ${config} 项`,
-      date: (config) => `请选择 ${config}`,
+      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')}`,
       email: (config) => `请输入 ${config} 位字符`,
       tel: (config) => `请输入 ${config} 位字符`,
       url: (config) => `请输入 ${config} 位字符`

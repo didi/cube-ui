@@ -1,3 +1,5 @@
+import { toLocaleDateString } from '../../util'
+
 export default {
   required: 'Required.',
   type: {
@@ -13,7 +15,7 @@ export default {
     string: /* istanbul ignore next */ (config) => `Please input at least ${config} characters.`,
     number: /* istanbul ignore next */ (config) => `The number could not smaller than ${config}.`,
     array: /* istanbul ignore next */ (config) => `Please select at least ${config} items.`,
-    date: /* istanbul ignore next */ (config) => `Please select a date after ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    date: /* istanbul ignore next */ (config) => `Please select a date after ${toLocaleDateString(config, 'en')}`,
     email: /* istanbul ignore next */ (config) => `Please input at least ${config} characters.`,
     tel: /* istanbul ignore next */ (config) => `Please input at least ${config} characters.`,
     url: /* istanbul ignore next */ (config) => `Please input at least ${config} characters.`
@@ -22,7 +24,7 @@ export default {
     string: /* istanbul ignore next */ (config) => `Please input no more than ${config} characters.`,
     number: /* istanbul ignore next */ (config) => `The number could not bigger than ${config}`,
     array: /* istanbul ignore next */ (config) => `Please select no more than  ${config} items`,
-    date: /* istanbul ignore next */ (config) => `Please select a date before ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    date: /* istanbul ignore next */ (config) => `Please select a date before ${toLocaleDateString(config, 'en')}`,
     email: /* istanbul ignore next */ (config) => `Please input no more than ${config} characters.`,
     tel: /* istanbul ignore next */ (config) => `Please input no more than ${config} characters.`,
     url: /* istanbul ignore next */ (config) => `Please input no more than ${config} characters.`
@@ -31,7 +33,7 @@ export default {
     string: /* istanbul ignore next */ (config) => `Please input ${config} characters.`,
     number: /* istanbul ignore next */ (config) => `The number should equal ${config}`,
     array: /* istanbul ignore next */ (config) => `Please select ${config} items`,
-    date: /* istanbul ignore next */ (config) => `Please select ${config}`, // TODO: transform to year-month-day-hh-mm-ss
+    date: /* istanbul ignore next */ (config) => `Please select ${toLocaleDateString(config, 'en')}`,
     email: /* istanbul ignore next */ (config) => `Please input ${config} characters.`,
     tel: /* istanbul ignore next */ (config) => `Please input ${config} characters.`,
     url: /* istanbul ignore next */ (config) => `Please input ${config} characters.`

@@ -19,4 +19,8 @@ function createAddAPI(baseObj) {
   }
 }
 
-export { deepAssign, createAddAPI }
+function toLocaleDateString(timestamp, locale) {
+  return (new Date(timestamp)).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+export { deepAssign, createAddAPI, toLocaleDateString }
