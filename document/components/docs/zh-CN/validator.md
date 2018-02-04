@@ -202,17 +202,17 @@
 
   除了已有的内置规则，你还可以使用 Validator 的 addRule 方法，添加自定义的公共规则，以及 addMessage 方法添加相应的默认提示信息。
 
-  ```
+  ```js
   import { Validator } from 'cube-ui'
 
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
-  Validator.addMessage('odd', '请输入奇数')
+  Validator.addMessage('odd', 'Please input odd.')
   ```
   接下来你就可以在 rule 的配置中使用 odd 规则了：
 
   ```html
   <cube-validator v-model="valid" :for="text" :rule="rule">
-    <cube-input v-model="text3" placeholder="数字"></cube-input>
+    <cube-input v-model="text3" placeholder="odd"></cube-input>
   </cube-validator>
   ```
   ```js
@@ -242,7 +242,7 @@
     type: {
       string: '请输入字符',
       number: '请输入数字',
-      array: '请选择一项或多项', // used in checkbox-group
+      array: '数据类型应为数组',
       date: '请选择有效日期',
       email: '请输入有效邮箱',
       tel: '请输入有效的手机号码',

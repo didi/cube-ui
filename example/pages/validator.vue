@@ -20,7 +20,7 @@
       </div>
       <div class="validator-item">
         <cube-validator v-model="isValid[2]" :for="text3" :rule="rule3" :trigger="trigger">
-          <cube-input v-model="text3" placeholder="数字"></cube-input>
+          <cube-input v-model="text3" placeholder="odd"></cube-input>
         </cube-validator>
       </div> -->
       <div class="validator-item">
@@ -47,7 +47,7 @@
   // Add or rewrite the build-in rule, type and message.
   import { Validator } from '../../src/module'
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
-  Validator.addMessage('odd', '请输入奇数')
+  Validator.addMessage('odd', 'Please input odd.')
   Validator.addType('email', (val) => {
     return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
   })

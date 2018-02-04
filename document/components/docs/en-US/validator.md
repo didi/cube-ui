@@ -161,3 +161,146 @@ Validator is used to validate form data and corresponding warning message.
   ```
 
 ### Props
+
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| for | Required, figure the data need to validate | Any | - | - |
+| v-model | the validation result，whether the data is valid | Boolean | true/false | true |
+| rule | the rule for validation, you can find the details of rules below | Object | - | {} |
+| messages | custom messages for the corresponding rule | Object | - | {} |
+| trigger | trigger warning message. Because we won't warn when the data never changed by default, trigger usually used to trigger the warning. | Boolean | true/false | false |
+
+### Slot
+
+| Name | Description | Scope Parameters |
+| - | - | - |
+| default | the relative form component or element | - |
+| message | warning message | dirty: if the data have ever changed <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+
+### Rule
+
+- Build-in rules
+
+  There are some build-in rules here, include required、type、min、max、len、notWhitespace、pattern、custom.
+
+  | Attribute | Description | Type | Accepted Values | Demo |
+  | - | - | - | - | - |
+  | required | required | Boolean | true/false | true |
+  | type | type | String | 'string', 'number', 'array', 'date', 'email', 'tel', 'url' | 'tel' |
+  | min | when the type is number or date, it means the data need not smaller than min. Otherwise, it means the length of the data need not smaller than min | Number | - | 6 |
+  | max | when the type is number or date, it means the data need not bigger than max. Otherwise, it means the length of the data need not bigger than max | Number | - | 8 |
+  | len | when the type is number or date, it means the data need equal to min. Otherwise, it means the length of the data need equal to len | Number | - | 7 |
+  | notWhitespace | don't allowed to be whitespace | Boolean | true/false | true |
+  | pattern | RegExp match | RegExp | - | /1$/ |
+  | custom | Costomized validation function. Only valid when the `return` is strict equaled to `true` | Function | - | val => val.length === 7 |
+
+- Add rule
+
+  Beside the build-in rules, you could use the method `addRule` of Validator to add customized common rule, and `addMessage` method to add corresponding default warning message.
+
+  ```js
+  import { Validator } from 'cube-ui'
+
+  Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
+  Validator.addMessage('odd', 'Please input odd.')
+  ```
+  ```html
+  <cube-validator v-model="valid" :for="text" :rule="rule">
+    <cube-input v-model="text3" placeholder="odd"></cube-input>
+  </cube-validator>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        text: '100',
+        valid: true,
+        rule: {
+          type: 'number',
+          odd: true
+        }
+      }
+    }
+  }
+  ```
+
+### Add default message
+
+At first, let's see the build-in default messages. You can use `addMessage` to modify the special sub-message.
+
+  - Build-in default messages
+
+  ```js
+  {
+    required: 'Required.',
+    type: {
+      string: 'Please input characters.',
+      number: 'Please input numbers.',
+      array: 'The data type should be array.',
+      date: 'Please select a valid date.',
+      email: 'Please input a valid E-mail.',
+      tel: 'Please input a valid telphone number.',
+      url: 'Please input a valid web site.'
+    },
+    min: {
+      string: (config) => `Please input at least ${config} characters.`,
+      number: (config) => `The number could not smaller than ${config}.`,
+      array: (config) => `Please select at least ${config} items.`,
+      date: (config) => `Please select a date after ${config}`,
+      email: (config) => `Please input at least ${config} characters.`,
+      tel: (config) => `Please input at least ${config} characters.`,
+      url: (config) => `Please input at least ${config} characters.`
+    },
+    max: {
+      string: (config) => `Please input no more than ${config} characters.`,
+      number: (config) => `The number could not bigger than ${config}`,
+      array: (config) => `Please select no more than  ${config} items`,
+      date: (config) => `Please select a date before ${config}`,
+      email: (config) => `Please input no more than ${config} characters.`,
+      tel: (config) => `Please input no more than ${config} characters.`,
+      url: (config) => `Please input no more than ${config} characters.`
+    },
+    len: {
+      string: (config) => `Please input ${config} characters.`,
+      number: (config) => `The number should equal ${config}`,
+      array: (config) => `Please select ${config} items`,
+      date: (config) => `Please select ${config}`,
+      email: (config) => `Please input ${config} characters.`,
+      tel: (config) => `Please input ${config} characters.`,
+      url: (config) => `Please input ${config} characters.`
+    },
+    pattern: 'The input don"t match pattern.',
+    custom: 'Invalid.',
+    notWhitespace: 'Whitespace is invalid.'
+  }
+  ```
+  - Modify the build-in message
+
+  ```js
+  import { Validator } from 'cube-ui'
+
+  Validator.addMessage('required', 'Please input this.')
+  ```
+
+### addType
+
+  - Add new type
+
+  ```js
+  import { Validator } from 'cube-ui'
+
+  Validator.addType('yourType', (val) => {
+    return typeof val === 'string' && /^[a-z0-9_-]+/i.test(val)
+  })
+  ```
+
+  - modify the build-in type
+
+  ```js
+  import { Validator } from 'cube-ui'
+
+  Validator.addType('email', (val) => {
+    return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
+  })
+  ```
+  
