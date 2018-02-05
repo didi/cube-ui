@@ -81,6 +81,8 @@
         title: this.title,
         data: this.adaptOptions,
         selectedIndex: this.findIndex !== -1 ? [this.findIndex] : [0],
+        cancelTxt: this.cancelTxt,
+        confirmTxt: this.confirmTxt,
         onSelect: this.hided,
         onValueChange: this.changeHandle,
         onCancel: this.hided

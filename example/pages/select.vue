@@ -8,6 +8,8 @@
         :placeholder="placeholder"
         :autoPop="autoPop"
         :disabled="disabled"
+        cancelTxt="Cancel"
+        confirmTxt="Confirm"
         @change="change">
       </cube-select>
       <cube-button-group>
@@ -28,10 +30,10 @@
     },
     data() {
       return {
-        title: '入职时间',
         options: [2013, 2014, 2015, 2016, 2017, 2018],
         value: 2016,
-        placeholder: '请选择入职时间',
+        title: 'Entry time',
+        placeholder: 'Please choose entry time',
         autoPop: false,
         disabled: false
       }
