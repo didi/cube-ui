@@ -23,7 +23,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/mixin.styl"
 
   .cube-rate-item
