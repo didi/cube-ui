@@ -1,0 +1,92 @@
+import Vue from 'vue2'
+import Input from '@/modules/input'
+import createVue from '../utils/create-vue'
+
+describe('Input.vue', () => {
+  let vm
+  afterEach(() => {
+    if (vm) {
+      vm.$parent.destroy()
+      vm = null
+    }
+  })
+  it('use', () => {
+    Vue.use(Input)
+    expect(Vue.component(Input.name))
+      .to.be.a('function')
+  })
+  it('should render correct contents', () => {
+    vm = createInput()
+    const el = vm.$el
+    expect(el.className)
+      .to.equal('cube-input-wrapper')
+    expect(el.querySelector('input'))
+      .to.be.ok
+  })
+  it('should not show clear button when no text', () => {
+    vm = createInput()
+    expect(vm.$el.querySelector('.cube-input-clear'))
+      .to.be.null
+  })
+  it('should show clear button when has text', () => {
+    vm = createInput(1)
+    expect(vm.$el.querySelector('.cube-input-clear').style.display)
+      .to.equal('')
+  })
+  it('value should be empty when clear button clicked', (done) => {
+    vm = createInput(1)
+    expect(vm.$el.querySelector('input').value)
+      .is.not.empty
+    vm.$el.querySelector('.cube-input-clear').click()
+    setTimeout(() => {
+      expect(vm.$el.querySelector('input').value)
+        .is.empty
+      done()
+    }, 50)
+  })
+  it('should support more native props', () => {
+    vm = createVue({
+      template: `
+        <cube-input type="number" :min="1" :max="10" :autocomplete="true" :readonly="true" :disabled="true" v-model="value" />
+      `,
+      data: {
+        value: '1'
+      }
+    })
+
+    const el = vm.$el.querySelector('input')
+    expect(el.min)
+      .to.equal('1')
+    expect(el.max)
+      .to.equal('10')
+    expect(el.autocomplete)
+      .to.equal('true')
+    expect(el.disabled)
+      .to.be.true
+    expect(el.readOnly)
+      .to.be.true
+    expect(el.autofocus)
+      .to.be.false
+  })
+})
+
+function createInput (value) {
+  const vm = createVue({
+    template: `
+      <cube-input
+        :disabled="disabled"
+        :readonly="readonly"
+        :clearable="useClear"
+        v-model="value"
+      >
+      </cube-input>
+    `,
+    data: {
+      disabled: false,
+      readonly: false,
+      useClear: true,
+      value: value && 'test'
+    }
+  })
+  return vm
+}

@@ -20,6 +20,7 @@
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
+            "input": "Input",
             "switch": "Switch",
             "loading": "Loading",
             "tip": "Tip"
@@ -83,6 +84,7 @@
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
+            "input": "Input",
             "switch": "Switch",
             "loading": "Loading",
             "tip": "Tip"

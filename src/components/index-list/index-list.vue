@@ -22,6 +22,7 @@
       <ul class="cube-index-list-nav-list">
         <li
           v-for="(item, index) in shortcutList"
+          :key="index"
           :data-index="index"
           class="cube-index-list-nav-item"
           :class="{active: currentIndex === index}">{{ item }}</li>
