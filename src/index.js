@@ -9,7 +9,11 @@ import {
   Tip,
   Toast,
   Input,
+<<<<<<< HEAD
   Validator,
+=======
+  Textarea,
+>>>>>>> <feat> support-textarea
   ActionSheet,
   CheckboxGroup,
   RadioGroup,
@@ -36,6 +40,7 @@ function install(Vue) {
     Toast,
     Input,
     Validator,
+    Textarea,
     CheckboxGroup,
     RadioGroup,
     Switch,
