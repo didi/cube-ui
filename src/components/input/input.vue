@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="cube-input-wrapper">
+  <div class="cube-input-wrapper">
     <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
       <slot>
         <i class="cubeic-wrong"></i>
@@ -13,8 +12,6 @@
       :type="type"
       :disabled="disabled"
       :readonly="readonly"
-      :placeholder="placeholder"
-      :maxlength="maxlength"
       :autocomplete="autocomplete"
       :autofocus="autofocus"
       @focus="handleFocus"
@@ -37,6 +34,7 @@
       }
     },
     props: {
+      value: [String, Number],
       type: {
         type: String,
         default: 'text'
@@ -45,21 +43,10 @@
         type: Boolean,
         default: false
       },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      value: {
-        type: String,
-        default: ''
-      },
+      placeholder: String,
       readonly: {
         type: Boolean,
         default: false
-      },
-      maxlength: {
-        type: Number,
-        default: 60
       },
       autofocus: {
         type: Boolean,
@@ -69,14 +56,24 @@
         type: Boolean,
         default: false
       },
-      useClear: {
+      name: String,
+      id: String,
+      form: String,
+      minlength: Number,
+      maxlength: Number,
+      resize: String,
+      min: Number,
+      max: Number,
+      step: Number,
+      tabindex: String,
+      clearable: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     computed: {
       _showClear() {
-        return this.useClear && this.inputValue && !this.readonly && !this.disabled
+        return this.clearable && this.inputValue && !this.readonly && !this.disabled
       }
     },
     watch: {

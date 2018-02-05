@@ -24,7 +24,7 @@ export default {
 
 - 多项配置
 
-支持原生组件的大部分配置，另外可通过`useClear`切换清空按钮。
+支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮。
 
 ```html
 <cube-input
@@ -36,7 +36,7 @@ export default {
   :disabled="disabled"
   :autofocus="autofocus"
   :autocomplete="autocomplete"
-  :useClear="useClear"
+  :clearable="useClear"
 ></cube-input>
 ```
 
@@ -70,7 +70,7 @@ export default {
 | placeholder | 占位文本 | String | - | 空 |
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | autocomplete | 自动补全 | Boolean | true/false | false |
-| useClear | 是否使用清空按钮 | Boolean | true/false | true |
+| clearable | 是否使用清空按钮 | Boolean | true/false | false |
 
 ### 事件
 

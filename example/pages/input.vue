@@ -9,7 +9,8 @@
         placeholder="please type here..."
         :disabled="disabled"
         :readonly="readonly"
-        :use-clear="useClear"
+        :clearable="useClear"
+        :autocomplete="true"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
@@ -24,7 +25,7 @@
                             @update:value="updateReadonly"></switch-option>
           </div>
           <div class="group">
-            <switch-option class="item" name="useClear" :value="useClear"
+            <switch-option class="item" name="Clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
           </div>
         </div>

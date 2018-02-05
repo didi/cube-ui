@@ -24,7 +24,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 
 - Multiple configurations
 
-  Support most of the attributes of the input element. In addition you can use the `useClear` attribute to toggle the clear button.
+  Support most of the attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button.
 
   ```html
   <cube-input
@@ -36,7 +36,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :disabled="disabled"
     :autofocus="autofocus"
     :autocomplete="autocomplete"
-    :use-clear="useClear"
+    :clearable="useClear"
   ></cube-input>
   ```
 
@@ -70,7 +70,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | placeholder | placeholder of input | String | - | empty |
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
-| use-clear | whether to show clear button | Boolean | true/false | true |
+| clearable | whether to show clear button | Boolean | true/false | false |
 
 ### Event
 

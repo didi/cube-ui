@@ -44,6 +44,30 @@ describe('Input.vue', () => {
       done()
     }, 50)
   })
+  it('should support more native props', () => {
+    vm = createVue({
+      template: `
+        <cube-input type="number" :min="1" :max="10" :autocomplete="true" :readonly="true" :disabled="true" v-model="value" />
+      `,
+      data: {
+        value: '1'
+      }
+    })
+
+    const el = vm.$el.querySelector('input')
+    expect(el.min)
+      .to.equal('1')
+    expect(el.max)
+      .to.equal('10')
+    expect(el.autocomplete)
+      .to.equal('true')
+    expect(el.disabled)
+      .to.be.true
+    expect(el.readOnly)
+      .to.be.true
+    expect(el.autofocus)
+      .to.be.false
+  })
 })
 
 function createInput (value) {
@@ -52,7 +76,7 @@ function createInput (value) {
       <cube-input
         :disabled="disabled"
         :readonly="readonly"
-        :use-clear="useClear"
+        :clearable="useClear"
         v-model="value"
       >
       </cube-input>
