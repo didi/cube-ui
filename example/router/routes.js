@@ -20,7 +20,9 @@ import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
 import Upload from '../pages/upload.vue'
 import Validator from '../pages/validator.vue'
-import Swipe from '../pages/swipe.vue'
+import Swipe from '../pages/swipe/index.vue'
+import SwipeDefault from '../pages/swipe/default.vue'
+import SwipeCustom from '../pages/swipe/custom.vue'
 
 const routes = [
   {
@@ -115,7 +117,17 @@ const routes = [
   },
   {
     path: '/swipe',
-    component: Swipe
+    component: Swipe,
+    children: [
+      {
+        path: 'default',
+        component: SwipeDefault
+      },
+      {
+        path: 'custom',
+        component: SwipeCustom
+      }
+    ]
   }
 ]
 
