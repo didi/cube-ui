@@ -12,6 +12,7 @@ import {
   Validator,
   Textarea,
   Rate,
+  Textarea,
   ActionSheet,
   CheckboxGroup,
   RadioGroup,

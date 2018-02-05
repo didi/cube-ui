@@ -135,8 +135,11 @@
     border: none
     color: $color-grey
     background-color: $color-background
+<<<<<<< HEAD
     outline: none
     &:focus
       outline: $textarea-outline-color solid 1px
       outline-offset: -1px
+=======
+>>>>>>> <feat> support-textarea
 </style>
