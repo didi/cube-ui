@@ -66,6 +66,7 @@
       handleMove(e) {
         if (!this.disabled && (!e.type.includes(EVENT_TYPE_MOUSE) || this.mousePressed)) {
           this.computeTempValue(e.type.includes(EVENT_TYPE_MOUSE) ? e : e.touches[0])
+          this.$emit(EVENT_INPUT, this.tempValue)
         }
       },
       handleEnd(e) {
