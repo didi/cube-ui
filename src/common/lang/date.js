@@ -29,3 +29,8 @@ export function getZeroDate(date) {
   const day = date.getDate()
   return new Date(year + '/' + month + '/' + day + ' 00:00:00')
 }
+
+export function getNow() {
+  return window.performance && window.performance.now ? (window.performance.now() + window.performance.timing.navigationStart) : +new Date()
+}
+

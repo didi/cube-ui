@@ -29,8 +29,4 @@ function toLocaleDateString(timestamp, locale) {
   }
 }
 
-function getNow() {
-  return window.performance && window.performance.now ? (window.performance.now() + window.performance.timing.navigationStart) : +new Date()
-}
-
-export { deepAssign, createAddAPI, toLocaleDateString, getNow }
+export { deepAssign, createAddAPI, toLocaleDateString }

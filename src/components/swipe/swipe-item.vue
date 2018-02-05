@@ -29,7 +29,7 @@
 
   import { easeOutQuart, easeOutCubic } from '../../common/helpers/ease'
   import { requestAnimationFrame, cancelAnimationFrame } from '../../common/helpers/raf'
-  import { getNow } from '../../common/helpers/util'
+  import { getNow } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-swipe-item'
   const EVENT_ITEM_CLICK = 'item_click'
@@ -214,11 +214,8 @@
       stop() {
         if (this.isInTransition) {
           this.isInTransition = false
-          let x = this._getComputedPositionX()
+          let x = this.state === STATE_SHRINK ? 0 : this._getComputedPositionX()
           this._translate(x)
-          if (this.state === STATE_SHRINK) {
-            this._translate(0)
-          }
         }
       },
       onTouchStart(e) {
