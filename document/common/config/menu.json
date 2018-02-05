@@ -22,14 +22,9 @@
             "radio": "Radio",
             "input": "Input",
             "switch": "Switch",
+            "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
-          }
-        },
-        "form": {
-          "name": "Form",
-          "subList": {
-            "validator": "Validator"
           }
         },
         "popup": {
@@ -92,14 +87,9 @@
             "radio": "Radio",
             "input": "Input",
             "switch": "Switch",
+            "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
-          }
-        },
-        "form": {
-          "name": "表单",
-          "subList": {
-            "validator": "Validator"
           }
         },
         "popup": {
