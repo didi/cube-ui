@@ -6,57 +6,56 @@
 
 - 基本用法
 
-使用`v-model`对输入内容双向绑定。
+  使用`v-model`对输入内容双向绑定。
 
-```html
-<cube-input v-model="value" ></cube-input>
-```
+  ```html
+  <cube-input v-model="value" ></cube-input>
+  ```
 
-```javascript
-export default {
-  data() {
-    return {
-      value: ''
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: ''
+      }
     }
   }
-}
-```
+  ```
 
 - 多项配置
 
-支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮。
+  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮。
 
-```html
-<cube-input
-  v-model="value"
-  :placeholder="placeholder"
-  :type="type"
-  :maxlength="maxlength"
-  :readonly="readonly"
-  :disabled="disabled"
-  :autofocus="autofocus"
-  :autocomplete="autocomplete"
-  :clearable="useClear"
-></cube-input>
-```
-
-```javascript
-export default {
-  data() {
-    return {
-      value: '',
-      placeholder: '请输入内容',
-      type: 'password',
-      readonly: true,
-      maxlength: 100,
-      disabled: true,
-      autofocus: true,
-      autocomplete: true,
-      useClear: false
+  ```html
+  <cube-input
+    v-model="value"
+    :placeholder="placeholder"
+    :type="type"
+    :maxlength="maxlength"
+    :readonly="readonly"
+    :disabled="disabled"
+    :autofocus="autofocus"
+    :autocomplete="autocomplete"
+    :clearable="useClear"
+  ></cube-input>
+  ```
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: '',
+        placeholder: '请输入内容',
+        type: 'password',
+        readonly: true,
+        maxlength: 100,
+        disabled: true,
+        autofocus: true,
+        autocomplete: true,
+        useClear: false
+      }
     }
   }
-}
-```
+  ```
 
 ### Props 配置
 
