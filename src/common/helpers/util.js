@@ -20,7 +20,13 @@ function createAddAPI(baseObj) {
 }
 
 function toLocaleDateString(timestamp, locale) {
-  return (new Date(timestamp)).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
+  const date = new Date(timestamp)
+
+  if (locale === 'zh') {
+    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+  } else {
+    return date.toDateString()
+  }
 }
 
 export { deepAssign, createAddAPI, toLocaleDateString }
