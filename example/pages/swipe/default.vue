@@ -3,7 +3,11 @@
     <template slot="content">
       <div class="swipe-wrapper">
         <cube-scroll>
-          <cube-swipe :data="swipeData"></cube-swipe>
+          <cube-swipe
+              @item-click="onItemClick"
+              @btn-click="onBtnClick"
+              :data="swipeData">
+          </cube-swipe>
         </cube-scroll>
       </div>
     </template>
@@ -17,7 +21,7 @@
       return {
         swipeData: [{
           item: {
-            text: '测试',
+            text: '测试1',
             val: 1
           },
           btns: [
@@ -34,8 +38,25 @@
           ]
         }, {
           item: {
-            text: '测试',
-            val: 1
+            text: '测试2',
+            val: 2
+          },
+          btns: [
+            {
+              action: 'clear',
+              text: '不再关注',
+              color: '#c8c7cd'
+            },
+            {
+              action: 'delete',
+              text: '删除',
+              color: '#ff3a32'
+            }
+          ]
+        }, {
+          item: {
+            text: '测试3',
+            val: 3
           },
           btns: [
             {
@@ -52,7 +73,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 4
           },
           btns: [
             {
@@ -69,7 +90,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 5
           },
           btns: [
             {
@@ -86,7 +107,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 6
           },
           btns: [
             {
@@ -103,7 +124,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 7
           },
           btns: [
             {
@@ -120,7 +141,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 8
           },
           btns: [
             {
@@ -137,7 +158,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 9
           },
           btns: [
             {
@@ -154,7 +175,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 10
           },
           btns: [
             {
@@ -171,7 +192,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 11
           },
           btns: [
             {
@@ -188,7 +209,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 12
           },
           btns: [
             {
@@ -205,7 +226,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 13
           },
           btns: [
             {
@@ -222,7 +243,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 14
           },
           btns: [
             {
@@ -239,7 +260,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 15
           },
           btns: [
             {
@@ -256,7 +277,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 16
           },
           btns: [
             {
@@ -273,7 +294,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 17
           },
           btns: [
             {
@@ -290,7 +311,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 18
           },
           btns: [
             {
@@ -307,7 +328,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 19
           },
           btns: [
             {
@@ -324,7 +345,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 20
           },
           btns: [
             {
@@ -341,7 +362,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 21
           },
           btns: [
             {
@@ -358,7 +379,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 22
           },
           btns: [
             {
@@ -375,7 +396,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
+            val: 23
           },
           btns: [
             {
@@ -392,24 +413,7 @@
         }, {
           item: {
             text: '测试',
-            val: 1
-          },
-          btns: [
-            {
-              action: 'clear',
-              text: '不再关注',
-              color: '#c8c7cd'
-            },
-            {
-              action: 'delete',
-              text: '删除',
-              color: '#ff3a32'
-            }
-          ]
-        }, {
-          item: {
-            text: '测试',
-            val: 1
+            val: 24
           },
           btns: [
             {
@@ -424,6 +428,25 @@
             }
           ]
         }]
+      }
+    },
+    methods: {
+      onItemClick(item) {
+        console.log('click item:', item)
+      },
+      onBtnClick(btn, index) {
+        if (btn.action === 'delete') {
+          this.$createActionSheet({
+            title: '确认要删除吗',
+            active: 0,
+            data: [
+              {content: '删除'}
+            ],
+            onSelect: () => {
+              this.swipeData.splice(index, 1)
+            }
+          }).show()
+        }
       }
     },
     components: {

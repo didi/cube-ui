@@ -1,9 +1,10 @@
 <template>
-  <li ref="swipeItem" class="cube-swipe-item"
+  <div ref="swipeItem"
       @transitionend="onTransitionEnd"
       @touchstart="onTouchStart"
       @touchmove="onTouchMove"
-      @touchend="onTouchEnd">
+      @touchend="onTouchEnd"
+      class="cube-swipe-item">
     <slot>
       <div @click="clickItem(item)" class="cube-swipe-item-inner border-bottom-1px">
         <span>{{item.text}}</span>
@@ -18,7 +19,7 @@
         <span class="text">{{btn.text}}</span>
       </li>
     </ul>
-  </li>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -32,8 +33,8 @@
   import { getNow } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-swipe-item'
-  const EVENT_ITEM_CLICK = 'item_click'
-  const EVENT_BTN_CLICK = 'btn_click'
+  const EVENT_ITEM_CLICK = 'item-click'
+  const EVENT_BTN_CLICK = 'btn-click'
   const EVENT_SCROLL = 'scroll'
   const EVENT_ACTIVE = 'active'
   const DIRECTION_LEFT = 1
@@ -77,9 +78,13 @@
           ]
         }
       },
+      index: {
+        type: Number,
+        index: -1
+      },
       autoShrink: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     created() {
@@ -203,10 +208,10 @@
         return `background: ${btn.color}`
       },
       clickItem(item) {
-        this.$emit(EVENT_ITEM_CLICK, item)
+        this.$emit(EVENT_ITEM_CLICK, item, this.index)
       },
       clickBtn(btn) {
-        this.$emit(EVENT_BTN_CLICK, btn)
+        this.$emit(EVENT_BTN_CLICK, btn, this.index)
         if (this.autoShrink) {
           this.shrink()
         }
@@ -287,7 +292,7 @@
           this.startX = this.x
         }
 
-        this.$emit('scroll', this.x)
+        this.$emit(EVENT_SCROLL, this.x)
       },
       onTouchEnd() {
         if (!this.moved) {
@@ -321,7 +326,7 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
   .cube-swipe-item
     position: relative
@@ -340,7 +345,7 @@
     left: 100%
     height: 100%
     text-align: left
-    font-size: $fontsize-medium
+    font-size: $fontsize-large
     .text
       flex: 1
       padding: 0 20px
