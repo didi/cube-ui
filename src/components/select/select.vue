@@ -1,6 +1,6 @@
 <template>
   <div class="cube-select" :class="{ 'cube-select_active': active, 'cube-select_disabled': disabled }" @click="showPicker">
-    <span v-if="selectedText">{{ selectedText }}</span>
+    <span v-if="selectedText" class="cube-select-text">{{ selectedText }}</span>
     <span v-else class="cube-select-placeholder">{{ placeholder }}</span>
     <i class="cubeic-select cube-select-icon"></i>
   </div>
@@ -64,9 +64,6 @@
           return item
         })]
       },
-      selectedText() {
-        return this.findIndex !== -1 ? this.adaptOptions[0][this.findIndex].text : ''
-      },
       findIndex() {
         const findIndex = this.adaptOptions[0].findIndex((item) => {
           return item.value === this.value
@@ -74,6 +71,9 @@
         this.picker && this.picker.setData(this.adaptOptions, findIndex !== -1 ? [findIndex] : [0])
 
         return findIndex
+      },
+      selectedText() {
+        return this.findIndex !== -1 ? this.adaptOptions[0][this.findIndex].text : ''
       }
     },
     created() {
