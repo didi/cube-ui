@@ -24,7 +24,16 @@ function findMessage (key, config, type, val) {
   }
 }
 
-const addMessage = createAddAPI(messages[language])
+const addMessageZh = createAddAPI(messages.zh)
+const addMessageEn = createAddAPI(messages.en)
+
+function addMessage (...rest) {
+  if (language === 'zh') {
+    addMessageZh(...rest)
+  } else {
+    addMessageEn(...rest)
+  }
+}
 
 function setLanguage (lang) {
   language = lang

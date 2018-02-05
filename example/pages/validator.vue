@@ -1,7 +1,7 @@
 <template>
   <cube-page type="validator-view" title="Validator" desc="">
     <div slot="content">
-      <!-- <div class="validator-item">
+      <div class="validator-item">
         <cube-input v-model="text1" placeholder="E-mail"></cube-input>
         <cube-validator v-model="isValid[0]" :for="text1" :rule="rule1" :messages="messages1" :trigger="trigger"></cube-validator>
       </div>
@@ -22,7 +22,7 @@
         <cube-validator v-model="isValid[2]" :for="text3" :rule="rule3" :trigger="trigger">
           <cube-input v-model="text3" placeholder="odd"></cube-input>
         </cube-validator>
-      </div> -->
+      </div>
       <div class="validator-item">
         <cube-checkbox-group v-model="checkList" :horizontal="true">
           <cube-checkbox label="1">1</cube-checkbox>
@@ -46,12 +46,12 @@
 
   // Add or rewrite the build-in rule, type and message.
   import { Validator } from '../../src/module'
+  Validator.setLanguage('en')
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
   Validator.addMessage('odd', 'Please input odd.')
   Validator.addType('email', (val) => {
     return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
   })
-  Validator.setLanguage('en')
 
   export default {
     data() {
@@ -79,7 +79,7 @@
           max: 10
         },
         messages2: {
-          pattern: 'The component name need start with "cube-"'
+          pattern: 'Please start with "cube-"'
         },
         text3: '100',
         rule3: {
@@ -120,7 +120,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .validator-item
     box-sizing: border-box
-    height: 80px
+    min-height: 70px
     .custom-msg
       color: orange
 </style>
