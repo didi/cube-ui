@@ -9,7 +9,7 @@
       @mousemove.stop="handleMove"
       @mouseup.stop="handleEnd">
       <slot>
-        <cube-rate-item v-for="n in max" :key="n" :value="tempValue" :index="n"></cube-rate-item>
+        <cube-rate-item v-for="n in max" :key="n" :index="n"></cube-rate-item>
       </slot>
     </ul>
 </template>
@@ -59,8 +59,9 @@
             document.addEventListener('mouseup', this.handleEnd)
             document.addEventListener('mousemove', this.handleMove)
           }
-          this.left = this.$refs.rateContainer.getBoundingClientRect().left
-          this.containerWidth = this.$refs.rateContainer.getBoundingClientRect().width
+          const rect = this.$refs.rateContainer.getBoundingClientRect()
+          this.left = rect.left
+          this.containerWidth = rect.width
         }
       },
       handleMove(e) {
