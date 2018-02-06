@@ -9,6 +9,7 @@ import Dialog from './modules/dialog'
 import Toast from './modules/toast'
 import Input from './modules/input'
 import Validator from './modules/validator'
+import Textarea from './modules/textarea'
 import Rate from './modules/rate'
 
 import Tip from './modules/tip'
@@ -43,6 +44,7 @@ export {
   Toast,
   Input,
   Validator,
+  Textarea,
   Rate,
   ActionSheet,
   Checkbox,

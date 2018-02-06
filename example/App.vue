@@ -44,6 +44,10 @@
             text: 'Input'
           },
           {
+            path: '/textarea',
+            text: 'Textarea'
+          },
+          {
             path: '/switch',
             text: 'Switch'
           },
