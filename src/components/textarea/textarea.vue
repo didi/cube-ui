@@ -79,7 +79,7 @@
       },
       handleBlur(e) {
         this.$emit('blur', e)
-        if (this.value.length === 0) {
+        if (this.textareaValue.length === 0) {
           this.expanded = false
         }
       }

@@ -28,14 +28,20 @@ describe('Textarea.vue', () => {
     expect(vm.$el.querySelector('.cube-textarea-inner-wrapper').getBoundingClientRect().height)
       .to.equal(34)
   })
-  it('should expand when focus', (done) => {
+  it('should expand when focus, fold when blur', (done) => {
     vm = createTextarea(1)
     vm.$el.querySelector('textarea').focus()
     setTimeout(() => {
       expect(vm.$el.querySelector('.cube-textarea-inner-wrapper').getBoundingClientRect().height)
         .to.equal(74)
-      done()
-    }, 1000)
+      vm.textareaValue = ''
+      vm.$el.querySelector('textarea').blur()
+      setTimeout(() => {
+        expect(vm.$el.querySelector('.cube-textarea-inner-wrapper').getBoundingClientRect().height)
+          .to.equal(34)
+        done()
+      }, 500)
+    }, 500)
   })
   it('should has remain when focus', (done) => {
     vm = createTextarea(1)
@@ -48,9 +54,12 @@ describe('Textarea.vue', () => {
   })
   it('should change value', (done) => {
     vm = createTextarea(1)
-    vm.$el.querySelector('textarea').value = '1234'
-    expect(vm.$el.querySelector('textarea').innerText)
-      .to.equal('1234')
+    vm.$parent.value = '1234'
+    setTimeout(() => {
+      expect(vm.$el.querySelector('textarea').value)
+        .to.equal('1234')
+      done()
+    }, 100)
   })
   it('should support more native props', () => {
     vm = createVue({
@@ -68,7 +77,7 @@ describe('Textarea.vue', () => {
     expect(el.readOnly)
       .to.be.true
     expect(el.autofocus)
-      .to.be.false
+      .to.be.true
   })
 })
 
