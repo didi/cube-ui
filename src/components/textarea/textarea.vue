@@ -90,22 +90,6 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
 
-  textarea::-webkit-input-placeholder
-    color: $color-light-grey-s !important
-    text-overflow: ellipsis
-
-  textarea:-moz-placeholder
-    color: $color-light-grey-s !important
-    text-overflow: ellipsis
-
-  textarea::-moz-placeholder
-    color: $color-light-grey-s !important
-    text-overflow: ellipsis
-
-  textarea:-ms-input-placeholder
-    color: $color-light-grey-s !important
-    text-overflow: ellipsis
-
   .cube-textarea-outer-wrapper
     text-align: center
   .cube-textarea-inner-wrapper
@@ -115,6 +99,9 @@
     height: 34px
     &.expanded
       height: 74px
+    textarea::-webkit-input-placeholder
+      color: $color-light-grey-s !important
+      text-overflow: ellipsis
   .cube-textarea-indicator
     position: absolute
     bottom: 7px
@@ -123,8 +110,6 @@
     color: $color-light-grey-s
     font-size: $fontsize-medium
   .cube-textarea
-    font-size: $fontsize-medium
-    line-height: 20px
     width: 100%
     height: 100%
     text-align: left
@@ -135,11 +120,10 @@
     border: none
     color: $color-grey
     background-color: $color-background
-<<<<<<< HEAD
     outline: none
+    font-size: $fontsize-medium
+    line-height: 20px
     &:focus
       outline: $textarea-outline-color solid 1px
       outline-offset: -1px
-=======
->>>>>>> <feat> support-textarea
 </style>
