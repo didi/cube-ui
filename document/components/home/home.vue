@@ -26,12 +26,12 @@
     data() {
       return {
         showTabs: false,
-        isDocs: this.$route.path.includes('/docs')
+        isDocs: this.$route.path.indexOf('/docs') > -1
       }
     },
     watch: {
       $route(val) {
-        this.isDocs = val.path.includes('/docs')
+        this.isDocs = val.path.indexOf('/docs') > -1
         this.showTabs = false
       }
     },

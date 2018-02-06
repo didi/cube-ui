@@ -150,7 +150,7 @@ Note: Each item of `options` can be an string, Which means both the `label` and 
 
 ### cube-radio Props configuration
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | option | option value | Object/String | - | - |
 | position | icon position | String | left/right | left |
