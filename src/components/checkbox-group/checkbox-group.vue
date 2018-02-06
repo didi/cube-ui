@@ -4,7 +4,9 @@
       <cube-checkbox
         v-for="(option, index) in options"
         :key="index"
-        :option="option" />
+        :option="option"
+        :shape="shape"
+        :position="position" />
     </slot>
   </div>
 </template>
@@ -25,6 +27,14 @@
       horizontal: {
         type: Boolean,
         default: false
+      },
+      shape: {
+        type: String,
+        default: 'circle'
+      },
+      position: {
+        type: String,
+        default: 'left'
       },
       options: {
         type: Array,
