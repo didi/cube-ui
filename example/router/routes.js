@@ -9,6 +9,7 @@ import Popup from '../pages/popup.vue'
 import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
 import Textarea from '../pages/textarea.vue'
+import Rate from '../pages/rate.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
@@ -66,6 +67,10 @@ const routes = [
   {
     path: '/toast',
     component: Toast
+  },
+  {
+    path: '/rate',
+    component: Rate
   },
   {
     path: '/picker',

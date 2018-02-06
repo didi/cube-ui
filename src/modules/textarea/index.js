@@ -1,7 +1,7 @@
-import TextArea from '../../components/textarea/textarea.vue'
+import Textarea from '../../components/textarea/textarea.vue'
 
-TextArea.install = function (Vue) {
-  Vue.component(TextArea.name, TextArea)
+Textarea.install = function (Vue) {
+  Vue.component(Textarea.name, Textarea)
 }
 
-export default TextArea
+export default Textarea
