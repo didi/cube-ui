@@ -46,6 +46,12 @@ describe('Textarea.vue', () => {
       done()
     })
   })
+  it('should change value', (done) => {
+    vm = createTextarea(1)
+    vm.$el.querySelector('textarea').value = '1234'
+    expect(vm.$el.querySelector('textarea').innerText)
+      .to.equal('1234')
+  })
   it('should support more native props', () => {
     vm = createVue({
       template: `

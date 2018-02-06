@@ -33,29 +33,19 @@
         type: String,
         default: ''
       },
-      cols: {
-        type: Number,
-        validator: function (value) {
-          return value > 0
-        }
-      },
-      rows: {
-        type: Number,
-        validator: function (value) {
-          return value > 0
-        }
-      },
+      cols: Number,
+      rows: Number,
       readonly: Boolean,
-      wrap: {
-        type: String,
-        validator: function (value) {
-          return value === 'soft' || value === 'hard'
-        }
-      },
+      wrap: String,
+      required: Boolean,
       placeholder: {
         type: String,
         default: 'please type here...'
       },
+      dirname: String,
+      form: String,
+      name: String,
+      autofocus: Boolean,
       disabled: {
         type: Boolean,
         default: false
