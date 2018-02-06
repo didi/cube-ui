@@ -8,6 +8,7 @@ import Tip from '../pages/tip.vue'
 import Popup from '../pages/popup.vue'
 import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
+import Textarea from '../pages/textarea.vue'
 import Rate from '../pages/rate.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
@@ -42,6 +43,10 @@ const routes = [
   {
     path: '/input',
     component: Input
+  },
+  {
+    path: '/textarea',
+    component: Textarea
   },
   {
     path: '/switch',
