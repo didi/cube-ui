@@ -88,7 +88,7 @@
 
   可通过设置 `horizontal` 为 `true` 改变样式为水平排列。
 
-- 自定义 label
+- 使用默认插槽
 
   ```html
   <cube-radio-group>

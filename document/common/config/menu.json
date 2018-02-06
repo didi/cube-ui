@@ -20,7 +20,9 @@
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
+            "input": "Input",
             "switch": "Switch",
+            "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
           }
@@ -83,7 +85,9 @@
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
+            "input": "Input",
             "switch": "Switch",
+            "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
           }

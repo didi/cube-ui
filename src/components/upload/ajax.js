@@ -49,10 +49,11 @@ export default function ajaxUpload(file, options, changeHandler) {
   }
 
   const formData = new window.FormData()
-  formData.append(fileName, file[prop])
+
   Object.keys(data).forEach((key) => {
     formData.append(key, data[key])
   })
+  formData.append(fileName, file[prop])
 
   xhr.onload = function () {
     if (xhr.status < 200 || xhr.status >= 300) {

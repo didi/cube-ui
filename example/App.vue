@@ -40,6 +40,10 @@
             text: 'Radio'
           },
           {
+            path: '/input',
+            text: 'Input'
+          },
+          {
             path: '/switch',
             text: 'Switch'
           },
@@ -58,6 +62,10 @@
           {
             path: '/toast',
             text: 'Toast'
+          },
+          {
+            path: '/validator',
+            text: 'Validator'
           },
           {
             path: '/picker',
