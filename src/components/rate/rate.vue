@@ -54,7 +54,7 @@
     methods: {
       handleStart(e) {
         if (!this.disabled) {
-          if (e.type.includes(EVENT_TYPE_MOUSE)) {
+          if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
             this.mousePressed = true
             document.addEventListener('mouseup', this.handleEnd)
             document.addEventListener('mousemove', this.handleMove)
@@ -64,19 +64,18 @@
         }
       },
       handleMove(e) {
-        if (!this.disabled && (!e.type.includes(EVENT_TYPE_MOUSE) || this.mousePressed)) {
-          this.computeTempValue(e.type.includes(EVENT_TYPE_MOUSE) ? e : e.touches[0])
-          this.$emit(EVENT_INPUT, this.tempValue)
+        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
+          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) > -1 ? e : e.touches[0])
         }
       },
       handleEnd(e) {
-        if (!this.disabled && (!e.type.includes(EVENT_TYPE_MOUSE) || this.mousePressed)) {
-          if (e.type.includes(EVENT_TYPE_MOUSE)) {
+        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
+          if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
             this.mousePressed = false
             document.removeEventListener('mouseup', this.handleEnd)
             document.removeEventListener('mousemove', this.handleMove)
           }
-          this.computeTempValue(e.type.includes(EVENT_TYPE_MOUSE) ? e : e.changedTouches[0])
+          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) > -1 ? e : e.changedTouches[0])
           this.$emit(EVENT_INPUT, this.tempValue)
         }
       },

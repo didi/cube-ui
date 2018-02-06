@@ -41,12 +41,9 @@ export {
   Dialog,
   Tip,
   Toast,
-<<<<<<< HEAD
   Input,
   Validator,
-=======
   Rate,
->>>>>>> <feat> support rate component resolve #87
   ActionSheet,
   Checkbox,
   CheckboxGroup,

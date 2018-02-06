@@ -1,5 +1,5 @@
 <template>
-  <li class="cube-rate-item" :class="{ active: index <= value }">
+  <li class="cube-rate-item" :class="{ active: index <= $parent.tempValue }">
     <slot>
       <div class="cube-rate-item-def"></div>
     </slot>
@@ -11,10 +11,6 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: {
-        type: Number,
-        default: 0
-      },
       index: {
         type: Number,
         default: 0
