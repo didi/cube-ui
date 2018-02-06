@@ -46,7 +46,6 @@ export {
   Validator,
   Textarea,
   Rate,
-  Textarea,
   ActionSheet,
   Checkbox,
   CheckboxGroup,
