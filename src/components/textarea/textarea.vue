@@ -4,6 +4,7 @@
       <textarea
         class="cube-textarea"
         v-model="textareaValue"
+        v-bind="$props"
         :placeholder="placeholder"
         :maxlength="maxlength"
         :disabled="disabled"
@@ -32,9 +33,28 @@
         type: String,
         default: ''
       },
+      cols: {
+        type: Number,
+        validator: function (value) {
+          return value > 0
+        }
+      },
+      rows: {
+        type: Number,
+        validator: function (value) {
+          return value > 0
+        }
+      },
+      readonly: Boolean,
+      wrap: {
+        type: String,
+        validator: function (value) {
+          return value === 'soft' || value === 'hard'
+        }
+      },
       placeholder: {
         type: String,
-        default: '其他想说的(将匿名并延迟告知司机)'
+        default: 'please type here...'
       },
       disabled: {
         type: Boolean,
