@@ -30,16 +30,16 @@ describe('Textarea.vue', () => {
   })
   it('should expand when focus', (done) => {
     vm = createTextarea(1)
-    vm.$el.querySelector('textarea').click()
+    vm.$el.querySelector('textarea').focus()
     setTimeout(() => {
       expect(vm.$el.querySelector('.cube-textarea-inner-wrapper').getBoundingClientRect().height)
-        .to.equal(34)
+        .to.equal(74)
       done()
     }, 1000)
   })
   it('should has remain when focus', (done) => {
     vm = createTextarea(1)
-    vm.$el.querySelector('textarea').click()
+    vm.$el.querySelector('textarea').focus()
     setTimeout(() => {
       expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
         .to.equal('56')

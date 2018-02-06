@@ -9,11 +9,8 @@ import {
   Tip,
   Toast,
   Input,
-<<<<<<< HEAD
   Validator,
-=======
   Textarea,
->>>>>>> <feat> support-textarea
   ActionSheet,
   CheckboxGroup,
   RadioGroup,
