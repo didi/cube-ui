@@ -1,18 +1,16 @@
 <template>
-  <div class="cube-textarea-outer-wrapper">
-    <div class="cube-textarea-inner-wrapper" :style="{width: width}" :class="{expanded: expanded}">
-      <textarea
-        class="cube-textarea"
-        v-model="textareaValue"
-        v-bind="$props"
-        :placeholder="placeholder"
-        :maxlength="maxlength"
-        :disabled="disabled"
-        @focus="handleFocus"
-        @blur="handleBlur">
-      </textarea>
-      <span v-show="expanded" class="cube-textarea-indicator">{{remain}}</span>
-    </div>
+  <div class="cube-textarea-wrapper" :class="{expanded: expanded}">
+    <textarea
+      class="cube-textarea"
+      v-model="textareaValue"
+      v-bind="$props"
+      :placeholder="placeholder"
+      :maxlength="maxlength"
+      :disabled="disabled"
+      @focus="handleFocus"
+      @blur="handleBlur">
+    </textarea>
+    <span v-show="expanded" class="cube-textarea-indicator">{{remain}}</span>
   </div>
 </template>
 
@@ -53,10 +51,6 @@
       maxlength: {
         type: Number,
         default: 60
-      },
-      width: {
-        type: String,
-        default: '274px'
       }
     },
     computed: {
@@ -90,39 +84,36 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
 
-  .cube-textarea-outer-wrapper
-    text-align: center
-  .cube-textarea-inner-wrapper
+  .cube-textarea-wrapper
     position: relative
-    display: inline-block
     transition: height 200ms
     height: 34px
     &.expanded
       height: 74px
     textarea::-webkit-input-placeholder
-      color: $color-light-grey-s !important
+      color: $textarea-placeholder-color !important
       text-overflow: ellipsis
   .cube-textarea-indicator
     position: absolute
     bottom: 7px
     right: 10px
     line-height: 20px
-    color: $color-light-grey-s
+    color: $textarea-indicator-color
     font-size: $fontsize-medium
   .cube-textarea
     width: 100%
     height: 100%
     text-align: left
     padding: 7px 10px
-    resize: none
-    box-sizing: border-box
-    border-radius: 2px
-    border: none
-    color: $color-grey
-    background-color: $color-background
-    outline: none
     font-size: $fontsize-medium
     line-height: 20px
+    box-sizing: border-box
+    border-radius: 2px
+    resize: none
+    border: none
+    color: $textarea-color
+    background-color: $textarea-bgc
+    outline: none
     &:focus
       outline: $textarea-outline-color solid 1px
       outline-offset: -1px
