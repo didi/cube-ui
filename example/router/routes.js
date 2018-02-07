@@ -13,6 +13,7 @@ import Rate from '../pages/rate.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
+import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
 import ActionSheet from '../pages/action-sheet.vue'
 import Scroll from '../pages/scroll.vue'
@@ -83,6 +84,10 @@ const routes = [
   {
     path: '/time-picker',
     component: TimePicker
+  },
+  {
+    path: '/select',
+    component: Select
   },
   {
     path: '/dialog',
