@@ -88,6 +88,10 @@
             text: 'TimePicker'
           },
           {
+            path: '/select',
+            text: 'Select'
+          },
+          {
             path: '/dialog',
             text: 'Dialog'
           },

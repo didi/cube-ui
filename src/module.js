@@ -9,6 +9,7 @@ import Dialog from './modules/dialog'
 import Toast from './modules/toast'
 import Input from './modules/input'
 import Validator from './modules/validator'
+import Select from './modules/select'
 import Textarea from './modules/textarea'
 import Rate from './modules/rate'
 
@@ -39,6 +40,7 @@ export {
   Picker,
   TimePicker,
   CascadePicker,
+  Select,
   Dialog,
   Tip,
   Toast,
