@@ -1,10 +1,10 @@
 <template>
   <div ref="swipeItem"
-      @transitionend="onTransitionEnd"
-      @touchstart="onTouchStart"
-      @touchmove="onTouchMove"
-      @touchend="onTouchEnd"
-      class="cube-swipe-item">
+       @transitionend="onTransitionEnd"
+       @touchstart="onTouchStart"
+       @touchmove="onTouchMove"
+       @touchend="onTouchEnd"
+       class="cube-swipe-item">
     <slot>
       <div @click="clickItem(item)" class="cube-swipe-item-inner border-bottom-1px">
         <span>{{item.text}}</span>
@@ -93,7 +93,9 @@
     },
     mounted() {
       this.scrollerStyle = this.$refs.swipeItem.style
-      this.refresh()
+      this.$nextTick(() => {
+        this.refresh()
+      })
       this.$on(EVENT_SCROLL, this._handleBtns)
     },
     methods: {
@@ -267,7 +269,6 @@
         }
 
         let timestamp = getNow()
-
         if (timestamp - this.endTime > momentumLimitTime && absDistX < momentumLimitDistance) {
           return
         }
@@ -305,7 +306,6 @@
         this.endTime = getNow()
         let duration = this.endTime - this.startTime
         let absDistX = Math.abs(this.x - this.startX)
-
         if (duration < momentumLimitTime && absDistX > momentumLimitDistance || this.x < this.maxScrollX / 2) {
           this.grow()
         } else {

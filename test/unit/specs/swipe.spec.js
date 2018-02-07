@@ -3,6 +3,9 @@ import Swipe from '@/modules/swipe'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
 
+const STATE_SHRINK = 0
+const STATE_GROW = 1
+
 const props = {
   data: [{
     item: {
@@ -128,15 +131,6 @@ const props = {
 }
 
 describe('Swipe', () => {
-  let vm
-
-  afterEach(() => {
-    if (vm) {
-      vm.$parent.destroy()
-      vm = null
-    }
-  })
-
   it('use', () => {
     Vue.use(Swipe)
     expect(Vue.component(Swipe.name))
@@ -144,133 +138,185 @@ describe('Swipe', () => {
   })
 
   it('should render correct contents', () => {
-    vm = createSwipe(props)
-    const listItems = vm.$el.querySelectorAll('.cube-swipe-item-inner')
-    expect(listItems.length).to.equal(7)
-    expect(listItems[0].children[0].textContent).to.equal('测试1')
+    let vm = createSwipe(props)
+    const swipeItems = vm.$el.querySelectorAll('.cube-swipe-item')
+    expect(swipeItems.length).to.equal(7)
+    const swipeItem = swipeItems[0]
+    expect(swipeItem.querySelectorAll('.cube-swipe-item-inner')[0].children[0].textContent).to.equal('测试1')
 
-    const btns = vm.$el.querySelectorAll('.cube-swipe-btns')
-    expect(btns.length).to.equal(7)
-    expect(btns[0].)
+    const btnGroup = swipeItem.querySelectorAll('.cube-swipe-btn')
+    expect(btnGroup.length).to.equal(2)
+    expect(btnGroup[0].querySelectorAll('.text')[0].textContent).to.equal('不再关注')
+    expect(btnGroup[1].querySelectorAll('.text')[0].textContent).to.equal('删除')
   })
 
-  it('should trigger pullingDown', function () {
-    this.timeout(10000)
+  it('should shrink if the swipe width not enough', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem, btnWidth} = createSwipeContext(vm)
 
-    const pullingDownHandle = sinon.spy()
-    vm = createScroll(props, {
-      'pulling-down': pullingDownHandle
-    })
-    vm.$refs.wrapper.style.height = '200px'
-    vm.refresh()
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listFirstItem = vm.$el.querySelector('.cube-scroll-content li:first-child')
-        dispatchSwipe(listFirstItem, [
-          {
-            pageX: 10,
-            pageY: 10
-          },
-          {
-            pageX: 10,
-            pageY: 160
-          }
-        ], 100)
-        setTimeout(() => {
-          expect(pullingDownHandle)
-            .to.be.callCount(1)
-          const newData = props.data.concat(['我是插入的一行'])
-          vm.$parent.updateRenderData({
-            props: {
-              ...props,
-              data: newData
-            }
-          })
-          vm.$parent.$forceUpdate()
-          setTimeout(() => {
-            setTimeout(() => {
-              setTimeout(() => {
-                expect(vm.beforePullDown).to.be.true
-                expect(vm.isPullingDown).to.be.false
-                resolve()
-              }, 750)
-            }, 650)
-          }, 50)
-        }, 400)
-      }, 150)
-    })
-  })
-
-  it('should trigger pullingUp', function () {
-    this.timeout(10000)
-
-    const pullingUpHandle = sinon.spy()
-    vm = createScroll(props, {
-      'pulling-up': pullingUpHandle
-    })
-    vm.$refs.wrapper.style.height = '200px'
-    vm.refresh()
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listItem = vm.$el.querySelector('.cube-scroll-content li:nth-child(3)')
-        dispatchSwipe(listItem, [
-          {
-            pageX: 10,
-            pageY: 200
-          },
-          {
-            pageX: 10,
-            pageY: 10
-          }
-        ], 100)
-
-        setTimeout(() => {
-          expect(pullingUpHandle)
-            .to.be.callCount(1)
-          const newData = props.data.concat(['我是新附加1', '我是新附加2'])
-          vm.$parent.updateRenderData({
-            props: {
-              ...props,
-              data: newData
-            }
-          })
-          vm.$parent.$forceUpdate()
-          setTimeout(() => {
-            expect(vm.isPullUpLoad).to.be.false
-            expect(vm.pullUpDirty).to.be.true
-            resolve()
-          }, 50)
-        }, 400)
-      }, 150)
-    })
-  })
-
-  it('should trigger click', function () {
-    this.timeout(10000)
-
-    const clickHandler = sinon.spy()
-    vm = createScroll({
-      ...props,
-      options: {
-        ...props.options,
-        click: false
-      }
+    const touches = [{
+      pageX: 300,
+      pageY: 10
     }, {
-      click: clickHandler
-    })
-    vm.$refs.wrapper.style.height = '200px'
-    vm.refresh()
+      pageX: 300 - btnWidth / 2 + 10,
+      pageY: 10
+    }]
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listItem = vm.$el.querySelector('.cube-scroll-content li')
-        listItem.click()
-        expect(clickHandler).to.be.calledWith(props.data[0])
-        resolve()
-      }, 50)
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
+      done()
     })
+  })
+
+  it('should shrink if the last moving direction is right', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem, btnWidth} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 300 - btnWidth / 2 - 100,
+      pageY: 10
+    }, {
+      pageX: 300 - btnWidth / 2 - 50,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
+      done()
+    })
+  })
+
+  it('should shrink and not moved if the duration is more than momentumLimitTime and moving distance is less than momentumLimitDistance', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 290,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
+      expect(swipeItemInstance.moved).to.equal(false)
+      done()
+    })
+  })
+
+  it('should shrink and not moved if y-axis distance is more than x-axis distance', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 250,
+      pageY: 80
+    }]
+
+    dispatchSwipe(swipeItem, touches, 200, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
+      expect(swipeItemInstance.moved).to.equal(false)
+      done()
+    })
+  })
+
+  it('should grow if the swipe width enough', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem, btnWidth} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 300 - btnWidth / 2 - 10,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_GROW)
+      done()
+    })
+  })
+
+  it('should grow if the duration is less than momentumLimitTime and moving distance is more than momentumLimitDistance', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 280,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 100, () => {
+      expect(swipeItemInstance.state).to.equal(STATE_GROW)
+      done()
+    })
+  })
+
+  it('should not swipe out of the boundaries when swiping left', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 200,
+      pageY: 10
+    }, {
+      pageX: 100,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.x).to.equal(swipeItemInstance.maxScrollX)
+      done()
+    })
+  })
+
+  it('should not swipe out of the boundaries when swiping right', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 350,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 400, () => {
+      expect(swipeItemInstance.x).to.equal(0)
+      done()
+    })
+  })
+
+  it('should trigger events', () => {
+    const btnClickHandler = sinon.spy()
+    const itemClickHandler = sinon.spy()
+
+    let vm = createSwipe(props, {
+      'btn-click': btnClickHandler,
+      'item-click': itemClickHandler
+    })
+
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+    swipeItem.querySelectorAll('.cube-swipe-item-inner')[0].click()
+    expect(itemClickHandler).to.be.calledOnce
+    swipeItem.querySelectorAll('.cube-swipe-btn')[0].click()
+    expect(btnClickHandler).to.be.calledOnce
+    expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
   })
 
   function createSwipe(props = {}, events = {}) {
@@ -278,5 +324,21 @@ describe('Swipe', () => {
       props: props,
       on: events
     })
+  }
+
+  function createSwipeContext(vm) {
+    const swipeItemInstance = vm.$refs['swipeItem'][0]
+    const swipeItem = swipeItemInstance.$el
+    const btnGroup = swipeItem.querySelectorAll('.cube-swipe-btn')
+    let btnWidth = 0
+    for (let i = 0; i < btnGroup.length; i++) {
+      btnWidth += btnGroup[i].offsetWidth
+    }
+
+    return {
+      swipeItemInstance,
+      swipeItem,
+      btnWidth
+    }
   }
 })
