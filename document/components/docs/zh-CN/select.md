@@ -35,7 +35,7 @@ Select 组件，用于单项选择。
     :title="title"
     :options="options"
     :placeholder="placeholder"
-    :autoPop="autoPop"
+    :auto-pop="autoPop"
     :disabled="disabled"
     @change="change">
   </cube-select>
@@ -69,7 +69,7 @@ Select 组件，用于单项选择。
 | options | 选项 | Array | - | [] |
 | v-model | 选中的值 | Any | - | - |
 | placeholder | 占位文案 | String | - | '请选择' |
-| autoPop | 是否自动弹出选择器 | Boolean | true/false | false |
+| auto-pop | 是否自动弹出选择器 | Boolean | true/false | false |
 | disabled | 是否禁用 | Boolean | true/false | false |
 | title | 选择器的标题 | String | - | '请选择' |
 | cancelTxt | 选择器的取消按钮文案 | String | - | '取消' |

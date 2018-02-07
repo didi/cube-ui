@@ -101,8 +101,10 @@
         this.active = false
       },
       changeHandle(selectedVal, selectedIndex, selectedText) {
-        this.$emit(EVENT_INPUT, selectedVal[0])
-        this.$emit(EVENT_CHANGE, selectedVal[0], selectedIndex[0], selectedText[0])
+        if (selectedVal[0] !== this.value) {
+          this.$emit(EVENT_INPUT, selectedVal[0])
+          this.$emit(EVENT_CHANGE, selectedVal[0], selectedIndex[0], selectedText[0])
+        }
       }
     }
   }

@@ -41,15 +41,14 @@ describe('Select.vue', () => {
     el.click()
 
     setTimeout(() => {
-      const items = document.querySelectorAll('.cube-picker-wheel-wrapper > div')[0].querySelectorAll('li')
-      items[1].click()
+      vm.picker.scrollTo(0, 1)
       setTimeout(() => {
         const confirmBtn = document.querySelector('.cube-picker-choose [data-action="confirm"]')
         confirmBtn.click()
         expect(changeHandle)
           .to.be.callCount(1)
         done()
-      }, 100)
+      }, 1000)
     }, 100)
   })
 })

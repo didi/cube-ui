@@ -35,7 +35,7 @@ Select component.
     :title="title"
     :options="options"
     :placeholder="placeholder"
-    :autoPop="autoPop"
+    :auto-pop="autoPop"
     :disabled="disabled"
     cancelTxt="Cancel"
     confirmTxt="Confirm"
@@ -71,7 +71,7 @@ Select component.
 | options | options | Array | - | [] |
 | v-model | the selected value | Any | - | - |
 | placeholder | placeholder | String | - | '请选择' |
-| autoPop | whether auto pop picker | Boolean | true/false | false |
+| auto-pop | whether auto pop picker | Boolean | true/false | false |
 | disabled | whether disabled | Boolean | true/false | false |
 | title | the title of picker | String | - | '请选择' |
 | cancelTxt | the cancel text of picker | String | - | '取消' |

@@ -6,7 +6,7 @@
         :title="title"
         :options="options"
         :placeholder="placeholder"
-        :autoPop="autoPop"
+        :auto-pop="autoPop"
         :disabled="disabled"
         cancelTxt="Cancel"
         confirmTxt="Confirm"
@@ -34,7 +34,7 @@
         value: 2016,
         title: 'Entry time',
         placeholder: 'Please choose entry time',
-        autoPop: false,
+        autoPop: true,
         disabled: false
       }
     },
