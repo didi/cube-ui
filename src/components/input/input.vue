@@ -104,18 +104,20 @@
       position: relative
       font-size: $fontsize-large
       line-height: 1
-      color: $input-font-color
-      background-color: $input-bgc
       input
         width: 100%
         padding: 10px
         box-sizing: border-box
-        color: inherit
+        color: $input-color
         line-height: inherit
+        background-color: $input-bgc
         outline: none
         &:focus
           outline: $input-outline-color solid 1px
           outline-offset: -1px
+        &::-webkit-input-placeholder
+          color: $input-placeholder-color !important
+          text-overflow: ellipsis
     .cube-input-clear
       position: absolute
       right: 0
