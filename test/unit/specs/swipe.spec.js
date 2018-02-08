@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Swipe from '@/modules/swipe'
 import instantiateComponent from '@/common/helpers/instantiate-component'
-import { dispatchSwipe } from '../utils/event'
+import { dispatchSwipe, dispatchTouch } from '../utils/event'
 
 const STATE_SHRINK = 0
 const STATE_GROW = 1
@@ -319,15 +319,90 @@ describe('Swipe', () => {
     expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
   })
 
+  it('should shrink if another swipe item active', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+    let context = createSwipeContext(vm, 1)
+    let swipeItemInstance1 = context.swipeItemInstance
+    let swipeItem1 = context.swipeItem
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 280,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 100, () => {
+      dispatchSwipe(swipeItem1, touches, 100, () => {
+        expect(swipeItemInstance1.state).to.equal(STATE_GROW)
+        done()
+      })
+      expect(swipeItemInstance.state).to.equal(STATE_SHRINK)
+    })
+  })
+
+  it('should do nothing if active the same swipe item', (done) => {
+    let vm = createSwipe(props)
+    let {swipeItemInstance, swipeItem} = createSwipeContext(vm)
+
+    const touches = [{
+      pageX: 300,
+      pageY: 10
+    }, {
+      pageX: 280,
+      pageY: 10
+    }]
+
+    dispatchSwipe(swipeItem, touches, 100, () => {
+      dispatchTouch(swipeItem, 'touchstart', touches[0])
+      expect(swipeItemInstance.state).to.equal(STATE_GROW)
+      done()
+    })
+  })
+
+  it('should call refresh if the btns prop has changed', (done) => {
+    let vm = new Vue({
+      template: '<cube-swipe :data="swipeData"></cube-swipe>',
+      data() {
+        return {
+          swipeData: props.data
+        }
+      },
+      components: {
+        CubeSwipe: Swipe
+      }
+    })
+    vm.$mount()
+    vm = vm.$children[0]
+    let {swipeItemInstance} = createSwipeContext(vm)
+    console.log(swipeItemInstance.btns.__ob__)
+
+    setTimeout(() => {
+      vm.data[0].btns.push({
+        action: 'new',
+        text: '新增',
+        color: '#fc9153'
+      })
+
+      setTimeout(() => {
+        console.log(swipeItemInstance.cachedBtns)
+        expect(swipeItemInstance.cachedBtns.length).to.be.equal(3)
+        done()
+      }, 200)
+    }, 1000)
+  })
+
   function createSwipe(props = {}, events = {}) {
     return instantiateComponent(Vue, Swipe, {
-      props: props,
+      props,
       on: events
     })
   }
 
-  function createSwipeContext(vm) {
-    const swipeItemInstance = vm.$refs['swipeItem'][0]
+  function createSwipeContext(vm, index = 0) {
+    const swipeItemInstance = vm.$refs['swipeItem'][index]
     const swipeItem = swipeItemInstance.$el
     const btnGroup = swipeItem.querySelectorAll('.cube-swipe-btn')
     let btnWidth = 0

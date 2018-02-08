@@ -250,6 +250,7 @@
           e.stopPropagation()
         }
         if (this.isInTransition) {
+          /* istanbul ignore if */
           return
         }
         e.preventDefault()
@@ -320,7 +321,9 @@
     },
     watch: {
       btns() {
-        this.refresh()
+        this.$nextTick(() => {
+          this.refresh()
+        })
       }
     }
   }

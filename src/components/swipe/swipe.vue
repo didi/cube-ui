@@ -32,10 +32,7 @@
       data: {
         type: Array,
         default() {
-          return {
-            item: {},
-            btns: []
-          }
+          return []
         }
       },
       autoShrink: {
