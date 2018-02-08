@@ -377,21 +377,17 @@ describe('Swipe', () => {
     vm.$mount()
     vm = vm.$children[0]
     let {swipeItemInstance} = createSwipeContext(vm)
-    console.log(swipeItemInstance.btns.__ob__)
+
+    vm.data[0].btns.push({
+      action: 'new',
+      text: '新增',
+      color: '#fc9153'
+    })
 
     setTimeout(() => {
-      vm.data[0].btns.push({
-        action: 'new',
-        text: '新增',
-        color: '#fc9153'
-      })
-
-      setTimeout(() => {
-        console.log(swipeItemInstance.cachedBtns)
-        expect(swipeItemInstance.cachedBtns.length).to.be.equal(3)
-        done()
-      }, 200)
-    }, 1000)
+      expect(swipeItemInstance.cachedBtns.length).to.be.equal(3)
+      done()
+    }, 0)
   })
 
   function createSwipe(props = {}, events = {}) {
