@@ -390,6 +390,22 @@ describe('Swipe', () => {
     }, 0)
   })
 
+  it('should use default props if do not pass any prop', () => {
+    let vm = createSwipe()
+    expect(vm.data.length).to.be.equal(0)
+
+    vm = createSwipe({
+      data: [{
+        item: {
+          val: 1
+        }
+      }]
+    })
+
+    let {swipeItemInstance} = createSwipeContext(vm)
+    expect(swipeItemInstance.btns.length).to.be.equal(0)
+  })
+
   function createSwipe(props = {}, events = {}) {
     return instantiateComponent(Vue, Swipe, {
       props,

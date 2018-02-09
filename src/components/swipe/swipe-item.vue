@@ -55,27 +55,12 @@
     name: COMPONENT_NAME,
     props: {
       item: {
-        type: Object,
-        default() {
-          return {
-            text: '测试',
-            val: 1
-          }
-        }
+        type: Object
       },
       btns: {
         type: Array,
         default() {
-          return [
-            {
-              text: '不再关注',
-              color: '#c8c7cd'
-            },
-            {
-              text: '删除',
-              color: '#ff3a32'
-            }
-          ]
+          return []
         }
       },
       index: {
@@ -109,6 +94,10 @@
         }
       },
       _handleBtns(x) {
+        if (this.btns.length === 0) {
+          /* istanbul ignore if */
+          return
+        }
         const len = this.$refs.btns.length
         let delta = 0
         let totalWidth = -this.maxScrollX
@@ -183,8 +172,10 @@
         return x
       },
       refresh() {
-        this._initCachedBtns()
-        this._calculateBtnsWidth()
+        if (this.btns.length > 0) {
+          this._initCachedBtns()
+          this._calculateBtnsWidth()
+        }
         this.endTime = 0
       },
       shrink() {
