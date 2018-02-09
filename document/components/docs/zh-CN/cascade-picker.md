@@ -213,8 +213,9 @@
 | title | 标题 | String | '' | - |
 | data | 级联选择器的树形数据，用于初始化选项 | Array | [] | - |
 | selectedIndex | 被选中的索引值，拉起选择器后显示这个索引值对应的内容 | Array | [] | [1] |
-| cancelTxt | 选择器左侧按钮文案 | String | '取消' | - |
-| confirmTxt | 选择器右侧按钮文案 | String | '确定' | - |
+| cancelTxt | 取消按钮文案 | String | '取消' | - |
+| confirmTxt | 确定按钮文案 | String | '确定' | - |
+| swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
 | alias | 配置`value`和`text`的别名，用法同`Picker`组件 | Object | {} | { value: 'id', text: 'name'} |
 
 * `data`子配置项

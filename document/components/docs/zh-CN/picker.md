@@ -180,10 +180,11 @@
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
 | title | 标题 | String | '' | - |
-| data | 传入picker数据，数组的长度决定了picker的列数 | Array | [] | - |
-| selectedIndex | 被选中的索引值，拉起picker后显示这个索引值对应的内容 | Array | [] | [1] |
-| cancelTxt | picker左侧按钮文案 | String | '取消' | - |
-| confirmTxt | picker右侧按钮文案 | String | '确定' | - |
+| data | 传入 picker 数据，数组的长度决定了 picker 的列数 | Array | [] | - |
+| selectedIndex | 被选中的索引值，拉起 picker 后显示这个索引值对应的内容 | Array | [] | [1] |
+| cancelTxt | 取消按钮文案 | String | '取消' | - |
+| confirmTxt | 确定按钮文案 | String | '确定' | - |
+| swipeTime | 快速滑动 picker 滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
 | alias | 配置`value`和`text`的别名 | Object | {} | { value: 'id', text: 'name'} |
 
 * `data`子配置项
