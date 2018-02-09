@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-input-wrapper">
+  <div class="cube-input-wrapper" :class="{'active': isFocus}">
     <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
       <slot>
         <i class="cubeic-wrong"></i>
@@ -30,7 +30,8 @@
     name: COMPONENT_NAME,
     data() {
       return {
-        inputValue: this.value
+        inputValue: this.value,
+        isFocus: false
       }
     },
     props: {
@@ -87,9 +88,11 @@
     methods: {
       handleFocus(e) {
         this.$emit(EVENT_FOCUS, e)
+        this.isFocus = true
       },
       handleBlur(e) {
         this.$emit(EVENT_BLUR, e)
+        this.isFocus = false
       },
       handleClear(e) {
         this.inputValue = ''
@@ -100,10 +103,15 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
     @require "../../common/stylus/variable.styl"
+    @require "../../common/stylus/mixin.styl"
+
     .cube-input-wrapper
       position: relative
       font-size: $fontsize-large
       line-height: 1
+      border-1px($input-border-color)
+      &.active
+          border-1px($input-focus-border-color)
       input
         width: 100%
         padding: 10px
@@ -112,9 +120,6 @@
         line-height: inherit
         background-color: $input-bgc
         outline: none
-        &:focus
-          outline: $input-outline-color solid 1px
-          outline-offset: -1px
         &::-webkit-input-placeholder
           color: $input-placeholder-color !important
           text-overflow: ellipsis

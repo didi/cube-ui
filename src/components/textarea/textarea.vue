@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-textarea-wrapper" :class="{expanded: expanded}">
+  <div class="cube-textarea-wrapper" :class="{expanded: expanded, active: isFocus}">
     <textarea
       class="cube-textarea"
       v-model="textareaValue"
@@ -23,7 +23,8 @@
     data() {
       return {
         textareaValue: this.value,
-        expanded: false
+        expanded: false,
+        isFocus: false
       }
     },
     props: {
@@ -70,12 +71,14 @@
       handleFocus(e) {
         this.$emit('focus', e)
         this.expanded = true
+        this.isFocus = true
       },
       handleBlur(e) {
         this.$emit('blur', e)
         if (this.textareaValue.length === 0) {
           this.expanded = false
         }
+        this.isFocus = false
       }
     }
   }
@@ -83,6 +86,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
 
   .cube-textarea-wrapper
     position: relative
@@ -93,6 +97,10 @@
     textarea::-webkit-input-placeholder
       color: $textarea-placeholder-color !important
       text-overflow: ellipsis
+    border-1px($textarea-border-color)
+    &.active
+      border-1px($textarea-focus-border-color)
+
   .cube-textarea-indicator
     position: absolute
     bottom: 7px
@@ -114,7 +122,4 @@
     color: $textarea-color
     background-color: $textarea-bgc
     outline: none
-    &:focus
-      outline: $textarea-outline-color solid 1px
-      outline-offset: -1px
 </style>
