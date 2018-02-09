@@ -5,8 +5,9 @@
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
       :z-index="zIndex"
-      :cancelTxt="cancelTxt"
-      :confirmTxt="confirmTxt"
+      :cancel-txt="cancelTxt"
+      :confirm-txt="confirmTxt"
+      :swipe-time="swipeTime"
       @select="_pickerSelect"
       @cancel="_pickerCancel"
       @change="_pickerChange"></cube-picker>
@@ -53,6 +54,10 @@
       confirmTxt: {
         type: String,
         default: '确定'
+      },
+      swipeTime: {
+        type: Number,
+        default: 2500
       },
       alias: {
         type: Object,

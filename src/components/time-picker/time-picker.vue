@@ -5,6 +5,7 @@
     :data="data"
     :selected-index="selectedIndex"
     :z-index="zIndex"
+    :swipe-time="swipeTime"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange"></cube-picker>
@@ -47,6 +48,10 @@
       title: {
         type: String,
         default: '选择时间'
+      },
+      swipeTime: {
+        type: Number,
+        default: 2500
       },
       delay: {
         type: Number,
