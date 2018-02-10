@@ -11,7 +11,7 @@
               :auto-shrink="autoShrink"
               @item-click="onItemClick"
               @btn-click="onBtnClick"
-              @active="onItemActive(index)">
+              @active="onItemActive">
           </cube-swipe-item>
         </li>
       </transition-group>

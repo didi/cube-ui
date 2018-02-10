@@ -3,9 +3,7 @@
     <template slot="content">
       <div class="swipe-wrapper">
         <cube-scroll>
-          <cube-swipe
-              :data="swipeData"
-          >
+          <cube-swipe>
             <transition-group name="swipe" tag="ul">
               <li class="swipe-item-wrapper" v-for="(data,index) in swipeData" :key="data.item.id">
                 <cube-swipe-item
@@ -13,7 +11,7 @@
                     :btns="data.btns"
                     :index="index"
                     @btn-click="onBtnClick"
-                    @active="onItemActive(index)">
+                    @active="onItemActive">
                   <div @click="onItemClick(data.item, index)" class="item-inner">
                     <div class="icon">
                       <img width="60" height="60" :src="data.item.imgurl">
@@ -26,7 +24,8 @@
                 </cube-swipe-item>
               </li>
             </transition-group>
-          </cube-swipe>
+          </cube-swipe
+              >
         </cube-scroll>
       </div>
     </template>

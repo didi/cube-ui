@@ -55,7 +55,10 @@
     name: COMPONENT_NAME,
     props: {
       item: {
-        type: Object
+        type: Object,
+        default() {
+          return {}
+        }
       },
       btns: {
         type: Array,
@@ -217,7 +220,7 @@
         }
       },
       onTouchStart(e) {
-        this.$emit(EVENT_ACTIVE)
+        this.$emit(EVENT_ACTIVE, this.index)
         this.stop()
         this.moved = false
         this.movingDirectionX = 0
