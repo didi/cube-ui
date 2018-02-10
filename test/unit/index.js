@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import 'basic-mouse-event-polyfill-phantomjs'
+import 'phantomjs-polyfill-find-index'
 
 Vue.config.productionTip = false
 

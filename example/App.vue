@@ -5,7 +5,7 @@
     </header>
     <section class="cube-content" ref="mfct">
       <ul class="cube-list">
-        <li class="cube-item border-bottom-1px" v-for="component in components">
+        <li class="cube-item border-bottom-1px" v-for="(component, index) in components" :key="index">
           <router-link class="link" :to="component.path">{{component.text}}<i
               class="cubeic-arrow"></i>
           </router-link>
@@ -44,6 +44,10 @@
             text: 'Input'
           },
           {
+            path: '/textarea',
+            text: 'Textarea'
+          },
+          {
             path: '/switch',
             text: 'Switch'
           },
@@ -68,6 +72,10 @@
             text: 'Validator'
           },
           {
+            path: '/rate',
+            text: 'Rate'
+          },
+          {
             path: '/picker',
             text: 'Picker'
           },
@@ -78,6 +86,10 @@
           {
             path: '/time-picker',
             text: 'TimePicker'
+          },
+          {
+            path: '/select',
+            text: 'Select'
           },
           {
             path: '/dialog',

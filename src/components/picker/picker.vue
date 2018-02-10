@@ -60,6 +60,12 @@
           return []
         }
       },
+      selectedIndex: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
       title: {
         type: String
       },
@@ -71,11 +77,9 @@
         type: String,
         default: '确定'
       },
-      selectedIndex: {
-        type: Array,
-        default() {
-          return []
-        }
+      swipeTime: {
+        type: Number,
+        default: 2500
       },
       alias: {
         type: Object,
@@ -247,6 +251,7 @@
             wheel: {
               selectedIndex: this.pickerSelectedIndex[i] || 0
             },
+            swipeTime: this.swipeTime,
             observeDOM: false
           })
           wheel.on('scrollEnd', () => {

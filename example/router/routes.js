@@ -8,9 +8,12 @@ import Tip from '../pages/tip.vue'
 import Popup from '../pages/popup.vue'
 import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
+import Textarea from '../pages/textarea.vue'
+import Rate from '../pages/rate.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
+import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
 import ActionSheet from '../pages/action-sheet.vue'
 import Scroll from '../pages/scroll.vue'
@@ -46,6 +49,10 @@ const routes = [
     component: Input
   },
   {
+    path: '/textarea',
+    component: Textarea
+  },
+  {
     path: '/switch',
     component: Switch
   },
@@ -66,6 +73,10 @@ const routes = [
     component: Toast
   },
   {
+    path: '/rate',
+    component: Rate
+  },
+  {
     path: '/picker',
     component: Picker
   },
@@ -76,6 +87,10 @@ const routes = [
   {
     path: '/time-picker',
     component: TimePicker
+  },
+  {
+    path: '/select',
+    component: Select
   },
   {
     path: '/dialog',

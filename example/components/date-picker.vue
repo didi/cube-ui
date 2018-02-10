@@ -51,7 +51,7 @@
           year.children = range(minMonth, maxMonth, false, '月')
           year.children.forEach(month => {
             let day = 30
-            if ([1, 3, 5, 7, 8, 10, 12].includes(month.value)) {
+            if ([1, 3, 5, 7, 8, 10, 12].indexOf(month.value) > -1) {
               day = 31
             } else {
               if (month.value === 2) {

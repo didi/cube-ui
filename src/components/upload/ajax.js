@@ -49,7 +49,6 @@ export default function ajaxUpload(file, options, changeHandler) {
   }
 
   const formData = new window.FormData()
-
   Object.keys(data).forEach((key) => {
     formData.append(key, data[key])
   })

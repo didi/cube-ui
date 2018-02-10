@@ -142,6 +142,7 @@
 | Attribute | Description | Type | Default |
 | - | - | - | - |
 | title | title | String | '选择时间' |
+| swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | delay | minutes that postponed backwards from now, which determines the minimal optional time| Number | 15 |
 | day | date configuration | Object | { len: 3, filter: ['今日'], format: 'M月d日' } |
 | showNow | whether to display current time | Boolean | true |

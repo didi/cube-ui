@@ -29,7 +29,10 @@
       }
     },
     watch: {
-      checkboxValue: function (newVal) {
+      value (newVal) {
+        this.checkboxValue = newVal
+      },
+      checkboxValue (newVal) {
         this.$emit(EVENT_INPUT, newVal)
       }
     }

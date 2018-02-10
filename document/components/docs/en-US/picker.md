@@ -182,8 +182,9 @@
 | title | title | String | '' | - |
 | data | data that passed into picker, whose length determines the columns of picker | Array | [] | - |
 | selectedIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
-| cancelTxt | the text of the left button in picker | String | '取消' | - |
-| confirmTxt | the text of the right button in picker | String | '确定' | - |
+| cancelTxt | the text of the cancel button | String | '取消' | - |
+| confirmTxt | the text of the confirm button | String | '确定' | - |
+| swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
 | alias | configure the alias of `value` and `text` | Object | {} | { value: 'id', text: 'name'} |
 
 * `data` sub configuration
