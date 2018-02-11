@@ -347,5 +347,5 @@
       flex: 1
       padding: 0 20px
       white-space: nowrap
-      color: $color-white
+      color: $swipe-btn-color
 </style>

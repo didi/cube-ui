@@ -31,7 +31,7 @@ export default {
       swipeData: [{
         item: {
           text: '测试1',
-          val: 1
+          value: 1
         },
         btns: [
           {
@@ -48,7 +48,7 @@ export default {
       }, {
         item: {
           text: '测试2',
-          val: 2
+          value: 2
         },
         btns: [
           {
@@ -65,7 +65,7 @@ export default {
       }, {
         item: {
           text: '测试3',
-          val: 3
+          value: 3
         },
         btns: [
           {
@@ -259,7 +259,7 @@ export default {
  
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| item | 用于 `swipe-item` 列表项渲染的数据，当需要使用内置的默认插槽，此参数必传，且需要有 `val` 和 `text` 2 个字段，分别表示数据项的值和显示的文案，但如果使用自定义插槽，可不传此值 | Object | - | {} |
+| item | 用于 `swipe-item` 列表项渲染的数据，当需要使用内置的默认插槽，此参数必传，且需要有 `value` 和 `text` 2 个字段，分别表示数据项的值和显示的文案，但如果使用自定义插槽，可不传此值 | Object | - | {} |
 | btns | 用于 `swipe-item` 列表项渲染按钮数组，数组的每一项是一个 Object 类型，至少要包含 `text` 和 `color` 2 个字段，分别表示按钮的文案和颜色 | Array | - | [] |
 | index | 表示当前的 `swpie-item` 在整个列表中的索引值，必传 | Number | - | -1
 | autoShrink | 用于当点击滑块的按钮后，是否需要自动收缩滑块 | Boolean | - | false

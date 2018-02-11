@@ -2,7 +2,7 @@
   <div class="cube-swipe">
     <slot>
       <transition-group name="cube-swipe" tag="ul">
-        <li v-for="(item,index) in data" :key="item.item.val">
+        <li v-for="(item,index) in data" :key="item.item.value">
           <cube-swipe-item
               ref="swipeItem"
               :btns="item.btns"

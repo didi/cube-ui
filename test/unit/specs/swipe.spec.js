@@ -10,7 +10,7 @@ const props = {
   data: [{
     item: {
       text: '测试1',
-      val: 1
+      value: 1
     },
     btns: [
       {
@@ -27,7 +27,7 @@ const props = {
   }, {
     item: {
       text: '测试2',
-      val: 2
+      value: 2
     },
     btns: [
       {
@@ -44,7 +44,7 @@ const props = {
   }, {
     item: {
       text: '测试3',
-      val: 3
+      value: 3
     },
     btns: [
       {
@@ -61,7 +61,7 @@ const props = {
   }, {
     item: {
       text: '测试',
-      val: 4
+      value: 4
     },
     btns: [
       {
@@ -78,7 +78,7 @@ const props = {
   }, {
     item: {
       text: '测试',
-      val: 5
+      value: 5
     },
     btns: [
       {
@@ -95,7 +95,7 @@ const props = {
   }, {
     item: {
       text: '测试',
-      val: 6
+      value: 6
     },
     btns: [
       {
@@ -112,7 +112,7 @@ const props = {
   }, {
     item: {
       text: '测试',
-      val: 7
+      value: 7
     },
     btns: [
       {
@@ -397,7 +397,7 @@ describe('Swipe', () => {
     vm = createSwipe({
       data: [{
         item: {
-          val: 1
+          value: 1
         }
       }]
     })
