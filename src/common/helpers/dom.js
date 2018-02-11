@@ -1,3 +1,5 @@
+import { inBrowser } from './env'
+
 export function hasClass(el, className) {
   const reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
   return reg.test(el.className)
@@ -37,6 +39,10 @@ export function getRect(el) {
 }
 
 let vendor = (() => {
+  if (!inBrowser) {
+    /* istanbul ignore if */
+    return false
+  }
   let elementStyle = document.createElement('div').style
   let transformNames = {
     standard: 'transform',
