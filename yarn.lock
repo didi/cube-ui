@@ -926,9 +926,9 @@ better-assert@~1.0.0:
   dependencies:
     callsite "1.0.0"
 
-better-scroll@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/better-scroll/-/better-scroll-1.8.0.tgz#266939b23a3b497330975c12f33d3d4839c773ee"
+better-scroll@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/better-scroll/-/better-scroll-1.8.1.tgz#a8a66b5f30bfa381457551b621c184cd93829e5c"
   dependencies:
     babel-runtime "^6.0.0"
 
@@ -4559,6 +4559,10 @@ performance-now@^0.2.0:
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+phantomjs-polyfill-find-index@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/phantomjs-polyfill-find-index/-/phantomjs-polyfill-find-index-1.0.1.tgz#ffd8d636abc27e87fec57d47033b687967810c37"
 
 phantomjs-prebuilt@^2.1.14, phantomjs-prebuilt@^2.1.7:
   version "2.1.16"
