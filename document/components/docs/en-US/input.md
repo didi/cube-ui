@@ -36,7 +36,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :disabled="disabled"
     :autofocus="autofocus"
     :autocomplete="autocomplete"
-    :clearable="useClear"
+    :clearable="clearable"
   ></cube-input>
   ```
 
@@ -52,7 +52,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        useClear: false
+        clearable: false
       }
     }
   }
