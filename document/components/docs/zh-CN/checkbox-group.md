@@ -40,7 +40,7 @@
   可通过设置 `horizontal` 改变样式为水平排列，另外，还可以通过 `shape` 配置图标形状。
 
   ```html
-  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" />
+  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square"/>
   ```
 
 - 自定义 label
