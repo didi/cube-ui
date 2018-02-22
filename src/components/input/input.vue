@@ -102,37 +102,39 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-    @require "../../common/stylus/variable.styl"
-    @require "../../common/stylus/mixin.styl"
+  @require "../../common/stylus/variable.styl"
+  @require "../../common/stylus/mixin.styl"
 
-    .cube-input-wrapper
-      position: relative
-      font-size: $fontsize-large
-      line-height: 1
-      border-1px($input-border-color)
-      &.active
-          border-1px($input-focus-border-color)
-      input
-        width: 100%
-        padding: 10px
-        box-sizing: border-box
-        color: $input-color
-        line-height: inherit
-        background-color: $input-bgc
-        outline: none
-        &::-webkit-input-placeholder
-          color: $input-placeholder-color !important
-          text-overflow: ellipsis
-    .cube-input-clear
-      position: absolute
-      right: 0
-      top: 0
-      bottom: 0
-      width: 1em
-      height: 1em
-      padding: 10px 8px
-      margin: auto
-      color: $input-clear-icon-color
-      + input
-        padding-right: 32px
+  .cube-input-wrapper
+    position: relative
+    font-size: $fontsize-large
+    line-height: 1
+    border-1px($input-border-color)
+    &.active
+      &::after
+        border-color: $input-focus-border-color
+    input
+      width: 100%
+      padding: 10px
+      box-sizing: border-box
+      color: $input-color
+      line-height: inherit
+      background-color: $input-bgc
+      border-radius: 2px
+      outline: none
+      &::-webkit-input-placeholder
+        color: $input-placeholder-color!important
+        text-overflow: ellipsis
+  .cube-input-clear
+    position: absolute
+    right: 0
+    top: 0
+    bottom: 0
+    width: 1em
+    height: 1em
+    padding: 10px 8px
+    margin: auto
+    color: $input-clear-icon-color
+    + input
+      padding-right: 32px
 </style>
