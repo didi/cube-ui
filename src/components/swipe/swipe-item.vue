@@ -97,8 +97,8 @@
         }
       },
       _handleBtns(x) {
+        /* istanbul ignore if */
         if (this.btns.length === 0) {
-          /* istanbul ignore if */
           return
         }
         const len = this.$refs.btns.length
@@ -243,8 +243,8 @@
           clearTimeout(this.shrinkTimer)
           e.stopPropagation()
         }
+        /* istanbul ignore if */
         if (this.isInTransition) {
-          /* istanbul ignore if */
           return
         }
         e.preventDefault()
