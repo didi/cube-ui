@@ -13,14 +13,14 @@
   ```
   如果选中了，则 `checked` 的值就为 `true`。
 
-- 复选框图标位置
+- 复选框图标位置、形状
 
   ```html
-  <cube-checkbox v-model="checked" position="right">
+  <cube-checkbox v-model="checked" position="right" shape="square">
     Position Checkbox
   </cube-checkbox>
   ```
-  设置 `position` 为 `'right'` 则复选框图标位置在右边。
+  设置 `position` 为 `'right'` 则复选框图标位置在右边，且可以通过 `shape` 配置图标形状。
 
 - 改变 model 的值
 
@@ -58,6 +58,7 @@
 | - | - | - | - | - |
 | option | 配置项 | Boolean/String/Object | - | - |
 | position | 位置 | String | left/right | left |
+| shape | 图标形状 | String | circle/square | circle |
 
 * `option` 子配置项
 

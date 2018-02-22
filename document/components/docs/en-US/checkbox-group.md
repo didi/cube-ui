@@ -37,9 +37,9 @@
 
   The value of `checkList` is an array, which represents the set of the values of `value` in selected checkboxs.
 
-- Horizontal order
+- Horizontal order and icon shape
 
-  You can set `horizontal` to change the style to horizontal order.
+  You can set `horizontal` to change the style to horizontal order. Besides, you could use `shape` to configure the shape of icon
 
   ```html
   <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" />
@@ -62,8 +62,9 @@
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| horizontal | whether in horizontal order | Boolean | true/false | false |
 | options | array of checkbox options | Array | - | - |
+| horizontal | whether in horizontal order | Boolean | true/false | false |
+| shape | icon shape | String | circle/square | circle |
 
 * `options` sub configuration
 
