@@ -91,9 +91,9 @@
   .cube-textarea-wrapper
     position: relative
     transition: height 200ms
-    height: 34px
+    height: 38px
     &.expanded
-      height: 74px
+      height: 78px
     textarea::-webkit-input-placeholder
       color: $textarea-placeholder-color !important
       text-overflow: ellipsis
@@ -107,13 +107,13 @@
     right: 10px
     line-height: 20px
     color: $textarea-indicator-color
-    font-size: $fontsize-medium
+    font-size: $fontsize-large
   .cube-textarea
     width: 100%
     height: 100%
     text-align: left
-    padding: 7px 10px
-    font-size: $fontsize-medium
+    padding: 9px 10px
+    font-size: $fontsize-large
     line-height: 20px
     box-sizing: border-box
     border-radius: 2px
