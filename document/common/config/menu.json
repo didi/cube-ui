@@ -24,6 +24,7 @@
             "textarea": "Textarea",
             "select": "Select",
             "switch": "Switch",
+            "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
@@ -91,6 +92,7 @@
             "textarea": "Textarea",
             "select": "Select",
             "switch": "Switch",
+            "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
             "tip": "Tip"
