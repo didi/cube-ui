@@ -14,6 +14,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
 
   const COMPONENT_NAME = 'cube-slide'
@@ -219,6 +220,9 @@
         this.slide.destroy()
         this.slide = null
       }
+    },
+    components: {
+      CubeSlideItem
     }
   }
 </script>

@@ -12,6 +12,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import CubeRadio from './radio.vue'
   const COMPONENT_NAME = 'cube-radio-group'
 
   const EVENT_INPUT = 'input'
@@ -54,6 +55,9 @@
           return 'border-top-1px border-bottom-1px'
         }
       }
+    },
+    components: {
+      CubeRadio
     }
   }
 </script>
