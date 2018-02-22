@@ -14,15 +14,15 @@
 
   If selected, the value of `checked` is `true`.
 
-- Position of the checkbox icon
+- Position and shape of the checkbox icon
 
   ```html
-  <cube-checkbox v-model="checked" position="right">
+  <cube-checkbox v-model="checked" position="right" shape="square">
     Position Checkbox
   </cube-checkbox>
   ```
 
-  If setting `position` to `'right'`, the position of the checkbox's icon is on the right.
+  If setting `position` to `'right'`, the position of the checkbox's icon is on the right. And you could use `shape` to configure the shape of icon
 
 - Change the value of model
 
@@ -60,6 +60,7 @@
 | - | - | - | - | - |
 | option | option value | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
+| shape | icon shape | String | circle/square | circle |
 
 * `option` sub configuration
 
