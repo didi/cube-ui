@@ -3,8 +3,8 @@
 # git pull
 git pull origin master
 # npm install
+rm package-lock.json
 npm install --registry=https://registry.npmjs.org
-git checkout package-lock.json
 # build
 npm run build
 # ADD commit
