@@ -42,7 +42,7 @@
   You can set `horizontal` to change the style to horizontal order. Besides, you could use `shape` to configure the shape of icon
 
   ```html
-  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" />
+  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square"/>
   ```
 
 - Use slot
