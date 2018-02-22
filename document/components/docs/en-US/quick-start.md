@@ -8,6 +8,8 @@ If you are going to create a new project with cube-ui, use the [cli tools](https
 $ vue init cube-ui/cube-template projectname
 ```
 
+About cube-template special options: [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki).
+
 If you are going to use cube-ui in an existing project, see the <a href="#cube-Install-anchor" class="anchor">Install</a> part first.
 
 ### Install
@@ -86,7 +88,7 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
     }
     ```
   5. Modify vue-loader.conf.js
-    
+
     ```javascript
     module.exports = {
       loaders: utils.cssLoaders({
@@ -95,7 +97,7 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
       }),
       // ...
     }
-  
+
     ```
 
     See [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)

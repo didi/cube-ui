@@ -8,6 +8,8 @@
 $ vue init cube-ui/cube-template projectname
 ```
 
+关于初始化时特殊的配置项，请参考 [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki)
+
 如果你打算在现有项目中使用 cube-ui，请先参考<a href="#cube-安装-anchor" class="anchor">安装</a>部分。
 
 ### 安装
@@ -87,9 +89,9 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
       }
     }
     ```
-    
+
   5. 修改 vue-loader.conf.js
-  
+
   ```javascript
   module.exports = {
     loaders: utils.cssLoaders({
