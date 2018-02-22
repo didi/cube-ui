@@ -36,7 +36,7 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :autocomplete="autocomplete"
-    :clearable="useClear"
+    :clearable="clearable"
   ></cube-input>
   ```
   ```javascript
@@ -51,7 +51,7 @@
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        useClear: false
+        clearable: false
       }
     }
   }
