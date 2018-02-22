@@ -15,6 +15,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import CubeRateItem from './rate-item.vue'
   const COMPONENT_NAME = 'cube-rate'
   const EVENT_INPUT = 'input'
 
@@ -90,6 +91,9 @@
           this.tempValue = this.max
         }
       }
+    },
+    components: {
+      CubeRateItem
     }
   }
 </script>
