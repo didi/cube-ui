@@ -34,7 +34,7 @@
         value: 2016,
         title: 'Entry time',
         placeholder: 'Please choose entry time',
-        autoPop: true,
+        autoPop: false,
         disabled: false
       }
     },
