@@ -32,10 +32,10 @@
         <cube-validator v-model="isValid[3]" :for="checkList" :rule="rule4" :trigger="trigger"></cube-validator>
       </div>
 
-      <!-- <div class="validator-item">
-        <cube-rate v-model="rate" :max="10"></cube-rate>
+      <div class="validator-item">
+        <cube-rate v-model="rate"></cube-rate>
         <cube-validator v-model="isValid[4]" :for="rate" :rule="rule5" :trigger="trigger"></cube-validator>
-      </div> -->
+      </div>
       <cube-button @click="submit">Submit</cube-button>
     </div>
   </cube-page>
@@ -93,7 +93,7 @@
         rate: 0,
         rule5: {
           min: 1,
-          max: 8
+          max: 4
         }
       }
     },
