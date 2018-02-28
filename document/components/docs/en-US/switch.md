@@ -33,7 +33,7 @@ Switch usually used to switch the state of on/off.
 
 ### Props configuration
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | v-model | the state of on/off, two-way data binding | Boolean | true/false | false |
 | disabled | whether disabled | Boolean | true/false | false |
