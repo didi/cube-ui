@@ -43,7 +43,9 @@
       line-height: 45px
       margin: 0 20px
     a
-      color: $color-white
+      color: #4B4B4C
+      @media screen and (max-width: 960px)
+        color: $color-white
       &::after
         content: "/"
         padding: 0 5px
