@@ -1,14 +1,14 @@
-## Swipe 滑块组件
+## Swipe
 
-滑块组件，提供类似微信列表左滑功能，可以方便地对列表项做一些功能操作。
+The Swipe component, which provides a WeChat list left slip function, makes it easy to do some functional operations on the list items.
 
-### 示例
+### Example
 
-`Swipe` 组件的示例相关代码在[这里](https://github.com/didi/cube-ui/tree/master/example/pages/swipe)
+`Swipe` demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/swipe)
 
-- 基本使用
+- Basic Usage
 
-`Swipe` 组件常见的场景是搭配 `Scroll` 组件使用，既可以纵向滚动，又可以横向左滑出一些按钮对列表项做操作，当然，`Swipe` 组件也可以单独使用。
+The common scenario of `Swipe` component is to match `Scroll` components. It can not only scroll vertically, but also slide out some buttons to do list items. Of course, `Swipe` components can also be used separately. 
 
 ```html
 <template>
@@ -103,11 +103,11 @@ export default {
   }
 }
 ```
-`Swipe` 组件如果使用默认插槽，则需要传递示例所示的数据结构。
+If the `Swipe` component uses a default slot, you need to pass the data structure shown in the example.
 
-- 自定义插槽
+- Custom slots
 
-实际上我们更常见的需求是需要自定义列表的内容展示，因此 `Swipe` 组件也支持了插槽的使用方式，如下：
+In fact, our more common requirement is the need for a display of the content of a custom list, so the `Swipe` component also supports the use of slots, as follows:
 
 ```html
 <template>
@@ -244,50 +244,51 @@ export default {
   }
 }
 ```
-默认插槽可以搭配 `cube-swipe-item` 组件实现列表的循环。自定义插槽非常灵活，但它也需要自己手动去写一些逻辑，比如如果你想要在列表删除的时候自定义动画，需要使用 `transition-group`，需要手动去管理每个激活的 `swipe-item` 的收缩，如示例代码所示。
 
-### Props 配置
+The default slot can be used with the `cube-swipe-item` component to realize the loop of the list. A custom slot is very flexible, but it also need to manually write some logic, for example if you want to customize the list when deleted animation, need to use `transition-group` to manage each need to manually activate the `swipe-item` contraction, as shown in the example code.
 
-- `cube-swipe` 配置
+### Props configuration
+
+- `cube-swipe` configuration
  
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| data | 用于 `swipe` 列表渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `item` 和 `btns`，这俩参数见 `cube-swipe-item` 的描述。如果使用自定义插槽，可不传此值。 | Array | - | [] |
-| autoShrink | 用于当点击滑块的按钮后，是否需要自动收缩滑块，如果使用自定义插槽，则直接给 `cube-swipe-item` 传递此值即可。 | Boolean | - | false |
+| data | For `swipe` list rendered data, when you need to use the built-in default slot, this parameter will be passed. Every item in the array is an Object type, including `item` and `btns`. These two parameters are described in `cube-swipe-item`. If a custom slot is used, this value may not be passed.  | Array | - | [] |
+| autoShrink | Decide whether to automatically shrink the slider when the button is clicked, If you use a custom slot, you can pass this value directly to the `cube-swipe-item`. | Boolean | - | false |
 
 - `cube-swipe-item` 配置
  
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| item | 用于 `swipe-item` 列表项渲染的数据，当需要使用内置的默认插槽，此参数必传，且需要有 `value` 和 `text` 2 个字段，分别表示数据项的值和显示的文案，但如果使用自定义插槽，可不传此值。 | Object | - | {} |
-| btns | 用于 `swipe-item` 列表项渲染按钮数组，数组的每一项是一个 Object 类型，至少要包含 `text` 和 `color` 2 个字段，分别表示按钮的文案和颜色。 | Array | - | [] |
-| index | 表示当前的 `swpie-item` 在整个列表中的索引值，必传。 | Number | - | -1
-| autoShrink | 用于当点击滑块的按钮后，是否需要自动收缩滑块。 | Boolean | - | false
+| item | Data for `swipe-item` list item rendering, when you need to use the built-in default slot, this parameter must be transmitted, and there are 2 fields, `value` and `text`, representing the value of the data item and the displayed copy respectively, but if you use custom slot, you can not pass this value. | Object | - | {} |
+| btns | For `swipe-item` list item rendering button array, each item of the array is a Object type. It contains at least 2 fields, `text` and `color`, which represent the copy and color of the button respectively. | Array | - | [] |
+| index | The index value of the current `swpie-item` in the entire list, must be passed. | Number | - | -1
+| autoShrink | Decide whether to automatically shrink the slider when the button is clicked. | Boolean | - | false
 
-### 事件
+### Events
 
-- `cube-swipe` 事件
+- `cube-swipe` event
 
-当使用自定义插槽时，直接监听 `cube-swipe-item` 上的事件即可。
+When you use a custom slot, you can listen directly to the events on the `cube-swipe-item`.
 
-| 事件名 | 说明 | 参数1 | 参数2 |
+| Event Name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
-| item-click | 当列表项目被点击时派发 | 点击的列表项 | 点击项在列表中的索引 |
-| btn-click | 当按钮被点击时派发 | 点击的按钮 | 点击按钮在列表中的索引 |
+| item-click | Triggered when the list item is clicked | Clicked list item | The Index of the clicked list item in the list |
+| btn-click | Triggered when the button is clicked | Clicked button | The index of the clicked button in the list |
 
-- `cube-swipe-item` 事件
+- `cube-swipe-item` event
 
-| 事件名 | 说明 | 参数1 | 参数2 |
+| Event Name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
-| item-click | 当列表项目被点击时派发 | 点击的列表项 | 点击项在列表中的索引 |
-| btn-click | 当按钮被点击时派发 | 点击的按钮 | 点击按钮在列表中的索引 |
-| active | 当开始滑动某个列表项目时派发 | 激活项在列表中的索引 | - |
+| item-click | Triggered when the list item is clicked | Clicked list item | The Index of the clicked list item |
+| btn-click | Triggered when the button is clicked | Clicked button | The index of the clicked button in the list |
+| active | Triggered when you start sliding one of the list item | The index of the activation item in the list | - |
 
-### 实例方法
+### Instance methods
 
-- `cube-swipe-item` 实例方法
+- `cube-swipe-item` instance methods
 
-| 方法名 | 说明 |
+| Method name | Description |
 | - | - |
-| shrink | 收缩该滑块项 |
+| shrink | Shrink the swipe item |
 
