@@ -7,6 +7,7 @@ var baseWebpackConfig = require('../webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var WebpackMd5Hash = require('webpack-md5-hash')
 
 var webpackConfig = merge(baseWebpackConfig, {
   entry: {
@@ -43,7 +44,8 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
-    new webpack.HashedModuleIdsPlugin(),
+    new WebpackMd5Hash(),
+    // new webpack.HashedModuleIdsPlugin(),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
