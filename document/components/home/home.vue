@@ -2,7 +2,7 @@
   <div class="home-view">
     <div class="navigator" :class="{ active: showTabs }">
       <h1 class="logo">
-        <router-link to="/"><span>cube-ui</span></router-link>
+        <router-link to="/"><img src="./didi-logo.svg" alt="DiDi"></router-link>
       </h1>
       <div class="tabs">
         <slot name="nav"></slot>
@@ -63,9 +63,10 @@
     height: 70px
     line-height: 70px
     margin-top: -70px
-    background-color: $color-regular-blue
     transition: all 0.3s ease
     overflow: hidden
+    @media screen and (max-width: 960px)
+      background-color: $color-regular-blue
     .toggle-nav
       display: none
       @media screen and (max-width: 960px)
@@ -86,26 +87,12 @@
       height: 255px
     .logo
       float: left
-      background-color: $color-orange
+      padding: 0 28px
       @media screen and (max-width: 960px)
         float: none
-        background-color: transparent
         text-align: center
-      a
-        display: block
-        padding: 0 28px
-        color: $color-white
-        font-size: $fontsize-large-xx
-        @media screen and (max-width: 960px)
-          display: inline-block
-        &::before
-          content: ""
-          display: inline-block
-          background-image: url("//static.galileo.xiaojukeji.com/static/tms/shield/z/mofang/mofang/images/didi-logo.png")
-          width: 36px
-          height: 29px
-          margin-right: 10px
-          vertical-align: middle
+      img
+        height: 70px
     .tabs
       float: right
       padding: 0 30px
@@ -116,12 +103,13 @@
       .tab
         display: inline-block
         margin: 0 10px
+        color: #4B4B4C
+        transition: color .2s
         @media screen and (max-width: 960px)
           display: block
           line-height: 45px
           margin: 0 20px
-        color: $color-white
-        transition: color .2s
+          color: $color-white
         &:hover
           color: $color-orange
       .router-link-active
