@@ -1,19 +1,17 @@
 <template>
   <div class="home-index">
-    <h2>
-      <img src="//static.galileo.xiaojukeji.com/static/tms/shield/z/mofang/mofang/images/mofang_logo.png">
-      <p>cube-ui</p>
-    </h2>
-    <p>
-      <slot name="desc"></slot>
-    </p>
-    <div class="ghbtns">
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/stars/didi/cube-ui.svg?style=social&label=Star"></a>
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/forks/didi/cube-ui.svg?style=social&label=Fork"></a>
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/watchers/wepyjs/wepy.svg?style=social&label=Watch"></a>
+    <div class="banner">
+      <h2>Cube UI</h2>
+      <p>
+        <slot name="desc"></slot>
+      </p>
+      <div class="ghbtns">
+        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/stars/didi/cube-ui.svg?style=social&label=Star"></a>
+        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/forks/didi/cube-ui.svg?style=social&label=Fork"></a>
+        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/watchers/wepyjs/wepy.svg?style=social&label=Watch"></a>
+      </div>
     </div>
     <section class="features">
-<!--       <h3>Features</h3> -->
       <ul>
         <slot name="features"></slot>
       </ul>
@@ -36,32 +34,32 @@
     box-sizing: border-box
     overflow: hidden
     text-align: center
-    background: url("//webapp.didistatic.com/static/webapp/shield/cube-ui-home-index-background.png") no-repeat fixed center
     background-size: cover
-    > h2
-      margin: 80px 0 20px
-      font-size: 30px
+    > .banner
+      padding: 120px 198px 220px 198px
+      text-align: left
+      color: #4B4B4C
       @media screen and (max-width: 960px)
-        margin: 50px 0 10px
-      p
-        margin-top: 30px
-    > p
-      margin: 20px 0
-    > footer
-      position: absolute
-      bottom: 0
-      width: 100%
-      a
-        display: inline-block
-        padding: 10px 20px
-        color: #666
+        padding: 50px 0 30px 0
+        text-align: center
+      h2
+        font-size: 60px
+        @media screen and (max-width: 960px)
+          font-size: 30px
+      > p
+        margin: 30px 0
+        font-size: 18px
   .ghbtns
     a
       display: inline-block
   .features
-    margin: 60px auto 40px
+    padding: 80px 50px
+    background-color: #FBFBFB
+    box-shadow 0 0 12px 0 rgba(0, 0, 0, 0.1)
     @media screen and (max-width: 960px)
       margin: 30px auto 10px
+      padding: 0
+      box-shadow: none
     > ul
       display: flex
       padding: 0 10px
@@ -89,4 +87,14 @@
           padding: 10px 0
           text-align: center
           font-size: 15px
+
+    footer
+      position: absolute
+      bottom: 0
+      width: 100%
+      background-color: #FBFBFB
+      a
+        display: inline-block
+        padding: 10px 20px
+        color: #666
 </style>
