@@ -182,6 +182,8 @@
 | listenBeforeScroll | whether to dispatch  before-scroll-start event | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
 
+In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
+
 - `scrollbar` sub configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
