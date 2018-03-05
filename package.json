@@ -39,7 +39,7 @@
   ],
   "license": "Apache",
   "dependencies": {
-    "better-scroll": "^1.8.1"
+    "better-scroll": "^1.8.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
@@ -121,7 +121,6 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
-    "webpack-md5-hash": "0.0.6",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
