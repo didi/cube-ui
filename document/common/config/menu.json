@@ -47,7 +47,8 @@
           "subList": {
             "scroll": "Scroll",
             "slide": "Slide",
-            "index-list": "IndexList"
+            "index-list": "IndexList",
+            "swipe": "Swipe"
           }
         },
         "advanced": {
