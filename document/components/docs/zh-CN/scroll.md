@@ -182,6 +182,8 @@
 | listenBeforeScroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
 
+`options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
+
 - `scrollbar` 子配置项
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
