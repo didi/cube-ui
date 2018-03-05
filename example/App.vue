@@ -48,6 +48,10 @@
             text: 'Textarea'
           },
           {
+            path: '/select',
+            text: 'Select'
+          },
+          {
             path: '/switch',
             text: 'Switch'
           },
@@ -86,10 +90,6 @@
           {
             path: '/time-picker',
             text: 'TimePicker'
-          },
-          {
-            path: '/select',
-            text: 'Select'
           },
           {
             path: '/dialog',
