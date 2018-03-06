@@ -1,9 +1,9 @@
 <template>
   <div class="home-view">
     <div class="navigator" :class="{ active: showTabs }">
-      <h1 class="logo">
+      <div class="logo">
         <router-link to="/"><img src="./didi-logo.svg" alt="DiDi"></router-link>
-      </h1>
+      </div>
       <div class="tabs">
         <slot name="nav"></slot>
         <site-lang></site-lang>
@@ -63,10 +63,11 @@
   .navigator
     height: 70px
     line-height: 70px
-    padding: 0 100px
+    padding: 0 80px
     transition: all 0.3s ease
     overflow: hidden
     @media screen and (max-width: 960px)
+      padding: 0
       background-color: $color-regular-blue
     .toggle-nav
       display: none
@@ -89,11 +90,12 @@
     .logo
       float: left
       padding: 0 28px
+      height: 70px
       @media screen and (max-width: 960px)
         float: none
         text-align: center
       img
-        height: 70px
+        height: 100%
     .tabs
       float: right
       padding: 0 30px
