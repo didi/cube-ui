@@ -6,7 +6,8 @@
         :key="index"
         :option="option"
         :shape="shape"
-        :position="position" />
+        :position="position"
+        :native-style="nativeStyle" />
     </slot>
   </div>
 </template>
@@ -35,6 +36,10 @@
       position: {
         type: String,
         default: 'left'
+      },
+      nativeStyle: {
+        type: Boolean,
+        default: false
       },
       options: {
         type: Array,

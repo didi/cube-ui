@@ -46,6 +46,10 @@
       shape: {
         type: String,
         default: 'circle'
+      },
+      nativeStyle: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -97,6 +101,7 @@
       },
       _containerClass() {
         return {
+          'cube-checkbox-native': this.nativeStyle,
           'cube-checkbox_checked': this.checkValue,
           'cube-checkbox_disabled': this.computedOption.disabled,
           'border-right-1px': this.isInHorizontalGroup
@@ -107,11 +112,14 @@
           return 'border-bottom-1px'
         }
       },
+      isSquare() {
+        return this.shape === 'square' || this.nativeStyle
+      },
       _borderIconClass() {
-        return this.shape === 'square' ? 'cubeic-square-border' : 'cubeic-round-border'
+        return this.isSquare ? 'cubeic-square-border' : 'cubeic-round-border'
       },
       _rightIconClass() {
-        return this.shape === 'square' ? 'cubeic-square-right' : 'cubeic-right'
+        return this.isSquare ? 'cubeic-square-right' : 'cubeic-right'
       }
     }
   }
@@ -127,7 +135,6 @@
     text-align: left
     font-size: 100%
     color: $checkbox-color
-    background-color: $checkbox-bgc
     &[data-pos="right"]
       .cube-checkbox-ui
         margin-right: 0
@@ -160,7 +167,6 @@
     height: 1em
     margin-right: $ui-width - 1em
     line-height: 1
-    background-color: $checkbox-icon-bgc
     border-radius: 50%
     &.cubeic-square-border
       border-radius: 2px
@@ -169,7 +175,7 @@
     &::before
       color: $checkbox-icon-color
       display: inline-block
-      transform: scale(1.2)
+      transform: scale(1.24)
     i
       position: absolute
       top: 0
@@ -195,4 +201,37 @@
   .cube-checkbox_checked.cube-checkbox_disabled
     .cube-checkbox-ui
       background-color: $checkbox-checked-icon-bgc
+  .cube-checkbox-native
+    i
+      width: 100%
+      height: 100%
+      &::before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 50%
+        height: 50%
+        transform: translate(-50%, -50%)
+        background-color: currentColor
+        border-radius: 2px
+    &.cube-checkbox_checked
+      .cube-checkbox-ui
+        &::before
+          color: $checkbox-native-checked-icon-color
+        i
+          transform: scale(1)
+          color: $checkbox-native-checked-icon-color
+    &.cube-checkbox_disabled
+      .cube-checkbox-ui
+        background-color: transparent
+        &::before
+          color: $checkbox-native-disabled-icon-color
+        i
+          transform: scale(1)
+          color: transparent
+      &.cube-checkbox_checked
+        .cube-checkbox-ui
+          i
+            color: $checkbox-native-disabled-icon-color
 </style>

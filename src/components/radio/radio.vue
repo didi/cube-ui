@@ -27,6 +27,10 @@ export default {
     position: {
       type: String,
       default: 'left'
+    },
+    nativeStyle: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -46,6 +50,7 @@ export default {
     _containerClass() {
       const option = this.option
       return {
+        'cube-radio-native': this.nativeStyle,
         'cube-radio_selected': this.radioValue === (option.value || option),
         'cube-radio_disabled': option.disabled,
         'border-right-1px': this.$parent.horizontal
@@ -69,7 +74,6 @@ export default {
     text-align: left
     font-size: 100%
     color: $radio-color
-    background-color: $radio-bgc
     &[data-pos="right"]
       .cube-radio-ui
         margin-right: 0
@@ -103,14 +107,14 @@ export default {
     margin-right: $ui-width - 1em
     line-height: 1
     color: transparent
-    background-color: $radio-icon-bgc
+    background-color: currentColor
     border-radius: 50%
     &::before, i
       transition: all .2s
     &::before
       color: $radio-icon-color
       display: inline-block
-      transform: scale(1.2)
+      transform: scale(1.24)
     i
       position: absolute
       top: 0
@@ -119,7 +123,6 @@ export default {
       width: 100%
       height: 100%
       border-radius: 50%
-      background-color: currentColor
       transform: scale(.4)
       &::before
         content: ""
@@ -133,20 +136,36 @@ export default {
         border-radius: 50%
   .cube-radio_selected
     .cube-radio-ui
-      color: $radio-selected-icon-color
+      background-color: $radio-selected-icon-bgc
       &::before
         color: transparent
       i
         transform: scale(1)
-        &::before
-          background-color: $radio-selected-icon-bgc
+        color: $radio-selected-icon-color
   .cube-radio_disabled
     .cube-radio-ui
-      color: $radio-disabled-icon-color
       background-color: $radio-disabled-icon-bgc
       &::before, i
         transition: none
       &::before
         color: transparent
+  .cube-radio-native
+    &.cube-radio_selected, &.cube-radio_disabled
+      .cube-radio-ui
+        background-color: transparent
+        i::before
+          transform: translate(-50%, -50%) scale(1)
+    &.cube-radio_selected
+      .cube-radio-ui
+        &::before, i
+          color: $radio-native-selected-icon-color
+    &.cube-radio_disabled
+      .cube-radio-ui
+        &::before
+          color: $radio-native-disabled-icon-color
+      &.cube-radio_selected
+        .cube-radio-ui
+          i
+            color: $radio-native-disabled-icon-color
 </style>
 

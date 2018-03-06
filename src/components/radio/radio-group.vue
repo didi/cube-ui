@@ -6,6 +6,7 @@
         :key="index"
         :option="option"
         :position="position"
+        :native-style="nativeStyle"
         v-model="radioValue">
       </cube-radio>
     </slot>
@@ -32,6 +33,10 @@
         default: 'left'
       },
       horizontal: {
+        type: Boolean,
+        default: false
+      },
+      nativeStyle: {
         type: Boolean,
         default: false
       }
