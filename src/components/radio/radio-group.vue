@@ -65,6 +65,14 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
+  .cube-radio-group
+    z-index: 1
+    overflow: hidden
+    background-color: $radio-group-bgc
+    .cube-radio
+      &:last-child
+        .cube-radio-wrap
+          border-none()
   .cube-radio-group[data-horz="true"]
     display: flex
     padding-left: 0

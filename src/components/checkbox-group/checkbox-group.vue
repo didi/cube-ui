@@ -87,6 +87,7 @@
   .cube-checkbox-group
     z-index: 1
     overflow: hidden
+    background-color: $checkbox-group-bgc
     .cube-checkbox
       &:last-child
         .cube-checkbox-wrap

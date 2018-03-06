@@ -96,16 +96,15 @@
         }
       },
       _containerClass() {
-        if (this.isInHorizontalGroup) {
-          return 'border-right-1px'
-        }
-      },
-      _wrapClass() {
-        const isInHorizontalGroup = this.isInHorizontalGroup
         return {
           'cube-checkbox_checked': this.checkValue,
           'cube-checkbox_disabled': this.computedOption.disabled,
-          'border-bottom-1px': this.isInGroup && !isInHorizontalGroup
+          'border-right-1px': this.isInHorizontalGroup
+        }
+      },
+      _wrapClass() {
+        if (this.isInGroup && !this.isInHorizontalGroup) {
+          return 'border-bottom-1px'
         }
       },
       _borderIconClass() {
@@ -161,6 +160,7 @@
     height: 1em
     margin-right: $ui-width - 1em
     line-height: 1
+    background-color: $checkbox-icon-bgc
     border-radius: 50%
     &.cubeic-square-border
       border-radius: 2px

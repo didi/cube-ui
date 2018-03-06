@@ -1,6 +1,6 @@
 <template>
   <div class="cube-radio" :class="_containerClass" :data-pos="position">
-    <label class="cube-radio-wrap" :class="_wrapClass(option)">
+    <label class="cube-radio-wrap" :class="_wrapClass">
       <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue"   :value="option.value || option">
       <span class="cube-radio-ui cubeic-round-border">
         <i></i>
@@ -44,17 +44,16 @@ export default {
   },
   computed: {
     _containerClass() {
-      if (this.$parent.horizontal) {
-        return 'border-right-1px'
-      }
-    }
-  },
-  methods: {
-    _wrapClass(option) {
+      const option = this.option
       return {
         'cube-radio_selected': this.radioValue === (option.value || option),
         'cube-radio_disabled': option.disabled,
-        'border-bottom-1px': !this.$parent.horizontal
+        'border-right-1px': this.$parent.horizontal
+      }
+    },
+    _wrapClass() {
+      if (!this.$parent.horizontal) {
+        return 'border-bottom-1px'
       }
     }
   }
@@ -78,9 +77,6 @@ export default {
         right: 0
       .cube-radio-label
         margin-right: $ui-width
-    &:last-child
-      .cube-radio-wrap
-        border-none()
   .cube-radio-wrap
     position: relative
     display: flex
@@ -107,6 +103,7 @@ export default {
     margin-right: $ui-width - 1em
     line-height: 1
     color: transparent
+    background-color: $radio-icon-bgc
     border-radius: 50%
     &::before, i
       transition: all .2s

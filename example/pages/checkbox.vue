@@ -41,4 +41,6 @@
       >
         *
           margin: 10px 0
+    .cube-checkbox
+      background-color: #fff
 </style>
