@@ -1,6 +1,6 @@
 <template>
   <span class="langs">
-    <a href="javascript:;" :class="{active: current === k}" @click="to(k)" v-for="(v, k) of langs">{{v}}</a>
+    <a href="javascript:;" @click="toggle" >{{ current === 'zh-CN' ? 'English' : '中文' }}</a>
   </span>
 </template>
 
@@ -11,22 +11,15 @@
   export default {
     data() {
       return {
-        current: getCurrentLang(),
-        langs: {
-          'zh-CN': '中',
-          'en-US': 'En'
-        }
+        current: getCurrentLang()
       }
     },
     methods: {
-      to(lang) {
-        if (this.current === lang) {
-          return
-        }
-        this.current = lang
-        setItem(CUBE_LANGUAGE, lang)
+      toggle () {
+        this.current = this.current === 'zh-CN' ? 'en-US' : 'zh-CN'
+        setItem(CUBE_LANGUAGE, this.current)
         this.$router.replace({
-          path: this.$router.currentRoute.path.replace(/\/(zh-CN|en-US)(?=\/?)/, `/${lang}`)
+          path: this.$router.currentRoute.path.replace(/\/(zh-CN|en-US)(?=\/?)/, `/${this.current}`)
         })
       }
     }
@@ -46,9 +39,6 @@
       color: #4B4B4C
       @media screen and (max-width: 960px)
         color: $color-white
-      &::after
-        content: "/"
-        padding: 0 5px
-      &.active
+      &:active, &:hover
         color: $color-orange
 </style>
