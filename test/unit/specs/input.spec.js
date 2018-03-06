@@ -19,7 +19,7 @@ describe('Input.vue', () => {
     vm = createInput()
     const el = vm.$el
     expect(el.className)
-      .to.equal('cube-input-wrapper')
+      .to.equal('cube-input')
     expect(el.querySelector('input'))
       .to.be.ok
   })
