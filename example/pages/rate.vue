@@ -5,7 +5,7 @@
     class="option-demo">
     <div slot="content">
       <div class="rate-wrapper">
-        <cube-rate v-model="value" :disabled="disabled" :max="max">
+        <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify">
           <cube-rate-item v-for="n in max" :key="n" :value="value" :index="n">
             <div class="rate-item" v-if="customStar"></div>
           </cube-rate-item>
@@ -14,6 +14,8 @@
       <div class="options">
         <div class="title">Options</div>
         <div class="option-list">
+          <switch-option class="item" name="Justify" :value="justify"
+                            @update:value="updateJustify"></switch-option>
           <switch-option class="item" name="customStar" :value="customStar"
                             @update:value="updateRateItem"></switch-option>
           <switch-option class="item" name="disabled" :value="disabled"
@@ -40,6 +42,7 @@
         value: 3,
         image: 'https://p3.pstatp.com/large/593c0006340abbabefa0',
         customStar: false,
+        justify: false,
         options: [
           {
             text: '5',
@@ -59,6 +62,9 @@
       updateStarNumbers(val) {
         this.max = val
       },
+      updateJustify(val) {
+        this.justify = val
+      },
       updateRateItem(val) {
         this.customStar = val
       }
@@ -75,7 +81,6 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .rate-wrapper
     margin: 30px 0
-    text-align: center
     .rate-text
       text-align: center
       margin-top: 25px
