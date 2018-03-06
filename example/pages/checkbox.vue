@@ -3,11 +3,11 @@
     <template slot="content">
       <cube-checkbox v-model="checked">Checkbox</cube-checkbox>
       <p>checked value: {{checked}}</p>
-      <cube-checkbox v-model="checked" position="right" shape="square">Position Checkbox</cube-checkbox>
+      <cube-checkbox v-model="checked" position="right" shape="square" :native-style="true">Position Checkbox</cube-checkbox>
       <br><br>
       <cube-checkbox v-model="checked2" :option="optionValue"></cube-checkbox>
       <p>checked value (with option) : {{checked2}}</p>
-      <cube-checkbox v-model="checked2" :option="{disabled: true}">
+      <cube-checkbox v-model="checked2" :option="{disabled: true}" :native-style="true">
         Disabled Checkbox
       </cube-checkbox>
     </template>
