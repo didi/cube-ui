@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-input-wrapper" :class="{'active': isFocus}">
+  <div class="cube-input" :class="{'cube-input_active': isFocus}">
     <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
       <slot>
         <i class="cubeic-wrong"></i>
@@ -105,14 +105,11 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
-  .cube-input-wrapper
+  .cube-input
     position: relative
-    font-size: $fontsize-large
-    line-height: 1
+    font-size: $fontsize-medium
+    line-height: 20px
     border-1px($input-border-color)
-    &.active
-      &::after
-        border-color: $input-focus-border-color
     input
       width: 100%
       padding: 10px
@@ -125,6 +122,9 @@
       &::-webkit-input-placeholder
         color: $input-placeholder-color!important
         text-overflow: ellipsis
+  .cube-input_active
+    &::after
+      border-color: $input-focus-border-color
   .cube-input-clear
     position: absolute
     right: 0
@@ -132,6 +132,7 @@
     bottom: 0
     width: 1em
     height: 1em
+    line-height: 1
     padding: 10px 8px
     margin: auto
     color: $input-clear-icon-color
