@@ -5,11 +5,16 @@
         <i class="cubeic-wrong"></i>
       </slot>
     </div>
+    <div class="cube-input-eye" v-if="_showPwdEye" @click="handlePwdEye">
+      <slot>
+        <i :class="eyeClass"></i>
+      </slot>
+    </div>
     <input
       ref="input"
       v-model="inputValue"
       v-bind="$props"
-      :type="type"
+      :type="_type"
       :disabled="disabled"
       :readonly="readonly"
       :autocomplete="autocomplete"
@@ -31,7 +36,8 @@
     data() {
       return {
         inputValue: this.value,
-        isFocus: false
+        isFocus: false,
+        pwdVisible: false
       }
     },
     props: {
@@ -70,11 +76,28 @@
       clearable: {
         type: Boolean,
         default: false
+      },
+      pwdEye: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
+      _type() {
+        const type = this.type
+        if (type === 'password' && this.pwdVisible) {
+          return 'text'
+        }
+        return type
+      },
       _showClear() {
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
+      },
+      _showPwdEye() {
+        return this.type === 'password' && this.pwdEye && !this.disabled
+      },
+      eyeClass() {
+        return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
       }
     },
     watch: {
@@ -96,6 +119,10 @@
       },
       handleClear(e) {
         this.inputValue = ''
+        this.$refs.input.focus()
+      },
+      handlePwdEye() {
+        this.pwdVisible = !this.pwdVisible
         this.$refs.input.focus()
       }
     }
@@ -125,7 +152,7 @@
   .cube-input_active
     &::after
       border-color: $input-focus-border-color
-  .cube-input-clear
+  .cube-input-clear, .cube-input-eye
     position: absolute
     right: 0
     top: 0
@@ -133,9 +160,21 @@
     width: 1em
     height: 1em
     line-height: 1
-    padding: 10px 8px
+    padding: 10px .5em
     margin: auto
     color: $input-clear-icon-color
+    > i
+      display: inline-block
+      transform: scale(1.2)
     + input
-      padding-right: 32px
+      padding-right: 2em
+  .cube-input-eye
+    >
+      .cubeic-eye-invisible, .cubeic-eye-visible
+        transform: scale(1.4)
+  .cube-input-clear
+    + .cube-input-eye
+      right: 2.1em
+      + input
+        padding-right: 4.1em
 </style>

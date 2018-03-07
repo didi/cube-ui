@@ -11,6 +11,7 @@
         :readonly="readonly"
         :clearable="useClear"
         :autocomplete="true"
+        :pwd-eye="showEye"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
@@ -25,8 +26,14 @@
                             @update:value="updateReadonly"></switch-option>
           </div>
           <div class="group">
-            <switch-option class="item" name="Clearable" :value="useClear"
+            <switch-option class="item" name="clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
+          </div>
+          <div class="group">
+            <switch-option class="item" name="password" :value="isPwd"
+                            @update:value="updatePwd"></switch-option>
+            <switch-option class="item" name="show eye" :value="showEye"
+                            @update:value="updateShowEye" v-if="isPwd"></switch-option>
           </div>
         </div>
       </div>
@@ -45,7 +52,9 @@
         value: '',
         disabled: false,
         useClear: true,
-        readonly: false
+        readonly: false,
+        isPwd: false,
+        showEye: true
       }
     },
     methods: {
@@ -57,6 +66,13 @@
       },
       updateUseClear(val) {
         this.useClear = val
+      },
+      updatePwd(val) {
+        this.isPwd = val
+        this.type = this.isPwd ? 'password' : 'text'
+      },
+      updateShowEye(val) {
+        this.showEye = val
       }
     },
     components: {
