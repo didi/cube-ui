@@ -93,7 +93,7 @@
     transition: height 200ms
     height: 40px
     font-size: $fontsize-medium
-    line-height: 20px
+    line-height: 1.429
     textarea::-webkit-input-placeholder
       color: $textarea-placeholder-color !important
       text-overflow: ellipsis

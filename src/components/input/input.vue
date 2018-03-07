@@ -123,7 +123,6 @@
       },
       handlePwdEye() {
         this.pwdVisible = !this.pwdVisible
-        this.$refs.input.focus()
       }
     }
   }
@@ -135,7 +134,7 @@
   .cube-input
     position: relative
     font-size: $fontsize-medium
-    line-height: 20px
+    line-height: 1.429
     border-1px($input-border-color)
     input
       width: 100%
@@ -160,21 +159,21 @@
     width: 1em
     height: 1em
     line-height: 1
-    padding: 10px .5em
+    padding: 10px .8em
     margin: auto
     color: $input-clear-icon-color
     > i
       display: inline-block
       transform: scale(1.2)
     + input
-      padding-right: 2em
+      padding-right: 2.6em
   .cube-input-eye
     >
       .cubeic-eye-invisible, .cubeic-eye-visible
         transform: scale(1.4)
   .cube-input-clear
     + .cube-input-eye
-      right: 2.1em
+      right: 2.6em
       + input
-        padding-right: 4.1em
+        padding-right: 5.2em
 </style>

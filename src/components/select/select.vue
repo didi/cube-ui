@@ -123,7 +123,7 @@
     padding: 10px 38px 10px 10px
     border-radius: 2px
     font-size: $fontsize-medium
-    line-height: 20px
+    line-height: 1.429
     color: $select-color
     background-color: $select-bgc
     border-1px($select-border-color, 2px)
