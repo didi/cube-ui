@@ -24,7 +24,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 
 - Multiple configurations
 
-  Support the native attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button.
+  Support the native attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button, use `pwdEye` to toggle password eye button and password filed's visibility.
 
   ```html
   <cube-input
@@ -37,6 +37,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :autofocus="autofocus"
     :autocomplete="autocomplete"
     :clearable="clearable"
+    :pwd-eye="pwdEye"
   ></cube-input>
   ```
 
@@ -52,7 +53,8 @@ Input component. You can use the `v-model` directive to create two-way data bind
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false
+        clearable: false,
+        pwdEye: '' // true false ''
       }
     }
   }
@@ -71,6 +73,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
 | clearable | whether to show clear button | Boolean | true/false | false |
+| pwd-eye | if typeof pwd-eye is string and it is a true value, then the password eye button is visible. If typeof pwd-eye is boolean, then the password field's visibility is depended on its value | String/Boolean | ''/true/false | '' |
 
 ### Event
 

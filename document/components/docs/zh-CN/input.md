@@ -24,7 +24,7 @@
 
 - 多项配置
 
-  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮。
+  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮以及`pwdEye`设置密码眼睛。
 
   ```html
   <cube-input
@@ -37,6 +37,7 @@
     :autofocus="autofocus"
     :autocomplete="autocomplete"
     :clearable="clearable"
+    :pwd-eye="pwdEye"
   ></cube-input>
   ```
   ```javascript
@@ -51,7 +52,8 @@
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false
+        clearable: false,
+        pwdEye: '' // true false ''
       }
     }
   }
@@ -70,6 +72,7 @@
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | autocomplete | 自动补全 | Boolean | true/false | false |
 | clearable | 是否使用清空按钮 | Boolean | true/false | false |
+| pwd-eye | 如果是字符串值且为真，则使用密码眼睛；如果是布尔值，则默认使用密码眼睛，且决定密码是否可见 | String/Boolean | ''/true/false | '' |
 
 ### 事件
 

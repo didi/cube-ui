@@ -11,7 +11,7 @@
         :readonly="readonly"
         :clearable="useClear"
         :autocomplete="true"
-        :pwd-eye="showEye"
+        :pwd-eye="pwdEye"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
@@ -34,6 +34,8 @@
                             @update:value="updatePwd"></switch-option>
             <switch-option class="item" name="show eye" :value="showEye"
                             @update:value="updateShowEye" v-if="isPwd"></switch-option>
+            <switch-option class="item" name="password visible" :value="pwdVisible"
+                            @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
           </div>
         </div>
       </div>
@@ -54,7 +56,17 @@
         useClear: true,
         readonly: false,
         isPwd: false,
-        showEye: true
+        showEye: true,
+        pwdVisible: true
+      }
+    },
+    computed: {
+      pwdEye() {
+        if (this.isPwd && this.showEye) {
+          return this.pwdVisible
+        } else {
+          return ''
+        }
       }
     },
     methods: {
@@ -73,6 +85,9 @@
       },
       updateShowEye(val) {
         this.showEye = val
+      },
+      updatePwdVisible(val) {
+        this.pwdVisible = val
       }
     },
     components: {
