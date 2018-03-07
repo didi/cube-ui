@@ -34,10 +34,11 @@
   export default {
     name: COMPONENT_NAME,
     data() {
+      const pwdEye = this.pwdEye
       return {
         inputValue: this.value,
         isFocus: false,
-        pwdVisible: false
+        pwdVisible: typeof pwdEye === 'string' ? !!pwdEye : pwdEye
       }
     },
     props: {
@@ -78,8 +79,8 @@
         default: false
       },
       pwdEye: {
-        type: Boolean,
-        default: false
+        type: [String, Boolean],
+        default: ''
       }
     },
     computed: {
@@ -94,7 +95,14 @@
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
       },
       _showPwdEye() {
-        return this.type === 'password' && this.pwdEye && !this.disabled
+        const pwdEye = this.pwdEye
+        let isShow = false
+        if (typeof pwdEye === 'string') {
+          isShow = !!pwdEye
+        } else {
+          isShow = true
+        }
+        return this.type === 'password' && isShow && !this.disabled
       },
       eyeClass() {
         return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
@@ -106,6 +114,9 @@
       },
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
+      },
+      pwdEye(newValue) {
+        this.pwdVisible = typeof newValue === 'string' ? !!newValue : newValue
       }
     },
     methods: {
