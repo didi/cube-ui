@@ -20,6 +20,8 @@ $ vue init cube-ui/cube-template projectname
 $ npm install cube-ui --save
 ```
 
+此处需注意：不能使用 cnpm 安装，cnpm 下载的包存在路径问题。
+
 cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通编译 2 种构建方式（默认使用后编译），使用前都需要修改应用的依赖和配置。
 
 - 后编译
