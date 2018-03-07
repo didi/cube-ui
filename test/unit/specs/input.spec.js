@@ -68,6 +68,32 @@ describe('Input.vue', () => {
     expect(el.autofocus)
       .to.be.false
   })
+  it('should show password eye and work correctly', (done) => {
+    vm = createVue({
+      template: `
+        <cube-input type="password" v-model="value" :pwd-eye="true" />
+      `,
+      data: {
+        value: 'pwd'
+      }
+    })
+
+    expect(vm.$el.querySelector('input').type)
+      .to.equal('password')
+    // click eye
+    vm.$el.querySelector('.cube-input-eye').click()
+    vm.$nextTick(() => {
+      // now password is visible
+      expect(vm.$el.querySelector('input').type)
+        .to.equal('text')
+      vm.$el.querySelector('.cube-input-eye').click()
+      vm.$nextTick(() => {
+        expect(vm.$el.querySelector('input').type)
+          .to.equal('password')
+        done()
+      })
+    })
+  })
 })
 
 function createInput (value) {
