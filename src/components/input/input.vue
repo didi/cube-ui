@@ -33,14 +33,6 @@
 
   export default {
     name: COMPONENT_NAME,
-    data() {
-      const pwdEye = this.pwdEye
-      return {
-        inputValue: this.value,
-        isFocus: false,
-        pwdVisible: typeof pwdEye === 'string' ? !!pwdEye : pwdEye
-      }
-    },
     props: {
       value: [String, Number],
       type: {
@@ -78,9 +70,16 @@
         type: Boolean,
         default: false
       },
-      pwdEye: {
-        type: [String, Boolean],
-        default: ''
+      eye: {
+        type: [Boolean, Object],
+        default: false
+      }
+    },
+    data() {
+      return {
+        inputValue: this.value,
+        isFocus: false,
+        pwdVisible: false
       }
     },
     computed: {
@@ -95,14 +94,7 @@
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
       },
       _showPwdEye() {
-        const pwdEye = this.pwdEye
-        let isShow = false
-        if (typeof pwdEye === 'string') {
-          isShow = !!pwdEye
-        } else {
-          isShow = true
-        }
-        return this.type === 'password' && isShow && !this.disabled
+        return this.type === 'password' && this.eye && !this.disabled
       },
       eyeClass() {
         return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
@@ -115,11 +107,21 @@
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
       },
-      pwdEye(newValue) {
-        this.pwdVisible = typeof newValue === 'string' ? !!newValue : newValue
+      eye() {
+        this._computedPwdVisible()
       }
     },
+    created() {
+      this._computedPwdVisible()
+    },
     methods: {
+      _computedPwdVisible() {
+        if (typeof this.eye === 'boolean') {
+          this.pwdVisible = this.eye
+        } else {
+          this.pwdVisible = this.eye.open
+        }
+      },
       handleFocus(e) {
         this.$emit(EVENT_FOCUS, e)
         this.isFocus = true

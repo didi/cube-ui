@@ -37,7 +37,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :autofocus="autofocus"
     :autocomplete="autocomplete"
     :clearable="clearable"
-    :pwd-eye="pwdEye"
+    :eye="eye"
   ></cube-input>
   ```
 
@@ -54,7 +54,15 @@ Input component. You can use the `v-model` directive to create two-way data bind
         autofocus: true,
         autocomplete: true,
         clearable: false,
-        pwdEye: '' // true false ''
+        /*
+         * if set to false then the password eye is invisible
+         * if set to true then the password eye is visible
+           and the password content is visible
+         * if set to an object `{ open: false }` then the password eye is visible
+           but the password content is invisible, the `open` can be used to
+           control the password content's visibility
+         */
+        eye: true // the password eye is visible and the password content is visible or not
       }
     }
   }
@@ -73,7 +81,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
 | clearable | whether to show clear button | Boolean | true/false | false |
-| pwd-eye | if typeof pwd-eye is string and it is a true value, then the password eye button is visible. If typeof pwd-eye is boolean, then the password field's visibility is depended on its value | String/Boolean | ''/true/false | '' |
+| eye | If set to false then the password eye is invisible, if set to true then the password eye is visible and the password content is visible, if set to an object `{ open: false }` then the password eye is visible but the password content is invisible, the `open` can be used to control the password content's visibility | Boolean/Object | true/false/{open: `true/false`} | false |
 
 ### Event
 

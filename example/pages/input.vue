@@ -11,7 +11,7 @@
         :readonly="readonly"
         :clearable="useClear"
         :autocomplete="true"
-        :pwd-eye="pwdEye"
+        :eye="eye"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
@@ -61,11 +61,13 @@
       }
     },
     computed: {
-      pwdEye() {
+      eye() {
         if (this.isPwd && this.showEye) {
-          return this.pwdVisible
+          return {
+            open: this.pwdVisible
+          }
         } else {
-          return ''
+          return false
         }
       }
     },
