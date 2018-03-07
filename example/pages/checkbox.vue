@@ -3,7 +3,7 @@
     <template slot="content">
       <cube-checkbox v-model="checked">Checkbox</cube-checkbox>
       <p>checked value: {{checked}}</p>
-      <cube-checkbox v-model="checked" position="right" shape="square" :hollow-style="true">Position Checkbox</cube-checkbox>
+      <cube-checkbox v-model="checked" position="right" shape="square" :hollow-style="true">Styled Checkbox</cube-checkbox>
       <br><br>
       <cube-checkbox v-model="checked2" :option="optionValue"></cube-checkbox>
       <p>checked value (with option) : {{checked2}}</p>
