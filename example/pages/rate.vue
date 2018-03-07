@@ -14,14 +14,14 @@
       <div class="options">
         <div class="title">Options</div>
         <div class="option-list">
-          <switch-option class="item" name="Justify" :value="justify"
-                            @update:value="updateJustify"></switch-option>
-          <switch-option class="item" name="customStar" :value="customStar"
-                            @update:value="updateRateItem"></switch-option>
           <switch-option class="item" name="disabled" :value="disabled"
                             @update:value="updateDisabled"></switch-option>
           <select-option class="item" name="star numbers" :value="max"
                             @update:value="updateStarNumbers" :options="options"></select-option>
+          <switch-option class="item" name="Justify" :value="justify"
+                            @update:value="updateJustify"></switch-option>
+          <switch-option class="item" name="customStar" :value="customStar"
+                            @update:value="updateRateItem"></switch-option>
         </div>
       </div>
     </div>
