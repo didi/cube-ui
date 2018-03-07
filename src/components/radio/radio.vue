@@ -28,7 +28,7 @@ export default {
       type: String,
       default: 'left'
     },
-    nativeStyle: {
+    hollowStyle: {
       type: Boolean,
       default: false
     }
@@ -50,7 +50,7 @@ export default {
     _containerClass() {
       const option = this.option
       return {
-        'cube-radio-native': this.nativeStyle,
+        'cube-radio-hollow': this.hollowStyle,
         'cube-radio_selected': this.radioValue === (option.value || option),
         'cube-radio_disabled': option.disabled,
         'border-right-1px': this.$parent.horizontal
@@ -149,7 +149,7 @@ export default {
         transition: none
       &::before
         color: transparent
-  .cube-radio-native
+  .cube-radio-hollow
     &.cube-radio_selected, &.cube-radio_disabled
       .cube-radio-ui
         background-color: transparent
@@ -158,14 +158,14 @@ export default {
     &.cube-radio_selected
       .cube-radio-ui
         &::before, i
-          color: $radio-native-selected-icon-color
+          color: $radio-hollow-selected-icon-color
     &.cube-radio_disabled
       .cube-radio-ui
         &::before
-          color: $radio-native-disabled-icon-color
+          color: $radio-hollow-disabled-icon-color
       &.cube-radio_selected
         .cube-radio-ui
           i
-            color: $radio-native-disabled-icon-color
+            color: $radio-hollow-disabled-icon-color
 </style>
 

@@ -3,7 +3,7 @@
     <template slot="content">
       <cube-radio-group v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
-      <cube-radio-group v-model="selected2" :options="options2" position="right" :native-style="true" />
+      <cube-radio-group v-model="selected2" :options="options2" position="right" :hollow-style="true" />
       <p>selected value: {{selected2}}</p>
       <cube-radio-group v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>

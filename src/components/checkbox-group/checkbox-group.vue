@@ -7,7 +7,7 @@
         :option="option"
         :shape="shape"
         :position="position"
-        :native-style="nativeStyle" />
+        :hollow-style="hollowStyle" />
     </slot>
   </div>
 </template>
@@ -37,7 +37,7 @@
         type: String,
         default: 'left'
       },
-      nativeStyle: {
+      hollowStyle: {
         type: Boolean,
         default: false
       },

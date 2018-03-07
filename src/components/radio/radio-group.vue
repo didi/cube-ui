@@ -6,7 +6,7 @@
         :key="index"
         :option="option"
         :position="position"
-        :native-style="nativeStyle"
+        :hollow-style="hollowStyle"
         v-model="radioValue">
       </cube-radio>
     </slot>
@@ -36,7 +36,7 @@
         type: Boolean,
         default: false
       },
-      nativeStyle: {
+      hollowStyle: {
         type: Boolean,
         default: false
       }

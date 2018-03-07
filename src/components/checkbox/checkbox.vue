@@ -47,7 +47,7 @@
         type: String,
         default: 'circle'
       },
-      nativeStyle: {
+      hollowStyle: {
         type: Boolean,
         default: false
       }
@@ -101,7 +101,7 @@
       },
       _containerClass() {
         return {
-          'cube-checkbox-native': this.nativeStyle,
+          'cube-checkbox-hollow': this.hollowStyle,
           'cube-checkbox_checked': this.checkValue,
           'cube-checkbox_disabled': this.computedOption.disabled,
           'border-right-1px': this.isInHorizontalGroup
@@ -113,7 +113,7 @@
         }
       },
       isSquare() {
-        return this.shape === 'square' || this.nativeStyle
+        return this.shape === 'square' || this.hollowStyle
       },
       _borderIconClass() {
         return this.isSquare ? 'cubeic-square-border' : 'cubeic-round-border'
@@ -201,7 +201,7 @@
   .cube-checkbox_checked.cube-checkbox_disabled
     .cube-checkbox-ui
       background-color: $checkbox-checked-icon-bgc
-  .cube-checkbox-native
+  .cube-checkbox-hollow
     i
       width: 100%
       height: 100%
@@ -218,20 +218,20 @@
     &.cube-checkbox_checked
       .cube-checkbox-ui
         &::before
-          color: $checkbox-native-checked-icon-color
+          color: $checkbox-hollow-checked-icon-color
         i
           transform: scale(1)
-          color: $checkbox-native-checked-icon-color
+          color: $checkbox-hollow-checked-icon-color
     &.cube-checkbox_disabled
       .cube-checkbox-ui
         background-color: transparent
         &::before
-          color: $checkbox-native-disabled-icon-color
+          color: $checkbox-hollow-disabled-icon-color
         i
           transform: scale(1)
           color: transparent
       &.cube-checkbox_checked
         .cube-checkbox-ui
           i
-            color: $checkbox-native-disabled-icon-color
+            color: $checkbox-hollow-disabled-icon-color
 </style>
