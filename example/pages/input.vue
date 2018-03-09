@@ -55,7 +55,7 @@
         disabled: false,
         useClear: true,
         readonly: false,
-        isPwd: false,
+        isPwd: true,
         showEye: true,
         pwdVisible: true
       }
