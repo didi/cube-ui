@@ -50,7 +50,7 @@
   export default {
     data() {
       return {
-        type: 'text',
+        type: 'password',
         value: '',
         disabled: false,
         useClear: true,
