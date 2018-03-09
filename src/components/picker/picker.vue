@@ -187,10 +187,12 @@
         this.pickerData = data.slice()
         if (this.isVisible) {
           this.$nextTick(() => {
-            this.wheels.forEach((wheel, i) => {
-              wheel.refresh()
-              wheel.wheelTo(this.pickerSelectedIndex[i])
-            })
+            const length = Math.max(this.wheels.length, this.pickerData.length)
+            const wheelWrapper = this.$refs.wheelWrapper
+            for (let i = 0; i < length; i++) {
+              this._createWheel(wheelWrapper, i)
+              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
+            }
           })
         } else {
           this.dirty = true
