@@ -19,11 +19,11 @@ describe('Checkbox.vue', () => {
     vm = createCheckbox()
     const el = vm.$el
     expect(el.className)
-      .to.equal('cube-checkbox my-checkbox')
+      .to.equal('cube-checkbox my-checkbox cube-checkbox_checked')
     expect(el.getAttribute('data-pos'))
       .to.equal('left')
     expect(el.querySelector('.cube-checkbox-wrap').className)
-      .to.equal('cube-checkbox-wrap cube-checkbox_checked')
+      .to.equal('cube-checkbox-wrap')
     expect(el.querySelector('.cube-checkbox-label').textContent.trim())
       .to.equal('checkbox')
   })

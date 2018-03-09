@@ -22,10 +22,10 @@
 
   `options` 为选项数组，默认不选中任何的选项，点击其中一个，则对应的 `selected` 的值就为选中项的值。
 
-- 设置 value，禁用状态，图标位置
+- 设置 value，禁用状态，图标样式
 
   ```html
-  <cube-radio-group v-model="selected2" :options="options2" position="right" />
+  <cube-radio-group v-model="selected2" :options="options2" position="right" :hollow-style="true" />
   ```
   ```js
   export default {
@@ -54,7 +54,7 @@
 
   `options` 的值可以是对象组成的数组，默认可以设置 `label` 和 `value` 分别代表的是显示文案和单选框的值，如果对象中包含了 `disabled` 为 `true` 的值，那么此单选框就处于禁用状态。
 
-  设置 `position` 为 `'right'`，则单选框图标位置在右边。
+  设置 `position` 为 `'right'`，则单选框图标位置在右边。设置 `hollow-style` 为 `true` 则使用镂空样式。
 
 - 水平排列
 
@@ -137,6 +137,7 @@
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
+| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `options` 子配置项
 
@@ -154,6 +155,7 @@
 | - | - | - | - | - |
 | option | 选项配置 | Object/String | - | - |
 | position | 图标位置 | String | left/right | left |
+| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `option` 子配置项
 

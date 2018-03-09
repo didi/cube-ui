@@ -56,6 +56,14 @@
             text: 'Switch'
           },
           {
+            path: '/rate',
+            text: 'Rate'
+          },
+          {
+            path: '/validator',
+            text: 'Validator'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
@@ -71,14 +79,7 @@
             path: '/toast',
             text: 'Toast'
           },
-          {
-            path: '/validator',
-            text: 'Validator'
-          },
-          {
-            path: '/rate',
-            text: 'Rate'
-          },
+
           {
             path: '/picker',
             text: 'Picker'

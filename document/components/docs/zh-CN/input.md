@@ -24,7 +24,7 @@
 
 - 多项配置
 
-  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮。
+  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮以及`eye`设置密码眼睛。
 
   ```html
   <cube-input
@@ -37,6 +37,7 @@
     :autofocus="autofocus"
     :autocomplete="autocomplete"
     :clearable="clearable"
+    :eye="eye"
   ></cube-input>
   ```
   ```javascript
@@ -51,7 +52,13 @@
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false
+        clearable: false,
+        /*
+         * 眼睛可见，且密码可见
+         * 如果为 false 则眼睛不可见，密码不可见
+         * 如果想要眼睛可见但是密码不可见，则配置为对象 { open: false }
+         */
+        eye: true
       }
     }
   }
@@ -70,6 +77,7 @@
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | autocomplete | 自动补全 | Boolean | true/false | false |
 | clearable | 是否使用清空按钮 | Boolean | true/false | false |
+| eye | 默认 false，密码眼睛不可见；如果是 true 则使用密码眼睛，且密码可见；还可配置为对象`{ open: false }`，那么眼睛可见，`open` 用来控制密码是否可见 | Boolean/Object | true/false/{open: `true/false`} | false |
 
 ### 事件
 

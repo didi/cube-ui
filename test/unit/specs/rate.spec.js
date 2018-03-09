@@ -20,8 +20,8 @@ describe('Rate.vue', () => {
     vm = createRate()
     const el = vm.$el
     expect(el.className)
-      .to.equal('cube-rate-wrapper')
-    const actives = el.querySelectorAll('.cube-rate-item.active')
+      .to.equal('cube-rate')
+    const actives = el.querySelectorAll('.cube-rate-item_active')
     expect(actives.length)
       .to.equal(vm.value)
     const stars = el.querySelectorAll('.cube-rate-item')
@@ -52,14 +52,13 @@ describe('Rate.vue', () => {
   })
   it('should trigger change event with click', function (done) {
     this.timeout(10000)
-    const changeHandler = sinon.spy()
-    vm = createRate(changeHandler)
+    vm = createRate()
     const star = vm.$el.querySelector('.cube-rate-item')
     dispatchMouse(star, 'mousedown')
     dispatchMouse(star, 'mousemove')
     dispatchMouse(star, 'mouseup')
     setTimeout(() => {
-      const actives = vm.$el.querySelectorAll('.cube-rate-item.active')
+      const actives = vm.$el.querySelectorAll('.cube-rate-item_active')
       expect(actives.length)
         .to.equal(1)
       done()

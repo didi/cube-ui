@@ -1,15 +1,20 @@
 <template>
-  <div class="cube-input-wrapper" :class="{'active': isFocus}">
+  <div class="cube-input" :class="{'cube-input_active': isFocus}">
     <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
       <slot>
         <i class="cubeic-wrong"></i>
+      </slot>
+    </div>
+    <div class="cube-input-eye" v-if="_showPwdEye" @click="handlePwdEye">
+      <slot>
+        <i :class="eyeClass"></i>
       </slot>
     </div>
     <input
       ref="input"
       v-model="inputValue"
       v-bind="$props"
-      :type="type"
+      :type="_type"
       :disabled="disabled"
       :readonly="readonly"
       :autocomplete="autocomplete"
@@ -28,12 +33,6 @@
 
   export default {
     name: COMPONENT_NAME,
-    data() {
-      return {
-        inputValue: this.value,
-        isFocus: false
-      }
-    },
     props: {
       value: [String, Number],
       type: {
@@ -70,11 +69,35 @@
       clearable: {
         type: Boolean,
         default: false
+      },
+      eye: {
+        type: [Boolean, Object],
+        default: false
+      }
+    },
+    data() {
+      return {
+        inputValue: this.value,
+        isFocus: false,
+        pwdVisible: false
       }
     },
     computed: {
+      _type() {
+        const type = this.type
+        if (type === 'password' && this.pwdVisible) {
+          return 'text'
+        }
+        return type
+      },
       _showClear() {
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
+      },
+      _showPwdEye() {
+        return this.type === 'password' && this.eye && !this.disabled
+      },
+      eyeClass() {
+        return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
       }
     },
     watch: {
@@ -83,9 +106,22 @@
       },
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
+      },
+      eye() {
+        this._computedPwdVisible()
       }
     },
+    created() {
+      this._computedPwdVisible()
+    },
     methods: {
+      _computedPwdVisible() {
+        if (typeof this.eye === 'boolean') {
+          this.pwdVisible = this.eye
+        } else {
+          this.pwdVisible = this.eye.open
+        }
+      },
       handleFocus(e) {
         this.$emit(EVENT_FOCUS, e)
         this.isFocus = true
@@ -97,6 +133,9 @@
       handleClear(e) {
         this.inputValue = ''
         this.$refs.input.focus()
+      },
+      handlePwdEye() {
+        this.pwdVisible = !this.pwdVisible
       }
     }
   }
@@ -105,14 +144,11 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
-  .cube-input-wrapper
+  .cube-input
     position: relative
-    font-size: $fontsize-large
-    line-height: 1
+    font-size: $fontsize-medium
+    line-height: 1.429
     border-1px($input-border-color)
-    &.active
-      &::after
-        border-color: $input-focus-border-color
     input
       width: 100%
       padding: 10px
@@ -125,16 +161,32 @@
       &::-webkit-input-placeholder
         color: $input-placeholder-color!important
         text-overflow: ellipsis
-  .cube-input-clear
+  .cube-input_active
+    &::after
+      border-color: $input-focus-border-color
+  .cube-input-clear, .cube-input-eye
     position: absolute
     right: 0
     top: 0
     bottom: 0
     width: 1em
     height: 1em
-    padding: 10px 8px
+    line-height: 1
+    padding: 10px .8em
     margin: auto
     color: $input-clear-icon-color
+    > i
+      display: inline-block
+      transform: scale(1.2)
     + input
-      padding-right: 32px
+      padding-right: 2.6em
+  .cube-input-eye
+    >
+      .cubeic-eye-invisible, .cubeic-eye-visible
+        transform: scale(1.4)
+  .cube-input-clear
+    + .cube-input-eye
+      right: 2.6em
+      + input
+        padding-right: 5.2em
 </style>

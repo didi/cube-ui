@@ -26,19 +26,19 @@ describe('Textarea.vue', () => {
   it('should not expand when blur', () => {
     vm = createTextarea()
     expect(vm.$el.offsetHeight)
-      .to.equal(38)
+      .to.equal(40)
   })
   it('should expand when focus, fold when blur', (done) => {
     vm = createTextarea(1)
     vm.$el.querySelector('textarea').focus()
     setTimeout(() => {
       expect(vm.$el.offsetHeight)
-        .to.equal(78)
+        .to.equal(80)
       vm.textareaValue = ''
       vm.$el.querySelector('textarea').blur()
       setTimeout(() => {
         expect(vm.$el.offsetHeight)
-          .to.equal(38)
+          .to.equal(40)
         done()
       }, 500)
     }, 500)

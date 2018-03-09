@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-textarea-wrapper" :class="{expanded: expanded, active: isFocus}">
+  <div class="cube-textarea-wrapper" :class="{'cube-textarea_expanded': expanded, 'cube-textarea_active': isFocus}">
     <textarea
       class="cube-textarea"
       v-model="textareaValue"
@@ -91,35 +91,34 @@
   .cube-textarea-wrapper
     position: relative
     transition: height 200ms
-    height: 38px
-    &.expanded
-      height: 78px
+    height: 40px
+    font-size: $fontsize-medium
+    line-height: 1.429
     textarea::-webkit-input-placeholder
       color: $textarea-placeholder-color !important
       text-overflow: ellipsis
     border-1px($textarea-border-color)
-    &.active
-      border-1px($textarea-focus-border-color)
-
+  .cube-textarea_expanded
+    height: 80px
+  .cube-textarea_active
+    border-1px($textarea-focus-border-color)
   .cube-textarea-indicator
     position: absolute
     bottom: 7px
     right: 10px
-    line-height: 20px
     color: $textarea-indicator-color
-    font-size: $fontsize-large
   .cube-textarea
     width: 100%
     height: 100%
     text-align: left
-    padding: 9px 10px
-    font-size: $fontsize-large
-    line-height: 20px
+    padding: 10px
     box-sizing: border-box
+    font-size: 100%
+    line-height: inherit
+    color: $textarea-color
+    background-color: $textarea-bgc
     border-radius: 2px
     resize: none
     border: none
-    color: $textarea-color
-    background-color: $textarea-bgc
     outline: none
 </style>

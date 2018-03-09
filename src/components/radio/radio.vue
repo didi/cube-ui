@@ -1,7 +1,7 @@
 <template>
   <div class="cube-radio" :class="_containerClass" :data-pos="position">
-    <label class="cube-radio-wrap" :class="_wrapClass(option)">
-      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue"   :value="option.value || option">
+    <label class="cube-radio-wrap" :class="_wrapClass">
+      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
       <span class="cube-radio-ui cubeic-round-border">
         <i></i>
       </span>
@@ -27,6 +27,10 @@ export default {
     position: {
       type: String,
       default: 'left'
+    },
+    hollowStyle: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -44,17 +48,17 @@ export default {
   },
   computed: {
     _containerClass() {
-      if (this.$parent.horizontal) {
-        return 'border-right-1px'
-      }
-    }
-  },
-  methods: {
-    _wrapClass(option) {
+      const option = this.option
       return {
+        'cube-radio-hollow': this.hollowStyle,
         'cube-radio_selected': this.radioValue === (option.value || option),
         'cube-radio_disabled': option.disabled,
-        'border-bottom-1px': !this.$parent.horizontal
+        'border-right-1px': this.$parent.horizontal
+      }
+    },
+    _wrapClass() {
+      if (!this.$parent.horizontal) {
+        return 'border-bottom-1px'
       }
     }
   }
@@ -70,7 +74,6 @@ export default {
     text-align: left
     font-size: 100%
     color: $radio-color
-    background-color: $radio-bgc
     &[data-pos="right"]
       .cube-radio-ui
         margin-right: 0
@@ -78,9 +81,6 @@ export default {
         right: 0
       .cube-radio-label
         margin-right: $ui-width
-    &:last-child
-      .cube-radio-wrap
-        border-none()
   .cube-radio-wrap
     position: relative
     display: flex
@@ -107,13 +107,14 @@ export default {
     margin-right: $ui-width - 1em
     line-height: 1
     color: transparent
+    background-color: currentColor
     border-radius: 50%
     &::before, i
       transition: all .2s
     &::before
       color: $radio-icon-color
       display: inline-block
-      transform: scale(1.2)
+      transform: scale(1.24)
     i
       position: absolute
       top: 0
@@ -122,7 +123,6 @@ export default {
       width: 100%
       height: 100%
       border-radius: 50%
-      background-color: currentColor
       transform: scale(.4)
       &::before
         content: ""
@@ -136,20 +136,36 @@ export default {
         border-radius: 50%
   .cube-radio_selected
     .cube-radio-ui
-      color: $radio-selected-icon-color
+      background-color: $radio-selected-icon-bgc
       &::before
         color: transparent
       i
         transform: scale(1)
-        &::before
-          background-color: $radio-selected-icon-bgc
+        color: $radio-selected-icon-color
   .cube-radio_disabled
     .cube-radio-ui
-      color: $radio-disabled-icon-color
       background-color: $radio-disabled-icon-bgc
       &::before, i
         transition: none
       &::before
         color: transparent
+  .cube-radio-hollow
+    &.cube-radio_selected, &.cube-radio_disabled
+      .cube-radio-ui
+        background-color: transparent
+        i::before
+          transform: translate(-50%, -50%) scale(1)
+    &.cube-radio_selected
+      .cube-radio-ui
+        &::before, i
+          color: $radio-hollow-selected-icon-color
+    &.cube-radio_disabled
+      .cube-radio-ui
+        &::before
+          color: $radio-hollow-disabled-icon-color
+      &.cube-radio_selected
+        .cube-radio-ui
+          i
+            color: $radio-hollow-disabled-icon-color
 </style>
 

@@ -97,10 +97,6 @@
       refreshDelay: {
         type: Number,
         default: 20
-      },
-      listRef: {
-        type: String,
-        default: 'list'
       }
     },
     data() {

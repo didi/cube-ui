@@ -2,7 +2,7 @@ import Vue from 'vue2'
 import RadioGroup from '@/modules/radio'
 import createVue from '../utils/create-vue'
 
-describe('RadioGroup.vue', () => {
+describe('Radio.vue', () => {
   let vm
   afterEach(() => {
     if (vm) {
@@ -39,8 +39,10 @@ describe('RadioGroup.vue', () => {
     expect(options[1].querySelector('.cube-radio-label').textContent.trim())
       .to.equal('Option2')
 
+    expect(options[2].className)
+      .to.include('cube-radio_selected cube-radio_disabled')
     expect(options[2].querySelector('.cube-radio-wrap').className)
-      .to.equal('cube-radio-wrap cube-radio_selected cube-radio_disabled border-bottom-1px')
+      .to.equal('cube-radio-wrap border-bottom-1px')
     expect(options[2].querySelector('.cube-radio-input').value)
       .to.equal('3')
     expect(options[2].querySelector('.cube-radio-label').textContent.trim())
@@ -61,8 +63,10 @@ describe('RadioGroup.vue', () => {
       .to.equal('cube-radio border-right-1px')
     expect(options[0].querySelector('.cube-radio-wrap').className)
       .to.equal('cube-radio-wrap')
+    expect(options[2].className)
+      .to.include('cube-radio_selected cube-radio_disabled')
     expect(options[2].querySelector('.cube-radio-wrap').className)
-      .to.equal('cube-radio-wrap cube-radio_selected cube-radio_disabled')
+      .to.equal('cube-radio-wrap')
   })
   it('should toggle v-model value', (done) => {
     vm = createRadioGroup()
