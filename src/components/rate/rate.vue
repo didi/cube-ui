@@ -76,12 +76,12 @@
         }
       },
       handleMove(e) {
-        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
-          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) > -1 ? e : e.touches[0])
+        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
+          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) === -1 ? e.touches[0] : e)
         }
       },
       handleEnd(e) {
-        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
+        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
           if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
             this.mousePressed = false
             document.removeEventListener('mouseup', this.handleEnd)
