@@ -123,9 +123,16 @@
 
         let changed = false
         let pickerSelectedText = []
-        this.pickerSelectedVal = []
 
-        for (let i = 0; i < this.pickerData.length; i++) {
+        const dataLength = this.pickerData.length
+        const selectedValLength = this.pickerSelectedVal.length
+
+        if (dataLength !== selectedValLength) {
+          changed = true
+          this.pickerSelectedVal.splice(dataLength, selectedValLength - dataLength)
+        }
+
+        for (let i = 0; i < dataLength; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
 
