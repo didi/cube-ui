@@ -123,6 +123,8 @@
 
         let changed = false
         let pickerSelectedText = []
+        this.pickerSelectedVal = []
+
         for (let i = 0; i < this.pickerData.length; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
@@ -187,10 +189,12 @@
         this.pickerData = data.slice()
         if (this.isVisible) {
           this.$nextTick(() => {
-            this.wheels.forEach((wheel, i) => {
-              wheel.refresh()
-              wheel.wheelTo(this.pickerSelectedIndex[i])
+            const wheelWrapper = this.$refs.wheelWrapper
+            this.pickerData.forEach((item, i) => {
+              this._createWheel(wheelWrapper, i)
+              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
             })
+            this.wheels.splice(this.pickerData.length, this.wheels.length - this.pickerData.length)
           })
         } else {
           this.dirty = true
