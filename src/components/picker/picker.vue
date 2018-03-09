@@ -124,19 +124,16 @@
         let changed = false
         let pickerSelectedText = []
 
-        const newDataLength = this.pickerData.length
-        const oldDataLength = this.pickerSelectedVal.length
+        const dataLength = this.pickerData.length
 
-        if (newDataLength !== oldDataLength) {
-          if (newDataLength < oldDataLength) {
-            const spliceArgs = [newDataLength, oldDataLength - newDataLength]
-            this.pickerSelectedVal.splice(...spliceArgs)
-            this.pickerSelectedIndex.splice(...spliceArgs)
-          }
+        const extraVal = this.pickerSelectedVal.splice(dataLength)
+        const extraIndex = this.pickerSelectedIndex.splice(dataLength)
+
+        if (extraVal.length || extraIndex.length) {
           changed = true
         }
 
-        for (let i = 0; i < newDataLength; i++) {
+        for (let i = 0; i < dataLength; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
 
@@ -205,7 +202,7 @@
               this._createWheel(wheelWrapper, i)
               this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
             })
-            const extraWheels = this.wheels.splice(this.pickerData.length, this.wheels.length - this.pickerData.length)
+            const extraWheels = this.wheels.splice(this.pickerData.length)
             extraWheels.forEach((wheel) => {
               wheel.destroy()
             })
