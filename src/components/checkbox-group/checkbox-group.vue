@@ -6,7 +6,8 @@
         :key="index"
         :option="option"
         :shape="shape"
-        :position="position" />
+        :position="position"
+        :hollow-style="hollowStyle" />
     </slot>
   </div>
 </template>
@@ -35,6 +36,10 @@
       position: {
         type: String,
         default: 'left'
+      },
+      hollowStyle: {
+        type: Boolean,
+        default: false
       },
       options: {
         type: Array,
@@ -87,6 +92,7 @@
   .cube-checkbox-group
     z-index: 1
     overflow: hidden
+    background-color: $checkbox-group-bgc
     .cube-checkbox
       &:last-child
         .cube-checkbox-wrap

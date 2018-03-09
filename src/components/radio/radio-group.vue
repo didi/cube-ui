@@ -6,6 +6,7 @@
         :key="index"
         :option="option"
         :position="position"
+        :hollow-style="hollowStyle"
         v-model="radioValue">
       </cube-radio>
     </slot>
@@ -32,6 +33,10 @@
         default: 'left'
       },
       horizontal: {
+        type: Boolean,
+        default: false
+      },
+      hollowStyle: {
         type: Boolean,
         default: false
       }
@@ -65,6 +70,14 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
+  .cube-radio-group
+    z-index: 1
+    overflow: hidden
+    background-color: $radio-group-bgc
+    .cube-radio
+      &:last-child
+        .cube-radio-wrap
+          border-none()
   .cube-radio-group[data-horz="true"]
     display: flex
     padding-left: 0

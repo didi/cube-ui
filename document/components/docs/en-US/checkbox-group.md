@@ -39,10 +39,10 @@
 
 - Horizontal order and icon shape
 
-  You can set `horizontal` to change the style to horizontal order. Besides, you could use `shape` to configure the shape of icon
+  You can set `horizontal` to change the style to horizontal order. Besides, you could use `shape` to configure the shape of icon and set `hollow-style=true` to use hollow-out style.
 
   ```html
-  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square"/>
+  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square" :hollow-style="true" />
   ```
 
 - Use slot
@@ -65,6 +65,7 @@
 | options | array of checkbox options | Array | - | - |
 | horizontal | whether in horizontal order | Boolean | true/false | false |
 | shape | icon shape | String | circle/square | circle |
+| hollow-style | whether is hollow-out style | Boolean | true/false | false |
 
 * `options` sub configuration
 

@@ -22,10 +22,10 @@ Radio component. You could set the options and the position of the radio's icon.
 
   The value of `options` is an array. The default `selected` value is  `''`, which means no option will be selected by defaut. If you clicked one radio option, the `selected` will be set as the value of this option.
 
-- Configure the label, value, disabled state of options and the position of icon.
+- Configure the label, value, disabled state of options and icon style.
 
   ```html
-  <cube-radio-group v-model="selected2" :options="options2" position="right" />
+  <cube-radio-group v-model="selected2" :options="options2" position="right" :hollow-style="true" />
   ```
   ```js
   export default {
@@ -54,7 +54,7 @@ Radio component. You could set the options and the position of the radio's icon.
 
   The `options` value can be an array which has some object items. You can set `label` and `value` in each item, and use `disabled` to configure whether the radio item's state is disabled.
 
-  If the `position` is set as `'right'`, the radio's icon will be posited at the right of the label.
+  If the `position` is set as `'right'`, the radio's icon will be posited at the right of the label. Set `hollow-style=true` to use hollow-out style.
 
 - Horizontal order
 
@@ -137,6 +137,7 @@ Radio component. You could set the options and the position of the radio's icon.
 | options | the array of radio options | Array | - | - |
 | position | icon position | String | left/right | left |
 | horizontal | whether use horizontal layout | Boolean | true/false | false |
+| hollow-style | whether is hollow-out style | Boolean | true/false | false |
 
 * `options` sub configuration
 
@@ -154,6 +155,7 @@ Note: Each item of `options` can be an string, Which means both the `label` and 
 | - | - | - | - | - |
 | option | option value | Object/String | - | - |
 | position | icon position | String | left/right | left |
+| hollow-style | whether is hollow-out style | Boolean | true/false | false |
 
 * `option` sub configuration
 

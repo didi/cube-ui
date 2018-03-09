@@ -2,7 +2,7 @@
   <div class="cube-select" :class="{ 'cube-select_active': active, 'cube-select_disabled': disabled }" @click="showPicker">
     <span v-if="selectedText" class="cube-select-text">{{ selectedText }}</span>
     <span v-else class="cube-select-placeholder">{{ placeholder }}</span>
-    <i class="cubeic-select cube-select-icon"></i>
+    <i class="cube-select-icon"></i>
   </div>
 </template>
 
@@ -11,6 +11,8 @@
 
   const EVENT_CHANGE = 'change'
   const EVENT_INPUT = 'input' // only used for v-modal
+  const EVENT_PICKER_SHOW = 'picker-show'
+  const EVENT_PICKER_HIDE = 'picker-hide'
 
   export default {
     name: COMPONENT_NAME,
@@ -96,9 +98,11 @@
         }
         this.picker.show()
         this.active = true
+        this.$emit(EVENT_PICKER_SHOW)
       },
       hided() {
         this.active = false
+        this.$emit(EVENT_PICKER_HIDE)
       },
       changeHandle(selectedVal, selectedIndex, selectedText) {
         if (selectedVal[0] !== this.value) {
@@ -116,30 +120,32 @@
   .cube-select
     position: relative
     box-sizing: border-box
-    padding: 11px 28px 11px 10px
+    padding: 10px 38px 10px 10px
     border-radius: 2px
-    font-size: $fontsize-large
-    line-height: 1
+    font-size: $fontsize-medium
+    line-height: 1.429
     color: $select-color
     background-color: $select-bgc
     border-1px($select-border-color, 2px)
     > span
       display: inline-block
-    &.cube-select_active
-      border-color: $select-border-active-color
-      .cube-select-icon
-        color: $select-icon-active-color
-    &.cube-select_disabled
-      background-color: $select-disabled-bgc
-      color: $select-disabled-color
-      cursor: not-allowed
-    .cube-select-placeholder
-      color: $select-placeholder-color
+  .cube-select_active
+    border-1px($select-border-active-color)
     .cube-select-icon
-      position: absolute
-      right: 10px
-      top: 50%
-      font-size: $fontsize-large-xx
-      color: $select-icon-color
-      transform: translate(0, -50%)
+      transform: translate(0, -50%) rotate(180deg)
+  .cube-select_disabled
+    color: $select-disabled-color
+    background-color: $select-disabled-bgc
+    cursor: not-allowed
+  .cube-select-placeholder
+    color: $select-placeholder-color
+  .cube-select-icon
+    position: absolute
+    right: 15px
+    top: 50%
+    transform: translate(0, -50%)
+    border-style: solid
+    border-color: $select-icon-color transparent transparent transparent
+    border-width: 4px 4px 0 4px
+    transition: transform .3s ease-in-out
 </style>

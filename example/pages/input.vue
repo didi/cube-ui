@@ -11,6 +11,7 @@
         :readonly="readonly"
         :clearable="useClear"
         :autocomplete="true"
+        :eye="eye"
         v-model="value"
       ></cube-input>
       <div class="value">value: {{value}}</div>
@@ -25,8 +26,16 @@
                             @update:value="updateReadonly"></switch-option>
           </div>
           <div class="group">
-            <switch-option class="item" name="Clearable" :value="useClear"
+            <switch-option class="item" name="clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
+          </div>
+          <div class="group">
+            <switch-option class="item" name="password" :value="isPwd"
+                            @update:value="updatePwd"></switch-option>
+            <switch-option class="item" name="show eye" :value="showEye"
+                            @update:value="updateShowEye" v-if="isPwd"></switch-option>
+            <switch-option class="item" name="password visible" :value="pwdVisible"
+                            @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
           </div>
         </div>
       </div>
@@ -41,11 +50,25 @@
   export default {
     data() {
       return {
-        type: 'text',
+        type: 'password',
         value: '',
         disabled: false,
         useClear: true,
-        readonly: false
+        readonly: false,
+        isPwd: true,
+        showEye: true,
+        pwdVisible: true
+      }
+    },
+    computed: {
+      eye() {
+        if (this.isPwd && this.showEye) {
+          return {
+            open: this.pwdVisible
+          }
+        } else {
+          return false
+        }
       }
     },
     methods: {
@@ -57,6 +80,16 @@
       },
       updateUseClear(val) {
         this.useClear = val
+      },
+      updatePwd(val) {
+        this.isPwd = val
+        this.type = this.isPwd ? 'password' : 'text'
+      },
+      updateShowEye(val) {
+        this.showEye = val
+      },
+      updatePwdVisible(val) {
+        this.pwdVisible = val
       }
     },
     components: {
