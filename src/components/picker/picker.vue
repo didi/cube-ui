@@ -168,11 +168,12 @@
         this.isVisible = true
         if (!this.wheels || this.dirty) {
           this.$nextTick(() => {
-            this.wheels = []
+            this.wheels = this.wheels || []
             let wheelWrapper = this.$refs.wheelWrapper
             for (let i = 0; i < this.pickerData.length; i++) {
               this._createWheel(wheelWrapper, i)
             }
+            this.dirty && this._destroyExtraWheels()
             this.dirty = false
           })
         } else {
@@ -202,10 +203,7 @@
               this._createWheel(wheelWrapper, i)
               this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
             })
-            const extraWheels = this.wheels.splice(this.pickerData.length)
-            extraWheels.forEach((wheel) => {
-              wheel.destroy()
-            })
+            this._destroyExtraWheels()
           })
         } else {
           this.dirty = true
@@ -276,6 +274,15 @@
           this.wheels[i].refresh()
         }
         return this.wheels[i]
+      },
+      _destroyExtraWheels() {
+        const dataLength = this.pickerData.length
+        if (this.wheels.length > dataLength) {
+          const extraWheels = this.wheels.splice(dataLength)
+          extraWheels.forEach((wheel) => {
+            wheel.destroy()
+          })
+        }
       },
       _canConfirm() {
         return this.wheels.every((wheel) => {
