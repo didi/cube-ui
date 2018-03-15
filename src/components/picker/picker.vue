@@ -171,7 +171,7 @@
             this.wheels = this.wheels || []
             let wheelWrapper = this.$refs.wheelWrapper
             for (let i = 0; i < this.pickerData.length; i++) {
-              this._createWheel(wheelWrapper, i)
+              this._createWheel(wheelWrapper, i).enable()
             }
             this.dirty && this._destroyExtraWheels()
             this.dirty = false
