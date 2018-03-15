@@ -1,13 +1,13 @@
 <template>
   <transition name="cube-picker-fade">
     <cube-popup
-        type="picker"
-        :mask="true"
-        :center="false"
-        :z-index="zIndex"
-        v-show="isVisible"
-        @touchmove.prevent
-        @mask-click="cancel">
+      type="picker"
+      :mask="true"
+      :center="false"
+      :z-index="zIndex"
+      v-show="isVisible"
+      @touchmove.prevent
+      @mask-click="cancel">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">

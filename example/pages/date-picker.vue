@@ -17,6 +17,7 @@
       this.datePicker = this.$createDatePicker({
         min: [2008, 8, 8],
         max: [2020, 10, 20],
+        value: [2010, 10, 1],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
