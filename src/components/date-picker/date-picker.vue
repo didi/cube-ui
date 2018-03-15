@@ -14,6 +14,7 @@
   const COMPONENT_NAME = 'date-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
+  const EVENT_INPUT = 'input'
   const EVENT_VALUE_CHANGE = 'value-change'
 
   export default {
@@ -22,24 +23,20 @@
       min: {
         type: Array,
         default() {
-          return [2010, 2, 1]
+          return [2010, 1, 1]
         }
       },
       max: {
         type: Array,
         default() {
-          return [2020, 2, 1]
+          return [2020, 12, 31]
         }
       },
-      selectedIndex: {
+      value: {
         type: Array,
         default() {
-          return [0, 0, 0]
+          return this.min
         }
-      }
-    },
-    data() {
-      return {
       }
     },
     computed: {
@@ -69,6 +66,23 @@
         })
 
         return data
+      },
+      selectedIndex() {
+        let selectedIndex = []
+        let data = this.data
+        let findIndex
+
+        for (let i = 0; i < 3; i++) {
+          findIndex = data.findIndex((item) => {
+            return item.value === this.value[i]
+          })
+          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
+          data = data[selectedIndex[i]].children
+        }
+
+        this.$refs.cascadePicker && this.$refs.cascadePicker.setData(this.data, selectedIndex)
+
+        return selectedIndex
       }
     },
     methods: {
@@ -86,6 +100,7 @@
       },
       valueChange(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
+        this.$emit(EVENT_INPUT, selectedVal)
       }
     }
   }
