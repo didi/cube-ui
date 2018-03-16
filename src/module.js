@@ -12,6 +12,7 @@ import Validator from './modules/validator'
 import Select from './modules/select'
 import Textarea from './modules/textarea'
 import Rate from './modules/rate'
+import Form from './modules/form'
 
 import Tip from './modules/tip'
 import ActionSheet from './modules/action-sheet'
@@ -29,6 +30,8 @@ import createAPI from './modules/create-api'
 
 const Picker = TimePicker.Picker
 const Checkbox = CheckboxGroup.Checkbox
+const FormGroup = Form.Group
+const FormItem = Form.Item
 const Loading = Toast.Loading
 const SlideItem = Slide.Item
 const Radio = RadioGroup.Radio
@@ -43,6 +46,9 @@ export {
   TimePicker,
   CascadePicker,
   Select,
+  Form,
+  FormGroup,
+  FormItem,
   Dialog,
   Tip,
   Toast,
