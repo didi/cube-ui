@@ -145,6 +145,7 @@
         this.fields.forEach((fieldComponent) => {
           fieldComponent.validate()
         })
+        return this.valid
       },
       updateValidity(field, valid, result, dirty) {
         const curResult = this.validity[field.model]
