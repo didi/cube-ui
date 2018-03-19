@@ -7,7 +7,9 @@ export default function instantiateComponent(Vue, Component, data, renderFn) {
       if (children && !Array.isArray(children)) {
         children = [children]
       }
-      return createElement(Component, renderData, children || [])
+
+      // {...renderData}: fix #128, caused by vue modified the parameter in the version of 2.5.14+, which related to vue issue #7294.
+      return createElement(Component, {...renderData}, children || [])
     },
     methods: {
       init() {

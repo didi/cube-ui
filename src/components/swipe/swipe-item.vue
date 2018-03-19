@@ -29,7 +29,6 @@
   } from '../../common/helpers/dom'
 
   import { easeOutQuart, easeOutCubic } from '../../common/helpers/ease'
-  import { requestAnimationFrame, cancelAnimationFrame } from '../../common/helpers/raf'
   import { getNow } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-swipe-item'
@@ -117,6 +116,7 @@
           delta += this.cachedBtns[i].width
           btn.style.width = `${width}px`
           btn.style[transform] = `translate(${translate}px)`
+          btn.style[transitionDuration] = '0ms'
         }
       },
       _isInBtns(target) {
@@ -153,26 +153,36 @@
       _transitionTime(time = 0) {
         this.scrollerStyle[transitionDuration] = `${time}ms`
       },
-      _startProbe() {
-        cancelAnimationFrame(this.probeTimer)
-        this.probeTimer = requestAnimationFrame(probe)
-
-        let me = this
-
-        function probe() {
-          let pos = me._getComputedPositionX()
-          me.$emit(EVENT_SCROLL, pos)
-          if (!me.isInTransition) {
-            return
-          }
-          me.probeTimer = requestAnimationFrame(probe)
-        }
-      },
       _getComputedPositionX() {
         let matrix = window.getComputedStyle(this.$refs.swipeItem, null)
         matrix = matrix[transform].split(')')[0].split(', ')
         let x = +(matrix[12] || matrix[4])
         return x
+      },
+      _translateBtns(time, easing, extend) {
+        /* istanbul ignore if */
+        if (this.btns.length === 0) {
+          return
+        }
+        const len = this.$refs.btns.length
+        let delta = 0
+        let translate = 0
+        for (let i = 0; i < len; i++) {
+          const btn = this.$refs.btns[i]
+          if (this.state === STATE_GROW) {
+            translate = delta
+          } else {
+            translate = 0
+          }
+          delta += this.cachedBtns[i].width
+          btn.style[transform] = `translate(${translate}px,0) translateZ(0)`
+          btn.style[transitionProperty] = 'all'
+          btn.style[transitionTimingFunction] = easing
+          btn.style[transitionDuration] = `${time}ms`
+          if (extend) {
+            btn.style.width = `${this.cachedBtns[i].width}px`
+          }
+        }
       },
       refresh() {
         if (this.btns.length > 0) {
@@ -182,13 +192,19 @@
         this.endTime = 0
       },
       shrink() {
+        this.stop()
         this.state = STATE_SHRINK
-        this.scrollTo(0, easingTime, easeOutQuart)
+        this.$nextTick(() => {
+          this.scrollTo(0, easingTime, easeOutQuart)
+          this._translateBtns(easingTime, easeOutQuart)
+        })
       },
       grow() {
         this.state = STATE_GROW
-        let easing = this.x < this.maxScrollX ? easeOutCubic : easeOutCubic
+        const extend = this.x < this.maxScrollX
+        let easing = easeOutCubic
         this.scrollTo(this.maxScrollX, easingTime, easing)
+        this._translateBtns(easingTime, easing, extend)
       },
       scrollTo(x, time, easing) {
         this._transitionProperty()
@@ -197,7 +213,6 @@
         this._translate(x, true)
         if (time) {
           this.isInTransition = true
-          this._startProbe()
         }
       },
       genBtnStyl(btn) {
@@ -217,6 +232,7 @@
           this.isInTransition = false
           let x = this.state === STATE_SHRINK ? 0 : this._getComputedPositionX()
           this._translate(x)
+          this.$emit(EVENT_SCROLL, this.x)
         }
       },
       onTouchStart(e) {
