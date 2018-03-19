@@ -7,7 +7,9 @@
 - [首页](https://didi.github.io/cube-ui/)
 - [文档](https://didi.github.io/cube-ui/#/zh-CN/docs)
 - [示例](https://didi.github.io/cube-ui/example/)
+
   ![示例二维码](./assets/example-qr.png)
+
 - [应用教程](https://github.com/cube-ui/cube-application-guide)
 
 ### 新项目？
