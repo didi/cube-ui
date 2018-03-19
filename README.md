@@ -8,7 +8,9 @@
 - [Docs](https://didi.github.io/cube-ui/#/en-US/docs)
 - [Example](https://didi.github.io/cube-ui/example/)
 
-![Example QR](./assets/example-qr.png)
+  ![Example QR](./assets/example-qr.png)
+
+- [Application Guide](https://github.com/cube-ui/cube-application-guide)
 
 ### Communication
 
