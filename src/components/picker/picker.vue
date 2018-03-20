@@ -125,11 +125,13 @@
         let pickerSelectedText = []
 
         const dataLength = this.pickerData.length
+        const selectedValLength = this.pickerSelectedVal.length
 
-        const extraVal = this.pickerSelectedVal.splice(dataLength)
-        const extraIndex = this.pickerSelectedIndex.splice(dataLength)
-
-        if (extraVal.length || extraIndex.length) {
+        if (selectedValLength !== dataLength) {
+          if (selectedValLength > dataLength) {
+            this.pickerSelectedVal.splice(dataLength)
+            this.pickerSelectedIndex.splice(dataLength)
+          }
           changed = true
         }
 
