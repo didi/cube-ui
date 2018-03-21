@@ -294,17 +294,11 @@
       }
     },
     watch: {
-      data: {
-        handler(newVal) {
-          this.setData(newVal, this.selectedIndex)
-        },
-        immediate: true
+      data(newVal) {
+        this.setData(newVal, this.selectedIndex)
       },
-      selectedIndex: {
-        handler(newVal) {
-          this.setData(this.data, newVal)
-        },
-        immediate: true
+      selectedIndex(newVal) {
+        this.setData(this.data, newVal)
       }
     },
     components: {
