@@ -4,12 +4,11 @@
       v-for="(item, index) in data"
       :key="index"
       ref="pickers"
-      :is="item.cascade ? 'cube-cascade-picker' : 'cube-picker'"
-      :data="item.data"
-      :selectedIndex="item.selectedIndex"
+      v-bind="item"
+      :is="item.is || 'cube-picker'"
       :title="item.title || title"
-      :confirmTxt="index === data.length - 1 ? confirmTxt : nextTxt"
-      :cancelTxt="index === 0 ? cancelTxt : prevTxt"
+      :confirmTxt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
+      :cancelTxt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
       @select="select"
       @cancel="cancel"
       @change="change">
@@ -33,10 +32,6 @@ export default {
       default() {
         return []
       }
-    },
-    cascade: {
-      type: Boolean,
-      default: false
     },
     title: {
       type: String,

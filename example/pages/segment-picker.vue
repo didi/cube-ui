@@ -11,14 +11,8 @@
 <script>
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
-  import DatePicker from 'example/components/date-picker.vue'
-  import Vue from 'vue'
-  import createAPI from '@/modules/create-api'
   import { provinceList, cityList, areaList } from 'example/data/area'
-  import { data1, data2, data3 } from 'example/data/picker'
-  // import { cascadeData } from 'example/data/cascade'
-
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+  import { expressData } from 'example/data/picker'
 
   const cityData = provinceList
   cityData.forEach(province => {
@@ -31,19 +25,21 @@
   export default {
     mounted() {
       this.segmentPicker = this.$createSegmentPicker({
-        title: 'Segment Picker',
         data: [{
-          title: '第一步',
-          data: [data1],
+          title: '快递',
+          data: [expressData],
           selectedIndex: [1]
         }, {
-          title: '第二步',
-          data: [data1, data2],
-          selectedIndex: [2, 2]
+          is: 'cube-cascade-picker',
+          title: '出发地',
+          data: cityData,
+          selectedIndex: [0, 0, 0],
+          cancelTxt: '返回'
         }, {
-          title: '第三步',
-          data: [data1, data2, data3],
-          selectedIndex: [3, 3, 3]
+          is: 'cube-cascade-picker',
+          title: '目的地',
+          data: cityData,
+          selectedIndex: [0, 0, 0]
         }],
         cancelTxt: 'Cancel',
         confirmTxt: 'Confirm',
