@@ -4,8 +4,9 @@
       <cube-button-group>
         <cube-button @click="showPicker">Picker</cube-button>
         <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
-        <cube-button @click="showAliasPicker">Use Alias</cube-button>
-        <cube-button @click="showSetDataPicker">Use SetData</cube-button>
+        <cube-button @click="showAliasPicker">Use alias</cube-button>
+        <cube-button @click="showSetDataPicker">Use setData</cube-button>
+        <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
         <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
       </cube-button-group>
     </div>
@@ -55,6 +56,14 @@
         onCancel: this.cancelHandle
       })
 
+      this.updatePropsPicker = this.$createPicker({
+        title: 'Use $updateProps',
+        data: [data1],
+        selectedIndex: [0],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+
       this.normalTimePicker = this.$createNormalTimePicker({
         selectedIndex: [10, 20, 59],
         onSelect: this.selectHandle,
@@ -74,6 +83,16 @@
       showSetDataPicker() {
         this.setDataPicker.setData([data1, data2, data3], [1, 2, 3])
         this.setDataPicker.show()
+      },
+      showUpdatePropsPicker() {
+        this.updatePropsPicker.show()
+        setTimeout(() => {
+          this.updatePropsPicker.$updateProps({
+            title: 'Updated',
+            data: [data1, data2, data3],
+            selectedIndex: [1, 2, 3]
+          })
+        }, 1000)
       },
       showNormalTimePicker() {
         this.normalTimePicker.show()

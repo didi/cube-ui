@@ -29,5 +29,9 @@ export default function instantiateComponent(Vue, Component, data, renderFn) {
   instance.$mount()
   instance.init()
   const component = instance.$children[0]
+  component.$updateProps = function (props) {
+    Object.assign(renderData.props, props)
+    instance.$forceUpdate()
+  }
   return component
 }
