@@ -6,6 +6,9 @@
       ref="pickers"
       :is="item.cascade ? 'cube-cascade-picker' : 'cube-picker'"
       :data="item.data"
+      :title="item.title || title"
+      :confirmTxt="index === data.length - 1 ? confirmTxt : nextTxt"
+      :cancelTxt="index === 0 ? cancelTxt : prevTxt"
       @select="select"
       @cancel="cancel">
     </component>
@@ -14,8 +17,8 @@
 
 <script>
 const COMPONENT_NAME = 'cube-segment-picker'
-const EVENT_SUB_SELECT = 'sub-select'
-const EVENT_SUB_CANCEL = 'sub-cancel'
+const EVENT_NEXT = 'next'
+const EVENT_PREV = 'prev'
 const EVENT_SELECT = 'select'
 const EVENT_CANCEL = 'cancel'
 
@@ -31,6 +34,26 @@ export default {
     cascade: {
       type: Boolean,
       default: false
+    },
+    title: {
+      type: String,
+      default: 'Segment Picker'
+    },
+    confirmTxt: {
+      type: String,
+      default: '确定'
+    },
+    cancelTxt: {
+      type: String,
+      default: '取消'
+    },
+    nextTxt: {
+      type: String,
+      default: '下一步'
+    },
+    prevTxt: {
+      type: String,
+      default: '上一步'
     }
   },
   data() {
@@ -46,12 +69,12 @@ export default {
       this.$refs.pickers[this.current].show()
     },
     select(...args) {
-      this.$emit(EVENT_SUB_SELECT, this.current, ...args)
       this.selectedVal[this.current] = args[0]
       this.selectedIndex[this.current] = args[1]
       this.selectedText[this.current] = args[2]
 
       if (this.current < this.data.length - 1) {
+        this.$emit(EVENT_NEXT, this.current, ...args)
         this.current++
         this.$refs.pickers[this.current].show()
       } else {
@@ -60,8 +83,8 @@ export default {
       }
     },
     cancel(...args) {
-      this.$emit(EVENT_SUB_CANCEL, this.current, ...args)
       if (this.current > 0) {
+        this.$emit(EVENT_PREV, this.current, ...args)
         this.current--
         this.$refs.pickers[this.current].show()
       } else {

@@ -33,10 +33,13 @@
       this.segmentPicker = this.$createSegmentPicker({
         title: 'Segment Picker',
         data: [{
+          title: '第一步',
           data: [data1]
         }, {
+          title: '第二步',
           data: [data1, data2]
         }, {
+          title: '第三步',
           data: [data1, data2, data3]
         }],
         onSelect: (...args) => {
@@ -45,11 +48,11 @@
         onCancel: (...args) => {
           console.log('cancel:', ...args)
         },
-        onSubSelect: (...args) => {
-          console.log('sub-select:', ...args)
+        onNext: (...args) => {
+          console.log('next:', ...args)
         },
-        onSubCancel: (...args) => {
-          console.log('sub-cancel:', ...args)
+        onPrev: (...args) => {
+          console.log('prev:', ...args)
         }
         // selectedIndex: [0, 1, 0],
         // cancelTxt: 'Cancel',
