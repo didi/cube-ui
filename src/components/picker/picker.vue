@@ -174,6 +174,7 @@
             let wheelWrapper = this.$refs.wheelWrapper
             for (let i = 0; i < this.pickerData.length; i++) {
               this._createWheel(wheelWrapper, i).enable()
+              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
             }
             this.dirty && this._destroyExtraWheels()
             this.dirty = false
@@ -293,8 +294,11 @@
       }
     },
     watch: {
-      data(newData) {
-        this.setData(newData, this.selectedIndex)
+      data(newVal) {
+        this.setData(newVal, this.selectedIndex)
+      },
+      selectedIndex(newVal) {
+        this.setData(this.data, newVal)
       }
     },
     components: {
