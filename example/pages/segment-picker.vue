@@ -34,14 +34,21 @@
         title: 'Segment Picker',
         data: [{
           title: '第一步',
-          data: [data1]
+          data: [data1],
+          selectedIndex: [1]
         }, {
           title: '第二步',
-          data: [data1, data2]
+          data: [data1, data2],
+          selectedIndex: [2, 2]
         }, {
           title: '第三步',
-          data: [data1, data2, data3]
+          data: [data1, data2, data3],
+          selectedIndex: [3, 3, 3]
         }],
+        cancelTxt: 'Cancel',
+        confirmTxt: 'Confirm',
+        nextTxt: 'Next',
+        prevTxt: 'Prev',
         onSelect: (...args) => {
           console.log('select:', ...args)
         },
@@ -53,15 +60,10 @@
         },
         onPrev: (...args) => {
           console.log('prev:', ...args)
+        },
+        onChange: (...args) => {
+          console.log('change', ...args)
         }
-        // selectedIndex: [0, 1, 0],
-        // cancelTxt: 'Cancel',
-        // confirmTxt: 'Confirm',
-        // onSelect: this.selectHandle,
-        // onCancel: this.cancelHandle,
-        // onChange: () => {
-        //   console.log('change')
-        // }
       })
     },
     methods: {

@@ -6,11 +6,13 @@
       ref="pickers"
       :is="item.cascade ? 'cube-cascade-picker' : 'cube-picker'"
       :data="item.data"
+      :selectedIndex="item.selectedIndex"
       :title="item.title || title"
       :confirmTxt="index === data.length - 1 ? confirmTxt : nextTxt"
       :cancelTxt="index === 0 ? cancelTxt : prevTxt"
       @select="select"
-      @cancel="cancel">
+      @cancel="cancel"
+      @change="change">
     </component>
   </div>
 </template>
@@ -21,6 +23,7 @@ const EVENT_NEXT = 'next'
 const EVENT_PREV = 'prev'
 const EVENT_SELECT = 'select'
 const EVENT_CANCEL = 'cancel'
+const EVENT_CHANGE = 'change'
 
 export default {
   name: COMPONENT_NAME,
@@ -90,6 +93,9 @@ export default {
       } else {
         this.$emit(EVENT_CANCEL)
       }
+    },
+    change(...args) {
+      this.$emit(EVENT_CHANGE, this.current, ...args)
     }
   }
 }
