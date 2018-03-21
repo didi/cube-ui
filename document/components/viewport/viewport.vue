@@ -63,8 +63,16 @@
     display: flex
     width: 100%
     height: 100%
+    box-sizing: border-box
     flex-wrap: wrap
     overflow: hidden
+    &::after
+      content: ""
+      position: absolute
+      left: 0
+      top: 0
+      bottom: 0
+      border-left: #FC9153 10px solid
     @media screen and (max-width: 960px)
       position: relative
       height: auto
@@ -107,11 +115,11 @@
         transition: all 0.4s ease
   .page-sidelist
     flex: none
-    width: 190px
+    width: 280px
     height: 100%
-    padding: 40px 20px
     box-sizing: border-box
     overflow-y: auto
+    padding-right: 40px
     @media screen and (max-width: 960px)
       height: 100%
       padding: 5px 20px

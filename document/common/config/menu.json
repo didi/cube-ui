@@ -2,6 +2,7 @@
   "en-US": {
     "overview": {
       "name": "Overview",
+      "isRootActive": false,
       "subList": {
         "introduction": "Introduction",
         "quick-start": "QuickStart",
@@ -12,6 +13,7 @@
     },
     "components": {
       "name": "Components",
+      "isRootActive": false,
       "subList": {
         "basic": {
           "name": "Basic",
@@ -71,6 +73,7 @@
   "zh-CN": {
     "overview": {
       "name": "概览",
+      "angle": "01",
       "subList": {
         "introduction": "介绍",
         "quick-start": "快速上手",
@@ -81,6 +84,7 @@
     },
     "components": {
       "name": "组件",
+      "angle": "02",
       "subList": {
         "basic": {
           "name": "基础",
@@ -130,6 +134,8 @@
     },
     "modules": {
       "name": "模块",
+      "isRootActive": false,
+      "angle": "03",
       "subList": {
         "style": "style",
         "create-api": "create-api",

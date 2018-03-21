@@ -15,19 +15,27 @@
       <ul>
         <li>
           <img src="./quality.png">
-          <slot name="feature-1"></slot>
+          <div class="text">
+            <slot name="feature-1"></slot>
+          </div>
         </li>
         <li>
           <img src="./experience.png">
-          <slot name="feature-2"></slot>
+          <div class="text">
+            <slot name="feature-2"></slot>
+          </div>
         </li>
         <li>
           <img src="./standard.png">
-          <slot name="feature-3"></slot>
+          <div class="text">
+            <slot name="feature-3"></slot>
+          </div>
         </li>
         <li>
           <img src="./scalability.png">
-          <slot name="feature-4"></slot>
+          <div class="text">
+            <slot name="feature-4"></slot>
+          </div>
         </li>
       </ul>
       <footer>
@@ -48,6 +56,15 @@
     overflow: hidden
     text-align: center
     background-size: cover
+    &::after
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      background: url("./cube.png") no-repeat 520px -31px
+      background-size: 1515px 696px
     > .banner
       padding: 120px 198px 210px 198px
       text-align: left
@@ -95,14 +112,33 @@
           margin-bottom: 20px
         img
           width: 130px
-        h1
-          padding: 10px 0
-          text-align: center
-          font-size: 22px
-          color: #333
-        p
-          font-size: 16px
-          color: #666
+          margin-bottom: 13px
+          transition: all .5s
+        .text
+          transition: all .5s
+          .ch
+            padding: 7px 0
+            text-align: center
+            font-size: 22px
+            color: #000000
+          .en
+            text-align: center
+            font-size: 18px
+            transition: all .5s
+          p
+            font-size: 16px
+            color: #000000
+            opacity: 0
+            transition: all .5s
+        &:hover
+          p
+            opacity:1
+          img
+              transform: scale(0.5,0.5)
+          .en
+            opacity: 0
+          .text
+            transform: translateY(-50px)
     footer
       margin-top: 60px
       font-size: 14px

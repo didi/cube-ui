@@ -55,15 +55,15 @@
   .home-view
     height: 100%
     box-sizing: border-box
+    padding-top: 70px
     transition: all 250ms ease
-    background: url("./cube.png") no-repeat 520px -31px
-    background-size: 1515px 696px
     .router-view
       height: 100%
   .navigator
     height: 70px
     line-height: 70px
     padding: 0 80px
+    margin-top: -70px
     transition: all 0.3s ease
     overflow: hidden
     @media screen and (max-width: 960px)
