@@ -120,7 +120,7 @@
   .cube-select
     position: relative
     box-sizing: border-box
-    padding: 10px 38px 10px 10px
+    padding: 10px 20px 10px 10px
     border-radius: 2px
     font-size: $fontsize-medium
     line-height: 1.429
@@ -141,7 +141,7 @@
     color: $select-placeholder-color
   .cube-select-icon
     position: absolute
-    right: 15px
+    right: 8px
     top: 50%
     transform: translate(0, -50%)
     border-style: solid

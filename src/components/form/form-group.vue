@@ -1,6 +1,6 @@
 <template>
   <div class="cube-form-group">
-    <p class="cube-form-group-label" v-if="data.legend">{{data.legend}}</p>
+    <p class="cube-form-group-legend">{{data.legend}}</p>
     <div class="cube-form-group-content">
       <slot>
         <cube-form-item
@@ -24,12 +24,14 @@
       data: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       },
       model: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       }
@@ -51,5 +53,15 @@
   @require "../../common/stylus/mixin.styl"
 
   .cube-form-group
+    overflow: hidden
+    color: $color-grey
     background-color: $color-white
+  .cube-form-group-legend
+    padding: 10px 15px
+    font-size: $fontsize-medium
+    color: $color-light-grey
+    background-color: $color-background
+    &:empty
+      padding-top: 5px
+      padding-bottom: 5px
 </style>

@@ -405,7 +405,10 @@ describe('methods', () => {
 })
 
 function createValidator (props = {}) {
+  if (props.trigger === undefined) {
+    props.trigger = true
+  }
   return instantiateComponent(Vue, Validator, {
-    props: props
+    props
   })
 }

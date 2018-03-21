@@ -1,9 +1,13 @@
 <template>
   <div class="cube-validator" :class="containerClass">
-    <slot></slot>
-    <slot name="message" :message="msg" :dirty="dirty" :validated="validated" :result="result">
-      <span class="cube-validator-msg-def">{{ dirtyOrValidated ? msg : '' }}</span>
-    </slot>
+    <div class="cube-validator-content">
+      <slot></slot>
+    </div>
+    <div class="cube-validator-msg" @click="msgClickHandler">
+      <slot name="message" :message="msg" :dirty="dirty" :validated="validated" :result="result">
+        <span class="cube-validator-msg-def">{{ dirtyOrValidated ? msg : '' }}</span>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -12,6 +16,7 @@
 
   const COMPONENT_NAME = 'cube-validator'
   const EVENT_INPUT = 'input'
+  const EVENT_MSG_CLICK = 'msg-click'
 
   export default {
     name: COMPONENT_NAME,
@@ -31,9 +36,7 @@
           return {}
         }
       },
-      value: {
-        required: true
-      },
+      value: {},
       disabled: {
         type: Boolean,
         default: false
@@ -152,6 +155,9 @@
         this.validated = false
         this.valid = undefined
         this.invalid = undefined
+      },
+      msgClickHandler() {
+        this.$emit(EVENT_MSG_CLICK)
       }
     }
   }
@@ -161,9 +167,21 @@
   @require "../../common/stylus/variable.styl"
 
   .cube-validator
-    &.cube-validator_invalid
-      textarea, input
-        border: solid 1px $validator-msg-def-color
+    display: flex
+    align-items: center
+    .cube-checkbox, .cube-radio
+      color: inherit
+    .cube-input
+      input
+        color: inherit
+    .cube-textarea
+      color: inherit
+    .cube-select
+      color: inherit
+  .cube-validator-content
+    flex: 1
+  .cube-validator_invalid
+    color: $validator-msg-def-color
   .cube-validator-msg-def
     font-size: $fontsize-medium
     color: $validator-msg-def-color

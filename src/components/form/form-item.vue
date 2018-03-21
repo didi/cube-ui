@@ -1,8 +1,8 @@
 <template>
-  <div class="cube-form-item" :class="itemClass">
+  <div class="cube-form-item border-bottom-1px" :class="itemClass">
     <slot>
-      <template v-if="fieldValue.type !== 'button'">
-        <div class="cube-form-label" v-show="fieldValue.label">{{fieldValue.label}}</div>
+      <template v-if="!isBtnField">
+        <div class="cube-form-label" v-show="fieldValue.label"><span>{{fieldValue.label}}</span></div>
         <cube-validator
           ref="validator"
           v-model="isValid"
@@ -10,6 +10,7 @@
           :for="modelValue"
           :rule="fieldValidate.rule"
           :messages="fieldValidate.messages"
+          @msg-click="msgClick"
         >
           <component :is="componentName" v-model="modelValue" v-bind="componentProps"></component>
         </cube-validator>
@@ -34,12 +35,14 @@
       model: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       },
       field: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       }
@@ -52,10 +55,14 @@
       }
     },
     computed: {
+      isBtnField() {
+        return this.fieldValue.type === 'button'
+      },
       itemClass() {
         return {
           // only handle required rule for now
           'cube-form-item_required': this.fieldValidate.rule.required,
+          'cube-form-item_btn': this.isBtnField,
           'cube-form-item_valid': this.isValid,
           'cube-form-item_invalid': this.isValid === false
         }
@@ -67,6 +74,10 @@
         return processField(this.field)
       },
       componentName() {
+        const component = this.fieldValue.component
+        if (component) {
+          return component
+        }
         const type = this.fieldValue.type
         const cubeType = `cube-${type}`
         if (components[cubeType]) {
@@ -132,6 +143,14 @@
             this.validatorDisabled = false
           })
         }
+      },
+      msgClick() {
+        /* istanbul ignore next */
+        this.$createToast && this.$createToast({
+          type: 'warn',
+          txt: this.$refs.validator.msg,
+          time: 1000
+        }).show()
       }
     },
     beforeDestroy() {
@@ -150,31 +169,78 @@
     position: relative
     display: flex
     align-items: center
-    padding: 15px 10px
+    padding: 0 15px
+    min-height: 46px
+    &:last-child
+      &::after
+        display: none
     .cube-validator
       flex: 1
       position: relative
     .cube-validator-msg-def
-      position: absolute
-      left: 0
-      bottom: -1.3em
-      font-size: $fontsize-small
+      font-size: 0
+    .cube-validator_invalid
+      .cube-validator-msg
+        &::before
+          content: "\e614"
+          padding-left: 5px
+          font-family: "cube-icon"!important
+          font-size: $fontsize-large-xxx
+          font-style: normal
+          -webkit-font-smoothing: antialiased
+          -webkit-text-stroke-width: 0.2px
+          -moz-osx-font-smoothing: grayscale
     .cube-checkbox-group, .cube-radio-group
       background-color: transparent
+      &::before, &::after
+        display: none
     .cube-checkbox, .cube-radio
-      color: inherit
+      padding-left: 0
+      padding-right: 0
+    .cube-input
+      input
+        padding: 13px 0
+        background-color: transparent
+      &::after
+        display: none
+    .cube-textarea-wrapper
+      padding: 13px 0
+      height: 20px
+      &.cube-textarea_expanded
+        height: 60px
+        padding-bottom: 20px
+        .cube-textarea-indicator
+          bottom: 2px
+      .cube-textarea
+        padding: 0
+        background-color: transparent
+      &::after
+        display: none
+    .cube-select
+      padding-left: 0
+      background-color: transparent
+      &::after
+        display: none
+    .cube-upload-def
+      padding: 5px 0
+      .cube-upload-btn, .cube-upload-file
+        margin: 5px 10px 5px 0
+  .cube-form-item_btn
+    margin: 10px 0
+    &::after
+      display: none
   .cube-form-label
-    position: relative
+    display: flex
+    align-items: center
     width: 100px
     padding-right: 10px
     word-wrap: break-word
     word-break: break-word
   .cube-form-item_required
     .cube-form-label
-      padding-left: .8em
       &::before
         content: "*"
-        position: absolute
-        left: 0
+        margin-top: 1px
+        margin-right: .3em
         color: $validator-msg-def-color
 </style>

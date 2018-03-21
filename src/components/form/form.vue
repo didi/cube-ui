@@ -26,12 +26,14 @@
       model: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       },
       schema: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       },
@@ -39,7 +41,9 @@
         type: Object,
         default() {
           return {
-            scrollToInvalidField: false
+            scrollToInvalidField: false,
+            labelRow: false,
+            labelTop: false
           }
         }
       },
@@ -70,6 +74,7 @@
             }
           ]
         }
+        /* istanbul ignore next */
         return []
       },
       invalid() {
@@ -78,12 +83,13 @@
       formClass() {
         const invalid = this.invalid
         const valid = this.valid
+        const options = this.options
         return {
-          'cube-form-groups': this.groups.length > 1,
+          'cube-form_groups': this.groups.length > 1,
           'cube-form_valid': valid === true,
           'cube-form_invalid': invalid,
-          'cube-form-label-row': false,
-          'cube-form-label-top': false
+          'cube-form-label-row': options.labelRow,
+          'cube-form-label-top': options.labelTop
         }
       }
     },
@@ -112,9 +118,6 @@
     created() {
       this.form = this
       this.fields = []
-      this.initModel = {
-        ...this.model
-      }
       this.validity = {}
     },
     methods: {
@@ -129,7 +132,7 @@
           return
         }
         this.$emit(EVENT_VALID, this.validity)
-        this.$emit(EVENT_SUBMIT, this.model)
+        this.$emit(EVENT_SUBMIT, e, this.model)
       },
       resetHandler(e) {
         this.reset()
@@ -167,8 +170,6 @@
           } else {
             validity[key] = val
           }
-        } else {
-          validity = {}
         }
 
         let dirty = false
@@ -249,28 +250,42 @@
 
   .cube-form
     position: relative
-    font-size: $fontsize-medium
+    font-size: $fontsize-large
+    line-height: 1.429
   .cube-form-label-row
     .cube-form-item
       display: block
-      .cube-validator-msg-def
-        left: auto
+      padding: 15px 10px
+      .cube-validator-msg
+        position: absolute
         right: 0
+        bottom: -1.3em
+        left: auto
+        &::before
+          display: none
+      .cube-validator-msg-def
+        font-size: $fontsize-small
     .cube-form-label
       padding-bottom: 10px
-    .cube-checkbox, .cube-radio
-      padding-left: 0
-      padding-right: 0
   .cube-form-label-top
     .cube-form-item
       display: block
-      padding-top: 2em
+      padding: 2em 10px 15px
+      .cube-validator
+        position: static
+      .cube-validator-msg
+        position: absolute
+        top: 1em
+        right: 10px
+        bottom: auto
+        margin-top: -.4em
+        &::before
+          display: none
+      .cube-validator-msg-def
+        font-size: $fontsize-small
     .cube-form-label
       position: absolute
       top: 1em
       margin-top: -.4em
       font-size: $fontsize-small
-    .cube-checkbox, .cube-radio
-      padding-left: 0
-      padding-right: 0
 </style>

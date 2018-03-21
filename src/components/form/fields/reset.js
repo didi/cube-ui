@@ -1,8 +1,10 @@
 const typesResetMap = {
   checkbox() {
+    /* istanbul ignore next */
     return false
   },
   select() {
+    /* istanbul ignore next */
     return null
   }
 }
