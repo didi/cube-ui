@@ -123,7 +123,19 @@
 
         let changed = false
         let pickerSelectedText = []
-        for (let i = 0; i < this.pickerData.length; i++) {
+
+        const dataLength = this.pickerData.length
+        const selectedValLength = this.pickerSelectedVal.length
+
+        if (selectedValLength !== dataLength) {
+          if (selectedValLength > dataLength) {
+            this.pickerSelectedVal.splice(dataLength)
+            this.pickerSelectedIndex.splice(dataLength)
+          }
+          changed = true
+        }
+
+        for (let i = 0; i < dataLength; i++) {
           let index = this.wheels[i].getSelectedIndex()
           this.pickerSelectedIndex[i] = index
 
@@ -158,11 +170,12 @@
         this.isVisible = true
         if (!this.wheels || this.dirty) {
           this.$nextTick(() => {
-            this.wheels = []
+            this.wheels = this.wheels || []
             let wheelWrapper = this.$refs.wheelWrapper
             for (let i = 0; i < this.pickerData.length; i++) {
-              this._createWheel(wheelWrapper, i)
+              this._createWheel(wheelWrapper, i).enable()
             }
+            this.dirty && this._destroyExtraWheels()
             this.dirty = false
           })
         } else {
@@ -187,10 +200,12 @@
         this.pickerData = data.slice()
         if (this.isVisible) {
           this.$nextTick(() => {
-            this.wheels.forEach((wheel, i) => {
-              wheel.refresh()
-              wheel.wheelTo(this.pickerSelectedIndex[i])
+            const wheelWrapper = this.$refs.wheelWrapper
+            this.pickerData.forEach((item, i) => {
+              this._createWheel(wheelWrapper, i)
+              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
             })
+            this._destroyExtraWheels()
           })
         } else {
           this.dirty = true
@@ -261,6 +276,15 @@
           this.wheels[i].refresh()
         }
         return this.wheels[i]
+      },
+      _destroyExtraWheels() {
+        const dataLength = this.pickerData.length
+        if (this.wheels.length > dataLength) {
+          const extraWheels = this.wheels.splice(dataLength)
+          extraWheels.forEach((wheel) => {
+            wheel.destroy()
+          })
+        }
       },
       _canConfirm() {
         return this.wheels.every((wheel) => {
