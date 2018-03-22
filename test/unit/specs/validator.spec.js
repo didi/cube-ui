@@ -55,6 +55,28 @@ describe('validator.vue', () => {
       done()
     }, 150)
   })
+
+  it('should trigger events', (done) => {
+    const clickHandler = sinon.spy()
+    vm = createValidator({
+      for: '',
+      rule: {
+        required: true
+      },
+      messages: {
+        required: '必填'
+      },
+      trigger: true
+    }, {
+      'msg-click': clickHandler
+    })
+    expect(vm.$el.querySelector('.cube-validator-msg-def').textContent)
+      .to.equal('必填')
+    vm.$el.querySelector('.cube-validator-msg').click()
+    expect(clickHandler)
+      .to.be.calledOnce
+    done()
+  })
 })
 
 describe('rules', () => {
@@ -404,11 +426,12 @@ describe('methods', () => {
   })
 })
 
-function createValidator (props = {}) {
+function createValidator (props = {}, events = {}) {
   if (props.trigger === undefined) {
     props.trigger = true
   }
   return instantiateComponent(Vue, Validator, {
-    props
+    props,
+    on: events
   })
 }
