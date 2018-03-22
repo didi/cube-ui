@@ -50,25 +50,17 @@
 </script>
 <style lang="stylus">
   .home-index
-    position: relative
     min-height: 100%
     box-sizing: border-box
-    overflow: hidden
     text-align: center
     background-size: cover
-    &::after
-      content: ""
-      position: absolute
-      top: 0
-      left: 0
-      bottom: 0
-      right: 0
-      background: url("./cube.png") no-repeat 520px -31px
-      background-size: 1515px 696px
     > .banner
-      padding: 120px 198px 210px 198px
+      padding: 190px 198px 210px 198px
+      margin-top: -70px
       text-align: left
       color: #4B4B4C
+      background: url("./cube.png") no-repeat 520px -31px
+      background-size: 1515px 696px
       @media screen and (max-width: 960px)
         padding: 50px 0 30px 0
         text-align: center
