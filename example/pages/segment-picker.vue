@@ -3,6 +3,7 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showSegmentPicker">Segment Picker</cube-button>
+        <cube-button @click="updateProps">Use $updateProps</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -61,7 +62,12 @@
           console.log('change', ...args)
         }
       })
-      setTimeout(() => {
+    },
+    methods: {
+      showSegmentPicker() {
+        this.segmentPicker.show()
+      },
+      updateProps() {
         this.segmentPicker.$updateProps({
           data: [{
             is: 'cube-cascade-picker',
@@ -78,17 +84,8 @@
             title: '目的地',
             data: cityData,
             selectedIndex: [0, 0, 0]
-          }],
-          cancelTxt: '1',
-          confirmTxt: '2',
-          nextTxt: '3',
-          prevTxt: '5'
+          }]
         })
-      }, 3000)
-    },
-    methods: {
-      showSegmentPicker() {
-        this.segmentPicker.show()
       }
     },
     components: {
