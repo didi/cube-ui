@@ -40,19 +40,20 @@
     position: relative
     .display-wrapper
       position: absolute
-      width: 348px
-      height: 756px
+      width: 330px
+      height: 645px
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
-      background: url("./phone.png") no-repeat
+      background: url("./iphoneX.png") no-repeat
       background-size: cover
       .mofang-demo
         position: absolute
-        top: 104px
-        left: 14px
-        right: 14px
-        height: 550px
-        border-radius: 4px
-        background-color: $color-white
+        top: 64px
+        left: 22px
+        right: 22px
+        bottom: 36px
+        overflow: hidden
+        border-radius: 0 0 35px 35px
+        background-color: #edf0f4
 </style>

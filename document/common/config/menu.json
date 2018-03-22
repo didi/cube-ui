@@ -2,7 +2,6 @@
   "en-US": {
     "overview": {
       "name": "Overview",
-      "isRootActive": false,
       "subList": {
         "introduction": "Introduction",
         "quick-start": "QuickStart",
@@ -13,7 +12,6 @@
     },
     "components": {
       "name": "Components",
-      "isRootActive": false,
       "subList": {
         "basic": {
           "name": "Basic",
@@ -134,7 +132,6 @@
     },
     "modules": {
       "name": "模块",
-      "isRootActive": false,
       "angle": "03",
       "subList": {
         "style": "style",
