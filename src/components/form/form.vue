@@ -43,7 +43,7 @@
           return {
             scrollToInvalidField: false,
             labelRow: false,
-            labelTop: false
+            labelTop: true
           }
         }
       },
@@ -85,11 +85,12 @@
         const valid = this.valid
         const options = this.options
         return {
+          'cube-form_normal': !options.labelRow && !options.labelTop,
           'cube-form_groups': this.groups.length > 1,
           'cube-form_valid': valid === true,
           'cube-form_invalid': invalid,
-          'cube-form-label-row': options.labelRow,
-          'cube-form-label-top': options.labelTop
+          'cube-form_label-row': options.labelRow,
+          'cube-form_label-top': options.labelTop
         }
       }
     },
@@ -252,37 +253,106 @@
     position: relative
     font-size: $fontsize-large
     line-height: 1.429
-  .cube-form-label-row
+    color: $color-grey
+    background-color: $color-white
+  .cube-form_normal
+    .cube-form-item
+      min-height: 46px
+    .cube-validator
+      display: flex
+      align-items: center
+      flex: 1
+      position: relative
+    .cube-validator-content
+      flex: 1
+    .cube-validator-msg-def
+      font-size: 0
+    .cube-validator_invalid
+      .cube-validator-msg
+        &::before
+          content: "\e614"
+          padding-left: 5px
+          font-family: "cube-icon"!important
+          font-size: $fontsize-large-xxx
+          font-style: normal
+          -webkit-font-smoothing: antialiased
+          -webkit-text-stroke-width: 0.2px
+          -moz-osx-font-smoothing: grayscale
+    .cube-form-label
+      display: flex
+      align-items: center
+      width: 100px
+      padding-right: 10px
+    .cube-checkbox-group, .cube-radio-group
+      &::before, &::after
+        display: none
+    .cube-input
+      input
+        padding: 13px 0
+        background-color: transparent
+      &::after
+        display: none
+    .cube-textarea-wrapper
+      padding: 13px 0
+      height: 20px
+      &.cube-textarea_expanded
+        height: 60px
+        padding-bottom: 20px
+        .cube-textarea-indicator
+          bottom: 2px
+      .cube-textarea
+        padding: 0
+        background-color: transparent
+      &::after
+        display: none
+    .cube-select
+      padding-left: 0
+      background-color: transparent
+      &::after
+        display: none
+    .cube-upload-def
+      padding: 5px 0
+      .cube-upload-btn, .cube-upload-file
+        margin: 5px 10px 5px 0
+  .cube-form_label-row
     .cube-form-item
       display: block
-      padding: 15px 10px
+      padding: 15px
+      &:last-child
+        padding-bottom: 30px
+      &::after
+        display: none
       .cube-validator-msg
         position: absolute
-        right: 0
-        bottom: -1.3em
-        left: auto
+        margin-top: 3px
         &::before
           display: none
       .cube-validator-msg-def
         font-size: $fontsize-small
+    .cube-form-item_btn
+      padding-top: 0
+      padding-bottom: 0
+      &:last-child
+        padding-bottom: 0
     .cube-form-label
-      padding-bottom: 10px
-  .cube-form-label-top
+      padding-bottom: 15px
+  .cube-form_label-top
     .cube-form-item
       display: block
-      padding: 2em 10px 15px
-      .cube-validator
-        position: static
+      padding: 2em 15px 10px
+      &::after
+        display: none
       .cube-validator-msg
         position: absolute
         top: 1em
-        right: 10px
+        right: 15px
         bottom: auto
         margin-top: -.4em
+        font-size: $fontsize-small
         &::before
           display: none
       .cube-validator-msg-def
-        font-size: $fontsize-small
+        font-size: 100%
     .cube-form-label
       position: absolute
       top: 1em

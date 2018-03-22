@@ -167,8 +167,6 @@
   @require "../../common/stylus/variable.styl"
 
   .cube-validator
-    display: flex
-    align-items: center
     .cube-checkbox, .cube-radio
       color: inherit
     .cube-input
@@ -178,8 +176,6 @@
       color: inherit
     .cube-select
       color: inherit
-  .cube-validator-content
-    flex: 1
   .cube-validator_invalid
     color: $validator-msg-def-color
   .cube-validator-msg-def

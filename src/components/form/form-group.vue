@@ -54,8 +54,6 @@
 
   .cube-form-group
     overflow: hidden
-    color: $color-grey
-    background-color: $color-white
   .cube-form-group-legend
     padding: 10px 15px
     font-size: $fontsize-medium
