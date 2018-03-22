@@ -25,6 +25,7 @@
       options: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },

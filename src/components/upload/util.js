@@ -1,4 +1,6 @@
-export const URL = window.URL || window.webkitURL || window.mozURL
+import { inBrowser } from '../../common/helpers/env'
+
+export const URL = inBrowser ? window.URL || window.webkitURL || window.mozURL : null
 
 export const STATUS_READY = 'ready'
 export const STATUS_UPLOADING = 'uploading'
