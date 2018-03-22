@@ -3,6 +3,7 @@
     <component
       v-for="(item, index) in data"
       :key="index"
+      :index="index"
       ref="pickers"
       v-bind="item"
       :is="item.is || 'cube-picker'"
@@ -62,9 +63,26 @@ export default {
       selectedText: []
     }
   },
+  computed: {
+    currentPicker () {
+      // $refs is not responsive, should not use to computed or watch, so we import this.data to responsive.
+      // TODO: find is unreliable, use indexOf
+      return this.data.length && this.$refs.pickers.find(item => {
+        return item.$attrs.index === this.current
+      })
+    }
+  },
+  watch: {
+    data() {
+      this.current = 0
+      this.selectedVal = []
+      this.selectedIndex = []
+      this.selectedText = []
+    }
+  },
   methods: {
     show() {
-      this.$refs.pickers[this.current].show()
+      this.currentPicker.show()
     },
     select(...args) {
       this.selectedVal[this.current] = args[0]
@@ -74,7 +92,7 @@ export default {
       if (this.current < this.data.length - 1) {
         this.$emit(EVENT_NEXT, this.current, ...args)
         this.current++
-        this.$refs.pickers[this.current].show()
+        this.currentPicker.show()
       } else {
         this.$emit(EVENT_SELECT, this.selectedVal, this.selectedIndex, this.selectedText)
         this.current = 0
@@ -84,7 +102,7 @@ export default {
       if (this.current > 0) {
         this.$emit(EVENT_PREV, this.current, ...args)
         this.current--
-        this.$refs.pickers[this.current].show()
+        this.currentPicker.show()
       } else {
         this.$emit(EVENT_CANCEL)
       }

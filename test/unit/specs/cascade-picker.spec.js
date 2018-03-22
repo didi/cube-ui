@@ -134,7 +134,7 @@ describe('CascadePicker', () => {
       .to.equal(cascadeData[1].children[1].children[0].value)
   })
 
-  it('should add warn log when sigle is true', () => {
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []

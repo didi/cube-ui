@@ -61,6 +61,30 @@
           console.log('change', ...args)
         }
       })
+      setTimeout(() => {
+        this.segmentPicker.$updateProps({
+          data: [{
+            is: 'cube-cascade-picker',
+            title: '出发地',
+            data: cityData,
+            selectedIndex: [0, 0, 0],
+            cancelTxt: '返回'
+          }, {
+            title: '快递',
+            data: [expressData],
+            selectedIndex: [1]
+          }, {
+            is: 'cube-cascade-picker',
+            title: '目的地',
+            data: cityData,
+            selectedIndex: [0, 0, 0]
+          }],
+          cancelTxt: '1',
+          confirmTxt: '2',
+          nextTxt: '3',
+          prevTxt: '5'
+        })
+      }, 3000)
     },
     methods: {
       showSegmentPicker() {
