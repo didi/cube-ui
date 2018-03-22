@@ -10,9 +10,9 @@
       :title="item.title || title"
       :confirmTxt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
       :cancelTxt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
-      @select="select"
-      @cancel="cancel"
-      @change="change">
+      @select="_select"
+      @cancel="_cancel"
+      @change="_change">
     </component>
   </div>
 </template>
@@ -66,10 +66,12 @@ export default {
   computed: {
     currentPicker () {
       // $refs is not responsive, should not use to computed or watch, so we import this.data to responsive.
-      // TODO: find is unreliable, use indexOf
-      return this.data.length && this.$refs.pickers.find(item => {
-        return item.$attrs.index === this.current
-      })
+      for (let i = 0; i < this.data.length; i++) {
+        let item = this.$refs.pickers[i]
+        if (item.$attrs.index === this.current) {
+          return item
+        }
+      }
     }
   },
   watch: {
@@ -82,9 +84,12 @@ export default {
   },
   methods: {
     show() {
-      this.currentPicker.show()
+      this.data.length && this.currentPicker.show()
     },
-    select(...args) {
+    hide() {
+      this.data.length && this.currentPicker.hide()
+    },
+    _select(...args) {
       this.selectedVal[this.current] = args[0]
       this.selectedIndex[this.current] = args[1]
       this.selectedText[this.current] = args[2]
@@ -98,7 +103,7 @@ export default {
         this.current = 0
       }
     },
-    cancel(...args) {
+    _cancel(...args) {
       if (this.current > 0) {
         this.$emit(EVENT_PREV, this.current, ...args)
         this.current--
@@ -107,7 +112,7 @@ export default {
         this.$emit(EVENT_CANCEL)
       }
     },
-    change(...args) {
+    _change(...args) {
       this.$emit(EVENT_CHANGE, this.current, ...args)
     }
   }

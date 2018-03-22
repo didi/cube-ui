@@ -3,7 +3,7 @@ import SegmentPicker from '@/modules/segment-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
 import { provinceList, cityList, areaList } from 'example/data/area'
-import { expressData } from 'example/data/picker'
+import { data1, data2, expressData } from 'example/data/picker'
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -61,102 +61,157 @@ describe('SegmentPicker', () => {
     expect(wheels.length)
       .to.equal(7)
 
-    const firstPickerBtns = pickers[0].querySelectorAll('.cube-picker-choose > span')
-    expect(firstPickerBtns[0].textContent.trim())
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="cancel"]')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="confirm"]')
+
+    expect(cancelBtns[0].textContent.trim())
       .to.equal('Cancel')
-    expect(firstPickerBtns[1].textContent.trim())
+    expect(confirmBtns[0].textContent.trim())
       .to.equal('Next')
 
-    const secondPickerBtns = pickers[1].querySelectorAll('.cube-picker-choose > span')
-    expect(secondPickerBtns[0].textContent.trim())
+    expect(cancelBtns[1].textContent.trim())
       .to.equal('返回')
-    expect(secondPickerBtns[1].textContent.trim())
+    expect(confirmBtns[1].textContent.trim())
       .to.equal('Next')
 
-    const thirdPickerBtns = pickers[2].querySelectorAll('.cube-picker-choose > span')
-    expect(thirdPickerBtns[0].textContent.trim())
+    expect(cancelBtns[2].textContent.trim())
       .to.equal('Prev')
-    expect(thirdPickerBtns[1].textContent.trim())
+    expect(confirmBtns[2].textContent.trim())
       .to.equal('Confirm')
   })
 
-  // it('should render correct contents when use alias', function () {
-  //   vm = createSegmentPicker()
+  it('should correct by default', function () {
+    vm = createSegmentPicker()
 
-  //   const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
-  //   const firstWheelItems = wheels[0].querySelectorAll('li')
-  //   expect(firstWheelItems.length)
-  //     .to.equal(3)
-  //   expect(firstWheelItems[1].textContent.trim())
-  //     .to.equal('B')
-  // })
+    vm.show()
+    vm.hide()
+  })
 
-  // it('should trigger events', function (done) {
-  //   this.timeout(10000)
+  it('should trigger events', function (done) {
+    this.timeout(10000)
 
-  //   const selectHandle = sinon.spy()
-  //   const cancelHandle = sinon.spy()
-  //   const changeHandle = sinon.spy()
-  //   const events = {
-  //     select: selectHandle,
-  //     cancel: cancelHandle,
-  //     change: changeHandle
-  //   }
+    const selectHandle = sinon.spy()
+    const cancelHandle = sinon.spy()
+    const nextHandle = sinon.spy()
+    const prevHandle = sinon.spy()
+    const changeHandle = sinon.spy()
 
-  //   vm = createSegmentPicker({
-  //     data: cascadeData
-  //   }, events)
+    vm = createSegmentPicker({
+      data: [{
+        data: [expressData],
+        selectedIndex: [1]
+      }, {
+        data: [data1],
+        selectedIndex: [0]
+      }]
+    }, {
+      select: selectHandle,
+      cancel: cancelHandle,
+      next: nextHandle,
+      prev: prevHandle,
+      change: changeHandle
+    })
 
-  //   vm.show()
-  //   setTimeout(() => {
-  //     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
-  //     const firstWheelItems = wheels[0].querySelectorAll('li')
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="cancel"]')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="confirm"]')
 
-  //     dispatchSwipe(firstWheelItems[1], [
-  //       {
-  //         pageX: firstWheelItems[1].offsetLeft + 10,
-  //         pageY: firstWheelItems[1].offsetTop + 10
-  //       },
-  //       {
-  //         pageX: 300,
-  //         pageY: 380
-  //       }
-  //     ], 100)
+    // change
+    vm.show()
+    setTimeout(() => {
+      const items = wheels[0].querySelectorAll('li')
 
-  //     setTimeout(() => {
-  //       expect(changeHandle)
-  //         .to.be.callCount(1)
+      dispatchSwipe(items[2], [
+        {
+          pageX: items[2].offsetLeft + 10,
+          pageY: items[2].offsetTop + 10
+        },
+        {
+          pageX: 300,
+          pageY: 380
+        }
+      ], 100)
 
-  //       const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
-  //       confirmBtn.click()
-  //       expect(selectHandle)
-  //         .to.be.callCount(1)
+      setTimeout(() => {
+        expect(changeHandle)
+          .to.be.callCount(1)
 
-  //       vm.show()
-  //       setTimeout(() => {
-  //         const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
-  //         cancelBtn.click()
-  //         expect(cancelHandle)
-  //           .to.be.callCount(1)
-  //         done()
-  //       }, 100)
-  //     }, 1000)
-  //   }, 150)
-  // })
+        // cancel
+        cancelBtns[0].click()
+        expect(cancelHandle)
+          .to.be.callCount(1)
 
-  // it('setData', function () {
-  //   this.timeout(10000)
+        // next
+        vm.show()
+        vm.$nextTick(() => {
+          confirmBtns[0].click()
+          expect(nextHandle)
+            .to.be.callCount(1)
 
-  //   vm = createSegmentPicker()
+          // prev
+          vm.$nextTick(() => {
+            cancelBtns[1].click()
+            expect(prevHandle)
+              .to.be.callCount(1)
 
-  //   vm.setData(cascadeData, [1, 1, 1])
+            // next
+            vm.$nextTick(() => {
+              confirmBtns[0].click()
+              expect(nextHandle)
+                .to.be.callCount(2)
 
-  //   /* expect vm.pickerData[2] equal to cascadeData[1].children[1].children */
-  //   expect(vm.pickerData[2].length)
-  //     .to.equal(cascadeData[1].children[1].children.length)
-  //   expect(vm.pickerData[2][0].value)
-  //     .to.equal(cascadeData[1].children[1].children[0].value)
-  // })
+              // select
+              vm.$nextTick(() => {
+                confirmBtns[1].click()
+                expect(selectHandle)
+                  .to.be.callCount(1)
+                done()
+              })
+            })
+          })
+        })
+      }, 1000)
+    }, 100)
+  })
+
+  it('$updateProps', function (done) {
+    this.timeout(10000)
+
+    vm = createSegmentPicker({
+      data: [{
+        title: '快递',
+        data: [expressData],
+        selectedIndex: [1]
+      }, {
+        title: 'Dota',
+        data: [data1],
+        selectedIndex: [0]
+      }]
+    })
+
+    vm.$updateProps({
+      data: [{
+        title: 'Dota',
+        data: [data1, data2],
+        selectedIndex: [1, 1]
+      }, {
+        title: '快递',
+        data: [expressData],
+        selectedIndex: [0]
+      }]
+    })
+
+    vm.$nextTick(() => {
+      const titles = vm.$el.querySelectorAll('.cube-picker-choose > h1')
+      expect(titles[0].textContent.trim())
+        .to.equal('Dota')
+
+      expect(titles[1].textContent.trim())
+        .to.equal('快递')
+
+      done()
+    })
+  })
 
   it('should add warn log when single is true', () => {
     const app = new Vue()
