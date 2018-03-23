@@ -21,6 +21,11 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
+      // setTimeout(() => {
+      //   this.datePicker.$updateProps({
+      //     value: new Date()
+      //   })
+      // }, 1000)
     },
     methods: {
       showDatePicker() {
