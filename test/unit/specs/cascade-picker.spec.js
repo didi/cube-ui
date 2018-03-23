@@ -88,6 +88,7 @@ describe('CascadePicker', () => {
       const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
       const firstWheelItems = wheels[0].querySelectorAll('li')
 
+      // change
       dispatchSwipe(firstWheelItems[1], [
         {
           pageX: firstWheelItems[1].offsetLeft + 10,
@@ -103,35 +104,73 @@ describe('CascadePicker', () => {
         expect(changeHandle)
           .to.be.callCount(1)
 
+        // select
         const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
         confirmBtn.click()
         expect(selectHandle)
           .to.be.callCount(1)
 
+        // cancel
         vm.show()
-        setTimeout(() => {
-          const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
-          cancelBtn.click()
-          expect(cancelHandle)
-            .to.be.callCount(1)
-          done()
-        }, 100)
+        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        cancelBtn.click()
+        expect(cancelHandle)
+          .to.be.callCount(1)
+
+        done()
       }, 1000)
     }, 150)
   })
 
-  it('setData', function () {
+  it('should call methods', function (done) {
     this.timeout(10000)
 
     vm = createCascadePicker()
 
+    // setData
     vm.setData(cascadeData, [1, 1, 1])
 
-    /* expect vm.pickerData[2] equal to cascadeData[1].children[1].children */
+    // For unknown reason, expect Array equal has failed.
+    // expect vm.pickerData[2] equal to cascadeData[1].children[1].children
     expect(vm.pickerData[2].length)
       .to.equal(cascadeData[1].children[1].children.length)
     expect(vm.pickerData[2][0].value)
       .to.equal(cascadeData[1].children[1].children[0].value)
+
+    // show
+    vm.show()
+
+    // hide
+    setTimeout(() => {
+      vm.hide()
+
+      done()
+    }, 100)
+  })
+
+  it('$updateProps', function (done) {
+    this.timeout(10000)
+
+    vm = createCascadePicker({
+      data: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }],
+      selectedIndex: [1]
+    })
+
+    let wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    expect(wheels.length)
+      .to.equal(1)
+
+    vm.$updateProps({
+      data: cascadeData,
+      selectedIndex: [1, 1, 1]
+    })
+    vm.$nextTick(() => {
+      wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      expect(wheels.length)
+        .to.equal(3)
+
+      done()
+    })
   })
 
   it('should add warn log when sigle is true', () => {
