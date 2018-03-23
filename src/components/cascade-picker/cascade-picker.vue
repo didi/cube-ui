@@ -87,6 +87,14 @@
     created() {
       this.updatePickerData()
     },
+    watch: {
+      data(newVal) {
+        this.setData(newVal, this.selectedIndex)
+      },
+      selectedIndex(newVal) {
+        this.setData(this.data, newVal)
+      }
+    },
     methods: {
       show() {
         this.$refs.picker.show()
