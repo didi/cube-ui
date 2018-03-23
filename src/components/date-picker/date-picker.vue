@@ -6,6 +6,7 @@
     :selectedIndex="selectedIndex"
     @select="_select"
     @cancel="_cancel"
+    @change="_change"
     @value-change="_valueChange">
   </cube-cascade-picker>
 </template>
@@ -14,7 +15,7 @@
   const COMPONENT_NAME = 'date-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
-  const EVENT_INPUT = 'input'
+  const EVENT_CHANGE = 'change'
   const EVENT_VALUE_CHANGE = 'value-change'
 
   export default {
@@ -37,11 +38,6 @@
         default() {
           return this.min
         }
-      }
-    },
-    data() {
-      return {
-        selectedIndex: []
       }
     },
     computed: {
@@ -71,11 +67,24 @@
         })
 
         return data
-      }
-    },
-    watch: {
-      value(newVal) {
-        this.setDate(newVal)
+      },
+      selectedIndex() {
+        const selectedVal = this.value instanceof Date
+                            ? [this.value.getFullYear(), this.value.getMonth() + 1, this.value.getDate()]
+                            : this.value
+        let selectedIndex = []
+        let data = this.data
+        let findIndex
+
+        for (let i = 0; i < 3; i++) {
+          findIndex = data.findIndex((item) => {
+            return selectedVal[i] && item.value === selectedVal[i]
+          })
+          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
+          data = data[selectedIndex[i]].children
+        }
+
+        return selectedIndex
       }
     },
     methods: {
@@ -85,36 +94,17 @@
       hide() {
         this.$refs.cascadePicker.hide()
       },
-      setDate(date) {
-        if (date instanceof Date) {
-          date = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
-        }
-
-        let selectedIndex = []
-        let data = this.data
-        let findIndex
-
-        for (let i = 0; i < 3; i++) {
-          findIndex = data.findIndex((item) => {
-            return item.value === date[i]
-          })
-          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
-          data = data[selectedIndex[i]].children
-        }
-
-        this.$refs.cascadePicker && this.$refs.cascadePicker.setData(this.data, selectedIndex)
-
-        this.selectedIndex = selectedIndex
-      },
       _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
       },
       _cancel() {
         this.$emit(EVENT_CANCEL)
       },
+      _change(i, newIndex) {
+        this.$emit(EVENT_CHANGE, i, newIndex)
+      },
       _valueChange(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
-        this.$emit(EVENT_INPUT, selectedVal)
       }
     }
   }
