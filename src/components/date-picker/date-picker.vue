@@ -4,9 +4,9 @@
     title="Date Picker"
     :data="data"
     :selectedIndex="selectedIndex"
-    @select="select"
-    @cancel="cancel"
-    @value-change="valueChange">
+    @select="_select"
+    @cancel="_cancel"
+    @value-change="_valueChange">
   </cube-cascade-picker>
 </template>
 
@@ -33,10 +33,15 @@
         }
       },
       value: {
-        type: Array,
+        type: [Array, Date],
         default() {
           return this.min
         }
+      }
+    },
+    data() {
+      return {
+        selectedIndex: []
       }
     },
     computed: {
@@ -66,23 +71,11 @@
         })
 
         return data
-      },
-      selectedIndex() {
-        let selectedIndex = []
-        let data = this.data
-        let findIndex
-
-        for (let i = 0; i < 3; i++) {
-          findIndex = data.findIndex((item) => {
-            return item.value === this.value[i]
-          })
-          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
-          data = data[selectedIndex[i]].children
-        }
-
-        this.$refs.cascadePicker && this.$refs.cascadePicker.setData(this.data, selectedIndex)
-
-        return selectedIndex
+      }
+    },
+    watch: {
+      value(newVal) {
+        this.setDate(newVal)
       }
     },
     methods: {
@@ -92,13 +85,34 @@
       hide() {
         this.$refs.cascadePicker.hide()
       },
-      select(selectedVal, selectedIndex, selectedText) {
+      setDate(date) {
+        if (date instanceof Date) {
+          date = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+        }
+
+        let selectedIndex = []
+        let data = this.data
+        let findIndex
+
+        for (let i = 0; i < 3; i++) {
+          findIndex = data.findIndex((item) => {
+            return item.value === date[i]
+          })
+          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
+          data = data[selectedIndex[i]].children
+        }
+
+        this.$refs.cascadePicker && this.$refs.cascadePicker.setData(this.data, selectedIndex)
+
+        this.selectedIndex = selectedIndex
+      },
+      _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
       },
-      cancel() {
+      _cancel() {
         this.$emit(EVENT_CANCEL)
       },
-      valueChange(selectedVal, selectedIndex, selectedText) {
+      _valueChange(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
         this.$emit(EVENT_INPUT, selectedVal)
       }
