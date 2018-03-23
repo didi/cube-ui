@@ -21,11 +21,13 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
-      // setTimeout(() => {
-      //   this.datePicker.$updateProps({
-      //     value: new Date()
-      //   })
-      // }, 1000)
+      setTimeout(() => {
+        this.datePicker.$updateProps({
+          min: [2010, 8, 8],
+          max: [2030, 10, 20],
+          value: new Date()
+        })
+      }, 1000)
     },
     methods: {
       showDatePicker() {
