@@ -118,8 +118,24 @@ const data3 = [
   }
 ]
 
+const expressData = [
+  {
+    text: '顺丰',
+    value: '顺丰'
+  },
+  {
+    text: '中通',
+    value: '中通'
+  },
+  {
+    text: '圆通',
+    value: '圆通'
+  }
+]
+
 export {
   data1,
   data2,
-  data3
+  data3,
+  expressData
 }
