@@ -173,7 +173,7 @@ describe('CascadePicker', () => {
     })
   })
 
-  it('should add warn log when sigle is true', () => {
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
