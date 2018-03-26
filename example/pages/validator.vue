@@ -3,10 +3,10 @@
     <div slot="content">
       <div class="validator-item">
         <cube-input v-model="text1" placeholder="E-mail"></cube-input>
-        <cube-validator v-model="isValid[0]" :for="text1" :rules="rules1" :messages="messages1" :trigger="trigger"></cube-validator>
+        <cube-validator v-model="isValid[0]" :model="text1" :rules="rules1" :messages="messages1" :trigger="trigger"></cube-validator>
       </div>
       <div class="validator-item">
-        <cube-validator v-model="isValid[1]" :for="text2" :rules="rules2" :messages="messages2" :trigger="trigger">
+        <cube-validator v-model="isValid[1]" :model="text2" :rules="rules2" :messages="messages2" :trigger="trigger">
           <cube-input v-model="text2" placeholder="component name"></cube-input>
           <div slot="message" class="custom-msg" slot-scope="props">
             <div v-if="(props.dirty || trigger) && !isValid[1]">
@@ -19,7 +19,7 @@
         </cube-validator>
       </div>
       <div class="validator-item">
-        <cube-validator v-model="isValid[2]" :for="text3" :rules="rules3" :trigger="trigger">
+        <cube-validator v-model="isValid[2]" :model="text3" :rules="rules3" :trigger="trigger">
           <cube-input v-model="text3" placeholder="odd"></cube-input>
         </cube-validator>
       </div>
@@ -29,12 +29,12 @@
           <cube-checkbox label="2">2</cube-checkbox>
           <cube-checkbox label="3">3</cube-checkbox>
         </cube-checkbox-group>
-        <cube-validator v-model="isValid[3]" :for="checkList" :rules="rules4" :trigger="trigger"></cube-validator>
+        <cube-validator v-model="isValid[3]" :model="checkList" :rules="rules4" :trigger="trigger"></cube-validator>
       </div>
 
       <div class="validator-item">
         <cube-rate v-model="rate"></cube-rate>
-        <cube-validator v-model="isValid[4]" :for="rate" :rules="rules5" :trigger="trigger"></cube-validator>
+        <cube-validator v-model="isValid[4]" :model="rate" :rules="rules5" :trigger="trigger"></cube-validator>
       </div>
       <cube-button @click="submit">Submit</cube-button>
     </div>

@@ -21,7 +21,7 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      for: {
+      model: {
         required: true
       },
       rules: {
@@ -82,7 +82,7 @@
       valid(newVal) {
         this.$emit(EVENT_INPUT, newVal)
       },
-      for(newVal) {
+      model(newVal) {
         if (this.isDisabled) {
           return
         }
@@ -111,7 +111,7 @@
         if (this.isDisabled) {
           return
         }
-        const val = this.for
+        const val = this.model
         this.validated = true
 
         let valid = true
