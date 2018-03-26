@@ -1,8 +1,9 @@
 <template>
-  <cube-page type="picker-view" title="Cascade Picker" desc="">
+  <cube-page type="picker-view" title="Date Picker" desc="">
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
+        <cube-button @click="updateProps">Use $updateProps</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -21,17 +22,17 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
-      setTimeout(() => {
+    },
+    methods: {
+      showDatePicker() {
+        this.datePicker.show()
+      },
+      updateProps() {
         this.datePicker.$updateProps({
           min: [2010, 8, 8],
           max: [2030, 10, 20],
           value: new Date()
         })
-      }, 1000)
-    },
-    methods: {
-      showDatePicker() {
-        this.datePicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({
