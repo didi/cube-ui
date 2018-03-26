@@ -93,6 +93,10 @@
             text: 'CascadePicker'
           },
           {
+            path: '/segment-picker',
+            text: 'SegmentPicker'
+          },
+          {
             path: '/time-picker',
             text: 'TimePicker'
           },
