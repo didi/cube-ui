@@ -24,7 +24,7 @@
       for: {
         required: true
       },
-      rule: {
+      rules: {
         type: Object,
         default() {
           return {}
@@ -59,12 +59,16 @@
       }
     },
     computed: {
+      isDisabled() {
+        const disabled = this.disabled
+        const hasRules = Object.keys(this.rules).length > 0
+        return disabled || !hasRules
+      },
       dirtyOrValidated() {
         return this.dirty || this.validated
       },
       containerClass() {
-        const disabled = this.disabled
-        // const dirtyOrValidated = this.dirtyOrValidated
+        const disabled = this.isDisabled
         if (disabled) {
           return
         }
@@ -79,7 +83,7 @@
         this.$emit(EVENT_INPUT, newVal)
       },
       for(newVal) {
-        if (this.disabled) {
+        if (this.isDisabled) {
           return
         }
         if (!this.dirty) {
@@ -90,13 +94,13 @@
       },
       trigger: {
         handler(newVal) {
-          if (!this.disabled && newVal) {
+          if (!this.isDisabled && newVal) {
             this.validate()
           }
         },
         immediate: true
       },
-      disabled(newVal) {
+      isDisabled(newVal) {
         if (!newVal && this.trigger && !this.validated) {
           this.validate()
         }
@@ -104,27 +108,28 @@
     },
     methods: {
       validate() {
-        if (this.disabled) {
+        if (this.isDisabled) {
           return
         }
         const val = this.for
         this.validated = true
 
         let valid = true
-        const type = this.rule.type
+        const configRules = this.rules
+        const type = configRules.type
         const result = {}
 
-        for (const key in this.rule) {
-          const ruleValue = this.rule[key]
+        for (const key in configRules) {
+          const ruleValue = configRules[key]
           let ret
           if (typeof ruleValue === 'function') {
-            ret = ruleValue(val, this.rule[key], type)
+            ret = ruleValue(val, configRules[key], type)
           } else {
-            ret = !rules[key] || rules[key](val, this.rule[key], type)
+            ret = !rules[key] || rules[key](val, configRules[key], type)
           }
           let msg = this.messages[key]
                     ? typeof this.messages[key] === 'function' ? this.messages[key](ret) : this.messages[key]
-                    : findMessage(key, this.rule[key], type, val)
+                    : findMessage(key, configRules[key], type, val)
 
           if (valid && ret !== true) {
             valid = false
@@ -140,7 +145,7 @@
         this.result = result
 
         // valid when the rule is not required and the val is empty
-        valid = !this.rule.required && !rules.required(val, true, type) || valid
+        valid = !configRules.required && !rules.required(val, true, type) || valid
 
         if (valid) {
           this.msg = ''
@@ -176,8 +181,6 @@
       color: inherit
     .cube-select
       color: inherit
-  .cube-validator_invalid
-    color: $validator-msg-def-color
   .cube-validator-msg-def
     font-size: $fontsize-medium
     color: $validator-msg-def-color
