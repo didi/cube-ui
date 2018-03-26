@@ -1,7 +1,14 @@
 <template>
-  <cube-page type="form" title="Form 表单">
+  <cube-page type="form-def" title="Form 表单">
     <div slot="content">
-      <cube-form ref="fff" @validate="validateHandler" @submit="submitHandler" :model="model" :schema="schema" :new-model="true"></cube-form>
+      <cube-form
+        :model="model"
+        :schema="schema"
+        :new-model="true"
+        :options="options"
+        @validate="validateHandler"
+        @submit="submitHandler"
+        @reset="resetHandler"></cube-form>
       <div>model:<br>:{{model}}</div>
       <div>validity:<br>{{validity}}</div>
       <div>valid:<br>{{valid}}</div>
@@ -10,8 +17,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import CubeButtonGroup from '../components/cube-button-group.vue'
+  import CubePage from '../../components/cube-page.vue'
+  import CubeButtonGroup from '../../components/cube-button-group.vue'
 
   export default {
     data() {
@@ -37,14 +44,17 @@
                 {
                   type: 'checkbox',
                   model: 'checkboxValue',
-                  label: 'Checkbox',
                   props: {
-                    option: 'Checkbox'
-                  },
-                  validate: {
-                    rule: {
-                      required: true
+                    option: {
+                      label: 'Checkbox',
+                      value: 'checked'
                     }
+                  },
+                  rules: {
+                    required: true
+                  },
+                  messages: {
+                    required: 'Please check this field'
                   }
                 },
                 {
@@ -54,10 +64,8 @@
                   props: {
                     options: ['1', '2', '3']
                   },
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
@@ -67,10 +75,8 @@
                   props: {
                     placeholder: '请输入'
                   },
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
@@ -80,10 +86,8 @@
                   props: {
                     options: ['1', '2', '3']
                   },
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
@@ -93,30 +97,24 @@
                   props: {
                     options: [2015, 2016, 2017, 2018, 2019, 2020]
                   },
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
                   type: 'switch',
                   model: 'switchValue',
                   label: 'Switch',
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
                   type: 'textarea',
                   model: 'textareaValue',
                   label: 'Textarea',
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 }
               ]
@@ -128,20 +126,16 @@
                   type: 'rate',
                   model: 'rateValue',
                   label: 'Rate',
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 },
                 {
                   type: 'upload',
                   model: 'uploadValue',
                   label: 'Upload',
-                  validate: {
-                    rule: {
-                      required: true
-                    }
+                  rules: {
+                    required: true
                   }
                 }
               ]
@@ -159,17 +153,24 @@
               ]
             }
           ]
+        },
+        options: {
+          scrollToInvalidField: true
         }
       }
     },
     methods: {
       submitHandler(e) {
-        console.log('submit')
+        e.preventDefault()
+        console.log('submit', e)
       },
       validateHandler(result) {
         this.validity = result.validity
         this.valid = result.valid
         console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
+      },
+      resetHandler(e) {
+        console.log('reset', e)
       }
     },
     components: {
