@@ -38,7 +38,7 @@
     a
       color: #4B4B4C
       @media screen and (max-width: 960px)
-        color: $color-white
+        color: black
       &:active, &:hover
         color: $color-orange
 </style>

@@ -6,9 +6,13 @@
         <slot name="desc"></slot>
       </p>
       <div class="ghbtns">
-        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/stars/didi/cube-ui.svg?style=social&label=Star"></a>
-        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/forks/didi/cube-ui.svg?style=social&label=Fork"></a>
-        <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/watchers/wepyjs/wepy.svg?style=social&label=Watch"></a>
+        <Badge type="Star"></Badge>
+        <Badge type="Fork"></Badge>
+        <Badge type="Watch"></Badge>
+      </div>
+      <div>
+        <router-link to="/zh-CN/docs/introduction" class="btn-link"><span>介绍</span></router-link>
+        <router-link to="/zh-CN/docs/quick-start" class="btn-link btn-active"><span>快速开始</span></router-link>
       </div>
     </div>
     <section class="features">
@@ -46,9 +50,16 @@
 </template>
 
 <script>
-  export default {}
+  import Badge from '../badge/badge.vue'
+  export default {
+    components: {
+      Badge
+    }
+  }
 </script>
 <style lang="stylus">
+@require "~@/common/stylus/variable.styl"
+
   .home-index
     min-height: 100%
     box-sizing: border-box
@@ -62,19 +73,32 @@
       background: url("./cube.png") no-repeat 520px -31px
       background-size: 1515px 696px
       @media screen and (max-width: 960px)
-        padding: 50px 0 30px 0
+        padding: 40px 0 30px 0
+        margin-top: 0
         text-align: center
       h2
         font-size: 60px
         @media screen and (max-width: 960px)
           font-size: 30px
       > p
-        margin: 30px 0
+        margin: 30px 0 26px 0
         font-size: 18px
-  .ghbtns
-    height: 22px
-    a
-      display: inline-block
+  .btn-link
+    display: inline-block
+    box-sizing: border-box
+    width: 164px
+    height: 42px
+    text-align: center
+    line-height: 42px
+    font-size: $fontsize-large-x
+    color: #000000
+    background-color: #89C6FF
+    border-radius: 3px
+    margin-top: 36px
+    margin-right: 18px
+    border: 2px solid #89C6FF
+  .btn-active
+    background-color: white
   .features
     padding: 60px 0 20px 0
     background-color: #FBFBFB
