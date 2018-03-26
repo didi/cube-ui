@@ -28,7 +28,6 @@
         docPath = newPath.split('/').pop()
         root = this.seekRoot(navList, docPath)
         rootNav = root && navList[root]
-        console.log('xx', rootNav, root)
         this.$set(rootNav, 'isRootActive', true)
       }, {immediate: true})
     },

@@ -113,34 +113,33 @@
       &.active
         background-color: rgba(0, 0, 0 ,0.2)
         transition: all 0.4s ease
-  .page-sidelist
-    flex: none
-    width: 280px
-    height: 100%
-    box-sizing: border-box
-    overflow-y: auto
-    padding-right: 40px
-    @media screen and (max-width: 960px)
+    .page-sidelist
+      flex: none
+      width: 280px
       height: 100%
-      padding: 5px 20px
-  .page-doc
-    flex: 1
-    height: 100%
-    padding: 44px 20px 20px 20px
-    box-sizing: border-box
-    overflow-y: auto
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: auto
-      padding: 20px 20px 0 20px
-    h2:first-child
-      margin-top: 0
-  .page-display
-    flex: none
-    height: 100%
-    width: 420px
-    overflow-y: auto
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: 800px
+      box-sizing: border-box
+      overflow-y: auto
+      padding-right: 40px
+      @media screen and (max-width: 960px)
+        height: 100%
+        padding: 5px 20px
+    .page-doc
+      flex: 1
+      height: 100%
+      padding: 44px 20px 20px 20px
+      box-sizing: border-box
+      overflow-y: auto
+      @media screen and (max-width: 960px)
+        flex: 1 1 100%
+        height: auto
+        padding: 20px 20px 0 20px
+      h2:first-child
+        margin-top: 0
+    .page-display
+      flex: none
+      height: 100%
+      overflow-y: auto
+      @media screen and (max-width: 960px)
+        flex: 1 1 100%
+        height: 800px
 </style>

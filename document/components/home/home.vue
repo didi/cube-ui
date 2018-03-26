@@ -9,7 +9,9 @@
         <site-lang></site-lang>
       </div>
       <span class="toggle-nav" @click="toggleNav">
-        <img src="./nav.svg">
+        <svg class="icon" viewBox="0 0 1024 1024" width="32" height="32">
+          <path d="M151.990813 175.990625h719.994375a35.999719 35.999719 0 0 1 35.999718 35.999719v24.743807a35.999719 35.999719 0 0 1-35.999718 35.999718h-719.994375a35.999719 35.999719 0 0 1-35.999719-35.999718V211.990344a35.999719 35.999719 0 0 1 35.999719-35.999719z m0 288.741744h719.994375a35.999719 35.999719 0 0 1 35.999718 35.999719v22.511824a35.999719 35.999719 0 0 1-35.999718 35.999719h-719.994375a35.999719 35.999719 0 0 1-35.999719-35.999719v-22.511824a35.999719 35.999719 0 0 1 35.999719-35.999719z m0 286.509762h719.994375a35.999719 35.999719 0 0 1 35.999718 35.999719v24.743806a35.999719 35.999719 0 0 1-35.999718 35.999719h-719.994375a35.999719 35.999719 0 0 1-35.999719-35.999719v-24.743806a35.999719 35.999719 0 0 1 35.999719-35.999719z" fill="#dedcdc"></path>
+        </svg>
       </span>
     </div>
     <div class="router-view">
@@ -68,7 +70,7 @@
     overflow: hidden
     @media screen and (max-width: 960px)
       padding: 0
-      background-color: $color-regular-blue
+      background-color: transparent
     .toggle-nav
       display: none
       @media screen and (max-width: 960px)
@@ -87,6 +89,8 @@
         height: 20px
     &.active
       height: 255px
+      .tabs
+          height: auto
     .logo
       float: left
       padding: 0 28px
@@ -99,10 +103,13 @@
     .tabs
       float: right
       padding: 0 30px
+      box-shadow: none
+      height: 0
       @media screen and (max-width: 960px)
         float: none
         padding: 0
-        border-top: solid 1px rgba(255, 255, 255, 0.5)
+        background-color: #fbfbfb
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.1)
       .tab
         display: inline-block
         margin: 0 10px
@@ -112,7 +119,7 @@
           display: block
           line-height: 45px
           margin: 0 20px
-          color: $color-white
+          color: black
         &:hover
           color: $color-orange
       .router-link-active

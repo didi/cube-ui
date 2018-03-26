@@ -2,7 +2,7 @@
   <ul class="nav-ul">
     <li class="nav-li" v-for="(item, key) in data" :class="{open: item.isRootActive}" :key="key">
       <template v-if="item.name">
-        <p class="nav-name" @click="Switch(item)">{{item.name}}</p>
+        <p class="nav-name" @click="derail(item)">{{item.name}}</p>
         <side-nav :data="item.subList"></side-nav>
       </template>
       <router-link
@@ -29,7 +29,7 @@
       }
     },
     methods: {
-      Switch (item) {
+      derail (item) {
         let nowActive = item.isRootActive
         this.$set(item, 'isRootActive', !nowActive)
       }
@@ -55,7 +55,7 @@
       left: 30px
       top: 0
       font-size: 22px
-      color: $color-black
+      color: #000000
     .arrow
       width: 10px
       height: 10px
@@ -73,13 +73,13 @@
         top: 0
         right: 0px
       &::before
-        border-top-color: $color-black
+        border-top-color: #000000
         top: 2px
     .rotate
       transform: rotate(180deg)
     .nav-name
       font-size: $fontsize-large-xxx
-      color: $color-black
+      color: #000000
       border-bottom: #E3E3E3 solid 1px
       padding: 15px 0 15px 30px
       margin-left: 30px
@@ -92,7 +92,7 @@
         padding: 5px 0
       .nav-name
         font-size: $fontsize-large-x
-        color: $color-black
+        color: #000000
         border: none
         padding: 0
         margin: 0
@@ -111,7 +111,7 @@
           content: ""
           width: 20px
           height: 100%
-          background-color: $color-orange-light
+          background-color: #FFC9A9
           position: absolute
           z-index: 1
           left: 0
