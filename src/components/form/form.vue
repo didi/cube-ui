@@ -1,5 +1,5 @@
 <template>
-  <form class="cube-form" :class="formClass" :action="action" @submit="submitHandler" @reset="resetHandler">
+  <form ref="form" class="cube-form" :class="formClass" :action="action" @submit="submitHandler" @reset="resetHandler">
     <slot>
       <cube-form-group v-for="(group, index) in groups" :fields="group.fields" :legend="group.legend" :key="index" />
     </slot>
@@ -46,7 +46,7 @@
       },
       newModel: {
         type: Boolean,
-        default: false
+        default: true
       }
     },
     data() {
@@ -89,7 +89,7 @@
     watch: {
       newModel: {
         handler(newVal) {
-          if (newVal) {
+          if (!newVal) {
             this.$nextTick(() => {
               // initial validate
               this.validate()
@@ -114,8 +114,14 @@
       this.validity = {}
     },
     methods: {
+      submit() {
+        this.$refs.form.submit()
+      },
+      reset() {
+        this.$refs.form.reset()
+      },
       submitHandler(e) {
-        const submitResult = this.submit()
+        const submitResult = this._submit()
         if (submitResult) {
           this.$emit(EVENT_VALID, this.validity)
           this.$emit(EVENT_SUBMIT, e, this.model)
@@ -125,10 +131,10 @@
         }
       },
       resetHandler(e) {
-        this.reset()
+        this._reset()
         this.$emit(EVENT_RESET, e)
       },
-      submit() {
+      _submit() {
         this.validate()
         if (this.invalid) {
           if (this.options.scrollToInvalidField && this.firstInvalidField) {
@@ -138,7 +144,7 @@
         }
         return true
       },
-      reset() {
+      _reset() {
         this.fields.forEach((fieldComponent) => {
           fieldComponent.reset()
         })
@@ -256,10 +262,16 @@
     line-height: 1.429
     color: $form-color
     background-color: $form-bgc
+  .cube-form_groups
+    .cube-form-group-legend
+      padding: 10px 15px
+      &:empty
+        padding-top: 5px
+        padding-bottom: 5px
   .cube-form_normal
     .cube-form-item
       min-height: 46px
-    .cube-validator, .cube-form-field
+    .cube-form-field
       flex: 1
     .cube-validator
       display: flex

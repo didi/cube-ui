@@ -5,6 +5,7 @@
         <div class="cube-form-label" v-show="fieldValue.label"><span>{{fieldValue.label}}</span></div>
       </slot>
       <cube-validator
+        class="cube-form-field"
         v-if="hasRules"
         ref="validator"
         v-model="isValid"
@@ -68,18 +69,14 @@
     },
     computed: {
       fieldValue() {
-        const model = this.model
         const field = this.field || {
-          model: model,
+          model: this.model,
           type: this.type,
           component: this.component,
           label: this.label,
           props: this.props,
           rules: this.rules,
           messages: this.messages
-        }
-        if (model) {
-          field.model = model
         }
         return processField(field)
       },
