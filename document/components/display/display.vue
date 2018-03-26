@@ -51,12 +51,14 @@
         position: absolute
         top: 64px
         left: 22px
-        width: 286px
+        right: 22px
         bottom: 36px
         overflow: hidden
         border-radius: 0 0 35px 35px
         background-color: #edf0f4
         iframe
           // safari shit
-          width: 286px!important
+          width: 0
+          max-width: 100%
+          min-width: 100%
 </style>
