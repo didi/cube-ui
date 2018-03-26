@@ -1,13 +1,12 @@
 <template>
   <div class="cube-form-group">
-    <p class="cube-form-group-legend">{{data.legend}}</p>
+    <p class="cube-form-group-legend">{{legend}}</p>
     <div class="cube-form-group-content">
       <slot>
         <cube-form-item
-          v-for="(field, index) in data.fields"
+          v-for="(field, index) in fields"
           :key="index"
           :field="field"
-          :model="model"
         />
       </slot>
     </div>
@@ -21,22 +20,19 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      data: {
-        type: Object,
-        default() {
-          /* istanbul ignore next */
-          return {}
-        }
+      legend: {
+        type: String,
+        default: ''
       },
-      model: {
-        type: Object,
+      fields: {
+        type: Array,
         default() {
           /* istanbul ignore next */
-          return {}
+          return []
         }
       }
     },
-    created() {
+    beforeCreate() {
       this.form = this.$parent.form
     },
     beforeDestroy() {
@@ -57,8 +53,8 @@
   .cube-form-group-legend
     padding: 10px 15px
     font-size: $fontsize-medium
-    color: $color-light-grey
-    background-color: $color-background
+    color: $form-group-legend-color
+    background-color: $form-group-legend-bgc
     &:empty
       padding-top: 5px
       padding-bottom: 5px

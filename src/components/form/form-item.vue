@@ -1,29 +1,37 @@
 <template>
   <div class="cube-form-item border-bottom-1px" :class="itemClass">
-    <slot>
-      <template v-if="!isBtnField">
+    <template v-if="!isBtnField">
+      <slot name="label">
         <div class="cube-form-label" v-show="fieldValue.label"><span>{{fieldValue.label}}</span></div>
-        <cube-validator
-          ref="validator"
-          v-model="isValid"
-          :disabled="validatorDisabled"
-          :for="modelValue"
-          :rule="fieldValidate.rule"
-          :messages="fieldValidate.messages"
-          @msg-click="msgClick"
-        >
-          <component :is="componentName" v-model="modelValue" v-bind="componentProps"></component>
-        </cube-validator>
-      </template>
-      <cube-button v-bind="componentProps" v-else>{{fieldValue.label}}</cube-button>
-    </slot>
+      </slot>
+      <cube-validator
+        v-if="hasRules"
+        ref="validator"
+        v-model="isValid"
+        :disabled="validatorDisabled"
+        :for="modelValue"
+        :rules="fieldValue.rules"
+        :messages="fieldValue.messages"
+        @msg-click="msgClick"
+      >
+        <slot>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props"></component>
+        </slot>
+      </cube-validator>
+      <div class="cube-form-field" v-else>
+        <slot>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props"></component>
+        </slot>
+      </div>
+    </template>
+    <cube-button v-bind="fieldValue.props" v-else>{{fieldValue.label}}</cube-button>
   </div>
 </template>
 
 <script>
+  import { processField } from './fields/index'
   import { resetTypeValue } from '../../common/helpers/util'
   import CubeValidator from '../validator/validator.vue'
-  import { processField } from './fields/index'
   import { getResetValueByType } from './fields/reset'
   import components from './components'
   components.CubeValidator = CubeValidator
@@ -32,71 +40,80 @@
   export default {
     name: COMPONENT_NAME,
     props: {
+      field: Object,
       model: {
+        type: String,
+        default: ''
+      },
+      type: String,
+      label: String,
+      component: [Object, String],
+      props: {
         type: Object,
         default() {
           /* istanbul ignore next */
           return {}
         }
       },
-      field: {
-        type: Object,
-        default() {
-          /* istanbul ignore next */
-          return {}
-        }
-      }
+      rules: Object,
+      messages: [Object, String]
     },
     data() {
+      const model = this.field ? this.field.model : this.model
       return {
         validatorDisabled: false,
         isValid: undefined,
-        modelValue: this.field.model ? this.model[this.field.model] : null
+        modelValue: model ? this.form.model[model] : null
       }
     },
     computed: {
+      fieldValue() {
+        const model = this.model
+        const field = this.field || {
+          model: model,
+          type: this.type,
+          component: this.component,
+          label: this.label,
+          props: this.props,
+          rules: this.rules,
+          messages: this.messages
+        }
+        if (model) {
+          field.model = model
+        }
+        return processField(field)
+      },
+      hasRules() {
+        return Object.keys(this.fieldValue.rules || {}).length > 0
+      },
       isBtnField() {
         return this.fieldValue.type === 'button'
       },
       itemClass() {
+        const rules = this.fieldValue.rules
         return {
           // only handle required rule for now
-          'cube-form-item_required': this.fieldValidate.rule.required,
+          'cube-form-item_required': rules && rules.required,
           'cube-form-item_btn': this.isBtnField,
           'cube-form-item_valid': this.isValid,
           'cube-form-item_invalid': this.isValid === false
         }
       },
       _modelVal() {
-        return this.model[this.field.model]
-      },
-      fieldValue() {
-        return processField(this.field)
+        return this.form.model[this.fieldValue.model]
       },
       componentName() {
-        const component = this.fieldValue.component
+        const fieldValue = this.fieldValue
+        const component = fieldValue.component
         if (component) {
           return component
         }
-        const type = this.fieldValue.type
+        const type = fieldValue.type
         const cubeType = `cube-${type}`
         if (components[cubeType]) {
           return cubeType
         }
         return type
-      },
-      componentProps() {
-        return this.fieldValue.props || {}
-      },
-      fieldValidate() {
-        const validate = this.fieldValue.validate || {}
-        if (!validate.rule) {
-          validate.rule = {}
-        }
-        if (!validate.messages) {
-          validate.messages = {}
-        }
-        return validate
       }
     },
     watch: {
@@ -107,7 +124,7 @@
       },
       modelValue(newModel) {
         // update form model
-        this.model[this.field.model] = newModel
+        this.form.model[this.fieldValue.model] = newModel
       },
       isValid(newValue) {
         if (this.validatorDisabled) {
@@ -116,8 +133,10 @@
         this.validate(true)
       }
     },
-    created() {
+    beforeCreate() {
       this.form = this.$parent.form
+    },
+    created() {
       this.form.addField(this)
     },
     methods: {
@@ -128,17 +147,16 @@
             validator.validate()
           }
           // sync update validaty
-          this.form.updateValidity(this.field, validator.valid, validator.result, validator.dirty)
+          this.form.updateValidity(this.fieldValue.model, validator.valid, validator.result, validator.dirty)
         }
       },
       reset() {
-        const field = this.field
-        const model = field.model
-        if (model) {
-          const defValue = getResetValueByType(field)
+        const fieldValue = this.fieldValue
+        if (fieldValue.model) {
+          const defValue = getResetValueByType(fieldValue.type)
           this.validatorDisabled = true
           resetTypeValue(this, 'modelValue', defValue)
-          this.$refs.validator.reset()
+          this.$refs.validator && this.$refs.validator.reset()
           this.$nextTick(() => {
             this.validatorDisabled = false
           })
@@ -191,5 +209,5 @@
         content: "*"
         margin-top: 1px
         margin-right: .3em
-        color: $validator-msg-def-color
+        color: $form-label-required-color
 </style>

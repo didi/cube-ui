@@ -1,11 +1,11 @@
 import processTypes from './types'
 
-function processField(value) {
-  const field = {
-    ...value
+function processField(field) {
+  const _field = {
+    ...field
   }
-  processTypes(field)
-  return field
+  processTypes(_field)
+  return _field
 }
 
 export { processField }

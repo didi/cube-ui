@@ -8,11 +8,9 @@ const typesResetMap = {
     return null
   }
 }
-function getResetValueByType(field) {
-  const fieldType = field.type
-  if (fieldType in typesResetMap) {
-    return typesResetMap[fieldType]()
-  }
+function getResetValueByType(type) {
+  const resetHandler = typesResetMap[type]
+  return resetHandler && resetHandler()
 }
 
 export {

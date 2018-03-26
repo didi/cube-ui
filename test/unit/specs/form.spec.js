@@ -38,10 +38,8 @@ describe('Form.vue', () => {
                 props: {
                   placeholder: 'Please input'
                 },
-                validate: {
-                  rule: {
-                    required: true
-                  }
+                rules: {
+                  required: true
                 }
               }
             ]
@@ -61,7 +59,7 @@ describe('Form.vue', () => {
     expect(vm.fields.length)
       .to.equal(2)
     expect(vm.$el.className)
-      .to.equal('cube-form cube-form_groups')
+      .to.equal('cube-form cube-form_normal cube-form_groups')
     const groups = vm.$el.querySelectorAll('.cube-form-group')
     expect(groups.length)
       .to.equal(2)
@@ -96,40 +94,32 @@ describe('Form.vue', () => {
             props: {
               placeholder: 'Please input'
             },
-            validate: {
-              rule: {
-                required: true
-              }
+            rules: {
+              required: true
             }
           },
           {
             type: 'checkbox',
             model: 'checkboxValue',
             label: 'Checkbox',
-            validate: {
-              rule: {
-                required: true
-              }
+            rules: {
+              required: true
             }
           },
           {
             type: 'switch',
             model: 'switchValue',
             label: 'Switch',
-            validate: {
-              rule: {
-                required: true
-              }
+            rules: {
+              required: true
             }
           },
           {
             type: 'rate',
             model: 'rateValue',
             label: 'Rate',
-            validate: {
-              rule: {
-                required: true
-              }
+            rules: {
+              required: true
             }
           }
         ]
@@ -206,10 +196,8 @@ describe('Form.vue', () => {
             props: {
               placeholder: 'Please input'
             },
-            validate: {
-              rule: {
-                required: true
-              }
+            rules: {
+              required: true
             }
           },
           {

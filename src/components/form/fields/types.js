@@ -23,7 +23,7 @@ const typesMap = {
     numberGT0RequiredHandler(field)
   }
 }
-export default function processType(field) {
+export default function processTypes(field) {
   const typeFn = typesMap[field.type]
   if (typeFn) {
     typeFn(field)

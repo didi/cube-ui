@@ -1,7 +1,7 @@
 <template>
   <form class="cube-form" :class="formClass" :action="action" @submit="submitHandler" @reset="resetHandler">
     <slot>
-      <cube-form-group v-for="(group, index) in groups" :data="group" :model="model" :key="index" />
+      <cube-form-group v-for="(group, index) in groups" :fields="group.fields" :legend="group.legend" :key="index" />
     </slot>
   </form>
 </template>
@@ -19,10 +19,7 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      action: {
-        type: String,
-        default: ''
-      },
+      action: String,
       model: {
         type: Object,
         default() {
@@ -43,7 +40,7 @@
           return {
             scrollToInvalidField: false,
             labelRow: false,
-            labelTop: true
+            labelTop: false
           }
         }
       },
@@ -64,18 +61,13 @@
     computed: {
       groups() {
         const schema = this.schema
-        if (schema.groups) {
-          return schema.groups
-        } else if (schema.fields) {
-          // to one group
-          return [
-            {
-              fields: schema.fields
-            }
-          ]
+        const groups = schema.groups || []
+        if (schema.fields) {
+          groups.unshift({
+            fields: schema.fields
+          })
         }
-        /* istanbul ignore next */
-        return []
+        return groups
       },
       invalid() {
         return this.firstInvalidFieldIndex >= 0
@@ -116,28 +108,35 @@
         })
       }
     },
-    created() {
+    beforeCreate() {
       this.form = this
       this.fields = []
       this.validity = {}
     },
     methods: {
       submitHandler(e) {
-        this.validate()
-        if (this.invalid) {
+        const submitResult = this.submit()
+        if (submitResult) {
+          this.$emit(EVENT_VALID, this.validity)
+          this.$emit(EVENT_SUBMIT, e, this.model)
+        } else {
           e.preventDefault()
           this.$emit(EVENT_INVALID, this.validity)
-          if (this.options.scrollToInvalidField && this.firstInvalidField) {
-            this.firstInvalidField.$el.scrollIntoView()
-          }
-          return
         }
-        this.$emit(EVENT_VALID, this.validity)
-        this.$emit(EVENT_SUBMIT, e, this.model)
       },
       resetHandler(e) {
         this.reset()
         this.$emit(EVENT_RESET, e)
+      },
+      submit() {
+        this.validate()
+        if (this.invalid) {
+          if (this.options.scrollToInvalidField && this.firstInvalidField) {
+            this.firstInvalidField.$el.scrollIntoView()
+          }
+          return false
+        }
+        return true
       },
       reset() {
         this.fields.forEach((fieldComponent) => {
@@ -151,12 +150,12 @@
         })
         return this.valid
       },
-      updateValidity(field, valid, result, dirty) {
-        const curResult = this.validity[field.model]
+      updateValidity(model, valid, result, dirty) {
+        const curResult = this.validity[model]
         if (curResult && curResult.valid === valid && curResult.result === result && curResult.dirty === dirty) {
           return
         }
-        this.setValidity(field.model, {
+        this.setValidity(model, {
           valid,
           result,
           dirty
@@ -178,7 +177,7 @@
         let valid = true
         let firstInvalidFieldKey = ''
         this.fields.forEach((fieldComponent) => {
-          const model = fieldComponent.field.model
+          const model = fieldComponent.fieldValue.model
           if (model) {
             const retVal = validity[model]
             if (retVal) {
@@ -196,7 +195,10 @@
                 invalid = true
                 firstInvalidFieldKey = model
               }
-            } else {
+            } else if (fieldComponent.hasRules) {
+              if (valid) {
+                valid = undefined
+              }
               validity[model] = {
                 valid: undefined,
                 result: {},
@@ -218,7 +220,7 @@
           return
         }
         this.fields.some((fieldComponent, index) => {
-          if (fieldComponent.field.model === key) {
+          if (fieldComponent.fieldValue.model === key) {
             this.firstInvalidField = fieldComponent
             this.firstInvalidFieldIndex = index
             return true
@@ -231,8 +233,7 @@
       destroyField(fieldComponent) {
         const i = this.fields.indexOf(fieldComponent)
         this.fields.splice(i, 1)
-        const model = fieldComponent.field.model
-        this.setValidity(model)
+        this.setValidity(fieldComponent.fieldValue.model)
       }
     },
     beforeDestroy() {
@@ -253,16 +254,19 @@
     position: relative
     font-size: $fontsize-large
     line-height: 1.429
-    color: $color-grey
-    background-color: $color-white
+    color: $form-color
+    background-color: $form-bgc
   .cube-form_normal
     .cube-form-item
       min-height: 46px
+    .cube-validator, .cube-form-field
+      flex: 1
     .cube-validator
       display: flex
       align-items: center
-      flex: 1
       position: relative
+    .cube-validator_invalid
+      color: $form-invalid-color
     .cube-validator-content
       flex: 1
     .cube-validator-msg-def
@@ -273,7 +277,7 @@
           content: "\e614"
           padding-left: 5px
           font-family: "cube-icon"!important
-          font-size: $fontsize-large-xxx
+          font-size: $fontsize-large-xx
           font-style: normal
           -webkit-font-smoothing: antialiased
           -webkit-text-stroke-width: 0.2px
@@ -353,6 +357,11 @@
           display: none
       .cube-validator-msg-def
         font-size: 100%
+    .cube-form-item_btn
+      padding-top: 0
+      padding-bottom: 0
+      &:last-child
+        padding-bottom: 0
     .cube-form-label
       position: absolute
       top: 1em
