@@ -23,9 +23,7 @@ const props = {
         noMore: '没有更多订单了'
       }
     }
-  },
-  listenScroll: true,
-  listenBeforeScroll: true
+  }
 }
 
 describe('Scroll', () => {
@@ -45,7 +43,14 @@ describe('Scroll', () => {
   })
 
   it('should render correct contents', () => {
-    vm = createScroll(props)
+    vm = createScroll({
+      data: [
+        '我是第 1 行',
+        '我是第 2 行',
+        '我是第 3 行',
+        '我是第 4 行'
+      ]
+    })
     const listItems = vm.$el.querySelectorAll('.cube-scroll-content li')
     expect(listItems.length)
       .to.equal(4)
@@ -55,97 +60,121 @@ describe('Scroll', () => {
       .to.equal('我是第 4 行')
   })
 
-  it('should trigger pullingDown', function () {
+  it('should trigger pullingDown', function (done) {
     this.timeout(10000)
 
     const pullingDownHandle = sinon.spy()
-    vm = createScroll(props, {
+    vm = createScroll({
+      data: [
+        '我是第 1 行',
+        '我是第 2 行',
+        '我是第 3 行',
+        '我是第 4 行'
+      ],
+      options: {
+        pullDownRefresh: {
+          threshold: 10,
+          stop: 40,
+          txt: '刷新成功'
+        }
+      }
+    }, {
       'pulling-down': pullingDownHandle
     })
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
 
-    return new Promise((resolve) => {
+    setTimeout(() => {
+      const listFirstItem = vm.$el.querySelector('.cube-scroll-content li:first-child')
+      dispatchSwipe(listFirstItem, [
+        {
+          pageX: 10,
+          pageY: 10
+        },
+        {
+          pageX: 10,
+          pageY: 160
+        }
+      ], 100)
       setTimeout(() => {
-        const listFirstItem = vm.$el.querySelector('.cube-scroll-content li:first-child')
-        dispatchSwipe(listFirstItem, [
-          {
-            pageX: 10,
-            pageY: 10
-          },
-          {
-            pageX: 10,
-            pageY: 160
+        expect(pullingDownHandle)
+          .to.be.callCount(1)
+        const newData = props.data.concat(['我是插入的一行'])
+        vm.$parent.updateRenderData({
+          props: {
+            ...props,
+            data: newData
           }
-        ], 100)
+        })
+        vm.$parent.$forceUpdate()
         setTimeout(() => {
-          expect(pullingDownHandle)
-            .to.be.callCount(1)
-          const newData = props.data.concat(['我是插入的一行'])
-          vm.$parent.updateRenderData({
-            props: {
-              ...props,
-              data: newData
-            }
-          })
-          vm.$parent.$forceUpdate()
-          setTimeout(() => {
-            setTimeout(() => {
-              setTimeout(() => {
-                expect(vm.beforePullDown).to.be.true
-                expect(vm.isPullingDown).to.be.false
-                resolve()
-              }, 750)
-            }, 650)
-          }, 50)
-        }, 400)
-      }, 150)
-    })
+          expect(vm.beforePullDown).to.be.true
+          expect(vm.isPullingDown).to.be.false
+
+          done()
+        }, 1500)
+      }, 400)
+    }, 150)
   })
 
-  it('should trigger pullingUp', function () {
+  it('should trigger pullingUp', function (done) {
     this.timeout(10000)
 
     const pullingUpHandle = sinon.spy()
-    vm = createScroll(props, {
+    vm = createScroll({
+      data: [
+        '我是第 1 行',
+        '我是第 2 行',
+        '我是第 3 行',
+        '我是第 4 行'
+      ],
+      options: {
+        pullUpLoad: {
+          threshold: 0,
+          txt: {
+            more: '加载更多订单',
+            noMore: '没有更多订单了'
+          }
+        }
+      }
+    }, {
       'pulling-up': pullingUpHandle
     })
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listItem = vm.$el.querySelector('.cube-scroll-content li:nth-child(3)')
-        dispatchSwipe(listItem, [
-          {
-            pageX: 10,
-            pageY: 200
-          },
-          {
-            pageX: 10,
-            pageY: 10
-          }
-        ], 100)
+    setTimeout(() => {
+      const listItem = vm.$el.querySelector('.cube-scroll-content li:nth-child(3)')
+      dispatchSwipe(listItem, [
+        {
+          pageX: 10,
+          pageY: 200
+        },
+        {
+          pageX: 10,
+          pageY: 10
+        }
+      ], 100)
 
+      setTimeout(() => {
+        expect(pullingUpHandle)
+          .to.be.callCount(1)
+        const newData = props.data.concat(['我是新附加1', '我是新附加2'])
+        vm.$parent.updateRenderData({
+          props: {
+            ...props,
+            data: newData
+          }
+        })
+        vm.$parent.$forceUpdate()
         setTimeout(() => {
-          expect(pullingUpHandle)
-            .to.be.callCount(1)
-          const newData = props.data.concat(['我是新附加1', '我是新附加2'])
-          vm.$parent.updateRenderData({
-            props: {
-              ...props,
-              data: newData
-            }
-          })
-          vm.$parent.$forceUpdate()
-          setTimeout(() => {
-            expect(vm.isPullUpLoad).to.be.false
-            expect(vm.pullUpDirty).to.be.true
-            resolve()
-          }, 50)
-        }, 400)
-      }, 150)
-    })
+          expect(vm.isPullUpLoad).to.be.false
+          expect(vm.pullUpDirty).to.be.true
+
+          done()
+        }, 50)
+      }, 400)
+    }, 150)
   })
 
   it('should trigger click', function () {

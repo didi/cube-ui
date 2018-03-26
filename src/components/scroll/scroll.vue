@@ -110,11 +110,11 @@
       }
     },
     computed: {
-      pullUpLoad() {
-        return this.options.pullUpLoad
-      },
       pullDownRefresh() {
         return this.options.pullDownRefresh
+      },
+      pullUpLoad() {
+        return this.options.pullUpLoad
       },
       pullUpTxt() {
         const pullUpLoad = this.pullUpLoad
@@ -127,6 +127,25 @@
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
         return pullDownRefresh && pullDownRefresh.txt || DEFAULT_REFRESH_TXT
+      }
+    },
+    watch: {
+      data() {
+        setTimeout(() => {
+          this.forceUpdate(true)
+        }, this.refreshDelay)
+      },
+      pullDownRefresh: {
+        handler(newVal) {
+          newVal ? this.scroll.openPullDown(newVal) : this.scroll.closePullDown()
+        },
+        deep: true
+      },
+      pullUpLoad: {
+        handler(newVal) {
+          newVal ? this.scroll.openPullUp(newVal) : this.scroll.closePullUp()
+        },
+        deep: true
       }
     },
     created() {
@@ -252,13 +271,6 @@
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
-      }
-    },
-    watch: {
-      data() {
-        setTimeout(() => {
-          this.forceUpdate(true)
-        }, this.refreshDelay)
       }
     },
     components: {
