@@ -10,7 +10,7 @@
         ref="validator"
         v-model="isValid"
         :disabled="validatorDisabled"
-        :for="modelValue"
+        :model="modelValue"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
         @msg-click="msgClick"

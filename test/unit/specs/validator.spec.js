@@ -19,7 +19,7 @@ describe('validator.vue', () => {
 
   it('should render correct contents - invalid', (done) => {
     vm = createValidator({
-      for: '',
+      model: '',
       rules: {
         required: true
       },
@@ -36,7 +36,7 @@ describe('validator.vue', () => {
     setTimeout(() => {
       vm.$parent.updateRenderData({
         props: {
-          for: 'ssr',
+          model: 'ssr',
           rules: {
             required: true
           },
@@ -59,7 +59,7 @@ describe('validator.vue', () => {
   it('should trigger events', (done) => {
     const clickHandler = sinon.spy()
     vm = createValidator({
-      for: '',
+      model: '',
       rules: {
         required: true
       },
@@ -90,7 +90,7 @@ describe('rules', () => {
 
   it('should be valid - no rule', () => {
     vm = createValidator({
-      for: ''
+      model: ''
     })
     expect(vm.$data.msg)
       .to.equal('')
@@ -98,7 +98,7 @@ describe('rules', () => {
 
   it('should be valid - unstated rule', () => {
     vm = createValidator({
-      for: [],
+      model: [],
       rules: {
         unstated: true
       }
@@ -109,7 +109,7 @@ describe('rules', () => {
 
   it('should be invalid - require: array', () => {
     vm = createValidator({
-      for: [],
+      model: [],
       rules: {
         required: true
       }
@@ -120,7 +120,7 @@ describe('rules', () => {
 
   it('should be invalid - type: string', () => {
     vm = createValidator({
-      for: true,
+      model: true,
       rules: {
         type: 'string'
       }
@@ -131,7 +131,7 @@ describe('rules', () => {
 
   it('should be valid - type: string', () => {
     vm = createValidator({
-      for: 'ssr',
+      model: 'ssr',
       rules: {
         type: 'string'
       }
@@ -142,7 +142,7 @@ describe('rules', () => {
 
   it('should be invalid - type: number', () => {
     vm = createValidator({
-      for: 'ssr',
+      model: 'ssr',
       rules: {
         type: 'number'
       }
@@ -153,7 +153,7 @@ describe('rules', () => {
 
   it('should be valid - type: number', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         type: 'number'
       }
@@ -164,7 +164,7 @@ describe('rules', () => {
 
   it('should be invalid - type: array', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         type: 'array'
       }
@@ -175,7 +175,7 @@ describe('rules', () => {
 
   it('should be valid - type: array', () => {
     vm = createValidator({
-      for: [1, 2],
+      model: [1, 2],
       rules: {
         type: 'array'
       }
@@ -186,7 +186,7 @@ describe('rules', () => {
 
   it('should be invalid - type: date', () => {
     vm = createValidator({
-      for: 'ssr',
+      model: 'ssr',
       rules: {
         type: 'date'
       }
@@ -197,7 +197,7 @@ describe('rules', () => {
 
   it('should be valid - type: date', () => {
     vm = createValidator({
-      for: +new Date(),
+      model: +new Date(),
       rules: {
         type: 'date'
       }
@@ -208,7 +208,7 @@ describe('rules', () => {
 
   it('should be invalid - type: email', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         type: 'email'
       }
@@ -219,7 +219,7 @@ describe('rules', () => {
 
   it('should be valid - type: email', () => {
     vm = createValidator({
-      for: 'test@didi.com',
+      model: 'test@didi.com',
       rules: {
         type: 'email'
       }
@@ -230,7 +230,7 @@ describe('rules', () => {
 
   it('should be invalid - type: tel', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         type: 'tel'
       }
@@ -241,7 +241,7 @@ describe('rules', () => {
 
   it('should be valid - type: tel', () => {
     vm = createValidator({
-      for: '13011112222',
+      model: '13011112222',
       rules: {
         type: 'tel'
       }
@@ -252,7 +252,7 @@ describe('rules', () => {
 
   it('should be invalid - type: url', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         type: 'url'
       }
@@ -263,7 +263,7 @@ describe('rules', () => {
 
   it('should be valid - type: url', () => {
     vm = createValidator({
-      for: 'https://www.didichuxing.com',
+      model: 'https://www.didichuxing.com',
       rules: {
         type: 'url'
       }
@@ -274,7 +274,7 @@ describe('rules', () => {
 
   it('should be invalid - min: string', () => {
     vm = createValidator({
-      for: '123',
+      model: '123',
       rules: {
         min: 5
       }
@@ -285,7 +285,7 @@ describe('rules', () => {
 
   it('should be valid - min: number', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         min: 5
       }
@@ -296,7 +296,7 @@ describe('rules', () => {
 
   it('should be valid - max: string', () => {
     vm = createValidator({
-      for: '123',
+      model: '123',
       rules: {
         max: 5
       }
@@ -307,7 +307,7 @@ describe('rules', () => {
 
   it('should be invalid - min: number', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         max: 5
       }
@@ -318,7 +318,7 @@ describe('rules', () => {
 
   it('should be valid - min: string', () => {
     vm = createValidator({
-      for: '123',
+      model: '123',
       rules: {
         len: 3
       }
@@ -329,7 +329,7 @@ describe('rules', () => {
 
   it('should be invalid - min: number', () => {
     vm = createValidator({
-      for: 123,
+      model: 123,
       rules: {
         len: 3
       }
@@ -340,7 +340,7 @@ describe('rules', () => {
 
   it('should be invalid - notWhitespace', () => {
     vm = createValidator({
-      for: '    ',
+      model: '    ',
       rules: {
         notWhitespace: true
       }
@@ -351,7 +351,7 @@ describe('rules', () => {
 
   it('should be invalid - pattern', () => {
     vm = createValidator({
-      for: 'test@11.com',
+      model: 'test@11.com',
       rules: {
         pattern: /didi.com$/
       }
@@ -362,7 +362,7 @@ describe('rules', () => {
 
   it('should be invalid - custom', () => {
     vm = createValidator({
-      for: 1,
+      model: 1,
       rules: {
         custom: (val) => {
           return val !== 1
@@ -388,7 +388,7 @@ describe('methods', () => {
     Validator.addMessage('odd', '请输入奇数')
 
     vm = createValidator({
-      for: 2,
+      model: 2,
       rules: {
         odd: true
       }
@@ -403,7 +403,7 @@ describe('methods', () => {
     })
 
     vm = createValidator({
-      for: 'test@didi.com.cn',
+      model: 'test@didi.com.cn',
       rules: {
         type: 'email'
       }
@@ -416,7 +416,7 @@ describe('methods', () => {
     Validator.setLanguage('en')
 
     vm = createValidator({
-      for: '',
+      model: '',
       rules: {
         required: true
       }

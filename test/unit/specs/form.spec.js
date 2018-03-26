@@ -78,7 +78,7 @@ describe('Form.vue', () => {
   it('should validate & reset correctly', (done) => {
     vm = createForm({
       action: '/',
-      newModel: true,
+      newModel: false,
       model: {
         inputValue: '',
         checkboxValue: false,
