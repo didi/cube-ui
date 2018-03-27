@@ -145,7 +145,7 @@
         this.result = result
 
         // valid when the rule is not required and the val is empty
-        valid = !configRules.required && !rules.required(val, true, type) || valid
+        valid = (!configRules.required && !rules.required(val, true, type)) || valid
 
         if (valid) {
           this.msg = ''

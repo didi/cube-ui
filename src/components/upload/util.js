@@ -31,7 +31,7 @@ export function processFile(file, i, eachProcessFile, cb) {
 }
 
 export function newFile(name = '', size = 0, status = '', progress = 0, file = null) {
-  const base64 = file && file.base64 || ''
+  const base64 = (file && file.base64) || ''
   const url = base64 ? '' : createURL(file)
 
   return {
