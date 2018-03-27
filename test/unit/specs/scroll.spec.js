@@ -3,28 +3,12 @@ import Scroll from '@/modules/scroll'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
 
-const props = {
-  data: [
-    '我是第 1 行',
-    '我是第 2 行',
-    '我是第 3 行',
-    '我是第 4 行'
-  ],
-  options: {
-    pullDownRefresh: {
-      threshold: 10,
-      stop: 40,
-      txt: '刷新成功'
-    },
-    pullUpLoad: {
-      threshold: 0,
-      txt: {
-        more: '加载更多订单',
-        noMore: '没有更多订单了'
-      }
-    }
-  }
-}
+const data = [
+  '我是第 1 行',
+  '我是第 2 行',
+  '我是第 3 行',
+  '我是第 4 行'
+]
 
 describe('Scroll', () => {
   let vm
@@ -44,12 +28,7 @@ describe('Scroll', () => {
 
   it('should render correct contents', () => {
     vm = createScroll({
-      data: [
-        '我是第 1 行',
-        '我是第 2 行',
-        '我是第 3 行',
-        '我是第 4 行'
-      ]
+      data
     })
     const listItems = vm.$el.querySelectorAll('.cube-scroll-content li')
     expect(listItems.length)
@@ -65,22 +44,22 @@ describe('Scroll', () => {
 
     const pullingDownHandle = sinon.spy()
     vm = createScroll({
-      data: [
-        '我是第 1 行',
-        '我是第 2 行',
-        '我是第 3 行',
-        '我是第 4 行'
-      ],
-      options: {
-        pullDownRefresh: {
-          threshold: 10,
-          stop: 40,
-          txt: '刷新成功'
-        }
-      }
-    }, {
-      'pulling-down': pullingDownHandle
+      data
     })
+
+    vm.$parent.updateRenderData({
+      props: {
+        data,
+        options: {
+          pullDownRefresh: true
+        }
+      },
+      on: {
+        'pulling-down': pullingDownHandle
+      }
+    })
+    vm.$parent.$forceUpdate()
+
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
 
@@ -93,17 +72,23 @@ describe('Scroll', () => {
         },
         {
           pageX: 10,
-          pageY: 160
+          pageY: 300
         }
       ], 100)
       setTimeout(() => {
         expect(pullingDownHandle)
           .to.be.callCount(1)
-        const newData = props.data.concat(['我是插入的一行'])
+        const newData = data.concat(['我是插入的一行'])
         vm.$parent.updateRenderData({
           props: {
-            ...props,
-            data: newData
+            data: newData,
+            options: {
+              pullDownRefresh: {
+                threshold: 10,
+                stop: 40,
+                txt: '刷新成功'
+              }
+            }
           }
         })
         vm.$parent.$forceUpdate()
@@ -121,25 +106,21 @@ describe('Scroll', () => {
     this.timeout(10000)
 
     const pullingUpHandle = sinon.spy()
-    vm = createScroll({
-      data: [
-        '我是第 1 行',
-        '我是第 2 行',
-        '我是第 3 行',
-        '我是第 4 行'
-      ],
-      options: {
-        pullUpLoad: {
-          threshold: 0,
-          txt: {
-            more: '加载更多订单',
-            noMore: '没有更多订单了'
-          }
+    vm = createScroll()
+
+    vm.$parent.updateRenderData({
+      props: {
+        data,
+        options: {
+          pullUpLoad: true
         }
+      },
+      on: {
+        'pulling-up': pullingUpHandle
       }
-    }, {
-      'pulling-up': pullingUpHandle
     })
+    vm.$parent.$forceUpdate()
+
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
 
@@ -159,11 +140,13 @@ describe('Scroll', () => {
       setTimeout(() => {
         expect(pullingUpHandle)
           .to.be.callCount(1)
-        const newData = props.data.concat(['我是新附加1', '我是新附加2'])
+        const newData = data.concat(['我是新附加1', '我是新附加2'])
         vm.$parent.updateRenderData({
           props: {
-            ...props,
-            data: newData
+            data: newData,
+            options: {
+              pullUpLoad: true
+            }
           }
         })
         vm.$parent.$forceUpdate()
@@ -182,9 +165,8 @@ describe('Scroll', () => {
 
     const clickHandler = sinon.spy()
     vm = createScroll({
-      ...props,
+      data,
       options: {
-        ...props.options,
         click: false
       }
     }, {
@@ -197,7 +179,7 @@ describe('Scroll', () => {
       setTimeout(() => {
         const listItem = vm.$el.querySelector('.cube-scroll-content li')
         listItem.click()
-        expect(clickHandler).to.be.calledWith(props.data[0])
+        expect(clickHandler).to.be.calledWith(data[0])
         resolve()
       }, 50)
     })
