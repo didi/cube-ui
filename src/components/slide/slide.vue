@@ -57,6 +57,10 @@
       allowVertical: {
         type: Boolean,
         default: false
+      },
+      stopPropagation: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -135,6 +139,7 @@
             threshold: this.threshold,
             speed: this.speed
           },
+          stopPropagation: this.stopPropagation,
           click: true,
           observeDOM: false
         })
