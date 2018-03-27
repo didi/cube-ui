@@ -317,7 +317,7 @@ CubeForm is a schema-based form generator component.
 | schema | the schema object with fields | Object | - | {} |
 | new-model | If true, we won't run validation after load | Boolean | true/false | true |
 | action | Form action value | String | - | undefined |
-| options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> labelRow: false,<br> labelTop: false<br>} |
+| options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 
 - `schema` sub configuration
 
@@ -414,7 +414,7 @@ CubeForm is a schema-based form generator component.
   | - | - | - |
   | validity | Validity result | Object |
   | valid | Validity check, if not verified this value will be undefined, once checked this value will be true or false | Boolean/Undefined |
-  | invalid | Validity check, if the result is illegal then this value will be true, otherwise will be false | Boolean |
+  | invalid | Validity check, if not verified this value will be undefined, once checked this value will be true or false | Boolean |
   | dirty | When the form model changed then the form's dirty is true | Boolean |
   | firstInvalidFieldIndex | First invalid field index | Number |
 

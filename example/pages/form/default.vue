@@ -44,6 +44,7 @@
                 {
                   type: 'checkbox',
                   model: 'checkboxValue',
+                  label: 'Checkbox',
                   props: {
                     option: {
                       label: 'Checkbox',
@@ -155,7 +156,8 @@
           ]
         },
         options: {
-          scrollToInvalidField: true
+          scrollToInvalidField: true,
+          layout: 'standard' // classic fresh
         }
       }
     },

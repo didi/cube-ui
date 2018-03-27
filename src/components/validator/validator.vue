@@ -41,17 +41,15 @@
         type: Boolean,
         default: false
       },
-      trigger: {
+      immediate: {
         type: Boolean,
         default: false
       }
     },
     data() {
       const value = this.value
-      const isValueUndefined = value === undefined
       return {
         valid: value,
-        invalid: value ? false : isValueUndefined ? undefined : true,
         validated: false,
         msg: '',
         dirty: false,
@@ -59,10 +57,14 @@
       }
     },
     computed: {
+      invalid() {
+        const valid = this.valid
+        return valid === undefined ? undefined : !valid
+      },
       isDisabled() {
         const disabled = this.disabled
-        const hasRules = Object.keys(this.rules).length > 0
-        return disabled || !hasRules
+        const noRules = Object.keys(this.rules).length <= 0
+        return disabled || noRules
       },
       dirtyOrValidated() {
         return this.dirty || this.validated
@@ -79,9 +81,6 @@
       }
     },
     watch: {
-      valid(newVal) {
-        this.$emit(EVENT_INPUT, newVal)
-      },
       model(newVal) {
         if (this.isDisabled) {
           return
@@ -92,18 +91,15 @@
 
         this.validate()
       },
-      trigger: {
-        handler(newVal) {
-          if (!this.isDisabled && newVal) {
-            this.validate()
-          }
-        },
-        immediate: true
-      },
       isDisabled(newVal) {
         if (!newVal && this.trigger && !this.validated) {
           this.validate()
         }
+      }
+    },
+    created() {
+      if (!this.isDisabled && this.immediate) {
+        this.validate()
       }
     },
     methods: {
@@ -120,6 +116,7 @@
         const result = {}
 
         for (const key in configRules) {
+          debugger
           const ruleValue = configRules[key]
           let ret
           if (typeof ruleValue === 'function') {
@@ -144,14 +141,16 @@
         }
         this.result = result
 
-        // valid when the rule is not required and the val is empty
-        valid = (!configRules.required && !rules.required(val, true, type)) || valid
+        if (result.required && result.required.invalid) {
+          // required
+          this.msg = result.required.message
+        }
 
         if (valid) {
           this.msg = ''
         }
         this.valid = valid
-        this.invalid = !valid
+        this.$emit(EVENT_INPUT, this.valid)
       },
       reset() {
         this.dirty = false
@@ -159,7 +158,6 @@
         this.msg = ''
         this.validated = false
         this.valid = undefined
-        this.invalid = undefined
       },
       msgClickHandler() {
         this.$emit(EVENT_MSG_CLICK)

@@ -154,7 +154,8 @@
           ]
         },
         options: {
-          scrollToInvalidField: true
+          scrollToInvalidField: true,
+          layout: 'standard' // classic fresh
         }
       }
     },
@@ -317,7 +318,7 @@
 | schema | 生成表单依赖的模式 | Object | - | {} |
 | new-model | 是否是新数据源，如果为 true，则默认进来**不会**做校验 | Boolean | true/false | true |
 | action | 表单 Form action 的值 | String | - | undefined |
-| options | 配置项 | Object | - | {<br>scrollToInvalidField: false,<br> labelRow: false,<br> labelTop: false<br>} |
+| options | 配置项 | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 
 - `schema` 子配置项
 
@@ -414,7 +415,7 @@
   | - | - | - |
   | validity | 校验结果 | Object |
   | valid | 校验合法，如果还没校验则为 undefined，一旦校验则为 true 或 false | Boolean/Undefined |
-  | invalid | 校验不合法，如果校验失败则为 true，否则为 false | Boolean |
+  | invalid | 校验不合法，如果还没校验则为 undefined，一旦校验则为 true 或 false | Boolean |
   | dirty | 表单处于 dirty 状态，也就意味着数据源发生了变化 | Boolean |
   | firstInvalidFieldIndex | 第一个校验不合法的字段索引值 | Number |
 

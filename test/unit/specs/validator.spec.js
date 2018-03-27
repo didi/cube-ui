@@ -26,7 +26,7 @@ describe('validator.vue', () => {
       messages: {
         required: '必填'
       },
-      trigger: true
+      immediate: true
     })
     const el = vm.$el
     const msgEl = el.querySelector('.cube-validator-msg-def')
@@ -43,7 +43,7 @@ describe('validator.vue', () => {
           messages: {
             required: '必填'
           },
-          trigger: true
+          immediate: true
         },
         on: {}
       })
@@ -66,7 +66,7 @@ describe('validator.vue', () => {
       messages: {
         required: '必填'
       },
-      trigger: true
+      immediate: true
     }, {
       'msg-click': clickHandler
     })
@@ -427,8 +427,8 @@ describe('methods', () => {
 })
 
 function createValidator (props = {}, events = {}) {
-  if (props.trigger === undefined) {
-    props.trigger = true
+  if (props.immediate === undefined) {
+    props.immediate = true
   }
   return instantiateComponent(Vue, Validator, {
     props,

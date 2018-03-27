@@ -10,6 +10,11 @@
   import CubeFormGroup from './form-group.vue'
 
   const COMPONENT_NAME = 'cube-form'
+  const LAYOUTS = {
+    STANDARD: 'standard',
+    CLASSIC: 'classic',
+    FRESH: 'fresh'
+  }
   const EVENT_SUBMIT = 'submit'
   const EVENT_RESET = 'reset'
   const EVENT_VALIDATE = 'validate'
@@ -39,8 +44,7 @@
         default() {
           return {
             scrollToInvalidField: false,
-            labelRow: false,
-            labelTop: false
+            layout: LAYOUTS.STANDARD
           }
         }
       },
@@ -70,19 +74,21 @@
         return groups
       },
       invalid() {
-        return this.firstInvalidFieldIndex >= 0
+        const valid = this.valid
+        return valid === undefined ? valid : !valid
       },
       formClass() {
         const invalid = this.invalid
         const valid = this.valid
         const options = this.options
+        const layout = (options && options.layout) || LAYOUTS.STANDARD
         return {
-          'cube-form_normal': !options.labelRow && !options.labelTop,
+          'cube-form_standard': layout === LAYOUTS.STANDARD,
           'cube-form_groups': this.groups.length > 1,
           'cube-form_valid': valid === true,
           'cube-form_invalid': invalid,
-          'cube-form_label-row': options.labelRow,
-          'cube-form_label-top': options.labelTop
+          'cube-form_classic': layout === LAYOUTS.CLASSIC,
+          'cube-form_fresh': layout === LAYOUTS.FRESH
         }
       }
     },
@@ -268,7 +274,7 @@
       &:empty
         padding-top: 5px
         padding-bottom: 5px
-  .cube-form_normal
+  .cube-form_standard
     .cube-form-item
       min-height: 46px
     .cube-form-field
@@ -330,7 +336,7 @@
       padding: 5px 0
       .cube-upload-btn, .cube-upload-file
         margin: 5px 10px 5px 0
-  .cube-form_label-row
+  .cube-form_classic
     .cube-form-item
       display: block
       padding: 15px
@@ -352,7 +358,7 @@
         padding-bottom: 0
     .cube-form-label
       padding-bottom: 15px
-  .cube-form_label-top
+  .cube-form_fresh
     .cube-form-item
       display: block
       padding: 2em 15px 10px

@@ -59,7 +59,7 @@ describe('Form.vue', () => {
     expect(vm.fields.length)
       .to.equal(2)
     expect(vm.$el.className)
-      .to.equal('cube-form cube-form_normal cube-form_groups')
+      .to.equal('cube-form cube-form_standard cube-form_groups')
     const groups = vm.$el.querySelectorAll('.cube-form-group')
     expect(groups.length)
       .to.equal(2)

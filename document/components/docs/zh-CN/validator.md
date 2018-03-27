@@ -6,10 +6,10 @@
 
 - 基本用法
 
-  Validator 作为一个独立的组件，通过 model 属性绑定它需要检验的数据；rules 定义验证规则，在 rules 规则中，可以配置type、required等内置规则，也可以用 pattern 添加校验的正则表达式，或 custom 自定义验证函数，具体细节可见后面的规则；针对各类规则，我们有比较完善的默认提示文案，具体可见后面的默认提示文案；同时，你也可以用 messages 属性用于自定义提示信息。
+  Validator 作为一个独立的组件，通过 model 属性绑定它需要检验的数据；rules 定义验证规则，在 rules 规则中，可以配置 type、required 等内置规则，也可以用 pattern 添加校验的正则表达式，或 custom 自定义验证函数，具体细节可见后面的规则；针对各类规则，我们有比较完善的默认提示文案，具体可见后面的默认提示文案；同时，你也可以用 messages 属性用于自定义提示信息。
 
   ```html
-  <cube-input v-model="text1" placeholder="E-mail"></cube-input>
+  <cube-input v-model="text" placeholder="E-mail"></cube-input>
   <cube-validator v-model="valid" :model="text" :rules="rules" :messages="messages"></cube-validator>
   ```
   ```js
@@ -17,7 +17,7 @@
     data() {
       return {
         text: '',
-        valid: true,
+        valid: undefined,
         rules: {
           required: true,
           type: 'email',
@@ -49,7 +49,7 @@
     data() {
       return {
         text: '',
-        valid: true,
+        valid: undefined,
         rules: {
           required: true,
           type: 'email',
@@ -74,7 +74,7 @@
   <cube-validator v-model="valid" :model="text" :rules="rules" :messages="messages">
     <cube-input v-model="text" placeholder="component name"></cube-input>
     <div slot="message" class="custom-msg" slot-scope="props">
-      <div v-if="(props.dirty || trigger) && !valid">
+      <div v-if="(props.dirty || props.validated) && !valid">
         <i class="dd-cubeic-important"></i> {{ props.message }}
         <div>
           <span v-for="(item, index) in Object.values(props.result)"
@@ -90,7 +90,7 @@
   export default {
     data() {
       return {
-        valid: true,
+        valid: undefined,
         text: '',
         rules: {
           type: 'string',
@@ -116,11 +116,11 @@
 
   ```html
   <cube-input v-model="text0" placeholder="Required"/>
-  <cube-validator v-model="result[0]" :model="text0" :rules="rules0" :trigger="trigger"/>
+  <cube-validator ref="validator0" v-model="result[0]" :model="text0" :rules="rules0"/>
   <cube-input v-model="text1" placeholder="E-mail"/>
-  <cube-validator v-model="result[1]" :model="text1" :rules="rules1" :trigger="trigger"/>
+  <cube-validator ref="validator1" v-model="result[1]" :model="text1" :rules="rules1"/>
   <cube-input v-model="text2" placeholder="TEL"/>
-  <cube-validator v-model="result[2]" :model="text2" :rules="rules2" :trigger="trigger"/>
+  <cube-validator ref="validator2" v-model="result[2]" :model="text2" :rules="rules2"/>
   <cube-button @click="submit">Submit</cube-button>
   ```
   ```js
@@ -145,9 +145,9 @@
     },
     methods: {
       submit() {
-        if (!this.trigger) {
-          this.trigger = true
-        }
+        this.$refs.validator0.validate()
+        this.$refs.validator1.validate()
+        this.$refs.validator2.validate()
         if (this.result.every(item => item)) {
           this.$createToast({
             type: 'correct',
@@ -162,7 +162,7 @@
 
   对于有多个校验同时通过才可提交的情况，为了不用一个一个去取校验结果变量，可以把这组校验结果存在一个数组，在提交时，遍历这个数组即可。
 
-  当 `trigger` 为 `false` 时，如果在待检测的数据还没改变过，一般也就是用户还没填写过某个表单元素时，即使校验不通过，Validator 是不会提示错误信息的。但是当提交时，就需要无论用户有没有填写过，都提示错误信息了。这时，可以通过在提交时，把 `trigger` 置为 `true` 来触发错误提示。
+  通过调用 Validator 实例的 `validate` 方法可以去校验处理。
 
 ### Props
 
@@ -172,14 +172,20 @@
 | v-model | 校验结果，是否通过验证 | Boolean | true/false | true |
 | rules | 校验规则，具体见后面的内置规则和创建规则 | Object | - | {} |
 | messages | 自定义提示信息 | Object | - | {} |
-| trigger | 触发错误提示，由于默认在初始，待校验的数据未变动过时，不会提示信息，所以trigger往往用于触发初始的错误提示 | Boolean | true/false | false |
+| immediate | 初始时是否立即校验 | Boolean | true/false | false |
 
 ### Slot
 
 | 名字 | 说明 | 作用域参数 |
 | - | - | - |
 | default | 表单组件 | - |
-| message | 错误提示 | dirty: 待检验的数据是否有修改过 <br> message: 首条没通过的规则的提示信息 <br> result: 对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } } |
+| message | 错误提示 | dirty: 待检验的数据是否有修改过 <br> validated: 是否校验过 <br> message: 首条没通过的规则的提示信息 <br> result: 对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } } |
+
+### 实例方法
+
+| 方法名 | 说明 |
+| - | - |
+| validate | 校验 |
 
 ### 规则
 
@@ -220,7 +226,7 @@
     data() {
       return {
         text: '100',
-        valid: true,
+        valid: undefined,
         rules: {
           type: 'number',
           odd: true

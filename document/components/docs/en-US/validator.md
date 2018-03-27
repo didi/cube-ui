@@ -17,7 +17,7 @@ Validator is used to validate form data and corresponding warning message.
     data() {
       return {
         text: '',
-        valid: true,
+        valid: undefined,
         rules: {
           required: true,
           type: 'email',
@@ -49,7 +49,7 @@ Validator is used to validate form data and corresponding warning message.
     data() {
       return {
         text: '',
-        valid: true,
+        valid: undefined,
         rules: {
           required: true,
           type: 'email',
@@ -68,13 +68,13 @@ Validator is used to validate form data and corresponding warning message.
 
 - Customize message slot
 
-  Beside default message, you could customize the warning template to contain icons and images by `message` slot. This is a sloped slot which could meet almost all the demands. It contains `dirty` (whether the form data has ever changed), `message` (message of first failed rule), `result` ( an Object, which contains validating result and message of each rule, such as `{ required: { valid: false, invalid: true, message: 'required' } }`).
+  Beside default message, you could customize the warning template to contain icons and images by `message` slot. This is a sloped slot which could meet almost all the demands. It contains `dirty` (whether the form data has ever changed), `validated` (whether the validator has ever validated), `message` (message of first failed rule), `result` ( an Object, which contains validating result and message of each rule, such as `{ required: { valid: false, invalid: true, message: 'required' } }`).
 
   ```html
   <cube-validator v-model="valid" :model="text" :rules="rules" :messages="messages">
     <cube-input v-model="text" placeholder="component name"></cube-input>
     <div slot="message" class="custom-msg" slot-scope="props">
-      <div v-if="(props.dirty || trigger) && !valid">
+      <div v-if="(props.dirty || props.validated) && !valid">
         <i class="dd-cubeic-important"></i> {{ props.message }}
         <div>
           <span v-for="(item, index) in Object.values(props.result)"
@@ -90,7 +90,7 @@ Validator is used to validate form data and corresponding warning message.
   export default {
     data() {
       return {
-        valid: true,
+        valid: undefined,
         text: '',
         rules: {
           type: 'string',
@@ -110,17 +110,17 @@ Validator is used to validate form data and corresponding warning message.
     color: orange
   ```
 
-- Submit
+- Submit
 
   Although submit is not inside of Validator, it usually be relative with Validator. Therefore, we want to introduce our best practice about submit here. It focus on the handles of multi-validator and warn message no matter whether the form data has ever changed.
 
   ```html
   <cube-input v-model="text0" placeholder="Required"/>
-  <cube-validator v-model="result[0]" :model="text0" :rules="rules0" :trigger="trigger"/>
+  <cube-validator ref="validator0" v-model="result[0]" :model="text0" :rules="rules0"/>
   <cube-input v-model="text1" placeholder="E-mail"/>
-  <cube-validator v-model="result[1]" :model="text1" :rules="rules1" :trigger="trigger"/>
+  <cube-validator ref="validator1" v-model="result[1]" :model="text1" :rules="rules1"/>
   <cube-input v-model="text2" placeholder="TEL"/>
-  <cube-validator v-model="result[2]" :model="text2" :rules="rules2" :trigger="trigger"/>
+  <cube-validator ref="validator2" v-model="result[2]" :model="text2" :rules="rules2"/>
   <cube-button @click="submit">Submit</cube-button>
   ```
   ```js
@@ -145,9 +145,9 @@ Validator is used to validate form data and corresponding warning message.
     },
     methods: {
       submit() {
-        if (!this.trigger) {
-          this.trigger = true
-        }
+        this.$refs.validator0.validate()
+        this.$refs.validator1.validate()
+        this.$refs.validator2.validate()
         if (this.result.every(item => item)) {
           this.$createToast({
             type: 'correct',
@@ -168,14 +168,20 @@ Validator is used to validate form data and corresponding warning message.
 | v-model | the validation result，whether the data is valid | Boolean | true/false | true |
 | rules | the rules for validation, you can find the details of rules below | Object | - | {} |
 | messages | custom messages for the corresponding rule | Object | - | {} |
-| trigger | trigger warning message. Because we won't warn when the data never changed by default, trigger usually used to trigger the warning. | Boolean | true/false | false |
+| immediate | Immediate validate after loaded | Boolean | true/false | false |
 
 ### Slot
 
 | Name | Description | Scope Parameters |
 | - | - | - |
 | default | the relative form component or element | - |
-| message | warning message | dirty: if the data have ever changed <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+| message | warning message | dirty: if the data have ever changed <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| validate | Validate |
 
 ### Rule
 
@@ -214,7 +220,7 @@ Validator is used to validate form data and corresponding warning message.
     data() {
       return {
         text: '100',
-        valid: true,
+        valid: undefined,
         rules: {
           type: 'number',
           odd: true
