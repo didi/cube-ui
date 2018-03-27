@@ -138,17 +138,37 @@
       },
       pullDownRefresh: {
         handler(newVal, oldVal) {
-          newVal ? this.scroll.openPullDown(newVal) : this.scroll.closePullDown()
-          newVal && !oldVal && this._onPullDownRefresh()
-          !newVal && oldVal && this._offPullDownRefresh()
+          if (newVal) {
+            this.scroll.openPullDown(newVal)
+            if (!oldVal) {
+              this._onPullDownRefresh()
+              this._calculateMinHeight()
+            }
+          }
+
+          if (!newVal && oldVal) {
+            this.scroll.closePullDown()
+            this._offPullDownRefresh()
+            this._calculateMinHeight()
+          }
         },
         deep: true
       },
       pullUpLoad: {
         handler(newVal, oldVal) {
-          newVal ? this.scroll.openPullUp(newVal) : this.scroll.closePullUp()
-          newVal && !oldVal && this._onPullUpLoad()
-          !newVal && oldVal && this._offPullUpLoad()
+          if (newVal) {
+            this.scroll.openPullUp(newVal)
+            if (!oldVal) {
+              this._onPullUpLoad()
+              this._calculateMinHeight()
+            }
+          }
+
+          if (!newVal && oldVal) {
+            this.scroll.closePullUp()
+            this._offPullUpLoad()
+            this._calculateMinHeight()
+          }
         },
         deep: true
       }
@@ -230,8 +250,8 @@
         }
       },
       _calculateMinHeight() {
-        if (this.$refs.listWrapper && (this.pullDownRefresh || this.pullUpLoad)) {
-          this.$refs.listWrapper.style.minHeight = `${getRect(this.$refs.wrapper).height + 1}px`
+        if (this.$refs.listWrapper) {
+          this.$refs.listWrapper.style.minHeight = this.pullDownRefresh || this.pullUpLoad ? `${getRect(this.$refs.wrapper).height + 1}px` : 0
         }
       },
       _onPullDownRefresh() {
