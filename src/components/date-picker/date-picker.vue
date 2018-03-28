@@ -18,23 +18,64 @@
   const EVENT_CHANGE = 'change'
   const EVENT_VALUE_CHANGE = 'value-change'
 
+  const UNIT_LIST = ['year', 'month', 'date', 'hour', 'minute', 'second']
+  const UNIT_RELATED_LIST = [
+    {
+      txt: '年',
+      polyfill: false
+    }, {
+      txt: '月',
+      natureMin: 1,
+      natureMax: 12,
+      polyfill: false
+    }, {
+      txt: '日',
+      natureMin: 1,
+      polyfill: false
+    }, {
+      txt: '时',
+      natureMin: 0,
+      natureMax: 59,
+      polyfill: false
+    }, {
+      txt: '分',
+      natureMin: 0,
+      natureMax: 59,
+      polyfill: true
+    }, {
+      txt: '秒',
+      natureMin: 0,
+      natureMax: 59,
+      polyfill: true
+    }]
+
   export default {
     name: COMPONENT_NAME,
     props: {
       min: {
-        type: Array,
+        type: Date,
         default() {
-          return [2010, 1, 1]
+          return new Date(2010, 1, 1)
         }
       },
       max: {
-        type: Array,
+        type: Date,
         default() {
-          return [2020, 12, 31]
+          return new Date(2020, 12, 31)
         }
       },
+      beginUnit: {
+        type: String,
+        default() {
+          return 'year'
+        }
+      },
+      columnNumber: {
+        type: Number,
+        default: 3
+      },
       value: {
-        type: [Array, Date],
+        type: Date,
         default() {
           return this.min
         }
@@ -42,7 +83,28 @@
     },
     computed: {
       data() {
-        let data = range(this.min[0], this.max[0], false, '年')
+        let i = UNIT_LIST.indexOf(this.beginUnit)
+        i = i < 0 ? 0 : i
+        let count = 0
+        let data = []
+        let pointer
+
+        while (i < 6 && count < this.columnNumber) {
+          if (!count) {
+            let min = Math.max(this.min[0], UNIT_RELATED_LIST[i].natureMin)
+            let max 
+            data = range(this.min[0], this.max[0], UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true)
+            pointer = data
+          } else {
+            pointer.forEach(item => {
+              let min = item.isMin ? this.min[count] : UNIT_RELATED_LIST[i].natureMin
+
+              let natureMin = i === 2 ? this._computeNatrueMaxDay() : UNIT_RELATED_LIST[i].natureMax
+            })
+            let min = minMonth = year.value === this.min[0] ? this.min[1] : 1
+          }
+          data = range(this.min[0], this.max[0], false, '年')
+        }
 
         data.forEach(year => {
           let minMonth = year.value === this.min[0] ? this.min[1] : 1
@@ -69,9 +131,7 @@
         return data
       },
       selectedIndex() {
-        const selectedVal = this.value instanceof Date
-                            ? [this.value.getFullYear(), this.value.getMonth() + 1, this.value.getDate()]
-                            : this.value
+        const selectedVal = [this.value.getFullYear(), this.value.getMonth() + 1, this.value.getDate()]
         let selectedIndex = []
         let data = this.data
         let findIndex
@@ -105,18 +165,39 @@
       },
       _valueChange(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
+      },
+      _computeNatrueMaxDay(month, year) {
+        if (!month) {
+          return 31
+        }
+
+        let natureMaxDay = 30
+        if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
+          natureMaxDay = 31
+        } else {
+          if (month === 2) {
+            natureMaxDay = !year || (!(year % 400) || (!(year % 4) && year % 100)) ? 29 : 28
+          }
+        }
+
+        return natureMaxDay
       }
     }
   }
 
-  function range(n, m, polyfill = false, unit = '') {
+  function range(n, m, polyfill = false, unit = '', fatherIsMin, fatherIsMax, fatherVal) {
     let arr = []
     for (let i = n; i <= m; i++) {
-      let value = (polyfill && i < 10 ? '0' + i : i) + unit
-      arr.push({
+      const value = (polyfill && i < 10 ? '0' + i : i) + unit
+      const object = {
         text: value,
         value: i
-      })
+      }
+
+      if (fatherIsMin && i === n) object.isMin = true
+      if (fatherIsMax && i === m) object.isMax = true
+
+      arr.push(object)
     }
     return arr
   }
