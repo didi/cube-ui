@@ -12,7 +12,7 @@ CubeForm is a schema-based form generator component.
   <cube-form
     :model="model"
     :schema="schema"
-    :new-model="true"
+    :immediate-validate="true"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
@@ -46,7 +46,7 @@ CubeForm is a schema-based form generator component.
                   props: {
                     option: {
                       label: 'Checkbox',
-                      value: 'checked'
+                      value: true
                     }
                   },
                   rules: {
@@ -175,7 +175,7 @@ CubeForm is a schema-based form generator component.
   }
   ```
 
-  `model` is the model/target JSON object, `schema` is the schema object with fields, if `new-model` is true, we won't run validation after load。
+  `model` is the model/target JSON object, `schema` is the schema object with fields, if `immediate-validate` is true, we will run validation after load.
 
   `submit` is the submited event, the `validate` is the form validate event and the `reset` is the form reset event.
 
@@ -315,7 +315,7 @@ CubeForm is a schema-based form generator component.
 | - | - | - | - | - |
 | model | The model/target JSON object | Object | - | {} |
 | schema | the schema object with fields | Object | - | {} |
-| new-model | If true, we won't run validation after load | Boolean | true/false | true |
+| immediate-validate | If true, we will run validation after load | Boolean | true/false | false |
 | action | Form action value | String | - | undefined |
 | options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 

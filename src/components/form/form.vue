@@ -48,9 +48,9 @@
           }
         }
       },
-      newModel: {
+      immediateValidate: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     data() {
@@ -93,17 +93,6 @@
       }
     },
     watch: {
-      newModel: {
-        handler(newVal) {
-          if (!newVal) {
-            this.$nextTick(() => {
-              // initial validate
-              this.validate()
-            })
-          }
-        },
-        immediate: true
-      },
       validatedCount() {
         this.$emit(EVENT_VALIDATE, {
           validity: this.validity,
@@ -118,6 +107,11 @@
       this.form = this
       this.fields = []
       this.validity = {}
+    },
+    mounted() {
+      if (this.immediateValidate) {
+        this.validate()
+      }
     },
     methods: {
       submit() {

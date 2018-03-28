@@ -116,7 +116,6 @@
         const result = {}
 
         for (const key in configRules) {
-          debugger
           const ruleValue = configRules[key]
           let ret
           if (typeof ruleValue === 'function') {
@@ -158,6 +157,7 @@
         this.msg = ''
         this.validated = false
         this.valid = undefined
+        this.$emit(EVENT_INPUT, this.valid)
       },
       msgClickHandler() {
         this.$emit(EVENT_MSG_CLICK)

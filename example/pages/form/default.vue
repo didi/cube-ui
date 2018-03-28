@@ -4,7 +4,7 @@
       <cube-form
         :model="model"
         :schema="schema"
-        :new-model="true"
+        :immediate-validate="true"
         :options="options"
         @validate="validateHandler"
         @submit="submitHandler"
@@ -48,7 +48,7 @@
                   props: {
                     option: {
                       label: 'Checkbox',
-                      value: 'checked'
+                      value: true
                     }
                   },
                   rules: {

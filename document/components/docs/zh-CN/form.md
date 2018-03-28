@@ -12,7 +12,7 @@
   <cube-form
     :model="model"
     :schema="schema"
-    :new-model="true"
+    :immediate-validate="true"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
@@ -46,7 +46,7 @@
                   props: {
                     option: {
                       label: 'Checkbox',
-                      value: 'checked'
+                      value: true
                     }
                   },
                   rules: {
@@ -176,7 +176,7 @@
   }
   ```
 
-  `model` 就是整个表单需要的数据源，`schema` 就是生成表单所定义的模式，`new-model` 如果为 true 则初始时不做校验，`options` 则是配置选项。
+  `model` 就是整个表单需要的数据源，`schema` 就是生成表单所定义的模式，`immediate-validate` 如果为 true 则初始时立即做校验，`options` 则是配置选项。
 
   `submit` 校验成功后提交事件，`validate` 每次有数据校验更新的事件，`reset` 则是重置事件。
 
@@ -316,7 +316,7 @@
 | - | - | - | - | - |
 | model | 数据源 | Object | - | {} |
 | schema | 生成表单依赖的模式 | Object | - | {} |
-| new-model | 是否是新数据源，如果为 true，则默认进来**不会**做校验 | Boolean | true/false | true |
+| immediate-validate | 初始化时是否立即校验 | Boolean | true/false | false |
 | action | 表单 Form action 的值 | String | - | undefined |
 | options | 配置项 | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 
