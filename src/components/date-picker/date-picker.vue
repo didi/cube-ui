@@ -134,7 +134,7 @@
         this.$emit(EVENT_CHANGE, i, newIndex)
       },
       _valueChange(selectedVal, selectedIndex, selectedText) {
-        this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
+        this.$emit(EVENT_VALUE_CHANGE, this._arrayToDate(selectedVal), selectedVal, selectedText)
       },
       _generateData(i, count, item) {
         if (count === 0) {
@@ -142,7 +142,7 @@
           let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], UNIT_RELATED_LIST[i].natureMax)
           item.push(...range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true))
         } else {
-          let natureMax = i === 2 ? computeNatrueMaxDay(item.year, item.value) : UNIT_RELATED_LIST[i].natureMax
+          let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : UNIT_RELATED_LIST[i].natureMax
           let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
           let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
@@ -187,7 +187,7 @@
 
       if (fatherIsMin && i === n) object.isMin = true
       if (fatherIsMax && i === m) object.isMax = true
-      if (year) object.year = true
+      if (year) object.year = year
 
       arr.push(object)
     }
