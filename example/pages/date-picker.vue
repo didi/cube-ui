@@ -16,9 +16,9 @@
   export default {
     mounted() {
       this.datePicker = this.$createDatePicker({
-        min: [2008, 8, 8],
-        max: [2020, 10, 20],
-        value: [2010, 10, 1],
+        min: new Date(2008, 7, 8),
+        max: new Date(2020, 9, 20),
+        value: new Date(2010, 9, 1),
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
