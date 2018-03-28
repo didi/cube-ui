@@ -125,8 +125,8 @@
           item.push(...range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true))
         } else {
           let natureMax = i === 2 ? computeNatrueMaxDay(item.year, item.value) : UNIT_RELATED_LIST[i].natureMax
-          let min = item.isMin ? this.minArray[count] : Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin)
-          let max = item.isMax ? this.maxArray[count] : Math.min(this.maxArray[count], natureMax)
+          let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
+          let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
           let storageYear = i === 1 && this.beginIndex === 0 && this.columnNumber >= 3 && item.value
           item.children = range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
