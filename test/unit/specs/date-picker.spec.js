@@ -1,0 +1,167 @@
+import Vue from 'vue2'
+import DatePicker from '@/modules/date-picker'
+import instantiateComponent from '@/common/helpers/instantiate-component'
+import { dispatchSwipe } from '../utils/event'
+
+describe('DatePicker', () => {
+  let vm
+
+  afterEach(() => {
+    if (vm) {
+      vm.$parent.destroy()
+      vm = null
+    }
+  })
+
+  it('use', () => {
+    Vue.use(DatePicker)
+    expect(Vue.component(DatePicker.name))
+      .to.be.a('function')
+  })
+
+  it('should render correct contents', function () {
+    vm = createDatePicker({
+      min: [2008, 8, 8],
+      max: [2020, 10, 20]
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    expect(wheels.length)
+      .to.equal(3)
+
+    const firstWheelItems = wheels[0].querySelectorAll('li')
+    expect(firstWheelItems.length)
+      .to.equal(13)
+    expect(firstWheelItems[1].textContent.trim())
+      .to.equal('2009年')
+
+    const secondWheelItems = wheels[1].querySelectorAll('li')
+    expect(secondWheelItems.length)
+      .to.equal(5)
+    expect(secondWheelItems[1].textContent.trim())
+      .to.equal('9月')
+
+    const thirdWheelItems = wheels[2].querySelectorAll('li')
+    expect(thirdWheelItems.length)
+      .to.equal(24)
+    expect(thirdWheelItems[1].textContent.trim())
+      .to.equal('9日')
+  })
+
+  it('should trigger events', function (done) {
+    this.timeout(10000)
+
+    const selectHandle = sinon.spy()
+    const cancelHandle = sinon.spy()
+    const changeHandle = sinon.spy()
+
+    vm = createDatePicker({
+      min: [2008, 8, 8],
+      max: [2020, 10, 20],
+      value: [2010, 10, 1]
+    }, {
+      select: selectHandle,
+      cancel: cancelHandle,
+      change: changeHandle
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      const firstWheelItems = wheels[0].querySelectorAll('li')
+
+      // change
+      dispatchSwipe(firstWheelItems[1], [
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: firstWheelItems[1].offsetTop + 10
+        },
+        {
+          pageX: 300,
+          pageY: 380
+        }
+      ], 100)
+
+      setTimeout(() => {
+        expect(changeHandle)
+          .to.be.callCount(1)
+
+        // select
+        const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+        confirmBtn.click()
+        expect(selectHandle)
+          .to.be.callCount(1)
+
+        // cancel
+        vm.show()
+        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        cancelBtn.click()
+        expect(cancelHandle)
+          .to.be.callCount(1)
+
+        done()
+      }, 1000)
+    }, 150)
+  })
+
+  it('should call methods', function (done) {
+    this.timeout(10000)
+
+    vm = createDatePicker()
+
+    // show
+    vm.show()
+
+    // hide
+    setTimeout(() => {
+      vm.hide()
+
+      done()
+    }, 100)
+  })
+
+  it('$updateProps', function (done) {
+    const selectHandle = sinon.spy()
+
+    vm = createDatePicker({
+      min: [2008, 8, 8],
+      max: [2020, 10, 20]
+    }, {
+      select: selectHandle
+    })
+
+    vm.$updateProps({
+      value: [2010, 10, 1]
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+      confirmBtn.click()
+      expect(selectHandle)
+        .to.be.calledWith([2010, 10, 1], [2, 9, 0], ['2010年', '10月', '1日'])
+
+      done()
+    }, 100)
+  })
+
+  it('should add warn log when sigle is true', () => {
+    const app = new Vue()
+    const originWarn = console.warn
+    const msgs = []
+    console.warn = function (...args) {
+      msgs.push(args.join('#'))
+    }
+    vm = app.$createDatePicker({}, true)
+    expect(msgs.length)
+      .to.equal(1)
+    console.warn = originWarn
+  })
+
+  function createDatePicker(props = {}, events = {}) {
+    return instantiateComponent(Vue, DatePicker, {
+      props: props,
+      on: events
+    })
+  }
+})

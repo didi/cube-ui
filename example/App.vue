@@ -93,6 +93,10 @@
             text: 'SegmentPicker'
           },
           {
+            path: '/date-picker',
+            text: 'DatePicker'
+          },
+          {
             path: '/time-picker',
             text: 'TimePicker'
           },

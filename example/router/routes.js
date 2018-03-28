@@ -13,6 +13,7 @@ import Rate from '../pages/rate.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import SegmentPicker from '../pages/segment-picker.vue'
+import DatePicker from '../pages/date-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
 import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
@@ -88,6 +89,10 @@ const routes = [
   {
     path: '/segment-picker',
     component: SegmentPicker
+  },
+  {
+    path: '/date-picker',
+    component: DatePicker
   },
   {
     path: '/time-picker',
