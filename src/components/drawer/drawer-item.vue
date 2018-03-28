@@ -18,10 +18,8 @@
     name: COMPONENT_NAME,
     props: {
       item: {
-        type: Object,
-        default() {
-          return {}
-        }
+        type: [String, Object],
+        default: ''
       },
       index: {
         type: Number,
