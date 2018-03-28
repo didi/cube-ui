@@ -1,5 +1,6 @@
 const handleValidateRule = (field, type, custom) => {
-  if (field.rules && field.rules[type]) {
+  const ruleValue = field.rules && field.rules[type]
+  if (type !== 'custom' && ruleValue && typeof ruleValue !== 'function') {
     field.rules[type] = custom
   }
 }
