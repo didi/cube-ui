@@ -21,8 +21,8 @@ describe('DatePicker', () => {
 
   it('should render correct contents', function () {
     vm = createDatePicker({
-      min: [2008, 8, 8],
-      max: [2020, 10, 20]
+      min: new Date(2008, 7, 8),
+      max: new Date(2020, 9, 20)
     })
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
@@ -56,9 +56,9 @@ describe('DatePicker', () => {
     const changeHandle = sinon.spy()
 
     vm = createDatePicker({
-      min: [2008, 8, 8],
-      max: [2020, 10, 20],
-      value: [2010, 10, 1]
+      min: new Date(2008, 7, 8),
+      max: new Date(2020, 9, 20),
+      value: new Date(2010, 9, 1)
     }, {
       select: selectHandle,
       cancel: cancelHandle,
@@ -124,14 +124,14 @@ describe('DatePicker', () => {
     const selectHandle = sinon.spy()
 
     vm = createDatePicker({
-      min: [2008, 8, 8],
-      max: [2020, 10, 20]
+      min: new Date(2008, 7, 8),
+      max: new Date(2020, 9, 20)
     }, {
       select: selectHandle
     })
 
     vm.$updateProps({
-      value: [2010, 10, 1]
+      value: new Date(2010, 9, 1)
     })
 
     vm.show()

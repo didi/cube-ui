@@ -118,6 +118,24 @@
       }
     },
     methods: {
+      show() {
+        this.$refs.cascadePicker.show()
+      },
+      hide() {
+        this.$refs.cascadePicker.hide()
+      },
+      _select(selectedVal, selectedIndex, selectedText) {
+        this.$emit(EVENT_SELECT, this._arrayToDate(selectedVal), selectedVal, selectedText)
+      },
+      _cancel() {
+        this.$emit(EVENT_CANCEL)
+      },
+      _change(i, newIndex) {
+        this.$emit(EVENT_CHANGE, i, newIndex)
+      },
+      _valueChange(selectedVal, selectedIndex, selectedText) {
+        this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
+      },
       _generateData(i, count, item) {
         if (count === 0) {
           let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], UNIT_RELATED_LIST[i].natureMin)
@@ -137,23 +155,23 @@
           })
         }
       },
-      show() {
-        this.$refs.cascadePicker.show()
-      },
-      hide() {
-        this.$refs.cascadePicker.hide()
-      },
-      _select(selectedVal, selectedIndex, selectedText) {
-        this.$emit(EVENT_SELECT, selectedVal, selectedIndex, selectedText)
-      },
-      _cancel() {
-        this.$emit(EVENT_CANCEL)
-      },
-      _change(i, newIndex) {
-        this.$emit(EVENT_CHANGE, i, newIndex)
-      },
-      _valueChange(selectedVal, selectedIndex, selectedText) {
-        this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
+      _arrayToDate(selectedVal) {
+        const args = []
+        const currentDateArray = dateToArray(new Date())
+
+        for (let i = 0; i < 6; i++) {
+          if (i < this.beginIndex) {
+            args[i] = currentDateArray[i]
+          } else if (i >= this.beginIndex + this.columnNumber) {
+            args[i] = UNIT_RELATED_LIST[i].natureMin
+          } else {
+            args[i] = selectedVal[i]
+          }
+        }
+        // Month need to subtract 1.
+        args[1]--
+
+        return new Date(...args)
       }
     }
   }

@@ -29,15 +29,15 @@
       },
       updateProps() {
         this.datePicker.$updateProps({
-          min: [2010, 8, 8],
-          max: [2030, 10, 20],
+          min: new Date(2010, 8, 8),
+          max: new Date(2030, 10, 20),
           value: new Date()
         })
       },
-      selectHandle(selectedVal, selectedIndex, selectedText) {
+      selectHandle(date, selectedVal, selectedText) {
         this.$createDialog({
           type: 'warn',
-          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
           icon: 'cubeic-alert'
         }).show()
       },
