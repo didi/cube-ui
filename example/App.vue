@@ -123,6 +123,10 @@
           {
             path: '/swipe',
             text: 'Swipe'
+          },
+          {
+            path: '/drawer',
+            text: 'Drawer'
           }
         ]
       }
