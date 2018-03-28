@@ -31,6 +31,7 @@
     }, {
       txt: '日',
       natureMin: 1,
+      natureMax: 31,
       polyfill: false
     }, {
       txt: '时',
@@ -47,7 +48,8 @@
       natureMin: 0,
       natureMax: 59,
       polyfill: true
-    }]
+    }
+  ]
 
   export default {
     name: COMPONENT_NAME,
@@ -82,51 +84,19 @@
       }
     },
     computed: {
+      beginIndex() {
+        let beginIndex = UNIT_LIST.indexOf(this.beginUnit)
+        return beginIndex < 0 ? 0 : beginIndex
+      },
+      minArray() {
+        return dateToArray(this.min).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+      },
+      maxArray() {
+        return dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+      },
       data() {
-        let i = UNIT_LIST.indexOf(this.beginUnit)
-        i = i < 0 ? 0 : i
-        let count = 0
         let data = []
-        let pointer
-
-        while (i < 6 && count < this.columnNumber) {
-          if (!count) {
-            let min = Math.max(this.min[0], UNIT_RELATED_LIST[i].natureMin)
-            let max 
-            data = range(this.min[0], this.max[0], UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true)
-            pointer = data
-          } else {
-            pointer.forEach(item => {
-              let min = item.isMin ? this.min[count] : UNIT_RELATED_LIST[i].natureMin
-
-              let natureMin = i === 2 ? this._computeNatrueMaxDay() : UNIT_RELATED_LIST[i].natureMax
-            })
-            let min = minMonth = year.value === this.min[0] ? this.min[1] : 1
-          }
-          data = range(this.min[0], this.max[0], false, '年')
-        }
-
-        data.forEach(year => {
-          let minMonth = year.value === this.min[0] ? this.min[1] : 1
-          let maxMonth = year.value === this.max[0] ? this.max[1] : 12
-
-          year.children = range(minMonth, maxMonth, false, '月')
-          year.children.forEach(month => {
-            let day = 30
-            if ([1, 3, 5, 7, 8, 10, 12].indexOf(month.value) > -1) {
-              day = 31
-            } else {
-              if (month.value === 2) {
-                day = !(year.value % 400) || (!(year.value % 4) && year.value % 100) ? 29 : 28
-              }
-            }
-
-            let minDay = year.value === this.min[0] && month.value === this.min[1] ? this.min[2] : 1
-            let maxDay = year.value === this.max[0] && month.value === this.max[1] ? this.max[2] : day
-
-            month.children = range(minDay, maxDay, false, '日')
-          })
-        })
+        this._generateData(this.beginIndex, 0, data)
 
         return data
       },
@@ -136,7 +106,7 @@
         let data = this.data
         let findIndex
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < this.columnNumber; i++) {
           findIndex = data.findIndex((item) => {
             return selectedVal[i] && item.value === selectedVal[i]
           })
@@ -148,6 +118,25 @@
       }
     },
     methods: {
+      _generateData(i, count, item) {
+        if (count === 0) {
+          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], UNIT_RELATED_LIST[i].natureMin)
+          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], UNIT_RELATED_LIST[i].natureMax)
+          item.push(...range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true))
+        } else {
+          let natureMax = i === 2 ? computeNatrueMaxDay(item.year, item.value) : UNIT_RELATED_LIST[i].natureMax
+          let min = item.isMin ? this.minArray[count] : Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin)
+          let max = item.isMax ? this.maxArray[count] : Math.min(this.maxArray[count], natureMax)
+
+          let storageYear = i === 1 && this.beginIndex === 0 && this.columnNumber >= 3 && item.value
+          item.children = range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
+        }
+        if (i < 5 && count < this.columnNumber - 1) {
+          (item.children || item).forEach(subItem => {
+            this._generateData(i + 1, count + 1, subItem)
+          })
+        }
+      },
       show() {
         this.$refs.cascadePicker.show()
       },
@@ -165,27 +154,11 @@
       },
       _valueChange(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_VALUE_CHANGE, selectedVal, selectedIndex, selectedText)
-      },
-      _computeNatrueMaxDay(month, year) {
-        if (!month) {
-          return 31
-        }
-
-        let natureMaxDay = 30
-        if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
-          natureMaxDay = 31
-        } else {
-          if (month === 2) {
-            natureMaxDay = !year || (!(year % 400) || (!(year % 4) && year % 100)) ? 29 : 28
-          }
-        }
-
-        return natureMaxDay
       }
     }
   }
 
-  function range(n, m, polyfill = false, unit = '', fatherIsMin, fatherIsMax, fatherVal) {
+  function range(n, m, polyfill = false, unit = '', fatherIsMin, fatherIsMax, year) {
     let arr = []
     for (let i = n; i <= m; i++) {
       const value = (polyfill && i < 10 ? '0' + i : i) + unit
@@ -196,9 +169,31 @@
 
       if (fatherIsMin && i === n) object.isMin = true
       if (fatherIsMax && i === m) object.isMax = true
+      if (year) object.year = true
 
       arr.push(object)
     }
     return arr
+  }
+
+  function computeNatrueMaxDay(month, year) {
+    if (!month) {
+      return 31
+    }
+
+    let natureMaxDay = 30
+    if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
+      natureMaxDay = 31
+    } else {
+      if (month === 2) {
+        natureMaxDay = !year || (!(year % 400) || (!(year % 4) && year % 100)) ? 29 : 28
+      }
+    }
+
+    return natureMaxDay
+  }
+
+  function dateToArray(date) {
+    return [date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()]
   }
 </script>
