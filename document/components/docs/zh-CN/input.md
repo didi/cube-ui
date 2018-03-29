@@ -79,6 +79,13 @@
 | clearable | 是否使用清空按钮 | Boolean | true/false | false |
 | eye | 默认 false，密码眼睛不可见；如果是 true 则使用密码眼睛，且密码可见；还可配置为对象`{ open: false }`，那么眼睛可见，`open` 用来控制密码是否可见 | Boolean/Object | true/false/{open: `true/false`} | false |
 
+### 插槽
+
+| 名字 | 说明 |
+| - | - |
+| prepend | 前置内容 |
+| append | 后置内容 |
+
 ### 事件
 
 | 事件名 | 说明 | 参数 |
