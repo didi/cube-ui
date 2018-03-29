@@ -9,9 +9,8 @@
         @validate="validateHandler"
         @submit="submitHandler"
         @reset="resetHandler"></cube-form>
-      <div>model:<br>:{{model}}</div>
-      <div>validity:<br>{{validity}}</div>
-      <div>valid:<br>{{valid}}</div>
+      <json-view title="model" :data="model" />
+      <json-view title="validity" :data="validity" />
     </div>
   </cube-page>
 </template>
@@ -19,6 +18,7 @@
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
   import CubeButtonGroup from '../../components/cube-button-group.vue'
+  import JsonView from '../../components/json-view.vue'
 
   export default {
     data() {
@@ -177,7 +177,8 @@
     },
     components: {
       CubePage,
-      CubeButtonGroup
+      CubeButtonGroup,
+      JsonView
     }
   }
 </script>
