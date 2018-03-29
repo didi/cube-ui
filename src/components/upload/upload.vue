@@ -23,6 +23,7 @@
   } from './util'
 
   const COMPONENT_NAME = 'cube-upload'
+  const EVENT_INPUT = 'input'
   const EVENT_ADDED = 'files-added'
   const EVENT_SUBMITTED = 'file-submitted'
   const EVENT_REMOVED = 'file-removed'
@@ -33,6 +34,12 @@
   export default {
     name: COMPONENT_NAME,
     props: {
+      value: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
       action: {
         type: [String, Object],
         default: ''
@@ -58,7 +65,7 @@
     },
     data() {
       return {
-        files: [],
+        files: this.value,
         paused: !this.auto
       }
     },
@@ -75,6 +82,11 @@
       },
       isShowBtn() {
         return this.files.length < this.max
+      }
+    },
+    watch: {
+      files(newFiles) {
+        this.$emit(EVENT_INPUT, newFiles)
       }
     },
     methods: {
