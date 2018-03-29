@@ -84,6 +84,10 @@
           i++
         }
 
+        if (i < this.pickerData.length) {
+          this.pickerData.splice(i, this.pickerData.length - i)
+        }
+
         this.pickerData = this.pickerData.slice()
       }
     },

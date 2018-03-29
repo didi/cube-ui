@@ -164,7 +164,7 @@
             item.children = UNIT_RELATED_LIST[i].natureRange
           }
         }
-        if (i < 5 && count < this.columnNumber - 1) {
+        if (count < this.columnNumber - 1 && i < 5) {
           (item.children || item).forEach(subItem => {
             this._generateData(i + 1, count + 1, subItem)
           })
@@ -172,11 +172,11 @@
       },
       _arrayToDate(selectedVal) {
         const args = []
-        const currentDateArray = dateToArray(new Date())
+        const defaultDateArray = dateToArray(new Date(0))
 
         for (let i = 0; i < 6; i++) {
           if (i < this.beginIndex) {
-            args[i] = currentDateArray[i]
+            args[i] = defaultDateArray[i]
           } else if (i >= this.beginIndex + this.columnNumber) {
             args[i] = UNIT_RELATED_LIST[i].natureMin
           } else {
