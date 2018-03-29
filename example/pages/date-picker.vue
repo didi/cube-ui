@@ -19,7 +19,7 @@
         min: new Date(2008, 7, 8),
         max: new Date(2020, 9, 20),
         value: new Date(2010, 9, 1),
-        // beginUnit: 'hour',
+        beginUnit: 'hour',
         columnNumber: 6,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
@@ -31,8 +31,8 @@
       },
       updateProps() {
         this.datePicker.$updateProps({
-          min: new Date(2010, 8, 8),
-          max: new Date(2030, 10, 20),
+          min: [10, 2, 3],
+          max: [23, 59, 59],
           value: new Date()
         })
       },

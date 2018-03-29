@@ -58,13 +58,13 @@
     name: COMPONENT_NAME,
     props: {
       min: {
-        type: Date,
+        type: [Date, Array],
         default() {
           return new Date(2010, 1, 1)
         }
       },
       max: {
-        type: Date,
+        type: [Date, Array],
         default() {
           return new Date(2020, 12, 31)
         }
@@ -80,7 +80,7 @@
         default: 3
       },
       value: {
-        type: Date,
+        type: [Date, Array],
         default() {
           return this.min
         }
@@ -92,10 +92,19 @@
         return beginIndex < 0 ? 0 : beginIndex
       },
       minArray() {
-        return dateToArray(this.min).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+        return this.min instanceof Date
+                ? dateToArray(this.min).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                : this.min
       },
       maxArray() {
-        return dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+        return this.max instanceof Date
+                ? dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                : this.max
+      },
+      valueArray() {
+        return this.value instanceof Date
+                ? dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                : this.value
       },
       data() {
         let data = []
@@ -104,14 +113,13 @@
         return data
       },
       selectedIndex() {
-        const selectedVal = [this.value.getFullYear(), this.value.getMonth() + 1, this.value.getDate()]
         let selectedIndex = []
         let data = this.data
         let findIndex
 
-        for (let i = 0; i < this.columnNumber; i++) {
+        for (let i = 0; i < this.columnNumber && i < 6 - this.beginUnit; i++) {
           findIndex = data.findIndex((item) => {
-            return selectedVal[i] && item.value === selectedVal[i]
+            return this.valueArray[i] && item.value === this.valueArray[i]
           })
           selectedIndex[i] = findIndex !== -1 ? findIndex : 0
           data = data[selectedIndex[i]].children
@@ -172,7 +180,7 @@
           } else if (i >= this.beginIndex + this.columnNumber) {
             args[i] = UNIT_RELATED_LIST[i].natureMin
           } else {
-            args[i] = selectedVal[i]
+            args[i] = selectedVal[i - this.beginIndex]
           }
         }
         // Month need to subtract 1.
