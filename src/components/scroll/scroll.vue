@@ -173,10 +173,14 @@
         deep: true
       }
     },
+    activated() {
+      this.enable()
+    },
+    deactivated() {
+      this.disable()
+    },
     mounted() {
-      this.$nextTick(() => {
-        this.initScroll()
-      })
+      this.initScroll()
     },
     methods: {
       initScroll() {
