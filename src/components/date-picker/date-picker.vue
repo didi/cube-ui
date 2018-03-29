@@ -103,7 +103,7 @@
       },
       valueArray() {
         return this.value instanceof Date
-                ? dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                ? dateToArray(this.value).slice(this.beginIndex, this.beginIndex + this.columnNumber)
                 : this.value
       },
       data() {
@@ -117,7 +117,7 @@
         let data = this.data
         let findIndex
 
-        for (let i = 0; i < this.columnNumber && i < 6 - this.beginUnit; i++) {
+        for (let i = 0; i < this.columnNumber && i < 6 - this.beginIndex; i++) {
           findIndex = data.findIndex((item) => {
             return this.valueArray[i] && item.value === this.valueArray[i]
           })

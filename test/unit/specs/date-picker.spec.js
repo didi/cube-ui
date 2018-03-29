@@ -139,7 +139,7 @@ describe('DatePicker', () => {
       const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
       confirmBtn.click()
       expect(selectHandle)
-        .to.be.calledWith(new Date(2010, 9, 1), [2, 9, 0], ['2010年', '10月', '1日'])
+        .to.be.calledWith(new Date(2010, 9, 1), [2010, 10, 1], ['2010年', '10月', '1日'])
 
       done()
     }, 100)
