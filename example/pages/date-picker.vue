@@ -3,6 +3,9 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
+        <cube-button @click="showDatePicker">Time Picker</cube-button>
+        <cube-button @click="showDatePicker">Date Time Picker</cube-button>
+        <cube-button @click="showDatePicker">Month Date Picker</cube-button>
         <cube-button @click="updateProps">Use $updateProps</cube-button>
       </cube-button-group>
     </div>
@@ -18,9 +21,7 @@
       this.datePicker = this.$createDatePicker({
         min: new Date(2008, 7, 8),
         max: new Date(2020, 9, 20),
-        value: new Date(2010, 9, 1),
-        beginUnit: 'hour',
-        columnNumber: 6,
+        value: new Date(),
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -31,9 +32,7 @@
       },
       updateProps() {
         this.datePicker.$updateProps({
-          min: [10, 2, 3],
-          max: [23, 59, 59],
-          value: new Date()
+          value: new Date(2010, 9, 1)
         })
       },
       selectHandle(date, selectedVal, selectedText) {
