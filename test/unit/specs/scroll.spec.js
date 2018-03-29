@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Scroll from '@/modules/scroll'
 import instantiateComponent from '@/common/helpers/instantiate-component'
-import { dispatchSwipe } from '../utils/event'
+import { dispatchSwipe, dispatchTap } from '../utils/event'
 
 const data = [
   '我是第 1 行',
@@ -265,24 +265,14 @@ describe('Scroll', () => {
 
     const clickHandler = sinon.spy()
     vm = createScroll({
-      data,
-      options: {
-        click: false
-      }
+      data
     }, {
       click: clickHandler
     })
-    vm.$refs.wrapper.style.height = '200px'
-    vm.refresh()
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listItem = vm.$el.querySelector('.cube-scroll-content li')
-        listItem.click()
-        expect(clickHandler).to.be.calledWith(data[0])
-        resolve()
-      }, 50)
-    })
+    const listItem = vm.$el.querySelector('.cube-scroll-content li')
+    dispatchTap(listItem)
+    expect(clickHandler).to.be.calledWith(data[0])
   })
 
   it('should trigger other events', function (done) {
