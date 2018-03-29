@@ -35,12 +35,12 @@
   ```
   `checkList` 的值是一个数组，代表的是选中的复选框 `value` 的值的集合。
 
-- 水平排列、图标形状
+- 水平排列、图标形状、镂空样式
 
-  可通过设置 `horizontal` 改变样式为水平排列，另外，还可以通过 `shape` 配置图标形状。
+  可通过设置 `horizontal` 改变样式为水平排列，另外，还可以通过 `shape` 配置图标形状以及通过设置 `hollow-style` 为 `true` 改变为镂空样式。
 
   ```html
-  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square"/>
+  <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" shape="square" :hollow-style="true" />
   ```
 
 - 自定义 label
@@ -63,6 +63,7 @@
 | options | 选项数组 | Array | - | - |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
 | shape | 图标形状 | String | circle/square | circle |
+| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `options` 子配置项
 

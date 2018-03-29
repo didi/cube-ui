@@ -2,7 +2,7 @@
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
       <slot>
-        <cube-slide-item v-for="(item, index) in data" :key="index" @click="clickItem(item, index)" :item="item"></cube-slide-item>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)" :item="item"></cube-slide-item>
       </slot>
     </div>
     <div class="cube-slide-dots">

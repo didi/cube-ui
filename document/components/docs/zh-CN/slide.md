@@ -40,7 +40,7 @@
 
   ```html
   <cube-slide ref="slide" :data="items" @change="changePage">
-    <cube-slide-item v-for="(item, index) in items" :key="index" @click="clickHandler(item, index)">
+    <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
       <a :href="item.url">
         <img :src="item.image">
       </a>

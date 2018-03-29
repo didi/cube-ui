@@ -97,10 +97,6 @@
       refreshDelay: {
         type: Number,
         default: 20
-      },
-      listRef: {
-        type: String,
-        default: 'list'
       }
     },
     data() {
@@ -123,14 +119,14 @@
       pullUpTxt() {
         const pullUpLoad = this.pullUpLoad
         const txt = pullUpLoad && pullUpLoad.txt
-        const moreTxt = txt && txt.more || ''
-        const noMoreTxt = txt && txt.noMore || ''
+        const moreTxt = (txt && txt.more) || ''
+        const noMoreTxt = (txt && txt.noMore) || ''
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
-        return pullDownRefresh && pullDownRefresh.txt || DEFAULT_REFRESH_TXT
+        return (pullDownRefresh && pullDownRefresh.txt) || DEFAULT_REFRESH_TXT
       }
     },
     created() {
@@ -270,7 +266,6 @@
       Bubble
     }
   }
-
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -313,4 +308,3 @@
     font-size: $fontsize-large-x
     padding-left: 20px
 </style>
-

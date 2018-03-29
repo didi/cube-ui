@@ -24,10 +24,10 @@
 
 - 多项配置
 
-  例如，使用`disabled`使评分组件只读，使用`max`自定义评分等级。
+  例如，使用`disabled`使评分组件只读，使用`max`自定义评分等级，使用 `justify` 决定是否自动适应容器宽度。
 
   ```html
-  <cube-rate v-model="value" :disabled="disabled" :max="max"></cube-rate>
+  <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify"></cube-rate>
   ```
 
   ```javascript
@@ -36,7 +36,8 @@
       return {
         disabled: false,
         max: 5,
-        value: 3
+        value: 3,
+        justify: false
       }
     }
   }
@@ -83,6 +84,7 @@
 | v-model | 绑定的评分值 | Number | - | 0 |
 | max | 星星个数 | Number | - | false |
 | disabled | 禁用状态 | Boolean | true/false | false |
+| justify | 是否自适应容器宽度（通过在星星之间增加空隙） | Boolean | true/false | false |
 
 ### 插槽
 

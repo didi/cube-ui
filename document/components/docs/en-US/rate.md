@@ -24,10 +24,10 @@
 
 - Multiple configurations
 
-  For example, you can use `disabled` to make the rating component read-only and use` max` to customize the number of stars.
+  For example, you can use `disabled` to make the rating component read-only, use` max` to customize the number of stars and use `justify` to justify container's width.
 
   ```html
-  <cube-rate v-model="value" :disabled="disabled" :max="max"></cube-rate>
+  <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify"></cube-rate>
   ```
 
   ```javascript
@@ -36,7 +36,8 @@
       return {
         disabled: false,
         max: 5,
-        value: 3
+        value: 3,
+        justify: false
       }
     }
   }
@@ -83,6 +84,7 @@
 | v-model | bound rate value | Number | - | 0 |
 | max | max star number | Number | - | false |
 | disabled | disabled status | Boolean | true/false | false |
+| justify | auto justify container's width | Boolean | true/false | false |
 
 ### slot
 

@@ -24,7 +24,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 
 - Multiple configurations
 
-  Support the native attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button.
+  Support the native attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button, use `pwdEye` to toggle password eye button and password filed's visibility.
 
   ```html
   <cube-input
@@ -37,6 +37,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :autofocus="autofocus"
     :autocomplete="autocomplete"
     :clearable="clearable"
+    :eye="eye"
   ></cube-input>
   ```
 
@@ -52,7 +53,16 @@ Input component. You can use the `v-model` directive to create two-way data bind
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false
+        clearable: false,
+        /*
+         * if set to false then the password eye is invisible
+         * if set to true then the password eye is visible
+           and the password content is visible
+         * if set to an object `{ open: false }` then the password eye is visible
+           but the password content is invisible, the `open` can be used to
+           control the password content's visibility
+         */
+        eye: true // the password eye is visible and the password content is visible or not
       }
     }
   }
@@ -71,6 +81,14 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
 | clearable | whether to show clear button | Boolean | true/false | false |
+| eye | If set to false then the password eye is invisible, if set to true then the password eye is visible and the password content is visible, if set to an object `{ open: false }` then the password eye is visible but the password content is invisible, the `open` can be used to control the password content's visibility | Boolean/Object | true/false/{open: `true/false`} | false |
+
+### Slot
+
+| Slot Name | Description |
+| - | - |
+| prepend | prepend content |
+| append | append content |
 
 ### Event
 

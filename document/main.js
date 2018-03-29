@@ -12,9 +12,6 @@ import './common/js/highlight'
 
 import './common/stylus/index.styl'
 import 'highlight.js/styles/atelier-dune-light.css'
-
-// hljs.initHighlightingOnLoad()
-
 import './common/js/directive.js'
 
 /* eslint-disable no-new */

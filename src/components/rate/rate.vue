@@ -1,7 +1,8 @@
 <template>
   <!-- the preventDefault of touchmove is to prevent any default action caused by any touchmove event associated with the same active touch point, such as scrolling. -->
   <ul ref="rateContainer"
-      class="cube-rate-wrapper"
+      class="cube-rate"
+      :class="rateClass"
       @touchstart.stop="handleStart"
       @touchmove.stop.prevent="handleMove"
       @touchend.stop="handleEnd"
@@ -35,6 +36,10 @@
       disabled: {
         type: Boolean,
         default: false
+      },
+      justify: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -44,6 +49,11 @@
     },
     created() {
       this.mousePressed = false
+    },
+    computed: {
+      rateClass() {
+        return this.justify && 'cube-rate-justify'
+      }
     },
     watch: {
       value(val) {
@@ -66,12 +76,12 @@
         }
       },
       handleMove(e) {
-        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
-          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) > -1 ? e : e.touches[0])
+        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
+          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) === -1 ? e.touches[0] : e)
         }
       },
       handleEnd(e) {
-        if (!this.disabled && (!e.type.indexOf(EVENT_TYPE_MOUSE) > -1 || this.mousePressed)) {
+        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
           if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
             this.mousePressed = false
             document.removeEventListener('mouseup', this.handleEnd)
@@ -101,10 +111,13 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
 
-  .cube-rate-wrapper
+  .cube-rate
     list-style: none
     display: inline-flex
+    vertical-align: top
     flex-wrap: nowrap
     max-width: 100%
-    font-size: $fontsize-large-xxx
+  .cube-rate-justify
+    width: 100%
+    justify-content: space-between
 </style>

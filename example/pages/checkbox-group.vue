@@ -4,7 +4,7 @@
       <cube-checkbox-group v-model="checkList" :options="options" />
       <p>checkList value : {{checkList}}</p>
       <br>
-      <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" position="right" shape="square" />
+      <cube-checkbox-group v-model="checkList" :options="options" :horizontal="true" position="right" shape="square" :hollow-style="true" />
       <br>
       <cube-checkbox-group v-model="checkList">
         <cube-checkbox option="1"><i>Checkbox 1</i></cube-checkbox>

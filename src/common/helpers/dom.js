@@ -6,6 +6,7 @@ export function hasClass(el, className) {
 }
 
 export function addClass(el, className) {
+  /* istanbul ignore if */
   if (hasClass(el, className)) {
     return
   }
@@ -16,6 +17,7 @@ export function addClass(el, className) {
 }
 
 export function removeClass(el, className) {
+  /* istanbul ignore if */
   if (!hasClass(el, className)) {
     return
   }
@@ -39,8 +41,8 @@ export function getRect(el) {
 }
 
 let vendor = (() => {
+  /* istanbul ignore if */
   if (!inBrowser) {
-    /* istanbul ignore if */
     return false
   }
   let elementStyle = document.createElement('div').style
@@ -58,6 +60,7 @@ let vendor = (() => {
     }
   }
 
+  /* istanbul ignore next */
   return false
 })()
 
