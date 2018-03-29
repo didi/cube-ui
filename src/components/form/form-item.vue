@@ -132,7 +132,7 @@
       },
       reset() {
         const fieldValue = this.fieldValue
-        if (fieldValue.model) {
+        if (fieldValue.modelKey) {
           const defValue = getResetValueByType(fieldValue.type)
           this.validatorDisabled = true
           resetTypeValue(this, 'modelValue', defValue)
