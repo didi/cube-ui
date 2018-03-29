@@ -19,6 +19,8 @@
         min: new Date(2008, 7, 8),
         max: new Date(2020, 9, 20),
         value: new Date(2010, 9, 1),
+        // beginUnit: 'hour',
+        columnNumber: 6,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })

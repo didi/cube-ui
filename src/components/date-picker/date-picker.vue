@@ -22,32 +22,35 @@
   const UNIT_RELATED_LIST = [
     {
       txt: '年',
-      polyfill: false
+      pad: false
     }, {
       txt: '月',
       natureMin: 1,
       natureMax: 12,
-      polyfill: false
+      pad: false
     }, {
       txt: '日',
       natureMin: 1,
       natureMax: 31,
-      polyfill: false
+      pad: false
     }, {
       txt: '时',
       natureMin: 0,
-      natureMax: 59,
-      polyfill: false
+      natureMax: 23,
+      pad: false,
+      natureRange: range(0, 23, false, '时')
     }, {
       txt: '分',
       natureMin: 0,
       natureMax: 59,
-      polyfill: true
+      pad: true,
+      natureRange: range(0, 59, true, '分')
     }, {
       txt: '秒',
       natureMin: 0,
       natureMax: 59,
-      polyfill: true
+      pad: true,
+      natureRange: range(0, 59, true, '秒')
     }
   ]
 
@@ -140,14 +143,18 @@
         if (count === 0) {
           let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], UNIT_RELATED_LIST[i].natureMin)
           let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], UNIT_RELATED_LIST[i].natureMax)
-          item.push(...range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, true, true))
+          item.push(...range(min, max, UNIT_RELATED_LIST[i].pad, UNIT_RELATED_LIST[i].txt, true, true))
         } else {
-          let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : UNIT_RELATED_LIST[i].natureMax
-          let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
-          let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
+          if (i < 3 || item.isMin || item.isMax) {
+            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : UNIT_RELATED_LIST[i].natureMax
+            let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
+            let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
-          let storageYear = i === 1 && this.beginIndex === 0 && this.columnNumber >= 3 && item.value
-          item.children = range(min, max, UNIT_RELATED_LIST[i].polyfill, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
+            let storageYear = i === 1 && this.beginIndex === 0 && this.columnNumber >= 3 && item.value
+            item.children = range(min, max, UNIT_RELATED_LIST[i].pad, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
+          } else {
+            item.children = UNIT_RELATED_LIST[i].natureRange
+          }
         }
         if (i < 5 && count < this.columnNumber - 1) {
           (item.children || item).forEach(subItem => {
@@ -176,17 +183,17 @@
     }
   }
 
-  function range(n, m, polyfill = false, unit = '', fatherIsMin, fatherIsMax, year) {
+  function range(min, max, pad = false, unit = '', fatherIsMin, fatherIsMax, year) {
     let arr = []
-    for (let i = n; i <= m; i++) {
-      const value = (polyfill && i < 10 ? '0' + i : i) + unit
+    for (let i = min; i <= max; i++) {
+      const value = (pad && i < 10 ? '0' + i : i) + unit
       const object = {
         text: value,
         value: i
       }
 
-      if (fatherIsMin && i === n) object.isMin = true
-      if (fatherIsMax && i === m) object.isMax = true
+      if (fatherIsMin && i === min) object.isMin = true
+      if (fatherIsMax && i === max) object.isMax = true
       if (year) object.year = year
 
       arr.push(object)
