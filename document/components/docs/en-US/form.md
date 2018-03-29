@@ -42,7 +42,7 @@ CubeForm is a schema-based form generator component.
               fields: [
                 {
                   type: 'checkbox',
-                  model: 'checkboxValue',
+                  modelKey: 'checkboxValue',
                   props: {
                     option: {
                       label: 'Checkbox',
@@ -58,7 +58,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'checkbox-group',
-                  model: 'checkboxGroupValue',
+                  modelKey: 'checkboxGroupValue',
                   label: 'CheckboxGroup',
                   props: {
                     options: ['1', '2', '3']
@@ -69,7 +69,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'input',
-                  model: 'inputValue',
+                  modelKey: 'inputValue',
                   label: 'Input',
                   props: {
                     placeholder: '请输入'
@@ -80,7 +80,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'radio-group',
-                  model: 'radioValue',
+                  modelKey: 'radioValue',
                   label: 'Radio',
                   props: {
                     options: ['1', '2', '3']
@@ -91,7 +91,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'select',
-                  model: 'selectValue',
+                  modelKey: 'selectValue',
                   label: 'Select',
                   props: {
                     options: [2015, 2016, 2017, 2018, 2019, 2020]
@@ -102,7 +102,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'switch',
-                  model: 'switchValue',
+                  modelKey: 'switchValue',
                   label: 'Switch',
                   rules: {
                     required: true
@@ -110,7 +110,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'textarea',
-                  model: 'textareaValue',
+                  modelKey: 'textareaValue',
                   label: 'Textarea',
                   rules: {
                     required: true
@@ -123,7 +123,7 @@ CubeForm is a schema-based form generator component.
               fields: [
                 {
                   type: 'rate',
-                  model: 'rateValue',
+                  modelKey: 'rateValue',
                   label: 'Rate',
                   rules: {
                     required: true
@@ -131,7 +131,7 @@ CubeForm is a schema-based form generator component.
                 },
                 {
                   type: 'upload',
-                  model: 'uploadValue',
+                  modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
                     required: true
@@ -253,7 +253,7 @@ CubeForm is a schema-based form generator component.
         fields: [
           {
             type: 'input',
-            model: 'inputValue',
+            modelKey: 'inputValue',
             label: 'Input',
             props: {
               placeholder: '请输入'
@@ -264,7 +264,7 @@ CubeForm is a schema-based form generator component.
           },
           {
             component: PCA,
-            model: 'pcaValue',
+            modelKey: 'pcaValue',
             label: 'PCASelect',
             rules: {
               required: true
@@ -274,7 +274,7 @@ CubeForm is a schema-based form generator component.
             }
           },
           {
-            model: 'dateValue',
+            modelKey: 'dateValue',
             label: 'Date',
             rules: {
               required: true
@@ -332,7 +332,7 @@ CubeForm is a schema-based form generator component.
       fields: [
         {
           type: 'input',
-          model: 'inputValue',
+          modelKey: 'inputValue',
           label: 'Input'
         },
         // ...
@@ -352,7 +352,7 @@ CubeForm is a schema-based form generator component.
           fields: [
             {
               type: 'input',
-              model: 'inputValue',
+              modelKey: 'inputValue',
               label: 'Input'
             },
             // ...
@@ -363,7 +363,7 @@ CubeForm is a schema-based form generator component.
           fields: [
             {
               type: 'input',
-              model: 'inputValue',
+              modelKey: 'inputValue',
               label: 'Input'
             },
             // ...
@@ -379,7 +379,7 @@ CubeForm is a schema-based form generator component.
   | - | - | - | - | - |
   | type | Type of field | String | Default fields: `button`, `checkbox`, `checkbox-group`, `input`, `radio`, `radio-group`, `rate`, `select`, `switch`, `textarea`, `upload`. There are two special types: `submit` and `reset`, they will be transformed to the corresponding type of `button`. | - |
   | component | Custom filed component to replace `type`, the component should to work with `v-model` | Object/String | - | - |
-  | model | Name of property in the `form` model | String | - | - |
+  | modelKey | Name of property in the `form` model | String | - | - |
   | label | Label of field | String | - | - |
   | props | This value will be the `type` or `component` props | Object | - | - |
   | rules | Validator rules, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |

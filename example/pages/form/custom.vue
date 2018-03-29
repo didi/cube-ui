@@ -87,7 +87,7 @@
         fields: [
           {
             type: 'input',
-            model: 'inputValue',
+            modelKey: 'inputValue',
             label: 'Input',
             props: {
               placeholder: '请输入'
@@ -98,7 +98,7 @@
           },
           {
             component: PCA,
-            model: 'pcaValue',
+            modelKey: 'pcaValue',
             label: 'PCASelect',
             rules: {
               required: true
@@ -108,7 +108,7 @@
             }
           },
           {
-            model: 'dateValue',
+            modelKey: 'dateValue',
             label: 'Date',
             rules: {
               required: true

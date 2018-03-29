@@ -43,7 +43,7 @@
               fields: [
                 {
                   type: 'checkbox',
-                  model: 'checkboxValue',
+                  modelKey: 'checkboxValue',
                   label: 'Checkbox',
                   props: {
                     option: {
@@ -60,7 +60,7 @@
                 },
                 {
                   type: 'checkbox-group',
-                  model: 'checkboxGroupValue',
+                  modelKey: 'checkboxGroupValue',
                   label: 'CheckboxGroup',
                   props: {
                     options: ['1', '2', '3']
@@ -71,7 +71,7 @@
                 },
                 {
                   type: 'input',
-                  model: 'inputValue',
+                  modelKey: 'inputValue',
                   label: 'Input',
                   props: {
                     placeholder: '请输入'
@@ -82,7 +82,7 @@
                 },
                 {
                   type: 'radio-group',
-                  model: 'radioValue',
+                  modelKey: 'radioValue',
                   label: 'Radio',
                   props: {
                     options: ['1', '2', '3']
@@ -93,7 +93,7 @@
                 },
                 {
                   type: 'select',
-                  model: 'selectValue',
+                  modelKey: 'selectValue',
                   label: 'Select',
                   props: {
                     options: [2015, 2016, 2017, 2018, 2019, 2020]
@@ -104,7 +104,7 @@
                 },
                 {
                   type: 'switch',
-                  model: 'switchValue',
+                  modelKey: 'switchValue',
                   label: 'Switch',
                   rules: {
                     required: true
@@ -112,7 +112,7 @@
                 },
                 {
                   type: 'textarea',
-                  model: 'textareaValue',
+                  modelKey: 'textareaValue',
                   label: 'Textarea',
                   rules: {
                     required: true
@@ -125,7 +125,7 @@
               fields: [
                 {
                   type: 'rate',
-                  model: 'rateValue',
+                  modelKey: 'rateValue',
                   label: 'Rate',
                   rules: {
                     required: true
@@ -133,7 +133,7 @@
                 },
                 {
                   type: 'upload',
-                  model: 'uploadValue',
+                  modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
                     required: true

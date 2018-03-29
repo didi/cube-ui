@@ -33,7 +33,7 @@ describe('Form.vue', () => {
             fields: [
               {
                 type: 'input',
-                model: 'inputValue',
+                modelKey: 'inputValue',
                 label: 'Input',
                 props: {
                   placeholder: 'Please input'
@@ -89,7 +89,7 @@ describe('Form.vue', () => {
         fields: [
           {
             type: 'input',
-            model: 'inputValue',
+            modelKey: 'inputValue',
             label: 'Input',
             props: {
               placeholder: 'Please input'
@@ -100,7 +100,7 @@ describe('Form.vue', () => {
           },
           {
             type: 'checkbox',
-            model: 'checkboxValue',
+            modelKey: 'checkboxValue',
             label: 'Checkbox',
             rules: {
               required: true
@@ -108,7 +108,7 @@ describe('Form.vue', () => {
           },
           {
             type: 'switch',
-            model: 'switchValue',
+            modelKey: 'switchValue',
             label: 'Switch',
             rules: {
               required: true
@@ -116,7 +116,7 @@ describe('Form.vue', () => {
           },
           {
             type: 'rate',
-            model: 'rateValue',
+            modelKey: 'rateValue',
             label: 'Rate',
             rules: {
               required: true
@@ -191,7 +191,7 @@ describe('Form.vue', () => {
         fields: [
           {
             type: 'input',
-            model: 'inputValue',
+            modelKey: 'inputValue',
             label: 'Input',
             props: {
               placeholder: 'Please input'

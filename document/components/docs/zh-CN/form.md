@@ -42,7 +42,7 @@
               fields: [
                 {
                   type: 'checkbox',
-                  model: 'checkboxValue',
+                  modelKey: 'checkboxValue',
                   props: {
                     option: {
                       label: 'Checkbox',
@@ -58,7 +58,7 @@
                 },
                 {
                   type: 'checkbox-group',
-                  model: 'checkboxGroupValue',
+                  modelKey: 'checkboxGroupValue',
                   label: 'CheckboxGroup',
                   props: {
                     options: ['1', '2', '3']
@@ -69,7 +69,7 @@
                 },
                 {
                   type: 'input',
-                  model: 'inputValue',
+                  modelKey: 'inputValue',
                   label: 'Input',
                   props: {
                     placeholder: '请输入'
@@ -80,7 +80,7 @@
                 },
                 {
                   type: 'radio-group',
-                  model: 'radioValue',
+                  modelKey: 'radioValue',
                   label: 'Radio',
                   props: {
                     options: ['1', '2', '3']
@@ -91,7 +91,7 @@
                 },
                 {
                   type: 'select',
-                  model: 'selectValue',
+                  modelKey: 'selectValue',
                   label: 'Select',
                   props: {
                     options: [2015, 2016, 2017, 2018, 2019, 2020]
@@ -102,7 +102,7 @@
                 },
                 {
                   type: 'switch',
-                  model: 'switchValue',
+                  modelKey: 'switchValue',
                   label: 'Switch',
                   rules: {
                     required: true
@@ -110,7 +110,7 @@
                 },
                 {
                   type: 'textarea',
-                  model: 'textareaValue',
+                  modelKey: 'textareaValue',
                   label: 'Textarea',
                   rules: {
                     required: true
@@ -123,7 +123,7 @@
               fields: [
                 {
                   type: 'rate',
-                  model: 'rateValue',
+                  modelKey: 'rateValue',
                   label: 'Rate',
                   rules: {
                     required: true
@@ -131,7 +131,7 @@
                 },
                 {
                   type: 'upload',
-                  model: 'uploadValue',
+                  modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
                     required: true
@@ -254,7 +254,7 @@
         fields: [
           {
             type: 'input',
-            model: 'inputValue',
+            modelKey: 'inputValue',
             label: 'Input',
             props: {
               placeholder: '请输入'
@@ -265,7 +265,7 @@
           },
           {
             component: PCA,
-            model: 'pcaValue',
+            modelKey: 'pcaValue',
             label: 'PCASelect',
             rules: {
               required: true
@@ -275,7 +275,7 @@
             }
           },
           {
-            model: 'dateValue',
+            modelKey: 'dateValue',
             label: 'Date',
             rules: {
               required: true
@@ -333,7 +333,7 @@
       fields: [
         {
           type: 'input',
-          model: 'inputValue',
+          modelKey: 'inputValue',
           label: 'Input'
         },
         // ...
@@ -353,7 +353,7 @@
           fields: [
             {
               type: 'input',
-              model: 'inputValue',
+              modelKey: 'inputValue',
               label: 'Input'
             },
             // ...
@@ -364,7 +364,7 @@
           fields: [
             {
               type: 'input',
-              model: 'inputValue',
+              modelKey: 'inputValue',
               label: 'Input'
             },
             // ...
@@ -380,7 +380,7 @@
   | - | - | - | - | - |
   | type | 字段类型 | String | 默认内置的可选类型组件有：`button`, `checkbox`, `checkbox-group`, `input`, `radio`, `radio-group`, `rate`, `select`, `switch`, `textarea`, `upload`；以及特殊的 `submit` 和 `reset`，它们两个会被转换为对应类型的 `button` | - |
   | component | 字段使用的自定义组件，替换 type，该组件组件实现 `v-model` | Object/String | - | - |
-  | model | 在表单的 `model` 数据源对象中所对应的属性名 | String | - | - |
+  | modelKey | 在表单的 `model` 数据源对象中所对应的 key 名字 | String | - | - |
   | label | 字段的标签值 | String | - | - |
   | props | type 对应的组件或者自定义组件 component 所需要的 props | Object | - | - |
   | rules | 字段的校验规则，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |

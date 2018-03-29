@@ -41,44 +41,25 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      field: Object,
-      model: {
-        type: String,
-        default: ''
-      },
-      type: String,
-      label: String,
-      component: [Object, String],
-      props: {
+      field: {
         type: Object,
         default() {
           /* istanbul ignore next */
           return {}
         }
-      },
-      rules: Object,
-      messages: [Object, String]
+      }
     },
     data() {
-      const model = this.field ? this.field.model : this.model
+      const modelKey = this.field.modelKey
       return {
         validatorDisabled: false,
         isValid: undefined,
-        modelValue: model ? this.form.model[model] : null
+        modelValue: modelKey ? this.form.model[modelKey] : null
       }
     },
     computed: {
       fieldValue() {
-        const field = this.field || {
-          model: this.model,
-          type: this.type,
-          component: this.component,
-          label: this.label,
-          props: this.props,
-          rules: this.rules,
-          messages: this.messages
-        }
-        return processField(field)
+        return processField(this.field)
       },
       hasRules() {
         return Object.keys(this.fieldValue.rules || {}).length > 0
@@ -96,8 +77,8 @@
           'cube-form-item_invalid': this.isValid === false
         }
       },
-      _modelVal() {
-        return this.form.model[this.fieldValue.model]
+      modelVal() {
+        return this.form.model[this.fieldValue.modelKey]
       },
       componentName() {
         const fieldValue = this.fieldValue
@@ -114,20 +95,20 @@
       }
     },
     watch: {
-      _modelVal(newModel) {
+      modelVal(newModel) {
         if (this.modelValue !== newModel) {
           this.modelValue = newModel
         }
       },
       modelValue(newModel) {
         // update form model
-        this.form.model[this.fieldValue.model] = newModel
+        this.form.model[this.fieldValue.modelKey] = newModel
       },
       isValid(newValue) {
         if (this.validatorDisabled) {
           return
         }
-        this.validate(true)
+        this.updateValidity()
       }
     },
     beforeCreate() {
@@ -137,15 +118,17 @@
       this.form.addField(this)
     },
     methods: {
-      validate(skipValidate) {
+      updateValidity() {
         const validator = this.$refs.validator
         if (validator) {
-          if (!skipValidate) {
-            validator.validate()
-          }
           // sync update validaty
-          this.form.updateValidity(this.fieldValue.model, validator.valid, validator.result, validator.dirty)
+          this.form.updateValidity(this.fieldValue.modelKey, validator.valid, validator.result, validator.dirty)
         }
+      },
+      validate(skipValidate) {
+        const validator = this.$refs.validator
+        validator && validator.validate()
+        this.updateValidity()
       },
       reset() {
         const fieldValue = this.fieldValue

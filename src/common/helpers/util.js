@@ -56,7 +56,8 @@ function resetTypeValue(obj, key, defVal) {
   }
   if (key) {
     const value = obj[key]
-    typesReset[typeof value](obj, key, value)
+    const resetHandler = typesReset[typeof value]
+    resetHandler && resetHandler(obj, key, value)
   } else {
     Object.keys(obj).forEach((key) => {
       resetTypeValue(obj, key)

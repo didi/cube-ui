@@ -156,12 +156,12 @@
         })
         return this.valid
       },
-      updateValidity(model, valid, result, dirty) {
-        const curResult = this.validity[model]
+      updateValidity(modelKey, valid, result, dirty) {
+        const curResult = this.validity[modelKey]
         if (curResult && curResult.valid === valid && curResult.result === result && curResult.dirty === dirty) {
           return
         }
-        this.setValidity(model, {
+        this.setValidity(modelKey, {
           valid,
           result,
           dirty
@@ -183,9 +183,9 @@
         let valid = true
         let firstInvalidFieldKey = ''
         this.fields.forEach((fieldComponent) => {
-          const model = fieldComponent.fieldValue.model
-          if (model) {
-            const retVal = validity[model]
+          const modelKey = fieldComponent.fieldValue.modelKey
+          if (modelKey) {
+            const retVal = validity[modelKey]
             if (retVal) {
               if (retVal.dirty) {
                 dirty = true
@@ -199,13 +199,13 @@
               if (!invalid && retVal.valid === false) {
                 // invalid
                 invalid = true
-                firstInvalidFieldKey = model
+                firstInvalidFieldKey = modelKey
               }
             } else if (fieldComponent.hasRules) {
               if (valid) {
                 valid = undefined
               }
-              validity[model] = {
+              validity[modelKey] = {
                 valid: undefined,
                 result: {},
                 dirty: false
@@ -226,7 +226,7 @@
           return
         }
         this.fields.some((fieldComponent, index) => {
-          if (fieldComponent.fieldValue.model === key) {
+          if (fieldComponent.fieldValue.modelKey === key) {
             this.firstInvalidField = fieldComponent
             this.firstInvalidFieldIndex = index
             return true
@@ -239,7 +239,7 @@
       destroyField(fieldComponent) {
         const i = this.fields.indexOf(fieldComponent)
         this.fields.splice(i, 1)
-        this.setValidity(fieldComponent.fieldValue.model)
+        this.setValidity(fieldComponent.fieldValue.modelKey)
       }
     },
     beforeDestroy() {
