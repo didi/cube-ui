@@ -317,7 +317,7 @@
         this.endTime = getNow()
         let duration = this.endTime - this.startTime
         let absDistX = Math.abs(this.x - this.startX)
-        if (duration < momentumLimitTime && absDistX > momentumLimitDistance || this.x < this.maxScrollX / 2) {
+        if ((duration < momentumLimitTime && absDistX > momentumLimitDistance) || this.x < this.maxScrollX / 2) {
           this.grow()
         } else {
           this.shrink()

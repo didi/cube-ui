@@ -12,10 +12,9 @@ import hljs from './common/js/highlight'
 
 import './common/stylus/index.styl'
 import 'highlight.js/styles/solarized-dark.css'
+import './common/js/directive.js'
 
 hljs.initHighlightingOnLoad()
-
-import './common/js/directive.js'
 
 /* eslint-disable no-new */
 new Vue({

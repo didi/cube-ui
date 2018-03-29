@@ -44,7 +44,7 @@
       const pattern = /#cube-(.*)-anchor/
       const matcher = window.location.hash.match(pattern)
       if (matcher) {
-        const anchor = matcher[1]
+        const anchor = decodeURIComponent(matcher[1])
         const el = mdBodyEle.querySelector(`#${anchor}`)
         el && el.scrollIntoView()
       }
