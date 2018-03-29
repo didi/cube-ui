@@ -1,7 +1,10 @@
 <template>
   <cube-page type="drawer-def" title="Drawer">
     <div slot="content">
-      <cube-drawer :data="data"></cube-drawer>
+      <div class="view-wrapper">
+        <cube-button @click="showDrawer">Show Drawer</cube-button>
+        <cube-drawer ref="drawer" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler"></cube-drawer>
+      </div>
     </div>
   </cube-page>
 </template>
@@ -14,19 +17,39 @@
     data() {
       return {
         title: 'Current City: BEIJING',
+        selectedIndex: [],
         data: [
           provinceList,
-          cityList,
-          areaList
+          [],
+          []
         ]
       }
     },
     methods: {
+      showDrawer() {
+        this.$refs.drawer.show()
+      },
       selectItem(item) {
         console.log(item.name)
       },
       clickTitle(title) {
         console.log(title)
+      },
+      changeHandler(index, item, selectedVal, selectedIndex) {
+        setTimeout(() => {
+          let data
+          if (index === 0) {
+            // procince change, get city data
+            data = cityList[item.value]
+          } else {
+            // city change, get area data
+            data = areaList[item.value]
+          }
+          this.$refs.drawer.refill(index + 1, data)
+        }, 500)
+      },
+      selectHandler(selectedVal, selectedIndex) {
+        console.log('select', selectedVal, selectedIndex)
       }
     },
     components: {

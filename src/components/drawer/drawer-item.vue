@@ -5,7 +5,7 @@
     @click="clickItem(item)"
   >
     <slot>
-      {{item || item.text}}
+      {{item.text || item}}
     </slot>
   </li>
 </template>
@@ -28,12 +28,12 @@
     },
     computed: {
       itemClass() {
-        return this.$parent.selectedIndex.indexOf(this.index) >= 0 ? 'cube-drawer-item_active' : ''
+        return this.$parent.$parent.selectedIndex === this.index ? 'cube-drawer-item_active' : ''
       }
     },
     methods: {
       clickItem(item) {
-        this.$emit(EVENT_CLICK, item)
+        this.$emit(EVENT_CLICK, item, this.index)
       }
     }
   }
@@ -43,10 +43,10 @@
   @require "../../common/stylus/mixin.styl"
 
   .cube-drawer-item
-    height: 40px
-    line-height: 40px
-    font-size: $fontsize-large-x
-    padding-left: 15px
+    padding: 15px
+    white-space: nowrap
+    overflow: hidden
+    font-size: $fontsize-large
   .cube-drawer-item_active
     background: $index-list-item-active-bgc
 </style>

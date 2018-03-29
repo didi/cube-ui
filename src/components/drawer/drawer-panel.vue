@@ -1,14 +1,19 @@
 <template>
-  <div class="cube-drawer-panel" @click.stop>
-    <cube-scroll :data="data">
-      <ul class="cube-drawer-list">
-        <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" />
-      </ul>
-    </cube-scroll>
-  </div>
+  <transition name="cube-drawer-panel-show">
+    <div class="cube-drawer-panel" v-show="isVisible">
+      <cube-scroll :data="data">
+        <ul class="cube-drawer-list">
+          <slot>
+            <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" @click="itemClickHandler" />
+          </slot>
+        </ul>
+      </cube-scroll>
+    </div>
+  </transition>
 </template>
 
 <script type="text/ecmascript-6">
+  import apiMixin from '../../common/mixins/api'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeDrawerItem from './drawer-item.vue'
 
@@ -17,6 +22,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [apiMixin],
     props: {
       data: {
         type: Array,
@@ -31,21 +37,15 @@
     },
     computed: {
       selectedIndex() {
-        return this.$parent.selectedIndex[this.index] || []
+        const selectedIndex = this.$parent.selected[this.index]
+        return selectedIndex === undefined ? -1 : selectedIndex
       }
     },
     methods: {
-      clickItem(item) {
-        const multiple = this.$parent.multiple
-        let changed = false
-        if (multiple) {
-          item.active = !item.active
-          changed = true
-        } else if (!item.active) {
-          item.active = true
-          changed = true
+      itemClickHandler(item, index) {
+        if (this.selectedIndex !== index) {
+          this.$emit(EVENT_CHANGE, this.index, item, index)
         }
-        changed && this.$emit(EVENT_CHANGE, this.activeItems, item)
       }
     },
     components: {
@@ -59,10 +59,14 @@
   @require "../../common/stylus/mixin.styl"
 
   .cube-drawer-panel
-    position: absolute
-    top: 0
-    right: 0
-    bottom: 0
-    left: 0
-    overflow: hidden
+    position: relative
+    height: 100%
+    flex: 1
+    padding-right: 5px
+  .cube-drawer-panel-show-enter, .cube-drawer-panel-show-leave-active
+    max-width: 100%
+
+  .cube-drawer-panel-show-enter-active, .cube-drawer-panel-show-leave-active
+    max-width: 0
+    transition: max-width .4s ease-in-out
 </style>
