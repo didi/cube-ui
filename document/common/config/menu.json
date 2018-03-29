@@ -27,7 +27,8 @@
             "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "form": "Form"
           }
         },
         "popup": {
@@ -98,7 +99,8 @@
             "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "form": "Form"
           }
         },
         "popup": {

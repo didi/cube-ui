@@ -10,8 +10,12 @@ import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
 import Textarea from '../pages/textarea.vue'
 import Rate from '../pages/rate.vue'
+import Form from '../pages/form/index.vue'
+import FormDefault from '../pages/form/default.vue'
+import FormCustom from '../pages/form/custom.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
+import SegmentPicker from '../pages/segment-picker.vue'
 import TimePicker from '../pages/time-picker.vue'
 import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
@@ -57,6 +61,20 @@ const routes = [
     component: Switch
   },
   {
+    path: '/form',
+    component: Form,
+    children: [
+      {
+        path: 'default',
+        component: FormDefault
+      },
+      {
+        path: 'custom',
+        component: FormCustom
+      }
+    ]
+  },
+  {
     path: '/loading',
     component: Loading
   },
@@ -83,6 +101,10 @@ const routes = [
   {
     path: '/cascade-picker',
     component: CascadePicker
+  },
+  {
+    path: '/segment-picker',
+    component: SegmentPicker
   },
   {
     path: '/time-picker',

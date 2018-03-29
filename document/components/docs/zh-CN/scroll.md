@@ -9,10 +9,25 @@
   通过设置 `data` 属性为一个数组，即可生成能够在容器内优雅滚动的列表。
 
   ```html
-  <div class="scroll-wrapper">
-    <cube-scroll :data="items"></cube-scroll>
-  </div>
+  <cube-scroll :data="items"></cube-scroll>
   ```
+
+  ```stylus
+  .cube-scroll-wrapper
+    height: 100px
+  ```
+
+- 滚动原理
+
+  由于 better-scroll 的滚动原理为：在滚动方向上，第一个子元素的长度超过了容器的长度。
+
+  那么对于 Scroll 组件，其实就是内容元素`.cube-scroll-content`在滚动方向上的长度必须大于容器元素 `.cube-scroll-wrapper`。根据滚动方向的不同，有以下两种情况：
+
+  1）纵向滚动：内容元素的高度必须大于容器元素。由于容器元素的高度默认会被子元素的高度撑开，所以为了满足我们的滚动前提，你需要给 Scroll 组件的 `.cube-scroll-wrapper`元素一个非弹性高度。
+
+  2）横向滚动：内容元素的宽度必须大于容器元素。由于在默认情况下，子元素的宽度不会超过容器元素，所以需要给 Scroll 组件的 `.cube-scroll-content` 元素设置大于 `.cube-scroll-wrapper` 的宽度。
+
+
 
 - 配置 better-scroll 选项
 
@@ -83,6 +98,8 @@
   }
   ```
 
+  需要注意的是，如果请求结果是没有新数据，也就是数据与之前一模一样没有变化，则必须使用 `this.$refs.scroll.forceUpdate()` 结束此次下拉刷新，这样，Scroll 组件才会开始监听下一次下拉刷新操作。
+
   3）上拉加载
 
   默认无上拉加载功能，可通过配置项`pullUpLoad`开启`pulling-up`事件派发和上拉动画，你可以监听`pulling-up`事件更新数据。
@@ -135,6 +152,8 @@
     }
   }
   ```
+
+  需要注意的是，如果请求结果是没有新数据，也就是数据与之前一模一样没有变化，则必须使用 `this.$refs.scroll.forceUpdate()` 结束此次上拉加载，这样，Scroll 组件才会开始监听下一次上拉加载操作。
 
 - 自定义下拉刷新和上拉加载动画
 

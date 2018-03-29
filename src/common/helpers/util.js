@@ -29,4 +29,40 @@ function toLocaleDateString(timestamp, locale) {
   }
 }
 
-export { deepAssign, createAddAPI, toLocaleDateString }
+const typesReset = {
+  _set(obj, key, value) {
+    obj[key] = value
+  },
+  string(obj, key) {
+    typesReset._set(obj, key, '')
+  },
+  number(obj, key) {
+    typesReset._set(obj, key, 0)
+  },
+  boolean(obj, key) {
+    typesReset._set(obj, key, false)
+  },
+  object(obj, key, value) {
+    if (Array.isArray(value)) {
+      typesReset._set(obj, key, [])
+    } else {
+      typesReset._set(obj, key, {})
+    }
+  }
+}
+function resetTypeValue(obj, key, defVal) {
+  if (defVal !== undefined) {
+    return typesReset._set(obj, key, defVal)
+  }
+  if (key) {
+    const value = obj[key]
+    const resetHandler = typesReset[typeof value]
+    resetHandler && resetHandler(obj, key, value)
+  } else {
+    Object.keys(obj).forEach((key) => {
+      resetTypeValue(obj, key)
+    })
+  }
+}
+
+export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue }

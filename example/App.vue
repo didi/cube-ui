@@ -56,6 +56,18 @@
             text: 'Switch'
           },
           {
+            path: '/rate',
+            text: 'Rate'
+          },
+          {
+            path: '/validator',
+            text: 'Validator'
+          },
+          {
+            path: '/form',
+            text: 'Form'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
@@ -71,14 +83,7 @@
             path: '/toast',
             text: 'Toast'
           },
-          {
-            path: '/validator',
-            text: 'Validator'
-          },
-          {
-            path: '/rate',
-            text: 'Rate'
-          },
+
           {
             path: '/picker',
             text: 'Picker'
@@ -86,6 +91,10 @@
           {
             path: '/cascade-picker',
             text: 'CascadePicker'
+          },
+          {
+            path: '/segment-picker',
+            text: 'SegmentPicker'
           },
           {
             path: '/time-picker',

@@ -13,8 +13,8 @@ export function dispatchClick(target, props) {
 export function dispatchMouse (target, name = 'mousedown') {
   const event = createEvent('', name)
   const domRect = target.getBoundingClientRect()
-  event.clientX = domRect.left
-  event.clientY = domRect.top
+  event.clientX = domRect.left + 1
+  event.clientY = domRect.top + 1
   target.dispatchEvent(event)
 }
 

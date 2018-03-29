@@ -19,6 +19,8 @@ If you are going to use cube-ui in an existing project, see the <a href="#cube-I
 $ npm install cube-ui --save
 ```
 
+Note: Remember don't use cnpm to install cube-ui, the package download by cnpm has some problems with path.
+
 Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post-compile) and normal compile with webpack 2+(by default using post-compile), you need to modify your application's dependencies and configuration before using it.
 
 - post-compile

@@ -7,7 +7,7 @@ const rules = {
     if (type === 'array' && Array.isArray(val)) {
       return val.length > 0
     }
-    return val !== '' && val !== undefined
+    return val !== '' && val !== undefined && val !== null
   },
   type: (val, type) => {
     return !types[type] || types[type](val)

@@ -19,7 +19,7 @@ describe('Input.vue', () => {
     vm = createInput()
     const el = vm.$el
     expect(el.className)
-      .to.equal('cube-input-wrapper')
+      .to.equal('cube-input')
     expect(el.querySelector('input'))
       .to.be.ok
   })
@@ -67,6 +67,42 @@ describe('Input.vue', () => {
       .to.be.true
     expect(el.autofocus)
       .to.be.false
+  })
+  it('should show password eye and work correctly', (done) => {
+    vm = createVue({
+      template: `
+        <cube-input type="password" v-model="value" :eye="eye" />
+      `,
+      data: {
+        value: 'pwd',
+        eye: true
+      }
+    })
+
+    expect(vm.$el.querySelector('input').type)
+      .to.equal('text')
+    vm.$parent.eye = {
+      open: false
+    }
+    vm.$nextTick(() => {
+      expect(vm.$el.querySelector('input').type)
+        .to.equal('password')
+      vm.$parent.eye = {
+        open: true
+      }
+      vm.$nextTick(() => {
+        expect(vm.$el.querySelector('input').type)
+          .to.equal('text')
+        // click eye
+        vm.$el.querySelector('.cube-input-eye').click()
+        vm.$nextTick(() => {
+          // now password is invisible
+          expect(vm.$el.querySelector('input').type)
+            .to.equal('password')
+          done()
+        })
+      })
+    })
   })
 })
 

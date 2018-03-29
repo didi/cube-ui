@@ -40,6 +40,7 @@
     getRect,
     prefixStyle
   } from '../../common/helpers/dom'
+  import { inBrowser } from '../../common/helpers/env'
 
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
@@ -48,7 +49,7 @@
   const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
 
-  const ANCHOR_HEIGHT = window.innerHeight <= 480 ? 17 : 18
+  const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
   const transformStyleKey = prefixStyle('transform')
 
   export default {
