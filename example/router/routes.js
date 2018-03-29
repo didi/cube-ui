@@ -10,6 +10,9 @@ import Toast from '../pages/toast.vue'
 import Input from '../pages/input.vue'
 import Textarea from '../pages/textarea.vue'
 import Rate from '../pages/rate.vue'
+import Form from '../pages/form/index.vue'
+import FormDefault from '../pages/form/default.vue'
+import FormCustom from '../pages/form/custom.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import SegmentPicker from '../pages/segment-picker.vue'
@@ -59,6 +62,20 @@ const routes = [
   {
     path: '/switch',
     component: Switch
+  },
+  {
+    path: '/form',
+    component: Form,
+    children: [
+      {
+        path: 'default',
+        component: FormDefault
+      },
+      {
+        path: 'custom',
+        component: FormCustom
+      }
+    ]
   },
   {
     path: '/loading',

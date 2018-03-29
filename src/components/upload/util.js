@@ -1,4 +1,6 @@
-export const URL = window.URL || window.webkitURL || window.mozURL
+import { inBrowser } from '../../common/helpers/env'
+
+export const URL = inBrowser ? window.URL || window.webkitURL || window.mozURL : null
 
 export const STATUS_READY = 'ready'
 export const STATUS_UPLOADING = 'uploading'
@@ -29,7 +31,7 @@ export function processFile(file, i, eachProcessFile, cb) {
 }
 
 export function newFile(name = '', size = 0, status = '', progress = 0, file = null) {
-  const base64 = file && file.base64 || ''
+  const base64 = (file && file.base64) || ''
   const url = base64 ? '' : createURL(file)
 
   return {

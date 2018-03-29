@@ -64,6 +64,10 @@
             text: 'Validator'
           },
           {
+            path: '/form',
+            text: 'Form'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
