@@ -115,6 +115,14 @@
         const type = configRules.type
         const result = {}
 
+        if (!configRules.required) {
+          const requiredValid = rules.required(val, true, type)
+          if (!requiredValid) {
+            // treat it as empty, no need to validate other rules
+            return this._updateModel(valid, result)
+          }
+        }
+
         for (const key in configRules) {
           const ruleValue = configRules[key]
           let ret
@@ -138,8 +146,10 @@
             message: msg
           }
         }
+        this._updateModel(valid, result)
+      },
+      _updateModel(valid, result) {
         this.result = result
-
         if (result.required && result.required.invalid) {
           // required
           this.msg = result.required.message

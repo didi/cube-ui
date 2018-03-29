@@ -105,6 +105,8 @@ describe('rules', () => {
     })
     expect(vm.$data.msg)
       .to.equal('')
+    expect(Object.keys(vm.$data.result).length)
+      .to.equal(0)
   })
 
   it('should be invalid - require: array', () => {
