@@ -144,7 +144,7 @@
       li
         flex: 1
         max-width: 220px
-        padding: 60px 16px 20px
+        padding: 60px 16px 10px
         margin: 0 10px
         font-size: 13px
         line-height: 1.4
@@ -154,6 +154,7 @@
           align-items: center
           max-width: initial
           padding-top: 20px
+          padding-bottom: 20px
           text-align: left
           .text
             flex: 1
@@ -161,6 +162,7 @@
         img
           width: 130px
           margin-bottom: 13px
+          transform-origin: center 0
           transition: all .5s
           @media screen and (max-width: 960px)
             width: 90px
@@ -169,11 +171,11 @@
             margin-bottom: 0
         .text
           transition: all .5s
-          .ch
+          .h1
             padding: 7px 0
             font-size: 22px
             color: #333
-          .en
+          .h2
             font-size: 18px
             transition: all .5s
           p
@@ -182,9 +184,9 @@
             opacity: 0
             transition: all .5s
           @media screen and (max-width: 960px)
-            .ch
+            .h1
               font-size: 15px
-            .en
+            .h2
               display: none
             p
               margin-top: 0
@@ -196,8 +198,8 @@
               opacity:1
             img
                 transform: scale(0.5,0.5)
-            .en
+            .h2
               opacity: 0
             .text
-              transform: translateY(-50px)
+              transform: translateY(-75px)
 </style>

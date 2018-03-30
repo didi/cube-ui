@@ -7,6 +7,8 @@
 <script>
   import SideNav from '../side-nav/side-nav.vue'
 
+  let rootNav = {}
+
   export default {
     props: {
       navList: {
@@ -23,13 +25,19 @@
       let docPath = ''
       let root = ''
       const navList = this.navList
-      let rootNav = {}
       this.$watch('$route.path', (newPath) => {
         docPath = newPath.split('/').pop()
-        root = this.seekRoot(navList, docPath)
         if (rootNav) {
           rootNav.hasActived = false
+          if (!root) {
+            rootNav.isRootActive = false
+            setTimeout(() => {
+              const el = document.querySelector('.page-sidelist .nav-active')
+              el && el.scrollIntoView()
+            }, 0)
+          }
         }
+        root = this.seekRoot(navList, docPath)
         rootNav = root && navList[root]
         this.$set(rootNav, 'isRootActive', true)
         this.$set(rootNav, 'hasActived', true)
