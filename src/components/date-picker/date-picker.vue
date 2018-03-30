@@ -1,9 +1,13 @@
 <template>
   <cube-cascade-picker
     ref="cascadePicker"
-    title="Date Picker"
     :data="data"
     :selectedIndex="selectedIndex"
+    :title="title"
+    :cancel-txt="cancelTxt"
+    :confirm-txt="confirmTxt"
+    :swipe-time="swipeTime"
+    :z-index="zIndex"
     @select="_select"
     @cancel="_cancel"
     @change="_change"
@@ -12,6 +16,9 @@
 </template>
 
 <script>
+  import apiMixin from '../../common/mixins/api'
+  import pickerMixin from '../../common/mixins/picker'
+
   const COMPONENT_NAME = 'date-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
@@ -56,6 +63,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [apiMixin, pickerMixin],
     props: {
       min: {
         type: [Date, Array],

@@ -37,6 +37,7 @@
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
   import apiMixin from '../../common/mixins/api'
+  import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
   const COMPONENT_NAME = 'cube-picker'
@@ -48,7 +49,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, pickerMixin],
+    mixins: [apiMixin, basicPickerMixin, pickerMixin],
     data() {
       return {
         pickerData: this.data.slice(),

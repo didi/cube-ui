@@ -22,6 +22,7 @@
         min: new Date(2008, 7, 8),
         max: new Date(2020, 9, 20),
         value: new Date(),
+        title: 'Date Picker',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -31,6 +32,7 @@
         max: new Date(2008, 7, 8, 20, 59, 59),
         value: new Date(2008, 7, 8, 12, 30, 30),
         beginColumn: 'hour',
+        title: 'Time Picker',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
