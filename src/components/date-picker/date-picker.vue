@@ -18,7 +18,7 @@
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
 
-  const COMPONENT_NAME = 'date-picker'
+  const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
