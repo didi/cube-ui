@@ -2,7 +2,8 @@
   <cube-page type="picker-view" title="Segment Picker" desc="">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showSegmentPicker">Segment Picker</cube-button>
+        <cube-button @click="showDateSegmentPicker">StartDate - EndDate</cube-button>
+        <cube-button @click="showCitySegmentPicker">Express - From - To</cube-button>
         <cube-button @click="updateProps">Use $updateProps</cube-button>
       </cube-button-group>
     </div>
@@ -25,7 +26,7 @@
 
   export default {
     mounted() {
-      this.segmentPicker = this.$createSegmentPicker({
+      this.citySegmentPicker = this.$createSegmentPicker({
         data: [{
           title: '快递',
           data: [expressData],
@@ -46,29 +47,22 @@
         confirmTxt: 'Confirm',
         nextTxt: 'Next',
         prevTxt: 'Prev',
-        onSelect: (...args) => {
-          console.log('select:', ...args)
-        },
-        onCancel: (...args) => {
-          console.log('cancel:', ...args)
-        },
-        onNext: (...args) => {
-          console.log('next:', ...args)
-        },
-        onPrev: (...args) => {
-          console.log('prev:', ...args)
-        },
-        onChange: (...args) => {
-          console.log('change', ...args)
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle,
+        onNext: this.nextHandle,
+        onPrev: this.prevHandle,
+        onChange: this.changeHandle
       })
     },
     methods: {
-      showSegmentPicker() {
-        this.segmentPicker.show()
+      showDateSegmentPicker() {
+        this.dateSegmentPicker.show()
+      },
+      showCitySegmentPicker() {
+        this.citySegmentPicker.show()
       },
       updateProps() {
-        this.segmentPicker.$updateProps({
+        this.citySegmentPicker.$updateProps({
           data: [{
             is: 'cube-cascade-picker',
             title: '出发地',
@@ -86,6 +80,21 @@
             selectedIndex: [0, 0, 0]
           }]
         })
+      },
+      selectHandle: (...args) => {
+        console.log('select:', ...args)
+      },
+      cancelHandle: (...args) => {
+        console.log('cancel:', ...args)
+      },
+      nextHandle: (...args) => {
+        console.log('next:', ...args)
+      },
+      prevHandle: (...args) => {
+        console.log('prev:', ...args)
+      },
+      changeHandle: (...args) => {
+        console.log('change', ...args)
       }
     },
     components: {
