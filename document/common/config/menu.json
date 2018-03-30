@@ -39,7 +39,6 @@
             "picker": "Picker",
             "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
-            "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
           }
@@ -111,6 +110,7 @@
             "cascade-picker": "CascadePicker",
             "date-picker": "DatePicker",
             "time-picker": "TimePicker",
+            "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
           }

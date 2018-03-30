@@ -1,210 +1,152 @@
 ## SegmentPicker 组件
 
-段选择器，用于实现多段的选择，比如选择时间段：2018年3月15日-1018年3月31日。
+段选择器，用于实现多段的选择，比如选择时间段：2010年9月1日-1014年6月30日。
 
 ### 示例
 
 - 基本用法
 
+  通过 `data` 属性定义每个节点选择器的类型和属性，`is` 代表该选择器是用哪种 Picker 组件，既可以是 Cube UI 的 Picker 类组件，也可以是你自己定义的 Picker 组件。比如下面是我们用两个 DatePicker 组件来做时间段选择。
+
   ```html
-  <cube-button @click="showPicker">Picker</cube-button>
+  <cube-button @click="showDateSegmentPicker">StartDate - EndDate</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
-    { text: '幽鬼', value: '幽鬼' }]
+  const dateSegmentData = [
+    {
+      is: 'cube-date-picker',
+      title: '入学时间',
+      min: new Date(2000, 0, 1),
+      max: new Date(2030, 11, 31)
+    },
+    {
+      is: 'cube-date-picker',
+      title: '毕业时间',
+      min: new Date(2000, 0, 1),
+      max: new Date(2030, 11, 31)
+    }
+  ]
+
   export default {
     mounted () {
-      this.picker = this.$createPicker({
-        title: 'Picker',
-        data: [col1Data],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
+      this.dateSegmentPicker = this.$createSegmentPicker({
+        data: dateSegmentData,
+        onSelect: (selectedDates, selectedVals, selectedTexts) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Items: <br/> - 入学时间: ${selectedTexts[0].join('')} <br/> - 毕业时间: ${selectedTexts[1].join('')}`,
             icon: 'cubeic-alert'
           }).show()
         },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
+        onNext: (i, selectedDate, selectedValue, selectedText) => {
+          dateSegmentData[1].min = selectedDate
+          if (i === 0) {
+            this.dateSegmentPicker.$updateProps({
+              data: dateSegmentData
+            })
+          }
         }
       })
     },
     methods: {
-      showPicker () {
-        this.picker.show()
+      showDateSegmentPicker() {
+        this.dateSegmentPicker.show()
       }
     }
   }
   ```
 
-- 多列选择器
-  
-  `data`字段接收一个数组，其长度决定了`picker`的列数。
+  并且为了实现两个选择器之间的联动，我们可以在 next 下一步的事件处理函数中，根据第一个的选择，更新第二个选择器，比如这里是，将结束时间的最小值 = 所选的开始时间。
+
+- 快递 - 寄件地址 - 收件地址
 
   ```html
-  <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
+  <cube-button @click="showCitySegmentPicker">Express - From - To</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
-    { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
-    { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' },
-    { text: '打野', value: '打野' }, { text: '逃生', value: '逃生' }, { text: '先手', value: '先手' }]
-  const col3Data =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
-    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
-    { text: '金箍棒', value: '金箍棒' }]
+  import { provinceList, cityList, areaList } from 'example/data/area'
+  
+  const cityData = provinceList
+  cityData.forEach(province => {
+    province.children = cityList[province.value]
+    province.children.forEach(city => {
+      city.children = areaList[city.value]
+    })
+  })
+
   export default {
     mounted () {
-      this.picker = this.$createPicker({
-        title: 'Multi-column Picker',
-        data: [col1Data, col2Data, col3Data],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
+      this.citySegmentPicker = this.$createSegmentPicker({
+        data: [{
+          title: '选择快递',
+          data: [expressData],
+          selectedIndex: [1]
+        }, {
+          is: 'cube-cascade-picker',
+          title: '寄件地址',
+          data: cityData,
+          selectedIndex: [0, 0, 0],
+          cancelTxt: '返回'
+        }, {
+          is: 'cube-cascade-picker',
+          title: '收件地址',
+          data: cityData,
+          selectedIndex: [0, 0, 0]
+        }],
+        cancelTxt: 'Cancel',
+        confirmTxt: 'Confirm',
+        nextTxt: 'Next',
+        prevTxt: 'Prev',
+        onSelect: (selectedVals, selectedIndexs, selectedTexts) => {
           this.$createDialog({
             type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+            content: `Selected Items: <br/> - 所选快递:  ${selectedTexts[0].join('')} <br/> - 寄件地址: ${selectedTexts[1].join('')} <br/> - 收件地址: ${selectedTexts[2].join('')}`,
             icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
           }).show()
         }
       })
     },
     methods: {
-      showMutiPicker() {
-        this.mutiPicker.show()
+      showCitySegmentPicker() {
+        this.citySegmentPicker.show()
       }
     }
   }
   ```
-  
-- 配置别名
-  
-  可通过`alias`属性配置`value`和`text`的别名。如，用`id`代表`value`，用`name`代表`text`。
 
-  ```html
-  <cube-button @click="showAliasPicker">Use Alias</cube-button>
-  ```
-  ```js
-  export default {
-    mounted () {
-      this.aliasPicker = this.$createPicker({
-        title: 'Use Alias',
-        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
-        alias: {
-          value: 'id',
-          text: 'name'
-        },
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    methods: {
-      showAliasPicker() {
-        this.aliasPicker.show()
-      }
-    }
-  }
-  ``` 
-
-- 实例方法 `setData`
-
-  ```html
-  <cube-button @click="showSetDataPicker">Use SetData</cube-button>
-  ```
-  ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
-    { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
-    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
-    { text: '金箍棒', value: '金箍棒' }]
-  const col3Data = [{ text: '输出', value: '输出'}, { text: '控制', value: '控制' },
-    { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
-  export default {
-    mounted () {
-      this.picker = this.$createPicker({
-        title: 'Use SetData',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    methods: {
-      showSetDataPicker () {
-        this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
-        this.picker.show()
-      }
-    }
-  }
-  ```
-  
-  实例方法`setData`可接受2个参数，都为数组类型。第一个参数为滚轴需要显示的数据，第二个参数为选中值的索引。
-  
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
-| title | 标题 | String | '' | - |
-| data | 传入 picker 数据，数组的长度决定了 picker 的列数 | Array | [] | - |
+| data | 定义各个选择器的组件名和属性 | Array | [] | - |
 | selectedIndex | 被选中的索引值，拉起 picker 后显示这个索引值对应的内容 | Array | [] | [1] |
+| title | 标题 | String | '' | - |
 | cancelTxt | 取消按钮文案 | String | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | '确定' | - |
-| swipeTime | 快速滑动 picker 滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
-| alias | 配置`value`和`text`的别名 | Object | {} | { value: 'id', text: 'name'} |
+| nextTxt | 下一步按钮文案 | String | '下一步' | - |
+| prevTxt | 上一步按钮文案 | String | '下一步' | - |
 
 * `data`子配置项
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
-| text | picker每一列展示的文案 | String/Number | - | - |
-| value | picker每一列展示的每项文案对应的值 | String/Number/Boolean | - | - |
+| is | 该节点选择器的组件名 | String | cube-picker | cube-date-picker |
+| 其它 | 该节点选择器的属性 | - | - | - |
 
 ### 事件
 
 | 事件名 | 说明 | 参数1 | 参数2 | 参数3 |
 | - | - | - | - | - |
-| select | 点击确认按钮触发此事件 | selectedVal: 当前选中项每一列的值，Array类型 | selectedIndex: 当前选中项每一列的索引，Array类型 | selectedText: 当前选中项每一列的文案，Array类型 |
-| change | 滚轴滚动后触发此事件 | index: 当前滚动列次序，Number类型 | selectedIndex: 当前列选中项的索引，Number类型 |
-| value-change | 所确认的值变化时触发此事件 | selectedVal: 当前确认项每一列的值，Array类型 | selectedIndex: 当前确认项每一列的索引，Array类型 | selectedText: 当前选中项每一列的文案，Array类型 |
-| cancel | 点击取消按钮触发此事件 | - | - |
+| select | 点击确认按钮触发此事件 | 各个选择器的 select 事件的参数1，Array 类型 | 各个选择器的 select 事件的参数2，Array 类型 | 各个选择器的 select 事件的参数3，Array 类型 |
+| cancel | 点击取消按钮触发此事件 | - | - | - |
+| next | 点击下一步按钮触发此事件 | 当前 picker 的索引，Number类型 | 其余参数为，当前 picker select 时间的参数 | ··· | ··· |
+| prev | 点击上一步按钮触发此事件 | 当前 picker 的索引，Number类型 | - | - | - |
+| change | 滚轴滚动后触发此事件 | pickerIndex: 当前滚动 picker 的索引，Number类型 |index: 当前滚动列索引，Number类型 | selectedIndex: 当前列选中项的索引，Number类型 |
+
 
 ### 实例方法
 
-| 方法名 | 说明 | 参数1 | 参数2 |
-| - | - | - | - |
-| setData | 设置picker可选项 | picker每列可选项的文案和值，Array类型 | picker每列选中的索引，Array类型 |
+| 方法名 | 说明 |
+| - | - |
+| show | 显示选择器 |
+| hide | 隐藏选择器 |

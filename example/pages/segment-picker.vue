@@ -23,7 +23,7 @@
     })
   })
 
-  const dateData = [
+  const dateSegmentData = [
     {
       is: 'cube-date-picker',
       title: '入学时间',
@@ -41,7 +41,7 @@
   export default {
     mounted() {
       this.dateSegmentPicker = this.$createSegmentPicker({
-        data: dateData,
+        data: dateSegmentData,
         onSelect: (selectedDates, selectedVals, selectedTexts) => {
           this.$createDialog({
             type: 'warn',
@@ -50,10 +50,10 @@
           }).show()
         },
         onNext: (i, selectedDate, selectedValue, selectedText) => {
-          dateData[1].min = selectedDate
+          dateSegmentData[1].min = selectedDate
           if (i === 0) {
             this.dateSegmentPicker.$updateProps({
-              data: dateData
+              data: dateSegmentData
             })
           }
         }
