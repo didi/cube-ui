@@ -69,7 +69,7 @@
           return new Date(2020, 12, 31)
         }
       },
-      beginUnit: {
+      beginColumn: {
         type: String,
         default() {
           return 'year'
@@ -88,7 +88,7 @@
     },
     computed: {
       beginIndex() {
-        let beginIndex = UNIT_LIST.indexOf(this.beginUnit)
+        let beginIndex = UNIT_LIST.indexOf(this.beginColumn)
         return beginIndex < 0 ? 0 : beginIndex
       },
       minArray() {
