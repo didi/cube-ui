@@ -218,10 +218,6 @@
   }
 
   function computeNatrueMaxDay(month, year) {
-    if (!month) {
-      return 31
-    }
-
     let natureMaxDay = 30
     if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
       natureMaxDay = 31

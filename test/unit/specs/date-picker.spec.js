@@ -48,6 +48,41 @@ describe('DatePicker', () => {
       .to.equal('9日')
   })
 
+  it('should correct when configured beginColumn and columnNumber', function (done) {
+    this.timeout(10000)
+
+    vm = createDatePicker({
+      min: [1, 8],
+      max: [31, 23],
+      beginColumn: 'date',
+      columnNumber: 2
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    expect(wheels.length)
+      .to.equal(2)
+
+    const firstWheelItems = wheels[0].querySelectorAll('li')
+    expect(firstWheelItems.length)
+      .to.equal(31)
+    expect(firstWheelItems[1].textContent.trim())
+      .to.equal('2日')
+
+    const secondWheelItems = wheels[1].querySelectorAll('li')
+    expect(secondWheelItems.length)
+      .to.equal(16)
+    expect(secondWheelItems[1].textContent.trim())
+      .to.equal('9时')
+
+    // test: _arrayToDate if (i < this.beginIndex)
+    vm.show()
+    setTimeout(() => {
+      const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+      confirmBtn.click()
+      done()
+    }, 50)
+  })
+
   it('should trigger events', function (done) {
     this.timeout(10000)
 
@@ -145,7 +180,7 @@ describe('DatePicker', () => {
     }, 100)
   })
 
-  it('should add warn log when sigle is true', () => {
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
