@@ -3,9 +3,7 @@
 .md-body
   font-size: $fontsize-medium
   line-height: 1.6
-  color: $color-dark-grey
-  .hljs
-    background-color: #F9F8F8
+  color: $color-grey
   p
     margin: 1.2em 0
     .anchor
@@ -15,6 +13,7 @@
     margin-bottom: .8em
     font-size: 2em
     font-weight: 600
+    color: $color-dark-grey
   h3
     margin: 1em 0 1em
     font-size: 1.4em
@@ -30,19 +29,35 @@
   table
     // margin 0.8em 1em 0.8em 1em
     width: 100%
-    color: $color-blue
     box-sizing: border-box
     table-layout: fixed
+    border-collapse: separate
+    border: 1px solid #E7E7E7
+    border-width: 1px 0 0 1px
+    border-radius: 4px
     th, td
       padding: 6px 13px
-      border: 1px solid rgb(223, 226, 229)
+      border: 1px solid #E7E7E7
+      border-width: 0 1px 1px 0
       vertical-align: middle
       text-align: left
       word-wrap: break-word
       word-break: break-word
-    th
-      font-weight: 600
-      background-color: #F9F8F8
+    tr
+      th
+        font-weight: 600
+        background-color: #F9F8F8
+        &:first-child
+          border-top-left-radius: 4px
+        &:last-child
+          border-top-right-radius: 4px
+    tr
+      &:last-child
+        td
+          &:first-child
+            border-bottom-left-radius: 4px
+          &:last-child
+            border-bottom-right-radius: 4px
   ul, ol, li
     line-height: 20px
   li
@@ -64,6 +79,33 @@
       line-height: 1
   img
     max-width: 100%
+  .hljs
+    border: 1px solid #E7E7E7
+    color: #666
+    background-color: #F9F8F8
+    border-radius: 4px
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class
+    color: #3CA0E6
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet
+    color: #3FB374
+  .hljs-tag
+    color: #666
+  .hljs-attr
+    .hljs-tag
+      color: #fc9153
+      .hljs-attr
+        color: #fc9153
 pre
   margin: .8em 0
   font-size: 12px

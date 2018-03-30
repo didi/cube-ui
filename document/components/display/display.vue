@@ -39,22 +39,24 @@
   .page-display
     position: relative
     .display-wrapper
-      position: relative 
+      position: relative
       width: 330px
       height: 645px
       top: 50%
       transform: translate(0, -50%)
-      background: url("./iphoneX.png") no-repeat
-      background-size: cover
-      margin: 0 45px
+      margin: 0 56px 0 26px
+      background: url("./iphoneX.png") no-repeat center 0
+      background-size: 100%
       .mofang-demo
         position: absolute
         top: 64px
-        left: 22px
-        right: 22px
-        bottom: 36px
+        left: 21px
+        right: 23px
+        bottom: 22px
         overflow: hidden
         border-radius: 0 0 35px 35px
+        border: 1px solid #edf0f4
+        border-top: none
         background-color: #edf0f4
         iframe
           // safari shit

@@ -1,6 +1,6 @@
 <template>
-  <div class="badge">
-    <span class="badge-left">{{badgeName}}</span>
+  <div class="badge" :class="badgeValue&&'badge-visible'">
+    <span class="badge-left">{{badgeName||type}}</span>
     <span class="badge-right">
     {{badgeValue}}</span>
   </div>
@@ -36,7 +36,6 @@
         let url = urlMap[badge]
         ajax(url).then((response) => {
           let result = JSON.parse(response)
-          console.log(result)
           this.badgeName = result.name
           this.badgeValue = result.value
         })
@@ -48,19 +47,23 @@
   .badge
     display: inline-block
     text-align: center
+    visibility: hidden
     border: 1px #4AA8FF solid
     border-radius: 3px
-    font-size: 0px
-    color: #000000
-    margin-right: 3px
+    color: #545454
+    margin: 5px
+    overflow: hidden
     span
       display: inline-block
       font-size: 12px
     .badge-left
-      padding: 4px 11px
+      padding: 4px 10px
+      color: #fff
       background-color: #89C6FF
     .badge-right
-      padding: 4px 11px
+      padding: 4px 10px
       border-left: 1px #4AA8FF solid
       background-color: white
+  .badge-visible
+    visibility: visible
 </style>
