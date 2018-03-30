@@ -1,9 +1,9 @@
 <template>
   <cube-picker
       ref="picker"
-      :title="title"
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
+      :title="title"
       :z-index="zIndex"
       :cancel-txt="cancelTxt"
       :confirm-txt="confirmTxt"
@@ -16,6 +16,7 @@
 <script type="text/ecmascript-6">
   import CubePicker from '../picker/picker.vue'
   import apiMixin from '../../common/mixins/api'
+  import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
   const COMPONENT_NAME = 'cube-cascade-picker'
@@ -25,7 +26,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, pickerMixin],
+    mixins: [apiMixin, basicPickerMixin, pickerMixin],
     data () {
       return {
         cascadeData: this.data.slice(),
@@ -82,6 +83,10 @@
           data = data.length ? data[this.pickerSelectedIndex[i]].children : null
 
           i++
+        }
+
+        if (i < this.pickerData.length) {
+          this.pickerData.splice(i, this.pickerData.length - i)
         }
 
         this.pickerData = this.pickerData.slice()
