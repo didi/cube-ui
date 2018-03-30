@@ -1,6 +1,10 @@
 <template>
   <home-index>
     <template slot="desc">A fantastic mobile ui lib implement by Vue.js</template>
+    <template slot="rec-btns">
+      <router-link to="/en-US/docs/introduction" class="btn-link"><span>Introduction</span></router-link>
+      <router-link to="/en-US/docs/quick-start" class="btn-link btn-active"><span>Quick Start</span></router-link>
+    </template>
     <template slot="feature-1">
       <h1>Quality</h1>
       <p>

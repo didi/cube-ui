@@ -27,8 +27,12 @@
       this.$watch('$route.path', (newPath) => {
         docPath = newPath.split('/').pop()
         root = this.seekRoot(navList, docPath)
+        if (rootNav) {
+          rootNav.hasActived = false
+        }
         rootNav = root && navList[root]
         this.$set(rootNav, 'isRootActive', true)
+        this.$set(rootNav, 'hasActived', true)
       }, {immediate: true})
     },
     methods: {

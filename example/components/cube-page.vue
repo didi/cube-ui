@@ -58,7 +58,7 @@
       height: 44px
       line-height: 44px
       text-align: center
-      background-color: #f7f7f7
+      background-color: #edf0f4
       box-shadow: 0 1px 6px #ccc
       -webkit-backface-visibility: hidden
       backface-visibility: hidden

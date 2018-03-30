@@ -61,7 +61,7 @@
     position: absolute
     width: 100%
     height: 2px
-    background: #009a61
+    background: #3ca0e6
     transform: translateX(-100%)
   .nav-loading-ani
     animation: navloading 2s linear forwards
