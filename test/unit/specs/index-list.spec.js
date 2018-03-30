@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import IndexList from '@/modules/index-list'
 import instantiateComponent from '@/common/helpers/instantiate-component'
-import { dispatchSwipe } from '../utils/event'
+import { dispatchSwipe, dispatchTap } from '../utils/event'
 
 import cityData from '../fake/index-list.json'
 // 处理数据
@@ -57,25 +57,26 @@ describe('IndexList', () => {
         .to.equal('中卫市')
     })
 
-    it('should trigger events', () => {
-      // const selectHandler = sinon.spy()
-      // const titleClickHandler = sinon.spy()
-      //
-      // vm = createIndexList({
-      //   title,
-      //   data
-      // }, {
-      //   select: selectHandler,
-      //   'title-click': titleClickHandler
-      // })
-      // const items = vm.$el.querySelectorAll('.cube-index-list-item')
-      // items[2].click()
-      // expect(selectHandler)
-      //   .to.be.calledWith(data[1].items[0])
-      //
-      // vm.$el.querySelector('.cube-index-list-title').click()
-      // expect(titleClickHandler)
-      //   .to.be.calledWith(title)
+    it('should trigger events', (done) => {
+      const selectHandler = sinon.spy()
+      const titleClickHandler = sinon.spy()
+
+      vm = createIndexList({
+        title,
+        data
+      }, {
+        select: selectHandler,
+        'title-click': titleClickHandler
+      })
+      vm.$nextTick(() => {
+        const items = vm.$el.querySelectorAll('.cube-index-list-item')
+        dispatchTap(items[2])
+        expect(selectHandler).to.be.calledOnce
+
+        dispatchTap(vm.$el.querySelector('.cube-index-list-title'))
+        expect(titleClickHandler).to.be.calledOnce
+        done()
+      })
     })
 
     it('should fixed title', function () {
@@ -195,7 +196,7 @@ describe('IndexList', () => {
       })
     })
 
-    function createIndexList (props = {}, events = {}) {
+    function createIndexList(props = {}, events = {}) {
       return instantiateComponent(Vue, IndexList, {
         props: props,
         on: events

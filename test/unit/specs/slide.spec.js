@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Slide from '@/modules/slide'
 import createVue from '../utils/create-vue'
-import { dispatchSwipe } from '../utils/event'
+import { dispatchSwipe, dispatchTap } from '../utils/event'
 
 const items = [{
   url: 'http://www.didichuxing.com/',
@@ -95,7 +95,7 @@ describe('Slide.vue', () => {
   })
 
   it('should trigger change event', function (done) {
-    this.timeout(100000)
+    this.timeout(10000)
     const changeHandler = sinon.spy()
     vm = createVue({
       template: `
@@ -109,7 +109,7 @@ describe('Slide.vue', () => {
       },
       methods: {
         change() {
-          changeHandler && changeHandler.call(vm)
+          changeHandler()
         }
       }
     })

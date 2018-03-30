@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Scroll from '@/modules/scroll'
 import instantiateComponent from '@/common/helpers/instantiate-component'
-import { dispatchSwipe } from '../utils/event'
+import { dispatchSwipe, dispatchTap } from '../utils/event'
 
 const data = [
   '我是第 1 行',
@@ -260,28 +260,19 @@ describe('Scroll', () => {
     }, 150)
   })
 
-  it('should trigger click', function () {
-    this.timeout(10000)
-
+  it('should trigger click', function (done) {
     const clickHandler = sinon.spy()
     vm = createScroll({
-      data,
-      options: {
-        click: false
-      }
+      data
     }, {
       click: clickHandler
     })
-    vm.$refs.wrapper.style.height = '200px'
-    vm.refresh()
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const listItem = vm.$el.querySelector('.cube-scroll-content li')
-        listItem.click()
-        expect(clickHandler).to.be.calledWith(data[0])
-        resolve()
-      }, 50)
+    vm.$nextTick(() => {
+      const listItem = vm.$el.querySelector('.cube-scroll-content li')
+      dispatchTap(listItem)
+      expect(clickHandler).to.be.calledOnce
+      done()
     })
   })
 
@@ -326,8 +317,8 @@ describe('Scroll', () => {
     }, 400)
   })
 
-  it('should call correct method', function() {
-    vm = createScroll({ data })
+  it('should call correct method', function () {
+    vm = createScroll({data})
 
     vm.disable()
 
@@ -341,7 +332,7 @@ describe('Scroll', () => {
     vm.destroy()
   })
 
-  function createScroll (props = {}, events = {}) {
+  function createScroll(props = {}, events = {}) {
     return instantiateComponent(Vue, Scroll, {
       props: props,
       on: events

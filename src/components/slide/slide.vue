@@ -99,6 +99,7 @@
     },
     methods: {
       clickItem(item, index) {
+        /* istanbul ignore next */
         this.$emit(EVENT_SELECT, item, index)
       },
       refresh() {
