@@ -1,9 +1,9 @@
 <template>
-  <div class="badge" :class="badgeValue&&'badge-visible'">
+  <a class="badge" href="https://github.com/didi/cube-ui" target="_blank" :class="badgeValue&&'badge-visible'">
     <span class="badge-left">{{badgeName||type}}</span>
     <span class="badge-right">
     {{badgeValue}}</span>
-  </div>
+  </a>
 </template>
 <script>
   import ajax from '../../common/js/ajax.js'
@@ -53,6 +53,8 @@
     color: #545454
     margin: 5px
     overflow: hidden
+    &:hover
+      color: #545454
     span
       display: inline-block
       font-size: 12px
