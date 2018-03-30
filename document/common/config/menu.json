@@ -110,6 +110,7 @@
             "toast": "Toast",
             "picker": "Picker",
             "cascade-picker": "CascadePicker",
+            "date-picker": "DatePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
