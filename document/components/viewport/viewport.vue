@@ -143,6 +143,7 @@
           .arrow
             top: 27px
     .page-doc
+      position: relative
       flex: 1
       height: 100%
       padding: 54px 30px 30px

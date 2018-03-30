@@ -2,6 +2,7 @@
   "en-US": {
     "overview": {
       "name": "Overview",
+      "angle": "01",
       "subList": {
         "introduction": "Introduction",
         "quick-start": "QuickStart",
@@ -12,6 +13,7 @@
     },
     "components": {
       "name": "Components",
+      "angle": "02",
       "subList": {
         "basic": {
           "name": "Basic",
@@ -62,6 +64,7 @@
     },
     "modules": {
       "name": "Modules",
+      "angle": "03",
       "subList": {
         "style": "style",
         "create-api": "create-api",
