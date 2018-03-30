@@ -49,52 +49,46 @@
   `DatePicker` 有一个非常灵活的能力，就是可以配置列，总共是年、月、日、时、分、秒六种的列，你可以通过 `beginColumn` 和 `ColumnNumber` 来配置起始列和列是，比如默认的”年月日“选择，是从“年”开始的“三列”，时分秒是从“时”开始的“三列”。
   
   ```html
-  <cube-button @click="showCityPicker">City Picker</cube-button>
+  <cube-button @click="showTimePicker">Time Picker</cube-button>
   ```
   ```js
-  import { provinceList, cityList, areaList } from 'example/data/area'
-  
-  const cityData = provinceList
-  cityData.forEach(province => {
-    province.children = cityList[province.value]
-    province.children.forEach(city => {
-      city.children = areaList[city.value]
-    })
-  })
-  
   export default {
     mounted () {
-      this.cityPicker = this.$createCascadePicker({
-        title: 'City Picker',
-        data: cityData,
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+      this.timePicker = this.$createDatePicker({
+        title: 'Time Picker',
+        min: new Date(2008, 7, 8, 8, 0, 0),
+        max: new Date(2008, 7, 8, 20, 59, 59),
+        value: new Date(2008, 7, 8, 12, 30, 30),
+        beginColumn: 'hour',
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
-      showCityPicker() {
-        this.cityPicker.show()
+      showTimePicker() {
+        this.timePicker.show()
+      },
+      selectHandle(date, selectedVal, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
 
-- 日期选择器
+- 年月日时分秒选择器
 
-  日期选择器的原理也是一样，就是构造出级联选择器的数据结构。而且我们还在示例中提供一个[日期选择器组件](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)，可以传入起始日期和结束日期，帮你生成相应的级联树形数据结构。用法如下：
+  同理，如果想要年月日时分秒选择器，则是以“年”开始的六列。
 
   ```html
   <cube-button @click="showDatePicker">Date Picker</cube-button>
