@@ -174,13 +174,17 @@
       }
     },
     activated() {
+      /* istanbul ignore next */
       this.enable()
     },
     deactivated() {
+      /* istanbul ignore next */
       this.disable()
     },
     mounted() {
-      this.initScroll()
+      this.$nextTick(() => {
+        this.initScroll()
+      })
     },
     methods: {
       initScroll() {

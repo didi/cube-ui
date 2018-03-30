@@ -3,17 +3,17 @@
     <div slot="content">
       <div ref="slideWrapper" class="slide-container">
         <cube-slide
-          ref="slide"
-          :data="items"
-          :initial-index="initialIndex"
-          :loop="loop"
-          :auto-play="autoPlay"
-          :interval="interval"
-          :threshold="threshold"
-          :speed="speed"
-          :allow-vertical="allowVertical"
-          @change="changePage"
-          @click="clickPage">
+            ref="slide"
+            :data="items"
+            :initial-index="initialIndex"
+            :loop="loop"
+            :auto-play="autoPlay"
+            :interval="interval"
+            :threshold="threshold"
+            :speed="speed"
+            :allow-vertical="allowVertical"
+            @change="changePage"
+            @click="clickPage">
           <template v-if="dotsSlot" slot="dots" slot-scope="props">
             <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots">{{index + 1}}</span>
           </template>
@@ -23,7 +23,7 @@
         <div class="option-list">
           <div class="group">
             <input-option class="item" name="InitialIndex" :value="initialIndex"
-                           @update:value="updateInitialIndex"></input-option>
+                          @update:value="updateInitialIndex"></input-option>
           </div>
           <div class="group">
             <switch-option class="item" name="Loop" :value="loop"
@@ -33,15 +33,15 @@
             <switch-option class="item" name="Auto Play" :value="autoPlay"
                            @update:value="updateAutoPlay"></switch-option>
             <input-option v-if="autoPlay" class="item sub first last" name="interval" :value="interval"
-                           @update:value="updateInterval"></input-option>
+                          @update:value="updateInterval"></input-option>
           </div>
           <div class="group">
             <input-option class="item" name="Threshold" :value="threshold"
-                           @update:value="updateThreshold"></input-option>
+                          @update:value="updateThreshold"></input-option>
           </div>
           <div class="group">
             <input-option class="item" name="Speed" :value="speed"
-                           @update:value="updateSpeed"></input-option>
+                          @update:value="updateSpeed"></input-option>
           </div>
           <div class="group">
             <switch-option class="item" name="Allow Vertical" :value="allowVertical"
@@ -62,9 +62,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option'
-  import InputOption from '../components/input-option'
+  import CubePage from '../../components/cube-page.vue'
+  import SwitchOption from '../../components/switch-option'
+  import InputOption from '../../components/input-option'
 
   const item3 = {
     url: 'http://www.didichuxing.com/',
