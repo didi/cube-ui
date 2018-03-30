@@ -10,8 +10,7 @@
     :z-index="zIndex"
     @select="_select"
     @cancel="_cancel"
-    @change="_change"
-    @value-change="_valueChange">
+    @change="_change">
   </cube-cascade-picker>
 </template>
 
@@ -23,7 +22,6 @@
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
-  const EVENT_VALUE_CHANGE = 'value-change'
 
   const UNIT_LIST = ['year', 'month', 'date', 'hour', 'minute', 'second']
   const UNIT_RELATED_LIST = [
@@ -151,9 +149,6 @@
       },
       _change(i, newIndex) {
         this.$emit(EVENT_CHANGE, i, newIndex)
-      },
-      _valueChange(selectedVal, selectedIndex, selectedText) {
-        this.$emit(EVENT_VALUE_CHANGE, this._arrayToDate(selectedVal), selectedVal, selectedText)
       },
       _generateData(i, count, item) {
         if (count === 0) {
