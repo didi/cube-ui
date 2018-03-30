@@ -32,7 +32,7 @@
         min: [8, 0, 0],
         max: [20, 59, 59],
         value: new Date(),
-        beginColumn: 'hour',
+        startColumn: 'hour',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -42,7 +42,7 @@
         min: new Date(2008, 7, 8, 8, 0, 0),
         max: new Date(2020, 9, 20, 20, 59, 59),
         value: new Date(),
-        columnNumber: 6,
+        columnCount: 6,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -52,8 +52,8 @@
         min: [1, 1],
         max: [12, 31],
         value: new Date(),
-        beginColumn: 'month',
-        columnNumber: 2,
+        startColumn: 'month',
+        columnCount: 2,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })

@@ -48,14 +48,14 @@ describe('DatePicker', () => {
       .to.equal('9日')
   })
 
-  it('should correct when configured beginColumn and columnNumber', function (done) {
+  it('should correct when configured startColumn and columnCount', function (done) {
     this.timeout(10000)
 
     vm = createDatePicker({
       min: [1, 8],
       max: [31, 23],
-      beginColumn: 'date',
-      columnNumber: 2
+      startColumn: 'date',
+      columnCount: 2
     })
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')

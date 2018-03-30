@@ -28,29 +28,34 @@
     {
       txt: '年',
       pad: false
-    }, {
+    },
+    {
       txt: '月',
       natureMin: 1,
       natureMax: 12,
       pad: false
-    }, {
+    },
+    {
       txt: '日',
       natureMin: 1,
       natureMax: 31,
       pad: false
-    }, {
+    },
+    {
       txt: '时',
       natureMin: 0,
       natureMax: 23,
       pad: false,
       natureRange: range(0, 23, false, '时')
-    }, {
+    },
+    {
       txt: '分',
       natureMin: 0,
       natureMax: 59,
       pad: true,
       natureRange: range(0, 59, true, '分')
-    }, {
+    },
+    {
       txt: '秒',
       natureMin: 0,
       natureMax: 59,
@@ -75,13 +80,13 @@
           return new Date(2020, 12, 31)
         }
       },
-      beginColumn: {
+      startColumn: {
         type: String,
         default() {
           return 'year'
         }
       },
-      columnNumber: {
+      columnCount: {
         type: Number,
         default: 3
       },
@@ -93,28 +98,28 @@
       }
     },
     computed: {
-      beginIndex() {
-        let beginIndex = UNIT_LIST.indexOf(this.beginColumn)
-        return beginIndex < 0 ? 0 : beginIndex
+      startIndex() {
+        let startIndex = UNIT_LIST.indexOf(this.startColumn)
+        return startIndex < 0 ? 0 : startIndex
       },
       minArray() {
         return this.min instanceof Date
-                ? dateToArray(this.min).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                ? dateToArray(this.min).slice(this.startIndex, this.startIndex + this.columnCount)
                 : this.min
       },
       maxArray() {
         return this.max instanceof Date
-                ? dateToArray(this.max).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                ? dateToArray(this.max).slice(this.startIndex, this.startIndex + this.columnCount)
                 : this.max
       },
       valueArray() {
         return this.value instanceof Date
-                ? dateToArray(this.value).slice(this.beginIndex, this.beginIndex + this.columnNumber)
+                ? dateToArray(this.value).slice(this.startIndex, this.startIndex + this.columnCount)
                 : this.value
       },
       data() {
         let data = []
-        this._generateData(this.beginIndex, 0, data)
+        this._generateData(this.startIndex, 0, data)
 
         return data
       },
@@ -123,7 +128,7 @@
         let data = this.data
         let findIndex
 
-        for (let i = 0; i < this.columnNumber && i < 6 - this.beginIndex; i++) {
+        for (let i = 0; i < this.columnCount && i < 6 - this.startIndex; i++) {
           findIndex = data.findIndex((item) => {
             return this.valueArray[i] && item.value === this.valueArray[i]
           })
@@ -161,13 +166,13 @@
             let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
             let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
-            let storageYear = i === 1 && this.beginIndex === 0 && this.columnNumber >= 3 && item.value
+            let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
             item.children = range(min, max, UNIT_RELATED_LIST[i].pad, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
           } else {
             item.children = UNIT_RELATED_LIST[i].natureRange
           }
         }
-        if (count < this.columnNumber - 1 && i < 5) {
+        if (count < this.columnCount - 1 && i < 5) {
           (item.children || item).forEach(subItem => {
             this._generateData(i + 1, count + 1, subItem)
           })
@@ -178,12 +183,12 @@
         const defaultDateArray = dateToArray(new Date(0))
 
         for (let i = 0; i < 6; i++) {
-          if (i < this.beginIndex) {
+          if (i < this.startIndex) {
             args[i] = defaultDateArray[i]
-          } else if (i >= this.beginIndex + this.columnNumber) {
+          } else if (i >= this.startIndex + this.columnCount) {
             args[i] = UNIT_RELATED_LIST[i].natureMin
           } else {
-            args[i] = selectedVal[i - this.beginIndex]
+            args[i] = selectedVal[i - this.startIndex]
           }
         }
         // Month need to subtract 1.

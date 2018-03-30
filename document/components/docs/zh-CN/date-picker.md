@@ -47,7 +47,7 @@
 
 - 列的配置
 
-  `DatePicker` 有一个非常灵活的能力，就是可以配置列，总共是年、月、日、时、分、秒六种的列，你可以通过 `beginColumn` 和 `ColumnNumber` 来配置起始列和列数，比如默认的”年月日“选择，是从“年”开始的“三列”，而时分秒，则是从“时”开始的“三列”。
+  `DatePicker` 有一个非常灵活的能力，就是可以配置列，总共是年、月、日、时、分、秒六种的列，你可以通过 `startColumn` 和 `columnCount` 来配置起始列和列数，比如默认的”年月日“选择，是从“年”开始的“三列”，而时分秒，则是从“时”开始的“三列”。
   
   ```html
   <cube-button @click="showTimePicker">Time Picker</cube-button>
@@ -60,7 +60,7 @@
         min: new Date(2008, 7, 8, 8, 0, 0),
         max: new Date(2008, 7, 8, 20, 59, 59),
         value: new Date(2008, 7, 8, 12, 30, 30),
-        beginColumn: 'hour',
+        startColumn: 'hour',
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -102,7 +102,7 @@
         min: new Date(2008, 7, 8, 8, 0, 0),
         max: new Date(2020, 9, 20, 20, 59, 59),
         value: new Date(),
-        columnNumber: 6,
+        columnCount: 6,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -183,8 +183,8 @@
 | min | 可选范围的最小值 | Date, Array | - | new Date(2010, 1, 1) | new Date(2008, 7, 8) |
 | max | 可选范围的最大值 | Date, Array | - | new Date(2020, 12, 31) | new Date(2020, 9, 20) |
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
-| beginColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
-| columnNumber | 列数 | Number | - | 3 | 6 |
+| startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
+| columnCount | 列数 | Number | - | 3 | 6 |
 | title | 标题 | String | - | '' | - |
 | cancelTxt | 取消按钮文案 | String | - | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | - | '确定' | - |
