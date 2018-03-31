@@ -273,6 +273,7 @@
       min-height: 46px
     .cube-form-field
       flex: 1
+      font-size: $fontsize-medium
     .cube-validator
       display: flex
       align-items: center

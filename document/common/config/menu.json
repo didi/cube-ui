@@ -110,6 +110,7 @@
             "cascade-picker": "CascadePicker",
             "date-picker": "DatePicker",
             "time-picker": "TimePicker",
+            "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
           }
