@@ -2,8 +2,8 @@
   <cube-page type="picker-view" title="Segment Picker" desc="">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showSegmentPicker">Segment Picker</cube-button>
-        <cube-button @click="updateProps">Use $updateProps</cube-button>
+        <cube-button @click="showDateSegmentPicker">StartDate - EndDate</cube-button>
+        <cube-button @click="showCitySegmentPicker">Express - From - To</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -23,22 +23,56 @@
     })
   })
 
+  const dateSegmentData = [
+    {
+      is: 'cube-date-picker',
+      title: '入学时间',
+      min: new Date(2000, 0, 1),
+      max: new Date(2030, 11, 31)
+    },
+    {
+      is: 'cube-date-picker',
+      title: '毕业时间',
+      min: new Date(2000, 0, 1),
+      max: new Date(2030, 11, 31)
+    }
+  ]
+
   export default {
     mounted() {
-      this.segmentPicker = this.$createSegmentPicker({
+      this.dateSegmentPicker = this.$createSegmentPicker({
+        data: dateSegmentData,
+        onSelect: (selectedDates, selectedVals, selectedTexts) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Items: <br/> - 入学时间: ${selectedTexts[0].join('')} <br/> - 毕业时间: ${selectedTexts[1].join('')}`,
+            icon: 'cubeic-alert'
+          }).show()
+        },
+        onNext: (i, selectedDate, selectedValue, selectedText) => {
+          dateSegmentData[1].min = selectedDate
+          if (i === 0) {
+            this.dateSegmentPicker.$updateProps({
+              data: dateSegmentData
+            })
+          }
+        }
+      })
+
+      this.citySegmentPicker = this.$createSegmentPicker({
         data: [{
-          title: '快递',
+          title: '选择快递',
           data: [expressData],
           selectedIndex: [1]
         }, {
           is: 'cube-cascade-picker',
-          title: '出发地',
+          title: '寄件地址',
           data: cityData,
           selectedIndex: [0, 0, 0],
           cancelTxt: '返回'
         }, {
           is: 'cube-cascade-picker',
-          title: '目的地',
+          title: '收件地址',
           data: cityData,
           selectedIndex: [0, 0, 0]
         }],
@@ -46,46 +80,21 @@
         confirmTxt: 'Confirm',
         nextTxt: 'Next',
         prevTxt: 'Prev',
-        onSelect: (...args) => {
-          console.log('select:', ...args)
-        },
-        onCancel: (...args) => {
-          console.log('cancel:', ...args)
-        },
-        onNext: (...args) => {
-          console.log('next:', ...args)
-        },
-        onPrev: (...args) => {
-          console.log('prev:', ...args)
-        },
-        onChange: (...args) => {
-          console.log('change', ...args)
+        onSelect: (selectedVals, selectedIndexs, selectedTexts) => {
+          this.$createDialog({
+            type: 'warn',
+            content: `Selected Items: <br/> - 所选快递:  ${selectedTexts[0].join('')} <br/> - 寄件地址: ${selectedTexts[1].join('')} <br/> - 收件地址: ${selectedTexts[2].join('')}`,
+            icon: 'cubeic-alert'
+          }).show()
         }
       })
     },
     methods: {
-      showSegmentPicker() {
-        this.segmentPicker.show()
+      showDateSegmentPicker() {
+        this.dateSegmentPicker.show()
       },
-      updateProps() {
-        this.segmentPicker.$updateProps({
-          data: [{
-            is: 'cube-cascade-picker',
-            title: '出发地',
-            data: cityData,
-            selectedIndex: [0, 0, 0],
-            cancelTxt: '返回'
-          }, {
-            title: '快递',
-            data: [expressData],
-            selectedIndex: [1]
-          }, {
-            is: 'cube-cascade-picker',
-            title: '目的地',
-            data: cityData,
-            selectedIndex: [0, 0, 0]
-          }]
-        })
+      showCitySegmentPicker() {
+        this.citySegmentPicker.show()
       }
     },
     components: {
