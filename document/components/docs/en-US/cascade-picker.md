@@ -213,7 +213,6 @@
     }
   }
   ```
-  One more thing, although `setData` is available when visible, considering user experience, you can't change the number of columns when the picker is visible.
 
 ### Props configuration
 

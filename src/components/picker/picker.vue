@@ -1,13 +1,13 @@
 <template>
   <transition name="cube-picker-fade">
     <cube-popup
-        type="picker"
-        :mask="true"
-        :center="false"
-        :z-index="zIndex"
-        v-show="isVisible"
-        @touchmove.prevent
-        @mask-click="cancel">
+      type="picker"
+      :mask="true"
+      :center="false"
+      :z-index="zIndex"
+      v-show="isVisible"
+      @touchmove.prevent
+      @mask-click="cancel">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
@@ -37,6 +37,7 @@
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
   import apiMixin from '../../common/mixins/api'
+  import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
   const COMPONENT_NAME = 'cube-picker'
@@ -48,7 +49,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, pickerMixin],
+    mixins: [apiMixin, basicPickerMixin, pickerMixin],
     data() {
       return {
         pickerData: this.data.slice(),

@@ -20,6 +20,7 @@ import Slide from './modules/slide'
 import IndexList from './modules/index-list'
 import TimePicker from './modules/time-picker'
 import SegmentPicker from './modules/segment-picker'
+import DatePicker from './modules/date-picker'
 import Scroll from './modules/scroll'
 
 import Upload from './modules/upload'
@@ -50,6 +51,7 @@ export {
   TimePicker,
   CascadePicker,
   SegmentPicker,
+  DatePicker,
   Select,
   Form,
   FormGroup,

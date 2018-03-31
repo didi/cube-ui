@@ -83,6 +83,13 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | clearable | whether to show clear button | Boolean | true/false | false |
 | eye | If set to false then the password eye is invisible, if set to true then the password eye is visible and the password content is visible, if set to an object `{ open: false }` then the password eye is visible but the password content is invisible, the `open` can be used to control the password content's visibility | Boolean/Object | true/false/{open: `true/false`} | false |
 
+### Slot
+
+| Slot Name | Description |
+| - | - |
+| prepend | prepend content |
+| append | append content |
+
 ### Event
 
 | Event Name | Description | Parameters |
