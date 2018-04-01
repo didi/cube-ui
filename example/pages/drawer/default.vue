@@ -3,7 +3,7 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
-        <cube-drawer ref="drawer" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler"></cube-drawer>
+        <cube-drawer ref="drawer" title="请选择" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler"></cube-drawer>
       </div>
     </div>
   </cube-page>
@@ -16,7 +16,6 @@
   export default {
     data() {
       return {
-        title: 'Current City: BEIJING',
         selectedIndex: [],
         data: [
           provinceList,
@@ -46,7 +45,7 @@
             data = areaList[item.value]
           }
           this.$refs.drawer.refill(index + 1, data)
-        }, 500)
+        }, 200)
       },
       selectHandler(selectedVal, selectedIndex) {
         console.log('select', selectedVal, selectedIndex)
@@ -65,9 +64,4 @@
     left: 0
     bottom: 0
     width: 100%
-    .drawer-def
-      height: 98%
-      width: 94%
-      margin: 0 auto
-      overflow: hidden
 </style>

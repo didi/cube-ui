@@ -1,32 +1,69 @@
 <template>
-  <cube-page type="drawer-custom" title="Drawer">
+  <cube-page type="drawer-def" title="Drawer">
     <div slot="content">
-      xx
+      <div class="view-wrapper">
+        <cube-button @click="showDrawer">Show Drawer</cube-button>
+        <cube-drawer ref="drawer" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler">
+          <span slot="title">{{province.text}}</span>
+          <cube-drawer-panel
+            v-for="(panel, index) in data"
+            :key="index"
+            :index="index"
+            :data="panel"
+          >
+            <cube-drawer-item v-for="(item, i) in panel" :item="item" :key="i" :index="i">
+              <i class="cubeic-round-border"></i>
+              <span>{{item.text}}</span>
+            </cube-drawer-item>
+          </cube-drawer-panel>
+        </cube-drawer>
+      </div>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
-  import cityData from '../../data/index-list.json'
+  import { provinceList, cityList, areaList } from '../../data/area'
 
   export default {
-    components: {
-      CubePage
-    },
     data() {
       return {
-        title: 'Current City: BEIJING',
-        cityData: cityData
+        province: {},
+        selectedIndex: [],
+        data: [
+          [],
+          []
+        ]
       }
     },
     methods: {
+      showDrawer() {
+        const randomIndex = Math.round(Math.random() * provinceList.length)
+        const randomProvince = provinceList[randomIndex]
+        this.province = randomProvince
+        this.$refs.drawer.refill(0, cityList[randomProvince.value])
+        this.$refs.drawer.show()
+      },
       selectItem(item) {
         console.log(item.name)
       },
       clickTitle(title) {
         console.log(title)
+      },
+      changeHandler(index, item, selectedVal, selectedIndex) {
+        setTimeout(() => {
+          // city change, get area data
+          const data = areaList[item.value]
+          this.$refs.drawer.refill(index + 1, data)
+        }, 200)
+      },
+      selectHandler(selectedVal, selectedIndex) {
+        console.log('select', selectedVal, selectedIndex)
       }
+    },
+    components: {
+      CubePage
     }
   }
 </script>
@@ -38,9 +75,7 @@
     left: 0
     bottom: 0
     width: 100%
-    .drawer-custom
-      height: 98%
-      width: 94%
-      margin: 0 auto
-      overflow: hidden
+    .cube-drawer-item_active
+      color: #fc9153
+      background-color: transparent
 </style>

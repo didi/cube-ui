@@ -1,10 +1,10 @@
 <template>
-  <transition name="cube-drawer-panel-show">
+  <transition name="cube-drawer-move">
     <div class="cube-drawer-panel" v-show="isVisible">
-      <cube-scroll :data="data">
+      <cube-scroll ref="scroll" :data="data">
         <ul class="cube-drawer-list">
           <slot>
-            <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" @click="itemClickHandler" />
+            <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" />
           </slot>
         </ul>
       </cube-scroll>
@@ -18,7 +18,6 @@
   import CubeDrawerItem from './drawer-item.vue'
 
   const COMPONENT_NAME = 'cube-drawer-panel'
-  const EVENT_CHANGE = 'change'
 
   export default {
     name: COMPONENT_NAME,
@@ -41,10 +40,32 @@
         return selectedIndex === undefined ? -1 : selectedIndex
       }
     },
+    watch: {
+      data() {
+        this.scrollToTop()
+      }
+    },
+    mounted() {
+      this.$parent.addPanel(this)
+      if (!this.isVisible) {
+        this.$watch('isVisible', () => {
+          this.refresh()
+        })
+      }
+    },
+    beforeDestroy() {
+      this.$parent.removePanel(this)
+    },
     methods: {
+      refresh() {
+        this.$refs.scroll.refresh()
+      },
+      scrollToTop() {
+        this.$refs.scroll.scroll.scrollTo(0, 0, 0)
+      },
       itemClickHandler(item, index) {
         if (this.selectedIndex !== index) {
-          this.$emit(EVENT_CHANGE, this.index, item, index)
+          this.$parent.changeHandler(this.index, item, index)
         }
       }
     },
@@ -60,13 +81,19 @@
 
   .cube-drawer-panel
     position: relative
+    z-index: 1
     height: 100%
     flex: 1
-    padding-right: 5px
-  .cube-drawer-panel-show-enter, .cube-drawer-panel-show-leave-active
-    max-width: 100%
+    width: 170px
+    background-color: $color-white
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
+    + .cube-drawer-panel
+      margin-left: -67px
+    &:first-child
+      box-shadow: none
 
-  .cube-drawer-panel-show-enter-active, .cube-drawer-panel-show-leave-active
-    max-width: 0
-    transition: max-width .4s ease-in-out
+  .cube-drawer-move-enter, .cube-drawer-move-leave-to
+    transform: translate(67px, 0)
+  .cube-drawer-move-enter-active, .cube-drawer-move-leave-active
+    transition: transform .3s ease-in-out
 </style>

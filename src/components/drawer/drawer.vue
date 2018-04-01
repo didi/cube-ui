@@ -1,22 +1,24 @@
 <template>
-  <transition name="cube-drawer-move">
-    <div class="cube-drawer" @click="drawerClick" v-show="isVisible">
-      <div class="cube-drawer-panels" @click.stop>
+  <div class="cube-drawer" @click="drawerClick" v-show="isVisible">
+    <div class="cube-drawer-main" :style="slideStyle" @click.stop @transitionend="transitionend">
+      <div class="cube-drawer-title" v-show="$slots.title || title">
+        <slot name="title">{{title}}</slot>
+      </div>
+      <div class="cube-drawer-panels" @transitionend.stop>
         <slot>
           <cube-drawer-panel
-            ref="panels"
             v-for="(panel, index) in data"
             :key="index"
             :index="index"
-            :data="panel"
-            @change="changeHandler" />
+            :data="panel" />
         </slot>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
   import apiMixin from '../../common/mixins/api'
 
@@ -25,10 +27,16 @@
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
 
+  const transform = prefixStyle('transform')
+
   export default {
     name: COMPONENT_NAME,
     mixins: [apiMixin],
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
       data: {
         type: Array,
         default() {
@@ -46,32 +54,65 @@
       return {
         index: -1,
         selectedVal: [],
-        selected: [...this.selectedIndex]
+        selected: [...this.selectedIndex],
+        slideStyle: {
+          [transform]: 'translate3d(0, 0, 0)'
+        }
       }
     },
     watch: {
       selectedIndex(newVal) {
         this.selected = [...newVal]
       },
-      index(newIndex) {
+      index(newIndex, oldIndex) {
         this.showPanel()
-      }
-    },
-    mounted() {
-      let len = this.data.length
-      for (let i = 0; i < len; i++) {
-        this.index = i
-        if (this.selected[i] < 0 || this.selected[i] === undefined) {
-          // if (i > 0) {
-          //   const lastIndex = i - 1
-          //   const index = this.selected[lastIndex]
-          //   this.changeHandler(lastIndex, this.data[lastIndex][index], index)
-          // }
-          break
+        if (newIndex < oldIndex) {
+          // this.shouldHidePanel = true
+          this.hidePanel()
         }
       }
     },
+    created() {
+      this.panels = []
+    },
     methods: {
+      show() {
+        this.isVisible = true
+        let len = this.data.length
+        for (let i = 0; i < len; i++) {
+          this.index = i
+          if (this.selected[i] < 0 || this.selected[i] === undefined) {
+            // if (i > 0) {
+            //   const lastIndex = i - 1
+            //   const index = this.selected[lastIndex]
+            //   this.changeHandler(lastIndex, this.data[lastIndex][index], index)
+            // }
+            break
+          }
+        }
+        this.computedStyle()
+      },
+      hide() {
+        this.slideStyle[transform] = 'translate3d(0, 0, 0)'
+        this.shouldHide = true
+      },
+      addPanel(panel) {
+        this.panels.push(panel)
+      },
+      removePanel(panel) {
+        const i = this.panels.indexOf(panel)
+        this.panels.splice(i, 1)
+      },
+      transitionend() {
+        if (this.shouldHidePanel) {
+          this.hidePanel()
+          this.shouldHidePanel = false
+        }
+        if (this.shouldHide) {
+          this.isVisible = false
+          this.shouldHide = false
+        }
+      },
       refill(columnIndex, data, index) {
         this.$set(this.data, columnIndex, data)
         this.index = columnIndex
@@ -82,13 +123,37 @@
         }
       },
       showPanel() {
-        const len = this.data.length
         const index = this.index
         let i = 0
-        while (i < len) {
-          this.$refs.panels[i][i <= index ? 'show' : 'hide']()
+        while (i <= index) {
+          this.panels[i].show()
           i++
         }
+        this.computedStyle()
+      },
+      hidePanel() {
+        const len = this.data.length
+        let i = this.index + 1
+        while (i < len) {
+          this.panels[i].hide()
+          i++
+        }
+      },
+      computedStyle() {
+        this.$nextTick(() => {
+          let allWidth = 0
+          let i = 0
+          const index = this.index
+          while (i <= index) {
+            const el = this.panels[i].$el
+            allWidth += el.offsetWidth
+            const elStyle = window.getComputedStyle(el)
+            allWidth += parseInt(elStyle.marginLeft)
+            allWidth += parseInt(elStyle.marginRight)
+            i++
+          }
+          this.slideStyle[transform] = `translate3d(-${allWidth}px, 0, 0)`
+        })
       },
       changeHandler(columnIndex, item, index) {
         this.selectedVal[columnIndex] = item
@@ -117,23 +182,33 @@
 
   .cube-drawer
     position: absolute
+    z-index: 5
     top: 0
     right: 0
     bottom: 0
     left: 0
     overflow: hidden
-  .cube-drawer-panels
-    z-index: 5
+    color: $color-dark-grey
+  .cube-drawer-main
     position: absolute
     top: 0
-    right: 0
+    left: 100%
     bottom: 0
     display: flex
+    flex-direction: column
     overflow: hidden
-    background-color: $color-white
-  .cube-drawer-move-enter, .cube-drawer-move-leave-active
-    transform: translate3d(100%, 0, 0)
-
-  .cube-drawer-move-enter-active, .cube-drawer-move-leave-active
+    box-shadow: -2px 0 2px rgba(0, 0, 0, .2)
+    transform: translate3d(0, 0, 0)
     transition: transform .3s ease-in-out
+  .cube-drawer-title
+    position: relative
+    padding: 0 20px
+    height: 50px
+    line-height: 50px
+    border-bottom: 1px solid $color-light-grey-ss
+    font-size: $fontsize-large
+    background-color: $color-white
+  .cube-drawer-panels
+    display: flex
+    flex: 1
 </style>

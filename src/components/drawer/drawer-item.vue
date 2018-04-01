@@ -12,7 +12,6 @@
 
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-drawer-item'
-  const EVENT_CLICK = 'click'
 
   export default {
     name: COMPONENT_NAME,
@@ -33,7 +32,7 @@
     },
     methods: {
       clickItem(item) {
-        this.$emit(EVENT_CLICK, item, this.index)
+        this.$parent.$parent.itemClickHandler(item, this.index)
       }
     }
   }
@@ -43,10 +42,17 @@
   @require "../../common/stylus/mixin.styl"
 
   .cube-drawer-item
-    padding: 15px
+    padding: 0 20px
+    height: 50px
+    line-height: 50px
     white-space: nowrap
     overflow: hidden
-    font-size: $fontsize-large
+    font-size: 15px
+    &::after
+      left: 20px
+    &:last-child
+      &::after
+        display: none
   .cube-drawer-item_active
     background: $index-list-item-active-bgc
 </style>
