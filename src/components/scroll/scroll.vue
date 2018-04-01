@@ -137,6 +137,9 @@
         this.initScroll()
       })
     },
+    beforeDestroy() {
+      this.destroy()
+    },
     methods: {
       initScroll() {
         if (!this.$refs.wrapper) {
@@ -183,6 +186,7 @@
       },
       destroy() {
         this.scroll.destroy()
+        this.scroll = null
       },
       scrollTo() {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
