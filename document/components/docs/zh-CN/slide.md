@@ -162,6 +162,7 @@
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
+| direction | 轮播方向 | String | horizontal/vertical | horizontal |
 
 ### 插槽
 
