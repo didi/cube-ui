@@ -1,16 +1,15 @@
 <template>
-  <div class="home-view">
+  <div class="home-view" :class="{'home-view-docs': isDocs}">
     <div class="navigator" :class="{ active: showTabs }">
-      <h1 class="logo">
-        <router-link to="/"><span>cube-ui</span></router-link>
-      </h1>
+      <div class="logo">
+        <router-link to="/"><img src="./didi-logo.svg" alt="DiDi"></router-link>
+      </div>
       <div class="tabs">
+        <i></i>
         <slot name="nav"></slot>
         <site-lang></site-lang>
       </div>
-      <span class="toggle-nav" @click="toggleNav">
-        <img src="./nav.svg">
-      </span>
+      <span class="toggle-nav" @click="toggleNav"><i></i></span>
     </div>
     <div class="router-view">
       <nav-loading></nav-loading>
@@ -54,74 +53,116 @@
 
   .home-view
     height: 100%
-    padding-top: 70px
     box-sizing: border-box
+    padding-top: 70px
     transition: all 250ms ease
+    @media screen and (max-width: 960px)
+      padding-top: 48px
+      &.home-view-docs
+        overflow: hidden
+        height: auto
+        .toggle-nav
+          display: none!important
     .router-view
       height: 100%
   .navigator
+    position: relative
     height: 70px
     line-height: 70px
+    padding: 0 100px
     margin-top: -70px
-    background-color: $color-regular-blue
     transition: all 0.3s ease
-    overflow: hidden
+    @media screen and (max-width: 960px)
+      padding: 0
+      height: 48px
+      line-height: 48px
+      margin-top: -48px
+      &.active
+        .tabs
+          transition: transform .2s
+          transform: scale(1)
     .toggle-nav
       display: none
+      font-size: 0
+      i, &::before, &::after
+        display: inline-block
+        width: 5px
+        height: 5px
+        border-radius: 50%
+        background-color: #646464
+      i
+        margin: 0 2px
+      &::before, &::after
+        content: ""
+        width: 3px
+        height: 3px
       @media screen and (max-width: 960px)
         display: flex
         position: absolute
-        left: 10px
+        right: 0
         top: 0
-        width: 40px
-        height: 70px
+        padding: 0 16px
+        height: 100%
         align-items: center
         justify-content: center
       &:active
         opacity: .6
-      img
-        width: 20px
-        height: 20px
-    &.active
-      height: 255px
     .logo
       float: left
-      background-color: $color-orange
+      padding: 0 16px
+      height: 100%
       @media screen and (max-width: 960px)
         float: none
-        background-color: transparent
         text-align: center
-      a
-        display: block
-        padding: 0 28px
-        color: $color-white
-        font-size: $fontsize-large-xx
-        @media screen and (max-width: 960px)
-          display: inline-block
-        &::before
-          content: ""
-          display: inline-block
-          background-image: url("//static.galileo.xiaojukeji.com/static/tms/shield/z/mofang/mofang/images/didi-logo.png")
-          width: 36px
-          height: 29px
-          margin-right: 10px
-          vertical-align: middle
+        img
+          transform: scale(1.6)
+      img
+        height: 100%
     .tabs
       float: right
       padding: 0 30px
+      box-shadow: none
       @media screen and (max-width: 960px)
-        float: none
-        padding: 0
-        border-top: solid 1px rgba(255, 255, 255, 0.5)
+        position: absolute
+        z-index: 10
+        right: 10px
+        padding: 0 0 0 2px
+        margin-top: -12px
+        font-size: 12px
+        background-color: #fff
+        border: 1px solid #e5e5e5
+        border-radius: 3px
+        transform: scale(0)
+        transform-origin: 84% 0
+        i
+          position: absolute
+          top: -5px
+          right: 7px
+          width: 10px
+          height: 5px
+          background-color: #fff
+          &::before, &::after
+            content: ""
+            position: absolute
+            bottom: 0
+            right: 3px
+            width: 8px
+            border-top: 1px solid #e5e5e5
+            transform: rotate(-40deg)
+            transform-origin: left bottom
+          &::after
+            right: 0
+            transform: rotate(40deg)
+            transform-origin: right bottom
       .tab
         display: inline-block
-        margin: 0 10px
+        margin: 0 18px
+        color: #4B4B4C
+        transition: color .2s
         @media screen and (max-width: 960px)
           display: block
-          line-height: 45px
-          margin: 0 20px
-        color: $color-white
-        transition: color .2s
+          line-height: 36px
+          color: black
         &:hover
           color: $color-orange
       .router-link-active

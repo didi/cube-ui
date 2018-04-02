@@ -1,10 +1,12 @@
 <template>
   <div class="docs-view">
-    <img class="toggle-catalog" @click="toggleCatalog" src="./catalog.svg">
+    <img class="menu" v-show="showCatalog" @click="toggleCatalog" src="./close.svg">
+    <img class="menu" v-show="!showCatalog" @click="toggleCatalog" src="./menu.svg">
+    <img class="menu to-home" @click="toHome" src="./back.svg">
+    <div v-show="showCatalog" class="mask" :class="{ active: showCatalog }" @click="toggleCatalog"></div>
     <div class="nav-list-wrapper" :class="{ active: showCatalog }">
       <side-list :nav-list="navList"></side-list>
     </div>
-    <div v-show="showCatalog" class="mask" :class="{ active: showCatalog }" @click="toggleCatalog"></div>
     <router-view class="page-doc md-body" v-highlight></router-view>
     <display></display>
   </div>
@@ -37,6 +39,9 @@
     methods: {
       toggleCatalog() {
         this.showCatalog = !this.showCatalog
+      },
+      toHome() {
+        this.$router.push('/')
       }
     },
     mounted () {
@@ -63,27 +68,39 @@
     display: flex
     width: 100%
     height: 100%
+    box-sizing: border-box
     flex-wrap: wrap
-    overflow: hidden
+    &::before
+      content: ""
+      position: relative
+      z-index: 5
+      display: block
+      width: 100%
+      height: 1px
+      margin-top: -1px
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
     @media screen and (max-width: 960px)
       position: relative
       height: auto
-    .toggle-catalog
+    .menu
       display: none
       @media screen and (max-width: 960px)
         display: block
         position: absolute
-        right: 20px
-        top: 20px
+        right: 6px
+        top: -44px
         width: 20px
         height: 20px
         padding: 10px
-        background-color: $color-white
-        box-shadow: $box-shadow-content
+        &.to-home
+          right: auto
+          left: 3px
       &:active
         opacity: .6
     .nav-list-wrapper
+      width: 279px
       height: 100%
+      border-right: 1px solid #e3e3e3
       @media screen and (max-width: 960px)
         position: absolute
         right: 0
@@ -93,46 +110,57 @@
         overflow: hidden
         transform: translate(100%, 0)
         transition: all 0.4s ease
+        border-right: none
         &.active
           transform: translate(0, 0)
-    .mask
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
+    @media screen and (max-width: 960px)
+      .mask
+        z-index: 1
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: transparent
+        &.active
+          background-color: rgba(0, 0, 0 ,0.05)
+          transition: all 0.4s ease
+    .page-sidelist
       height: 100%
-      background-color: transparent
-      &.active
-        background-color: rgba(0, 0, 0 ,0.2)
-        transition: all 0.4s ease
-  .page-sidelist
-    flex: none
-    width: 190px
-    height: 100%
-    padding: 40px 20px
-    box-sizing: border-box
-    overflow-y: auto
-    @media screen and (max-width: 960px)
+      padding: 50px 0
+      margin-right: -1px
+      box-sizing: border-box
+      overflow-y: auto
+      @media screen and (max-width: 960px)
+        height: 100%
+        padding: 30px 0
+        font-size: 12px
+        .nav-li
+          .nav-name
+            font-size: 15px
+          .angle
+            font-size: 12px
+          .arrow
+            top: 27px
+    .page-doc
+      position: relative
+      flex: 1
       height: 100%
-      padding: 5px 20px
-  .page-doc
-    flex: 1
-    height: 100%
-    padding: 44px 20px 20px 20px
-    box-sizing: border-box
-    overflow-y: auto
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: auto
-      padding: 20px 20px 0 20px
-    h2:first-child
-      margin-top: 0
-  .page-display
-    flex: none
-    height: 100%
-    width: 420px
-    overflow-y: auto
-    @media screen and (max-width: 960px)
-      flex: 1 1 100%
-      height: 800px
+      padding: 54px 30px 30px
+      box-sizing: border-box
+      overflow-y: auto
+      @media screen and (max-width: 960px)
+        flex: 1 1 100%
+        height: auto
+        padding: 20px
+        font-size: 13px
+      h2:first-child
+        margin-top: 0
+    .page-display
+      flex: none
+      height: 100%
+      overflow-y: auto
+      @media screen and (max-width: 960px)
+        flex: 1 1 100%
+        height: 680px
 </style>
