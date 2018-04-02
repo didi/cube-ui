@@ -22,7 +22,6 @@ import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
 import ActionSheet from '../pages/action-sheet.vue'
 import Scroll from '../pages/scroll.vue'
-import Slide from '../pages/slide.vue'
 import IndexList from '../pages/index-list/index-list.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
@@ -34,6 +33,9 @@ import SwipeCustom from '../pages/swipe/custom.vue'
 import Drawer from '../pages/drawer/index.vue'
 import DrawerDefault from '../pages/drawer/default.vue'
 import DrawerCustom from '../pages/drawer/custom.vue'
+import Slide from '../pages/slide/index.vue'
+import SlideVertical from '../pages/slide/vertical.vue'
+import SlideHorizontal from '../pages/slide/horizontal.vue'
 
 const routes = [
   {
@@ -135,10 +137,6 @@ const routes = [
     component: Scroll
   },
   {
-    path: '/slide',
-    component: Slide
-  },
-  {
     path: '/index-list',
     component: IndexList,
     children: [
@@ -185,6 +183,20 @@ const routes = [
       {
         path: 'custom',
         component: DrawerCustom
+      }
+    ]
+  },
+  {
+    path: '/slide',
+    component: Slide,
+    children: [
+      {
+        path: 'vertical',
+        component: SlideVertical
+      },
+      {
+        path: 'horizontal',
+        component: SlideHorizontal
       }
     ]
   }

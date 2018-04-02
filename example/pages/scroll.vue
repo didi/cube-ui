@@ -202,18 +202,6 @@
       customList(newVal) {
         this.items = newVal ? _foods : _data
       },
-      pullDownRefreshObj: {
-        handler() {
-          this.rebuildScroll()
-        },
-        deep: true
-      },
-      pullUpLoadObj: {
-        handler() {
-          this.rebuildScroll()
-        },
-        deep: true
-      },
       startY() {
         this.rebuildScroll()
       }
