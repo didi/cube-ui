@@ -30,6 +30,9 @@ import Validator from '../pages/validator.vue'
 import Swipe from '../pages/swipe/index.vue'
 import SwipeDefault from '../pages/swipe/default.vue'
 import SwipeCustom from '../pages/swipe/custom.vue'
+import Drawer from '../pages/drawer/index.vue'
+import DrawerDefault from '../pages/drawer/default.vue'
+import DrawerCustom from '../pages/drawer/custom.vue'
 import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
@@ -166,6 +169,20 @@ const routes = [
       {
         path: 'custom',
         component: SwipeCustom
+      }
+    ]
+  },
+  {
+    path: '/drawer',
+    component: Drawer,
+    children: [
+      {
+        path: 'default',
+        component: DrawerDefault
+      },
+      {
+        path: 'custom',
+        component: DrawerCustom
       }
     ]
   },

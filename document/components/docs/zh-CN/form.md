@@ -310,7 +310,7 @@
 
 ### Props 配置
 
-#### Form
+#### CubeForm
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
@@ -386,14 +386,14 @@
   | rules | 字段的校验规则，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
   | messages | 字段的校验消息，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
-#### FormGroup
+#### CubeFormGroup
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | legend | 分组名字 | String | - | '' |
 | fields | 该组内所包含的字段集合 | Array | - | [] |
 
-#### FormItem
+#### CubeFormItem
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
