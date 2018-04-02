@@ -57,5 +57,5 @@
       &::after
         display: block
   .cube-drawer-item_active
-    background: $index-list-item-active-bgc
+    background: $drawer-item-active-bgc
 </style>

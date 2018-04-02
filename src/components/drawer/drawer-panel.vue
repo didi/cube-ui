@@ -84,7 +84,7 @@
     height: 100%
     flex: 1
     width: 170px
-    background-color: $color-white
+    background-color: $drawer-panel-bgc
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
     + .cube-drawer-panel
       margin-left: -67px
