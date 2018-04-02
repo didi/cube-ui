@@ -178,7 +178,7 @@
 | threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
 | speed | speed of switching pages | Number | - | 400 |
 | allowVertical | whether to allow vertical scrolling | Boolean | true/false | false |
-
+| direction | slide direction | String | horizontal/vertical | horizontal |
 ### Slot
 
 | Name | Description | Scope Parameters |
