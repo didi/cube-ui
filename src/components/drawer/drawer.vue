@@ -69,7 +69,6 @@
       index(newIndex, oldIndex) {
         this.showPanel()
         if (newIndex < oldIndex) {
-          // this.shouldHidePanel = true
           this.hidePanel()
         }
       }
@@ -106,10 +105,6 @@
         this.panels.splice(i, 1)
       },
       transitionend() {
-        if (this.shouldHidePanel) {
-          this.hidePanel()
-          this.shouldHidePanel = false
-        }
         if (this.shouldHide) {
           this.isVisible = false
           this.shouldHide = false
