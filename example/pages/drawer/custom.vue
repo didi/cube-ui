@@ -81,6 +81,4 @@
     .cube-drawer-item_active
       color: #fc9153
       background-color: transparent
-    .cube-drawer-panel
-      overflow: hidden
 </style>

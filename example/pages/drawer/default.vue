@@ -69,6 +69,4 @@
     left: 0
     bottom: 0
     width: 100%
-    .cube-drawer-panel
-      overflow: hidden
 </style>
