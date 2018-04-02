@@ -3,7 +3,14 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
-        <cube-drawer ref="drawer" title="请选择" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler"></cube-drawer>
+        <cube-drawer
+          ref="drawer"
+          title="请选择"
+          :data="data"
+          :selected-index="selectedIndex"
+          @change="changeHandler"
+          @select="selectHandler"
+          @cancel="cancelHandler"></cube-drawer>
       </div>
     </div>
   </cube-page>
@@ -35,6 +42,7 @@
         console.log(title)
       },
       changeHandler(index, item, selectedVal, selectedIndex) {
+        // fake request
         setTimeout(() => {
           let data
           if (index === 0) {
@@ -49,6 +57,9 @@
       },
       selectHandler(selectedVal, selectedIndex) {
         console.log('select', selectedVal, selectedIndex)
+      },
+      cancelHandler() {
+        console.log('cancel')
       }
     },
     components: {
