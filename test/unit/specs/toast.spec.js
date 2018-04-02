@@ -113,5 +113,29 @@ describe('Toast', () => {
         done()
       })
     })
+
+    it('should trigger correct event', function (done) {
+      const hideHandle = sinon.spy()
+
+      const vm = createToast({
+        time: 1000
+      }, {
+        hide: hideHandle
+      })
+
+      vm.show()
+
+      setTimeout(() => {
+        expect(hideHandle).to.be.calledOnce
+        done()
+      }, 1200)
+    })
+
+    function createToast(props = {}, events = {}) {
+      return instantiateComponent(Vue, Toast, {
+        props: props,
+        on: events
+      })
+    }
   })
 })
