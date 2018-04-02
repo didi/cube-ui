@@ -23,6 +23,8 @@ $action-sheet-space-bgc := $color-mask-bg
 $action-sheet-picker-cancel-color := $color-light-grey
 $action-sheet-picker-cancel-active-color := $color-light-grey-s
 
+// bubble
+
 // button
 $btn-color := $color-white
 $btn-bgc := $color-regular-blue
@@ -113,6 +115,8 @@ $index-list-item-active-bgc := $color-light-grey-opacity
 $index-list-nav-color := $color-grey
 $index-list-nav-active-color := $color-orange
 
+// loading
+
 // picker
 $picker-bgc := $color-white
 $picker-title-color := $color-dark-grey
@@ -126,9 +130,13 @@ $picker-item-color := $color-dark-grey
 $popup-mask-bgc := rgb(37, 38, 45)
 $popup-mask-opacity := .4
 
+//scroll
+
 // slide
 $slide-dot-bgc := $color-light-grey-s
 $slide-dot-active-bgc := $color-orange
+
+// time-picker
 
 // tip
 $tip-color := $color-white
@@ -176,7 +184,7 @@ $textarea-placeholder-color := $color-light-grey-s
 $textarea-indicator-color := $color-light-grey-s
 
 // validator
-$validator-msg-def-color := #f5222d
+$validator-msg-def-color := #e64340
 
 // select
 $select-color := $color-grey
@@ -190,6 +198,21 @@ $select-placeholder-color := $color-light-grey
 
 // swipe
 $swipe-btn-color := $color-white
+
+// form
+$form-color := $color-grey
+$form-bgc := $color-white
+$form-invalid-color := #e64340
+$form-group-legend-color := $color-light-grey
+$form-group-legend-bgc := $color-background
+$form-label-required-color := #e64340
+
+// drawer
+$drawer-color := $color-dark-grey
+$drawer-title-bdc := $color-light-grey-ss
+$drawer-title-bgc := $color-white
+$drawer-panel-bgc := $color-white
+$drawer-item-active-bgc := $color-light-grey-opacity
 ```
 
 ### 配置 webpack
