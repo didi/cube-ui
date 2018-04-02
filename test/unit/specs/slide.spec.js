@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import Slide from '@/modules/slide'
 import createVue from '../utils/create-vue'
-import { dispatchSwipe, dispatchTap } from '../utils/event'
+import { dispatchSwipe } from '../utils/event'
 
 const items = [{
   url: 'http://www.didichuxing.com/',
