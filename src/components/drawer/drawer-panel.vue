@@ -62,7 +62,7 @@
         this.$refs.scroll.refresh()
       },
       scrollToTop() {
-        this.$refs.scroll.scroll.scrollTo(0, 0, 0)
+        this.$refs.scroll.scroll && this.$refs.scroll.scroll.scrollTo(0, 0, 0)
       },
       itemClickHandler(item, index) {
         if (this.selectedIndex !== index) {
