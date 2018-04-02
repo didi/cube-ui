@@ -163,6 +163,8 @@
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
 | direction | 轮播方向 | String | horizontal/vertical | horizontal |
+| showDots | 是否显示轮播指示点 | Boolean | true/false | true |
+| stopPropagation | 是否阻止事件冒泡，可用于解决嵌套同方向slide时会遇到的事件冒泡问题 | Boolean | true/false | false |
 
 ### 插槽
 
