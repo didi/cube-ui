@@ -40,12 +40,14 @@
       data: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },
       selectedIndex: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       }
@@ -82,11 +84,11 @@
         for (let i = 0; i < len; i++) {
           this.index = i
           if (this.selected[i] < 0 || this.selected[i] === undefined) {
-            // if (i > 0) {
-            //   const lastIndex = i - 1
-            //   const index = this.selected[lastIndex]
-            //   this.changeHandler(lastIndex, this.data[lastIndex][index], index)
-            // }
+            if (i > 0) {
+              const lastIndex = i - 1
+              const index = this.selected[lastIndex]
+              this.changeHandler(lastIndex, this.data[lastIndex][index], index)
+            }
             break
           }
         }

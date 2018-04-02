@@ -26,6 +26,7 @@
       data: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },

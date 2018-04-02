@@ -53,6 +53,9 @@
     &:last-child
       &::after
         display: none
+    &:first-child
+      &::after
+        display: block
   .cube-drawer-item_active
     background: $index-list-item-active-bgc
 </style>

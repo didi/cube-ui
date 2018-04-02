@@ -185,7 +185,7 @@
         this.scroll && this.scroll.refresh()
       },
       destroy() {
-        this.scroll.destroy()
+        this.scroll && this.scroll.destroy()
         this.scroll = null
       },
       scrollTo() {

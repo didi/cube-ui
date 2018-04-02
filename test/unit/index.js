@@ -5,7 +5,7 @@ import 'phantomjs-polyfill-find-index'
 Vue.config.productionTip = false
 
 // require all test files (files that ends with .spec.js)
-const testsContext = require.context('./specs', true, /\.spec$/)
+const testsContext = require.context('./specs', true, /drawer\.spec$/)
 testsContext.keys().forEach(testsContext)
 
 // require all src files except src/index.js and src/module.js for coverage.
