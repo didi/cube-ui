@@ -114,6 +114,7 @@
         this.$set(this.data, columnIndex, data)
         this.index = columnIndex
         this.selected = this.selected.slice(0, columnIndex)
+        this.selectedVal = this.selectedVal.slice(0, columnIndex)
         if (index >= 0) {
           this.$set(this.selected, columnIndex, index)
           this.changeHandler(columnIndex, this.data[columnIndex][index], index)
@@ -153,9 +154,8 @@
         })
       },
       changeHandler(columnIndex, item, index) {
-        this.selectedVal[columnIndex] = item
-        this.selected[columnIndex] = index
-        this.selected = [...this.selected]
+        this.selectedVal[columnIndex] = typeof item === 'string' ? item : item.value
+        this.$set(this.selected, columnIndex, index)
         if (columnIndex === (this.data.length - 1)) {
           // last column
           this.$emit(EVENT_SELECT, this.selectedVal, this.selected)
