@@ -1,5 +1,7 @@
 ## Quick start
 
+[Application Guide](https://github.com/cube-ui/cube-application-guide)
+
 ### CLI
 
 If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the <a href="#cube-Install-anchor" class="anchor">Install</a> steps and see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.

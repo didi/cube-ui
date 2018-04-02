@@ -1,5 +1,7 @@
 ## 快速上手
 
+新手教程项目：[cube-application-guide](https://github.com/cube-ui/cube-application-guide)
+
 ### 脚手架
 
 如果你打算用在一个新项目中使用 cube-ui，可以通过我们提供的一套基于 [vue-cli](https://github.com/vuejs/vue-cli) 实现的[脚手架](https://github.com/cube-ui/cube-template)去初始化 cube-ui 项目的配置和基础代码，这样你就可以忽略<a href="#cube-安装-anchor" class="anchor">安装</a>步骤，直接看<a href="#cube-使用-anchor" class="anchor">使用部分</a>。
