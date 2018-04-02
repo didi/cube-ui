@@ -25,6 +25,7 @@ import Scroll from './modules/scroll'
 
 import Upload from './modules/upload'
 import Swipe from './modules/swipe'
+import Drawer from './modules/drawer'
 
 import BScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
@@ -38,6 +39,8 @@ const Loading = Toast.Loading
 const SlideItem = Slide.Item
 const Radio = RadioGroup.Radio
 const SwipeItem = Swipe.Item
+const DrawerPanel = Drawer.Panel
+const DrawerItem = Drawer.Item
 
 export {
   Style,
@@ -73,6 +76,9 @@ export {
   Upload,
   Swipe,
   SwipeItem,
+  Drawer,
+  DrawerPanel,
+  DrawerItem,
   BScroll,
   createAPI
 }

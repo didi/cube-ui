@@ -1,6 +1,7 @@
 <template>
   <li
     class="cube-index-list-item"
+    :class="itemClass"
     @touchstart="addActiveCls"
     @touchend="removeActiveCls"
     @click="selectItem()">
@@ -30,6 +31,11 @@
         default() {
           return {}
         }
+      }
+    },
+    computed: {
+      itemClass() {
+        return this.item.active ? ACTIVE_CLS : ''
       }
     },
     methods: {
