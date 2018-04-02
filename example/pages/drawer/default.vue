@@ -35,12 +35,6 @@
       showDrawer() {
         this.$refs.drawer.show()
       },
-      selectItem(item) {
-        console.log(item.name)
-      },
-      clickTitle(title) {
-        console.log(title)
-      },
       changeHandler(index, item, selectedVal, selectedIndex) {
         // fake request
         setTimeout(() => {

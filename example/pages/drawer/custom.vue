@@ -3,7 +3,13 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
-        <cube-drawer ref="drawer" :data="data" :selected-index="selectedIndex" @change="changeHandler" @select="selectHandler">
+        <cube-drawer
+          ref="drawer"
+          :data="data"
+          :selected-index="selectedIndex"
+          @change="changeHandler"
+          @select="selectHandler"
+          @cancel="cancelHandler">
           <span slot="title">{{province.text}}</span>
           <cube-drawer-panel
             v-for="(panel, index) in data"
@@ -45,12 +51,6 @@
         this.$refs.drawer.refill(0, cityList[randomProvince.value])
         this.$refs.drawer.show()
       },
-      selectItem(item) {
-        console.log(item.name)
-      },
-      clickTitle(title) {
-        console.log(title)
-      },
       changeHandler(index, item, selectedVal, selectedIndex) {
         setTimeout(() => {
           // city change, get area data
@@ -60,6 +60,9 @@
       },
       selectHandler(selectedVal, selectedIndex) {
         console.log('select', selectedVal, selectedIndex)
+      },
+      cancelHandler() {
+        console.log('cancel')
       }
     },
     components: {

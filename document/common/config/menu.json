@@ -42,7 +42,8 @@
             "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
             "dialog": "Dialog",
-            "action-sheet": "ActionSheet"
+            "action-sheet": "ActionSheet",
+            "drawer": "Drawer"
           }
         },
         "scroll": {
@@ -117,7 +118,8 @@
             "time-picker": "TimePicker",
             "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
-            "action-sheet": "ActionSheet"
+            "action-sheet": "ActionSheet",
+            "drawer": "Drawer"
           }
         },
         "scroll": {
