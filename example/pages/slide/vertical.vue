@@ -1,7 +1,7 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
     <div slot="content">
-      <div ref="slideWrapper" class="slide-container">
+      <div ref="slideWrapper" class="slide-container-v">
         <cube-slide
             ref="slide"
             :data="items"
@@ -51,7 +51,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .slide-container
+  .slide-container-v
     height: 380px
     margin-bottom: 15px
     transform: translateZ(0px)
