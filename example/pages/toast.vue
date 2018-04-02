@@ -20,7 +20,10 @@
       showToastTime() {
         this.toast = this.$createToast({
           time: 1000,
-          txt: 'Toast time 1s'
+          txt: 'Toast time 1s',
+          onHide: () => {
+            console.log('hide')
+          }
         })
         this.toast.show()
       },

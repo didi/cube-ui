@@ -1,5 +1,5 @@
 import createAPI from '../../common/helpers/create-api'
 
 export default function addToast (Vue, Toast) {
-  createAPI(Vue, Toast, [], true)
+  createAPI(Vue, Toast, ['hide'], true)
 }
