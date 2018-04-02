@@ -2,10 +2,11 @@
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
       <slot>
-        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)" :item="item"></cube-slide-item>
+        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)"
+                         :item="item"></cube-slide-item>
       </slot>
     </div>
-    <div class="cube-slide-dots">
+    <div class="cube-slide-dots" v-if="showDots">
       <slot name="dots" :current="currentPageIndex" :dots="dots">
         <span :class="{active: currentPageIndex === index}" v-for="(item, index) in dots" :key="index"></span>
       </slot>
@@ -20,6 +21,8 @@
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
+  const DIRECTION_H = 'horizontal'
+  const DIRECTION_V = 'vertical'
 
   export default {
     name: COMPONENT_NAME,
@@ -27,6 +30,7 @@
       data: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },
@@ -57,6 +61,18 @@
       allowVertical: {
         type: Boolean,
         default: false
+      },
+      stopPropagation: {
+        type: Boolean,
+        default: false
+      },
+      direction: {
+        type: String,
+        default: DIRECTION_H
+      },
+      showDots: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -69,6 +85,7 @@
       const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
+          /* istanbul ignore next */
           this.refresh()
         })
       })
@@ -82,31 +99,40 @@
     },
     methods: {
       clickItem(item, index) {
+        /* istanbul ignore next */
         this.$emit(EVENT_SELECT, item, index)
       },
       refresh() {
+        /* istanbul ignore if */
+        if (this.slide === null) {
+          return
+        }
         this.slide && this.slide.destroy()
         clearTimeout(this._timer)
-        this.$nextTick(() => {
-          if (this.slide === null) {
-            return
-          }
-          if (this.slide !== undefined) {
-            this.currentPageIndex = 0
-          }
-          this.dots = 0
-          this._setSlideWidth()
-          this._initDots()
-          this._initSlide()
 
-          if (this.autoPlay) {
-            this._play()
-          }
-        })
+        if (this.slide) {
+          this.currentPageIndex = 0
+        }
+        this._updateSlideDom()
+        if (this.showDots) {
+          this._initDots()
+        }
+        this._initSlide()
+
+        if (this.autoPlay) {
+          this._play()
+        }
       },
       _refresh() {
-        this._setSlideWidth(true)
+        this._updateSlideDom(true)
         this.slide.refresh()
+      },
+      _updateSlideDom(isResize) {
+        if (this.direction === DIRECTION_H) {
+          this._setSlideWidth(isResize)
+        } else {
+          this._setSlideHeight(isResize)
+        }
       },
       _setSlideWidth(isResize) {
         this.children = this.$refs.slideGroup.children
@@ -123,18 +149,35 @@
         }
         this.$refs.slideGroup.style.width = width + 'px'
       },
+      _setSlideHeight(isResize) {
+        this.children = this.$refs.slideGroup.children
+
+        let height = 0
+        let slideHeight = this.$refs.slide.clientHeight
+        for (let i = 0; i < this.children.length; i++) {
+          let child = this.children[i]
+          child.style.height = slideHeight + 'px'
+          height += slideHeight
+        }
+        if (this.loop && !isResize) {
+          height += 2 * slideHeight
+        }
+        this.$refs.slideGroup.style.height = height + 'px'
+      },
       _initSlide() {
+        const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
         this.slide = new BScroll(this.$refs.slide, {
-          scrollX: true,
-          scrollY: false,
+          scrollX: this.direction === DIRECTION_H,
+          scrollY: this.direction === DIRECTION_V,
           momentum: false,
           bounce: false,
-          eventPassthrough: this.allowVertical ? 'vertical' : '',
+          eventPassthrough,
           snap: {
             loop: this.loop,
             threshold: this.threshold,
             speed: this.speed
           },
+          stopPropagation: this.stopPropagation,
           click: true,
           observeDOM: false
         })
@@ -143,13 +186,14 @@
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        window.removeEventListener('touchend', this._touchEndEvent, false)
+        const slideEl = this.$refs.slide
+        slideEl.removeEventListener('touchend', this._touchEndEvent, false)
         this._touchEndEvent = () => {
           if (this.autoPlay) {
             this._play()
           }
         }
-        window.addEventListener('touchend', this._touchEndEvent, false)
+        slideEl.addEventListener('touchend', this._touchEndEvent, false)
 
         this.slide.on('beforeScrollStart', () => {
           if (this.autoPlay) {
@@ -181,14 +225,19 @@
         clearTimeout(this._timer)
         clearTimeout(this._resizeTimer)
         window.removeEventListener('resize', this._resizeHandler)
-        window.removeEventListener('touchend', this._touchEndEvent, false)
+        const slideEl = this.$refs.slide
+        if (slideEl) {
+          slideEl.removeEventListener('touchend', this._touchEndEvent, false)
+        }
       },
       _resizeHandler() {
+        /* istanbul ignore if */
         if (!this.slide) {
           return
         }
         clearTimeout(this._resizeTimer)
         this._resizeTimer = setTimeout(() => {
+          /* istanbul ignore if */
           if (this.slide.isInTransition) {
             this._onScrollEnd()
           } else {
@@ -201,17 +250,21 @@
       }
     },
     mounted() {
-      this.refresh()
+      this.$nextTick(() => {
+        this.refresh()
+      })
 
       window.addEventListener('resize', this._resizeHandler)
     },
     activated() {
+      /* istanbul ignore next */
       if (this.autoPlay) {
         this._play()
       }
       window.addEventListener('resize', this._resizeHandler)
     },
     deactivated() {
+      /* istanbul ignore next */
       this._deactivated()
     },
     destroyed() {

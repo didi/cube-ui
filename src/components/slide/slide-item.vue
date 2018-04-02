@@ -16,6 +16,7 @@
       item: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       }

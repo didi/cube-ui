@@ -10,6 +10,15 @@ export function dispatchClick(target, props) {
   target.dispatchEvent(event)
 }
 
+export function dispatchTap(target) {
+  const touch = {
+    pageX: target.offsetLeft + 1,
+    pageY: target.offsetTop + 1
+  }
+  dispatchTouchStart(target, touch)
+  dispatchTouchEnd(target, touch)
+}
+
 export function dispatchMouse (target, name = 'mousedown') {
   const event = createEvent('', name)
   const domRect = target.getBoundingClientRect()
@@ -18,7 +27,7 @@ export function dispatchMouse (target, name = 'mousedown') {
   target.dispatchEvent(event)
 }
 
-export function dispatchTouch (target, name = 'touchstart', touches) {
+export function dispatchTouch(target, name = 'touchstart', touches) {
   const event = createEvent('', name)
   event.touches = event.targetTouches = event.changedTouches = Array.isArray(touches) ? touches : [touches]
   target.dispatchEvent(event)
