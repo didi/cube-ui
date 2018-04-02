@@ -31,10 +31,12 @@
           rootNav.hasActived = false
           if (!root) {
             rootNav.isRootActive = false
-            setTimeout(() => {
-              const el = document.querySelector('.page-sidelist .nav-active')
-              el && el.scrollIntoView()
-            }, 0)
+            if (window.innerWidth > 960) {
+              setTimeout(() => {
+                const el = document.querySelector('.page-sidelist .nav-active')
+                el && el.scrollIntoView()
+              }, 0)
+            }
           }
         }
         root = this.seekRoot(navList, docPath)
