@@ -6,8 +6,8 @@ function noop() {
 }
 
 export const requestAnimationFrame = (() => {
+  /* istanbul ignore next */
   if (!inBrowser) {
-    /* istanbul ignore if */
     return noop
   }
   return window.requestAnimationFrame ||
@@ -21,8 +21,8 @@ export const requestAnimationFrame = (() => {
 })()
 
 export const cancelAnimationFrame = (() => {
+  /* istanbul ignore next */
   if (!inBrowser) {
-    /* istanbul ignore if */
     return noop
   }
   return window.cancelAnimationFrame ||

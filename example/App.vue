@@ -64,6 +64,10 @@
             text: 'Validator'
           },
           {
+            path: '/form',
+            text: 'Form'
+          },
+          {
             path: '/loading',
             text: 'Loading'
           },
@@ -91,6 +95,10 @@
           {
             path: '/segment-picker',
             text: 'SegmentPicker'
+          },
+          {
+            path: '/date-picker',
+            text: 'DatePicker'
           },
           {
             path: '/time-picker',

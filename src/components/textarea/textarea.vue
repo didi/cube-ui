@@ -65,6 +65,9 @@
       },
       textareaValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
+        if (!this.isFocus && this.expanded) {
+          this.expanded = false
+        }
       }
     },
     methods: {

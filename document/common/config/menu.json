@@ -27,7 +27,8 @@
             "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "form": "Form"
           }
         },
         "popup": {
@@ -96,7 +97,8 @@
             "rate": "Rate",
             "validator": "Validator",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "form": "Form"
           }
         },
         "popup": {
@@ -106,7 +108,9 @@
             "toast": "Toast",
             "picker": "Picker",
             "cascade-picker": "CascadePicker",
+            "date-picker": "DatePicker",
             "time-picker": "TimePicker",
+            "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet"
           }
