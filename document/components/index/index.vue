@@ -1,92 +1,205 @@
 <template>
   <div class="home-index">
-    <h2>
-      <img src="//static.galileo.xiaojukeji.com/static/tms/shield/z/mofang/mofang/images/mofang_logo.png">
-      <p>cube-ui</p>
-    </h2>
-    <p>
-      <slot name="desc"></slot>
-    </p>
-    <div class="ghbtns">
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/stars/didi/cube-ui.svg?style=social&label=Star"></a>
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/forks/didi/cube-ui.svg?style=social&label=Fork"></a>
-      <a href="https://github.com/didi/cube-ui"><img src="https://img.shields.io/github/watchers/wepyjs/wepy.svg?style=social&label=Watch"></a>
+    <div class="banner">
+      <h2>Cube UI</h2>
+      <p>
+        <slot name="desc"></slot>
+      </p>
+      <div class="ghbtns">
+        <Badge type="Star"></Badge>
+        <Badge type="Fork"></Badge>
+        <Badge type="Watch"></Badge>
+      </div>
+      <div class="rec-btns">
+        <slot name="rec-btns"></slot>
+      </div>
     </div>
     <section class="features">
-<!--       <h3>Features</h3> -->
       <ul>
-        <slot name="features"></slot>
+        <li>
+          <img src="./quality.png">
+          <div class="text">
+            <slot name="feature-1"></slot>
+          </div>
+        </li>
+        <li>
+          <img src="./experience.png">
+          <div class="text">
+            <slot name="feature-2"></slot>
+          </div>
+        </li>
+        <li>
+          <img src="./standard.png">
+          <div class="text">
+            <slot name="feature-3"></slot>
+          </div>
+        </li>
+        <li>
+          <img src="./scalability.png">
+          <div class="text">
+            <slot name="feature-4"></slot>
+          </div>
+        </li>
       </ul>
     </section>
-    <footer>
-      <a href="https://github.com/didi">© DiDi</a>
-    </footer>
+    <sfooter />
   </div>
 </template>
 
 <script>
+  import Badge from '../badge/badge.vue'
+  import Sfooter from '../footer/footer.vue'
+
   export default {
+    components: {
+      Badge,
+      Sfooter
+    }
   }
 </script>
 <style lang="stylus">
+@require "~@/common/stylus/variable.styl"
+
   .home-index
-    position: relative
-    padding-bottom: 36px
     min-height: 100%
     box-sizing: border-box
-    overflow: hidden
     text-align: center
-    background: url("//webapp.didistatic.com/static/webapp/shield/cube-ui-home-index-background.png") no-repeat fixed center
     background-size: cover
-    > h2
-      margin: 80px 0 20px
-      font-size: 30px
+    > .banner
+      padding: 190px 140px 70px
+      margin-top: -70px
+      text-align: left
+      color: #4B4B4C
+      background: url("./cube.png") no-repeat 520px -10px
+      background-size: 1250px
       @media screen and (max-width: 960px)
-        margin: 50px 0 10px
-      p
-        margin-top: 30px
-    > p
-      margin: 20px 0
-    > footer
-      position: absolute
-      bottom: 0
-      width: 100%
-      a
-        display: inline-block
-        padding: 10px 20px
-        color: #666
+        padding: 254px 32px 20px
+        margin-top: -48px
+        text-align: left
+        background-position: 6% 0
+        background-size: 186%
+        .ghbtns
+          margin-left: -5px
+          margin-right: -5px
+        .btn-link
+          width: 140px
+          margin-right: 15px
+          font-size: 14px
+          border-width: 1px
+      h2
+        font-size: 60px
+        color: #333
+        @media screen and (max-width: 960px)
+          font-size: 30px
+      > p
+        margin: 30px 0 20px 0
+        font-size: 18px
+        @media screen and (max-width: 960px)
+          font-size: 12px
   .ghbtns
-    a
-      display: inline-block
+    font-size: 0
+  .rec-btns
+    margin-top: 36px
+  .btn-link
+    display: inline-block
+    box-sizing: border-box
+    width: 164px
+    height: 42px
+    text-align: center
+    line-height: 38px
+    font-size: $fontsize-large-x
+    color: #fff
+    background-color: #89C6FF
+    border-radius: 3px
+    margin-bottom: 10px
+    margin-right: 18px
+    border: 2px solid #89C6FF
+    &:hover
+      color: #fff
+      background-color: #80c1ff
+      border-color: #80c1ff
+    &:last-child
+      margin-right 0!important
+  .btn-active
+    color: #89c6ff
+    background-color: white
+    &:hover
+      color: #137dc6
+      background-color: #fff
   .features
-    margin: 60px auto 40px
+    margin: 0 90px
+    box-shadow: 0 4px 30px 0 rgba(66, 81, 148, 0.1)
     @media screen and (max-width: 960px)
-      margin: 30px auto 10px
+      margin: 10px auto 0
+      box-shadow: none
     > ul
       display: flex
-      padding: 0 10px
-      align-items: stretch
-      justify-content: center
+      justify-content: space-around
+      padding: 0 80px
       text-align: left
       color: #666
       @media screen and (max-width: 960px)
         flex-direction: column
+        padding: 0
       li
         flex: 1
-        max-width: 160px
-        padding: 10px 16px 20px
+        max-width: 220px
+        padding: 60px 16px 10px
         margin: 0 10px
-        border-top: 1px solid #4a4c5b
         font-size: 13px
         line-height: 1.4
-        background: #fff
-        border-radius: 2px
-        box-shadow: 0 0 3px rgba(0, 0, 0, .1)
+        text-align: center
         @media screen and (max-width: 960px)
+          display: flex
+          align-items: center
           max-width: initial
-          margin-bottom: 20px
-        h1
-          padding: 10px 0
-          text-align: center
-          font-size: 15px
+          padding-top: 20px
+          padding-bottom: 20px
+          text-align: left
+          .text
+            flex: 1
+            margin-top: -7px
+        img
+          width: 130px
+          margin-bottom: 13px
+          transform-origin: center 0
+          transition: all .5s
+          @media screen and (max-width: 960px)
+            width: 90px
+            height: 90px
+            margin-right: 16px
+            margin-bottom: 0
+        .text
+          transition: all .5s
+          .h1
+            padding: 7px 0
+            font-size: 22px
+            color: #333
+          .h2
+            font-size: 18px
+            transition: all .5s
+          p
+            margin-top: -18px
+            font-size: 14px
+            opacity: 0
+            transition: all .5s
+          @media screen and (max-width: 960px)
+            .h1
+              font-size: 15px
+            .h2
+              display: none
+            p
+              margin-top: 0
+              opacity: 1
+              font-size: 12px
+        @media screen and (min-width: 961px)
+          &:hover
+            p
+              opacity:1
+            img
+                transform: scale(0.5,0.5)
+            .h2
+              opacity: 0
+            .text
+              transform: translateY(-75px)
 </style>

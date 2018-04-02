@@ -20,58 +20,50 @@ $ vue init cube-ui/cube-template projectname
 $ npm install cube-ui --save
 ```
 
-此处需注意：不能使用 cnpm 安装，cnpm 下载的包存在路径问题。
-
 cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通编译 2 种构建方式（默认使用后编译），使用前都需要修改应用的依赖和配置。
 
 - 后编译
+
   1. 修改 package.json 并安装依赖
 
     ```json
     {
       // webpack-post-compile-plugin 依赖 compileDependencies
       "compileDependencies": ["cube-ui"],
+      // webpack-transform-modules-plugin 依赖 transformModules
+      "transformModules": {
+        "cube-ui": {
+          "transform": "cube-ui/src/modules/${member}",
+          "kebabCase": true
+        }
+      },
       "devDependencies": {
-        "babel-plugin-transform-modules": "^0.1.0",
         // 新增 stylus 相关依赖
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.1.2"
+        "webpack-post-compile-plugin": "^0.2.1",
+        "webpack-transform-modules-plugin": "^0.3.1"
       }
     }
     ```
 
-  2. 修改 .babelrc，依赖 [babel-plugin-transform-modules](https://www.npmjs.com/package/babel-plugin-transform-modules)：
-
-    ```json
-    {
-      "plugins": [
-        ["transform-modules", {
-          "cube-ui": {
-            // 注意: 这里的路径需要修改到 src/modules 下
-            "transform": "cube-ui/src/modules/${member}",
-            "kebabCase": true
-          }
-        }]
-      ]
-    }
-    ```
-
-  3. 修改 webpack.base.conf.js
+  2. 修改 webpack.base.conf.js
 
     ```js
     var PostCompilePlugin = require('webpack-post-compile-plugin')
+    var TransformModulesPlugin = require('webpack-transform-modules-plugin')
     module.exports = {
       // ...
       plugins: [
         // ...
-        new PostCompilePlugin()
+        new PostCompilePlugin(),
+        new TransformModulesPlugin()
       ]
       // ...
     }
     ```
 
-  4. 修改 build/utils.js 中的 `exports.cssLoaders` 函数
+  3. 修改 build/utils.js 中的 `exports.cssLoaders` 函数
 
     ```js
     exports.cssLoaders = function (options) {
@@ -92,18 +84,17 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
     }
     ```
 
-  5. 修改 vue-loader.conf.js
+  4. 修改 vue-loader.conf.js
 
-  ```javascript
-  module.exports = {
-    loaders: utils.cssLoaders({
-      sourceMap: sourceMapEnabled,
-      extract: false
-    }),
-    // ...
-  }
-
-  ```
+    ```javascript
+    module.exports = {
+      loaders: utils.cssLoaders({
+        sourceMap: sourceMapEnabled,
+        extract: false
+      }),
+      // ...
+    }
+    ```
 
     具体参见 [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
 
@@ -112,18 +103,8 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
   1. 修改 package.json 并安装依赖
     ```json
     {
-      "devDependencies": {
-        "babel-plugin-transform-modules": "^0.1.0"
-      }
-    }
-    ```
-
-  2. 修改 .babelrc
-
-  ```json
-  {
-    "plugins": [
-      ["transform-modules", {
+      // webpack-transform-modules-plugin 依赖 transformModules
+      "transformModules": {
         "cube-ui": {
           "transform": "cube-ui/lib/${member}",
           "kebabCase": true,
@@ -131,30 +112,37 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
             "ignore": ["create-api", "better-scroll"]
           }
         }
-      }]
-    ]
-  }
-  ```
+      },
+      "devDependencies": {
+        "webpack-transform-modules-plugin": "^0.3.1"
+      }
+    }
+    ```
 
-  3. 修改 webpack 配置：
+  2. 修改 webpack 配置：
 
-  ```js
-  // webpack.config.js
-
-  module.exports = {
-    // ...
-    resolve: {
+    ```js
+    // webpack.config.js
+    var TransformModulesPlugin = require('webpack-transform-modules-plugin')
+    module.exports = {
       // ...
-      alias: {
+      resolve: {
         // ...
-        'cube-ui': 'cube-ui/lib'
+        alias: {
+          // ...
+          'cube-ui': 'cube-ui/lib'
+          // ...
+        }
         // ...
       }
       // ...
+      plugins: [
+        // ...
+        new TransformModulesPlugin()
+      ]
+      // ...
     }
-    // ...
-  }
-  ```
+    ```
 
 #### CDN
 
@@ -221,6 +209,7 @@ import {
   Scroll,
   Slide,
   IndexList
+  // ... more
 } from 'cube-ui'
 ```
 
