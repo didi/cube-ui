@@ -44,15 +44,13 @@
     watch: {
       data() {
         this.scrollToTop()
+      },
+      isVisible() {
+        this.refresh()
       }
     },
     mounted() {
       this.$parent.addPanel(this)
-      if (!this.isVisible) {
-        this.$watch('isVisible', () => {
-          this.refresh()
-        })
-      }
     },
     beforeDestroy() {
       this.$parent.removePanel(this)

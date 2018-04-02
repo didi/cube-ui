@@ -110,14 +110,14 @@
           this.shouldHide = false
         }
       },
-      refill(columnIndex, data, index) {
-        this.$set(this.data, columnIndex, data)
-        this.index = columnIndex
-        this.selected = this.selected.slice(0, columnIndex)
-        this.selectedVal = this.selectedVal.slice(0, columnIndex)
+      refill(panelIndex, data, index) {
+        this.$set(this.data, panelIndex, data)
+        this.index = panelIndex
+        this.selected = this.selected.slice(0, panelIndex)
+        this.selectedVal = this.selectedVal.slice(0, panelIndex)
         if (index >= 0) {
-          this.$set(this.selected, columnIndex, index)
-          this.changeHandler(columnIndex, this.data[columnIndex][index], index)
+          this.$set(this.selected, panelIndex, index)
+          this.changeHandler(panelIndex, this.data[panelIndex][index], index)
         }
       },
       showPanel() {
@@ -153,14 +153,14 @@
           this.slideStyle[transform] = `translate3d(-${allWidth}px, 0, 0)`
         })
       },
-      changeHandler(columnIndex, item, index) {
-        this.selectedVal[columnIndex] = typeof item === 'string' ? item : item.value
-        this.$set(this.selected, columnIndex, index)
-        if (columnIndex === (this.data.length - 1)) {
+      changeHandler(panelIndex, item, index) {
+        this.selectedVal[panelIndex] = typeof item === 'string' ? item : item.value
+        this.$set(this.selected, panelIndex, index)
+        if (panelIndex === (this.data.length - 1)) {
           // last column
           this.$emit(EVENT_SELECT, this.selectedVal, this.selected)
         } else {
-          this.$emit(EVENT_CHANGE, columnIndex, item, this.selectedVal, this.selected)
+          this.$emit(EVENT_CHANGE, panelIndex, item, this.selectedVal, this.selected)
         }
       },
       drawerClick() {
@@ -191,6 +191,7 @@
     top: 0
     left: 100%
     bottom: 0
+    max-width: 90%
     display: flex
     flex-direction: column
     overflow: hidden
