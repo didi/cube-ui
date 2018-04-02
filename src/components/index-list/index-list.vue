@@ -18,7 +18,7 @@
         </ul>
       </div>
     </cube-scroll>
-    <div class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
+    <div v-if="navbar" class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul class="cube-index-list-nav-list">
         <li
           v-for="(item, index) in shortcutList"
@@ -68,6 +68,10 @@
       speed: {
         type: Number,
         default: 0
+      },
+      navbar: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
