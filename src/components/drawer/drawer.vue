@@ -185,7 +185,7 @@
     bottom: 0
     left: 0
     overflow: hidden
-    color: $color-dark-grey
+    color: $drawer-color
   .cube-drawer-main
     position: absolute
     top: 0
@@ -203,9 +203,9 @@
     padding: 0 20px
     height: 50px
     line-height: 50px
-    border-bottom: 1px solid $color-light-grey-ss
+    border-bottom: 1px solid $drawer-title-bdc
     font-size: $fontsize-large
-    background-color: $color-white
+    background-color: $drawer-title-bgc
   .cube-drawer-panels
     display: flex
     flex: 1
