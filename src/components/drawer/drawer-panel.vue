@@ -46,7 +46,9 @@
         this.scrollToTop()
       },
       isVisible() {
-        this.refresh()
+        this.$nextTick(() => {
+          this.refresh()
+        })
       }
     },
     mounted() {
@@ -84,6 +86,7 @@
     height: 100%
     flex: 1
     width: 170px
+    overflow: hidden
     background-color: $drawer-panel-bgc
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
     + .cube-drawer-panel
