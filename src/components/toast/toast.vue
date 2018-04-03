@@ -14,7 +14,7 @@
 
   const COMPONENT_NAME = 'cube-toast'
 
-  const EVENT_HIDE = 'hide'
+  const EVENT_TIMEOUT = 'timeout'
 
   export default {
     name: COMPONENT_NAME,
@@ -67,7 +67,7 @@
           if (this.time !== 0) {
             this.timer = setTimeout(() => {
               this.hide()
-              this.$emit(EVENT_HIDE)
+              this.$emit(EVENT_TIMEOUT)
             }, this.time)
           }
         })

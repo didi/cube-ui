@@ -115,18 +115,18 @@ describe('Toast', () => {
     })
 
     it('should trigger correct event', function (done) {
-      const hideHandle = sinon.spy()
+      const timeoutHandle = sinon.spy()
 
       const vm = createToast({
         time: 1000
       }, {
-        hide: hideHandle
+        timeout: timeoutHandle
       })
 
       vm.show()
 
       setTimeout(() => {
-        expect(hideHandle).to.be.calledOnce
+        expect(timeoutHandle).to.be.calledOnce
         done()
       }, 1200)
     })
