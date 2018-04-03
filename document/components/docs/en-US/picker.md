@@ -2,6 +2,8 @@
 
 `Picker` component supports multi-column selectors and linkage data.
 
+__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Basic usage
@@ -10,7 +12,7 @@
   <cube-button @click="showPicker">Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
   export default {
     mounted () {
@@ -50,7 +52,7 @@
   <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
   const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
     { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' },
@@ -87,9 +89,9 @@
     }
   }
   ```
-  
+
 - Alias
-  
+
   You can configure the `alias` of `value` and `text`, such as, use `id` to represent `value`, `name` to represent `text`.
 
   ```html
@@ -128,7 +130,7 @@
       }
     }
   }
-  ``` 
+  ```
 
 - Instance method `setData`
 
@@ -174,7 +176,7 @@
     }
   }
   ```
-    
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |

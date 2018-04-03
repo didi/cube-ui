@@ -2,6 +2,8 @@
 
 Select component.
 
+__Notice:__ Cause this component depend on Picker component, and Picker used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Basic usage

@@ -2,6 +2,8 @@
 
 `Toast` component.You can use it to show non-modal tip message without user interaction.
 
+__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Duration of display

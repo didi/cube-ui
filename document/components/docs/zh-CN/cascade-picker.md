@@ -2,6 +2,8 @@
 
 `CascadePicker`组件是级联选择器，用于实现多列选择之间的级联变化。比如，在选择省市区时，当省切换到了江苏省，城市列应该变成江苏省的各个城市，同理，如果城市切换到苏州市，区列的选项也应变成苏州市的各个区，这就级联的意义。
 
+__注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
+
 ### 示例
 
 - 基本用法
@@ -74,13 +76,13 @@
 - 省市区选择器
 
   对于省市区选择器，只需要构造出级联选择器的数据结构传入就可以了。
-  
+
   ```html
   <cube-button @click="showCityPicker">City Picker</cube-button>
   ```
   ```js
   import { provinceList, cityList, areaList } from 'example/data/area'
-  
+
   const cityData = provinceList
   cityData.forEach(province => {
     province.children = cityList[province.value]
@@ -88,7 +90,7 @@
       city.children = areaList[city.value]
     })
   })
-  
+
   export default {
     mounted () {
       this.cityPicker = this.$createCascadePicker({
@@ -203,7 +205,7 @@
     }
   }
   ```
-  
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |

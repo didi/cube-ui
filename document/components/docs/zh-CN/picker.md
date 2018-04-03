@@ -2,6 +2,8 @@
 
 `Picker`组件支持多列选择器及数据联动。
 
+__注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
+
 ### 示例
 
 - 基本用法
@@ -10,7 +12,7 @@
   <cube-button @click="showPicker">Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
   export default {
     mounted () {
@@ -43,14 +45,14 @@
   ```
 
 - 多列选择器
-  
+
   `data`字段接收一个数组，其长度决定了`picker`的列数。
 
   ```html
   <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' }, 
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
   const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
     { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' },
@@ -87,9 +89,9 @@
     }
   }
   ```
-  
+
 - 配置别名
-  
+
   可通过`alias`属性配置`value`和`text`的别名。如，用`id`代表`value`，用`name`代表`text`。
 
   ```html
@@ -128,7 +130,7 @@
       }
     }
   }
-  ``` 
+  ```
 
 - 实例方法 `setData`
 
@@ -172,9 +174,9 @@
     }
   }
   ```
-  
+
   实例方法`setData`可接受2个参数，都为数组类型。第一个参数为滚轴需要显示的数据，第二个参数为选中值的索引。
-  
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |

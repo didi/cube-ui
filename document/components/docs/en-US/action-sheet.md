@@ -2,6 +2,8 @@
 
 `ActionSheet` provides two common styles and it is flexible.
 
+__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Basic usage

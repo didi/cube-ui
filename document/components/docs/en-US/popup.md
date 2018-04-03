@@ -2,7 +2,9 @@
 
 The underlying popup component, mainly used to implement upper component encapsulation based on itself. It only provides basic functions: specifying the type, whether there's a background layer, showing content (HTML) and whether the component is in center position.
 
-All of the built-in popup type components are implemented based on this component, including [Toast](#/en-US/docs/toast)、[Picker](#/en-US/docs/picker)、[TimePicker](#/en-US/docs/time-picker)、[Dialog](#/en-US/docs/dialog)、[ActionSheet](#/en-US/docs/action-sheet).
+Most of the built-in popup type components are implemented based on this component, including [Toast](#/en-US/docs/toast)、[Picker](#/en-US/docs/picker)、[CascadePicker](#/en-US/docs/cascade-picker)、[DatePicker](#/en-US/docs/date-picker)、[TimePicker](#/en-US/docs/time-picker)、[SegmentPicker](#/en-US/docs/segment-picker)、[Dialog](#/en-US/docs/dialog)、[ActionSheet](#/en-US/docs/action-sheet).
+
+__Notice:__ All the components above used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
 
 ### Example
 

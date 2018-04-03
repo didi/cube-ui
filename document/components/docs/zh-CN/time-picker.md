@@ -2,6 +2,8 @@
 
 `TimePicker`组件提供了常用的日期选择功能。
 
+__注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
+
 ### 示例
 
 - 基本用法

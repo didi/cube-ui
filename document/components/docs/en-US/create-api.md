@@ -2,6 +2,8 @@
 
 This module exports a function called `createAPI` with which you can invoke the custom component which has been instantiated in api form.
 
+__Notice:__ All componnets which used `createAPI` must be registered by `Vue.use`.
+
 ### createAPI(Vue, Component, [events, single])
 
 - Parameters:
@@ -17,7 +19,7 @@ This module exports a function called `createAPI` with which you can invoke the 
     - `{Object} config` It will be passed to the component as its props except the events in `events`(It will transform by default, eg: If `events` has value `['click']`, then the prop `onClick` will be treated as component's event and not component's props).
     - `{Function} [renderFn]` Optional, used to generate the VNode child node in the slot scene in general.
     - `{Boolean} [single]` Optional, whether the instantiated component is a singleton or not. If two parameters are provided and the `renderFn`'s type is not function, then the `single` value is the sencond parameter's value.
-  - The return of the method `instance` is a instantiated Vue component，and the `remove` method will be **attached** to this instance.You can invoke the `remove` method to destroy the component and detach the component's content from `body` element.
+  - The return of the method `instance` is a instantiated Vue component，and the `remove` method will be **attached** to this instance.You can invoke the `remove` method to destroy the component and detach the component's content from `body` element. If the caller is destroyed and the `instance` will be destroyed too.
 
 - Example:
 
@@ -115,18 +117,14 @@ This module exports a function called `createAPI` with which you can invoke the 
   ```
   In this example, we create a component `Hello` which needs to be invoked in api form and we invoke it in another component.The focus is what `showHello()` does: invoking method `this.$createHello(config, renderFn)` to instantiate `Hello`.
 
-### How to use in general JS files
+### How to use in general JS files or use it in global
 
-In vue component, you could call by `this.$createHello(config, renderFn)` because the `this` is just a vue instance. But in general JS files, you need to call `$createHello` method by `Vue.prototype` or create a vue instance. As shown below:
+In vue component, you could call by `this.$createHello(config, renderFn)` because the `this` is just a vue instance. But in general JS files, you need to use `Hello.$create`. As shown below:
 
 ```js
-import Vue from 'vue'
+import Hello from './hello.vue'
 
-Vue.prototype.$createHello(config, renderFn)
-
-// or
-const vm = new Vue()
-vm.$createHello(config, renderFn)
+Hello.$create(config, renderFn)
 ```
 
 There is another idea which used the mode of data-driven. For example, in vuex, you could use a global state to label whether to call the component, and watch this state in App.vue to handle this component.
