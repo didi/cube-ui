@@ -36,7 +36,7 @@ __Notice:__ Drawer component's container element should be be a relative or abso
       showDrawer() {
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         setTimeout(() => {
           let data
@@ -51,8 +51,12 @@ __Notice:__ Drawer component's container element should be be a relative or abso
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')
@@ -113,15 +117,19 @@ __Notice:__ Drawer component's container element should be be a relative or abso
         this.$refs.drawer.refill(0, cityList[randomProvince.value])
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         setTimeout(() => {
           // city change, get area data
           const data = areaList[item.value]
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')
@@ -179,11 +187,11 @@ __Notice:__ Drawer component's container element should be be a relative or abso
 
 ### Events
 
-| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 | Parameters 4 |
-| - | - | - | - | - | - |
-| change | when selected item changed (the selected item is not in the last Panel) | current Panel index | changed item | selectedVal: Array, selected item values of each panels | selectedIndex: Array, selected indexes of each panels |
-| select | when selected one item (the item is in the last Panel) | selectedVal: Array, selected item values of each panels | selectedIndex: Array, selected indexes of each panels | - | - |
-| cancel | when clicked the left empty area | - | - | - | - |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 | Parameters 4 | Parameters 5 |
+| - | - | - | - | - | - | - |
+| change | when selected item changed (the selected item is not in the last Panel) | current Panel index | changed item | selectedVal: Array, selected item values of each panels | selectedIndex: Array, selected indexes of each panels | selectedText: Array, texts of each columns in current selected item |
+| select | when selected one item (the item is in the last Panel) | selectedVal: Array, selected item values of each panels | selectedIndex: Array, selected indexes of each panels |  selectedText: Array, texts of each columns in current selected item | - | - |
+| cancel | when clicked the left empty area | - | - | - | - | - |
 
 ### Instance methods
 

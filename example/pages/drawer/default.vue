@@ -35,7 +35,7 @@
       showDrawer() {
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         setTimeout(() => {
           let data
@@ -49,8 +49,12 @@
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')

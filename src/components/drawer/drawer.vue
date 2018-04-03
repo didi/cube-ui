@@ -56,6 +56,7 @@
       return {
         index: -1,
         selectedVal: [],
+        selectedText: [],
         selected: [...this.selectedIndex],
         slideStyle: {
           [transform]: 'translate3d(0, 0, 0)'
@@ -115,6 +116,7 @@
         this.index = panelIndex
         this.selected = this.selected.slice(0, panelIndex)
         this.selectedVal = this.selectedVal.slice(0, panelIndex)
+        this.selectedText = this.selectedText.slice(0, panelIndex)
         if (index >= 0) {
           this.$set(this.selected, panelIndex, index)
           this.changeHandler(panelIndex, this.data[panelIndex][index], index)
@@ -154,14 +156,20 @@
         })
       },
       changeHandler(panelIndex, item, index) {
-        this.selectedVal[panelIndex] = typeof item === 'string' ? item : item.value
+        if (typeof item === 'string') {
+          this.selectedVal[panelIndex] = item
+          this.selectedText[panelIndex] = item
+        } else {
+          this.selectedVal[panelIndex] = item.value
+          this.selectedText[panelIndex] = item.text
+        }
         this.$set(this.selected, panelIndex, index)
         if (panelIndex === (this.data.length - 1)) {
           // last column
-          this.$emit(EVENT_SELECT, this.selectedVal, this.selected)
+          this.$emit(EVENT_SELECT, this.selectedVal, this.selected, this.selectedText)
           this.hide()
         } else {
-          this.$emit(EVENT_CHANGE, panelIndex, item, this.selectedVal, this.selected)
+          this.$emit(EVENT_CHANGE, panelIndex, item, this.selectedVal, this.selected, this.selectedText)
         }
       },
       drawerClick() {
