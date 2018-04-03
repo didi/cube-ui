@@ -23,7 +23,29 @@ describe('Drawer', () => {
       selectedIndex: [0]
     }, {
       change(index) {
-        this.$refs.drawer.refill(index + 1, index === 0 ? ['11', '22'] : ['111', '222', '333'])
+        this.$refs.drawer.refill(index + 1, index === 0 ? [
+          {
+            text: '11',
+            value: 11
+          },
+          {
+            text: '22',
+            value: 22
+          }
+        ] : [
+          {
+            text: '111',
+            value: 111
+          },
+          {
+            text: '222',
+            value: 222
+          },
+          {
+            text: '333',
+            value: 333
+          }
+        ])
       }
     })
     expect(vm.$el.querySelector('.cube-drawer-title').textContent.trim())
@@ -62,21 +84,24 @@ describe('Drawer', () => {
           const newPanel = vm.$el.querySelector('.cube-drawer-panel:last-child')
           expect(newPanel.style.display)
             .not.to.equal('none')
-          expect(newPanel.querySelectorAll('.cube-drawer-item')[0].textContent.trim())
+          const items = newPanel.querySelectorAll('.cube-drawer-item')
+          expect(items[0].textContent.trim())
             .to.equal('111')
-          // hide one
+          // back to first
           dispatchTap(firstItems[1])
           setTimeout(() => {
-            expect(vm.$el.querySelector('.cube-drawer-panel:last-child').style.display)
-              .to.equal('none')
-            vm.hide()
-            vm.$el.click()
+            dispatchTap(vm.$el.querySelector('.cube-drawer-panel:nth-child(2)').querySelector('.cube-drawer-item'))
             setTimeout(() => {
-              expect(vm.$el.style.display)
-                .to.equal('none')
-              done()
+              const items = newPanel.querySelectorAll('.cube-drawer-item')
+              // select one
+              dispatchTap(items[1])
+              setTimeout(() => {
+                expect(vm.$el.style.display)
+                  .to.equal('none')
+                done()
+              }, 400)
             }, 400)
-          }, 400)
+          })
         }, 400)
       }, 400)
     }, 400)
@@ -105,16 +130,20 @@ describe('Drawer', () => {
       setTimeout(() => {
         expect(selectHandler)
           .to.be.calledOnce
+        vm.show()
         const newPanel = vm.$el.querySelector('.cube-drawer-panel:last-child')
         const item = newPanel.querySelector('.cube-drawer-item')
         dispatchTap(item)
         expect(selectHandler)
           .to.be.calledTwice
-        // hide
-        vm.$el.click()
-        expect(cancelHandler)
-          .to.be.calledOnce
-        done()
+        setTimeout(() => {
+          vm.show()
+          // hide
+          vm.$el.click()
+          expect(cancelHandler)
+            .to.be.calledOnce
+          done()
+        }, 400)
       }, 400)
     }, 400)
   })
