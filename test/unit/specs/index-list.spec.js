@@ -132,6 +132,15 @@ describe('IndexList', () => {
       })
     })
 
+    it('should not have navbar when navbar prop is false', () => {
+      vm = createIndexList({
+        data,
+        navbar: false
+      })
+      const navbar = vm.$el.querySelector('.cube-index-list-nav')
+      expect(navbar).to.equal(null)
+    })
+
     it('run normal when group or item undefined', () => {
       vm = createIndexList({
         data: [

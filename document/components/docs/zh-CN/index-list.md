@@ -137,6 +137,7 @@
 | - | - | - | - |
 | title | 标题 | String | - |
 | data | 需要展示的数据 | Array | [] |
+| navbar | 是否需要导航栏 | Boolean | true |
 | speed | 点击导航栏索引时，滚动到相应位置的动画时间（单位：ms） | number | 0 |
 
 - `data` 子配置项

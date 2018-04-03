@@ -137,6 +137,7 @@
 | - | - | - | - |
 | title | title | String | - |
 | data | data to be displayed | Array | [] |
+| navbar | whether need navbar | Boolean | true |
 | speed | when click the navigator, the transition time of scrolling to the specific anchor (unit: ms). | number | 0 |
 
 - `data` sub configuration
