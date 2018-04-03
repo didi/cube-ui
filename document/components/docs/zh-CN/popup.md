@@ -2,7 +2,9 @@
 
 底层弹层组件，主要用于基于此组件实现上层组件封装，只提供了基础功能：指定类型、是否有背景层、显示内容（HTML）以及是否居中。
 
-内置所有的弹层类组件都是基于此组件实现，包括：[Toast](#/zh-CN/docs/toast)、[Picker](#/zh-CN/docs/picker)、[TimePicker](#/zh-CN/docs/time-picker)、[Dialog](#/zh-CN/docs/dialog)、[ActionSheet](#/zh-CN/docs/action-sheet)。
+内置弹层类组件基本都是基于此组件实现，包括：[Toast](#/zh-CN/docs/toast)、[Picker](#/zh-CN/docs/picker)、[CascadePicker](#/zh-CN/docs/cascade-picker)、[DatePicker](#/zh-CN/docs/date-picker)、[TimePicker](#/zh-CN/docs/time-picker)、[SegmentPicker](#/zh-CN/docs/segment-picker)、[Dialog](#/zh-CN/docs/dialog)、[ActionSheet](#/zh-CN/docs/action-sheet)。
+
+__注：__ 以上组件都是基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
 
 ### 示例
 

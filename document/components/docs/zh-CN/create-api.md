@@ -2,6 +2,8 @@
 
 该模块默认暴露出一个 `createAPI` 函数，可以实现以 API 的形式调用自定义组件。
 
+__注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定义组件都需要通过 `Vue.use` 注册才可以。
+
 ### createAPI(Vue, Component, [events, single])
 
 - 参数：
@@ -17,7 +19,7 @@
     - `{Object} config` 组件配置参数，默认所有的值都会当做 props 传给组件，但是要排除 `events` 中的事件（默认会做转换，例如：`events` 的值为 `['click']`，那么 `config` 中的 `onClick` 就是作为 `click` 事件的回调函数，而不是作为 props 传递给组件）。
     - `{Function} [renderFn]` 可选参数，用于生成子 VNode 节点，一般场景是处理 slot。
     - `{Boolean} [single]` 可选参数，创建的时候决定是否是单例的，优先级更高，如果没有传入 renderFn 的话，single 的值就是第二个参数的值。
-  - 注意调用后的返回值 `instance` 就是组件实例，这个实例会被**附加**或者**代理** `remove` 方法，如果调用了，该实例就会被销毁且会从 `body` 下移除。
+  - 注意调用后的返回值 `instance` 就是组件实例，这个实例会被**附加**或者**代理** `remove` 方法，如果调用了，该实例就会被销毁且会从 `body` 下移除。如果说实例化上下文（即 `this.$createXx` 中的 `this`）销毁的话会自动移除销毁该实例元素。
 
 - 示例：
 
@@ -119,18 +121,14 @@
 
 示例中就是创建了一个需要 API 调用的组件 `Hello`，然后在其他组件中去使用，重点就是 `showHello()` 方法做的事情：调用 `this.$createHello(config, renderFn)` 实现组件的实例化。
 
-### 如何在普通 js 文件中调用
+### 如何在普通 js 文件中或者全局调用
 
-一般当你在 vue 实例中，你可以直接通过 `this.$createHello(config, renderFn)` 调用该组件。而如果在普通 JS 中`this`不是 vue 实例，这时就需要通过`Vue.prototye`或者创建一个 vue 实例来调用`$createHello`方法了，比如：
+一般当你在 Vue 实例中，你可以直接通过 `this.$createHello(config, renderFn)` 调用该组件。而如果在普通 JS 中`this`不是 vue 实例，这时就可以通过组件本身的 `$create` 来进行实例化了，比如：
 
 ```js
-import Vue from 'vue'
+import Hello from './hello.vue'
 
-Vue.prototype.$createHello(config, renderFn)
-
-// 或者
-const vm = new Vue()
-vm.$createHello(config, renderFn)
+Hello.$create(config, renderFn)
 ```
 
 还有一种思路是通过数据驱动，比如用 vuex 维护一个全局 state，在需要调用该组件时更新状态，然后在 App.vue 里去 watch 这个状态变化来调用该组件。

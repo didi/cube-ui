@@ -2,6 +2,8 @@
 
 `CascadePicker` component is used to implement the cascading change between picker columns. What is the effect of cascade? Considering the usage of province-city-area picker, when the province is changed, you may want the city column to display the exact cities of current province, so does the area column. And the `CascadePicker` is here to help you handle this.
 
+__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Basic usage
