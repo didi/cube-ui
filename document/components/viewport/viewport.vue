@@ -2,7 +2,7 @@
   <div class="docs-view">
     <img class="menu" v-show="showCatalog" @click="toggleCatalog" src="./close.svg">
     <img class="menu" v-show="!showCatalog" @click="toggleCatalog" src="./menu.svg">
-    <img class="menu to-home" @click="toHome" src="./back.svg">
+    <back />
     <div v-show="showCatalog" class="mask" :class="{ active: showCatalog }" @click="toggleCatalog"></div>
     <div class="nav-list-wrapper" :class="{ active: showCatalog }">
       <side-list :nav-list="navList"></side-list>
@@ -15,6 +15,7 @@
 <script>
   import SideList from '../side-list/side-list.vue'
   import Display from '../display/display.vue'
+  import Back from '../back/back.vue'
   import menuConfig from '../../common/config/menu'
 
   export default {
@@ -34,14 +35,14 @@
       $route() {
         this.showCatalog = false
         window.scrollTo(0, 0)
+      },
+      showCatalog(newVal) {
+        document.documentElement.className = newVal ? 'ov-hidden' : ''
       }
     },
     methods: {
       toggleCatalog() {
         this.showCatalog = !this.showCatalog
-      },
-      toHome() {
-        this.$router.push('/')
       }
     },
     mounted () {
@@ -53,10 +54,12 @@
         const el = mdBodyEle.querySelector(`#${anchor}`)
         el && el.scrollIntoView()
       }
+      window.scrollTo(0, 0)
     },
     components: {
       SideList,
-      Display
+      Display,
+      Back
     }
   }
 </script>
@@ -70,31 +73,23 @@
     height: 100%
     box-sizing: border-box
     flex-wrap: wrap
-    &::before
-      content: ""
-      position: relative
-      z-index: 5
-      display: block
-      width: 100%
-      height: 1px
-      margin-top: -1px
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
     @media screen and (max-width: 960px)
       position: relative
       height: auto
+      &::before
+        position: fixed
+        top: 48px
     .menu
       display: none
       @media screen and (max-width: 960px)
         display: block
-        position: absolute
+        z-index: 5
+        position: fixed
         right: 6px
-        top: -44px
+        top: 4px
         width: 20px
         height: 20px
         padding: 10px
-        &.to-home
-          right: auto
-          left: 3px
       &:active
         opacity: .6
     .nav-list-wrapper
@@ -102,9 +97,11 @@
       height: 100%
       border-right: 1px solid #e3e3e3
       @media screen and (max-width: 960px)
-        position: absolute
+        position: fixed
         right: 0
-        top: 0
+        top: 48px
+        bottom: 0
+        height: auto
         background-color: $color-white
         z-index: 1
         overflow: hidden

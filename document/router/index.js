@@ -12,7 +12,6 @@ import '../components/viewport/viewport.vue'
 
 Vue.use(Router)
 
-const defaultLang = getCurrentLang()
 const EnUSChildren = [
   {
     path: '',
@@ -38,7 +37,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: `/${defaultLang}`
+      redirect: function () {
+        const defaultLang = getCurrentLang()
+        return `/${defaultLang}`
+      }
     },
     {
       path: '/en-US',
