@@ -159,6 +159,7 @@
         if (panelIndex === (this.data.length - 1)) {
           // last column
           this.$emit(EVENT_SELECT, this.selectedVal, this.selected)
+          this.hide()
         } else {
           this.$emit(EVENT_CHANGE, panelIndex, item, this.selectedVal, this.selected)
         }
