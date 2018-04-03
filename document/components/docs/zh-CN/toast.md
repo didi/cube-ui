@@ -86,3 +86,9 @@
 | mask | 遮罩 | Boolean | true/false | false |
 | txt | 提示信息 | String | - | '' |
 | time | 显示时间 | Number | - | 3000 |
+
+### 事件
+
+| 事件名 | 说明 |
+| - | - |
+| timeout | 当显示时间结束时派发 |

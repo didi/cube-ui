@@ -113,5 +113,29 @@ describe('Toast', () => {
         done()
       })
     })
+
+    it('should trigger correct event', function (done) {
+      const timeoutHandle = sinon.spy()
+
+      const vm = createToast({
+        time: 1000
+      }, {
+        timeout: timeoutHandle
+      })
+
+      vm.show()
+
+      setTimeout(() => {
+        expect(timeoutHandle).to.be.calledOnce
+        done()
+      }, 1200)
+    })
+
+    function createToast(props = {}, events = {}) {
+      return instantiateComponent(Vue, Toast, {
+        props: props,
+        on: events
+      })
+    }
   })
 })

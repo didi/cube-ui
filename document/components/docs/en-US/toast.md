@@ -85,3 +85,9 @@
 | mask | whether to show mask layer | Boolean | true/false | false |
 | txt | tip text | String | - | '' |
 | time | display duration, millisecond | Number | - | 3000 |
+
+### Events
+
+| Event Name | Description |
+| - | - |
+| timeout | triggers when the display time is out |
