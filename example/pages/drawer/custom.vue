@@ -51,15 +51,19 @@
         this.$refs.drawer.refill(0, cityList[randomProvince.value])
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         setTimeout(() => {
           // city change, get area data
           const data = areaList[item.value]
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')

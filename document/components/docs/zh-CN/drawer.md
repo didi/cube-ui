@@ -36,7 +36,7 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
       showDrawer() {
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         // fake request
         setTimeout(() => {
           let data
@@ -51,8 +51,12 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')
@@ -113,15 +117,19 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
         this.$refs.drawer.refill(0, cityList[randomProvince.value])
         this.$refs.drawer.show()
       },
-      changeHandler(index, item, selectedVal, selectedIndex) {
+      changeHandler(index, item, selectedVal, selectedIndex, selectedText) {
         setTimeout(() => {
           // city change, get area data
           const data = areaList[item.value]
           this.$refs.drawer.refill(index + 1, data)
         }, 200)
       },
-      selectHandler(selectedVal, selectedIndex) {
-        console.log('select', selectedVal, selectedIndex)
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
       },
       cancelHandler() {
         console.log('cancel')
@@ -181,11 +189,11 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
 
 ### 事件
 
-| 事件名 | 说明 | 参数1 | 参数2 |  参数3 |  参数4 |
-| - | - | - | - | - | - |
-| change | 选择发生改变（选中是非最后一个 Panel 中的项的时候触发） | 发生改变的 Panel 的索引 | 发生改变的数据项 | 已选中的值集合 | 已选中的索引集合 |
-| select | 选择了最后一个 Panel 中的项触发 | 已选中的值集合 | 已选中的索引集合 | - | - |
-| cancel | 点击左侧空白区域触发 | - | - | - | - |
+| 事件名 | 说明 | 参数1 | 参数2 | 参数3 | 参数4 | 参数5 |
+| - | - | - | - | - | - | - |
+| change | 选择发生改变（选中是非最后一个 Panel 中的项的时候触发） | 发生改变的 Panel 的索引 | 发生改变的数据项 | 已选中的值集合 | 已选中的索引集合 | 已选中的文本集合 |
+| select | 选择了最后一个 Panel 中的项触发 | 已选中的值集合 | 已选中的索引集合 | 已选中的文本集合 | - | - |
+| cancel | 点击左侧空白区域触发 | - | - | - | - | - |
 
 ### 实例方法
 
