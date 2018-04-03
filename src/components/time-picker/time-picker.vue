@@ -53,6 +53,8 @@
         type: Number,
         default: 2500
       },
+      // delay is valid when less than (the minute left in today + 1440).
+      // So, it will be security when less than 1440.
       delay: {
         type: Number,
         default: 15
