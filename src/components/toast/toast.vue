@@ -14,6 +14,8 @@
 
   const COMPONENT_NAME = 'cube-toast'
 
+  const EVENT_TIMEOUT = 'timeout'
+
   export default {
     name: COMPONENT_NAME,
     mixins: [apiMixin],
@@ -65,6 +67,7 @@
           if (this.time !== 0) {
             this.timer = setTimeout(() => {
               this.hide()
+              this.$emit(EVENT_TIMEOUT)
             }, this.time)
           }
         })
