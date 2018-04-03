@@ -46,7 +46,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: allSource
+        include: allSource.concat(resolve('node_modules/lodash-es'))
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

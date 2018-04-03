@@ -58,11 +58,14 @@
 
   .nav-loading
     z-index: 10
-    position: absolute
+    position: fixed
+    top: 70px
     width: 100%
     height: 2px
     background: #3ca0e6
     transform: translateX(-100%)
+    @media screen and (max-width: 960px)
+      top: 48px
   .nav-loading-ani
     animation: navloading 2s linear forwards
   .nav-loading-ani-end

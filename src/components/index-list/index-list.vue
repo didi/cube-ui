@@ -25,7 +25,10 @@
           :key="index"
           :data-index="index"
           class="cube-index-list-nav-item"
-          :class="{active: currentIndex === index}">{{ item }}</li>
+          :class="{active: currentIndex === index}"
+        >
+          <slot name="nav-item" :item="item">{{ item }}</slot>
+        </li>
       </ul>
     </div>
     <div class="cube-index-list-fixed cube-index-list-anchor" ref="fixed" v-show="fixedTitle">

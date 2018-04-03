@@ -1,6 +1,7 @@
 <template>
   <div class="home-example">
     <div class="example-main">
+      <back />
       <display></display>
       <div class="example-desc">
         <a :href="baseUrl" class="online-link">Online Example</a>
@@ -13,14 +14,19 @@
 <script>
   import { baseUrl } from '../../common/js/utils'
   import Display from '../display/display.vue'
+  import Back from '../back/back.vue'
   export default {
     data() {
       return {
         baseUrl
       }
     },
+    mounted() {
+      window.scrollTo(0, 0)
+    },
     components: {
-      Display
+      Display,
+      Back
     }
   }
 </script>
@@ -28,15 +34,6 @@
   .home-example
     position: relative
     text-align: center
-    &::before
-      content: ""
-      position: relative
-      z-index: 5
-      display: block
-      width: 100%
-      height: 1px
-      margin-top: -1px
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
     .example-main
       display: flex
       align-items: center
@@ -44,7 +41,7 @@
       // width: 348px
       // margin: auto
       padding: 50px 0
-      overflow: hidden
+      // overflow: hidden
       @media screen and (max-width: 960px)
         width: 330px
         flex-wrap: wrap
@@ -55,12 +52,12 @@
           margin: 0 auto 30px
     .example-desc
       margin-left: 100px
-    .online-link, img
-      display: block
-      margin-bottom: 20px
-    img
-      width: 280px
-      height: 280px
+      img
+        width: 280px
+        height: 280px
+      .online-link, img
+        display: block
+        margin-bottom: 20px
     .page-display
       .display-wrapper
         margin: auto

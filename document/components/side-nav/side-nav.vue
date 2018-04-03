@@ -47,6 +47,8 @@
     max-height: 75px
     overflow: hidden
     // transition: all .2s linear
+    > .nav-ul
+      visibility: hidden
     .angle
       position: absolute
       left: 30px
@@ -120,6 +122,8 @@
   .nav-li_open
     // height: auto
     max-height: 2000px
+    .nav-ul
+      visibility: visible
   .nav-li_active
     .arrow
       &::before

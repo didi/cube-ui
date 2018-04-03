@@ -6,9 +6,9 @@
         <slot name="desc"></slot>
       </p>
       <div class="ghbtns">
-        <Badge type="Star"></Badge>
-        <Badge type="Fork"></Badge>
-        <Badge type="Watch"></Badge>
+        <Badge type="star"></Badge>
+        <Badge type="fork"></Badge>
+        <Badge type="watch"></Badge>
       </div>
       <div class="rec-btns">
         <slot name="rec-btns"></slot>
@@ -51,6 +51,9 @@
   import Sfooter from '../footer/footer.vue'
 
   export default {
+    mounted() {
+      window.scrollTo(0, 0)
+    },
     components: {
       Badge,
       Sfooter
@@ -78,9 +81,6 @@
         text-align: left
         background-position: 6% 0
         background-size: 186%
-        .ghbtns
-          margin-left: -5px
-          margin-right: -5px
         .btn-link
           width: 140px
           margin-right: 15px
@@ -92,14 +92,20 @@
         @media screen and (max-width: 960px)
           font-size: 30px
       > p
-        margin: 30px 0 20px 0
+        margin: 23px 0 6px 0
         font-size: 18px
+        line-height: 32px
         @media screen and (max-width: 960px)
           font-size: 12px
+          line-height: 18px
   .ghbtns
     font-size: 0
+    margin-left: -5px
+    margin-right: -5px
   .rec-btns
     margin-top: 36px
+    @media screen and (max-width: 960px)
+      margin-top: 26px
   .btn-link
     display: inline-block
     box-sizing: border-box
@@ -159,6 +165,13 @@
           .text
             flex: 1
             margin-top: -7px
+          &:first-child
+            img
+              transform: translate(-6px,0)
+          &:nth-child(2)
+            img
+              transform: scale(0.90) translate(0,8px)
+              transform-origin: top center
         img
           width: 130px
           margin-bottom: 13px
@@ -172,8 +185,9 @@
         .text
           transition: all .5s
           .h1
-            padding: 7px 0
+            padding: 7px 0 0
             font-size: 22px
+            font-weight: 500
             color: #333
           .h2
             font-size: 18px

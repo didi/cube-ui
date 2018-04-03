@@ -1,6 +1,6 @@
 <template>
-  <div class="home-view" :class="{'home-view-docs': isDocs}">
-    <div class="navigator" :class="{ active: showTabs }">
+  <div class="home-view" :class="{'home-view-docs': isDocs, 'home-view-demo': isExample, opacity1: opacity1}">
+    <div class="navigator" ref="navigator" :class="{ active: showTabs }">
       <div class="logo">
         <router-link to="/"><img src="./didi-logo.svg" alt="DiDi"></router-link>
       </div>
@@ -21,18 +21,57 @@
 <script>
   import Lang from '../lang/lang.vue'
   import NavLoading from '../nav-loading/nav-loading.vue'
+  import throttle from 'lodash-es/throttle'
+
   export default {
     data() {
       return {
         showTabs: false,
-        isDocs: this.$route.path.indexOf('/docs') > -1
+        opacity1: false,
+        isDocs: this.$route.path.indexOf('/docs') > -1,
+        isExample: this.$route.path.indexOf('/example') > -1
+      }
+    },
+    computed: {
+      isIndex() {
+        return !this.isDocs && !this.isExample
       }
     },
     watch: {
       $route(val) {
         this.isDocs = val.path.indexOf('/docs') > -1
+        this.isExample = val.path.indexOf('/example') > -1
         this.showTabs = false
+      },
+      isIndex: {
+        handler: function (newVal) {
+          if (newVal) {
+            document.addEventListener('touchmove', this.checkScrollTop, false)
+            window.addEventListener('scroll', this.checkScrollTop, false)
+          } else {
+            document.removeEventListener('touchmove', this.checkScrollTop, false)
+            window.removeEventListener('scroll', this.checkScrollTop, false)
+            this.$refs.navigator && (this.$refs.navigator.style.backgroundColor = '')
+          }
+        },
+        immediate: true
       }
+    },
+    beforeCreate() {
+      this.checkScrollTop = throttle(() => {
+        const y = window.scrollY
+        const h = 48
+        const opacity = y / h
+        this.opacity1 = opacity >= 0.98
+        this.$refs.navigator.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`
+      }, 10, {
+        leading: true
+      })
+    },
+    mounted() {
+      setTimeout(() => {
+        this.isIndex && this.checkScrollTop()
+      })
     },
     components: {
       SiteLang: Lang,
@@ -58,25 +97,31 @@
     transition: all 250ms ease
     @media screen and (max-width: 960px)
       padding-top: 48px
-      &.home-view-docs
+      &.home-view-docs, &.home-view-demo
         overflow: hidden
         height: auto
         .toggle-nav
           display: none!important
     .router-view
       height: 100%
+  .home-view-docs, .home-view-demo, .opacity1
+    .navigator
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .15)
   .navigator
-    position: relative
+    z-index: 5
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
     height: 70px
     line-height: 70px
     padding: 0 100px
-    margin-top: -70px
-    transition: all 0.3s ease
+    margin-top: 0
+    background-color: #fff
     @media screen and (max-width: 960px)
       padding: 0
       height: 48px
       line-height: 48px
-      margin-top: -48px
       &.active
         .tabs
           transition: transform .2s
@@ -111,6 +156,10 @@
       float: left
       padding: 0 16px
       height: 100%
+      a
+        display: block
+        height: 100%
+        margin: 0 80px
       @media screen and (max-width: 960px)
         float: none
         text-align: center
@@ -123,7 +172,7 @@
       padding: 0 30px
       box-shadow: none
       @media screen and (max-width: 960px)
-        position: absolute
+        position: fixed
         z-index: 10
         right: 10px
         padding: 0 0 0 2px
@@ -161,7 +210,7 @@
         transition: color .2s
         @media screen and (max-width: 960px)
           display: block
-          line-height: 36px
+          line-height: 45px
           color: black
         &:hover
           color: $color-orange

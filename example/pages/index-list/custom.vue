@@ -12,6 +12,7 @@
                 </div>
               </cube-index-list-item>
             </cube-index-list-group>
+            <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span>
           </cube-index-list>
         </div>
       </div>
@@ -87,8 +88,10 @@
           >ul
             >li
               padding: 3px
-              font-size: 12px
-              color: #909090
               &.active
-                color: #ffcd32
+                .custom-nav-item
+                  color: #ffcd32
+        .custom-nav-item
+          font-size: 12px
+          color: #909090
 </style>
