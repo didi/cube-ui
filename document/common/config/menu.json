@@ -19,6 +19,13 @@
           "name": "Basic",
           "subList": {
             "button": "Button",
+            "loading": "Loading",
+            "tip": "Tip"
+          }
+        },
+        "form": {
+          "name": "Form",
+          "subList": {
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
@@ -28,8 +35,7 @@
             "switch": "Switch",
             "rate": "Rate",
             "validator": "Validator",
-            "loading": "Loading",
-            "tip": "Tip",
+            "upload": "Upload",
             "form": "Form"
           }
         },
@@ -53,12 +59,6 @@
             "slide": "Slide",
             "index-list": "IndexList",
             "swipe": "Swipe"
-          }
-        },
-        "advanced": {
-          "name": "Advanced",
-          "subList": {
-            "upload": "Upload"
           }
         }
       }
@@ -93,6 +93,13 @@
           "name": "基础",
           "subList": {
             "button": "Button",
+            "loading": "Loading",
+            "tip": "Tip"
+          }
+        },
+        "form": {
+          "name": "表单",
+          "subList": {
             "checkbox": "Checkbox",
             "checkbox-group": "CheckboxGroup",
             "radio": "Radio",
@@ -102,8 +109,7 @@
             "switch": "Switch",
             "rate": "Rate",
             "validator": "Validator",
-            "loading": "Loading",
-            "tip": "Tip",
+            "upload": "Upload",
             "form": "Form"
           }
         },
@@ -129,12 +135,6 @@
             "slide": "Slide",
             "index-list": "IndexList",
             "swipe": "Swipe"
-          }
-        },
-        "advanced": {
-          "name": "高级",
-          "subList": {
-            "upload": "Upload"
           }
         }
       }
