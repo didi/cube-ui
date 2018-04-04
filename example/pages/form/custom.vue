@@ -14,9 +14,8 @@
           <cube-button type="submit">Submit</cube-button>
         </cube-form-group>
       </cube-form>
-      <div>model:<br>:{{model}}</div>
-      <!-- <div>validity:<br>{{validity}}</div> -->
-      <div>valid:<br>{{valid}}</div>
+      <json-view title="model" :data="model" />
+      <json-view title="validity" :data="validity" />
     </div>
   </cube-page>
 </template>
@@ -25,6 +24,7 @@
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import DatePicker from 'example/components/date-picker.vue'
+  import JsonView from '../../components/json-view.vue'
   import { provinceList, cityList, areaList } from 'example/data/area'
 
   const cityData = provinceList
@@ -136,7 +136,8 @@
     components: {
       CubePage,
       CubeButtonGroup,
-      DatePicker
+      DatePicker,
+      JsonView
     }
   }
 </script>
