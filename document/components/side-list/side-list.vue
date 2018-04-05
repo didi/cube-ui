@@ -34,7 +34,7 @@
             if (window.innerWidth > 960) {
               setTimeout(() => {
                 const el = document.querySelector('.page-sidelist .nav-active')
-                el && el.scrollIntoView()
+                el && el.scrollIntoViewIfNeeded()
               }, 0)
             }
           }
