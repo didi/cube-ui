@@ -41,7 +41,8 @@
   import {
     getData,
     getRect,
-    prefixStyle
+    prefixStyle,
+    getMatchedTarget
   } from '../../common/helpers/dom'
   import { inBrowser } from '../../common/helpers/env'
 
@@ -129,7 +130,9 @@
         this.$emit(EVENT_TITLE_CLICK, this.title)
       },
       onShortcutTouchStart(e) {
-        let anchorIndex = getData(e.target, 'index')
+        const target = getMatchedTarget(e, 'cube-index-list-nav-item')
+        if (!target) return
+        let anchorIndex = getData(target, 'index')
         let firstTouch = e.touches[0]
         this.touch.y1 = firstTouch.pageY
         this.touch.anchorIndex = anchorIndex
