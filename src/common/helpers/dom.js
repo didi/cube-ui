@@ -78,3 +78,14 @@ export function prefixStyle(style) {
 
   return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
+
+export function getMatchedTarget(e, targetClassName) {
+  let el = e.target
+
+  while (el && !hasClass(el, targetClassName)) {
+    if (el === e.currentTarget) return null
+    el = el.parentNode
+  }
+
+  return el
+}
