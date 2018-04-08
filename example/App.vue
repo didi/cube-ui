@@ -208,6 +208,7 @@
     -webkit-overflow-scrolling: touch
     .cube-list
       padding-left: 10px
+      z-index: 1
       .cube-index-list-group
         .cube-index-list-anchor
           font-size: 16px
