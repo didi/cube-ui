@@ -210,3 +210,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | Method name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
 | setData | set options in picker| Array, texts and values of options of each columns of picker | Array, indexes of selected item in each column of picker |
+| show | show picker | - | - |
+| hide | hide picker | - | - |
