@@ -2,6 +2,8 @@
 
 SegmentPicker is used to achieve multi segment choose, for example, the choose of time period: September 1, 2010 - 2014 June 30th.
 
+__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+
 ### Example
 
 - Basic usage
