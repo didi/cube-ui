@@ -1,12 +1,12 @@
-## SegmentPicker 组件
+## SegmentPicker
 
-段选择器，用于实现多段的选择，比如选择时间段：2010年9月1日 - 2014年6月30日。
+SegmentPicker is used to achieve multi segment choose, for example, the choose of time period: September 1, 2010 - 2014 June 30th.
 
-### 示例
+### Example
 
-- 基本用法
+- Basic usage
 
-  通过 `data` 属性定义每个节点选择器的类型和属性，`is` 代表该选择器是用哪种 Picker 组件，既可以是 Cube UI 的 Picker 类组件，也可以是你自己定义的 Picker 组件。比如下面是我们用两个 DatePicker 组件来做时间段选择。
+  Using the `data` attribute to define the component name and properties of each node picker, `is` represents which Picker component is used, either a Picker component of a Cube UI, or a Picker component defined by yourself. For example, we use two DatePicker components to make time period choose.
 
   ```html
   <cube-button @click="showDateSegmentPicker">StartDate - EndDate</cube-button>
@@ -56,9 +56,9 @@
   }
   ```
 
-  并且为了实现两个选择器之间的联动，我们可以在 next 下一步的事件处理函数中，根据第一个的选择，更新第二个选择器，比如这里是，将结束时间的最小值 = 所选的开始时间。
+  In order to implement the Cascade between the two pickers, we can update the second picker in the handle function of the `next` event, according to the first choice. As in here, the minimum value of the end time = the selected start time.
 
-- 快递 - 寄件地址 - 收件地址
+- Express - From - To
 
   ```html
   <cube-button @click="showCitySegmentPicker">Express - From - To</cube-button>
@@ -114,38 +114,38 @@
   }
   ```
 
-### Props 配置
+### Props configuration
 
-| 参数 | 说明 | 类型 | 默认值 | 示例 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| data | 定义各个选择器的组件名和属性 | Array | [] | - |
-| title | 标题 | String | '' | - |
-| cancelTxt | 取消按钮文案 | String | '取消' | - |
-| confirmTxt | 确定按钮文案 | String | '确定' | - |
-| nextTxt | 下一步按钮文案 | String | '下一步' | - |
-| prevTxt | 上一步按钮文案 | String | '下一步' | - |
+| data | define the component name and properties of each node picker | Array | [] | - |
+| title | title | String | '' | - |
+| cancelTxt | the text of the cancel button | String | '取消' | - |
+| confirmTxt | the text of the confirm button | String | '确定' | - |
+| nextTxt | the text of the next button | String | '下一步' | - |
+| prevTxt | the text of the prev button | String | '下一步' | - |
 
-* `data` 子配置项
+* `data` sub configuration
 
-| 参数 | 说明 | 类型 | 默认值 | 示例 |
+| Attribute | Description | Type  | Default | Example |
 | - | - | - | - | - |
-| is | 该节点选择器的组件名 | String | cube-picker | cube-date-picker |
-| 其它 | 该节点选择器的属性 | - | - | - |
+| is | the component name of each node picker | String | cube-picker | cube-date-picker |
+| ...rest | the properties of each node picker | - | - | - |
 
-### 事件
+### Events
 
-| 事件名 | 说明 | 参数1 | 参数2 | 参数3 |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
 | - | - | - | - | - |
-| select | 点击确认按钮触发此事件 | 各个选择器的 select 事件的参数1，Array 类型 | 各个选择器的 select 事件的参数2，Array 类型 | 各个选择器的 select 事件的参数3，Array 类型 |
-| cancel | 点击取消按钮触发此事件 | - | - | - |
-| next | 点击下一步按钮触发此事件 | 当前 picker 的索引，Number类型 | 其余参数为，当前 picker select 时间的参数 | ··· | ··· |
-| prev | 点击上一步按钮触发此事件 | 当前 picker 的索引，Number类型 | - | - | - |
-| change | 滚轴滚动后触发此事件 | pickerIndex: 当前滚动 picker 的索引，Number类型 |index: 当前滚动列索引，Number类型 | selectedIndex: 当前列选中项的索引，Number类型 |
+| select | triggers when clicking the confirm button | the parameter 1 of each picker's select event, Array | the parameter 2 of each picker's select event, Array | the parameter 3 of each picker's select event, Array |
+| cancel | triggers when clicking the cancel button | - | - | - |
+| next | triggers when clicking the next button | the index of current picker, Number | ...rest, is the parameters of current picker's select event | ··· | ··· |
+| prev | triggers when clicking the prev button | the index of current picker, Number | - | - | - |
+| change | triggers when the roller scrolls | pickerIndex: Number, the index of current picker | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column |
 
 
-### 实例方法
+### Methods
 
-| 方法名 | 说明 |
+| Method name | Description |
 | - | - |
-| show | 显示选择器 |
-| hide | 隐藏选择器 |
+| show | show picker |
+| hide | hide picker |

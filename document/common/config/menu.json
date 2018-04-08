@@ -47,6 +47,7 @@
             "picker": "Picker",
             "cascade-picker": "CascadePicker",
             "time-picker": "TimePicker",
+            "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet",
             "drawer": "Drawer"
