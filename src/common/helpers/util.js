@@ -65,4 +65,23 @@ function resetTypeValue(obj, key, defVal) {
   }
 }
 
-export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue }
+function parallel(tasks, cb) {
+  let doneCount = 0
+  let results = []
+  const tasksLen = tasks.length
+  if (!tasksLen) {
+    return cb(results)
+  }
+  tasks.forEach((task, i) => {
+    task((ret) => {
+      doneCount += 1
+      results[i] = ret
+      if (doneCount === tasksLen) {
+        // all tasks done
+        cb(results)
+      }
+    })
+  })
+}
+
+export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel }

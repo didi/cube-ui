@@ -4,7 +4,14 @@
       <slot></slot>
     </div>
     <div class="cube-validator-msg" @click="msgClickHandler">
-      <slot name="message" :message="msg" :dirty="dirty" :validated="validated" :result="result">
+      <slot
+        name="message"
+        :message="msg"
+        :dirty="dirty"
+        :validated="validated"
+        :pending="pending"
+        :result="result"
+      >
         <span class="cube-validator-msg-def">{{ dirtyOrValidated ? msg : '' }}</span>
       </slot>
     </div>
@@ -12,6 +19,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { parallel } from '../../common/helpers/util'
   import { rules, findMessage } from '../../common/helpers/validator'
 
   const COMPONENT_NAME = 'cube-validator'
@@ -53,6 +61,7 @@
         validated: false,
         msg: '',
         dirty: false,
+        pending: false,
         result: {}
       }
     },
@@ -98,6 +107,7 @@
       }
     },
     created() {
+      this._validateCount = 0
       if (!this.isDisabled && this.immediate) {
         this.validate()
       }
@@ -107,46 +117,81 @@
         if (this.isDisabled) {
           return
         }
+        this._validateCount++
+        const validateCount = this._validateCount
         const val = this.model
         this.validated = true
 
-        let valid = true
         const configRules = this.rules
         const type = configRules.type
-        const result = {}
+        const allTasks = []
 
+        let requiredValid = true
         if (!configRules.required) {
-          const requiredValid = rules.required(val, true, type)
-          if (!requiredValid) {
-            // treat it as empty, no need to validate other rules
-            return this._updateModel(valid, result)
-          }
+          // treat it as empty, no need to validate other rules
+          requiredValid = rules.required(val, true, type)
         }
 
-        for (const key in configRules) {
-          const ruleValue = configRules[key]
-          let ret
-          if (typeof ruleValue === 'function') {
-            ret = ruleValue(val, configRules[key], type)
-          } else {
-            ret = !rules[key] || rules[key](val, configRules[key], type)
-          }
-          let msg = this.messages[key]
-                    ? typeof this.messages[key] === 'function' ? this.messages[key](ret) : this.messages[key]
-                    : findMessage(key, configRules[key], type, val)
-
-          if (valid && ret !== true) {
-            valid = false
-            this.msg = msg
-          }
-
-          result[key] = {
-            valid: ret === true,
-            invalid: ret !== true,
-            message: msg
+        if (requiredValid) {
+          for (const key in configRules) {
+            const ruleValue = configRules[key]
+            let ret
+            if (typeof ruleValue === 'function') {
+              ret = ruleValue(val, configRules[key], type)
+            } else {
+              ret = !rules[key] || rules[key](val, configRules[key], type)
+            }
+            allTasks.push((next) => {
+              if (typeof ret === 'object' && ret !== null && ret.then) {
+                ret.then((_ret) => {
+                  next({
+                    key: key,
+                    valid: true,
+                    ret: _ret
+                  })
+                }).catch((_ret) => {
+                  next({
+                    key: key,
+                    valid: false,
+                    ret: _ret
+                  })
+                })
+              } else {
+                next({
+                  key: key,
+                  valid: ret === true,
+                  ret: ret
+                })
+              }
+            })
           }
         }
-        this._updateModel(valid, result)
+        let isValid = true
+        const result = {}
+        this.pending = true
+        parallel(allTasks, (results) => {
+          if (this._validateCount !== validateCount) {
+            return
+          }
+          this.pending = false
+          results.forEach(({ key, valid, ret }) => {
+            let msg = this.messages[key]
+                      ? typeof this.messages[key] === 'function'
+                        ? this.messages[key](ret, valid)
+                        : this.messages[key]
+                      : findMessage(key, configRules[key], type, val)
+            if (isValid && !valid) {
+              isValid = false
+              this.msg = msg
+            }
+            result[key] = {
+              valid: valid,
+              invalid: !valid,
+              message: msg
+            }
+          })
+          this._updateModel(isValid, result)
+        })
       },
       _updateModel(valid, result) {
         this.result = result
@@ -162,6 +207,7 @@
         this.$emit(EVENT_INPUT, this.valid)
       },
       reset() {
+        this._validateCount++
         this.dirty = false
         this.result = {}
         this.msg = ''
