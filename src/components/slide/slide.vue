@@ -119,6 +119,9 @@
         if (this.showDots) {
           this._initDots()
         }
+        if (this.currentPageIndex >= this.dots.length) {
+          this.currentPageIndex = this.dots.length - 1
+        }
         this._initSlide()
 
         if (this.autoPlay) {
@@ -130,41 +133,24 @@
         this.slide.refresh()
       },
       _updateSlideDom(isResize) {
-        if (this.direction === DIRECTION_H) {
-          this._setSlideWidth(isResize)
-        } else {
-          this._setSlideHeight(isResize)
-        }
+        this._setSlideStyle(isResize)
       },
-      _setSlideWidth(isResize) {
+      _setSlideStyle(isResize) {
         this.children = this.$refs.slideGroup.children
 
-        let width = 0
-        let slideWidth = this.$refs.slide.clientWidth
-        for (let i = 0; i < this.children.length; i++) {
-          let child = this.children[i]
-          child.style.width = slideWidth + 'px'
-          width += slideWidth
+        const target = this.direction === DIRECTION_H ? 'width' : 'height'
+        let allSize = 0
+        const slideSize = this.$refs.slide[`client${target[0].toUpperCase() + target.slice(1)}`]
+        const len = this.children.length
+        for (let i = 0; i < len; i++) {
+          const child = this.children[i]
+          child.style[target] = slideSize + 'px'
+          allSize += slideSize
         }
-        if (this.loop && !isResize) {
-          width += 2 * slideWidth
+        if (this.loop && !isResize && len > 1) {
+          allSize += 2 * slideSize
         }
-        this.$refs.slideGroup.style.width = width + 'px'
-      },
-      _setSlideHeight(isResize) {
-        this.children = this.$refs.slideGroup.children
-
-        let height = 0
-        let slideHeight = this.$refs.slide.clientHeight
-        for (let i = 0; i < this.children.length; i++) {
-          let child = this.children[i]
-          child.style.height = slideHeight + 'px'
-          height += slideHeight
-        }
-        if (this.loop && !isResize) {
-          height += 2 * slideHeight
-        }
-        this.$refs.slideGroup.style.height = height + 'px'
+        this.$refs.slideGroup.style[target] = allSize + 'px'
       },
       _initSlide() {
         const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
