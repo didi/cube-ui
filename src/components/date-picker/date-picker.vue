@@ -55,30 +55,12 @@
   }
 
   const DEFAULT_FORMAT_CONFIG = {
-    year: {
-      unit: '',
-      pad: false
-    },
-    month: {
-      unit: '',
-      pad: false
-    },
-    date: {
-      unit: '',
-      pad: false
-    },
-    hour: {
-      unit: '',
-      pad: false
-    },
-    minute: {
-      unit: '',
-      pad: true
-    },
-    second: {
-      unit: '',
-      pad: true
-    }
+    year: 'yyyy',
+    month: 'M',
+    date: 'd',
+    hour: 'HH',
+    minute: 'mm',
+    second: 'ss'
   }
 
   export default {
@@ -125,11 +107,6 @@
         let finalFomatConfig = Object.assign({}, DEFAULT_FORMAT_CONFIG)
         deepAssign(finalFomatConfig, this.formatConfig)
 
-        // Update the nature range cache.
-        Object.keys(natureRangeCache).forEach((key) => {
-          natureRangeCache[key] = range(NATURE_BOUNDARY_MAP[key].natureMin, NATURE_BOUNDARY_MAP[key].natureMax, finalFomatConfig[key].pad, finalFomatConfig[key].unit)
-        })
-
         return finalFomatConfig
       },
       startIndex() {
@@ -173,6 +150,16 @@
         return selectedIndex
       }
     },
+    watch: {
+      finalFomatConfig: {
+        handler() {
+          Object.keys(natureRangeCache).forEach((key) => {
+            natureRangeCache[key] = this._range(key, NATURE_BOUNDARY_MAP[key].natureMin, NATURE_BOUNDARY_MAP[key].natureMax)
+          })
+        },
+        immediately: true
+      }
+    },
     methods: {
       show() {
         this.$refs.cascadePicker.show()
@@ -193,7 +180,7 @@
         if (count === 0) {
           let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin)
           let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax)
-          item.push(...range(min, max, this.finalFomatConfig[UNIT_LIST[i]].pad, this.finalFomatConfig[UNIT_LIST[i]].unit, true, true))
+          item.push(...this._range(UNIT_LIST[i], min, max, true, true))
         } else {
           if (i < 3 || item.isMin || item.isMax) {
             let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax
@@ -201,7 +188,7 @@
             let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
             let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
-            item.children = range(min, max, this.finalFomatConfig[UNIT_LIST[i]].pad, this.finalFomatConfig[UNIT_LIST[i]].unit, item.isMin, item.isMax, storageYear)
+            item.children = this._range(UNIT_LIST[i], min, max, item.isMin, item.isMax, storageYear)
           } else {
             item.children = natureRangeCache[UNIT_LIST[i]]
           }
@@ -229,26 +216,45 @@
         args[1]--
 
         return new Date(...args)
+      },
+      _range(unit, min, max, fatherIsMin, fatherIsMax, year) {
+        let arr = []
+        for (let i = min; i <= max; i++) {
+          const object = {
+            text: format(unit, this.finalFomatConfig[unit], i),
+            value: i
+          }
+
+          if (fatherIsMin && i === min) object.isMin = true
+          if (fatherIsMax && i === max) object.isMax = true
+          if (year) object.year = year
+
+          arr.push(object)
+        }
+        return arr
       }
     }
   }
 
-  function range(min, max, pad = false, unit = '', fatherIsMin, fatherIsMax, year) {
-    let arr = []
-    for (let i = min; i <= max; i++) {
-      const value = (pad && i < 10 ? '0' + i : i) + unit
-      const object = {
-        text: value,
-        value: i
-      }
-
-      if (fatherIsMin && i === min) object.isMin = true
-      if (fatherIsMax && i === max) object.isMax = true
-      if (year) object.year = year
-
-      arr.push(object)
+  function format(unit, format, value) {
+    const regExpMap = {
+      year: '(y+)',
+      month: '(M+)',
+      date: '(d+)',
+      hour: '(h+)',
+      minute: '(m+)',
+      second: '(s+)',
+      quarter: '(q+)',
+      millisecond: '(S)'
     }
-    return arr
+
+    if (new RegExp(regExpMap[unit]).test(format)) {
+      format = format.replace(RegExp.$1, unit === 'year'
+                                         ? value.toString().substr(4 - RegExp.$1.length)
+                                         : (RegExp.$1.length === 1) ? value : (('00' + value).substr(('' + value).length)))
+    }
+
+    return format
   }
 
   function computeNatrueMaxDay(month, year) {

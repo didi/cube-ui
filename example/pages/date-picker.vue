@@ -25,6 +25,11 @@
             min: new Date(2008, 7, 8),
             max: new Date(2020, 9, 20),
             value: new Date(),
+            formatConfig: {
+              year: '第yy年',
+              month: 'M月',
+              date: '第 dd 日'
+            },
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle
           })
