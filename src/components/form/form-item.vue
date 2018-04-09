@@ -125,10 +125,16 @@
           this.form.updateValidity(this.fieldValue.modelKey, validator.valid, validator.result, validator.dirty)
         }
       },
-      validate(skipValidate) {
+      validate(cb) {
         const validator = this.$refs.validator
-        validator && validator.validate()
-        this.updateValidity()
+        if (validator) {
+          validator && validator.validate(() => {
+            this.updateValidity()
+            cb && cb()
+          })
+        } else {
+          cb && cb()
+        }
       },
       reset() {
         const fieldValue = this.fieldValue

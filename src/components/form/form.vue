@@ -56,6 +56,7 @@
     data() {
       return {
         validatedCount: 0,
+        validating: false,
         dirty: false,
         valid: undefined,
         firstInvalidField: null,
@@ -121,28 +122,33 @@
         this.$refs.form.reset()
       },
       submitHandler(e) {
-        const submitResult = this._submit()
-        if (submitResult) {
-          this.$emit(EVENT_VALID, this.validity)
-          this.$emit(EVENT_SUBMIT, e, this.model)
-        } else {
+        this._submit((submitResult) => {
+          if (submitResult) {
+            this.$emit(EVENT_VALID, this.validity)
+            this.$emit(EVENT_SUBMIT, e, this.model)
+          } else {
+            e.preventDefault()
+            this.$emit(EVENT_INVALID, this.validity)
+          }
+        })
+        if (this.validating) {
+          // async validate
           e.preventDefault()
-          this.$emit(EVENT_INVALID, this.validity)
         }
       },
       resetHandler(e) {
         this._reset()
         this.$emit(EVENT_RESET, e)
       },
-      _submit() {
-        this.validate()
-        if (this.invalid) {
-          if (this.options.scrollToInvalidField && this.firstInvalidField) {
-            this.firstInvalidField.$el.scrollIntoView()
+      _submit(cb) {
+        this.validate(() => {
+          if (this.invalid) {
+            if (this.options.scrollToInvalidField && this.firstInvalidField) {
+              this.firstInvalidField.$el.scrollIntoView()
+            }
           }
-          return false
-        }
-        return true
+          cb && cb(this.valid)
+        })
       },
       _reset() {
         this.fields.forEach((fieldComponent) => {
@@ -150,11 +156,20 @@
         })
         this.setValidity()
       },
-      validate() {
+      validate(cb) {
+        let doneCount = 0
+        const len = this.fields.length
+        this.validating = true
         this.fields.forEach((fieldComponent) => {
-          fieldComponent.validate()
+          fieldComponent.validate(() => {
+            doneCount++
+            if (doneCount === len) {
+              // all done
+              this.validating = false
+              cb && cb(this.valid)
+            }
+          })
         })
-        return this.valid
       },
       updateValidity(modelKey, valid, result, dirty) {
         const curResult = this.validity[modelKey]

@@ -113,8 +113,9 @@
       }
     },
     methods: {
-      validate() {
+      validate(cb) {
         if (this.isDisabled) {
+          cb && cb()
           return
         }
         this._validateCount++
@@ -191,6 +192,7 @@
             }
           })
           this._updateModel(isValid, result)
+          cb && cb()
         })
       },
       _updateModel(valid, result) {
@@ -208,6 +210,7 @@
       },
       reset() {
         this._validateCount++
+        this.pending = false
         this.dirty = false
         this.result = {}
         this.msg = ''
