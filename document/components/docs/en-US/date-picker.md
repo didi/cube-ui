@@ -15,18 +15,19 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   ```js
   export default {
-    mounted () {
-      this.datePicker = this.$createDatePicker({
-        title: 'Date Picker',
-        min: new Date(2008, 7, 8),
-        max: new Date(2020, 9, 20),
-        value: new Date(),
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
       showDatePicker() {
+        if (!this.datePicker) {
+          this.datePicker = this.$createDatePicker({
+            title: 'Date Picker',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.datePicker.show()
       },
       selectHandle(date, selectedVal, selectedText) {
@@ -56,19 +57,20 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   ```js
   export default {
-    mounted () {
-      this.timePicker = this.$createDatePicker({
-        title: 'Time Picker',
-        min: new Date(2008, 7, 8, 8, 0, 0),
-        max: new Date(2008, 7, 8, 20, 59, 59),
-        value: new Date(2008, 7, 8, 12, 30, 30),
-        startColumn: 'hour',
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
       showTimePicker() {
+        if (!this.timePicker) {
+          this.timePicker = this.$createDatePicker({
+            title: 'Time Picker',
+            min: [8, 0, 0],
+            max: [20, 59, 59],
+            value: new Date(),
+            startColumn: 'hour',
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.timePicker.show()
       },
       selectHandle(date, selectedVal, selectedText) {
@@ -98,19 +100,20 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   ```js
   export default {
-    mounted () {
-      this.dateTimePicker = this.$createDatePicker({
-        title: 'Date Time Picker',
-        min: new Date(2008, 7, 8, 8, 0, 0),
-        max: new Date(2020, 9, 20, 20, 59, 59),
-        value: new Date(),
-        columnCount: 6,
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
       showDateTimePicker() {
+        if (!this.dateTimePicker) {
+          this.dateTimePicker = this.$createDatePicker({
+            title: 'Date Time Picker',
+            min: new Date(2008, 7, 8, 8, 0, 0),
+            max: new Date(2020, 9, 20, 20, 59, 59),
+            value: new Date(),
+            columnCount: 6,
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.dateTimePicker.show()
       },
       selectHandle(date, selectedVal, selectedText) {
@@ -140,18 +143,19 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   ```js
   export default {
-    mounted () {
-      this.updatePropsPicker = this.$createDatePicker({
-        title: 'Use $updateProps',
-        min: new Date(2008, 7, 8),
-        max: new Date(2020, 9, 20),
-        value: new Date(),
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
       showUpdatePropsPicker() {
+        if (!this.updatePropsPicker) {
+          this.updatePropsPicker = this.$createDatePicker({
+            title: 'Use $updateProps',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.updatePropsPicker.show()
         setTimeout(() => {
           this.updatePropsPicker.$updateProps({
