@@ -17,6 +17,7 @@
 <script>
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
+  import { deepAssign } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
@@ -24,45 +25,61 @@
   const EVENT_CHANGE = 'change'
 
   const UNIT_LIST = ['year', 'month', 'date', 'hour', 'minute', 'second']
-  const UNIT_RELATED_LIST = [
-    {
-      txt: '年',
-      pad: false
-    },
-    {
-      txt: '月',
+  const NATURE_BOUNDARY_MAP = {
+    month: {
       natureMin: 1,
-      natureMax: 12,
-      pad: false
+      natureMax: 12
     },
-    {
-      txt: '日',
+    date: {
       natureMin: 1,
-      natureMax: 31,
-      pad: false
+      natureMax: 31
     },
-    {
-      txt: '时',
+    hour: {
       natureMin: 0,
-      natureMax: 23,
-      pad: false,
-      natureRange: range(0, 23, false, '时')
+      natureMax: 23
     },
-    {
-      txt: '分',
+    minute: {
       natureMin: 0,
-      natureMax: 59,
-      pad: true,
-      natureRange: range(0, 59, true, '分')
+      natureMax: 59
     },
-    {
-      txt: '秒',
+    second: {
       natureMin: 0,
-      natureMax: 59,
-      pad: true,
-      natureRange: range(0, 59, true, '秒')
+      natureMax: 59
     }
-  ]
+  }
+
+  const natureRangeCache = {
+    hour: [],
+    minute: [],
+    second: []
+  }
+
+  const DEFAULT_FORMAT_CONFIG = {
+    year: {
+      unit: '',
+      pad: false
+    },
+    month: {
+      unit: '',
+      pad: false
+    },
+    date: {
+      unit: '',
+      pad: false
+    },
+    hour: {
+      unit: '',
+      pad: false
+    },
+    minute: {
+      unit: '',
+      pad: true
+    },
+    second: {
+      unit: '',
+      pad: true
+    }
+  }
 
   export default {
     name: COMPONENT_NAME,
@@ -90,6 +107,12 @@
         type: Number,
         default: 3
       },
+      formatConfig: {
+        type: Object,
+        default() {
+          return {}
+        }
+      },
       value: {
         type: [Date, Array],
         default() {
@@ -98,6 +121,17 @@
       }
     },
     computed: {
+      finalFomatConfig() {
+        let finalFomatConfig = Object.assign({}, DEFAULT_FORMAT_CONFIG)
+        deepAssign(finalFomatConfig, this.formatConfig)
+
+        // Update the nature range cache.
+        Object.keys(natureRangeCache).forEach((key) => {
+          natureRangeCache[key] = range(NATURE_BOUNDARY_MAP[key].natureMin, NATURE_BOUNDARY_MAP[key].natureMax, finalFomatConfig[key].pad, finalFomatConfig[key].unit)
+        })
+
+        return finalFomatConfig
+      },
       startIndex() {
         let startIndex = UNIT_LIST.indexOf(this.startColumn)
         return startIndex < 0 ? 0 : startIndex
@@ -157,19 +191,19 @@
       },
       _generateData(i, count, item) {
         if (count === 0) {
-          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], UNIT_RELATED_LIST[i].natureMin)
-          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], UNIT_RELATED_LIST[i].natureMax)
-          item.push(...range(min, max, UNIT_RELATED_LIST[i].pad, UNIT_RELATED_LIST[i].txt, true, true))
+          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin)
+          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax)
+          item.push(...range(min, max, this.finalFomatConfig[UNIT_LIST[i]].pad, this.finalFomatConfig[UNIT_LIST[i]].unit, true, true))
         } else {
           if (i < 3 || item.isMin || item.isMax) {
-            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : UNIT_RELATED_LIST[i].natureMax
-            let min = item.isMin ? Math.max(this.minArray[count], UNIT_RELATED_LIST[i].natureMin) : UNIT_RELATED_LIST[i].natureMin
+            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax
+            let min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin
             let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
             let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
-            item.children = range(min, max, UNIT_RELATED_LIST[i].pad, UNIT_RELATED_LIST[i].txt, item.isMin, item.isMax, storageYear)
+            item.children = range(min, max, this.finalFomatConfig[UNIT_LIST[i]].pad, this.finalFomatConfig[UNIT_LIST[i]].unit, item.isMin, item.isMax, storageYear)
           } else {
-            item.children = UNIT_RELATED_LIST[i].natureRange
+            item.children = natureRangeCache[UNIT_LIST[i]]
           }
         }
         if (count < this.columnCount - 1 && i < 5) {
@@ -186,7 +220,7 @@
           if (i < this.startIndex) {
             args[i] = defaultDateArray[i]
           } else if (i >= this.startIndex + this.columnCount) {
-            args[i] = UNIT_RELATED_LIST[i].natureMin
+            args[i] = NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin
           } else {
             args[i] = selectedVal[i - this.startIndex]
           }
