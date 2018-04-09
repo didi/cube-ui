@@ -86,7 +86,9 @@
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
           /* istanbul ignore next */
-          this.refresh()
+          this.$nextTick(() => {
+            this.refresh()
+          })
         })
       })
     },
