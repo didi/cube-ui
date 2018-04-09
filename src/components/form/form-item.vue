@@ -33,6 +33,7 @@
   import { processField } from './fields/index'
   import { resetTypeValue } from '../../common/helpers/util'
   import CubeValidator from '../validator/validator.vue'
+  import LAYOUTS from './layouts'
   import { getResetValueByType } from './fields/reset'
   import components from './components'
   components.CubeValidator = CubeValidator
@@ -149,6 +150,9 @@
         }
       },
       msgClick() {
+        if (this.form.layout !== LAYOUTS.STANDARD) {
+          return
+        }
         /* istanbul ignore next */
         this.$createToast && this.$createToast({
           type: 'warn',

@@ -8,13 +8,9 @@
 
 <script>
   import CubeFormGroup from './form-group.vue'
+  import LAYOUTS from './layouts'
 
   const COMPONENT_NAME = 'cube-form'
-  const LAYOUTS = {
-    STANDARD: 'standard',
-    CLASSIC: 'classic',
-    FRESH: 'fresh'
-  }
   const EVENT_SUBMIT = 'submit'
   const EVENT_RESET = 'reset'
   const EVENT_VALIDATE = 'validate'
@@ -78,11 +74,15 @@
         const valid = this.valid
         return valid === undefined ? valid : !valid
       },
+      layout() {
+        const options = this.options
+        const layout = (options && options.layout) || LAYOUTS.STANDARD
+        return layout
+      },
       formClass() {
         const invalid = this.invalid
         const valid = this.valid
-        const options = this.options
-        const layout = (options && options.layout) || LAYOUTS.STANDARD
+        const layout = this.layout
         return {
           'cube-form_standard': layout === LAYOUTS.STANDARD,
           'cube-form_groups': this.groups.length > 1,
