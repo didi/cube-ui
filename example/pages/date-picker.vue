@@ -17,70 +17,79 @@
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
 
   export default {
-    mounted() {
-      this.datePicker = this.$createDatePicker({
-        title: 'Date Picker',
-        min: new Date(2008, 7, 8),
-        max: new Date(2020, 9, 20),
-        value: new Date(),
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-
-      this.timePicker = this.$createDatePicker({
-        title: 'Time Picker',
-        min: [8, 0, 0],
-        max: [20, 59, 59],
-        value: new Date(),
-        startColumn: 'hour',
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-
-      this.dateTimePicker = this.$createDatePicker({
-        title: 'Date Time Picker',
-        min: new Date(2008, 7, 8, 8, 0, 0),
-        max: new Date(2020, 9, 20, 20, 59, 59),
-        value: new Date(),
-        columnCount: 6,
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-
-      this.monthDatePicker = this.$createDatePicker({
-        title: 'Month Date Picker',
-        min: [1, 1],
-        max: [12, 31],
-        value: new Date(),
-        startColumn: 'month',
-        columnCount: 2,
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-
-      this.updatePropsPicker = this.$createDatePicker({
-        title: 'Use $updateProps',
-        min: new Date(2008, 7, 8),
-        max: new Date(2020, 9, 20),
-        value: new Date(),
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
       showDatePicker() {
+        if (!this.datePicker) {
+          this.datePicker = this.$createDatePicker({
+            title: 'Date Picker',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.datePicker.show()
       },
       showTimePicker() {
+        if (!this.timePicker) {
+          this.timePicker = this.$createDatePicker({
+            title: 'Time Picker',
+            min: [8, 0, 0],
+            max: [20, 59, 59],
+            value: new Date(),
+            startColumn: 'hour',
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.timePicker.show()
       },
       showDateTimePicker() {
+        if (!this.dateTimePicker) {
+          this.dateTimePicker = this.$createDatePicker({
+            title: 'Date Time Picker',
+            min: new Date(2008, 7, 8, 8, 0, 0),
+            max: new Date(2020, 9, 20, 20, 59, 59),
+            value: new Date(),
+            columnCount: 6,
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.dateTimePicker.show()
       },
       showMonthDatePicker() {
+        if (!this.monthDatePicker) {
+          this.monthDatePicker = this.$createDatePicker({
+            title: 'Month Date Picker',
+            min: [1, 1],
+            max: [12, 31],
+            value: new Date(),
+            startColumn: 'month',
+            columnCount: 2,
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.monthDatePicker.show()
       },
       showUpdatePropsPicker() {
+        if (!this.updatePropsPicker) {
+          this.updatePropsPicker = this.$createDatePicker({
+            title: 'Use $updateProps',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
         this.updatePropsPicker.show()
         setTimeout(() => {
           this.updatePropsPicker.$updateProps({
