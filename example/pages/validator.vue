@@ -52,7 +52,7 @@
       return {
         immediate: false,
         text1: '',
-        isValid: [true, true, true, true, true],
+        isValid: [undefined, undefined, undefined, undefined, undefined],
         rules1: {
           required: true,
           type: 'email',
@@ -104,13 +104,13 @@
         Object.keys(this.$refs).forEach((key) => {
           this.$refs[key].validate()
         })
-        if (this.isValid.every(item => item)) {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Submited',
-            time: 1000
-          }).show()
-        }
+        // if (this.isValid.every(item => item)) {
+        //   this.$createToast({
+        //     type: 'correct',
+        //     txt: 'Submited',
+        //     time: 1000
+        //   }).show()
+        // }
       }
     },
     components: {
