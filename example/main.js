@@ -8,6 +8,8 @@ import router from './router'
 import FastClick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
 
+window.Promise = window.Promise || Promise
+
 FastClick.attach(document.body) //  hack the active pseudo-classes failure caused by -webkit-overflow-scrolling touch
 
 /* eslint-disable no-unused-vars */
