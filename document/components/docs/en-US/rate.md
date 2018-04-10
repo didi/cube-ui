@@ -1,6 +1,8 @@
 ## Rate
 
-  Rate component. You can customize the rating star numbers, and disable the interaction, you can also customize the style of star through the slot.
+> New in 1.5.0+
+
+Rate component. You can customize the rating star numbers, and disable the interaction, you can also customize the style of star through the slot.
 
 ### Example
 

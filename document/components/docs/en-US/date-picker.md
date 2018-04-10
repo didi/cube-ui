@@ -1,5 +1,7 @@
 ## DatePicker
 
+> New in 1.7.0+
+
 DatePicker can be used to choose date, which has flexible configuration for time granularity, such as year - month - date, hour - minute - second, year - month - date - hour - minute - second, year - month, etc.
 
 __Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.

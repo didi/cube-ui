@@ -1,5 +1,7 @@
 ## Swipe
 
+> New in 1.5.0+
+
 The Swipe component, which provides a WeChat list left slip function, makes it easy to do some functional operations on the list items.
 
 ### Example

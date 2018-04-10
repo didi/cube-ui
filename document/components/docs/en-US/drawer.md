@@ -1,5 +1,7 @@
 ## Drawer
 
+> New in 1.7.0+
+
 Drawer, this component is used to select item in many items, it used full-page panels to interaction normally.
 
 __Notice:__ Drawer component's container element should be be a relative or absolute position element.

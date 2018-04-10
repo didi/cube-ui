@@ -1,5 +1,7 @@
 ## Validator
 
+> New in 1.5.0+
+
 Validator is used to validate form data and corresponding warning message.
 
 ### Example

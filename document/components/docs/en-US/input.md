@@ -1,5 +1,7 @@
 ## Input
 
+> New in 1.5.0+
+
 Input component. You can use the `v-model` directive to create two-way data bindings and use a clear button to clear the content.
 
 ### Example

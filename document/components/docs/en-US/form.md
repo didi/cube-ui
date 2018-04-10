@@ -1,5 +1,7 @@
 ## Form
 
+> New in 1.7.0+
+
 CubeForm is a schema-based form generator component.
 
 ### Example
