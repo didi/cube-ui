@@ -240,7 +240,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | value | current selected Date | Date, Array | - | the minimum value of optional range | new Date() |
 | startColumn | the start column | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | the count of column | Number | - | 3 | 6 |
-| format<sup>1.8.0+</sup> | date format | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'M月', date: '第 D 日' } |
+| format<sup>1.8.0+</sup> | date format | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'MM月', date: '第 D 日' } |
 | title | title | String | - | '' | - |
 | cancelTxt | the text of the cancel button | String | - | '取消' | - |
 | confirmTxt | the text of the confirm button | String | - | '确定' | - |

@@ -89,7 +89,7 @@ describe('DatePicker', () => {
       max: new Date(2020, 9, 20),
       format: {
         year: 'yy年',
-        month: 'M月',
+        month: 'MM月',
         date: '第 d 日'
       }
     })
@@ -108,7 +108,7 @@ describe('DatePicker', () => {
     expect(secondWheelItems.length)
       .to.equal(5)
     expect(secondWheelItems[1].textContent.trim())
-      .to.equal('9月')
+      .to.equal('09月')
 
     const thirdWheelItems = wheels[2].querySelectorAll('li')
     expect(thirdWheelItems.length)

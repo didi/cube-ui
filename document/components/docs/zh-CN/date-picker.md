@@ -240,7 +240,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
 | startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | 列数 | Number | - | 3 | 6 |
-| format<sup>1.8.0+</sup> | 日期格式 | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'M月', date: '第 D 日' } |
+| format<sup>1.8.0+</sup> | 日期格式 | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'MM月', date: '第 D 日' } |
 | title | 标题 | String | - | '' | - |
 | cancelTxt | 取消按钮文案 | String | - | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | - | '确定' | - |
