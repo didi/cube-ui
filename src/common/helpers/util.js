@@ -87,8 +87,10 @@ function parallel(tasks, cb) {
 function cb2PromiseWithResolve(cb) {
   let promise
   if (typeof window.Promise !== 'undefined') {
+    const _cb = cb
     promise = new window.Promise((resolve) => {
       cb = (data) => {
+        _cb && _cb(data)
         resolve(data)
       }
     })
@@ -97,4 +99,42 @@ function cb2PromiseWithResolve(cb) {
   return promise
 }
 
-export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel, cb2PromiseWithResolve }
+function debounce(func, wait, immediate) {
+  let timeout
+  let result
+
+  const later = function (context, args) {
+    timeout = null
+    if (args) {
+      result = func.apply(context, args)
+    }
+  }
+
+  const debounced = function (...args) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    if (immediate) {
+      const callNow = !timeout
+      timeout = setTimeout(later, wait)
+      if (callNow) {
+        result = func.apply(this, args)
+      }
+    } else {
+      timeout = setTimeout(() => {
+        later(this, args)
+      }, wait)
+    }
+
+    return result
+  }
+
+  debounced.cancel = function () {
+    clearTimeout(timeout)
+    timeout = null
+  }
+
+  return debounced
+}
+
+export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel, cb2PromiseWithResolve, debounce }
