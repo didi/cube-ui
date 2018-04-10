@@ -84,4 +84,17 @@ function parallel(tasks, cb) {
   })
 }
 
-export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel }
+function cb2PromiseWithResolve(cb) {
+  let promise
+  if (typeof window.Promise !== 'undefined') {
+    promise = new window.Promise((resolve) => {
+      cb = (data) => {
+        resolve(data)
+      }
+    })
+    promise.resolve = cb
+  }
+  return promise
+}
+
+export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel, cb2PromiseWithResolve }
