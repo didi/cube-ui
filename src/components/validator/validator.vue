@@ -9,7 +9,7 @@
         :message="msg"
         :dirty="dirty"
         :validated="validated"
-        :pending="pending"
+        :validating="validating"
         :result="result"
       >
         <span class="cube-validator-msg-def">{{ dirtyOrValidated ? msg : '' }}</span>
@@ -19,7 +19,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { parallel } from '../../common/helpers/util'
+  import { parallel, cb2PromiseWithResolve } from '../../common/helpers/util'
   import { rules, findMessage } from '../../common/helpers/validator'
 
   const COMPONENT_NAME = 'cube-validator'
@@ -61,7 +61,7 @@
         validated: false,
         msg: '',
         dirty: false,
-        pending: false,
+        validating: false,
         result: {}
       }
     },
@@ -76,7 +76,7 @@
         return disabled || noRules
       },
       dirtyOrValidated() {
-        return this.dirty || this.validated
+        return (this.dirty || this.validated) && !this.validating
       },
       containerClass() {
         const disabled = this.isDisabled
@@ -85,7 +85,8 @@
         }
         return {
           'cube-validator_invalid': this.invalid,
-          'cube-validator_valid': this.valid
+          'cube-validator_valid': this.valid,
+          'cube-validator_validating': this.validating
         }
       }
     },
@@ -114,14 +115,17 @@
     },
     methods: {
       validate(cb) {
+        const promise = cb2PromiseWithResolve(cb)
+        if (promise) {
+          cb = promise.resolve
+        }
         if (this.isDisabled) {
           cb && cb()
-          return
+          return promise
         }
         this._validateCount++
         const validateCount = this._validateCount
         const val = this.model
-        this.validated = true
 
         const configRules = this.rules
         const type = configRules.type
@@ -147,14 +151,14 @@
                 ret.then((_ret) => {
                   next({
                     key: key,
-                    valid: true,
+                    valid: _ret === true,
                     ret: _ret
                   })
-                }).catch((_ret) => {
+                }).catch((err) => {
                   next({
                     key: key,
                     valid: false,
-                    ret: _ret
+                    ret: err
                   })
                 })
               } else {
@@ -167,20 +171,27 @@
             })
           }
         }
+        this._checkTasks(allTasks, validateCount, cb)
+        return promise
+      },
+      _checkTasks(allTasks, validateCount, cb) {
+        const configRules = this.rules
         let isValid = true
         const result = {}
-        this.pending = true
+        this.validated = true
+        this.validating = true
+        this.valid = undefined
         parallel(allTasks, (results) => {
           if (this._validateCount !== validateCount) {
             return
           }
-          this.pending = false
+          this.validating = false
           results.forEach(({ key, valid, ret }) => {
-            let msg = this.messages[key]
+            const msg = this.messages[key]
                       ? typeof this.messages[key] === 'function'
                         ? this.messages[key](ret, valid)
                         : this.messages[key]
-                      : findMessage(key, configRules[key], type, val)
+                      : findMessage(key, configRules[key], configRules.type, this.model)
             if (isValid && !valid) {
               isValid = false
               this.msg = msg
@@ -210,7 +221,7 @@
       },
       reset() {
         this._validateCount++
-        this.pending = false
+        this.validating = false
         this.dirty = false
         this.result = {}
         this.msg = ''
