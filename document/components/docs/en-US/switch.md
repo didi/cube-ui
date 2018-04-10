@@ -1,5 +1,7 @@
 ## Switch
 
+> New in 1.4.0+
+
 Switch usually used to switch the state of on/off.
 
 ### Example

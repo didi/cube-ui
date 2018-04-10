@@ -1,5 +1,7 @@
 ## Upload
 
+> New in 1.3.0+
+
 `Upload` component.
 
 **Notice:** In this document, all the original File will be called **original file**, since the wrapped file object will be called **file object**. The structure of **file object** show as following:
