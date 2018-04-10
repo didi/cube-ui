@@ -87,7 +87,7 @@ describe('DatePicker', () => {
     vm = createDatePicker({
       min: new Date(2008, 7, 8),
       max: new Date(2020, 9, 20),
-      formatConfig: {
+      format: {
         year: 'yy年',
         month: 'M月',
         date: '第 d 日'

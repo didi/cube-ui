@@ -5,7 +5,7 @@
         <cube-button @click="showDatePicker">Date Picker</cube-button>
         <cube-button @click="showTimePicker">Time Picker</cube-button>
         <cube-button @click="showDateTimePicker">Date Time Picker</cube-button>
-        <cube-button @click="showFormateConfigPicker">Use formatConfig</cube-button>
+        <cube-button @click="showFormatPicker">Use format</cube-button>
         <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
       </cube-button-group>
     </div>
@@ -62,24 +62,24 @@
 
         this.dateTimePicker.show()
       },
-      showFormateConfigPicker() {
-        if (!this.formatConfigPicker) {
-          this.formatConfigPicker = this.$createDatePicker({
-            title: 'Date Picker',
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createDatePicker({
+            title: 'Use format',
             min: new Date(2008, 7, 8),
             max: new Date(2020, 9, 20),
             value: new Date(),
-            formatConfig: {
+            format: {
               year: 'yy年',
-              month: 'M月',
-              date: '第 dd 日'
+              month: 'MM月',
+              date: '第 d 日'
             },
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle
           })
         }
 
-        this.formatConfigPicker.show()
+        this.formatPicker.show()
       },
       showUpdatePropsPicker() {
         if (!this.updatePropsPicker) {

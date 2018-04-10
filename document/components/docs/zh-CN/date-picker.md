@@ -134,6 +134,53 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   }
   ```
 
+- 日期格式
+
+  你还可以通过 `format` 属性配置日期格式。
+
+  ```html
+  <cube-button @click="showFormatPicker">Use format</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createDatePicker({
+            title: 'Use format',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            format: {
+              year: 'yy年',
+              month: 'MM月',
+              date: '第 d 日'
+            },
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
+        this.formatPicker.show()
+      },
+      selectHandle(date, selectedVal, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - `$updateProps`
 
   通过`$updateProps`方法，可以修改用 createAPI 创建的组件实例的属性。比如 `DatePicker`中，我们可以修改 `value` 属性的值改变当前选择的日期。
@@ -191,11 +238,23 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
 | startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | 列数 | Number | - | 3 | 6 |
+| format | 日期格式 | Object | - | { year: 'yyyy', month: 'M', date: 'd', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'yy年', month: 'M月', date: '第 d 日' } |
 | title | 标题 | String | - | '' | - |
 | cancelTxt | 取消按钮文案 | String | - | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | - | '确定' | - |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | - | 2500 | - |
 | alias | 配置`value`和`text`的别名，用法同`Picker`组件 | Object | - | {} | { value: 'id', text: 'name'} |
+
+* `format` 子配置项
+
+| 参数 | 说明 | 类型 | 默认值 | 示例 |
+| - | - | - | - | - |
+| year | 年的格式，`yyyy` 代表完整年份，`yy` 仅年份后两位 | String | `yyyy` | `yy年` |
+| month | 月的格式，`M` 不补 0，`MM` 补 0 | String | `M` | `MM月` |
+| date | 日的格式，`d` 不补 0，`dd` 补 0 | String | `d` | `第 d 日` |
+| hour | 时的格式，`h` 不补 0，`hh` 补 0 | String | `hh` | `h点` |
+| month | 分的格式，`m` 不补 0，`mm` 补 0 | String | `mm` | `mm分` |
+| month | 秒的格式，`s` 不补 0，`ss` 补 0 | String | `ss` | `ss秒` |
 
 ### 事件
 

@@ -49,7 +49,7 @@
     }
   }
 
-  const DEFAULT_FORMAT_CONFIG = {
+  const DEFAULT_FORMAT = {
     year: 'yyyy',
     month: 'M',
     date: 'd',
@@ -84,7 +84,7 @@
         type: Number,
         default: 3
       },
-      formatConfig: {
+      format: {
         type: Object,
         default() {
           return {}
@@ -98,11 +98,11 @@
       }
     },
     computed: {
-      finalFomatConfig() {
-        let finalFomatConfig = Object.assign({}, DEFAULT_FORMAT_CONFIG)
-        deepAssign(finalFomatConfig, this.formatConfig)
+      formatConfig() {
+        let formatConfig = Object.assign({}, DEFAULT_FORMAT)
+        deepAssign(formatConfig, this.format)
 
-        return finalFomatConfig
+        return formatConfig
       },
       natureRangeCache() {
         const natureRangeCache = {
@@ -219,7 +219,7 @@
         let arr = []
         for (let i = min; i <= max; i++) {
           const object = {
-            text: formatType(type, this.finalFomatConfig[type], i),
+            text: formatType(type, this.formatConfig[type], i),
             value: i
           }
 
