@@ -24,6 +24,7 @@
 
   const COMPONENT_NAME = 'cube-validator'
   const EVENT_INPUT = 'input'
+  const EVENT_VALIDATING = 'validating'
   const EVENT_MSG_CLICK = 'msg-click'
 
   export default {
@@ -178,7 +179,6 @@
         const configRules = this.rules
         let isValid = true
         const result = {}
-        this.validated = true
         this.validating = true
         this.valid = undefined
         parallel(allTasks, (results) => {
@@ -205,8 +205,10 @@
           this._updateModel(isValid, result)
           cb && cb()
         })
+        this.validating && this.$emit(EVENT_VALIDATING)
       },
       _updateModel(valid, result) {
+        this.validated = true
         this.result = result
         if (result.required && result.required.invalid) {
           // required
