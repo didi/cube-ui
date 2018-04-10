@@ -18,7 +18,7 @@
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign } from '../../common/helpers/util'
-  import { computeNatrueMaxDay } from '../../common/lang/date'
+  import { computeNatrueMaxDay, formatUnit } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
@@ -219,7 +219,7 @@
         let arr = []
         for (let i = min; i <= max; i++) {
           const object = {
-            text: format(unit, this.finalFomatConfig[unit], i),
+            text: formatUnit(unit, this.finalFomatConfig[unit], i),
             value: i
           }
 
@@ -232,27 +232,6 @@
         return arr
       }
     }
-  }
-
-  function format(unit, format, value) {
-    const regExpMap = {
-      year: '(y+)',
-      month: '(M+)',
-      date: '(d+)',
-      hour: '(h+)',
-      minute: '(m+)',
-      second: '(s+)',
-      quarter: '(q+)',
-      millisecond: '(S)'
-    }
-
-    if (new RegExp(regExpMap[unit]).test(format)) {
-      format = format.replace(RegExp.$1, unit === 'year'
-                                         ? value.toString().substr(4 - RegExp.$1.length)
-                                         : (RegExp.$1.length === 1) ? value : (('00' + value).substr(('' + value).length)))
-    }
-
-    return format
   }
 
   function dateToArray(date) {

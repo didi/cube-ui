@@ -2,25 +2,45 @@ export const DAY_TIMESTAMP = 60 * 60 * 24 * 1000
 export const HOUR_TIMESTAMP = 60 * 60 * 1000
 export const MINUTE_TIMESTAMP = 60 * 1000
 
-export function formatDate(date, fmt) {
-  const o = {
-    'M+': date.getMonth() + 1,
-    'd+': date.getDate(),
-    'h+': date.getHours(),
-    'm+': date.getMinutes(),
-    's+': date.getSeconds(),
-    'q+': Math.floor((date.getMonth() + 3) / 3),
-    'S': date.getMilliseconds()
+export function formatUnit(unit, format, value) {
+  const regExpMap = {
+    year: '(y+)',
+    month: '(M+)',
+    date: '(d+)',
+    hour: '(h+)',
+    minute: '(m+)',
+    second: '(s+)',
+    quarter: '(q+)',
+    millisecond: '(S)'
   }
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+
+  if (new RegExp(regExpMap[unit]).test(format)) {
+    const replaceStr = unit === 'year'
+                       ? value.toString().substr(4 - RegExp.$1.length)
+                       : (RegExp.$1.length === 1) ? value : (('00' + value).substr(('' + value).length))
+    format = format.replace(RegExp.$1, replaceStr)
   }
-  for (const k in o) {
-    if (new RegExp('(' + k + ')').test(fmt)) {
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-    }
+
+  return format
+}
+
+export function formatDate(date, format) {
+  const map = {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds(),
+    quarter: Math.floor((date.getMonth() + 3) / 3),
+    millisecond: date.getMilliseconds()
   }
-  return fmt
+
+  for (const key in map) {
+    format = formatUnit(key, format, map[key])
+  }
+
+  return format
 }
 
 export function getZeroDate(date) {
