@@ -50,9 +50,9 @@
   }
 
   const DEFAULT_FORMAT = {
-    year: 'yyyy',
+    year: 'YYYY',
     month: 'M',
-    date: 'd',
+    date: 'D',
     hour: 'hh',
     minute: 'mm',
     second: 'ss'
@@ -219,7 +219,7 @@
         let arr = []
         for (let i = min; i <= max; i++) {
           const object = {
-            text: formatType(type, this.formatConfig[type], i),
+            text: formatType(type, this.formatConfig[type], i, 'i'),
             value: i
           }
 

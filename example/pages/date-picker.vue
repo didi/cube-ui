@@ -70,9 +70,9 @@
             max: new Date(2020, 9, 20),
             value: new Date(),
             format: {
-              year: 'yy年',
+              year: 'YY年',
               month: 'MM月',
-              date: '第 d 日'
+              date: '第 D 日'
             },
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle

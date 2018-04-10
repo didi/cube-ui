@@ -154,9 +154,9 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
             max: new Date(2020, 9, 20),
             value: new Date(),
             format: {
-              year: 'yy年',
+              year: 'YY年',
               month: 'MM月',
-              date: '第 d 日'
+              date: '第 D 日'
             },
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle
@@ -240,7 +240,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | value | current selected Date | Date, Array | - | the minimum value of optional range | new Date() |
 | startColumn | the start column | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | the count of column | Number | - | 3 | 6 |
-| format | date format | Object | - | { year: 'yyyy', month: 'M', date: 'd', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'yy年', month: 'M月', date: '第 d 日' } |
+| format | date format | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'M月', date: '第 D 日' } |
 | title | title | String | - | '' | - |
 | cancelTxt | the text of the cancel button | String | - | '取消' | - |
 | confirmTxt | the text of the confirm button | String | - | '确定' | - |
@@ -251,9 +251,9 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type  | Default | Example |
 | - | - | - | - | - |
-| year | the format of year, `yyyy` represent full year，`yy` only last two digit of year | String | `yyyy` | `yy年` |
+| year | the format of year, `YYYY` represent full year，`YY` only last two digit of year | String | `YYYY` | `YY年` |
 | month | the format of month, `M` don't pad 0，`MM` pad 0 | String | `M` | `MM月` |
-| date | the format of date, `d` don't pad 0，`dd` pad 0 | String | `d` | `第 d 日` |
+| date | the format of date, `D` don't pad 0，`DD` pad 0 | String | `D` | `第 D 日` |
 | hour | the format of hour, `h` don't pad 0，`hh` pad 0 | String | `hh` | `h点` |
 | month | the format of month, `m` don't pad 0，`mm` pad 0 | String | `mm` | `mm分` |
 | month | the format of month, `s` don't pad 0，`ss` pad 0 | String | `ss` | `ss秒` |

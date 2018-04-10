@@ -154,9 +154,9 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
             max: new Date(2020, 9, 20),
             value: new Date(),
             format: {
-              year: 'yy年',
+              year: 'YY年',
               month: 'MM月',
-              date: '第 d 日'
+              date: '第 D 日'
             },
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle
@@ -240,7 +240,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
 | startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | 列数 | Number | - | 3 | 6 |
-| format | 日期格式 | Object | - | { year: 'yyyy', month: 'M', date: 'd', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'yy年', month: 'M月', date: '第 d 日' } |
+| format | 日期格式 | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'M月', date: '第 D 日' } |
 | title | 标题 | String | - | '' | - |
 | cancelTxt | 取消按钮文案 | String | - | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | - | '确定' | - |
@@ -251,9 +251,9 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
-| year | 年的格式，`yyyy` 代表完整年份，`yy` 仅年份后两位 | String | `yyyy` | `yy年` |
+| year | 年的格式，`YYYY` 代表完整年份，`YY` 仅年份后两位 | String | `YYYY` | `YY年` |
 | month | 月的格式，`M` 不补 0，`MM` 补 0 | String | `M` | `MM月` |
-| date | 日的格式，`d` 不补 0，`dd` 补 0 | String | `d` | `第 d 日` |
+| date | 日的格式，`D` 不补 0，`DD` 补 0 | String | `D` | `第 D 日` |
 | hour | 时的格式，`h` 不补 0，`hh` 补 0 | String | `hh` | `h点` |
 | month | 分的格式，`m` 不补 0，`mm` 补 0 | String | `mm` | `mm分` |
 | month | 秒的格式，`s` 不补 0，`ss` 补 0 | String | `ss` | `ss秒` |

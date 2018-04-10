@@ -2,11 +2,11 @@ const DAY_TIMESTAMP = 60 * 60 * 24 * 1000
 const HOUR_TIMESTAMP = 60 * 60 * 1000
 const MINUTE_TIMESTAMP = 60 * 1000
 
-function formatType(type, format, value) {
+function formatType(type, format, value, attributes) {
   const regExpMap = {
-    year: '(y+)',
+    year: '(Y+)',
     month: '(M+)',
-    date: '(d+)',
+    date: '(D+)',
     hour: '(h+)',
     minute: '(m+)',
     second: '(s+)',
@@ -14,7 +14,7 @@ function formatType(type, format, value) {
     millisecond: '(S)'
   }
 
-  if (new RegExp(regExpMap[type]).test(format)) {
+  if (new RegExp(regExpMap[type], attributes).test(format)) {
     const replaceStr = type === 'year'
                        ? value.toString().substr(4 - RegExp.$1.length)
                        : (RegExp.$1.length === 1) ? value : pad(value)
