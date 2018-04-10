@@ -33,3 +33,16 @@ export function getZeroDate(date) {
 export function getNow() {
   return window.performance && window.performance.now ? (window.performance.now() + window.performance.timing.navigationStart) : +new Date()
 }
+
+export function computeNatrueMaxDay(month, year) {
+  let natureMaxDay = 30
+  if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
+    natureMaxDay = 31
+  } else {
+    if (month === 2) {
+      natureMaxDay = !year || (!(year % 400) || (!(year % 4) && year % 100)) ? 29 : 28
+    }
+  }
+
+  return natureMaxDay
+}

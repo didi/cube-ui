@@ -18,6 +18,7 @@
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign } from '../../common/helpers/util'
+  import { computeNatrueMaxDay } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
@@ -48,17 +49,11 @@
     }
   }
 
-  const natureRangeCache = {
-    hour: [],
-    minute: [],
-    second: []
-  }
-
   const DEFAULT_FORMAT_CONFIG = {
     year: 'yyyy',
     month: 'M',
     date: 'd',
-    hour: 'HH',
+    hour: 'hh',
     minute: 'mm',
     second: 'ss'
   }
@@ -109,6 +104,19 @@
 
         return finalFomatConfig
       },
+      natureRangeCache() {
+        const natureRangeCache = {
+          hour: [],
+          minute: [],
+          second: []
+        }
+
+        Object.keys(natureRangeCache).forEach((key) => {
+          natureRangeCache[key] = this._range(key, NATURE_BOUNDARY_MAP[key].natureMin, NATURE_BOUNDARY_MAP[key].natureMax)
+        })
+
+        return natureRangeCache
+      },
       startIndex() {
         let startIndex = UNIT_LIST.indexOf(this.startColumn)
         return startIndex < 0 ? 0 : startIndex
@@ -150,16 +158,6 @@
         return selectedIndex
       }
     },
-    watch: {
-      finalFomatConfig: {
-        handler() {
-          Object.keys(natureRangeCache).forEach((key) => {
-            natureRangeCache[key] = this._range(key, NATURE_BOUNDARY_MAP[key].natureMin, NATURE_BOUNDARY_MAP[key].natureMax)
-          })
-        },
-        immediately: true
-      }
-    },
     methods: {
       show() {
         this.$refs.cascadePicker.show()
@@ -190,7 +188,7 @@
             let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
             item.children = this._range(UNIT_LIST[i], min, max, item.isMin, item.isMax, storageYear)
           } else {
-            item.children = natureRangeCache[UNIT_LIST[i]]
+            item.children = this.natureRangeCache[UNIT_LIST[i]]
           }
         }
         if (count < this.columnCount - 1 && i < 5) {
@@ -255,19 +253,6 @@
     }
 
     return format
-  }
-
-  function computeNatrueMaxDay(month, year) {
-    let natureMaxDay = 30
-    if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
-      natureMaxDay = 31
-    } else {
-      if (month === 2) {
-        natureMaxDay = !year || (!(year % 400) || (!(year % 4) && year % 100)) ? 29 : 28
-      }
-    }
-
-    return natureMaxDay
   }
 
   function dateToArray(date) {
