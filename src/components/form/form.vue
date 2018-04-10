@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import { cb2PromiseWithResolve } from '../../common/helpers/util'
   import CubeFormGroup from './form-group.vue'
   import LAYOUTS from './layouts'
 
@@ -53,6 +54,7 @@
       return {
         validatedCount: 0,
         validating: false,
+        pending: false,
         dirty: false,
         valid: undefined,
         firstInvalidField: null,
@@ -86,6 +88,8 @@
         return {
           'cube-form_standard': layout === LAYOUTS.STANDARD,
           'cube-form_groups': this.groups.length > 1,
+          'cube-form_validating': this.validating,
+          'cube-form_pending': this.pending,
           'cube-form_valid': valid === true,
           'cube-form_invalid': invalid,
           'cube-form_classic': layout === LAYOUTS.CLASSIC,
@@ -102,6 +106,11 @@
           dirty: this.dirty,
           firstInvalidFieldIndex: this.firstInvalidFieldIndex
         })
+      },
+      validating(newVal) {
+        if (newVal) {
+          this.valid = undefined
+        }
       }
     },
     beforeCreate() {
@@ -122,7 +131,7 @@
         this.$refs.form.reset()
       },
       submitHandler(e) {
-        this._submit((submitResult) => {
+        const submited = (submitResult) => {
           if (submitResult) {
             this.$emit(EVENT_VALID, this.validity)
             this.$emit(EVENT_SUBMIT, e, this.model)
@@ -130,10 +139,15 @@
             e.preventDefault()
             this.$emit(EVENT_INVALID, this.validity)
           }
-        })
-        if (this.validating) {
-          // async validate
-          e.preventDefault()
+        }
+        if (this.valid === undefined) {
+          this._submit(submited)
+          if (this.validating) {
+            // async validate
+            e.preventDefault()
+          }
+        } else {
+          submited(this.valid)
         }
       },
       resetHandler(e) {
@@ -151,25 +165,36 @@
         })
       },
       _reset() {
+        this.validating = false
         this.fields.forEach((fieldComponent) => {
           fieldComponent.reset()
         })
         this.setValidity()
       },
       validate(cb) {
+        const promise = cb2PromiseWithResolve(cb)
+        if (promise) {
+          cb = promise.resolve
+        }
         let doneCount = 0
         const len = this.fields.length
-        this.validating = true
+        this.valid = undefined
         this.fields.forEach((fieldComponent) => {
           fieldComponent.validate(() => {
             doneCount++
             if (doneCount === len) {
               // all done
-              this.validating = false
               cb && cb(this.valid)
             }
           })
         })
+        return promise
+      },
+      computedValidating() {
+        this.validating = this.fields.some((fieldComponent) => fieldComponent.validating)
+      },
+      computedPending() {
+        this.pending = this.fields.some((fieldComponent) => fieldComponent.pending)
       },
       updateValidity(modelKey, valid, result, dirty) {
         const curResult = this.validity[modelKey]
@@ -183,6 +208,7 @@
         })
       },
       setValidity(key, val) {
+        debugger
         let validity = {}
         if (key) {
           Object.assign(validity, this.validity)
