@@ -33,22 +33,22 @@ describe('DatePicker', () => {
     expect(firstWheelItems.length)
       .to.equal(13)
     expect(firstWheelItems[1].textContent.trim())
-      .to.equal('2009年')
+      .to.equal('2009')
 
     const secondWheelItems = wheels[1].querySelectorAll('li')
     expect(secondWheelItems.length)
       .to.equal(5)
     expect(secondWheelItems[1].textContent.trim())
-      .to.equal('9月')
+      .to.equal('9')
 
     const thirdWheelItems = wheels[2].querySelectorAll('li')
     expect(thirdWheelItems.length)
       .to.equal(24)
     expect(thirdWheelItems[1].textContent.trim())
-      .to.equal('9日')
+      .to.equal('9')
   })
 
-  it('should correct when configured startColumn and columnCount', function (done) {
+  it('should render correct contents when configured startColumn and columnCount', function (done) {
     this.timeout(10000)
 
     vm = createDatePicker({
@@ -66,13 +66,13 @@ describe('DatePicker', () => {
     expect(firstWheelItems.length)
       .to.equal(31)
     expect(firstWheelItems[1].textContent.trim())
-      .to.equal('2日')
+      .to.equal('2')
 
     const secondWheelItems = wheels[1].querySelectorAll('li')
     expect(secondWheelItems.length)
       .to.equal(16)
     expect(secondWheelItems[1].textContent.trim())
-      .to.equal('9时')
+      .to.equal('09')
 
     // test: _arrayToDate if (i < this.beginIndex)
     vm.show()
@@ -81,6 +81,40 @@ describe('DatePicker', () => {
       confirmBtn.click()
       done()
     }, 50)
+  })
+
+  it('should render correct contents when configured format', function () {
+    vm = createDatePicker({
+      min: new Date(2008, 7, 8),
+      max: new Date(2020, 9, 20),
+      formatConfig: {
+        year: 'yy年',
+        month: 'M月',
+        date: '第 d 日'
+      }
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    expect(wheels.length)
+      .to.equal(3)
+
+    const firstWheelItems = wheels[0].querySelectorAll('li')
+    expect(firstWheelItems.length)
+      .to.equal(13)
+    expect(firstWheelItems[1].textContent.trim())
+      .to.equal('09年')
+
+    const secondWheelItems = wheels[1].querySelectorAll('li')
+    expect(secondWheelItems.length)
+      .to.equal(5)
+    expect(secondWheelItems[1].textContent.trim())
+      .to.equal('9月')
+
+    const thirdWheelItems = wheels[2].querySelectorAll('li')
+    expect(thirdWheelItems.length)
+      .to.equal(24)
+    expect(thirdWheelItems[1].textContent.trim())
+      .to.equal('第 9 日')
   })
 
   it('should trigger events', function (done) {
@@ -174,7 +208,7 @@ describe('DatePicker', () => {
       const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
       confirmBtn.click()
       expect(selectHandle)
-        .to.be.calledWith(new Date(2010, 9, 1), [2010, 10, 1], ['2010年', '10月', '1日'])
+        .to.be.calledWith(new Date(2010, 9, 1), [2010, 10, 1], ['2010', '10', '1'])
 
       done()
     }, 100)
