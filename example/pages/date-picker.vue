@@ -70,7 +70,7 @@
             max: new Date(2020, 9, 20),
             value: new Date(),
             formatConfig: {
-              year: '第yy年',
+              year: 'yy年',
               month: 'M月',
               date: '第 dd 日'
             },

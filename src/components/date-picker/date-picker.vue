@@ -18,14 +18,14 @@
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign } from '../../common/helpers/util'
-  import { computeNatrueMaxDay, formatUnit } from '../../common/lang/date'
+  import { computeNatrueMaxDay, formatType } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
 
-  const UNIT_LIST = ['year', 'month', 'date', 'hour', 'minute', 'second']
+  const TYPE_LIST = ['year', 'month', 'date', 'hour', 'minute', 'second']
   const NATURE_BOUNDARY_MAP = {
     month: {
       natureMin: 1,
@@ -118,7 +118,7 @@
         return natureRangeCache
       },
       startIndex() {
-        let startIndex = UNIT_LIST.indexOf(this.startColumn)
+        let startIndex = TYPE_LIST.indexOf(this.startColumn)
         return startIndex < 0 ? 0 : startIndex
       },
       minArray() {
@@ -176,19 +176,19 @@
       },
       _generateData(i, count, item) {
         if (count === 0) {
-          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin)
-          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax)
-          item.push(...this._range(UNIT_LIST[i], min, max, true, true))
+          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin)
+          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax)
+          item.push(...this._range(TYPE_LIST[i], min, max, true, true))
         } else {
           if (i < 3 || item.isMin || item.isMax) {
-            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMax
-            let min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin
+            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax
+            let min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin
             let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
             let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
-            item.children = this._range(UNIT_LIST[i], min, max, item.isMin, item.isMax, storageYear)
+            item.children = this._range(TYPE_LIST[i], min, max, item.isMin, item.isMax, storageYear)
           } else {
-            item.children = this.natureRangeCache[UNIT_LIST[i]]
+            item.children = this.natureRangeCache[TYPE_LIST[i]]
           }
         }
         if (count < this.columnCount - 1 && i < 5) {
@@ -205,7 +205,7 @@
           if (i < this.startIndex) {
             args[i] = defaultDateArray[i]
           } else if (i >= this.startIndex + this.columnCount) {
-            args[i] = NATURE_BOUNDARY_MAP[UNIT_LIST[i]].natureMin
+            args[i] = NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin
           } else {
             args[i] = selectedVal[i - this.startIndex]
           }
@@ -215,11 +215,11 @@
 
         return new Date(...args)
       },
-      _range(unit, min, max, fatherIsMin, fatherIsMax, year) {
+      _range(type, min, max, fatherIsMin, fatherIsMax, year) {
         let arr = []
         for (let i = min; i <= max; i++) {
           const object = {
-            text: formatUnit(unit, this.finalFomatConfig[unit], i),
+            text: formatType(type, this.finalFomatConfig[type], i),
             value: i
           }
 
