@@ -18,7 +18,7 @@
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign } from '../../common/helpers/util'
-  import { computeNatrueMaxDay, formatType } from '../../common/lang/date'
+  import { computeNatureMaxDay, formatType } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
@@ -181,7 +181,7 @@
           item.push(...this._range(TYPE_LIST[i], min, max, true, true))
         } else {
           if (i < 3 || item.isMin || item.isMax) {
-            let natureMax = i === 2 ? computeNatrueMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax
+            let natureMax = i === 2 ? computeNatureMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax
             let min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin
             let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 

@@ -1,8 +1,8 @@
-export const DAY_TIMESTAMP = 60 * 60 * 24 * 1000
-export const HOUR_TIMESTAMP = 60 * 60 * 1000
-export const MINUTE_TIMESTAMP = 60 * 1000
+const DAY_TIMESTAMP = 60 * 60 * 24 * 1000
+const HOUR_TIMESTAMP = 60 * 60 * 1000
+const MINUTE_TIMESTAMP = 60 * 1000
 
-export function formatType(type, format, value) {
+function formatType(type, format, value) {
   const regExpMap = {
     year: '(y+)',
     month: '(M+)',
@@ -17,14 +17,18 @@ export function formatType(type, format, value) {
   if (new RegExp(regExpMap[type]).test(format)) {
     const replaceStr = type === 'year'
                        ? value.toString().substr(4 - RegExp.$1.length)
-                       : (RegExp.$1.length === 1) ? value : (('00' + value).substr(('' + value).length))
+                       : (RegExp.$1.length === 1) ? value : pad(value)
     format = format.replace(RegExp.$1, replaceStr)
   }
 
   return format
 }
 
-export function formatDate(date, format) {
+function pad(value) {
+  return ('00' + value).substr(('' + value).length)
+}
+
+function formatDate(date, format) {
   const map = {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
@@ -43,18 +47,18 @@ export function formatDate(date, format) {
   return format
 }
 
-export function getZeroDate(date) {
+function getZeroDate(date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
   return new Date(year + '/' + month + '/' + day + ' 00:00:00')
 }
 
-export function getNow() {
+function getNow() {
   return window.performance && window.performance.now ? (window.performance.now() + window.performance.timing.navigationStart) : +new Date()
 }
 
-export function computeNatrueMaxDay(month, year) {
+function computeNatureMaxDay(month, year) {
   let natureMaxDay = 30
   if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
     natureMaxDay = 31
@@ -65,4 +69,16 @@ export function computeNatrueMaxDay(month, year) {
   }
 
   return natureMaxDay
+}
+
+export {
+  DAY_TIMESTAMP,
+  HOUR_TIMESTAMP,
+  MINUTE_TIMESTAMP,
+  pad,
+  formatType,
+  formatDate,
+  getZeroDate,
+  getNow,
+  computeNatureMaxDay
 }
