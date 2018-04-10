@@ -1,5 +1,7 @@
 ## Textarea
 
+> New in 1.5.0+
+
 Multi-line input box components. You can use the `v-model` directive to create two-way data bindings. The component expands or fold according to whether there is content, whether it is focused.
 
 ### Example
