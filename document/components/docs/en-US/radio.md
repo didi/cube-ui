@@ -1,5 +1,7 @@
 ## Radio
 
+> New in 1.4.0+
+
 Radio component. You could set the options and the position of the radio's icon.
 
 ### Example

@@ -1,5 +1,7 @@
 ## Select
 
+> 1.5.0 新增
+
 Select 组件，用于单项选择。
 
 __注：__ 由于此组件依赖 [Picker](#/zh-CN/docs/picker) 组件，而 Picker 组件是基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
