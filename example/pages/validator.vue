@@ -20,7 +20,7 @@
       </div>
       <div class="validator-item">
         <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate">
-          <cube-input v-model="text3" placeholder="odd"></cube-input>
+          <cube-input v-model="text3" placeholder="async validate odd"></cube-input>
         </cube-validator>
       </div>
       <div class="validator-item">
@@ -78,7 +78,7 @@
         text3: '100',
         rules3: {
           type: 'number',
-          odd: true
+          'async-odd': 1000
         },
         checkList: [],
         rules4: {
@@ -93,24 +93,34 @@
     },
     created() {
       Validator.setLanguage('en')
-      Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
-      Validator.addMessage('odd', 'Please input odd.')
+      Validator.addRule('async-odd', (val, config, type) => {
+        if (config <= 0) {
+          return Number(val) % 2 === 1
+        }
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(Number(val) % 2 === 1)
+          }, config)
+        })
+      })
+      Validator.addMessage('async-odd', 'Please input odd.')
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
       })
     },
     methods: {
       submit() {
-        Object.keys(this.$refs).forEach((key) => {
-          this.$refs[key].validate()
+        Promise.all(Object.keys(this.$refs).map((key) => {
+          return this.$refs[key].validate()
+        })).then(() => {
+          if (this.isValid.every(item => item)) {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Submited',
+              time: 1000
+            }).show()
+          }
         })
-        // if (this.isValid.every(item => item)) {
-        //   this.$createToast({
-        //     type: 'correct',
-        //     txt: 'Submited',
-        //     time: 1000
-        //   }).show()
-        // }
       }
     },
     components: {
