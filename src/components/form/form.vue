@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import { dispatchEvent } from '../../common/helpers/dom'
   import { cb2PromiseWithResolve } from '../../common/helpers/util'
   import CubeFormGroup from './form-group.vue'
   import LAYOUTS from './layouts'
@@ -115,10 +116,10 @@
     },
     methods: {
       submit() {
-        this.$refs.form.submit()
+        dispatchEvent(this.$refs.form, 'submit')
       },
       reset() {
-        this.$refs.form.reset()
+        dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
         const submited = (submitResult) => {
