@@ -10,6 +10,7 @@
   import { cb2PromiseWithResolve } from '../../common/helpers/util'
   import CubeFormGroup from './form-group.vue'
   import LAYOUTS from './layouts'
+  import mixin from './mixin'
 
   const COMPONENT_NAME = 'cube-form'
   const EVENT_SUBMIT = 'submit'
@@ -20,6 +21,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [mixin],
     props: {
       action: String,
       model: {
@@ -53,10 +55,7 @@
     data() {
       return {
         validatedCount: 0,
-        validating: false,
-        pending: false,
         dirty: false,
-        valid: undefined,
         firstInvalidField: null,
         firstInvalidFieldIndex: -1
       }
@@ -72,10 +71,6 @@
         }
         return groups
       },
-      invalid() {
-        const valid = this.valid
-        return valid === undefined ? valid : !valid
-      },
       layout() {
         const options = this.options
         const layout = (options && options.layout) || LAYOUTS.STANDARD
@@ -90,7 +85,7 @@
           'cube-form_groups': this.groups.length > 1,
           'cube-form_validating': this.validating,
           'cube-form_pending': this.pending,
-          'cube-form_valid': valid === true,
+          'cube-form_valid': valid,
           'cube-form_invalid': invalid,
           'cube-form_classic': layout === LAYOUTS.CLASSIC,
           'cube-form_fresh': layout === LAYOUTS.FRESH
@@ -106,11 +101,6 @@
           dirty: this.dirty,
           firstInvalidFieldIndex: this.firstInvalidFieldIndex
         })
-      },
-      validating(newVal) {
-        if (newVal) {
-          this.valid = undefined
-        }
       }
     },
     beforeCreate() {
@@ -142,7 +132,7 @@
         }
         if (this.valid === undefined) {
           this._submit(submited)
-          if (this.validating) {
+          if (this.validating || this.pending) {
             // async validate
             e.preventDefault()
           }
@@ -165,11 +155,12 @@
         })
       },
       _reset() {
-        this.validating = false
         this.fields.forEach((fieldComponent) => {
           fieldComponent.reset()
         })
         this.setValidity()
+        this.validating = false
+        this.pending = false
       },
       validate(cb) {
         const promise = cb2PromiseWithResolve(cb)
@@ -178,7 +169,7 @@
         }
         let doneCount = 0
         const len = this.fields.length
-        this.valid = undefined
+        this.originValid = undefined
         this.fields.forEach((fieldComponent) => {
           fieldComponent.validate(() => {
             doneCount++
@@ -208,7 +199,6 @@
         })
       },
       setValidity(key, val) {
-        debugger
         let validity = {}
         if (key) {
           Object.assign(validity, this.validity)
@@ -256,7 +246,7 @@
         })
         this.validity = validity
         this.dirty = dirty
-        this.valid = valid
+        this.originValid = valid
         this.setFirstInvalid(firstInvalidFieldKey)
         this.validatedCount++
       },

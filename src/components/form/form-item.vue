@@ -8,7 +8,7 @@
         class="cube-form-field"
         v-if="hasRules"
         ref="validator"
-        v-model="isValid"
+        v-model="originValid"
         :disabled="validatorDisabled"
         :model="validatorModel"
         :rules="fieldValue.rules"
@@ -37,12 +37,14 @@
   import CubeValidator from '../validator/validator.vue'
   import LAYOUTS from './layouts'
   import { getResetValueByType } from './fields/reset'
+  import mixin from './mixin'
   import components from './components'
   components.CubeValidator = CubeValidator
 
   const COMPONENT_NAME = 'cube-form-item'
   export default {
     name: COMPONENT_NAME,
+    mixins: [mixin],
     props: {
       field: {
         type: Object,
@@ -56,10 +58,7 @@
       const modelKey = this.field.modelKey
       const modelValue = modelKey ? this.form.model[modelKey] : null
       return {
-        validating: false,
-        pending: false,
         validatorDisabled: false,
-        isValid: undefined,
         modelValue: modelValue,
         validatorModel: modelValue
       }
@@ -82,8 +81,8 @@
           'cube-form-item_btn': this.isBtnField,
           'cube-form-item_validating': this.validating,
           'cube-form-item_pending': this.pending,
-          'cube-form-item_valid': this.isValid,
-          'cube-form-item_invalid': this.isValid === false
+          'cube-form-item_valid': this.valid,
+          'cube-form-item_invalid': this.invalid
         }
       },
       modelVal() {
@@ -114,11 +113,8 @@
         this.form.model[this.fieldValue.modelKey] = newModel
         this.updateValidatorModel()
       },
-      isValid(newValue) {
-        if (this.validatorDisabled) {
-          return
-        }
-        this.updateValidity()
+      originValid(newVal) {
+        this.lastOriginValid = newVal
       }
     },
     beforeCreate() {
@@ -126,7 +122,10 @@
     },
     created() {
       this.form.addField(this)
-      this.getValidatorModel = (modelValue) => modelValue
+      this.getValidatorModel = (modelValue) => {
+        this.pending = false
+        return modelValue
+      }
     },
     mounted() {
       this.initDebounce()
@@ -142,8 +141,21 @@
         this.getValidatorModel = debounce((modelValue) => {
           this.pending = false
           this.validatorModel = modelValue
+          this.form.computedPending()
+          this.asyncSameCheck()
           return modelValue
-        }, debounceTime)
+        }, debounceTime, false, this.validatorModel)
+      },
+      asyncSameCheck() {
+        const validator = this.$refs.validator
+        const validatorModel = this.validatorModel
+        if (validator) {
+          // same value, Vue do not trigger watch handler
+          // so need to force validate
+          if (validatorModel === validator.model) {
+            validator && validator.validate()
+          }
+        }
       },
       focusInHandler() {
         this.focused = true
@@ -151,6 +163,7 @@
       focusOutHandler() {
         this.focused = false
         this.updateValidatorModel()
+        this.asyncSameCheck()
       },
       initFocusEvents() {
         if (this.fieldValue.trigger === 'blur') {
@@ -158,7 +171,13 @@
           formItem.addEventListener('focusin', this.focusInHandler, false)
           formItem.addEventListener('focusout', this.focusOutHandler, false)
           this.getValidatorModel = (modelValue) => {
-            return this.focused ? this.validatorModel : modelValue
+            if (this.focused) {
+              return this.validatorModel
+            } else {
+              this.pending = false
+              this.form.computedPending()
+              return modelValue
+            }
           }
         }
       },
@@ -170,7 +189,10 @@
       updateValidatorModel() {
         this.pending = true
         this.validatorModel = this.getValidatorModel(this.modelValue)
-        this.pending && this.form.computedValidating()
+        if (this.pending) {
+          this.form.computedPending()
+          this.originValid = undefined
+        }
       },
       validatingHandler() {
         this.validating = true
@@ -179,6 +201,11 @@
       validatorChangeHandler() {
         this.validating = false
         this.form.computedValidating()
+        // disabled or true to true no update validity
+        if (this.validatorDisabled || (this.originValid && this.lastOriginValid)) {
+          return
+        }
+        this.updateValidity()
       },
       updateValidity() {
         const validator = this.$refs.validator
@@ -218,8 +245,11 @@
             this.validatorDisabled = false
           })
         }
+        this.validating = false
+        this.pending = false
       },
       msgClick() {
+        /* istanbul ignore if */
         if (this.form.layout !== LAYOUTS.STANDARD) {
           return
         }
