@@ -79,6 +79,7 @@
                   rules: {
                     required: true
                   },
+                  // validating when blur
                   trigger: 'blur'
                 },
                 {
@@ -118,6 +119,8 @@
                   rules: {
                     required: true
                   },
+                  // debounce validate
+                  // if set to true, the default debounce time will be 200(ms)
                   debounce: 100
                 }
               ]
