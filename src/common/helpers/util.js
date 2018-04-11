@@ -99,9 +99,9 @@ function cb2PromiseWithResolve(cb) {
   return promise
 }
 
-function debounce(func, wait, immediate) {
+function debounce(func, wait, immediate, initValue) {
   let timeout
-  let result
+  let result = initValue
 
   const later = function (context, args) {
     timeout = null
