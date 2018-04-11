@@ -42,6 +42,9 @@
   components.CubeValidator = CubeValidator
 
   const COMPONENT_NAME = 'cube-form-item'
+  const EVENT_FOCUSIN = 'focusin'
+  const EVENT_FOCUSOUT = 'focusout'
+
   export default {
     name: COMPONENT_NAME,
     mixins: [mixin],
@@ -168,8 +171,8 @@
       initFocusEvents() {
         if (this.fieldValue.trigger === 'blur') {
           const formItem = this.$refs.formItem
-          formItem.addEventListener('focusin', this.focusInHandler, false)
-          formItem.addEventListener('focusout', this.focusOutHandler, false)
+          formItem.addEventListener(EVENT_FOCUSIN, this.focusInHandler, false)
+          formItem.addEventListener(EVENT_FOCUSOUT, this.focusOutHandler, false)
           this.getValidatorModel = (modelValue) => {
             if (this.focused) {
               return this.validatorModel
@@ -183,8 +186,8 @@
       },
       removeFocusEvents() {
         const formItem = this.$refs.formItem
-        formItem.removeEventListener('focusin', this.focusInHandler, false)
-        formItem.removeEventListener('focusout', this.focusOutHandler, false)
+        formItem.removeEventListener(EVENT_FOCUSIN, this.focusInHandler, false)
+        formItem.removeEventListener(EVENT_FOCUSOUT, this.focusOutHandler, false)
       },
       updateValidatorModel() {
         this.pending = true
