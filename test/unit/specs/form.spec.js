@@ -123,6 +123,9 @@ describe('Form.vue', () => {
             }
           }
         ]
+      },
+      options: {
+        scrollToInvalidField: true
       }
     })
     setTimeout(() => {
@@ -170,7 +173,19 @@ describe('Form.vue', () => {
           .to.be.undefined
         expect(vm.validity.switchValue.dirty)
           .to.be.false
-        done()
+        setTimeout(() => {
+          // submit
+          vm.submit()
+          setTimeout(() => {
+            expect(vm.dirty)
+              .to.be.false
+            expect(vm.valid)
+              .to.be.false
+            expect(vm.invalid)
+              .to.be.true
+            done()
+          })
+        })
       })
     })
   })
