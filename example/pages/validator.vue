@@ -19,7 +19,7 @@
         </cube-validator>
       </div>
       <div class="validator-item">
-        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate">
+        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate" @validating="validatingHandler">
           <cube-input v-model="text3" placeholder="async validate odd"></cube-input>
         </cube-validator>
       </div>
@@ -109,6 +109,9 @@
       })
     },
     methods: {
+      validatingHandler() {
+        console.log('validating')
+      },
       submit() {
         Promise.all(Object.keys(this.$refs).map((key) => {
           return this.$refs[key].validate()

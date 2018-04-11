@@ -112,6 +112,48 @@
     color: orange
   ```
 
+- 异步校验<sup>1.8.0+</sup>
+
+  支持校验规则是异步的场景，约定如果校验规则函数的返回值是一个 Promise 对象（**`resolve` 的值是 `true` 的话就是校验成功，否则都视为失败**），那么就是异步校验，同时在校验的过程中会派发 `validating` 事件。
+
+  ```html
+  <cube-validator v-model="valid" :model="text" :rules="rules" @validating="validatingHandler">
+    <cube-input v-model="text" placeholder="async validate odd"></cube-input>
+  </cube-validator>
+  ```
+  ```js
+  Validator.addRule('async-odd', (val, config, type) => {
+    if (config <= 0) {
+      return Number(val) % 2 === 1
+    }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Number(val) % 2 === 1)
+      }, config)
+    })
+  })
+  Validator.addMessage('async-odd', 'Please input odd.')
+  export default {
+    data() {
+      return {
+        valid: undefined,
+        text: '',
+        rules: {
+          type: 'number',
+          'async-odd': 1000
+        }
+      }
+    },
+    methods: {
+      validatingHandler() {
+        console.log('validating')
+      }
+    }
+  }
+  ```
+
+  上述的 `async-odd` 就是一个异步校验规则，校验过程需花费 1 秒。
+
 - 提交
 
   虽然提交不属于 Validator 组件，但它往往与校验结果相关联着。所以这里说一下我们对提交的一种最佳实践，可供参考。重点在于对同时存在多个校验任务，以及提交时无论是否填写过表单都要进行校验，这两个需求的处理。
@@ -147,16 +189,18 @@
     },
     methods: {
       submit() {
-        this.$refs.validator0.validate()
-        this.$refs.validator1.validate()
-        this.$refs.validator2.validate()
-        if (this.result.every(item => item)) {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Submited',
-            time: 1000
-          }).show()
-        }
+        const p1 = this.$refs.validator0.validate()
+        const p2 = this.$refs.validator1.validate()
+        const p3 = this.$refs.validator2.validate()
+        Promise.all([p1, p2, p3]).then(() => {
+          if (this.isValid.every(item => item)) {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Submited',
+              time: 1000
+            }).show()
+          }
+        })
       }
     }
   }
@@ -164,7 +208,7 @@
 
   对于有多个校验同时通过才可提交的情况，为了不用一个一个去取校验结果变量，可以把这组校验结果存在一个数组，在提交时，遍历这个数组即可。
 
-  通过调用 Validator 实例的 `validate` 方法可以去校验处理。
+  通过调用 Validator 实例的 `validate` 方法可以去校验处理，从 1.8.0 版本后支持回调参数且如果浏览器支持 Promise 的话返回值就是 Promise 对象。
 
 ### Props
 
@@ -175,19 +219,20 @@
 | rules | 校验规则，具体见后面的内置规则和创建规则 | Object | - | {} |
 | messages | 自定义提示信息 | Object | - | {} |
 | immediate | 初始时是否立即校验 | Boolean | true/false | false |
+| disabled<sup>1.7.0+</sup> | 是否禁用 | Boolean | true/false | false |
 
 ### Slot
 
 | 名字 | 说明 | 作用域参数 |
 | - | - | - |
 | default | 表单组件 | - |
-| message | 错误提示 | dirty: 待检验的数据是否有修改过 <br> validated: 是否校验过 <br> message: 首条没通过的规则的提示信息 <br> result: 对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } } |
+| message | 错误提示 | dirty: 待检验的数据是否有修改过 <br> validating: 是否正在校验 <br> validated: 是否校验过 <br> message: 首条没通过的规则的提示信息 <br> result: 对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } } |
 
 ### 实例方法
 
-| 方法名 | 说明 |
-| - | - |
-| validate | 校验 |
+| 方法名 | 说明 | 参数 | 返回值 |
+| - | - | - | - |
+| validate(cb) | 校验 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 的话返回值是 Promise 对象（只有 resolved 状态，值为 valid），否则 undefined |
 
 ### 规则
 

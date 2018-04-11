@@ -112,6 +112,48 @@ Validator is used to validate form data and corresponding warning message.
     color: orange
   ```
 
+- Async validate <sup>1.8.0+</sup>
+
+  If the rule function returned a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
+
+  ```html
+  <cube-validator v-model="valid" :model="text" :rules="rules" @validating="validatingHandler">
+    <cube-input v-model="text" placeholder="async validate odd"></cube-input>
+  </cube-validator>
+  ```
+  ```js
+  Validator.addRule('async-odd', (val, config, type) => {
+    if (config <= 0) {
+      return Number(val) % 2 === 1
+    }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Number(val) % 2 === 1)
+      }, config)
+    })
+  })
+  Validator.addMessage('async-odd', 'Please input odd.')
+  export default {
+    data() {
+      return {
+        valid: undefined,
+        text: '',
+        rules: {
+          type: 'number',
+          'async-odd': 1000
+        }
+      }
+    },
+    methods: {
+      validatingHandler() {
+        console.log('validating')
+      }
+    }
+  }
+  ```
+
+  The `async-odd` is an async rule.
+
 - Submit
 
   Although submit is not inside of Validator, it usually be relative with Validator. Therefore, we want to introduce our best practice about submit here. It focus on the handles of multi-validator and warn message no matter whether the form data has ever changed.
@@ -171,19 +213,20 @@ Validator is used to validate form data and corresponding warning message.
 | rules | the rules for validation, you can find the details of rules below | Object | - | {} |
 | messages | custom messages for the corresponding rule | Object | - | {} |
 | immediate | Immediate validate after loaded | Boolean | true/false | false |
+| disabled<sup>1.7.0+</sup> | disabled validate or not | Boolean | true/false | false |
 
 ### Slot
 
 | Name | Description | Scope Parameters |
 | - | - | - |
 | default | the relative form component or element | - |
-| message | warning message | dirty: if the data have ever changed <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+| message | warning message | dirty: if the data have ever changed <br> validating: whether is validating <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
 
 ### Instance methods
 
-| Method name | Description |
-| - | - |
-| validate | Validate |
+| Method name | Description | Parameters | Returned value |
+| - | - | - | - |
+| validate(cb) | Validate | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |
 
 ### Rule
 
