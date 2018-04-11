@@ -4,7 +4,7 @@
       <cube-form
         :model="model"
         :schema="schema"
-        :immediate-validate="true"
+        :immediate-validate="false"
         :options="options"
         @validate="validateHandler"
         @submit="submitHandler"
@@ -78,7 +78,8 @@
                   },
                   rules: {
                     required: true
-                  }
+                  },
+                  trigger: 'blur'
                 },
                 {
                   type: 'radio-group',
@@ -116,7 +117,8 @@
                   label: 'Textarea',
                   rules: {
                     required: true
-                  }
+                  },
+                  debounce: 100
                 }
               ]
             },
@@ -136,7 +138,30 @@
                   modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
-                    required: true
+                    required: true,
+                    uploaded: (val, config) => {
+                      return Promise.all(val.map((file, i) => {
+                        return new Promise((resolve, reject) => {
+                          if (file.uploadedUrl) {
+                            return resolve()
+                          }
+                          // fake request
+                          setTimeout(() => {
+                            if (i % 2) {
+                              reject(new Error())
+                            } else {
+                              file.uploadedUrl = 'uploaded/url'
+                              resolve()
+                            }
+                          }, 1000)
+                        })
+                      })).then(() => {
+                        return true
+                      })
+                    }
+                  },
+                  messages: {
+                    uploaded: '上传失败'
                   }
                 }
               ]
