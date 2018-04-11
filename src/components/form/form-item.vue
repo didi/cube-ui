@@ -134,10 +134,10 @@
     methods: {
       initDebounce() {
         let debounceTime = this.fieldValue.debounce
-        if (!debounceTime || this.fieldValue.trigger === 'blur') return
         if (debounceTime === true) {
           debounceTime = 200
         }
+        if ((!debounceTime && debounceTime !== 0) || debounceTime < 0 || this.fieldValue.trigger === 'blur') return
         this.getValidatorModel = debounce((modelValue) => {
           this.pending = false
           this.validatorModel = modelValue
