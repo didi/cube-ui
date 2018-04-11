@@ -16,7 +16,7 @@ CubeForm is a schema-based form generator component.
   <cube-form
     :model="model"
     :schema="schema"
-    :immediate-validate="true"
+    :immediate-validate="false"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"

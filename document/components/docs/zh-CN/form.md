@@ -16,7 +16,7 @@
   <cube-form
     :model="model"
     :schema="schema"
-    :immediate-validate="true"
+    :immediate-validate="false"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
