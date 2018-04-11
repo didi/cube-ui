@@ -124,7 +124,7 @@
           cb = promise.resolve
         }
         if (this.isDisabled) {
-          cb && cb()
+          cb && cb(this.valid)
           return promise
         }
         this._validateCount++
@@ -206,7 +206,7 @@
             }
           })
           this._updateModel(isValid, result)
-          cb && cb()
+          cb && cb(this.valid)
         })
         // only async validate trigger validating
         this.validating && this.$emit(EVENT_VALIDATING)
