@@ -92,6 +92,9 @@
       }
     },
     watch: {
+      value(newVal) {
+        this.valid = newVal
+      },
       model(newVal) {
         if (this.isDisabled) {
           return
@@ -205,6 +208,7 @@
           this._updateModel(isValid, result)
           cb && cb()
         })
+        // only async validate trigger validating
         this.validating && this.$emit(EVENT_VALIDATING)
       },
       _updateModel(valid, result) {
