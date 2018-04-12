@@ -25,6 +25,7 @@
   const COMPONENT_NAME = 'cube-validator'
   const EVENT_INPUT = 'input'
   const EVENT_VALIDATING = 'validating'
+  const EVENT_VALIDATED = 'validated'
   const EVENT_MSG_CLICK = 'msg-click'
 
   export default {
@@ -151,20 +152,25 @@
               ret = !rules[key] || rules[key](val, configRules[key], type)
             }
             allTasks.push((next) => {
-              if (typeof ret === 'object' && ret !== null && ret.then) {
-                ret.then((_ret) => {
-                  next({
-                    key: key,
-                    valid: _ret === true,
-                    ret: _ret
-                  })
-                }).catch((err) => {
-                  next({
-                    key: key,
-                    valid: false,
-                    ret: err
-                  })
+              const resolve = (_ret) => {
+                next({
+                  key: key,
+                  valid: _ret === true,
+                  ret: _ret
                 })
+              }
+              const reject = (err) => {
+                next({
+                  key: key,
+                  valid: false,
+                  ret: err
+                })
+              }
+              const resultType = typeof ret
+              if (resultType === 'object' && ret !== null && typeof ret.then === 'function') {
+                ret.then(resolve).catch(reject)
+              } else if (resultType === 'function') {
+                ret(resolve, reject)
               } else {
                 next({
                   key: key,
@@ -182,8 +188,8 @@
         const configRules = this.rules
         let isValid = true
         const result = {}
+        let sync = true
         this.validating = true
-        this.valid = undefined
         parallel(allTasks, (results) => {
           if (this._validateCount !== validateCount) {
             return
@@ -205,11 +211,19 @@
               message: msg
             }
           })
+          if (!sync) {
+            this.$emit(EVENT_VALIDATED, isValid)
+          }
           this._updateModel(isValid, result)
           cb && cb(this.valid)
         })
-        // only async validate trigger validating
-        this.validating && this.$emit(EVENT_VALIDATING)
+        if (this.validating) {
+          sync = false
+          // only async validate trigger validating
+          this.$emit(EVENT_VALIDATING)
+          this.valid = undefined
+          this.$emit(EVENT_INPUT, this.valid)
+        }
       },
       _updateModel(valid, result) {
         this.validated = true
