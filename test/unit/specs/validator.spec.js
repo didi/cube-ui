@@ -37,9 +37,12 @@ describe('Validator', () => {
         },
         immediate: true
       })
+
       const el = vm.$el
       const msgEl = el.querySelector('.cube-validator-msg-def')
       setTimeout(() => {
+        expect(el.className)
+            .to.include('cube-validator_invalid')
         expect(msgEl.textContent)
           .to.equal('必填')
         expect(vm.result.asyncRule.valid)
@@ -67,7 +70,13 @@ describe('Validator', () => {
           },
           immediate: true
         })
+        vm.$nextTick(() => {
+          expect(vm.$el.className)
+            .to.include('cube-validator_validating')
+        })
         setTimeout(() => {
+          expect(vm.$el.className)
+            .to.include('cube-validator_valid')
           expect(msgEl.textContent)
             .to.equal('')
           done()
