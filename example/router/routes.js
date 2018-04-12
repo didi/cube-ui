@@ -22,9 +22,10 @@ import Select from '../pages/select.vue'
 import Dialog from '../pages/dialog.vue'
 import ActionSheet from '../pages/action-sheet.vue'
 import Scroll from '../pages/scroll.vue'
-import IndexList from '../pages/index-list/index-list.vue'
+import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
+import IndexListPullUpLoad from '../pages/index-list/pull-up-load.vue'
 import Upload from '../pages/upload.vue'
 import Validator from '../pages/validator.vue'
 import Swipe from '../pages/swipe/index.vue'
@@ -147,6 +148,10 @@ const routes = [
       {
         path: 'custom',
         component: IndexListCustom
+      },
+      {
+        path: 'pull-up-load',
+        component: IndexListPullUpLoad
       }
     ]
   },

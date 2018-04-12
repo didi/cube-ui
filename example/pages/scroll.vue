@@ -233,13 +233,13 @@
     },
     methods: {
       onPullingDown() {
-        // 模拟更新数据
+        // Mock asyn request data.
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // 如果有新数据
+            // If have new data, update data.
             this.items.unshift(this.customList ? _foods[1] : `I am new data: ${+new Date()}`)
           } else {
-            // 如果没有新数据
+            // If no new data, use the method forceUpdate to tell us the request is done.
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
