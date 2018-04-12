@@ -13,8 +13,9 @@
         :model="validatorModel"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
-        @validating="validatingHandler"
         @input="validatorChangeHandler"
+        @validating="validatingHandler"
+        @validated="validatedHandler"
         @msg-click="msgClick"
       >
         <slot>
@@ -197,18 +198,20 @@
           this.originValid = undefined
         }
       },
-      validatingHandler() {
-        this.validating = true
-        this.form.computedValidating()
-      },
       validatorChangeHandler() {
-        this.validating = false
-        this.form.computedValidating()
         // disabled or true to true no update validity
         if (this.validatorDisabled || (this.originValid && this.lastOriginValid)) {
           return
         }
         this.updateValidity()
+      },
+      validatingHandler() {
+        this.validating = true
+        this.form.computedValidating()
+      },
+      validatedHandler() {
+        this.validating = false
+        this.form.computedValidating()
       },
       updateValidity() {
         const validator = this.$refs.validator
