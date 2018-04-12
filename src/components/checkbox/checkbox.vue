@@ -95,7 +95,7 @@
           const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCLE_CHECKED
           this.$emit(EVENT_INPUT, emitValue)
           if (this.isInGroup) {
-            this.$parent.$emit(parentEmitEvent, value || newValue, this)
+            this.$parent.$emit(parentEmitEvent, value || newValue)
           }
         }
       },
