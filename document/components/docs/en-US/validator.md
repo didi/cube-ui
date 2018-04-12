@@ -39,7 +39,7 @@ Validator is used to validate form data and corresponding warning message.
 
 - Add warning style to form component
 
-  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style. And we have added the red border for input and textarea by default.
+  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style.
 
   ```html
   <cube-validator :model="text" :rules="rules" v-model="valid">
@@ -114,25 +114,20 @@ Validator is used to validate form data and corresponding warning message.
 
 - Async validate <sup>1.8.0+</sup>
 
-  If the rule function returned a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
+  If the rule function returned a function(**this function receives a `resolve` callback, if this function called with `true` then it will be treated as success, otherwise it will be treated as failure**) or a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
 
   ```html
-  <cube-validator v-model="valid" :model="text" :rules="rules" @validating="validatingHandler">
-    <cube-input v-model="text" placeholder="async validate odd"></cube-input>
+  <cube-validator
+    v-model="valid"
+    :model="text"
+    :rules="rules"
+    :messages="messages"
+    @validating="validatingHandler"
+    @validated="validatedHandler">
+    <cube-input v-model="text" placeholder="async validate odd" />
   </cube-validator>
   ```
   ```js
-  Validator.addRule('async-odd', (val, config, type) => {
-    if (config <= 0) {
-      return Number(val) % 2 === 1
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(Number(val) % 2 === 1)
-      }, config)
-    })
-  })
-  Validator.addMessage('async-odd', 'Please input odd.')
   export default {
     data() {
       return {
@@ -140,13 +135,32 @@ Validator is used to validate form data and corresponding warning message.
         text: '',
         rules: {
           type: 'number',
-          'async-odd': 1000
+          'async-odd': (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(Number(val) % 2 === 1)
+              }, 1000)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(Number(val) % 2 === 1)
+              }, 1000)
+            })
+            **/
+          }
+        },
+        messages: {
+          'async-odd': 'Please input odd.'
         }
       }
     },
     methods: {
       validatingHandler() {
         console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
       }
     }
   }
@@ -221,6 +235,14 @@ Validator is used to validate form data and corresponding warning message.
 | - | - | - |
 | default | the relative form component or element | - |
 | message | warning message | dirty: if the data have ever changed <br> validating: whether is validating <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - |
+| validating | validating (only triggered when async validateing) | - |
+| validated | validated (only triggered when async validateing) | valid: 校验是否成功 |
+| msg-click | click error message ele | - |
 
 ### Instance methods
 

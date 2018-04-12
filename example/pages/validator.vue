@@ -19,7 +19,8 @@
         </cube-validator>
       </div>
       <div class="validator-item">
-        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate" @validating="validatingHandler">
+        <p>Async validate: </p>
+        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate" @validating="validatingHandler" @validated="validatedHandler">
           <cube-input v-model="text3" placeholder="async validate odd"></cube-input>
         </cube-validator>
       </div>
@@ -94,14 +95,18 @@
     created() {
       Validator.setLanguage('en')
       Validator.addRule('async-odd', (val, config, type) => {
-        if (config <= 0) {
-          return Number(val) % 2 === 1
+        return (resolve) => {
+          setTimeout(() => {
+            resolve(Number(val) % 2 === 1)
+          }, config)
         }
+        /** or return promise:
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve(Number(val) % 2 === 1)
           }, config)
         })
+        **/
       })
       Validator.addMessage('async-odd', 'Please input odd.')
       Validator.addType('email', (val) => {
@@ -111,6 +116,9 @@
     methods: {
       validatingHandler() {
         console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
       },
       submit() {
         Promise.all(Object.keys(this.$refs).map((key) => {

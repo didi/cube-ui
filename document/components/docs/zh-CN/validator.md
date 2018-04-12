@@ -39,7 +39,7 @@
 
 - 给表单添加警告样式
 
-  如果想给表单组件添加警告样式，可以通过把表单组件作为默认插槽，插在 Validator 组件内。因为当未通过验证时，Validator 组件会有一个样式类，cube-validator_warn，给这个类下的表单元素增加样式即可，默认的话，会把 input 和 textarea 元素边框标红。
+  如果想给表单组件添加警告样式，可以通过把表单组件作为默认插槽，插在 Validator 组件内。因为当未通过验证时，Validator 组件会有一个样式类，cube-validator_warn，给这个类下的表单元素增加样式即可。
 
   ```html
   <cube-validator :model="text" :rules="rules" v-model="valid">
@@ -114,24 +114,21 @@
 
 - 异步校验<sup>1.8.0+</sup>
 
-  支持校验规则是异步的场景，约定如果校验规则函数的返回值是一个 Promise 对象（**`resolve` 的值是 `true` 的话就是校验成功，否则都视为失败**），那么就是异步校验，同时在校验的过程中会派发 `validating` 事件。
+  支持校验规则是异步的情况，约定如果校验规则函数的返回值是一个函数（**该函数接收一个 `resolve` 回调，如果调用传入 `true` 则代表校验成功，否则都视为失败**）或者是一个 Promise 对象（**`resolve` 的值是 `true` 的话就是校验成功，否则都视为失败**）那么就是异步校验，同时在校验的过程中会派发 `validating` 事件，在校验后派发 `validated` 事件。
 
   ```html
-  <cube-validator v-model="valid" :model="text" :rules="rules" @validating="validatingHandler">
-    <cube-input v-model="text" placeholder="async validate odd"></cube-input>
+  <cube-validator
+    v-model="valid"
+    :model="text"
+    :rules="rules"
+    :messages="messages"
+    @validating="validatingHandler"
+    @validated="validatedHandler">
+    <cube-input v-model="text" placeholder="async validate odd" />
   </cube-validator>
   ```
   ```js
-  Validator.addRule('async-odd', (val, config, type) => {
-    if (config <= 0) {
-      return Number(val) % 2 === 1
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(Number(val) % 2 === 1)
-      }, config)
-    })
-  })
+  Validator.addRule('async-odd', )
   Validator.addMessage('async-odd', 'Please input odd.')
   export default {
     data() {
@@ -140,13 +137,32 @@
         text: '',
         rules: {
           type: 'number',
-          'async-odd': 1000
+          'async-odd': (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(Number(val) % 2 === 1)
+              }, 100)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(Number(val) % 2 === 1)
+              }, 100)
+            })
+            **/
+          }
+        },
+        messages: {
+          'async-odd': 'Please input odd.'
         }
       }
     },
     methods: {
       validatingHandler() {
         console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
       }
     }
   }
@@ -171,7 +187,7 @@
   export default {
     data() {
       return {
-        result: [true, true, true],
+        result: [undefined, undefined, undefined],
         text0: '',
         rules0: {
           required: true,
@@ -193,7 +209,7 @@
         const p2 = this.$refs.validator1.validate()
         const p3 = this.$refs.validator2.validate()
         Promise.all([p1, p2, p3]).then(() => {
-          if (this.isValid.every(item => item)) {
+          if (this.result.every(item => item)) {
             this.$createToast({
               type: 'correct',
               txt: 'Submited',
@@ -208,7 +224,7 @@
 
   对于有多个校验同时通过才可提交的情况，为了不用一个一个去取校验结果变量，可以把这组校验结果存在一个数组，在提交时，遍历这个数组即可。
 
-  通过调用 Validator 实例的 `validate` 方法可以去校验处理，从 1.8.0 版本后支持回调参数且如果浏览器支持 Promise 的话返回值就是 Promise 对象。
+  通过调用 Validator 实例的 `validate` 方法可以去校验处理，从 1.8.0 版本后支持回调参数且如果浏览器支持 Promise 那么返回值就是 Promise 对象。
 
 ### Props
 
@@ -228,11 +244,19 @@
 | default | 表单组件 | - |
 | message | 错误提示 | dirty: 待检验的数据是否有修改过 <br> validating: 是否正在校验 <br> validated: 是否校验过 <br> message: 首条没通过的规则的提示信息 <br> result: 对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } } |
 
+### 事件
+
+| 事件名 | 说明 | 参数 |
+| - | - | - |
+| validating | 正在校验（只在异步场景下触发） | - |
+| validated | 校验完成（只在异步场景下触发） | valid: 校验是否成功 |
+| msg-click | 错误消息点击 | - |
+
 ### 实例方法
 
 | 方法名 | 说明 | 参数 | 返回值 |
 | - | - | - | - |
-| validate(cb) | 校验 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 的话返回值是 Promise 对象（只有 resolved 状态，值为 valid），否则 undefined |
+| validate(cb) | 校验 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 返回值为 Promise 对象（只有 resolved 状态，值为 valid），否则返回值为 undefined |
 
 ### 规则
 
