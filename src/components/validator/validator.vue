@@ -57,9 +57,8 @@
       }
     },
     data() {
-      const value = this.value
       return {
-        valid: value,
+        valid: this.value,
         validated: false,
         msg: '',
         dirty: false,
