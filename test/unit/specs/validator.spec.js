@@ -49,28 +49,24 @@ describe('Validator', () => {
       }, 20)
 
       setTimeout(() => {
-        vm.$parent.updateRenderData({
-          props: {
-            model: 'ssr',
-            rules: {
-              required: true,
-              asyncRule: () => {
-                return new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve(true)
-                  })
+        vm.$updateProps({
+          model: 'ssr',
+          rules: {
+            required: true,
+            asyncRule: () => {
+              return (resolve) => {
+                setTimeout(() => {
+                  resolve(true)
                 })
               }
-            },
-            messages: {
-              required: '必填',
-              asyncRule: '异步失败'
-            },
-            immediate: true
+            }
           },
-          on: {}
+          messages: {
+            required: '必填',
+            asyncRule: '异步失败'
+          },
+          immediate: true
         })
-        vm.$parent.$forceUpdate()
         setTimeout(() => {
           expect(msgEl.textContent)
             .to.equal('')
@@ -79,7 +75,34 @@ describe('Validator', () => {
       }, 50)
     })
 
-    it('should not validate when disabled', () => {
+    it('should reset correctly', () => {
+      vm = createValidator({
+        model: '',
+        rules: {
+          required: true
+        },
+        messages: {
+          required: '必填'
+        },
+        immediate: true
+      })
+      expect(vm.valid)
+        .to.be.false
+      expect(vm.invalid)
+        .to.be.true
+      expect(vm.validated)
+        .to.be.true
+      // reset
+      vm.reset()
+      expect(vm.valid)
+        .to.be.undefined
+      expect(vm.invalid)
+        .to.be.undefined
+      expect(vm.validated)
+        .to.be.false
+    })
+
+    it('should not validate when disabled', (done) => {
       vm = createValidator({
         model: '',
         disabled: true,
@@ -94,25 +117,37 @@ describe('Validator', () => {
       const el = vm.$el
       expect(el.className)
         .to.equal('cube-validator')
-      expect(vm.valid)
-        .to.be.undefined
-      expect(vm.invalid)
-        .to.be.undefined
-      expect(vm.validating)
-        .to.be.false
-      expect(vm.msg)
-        .to.equal('')
+      const noValidateCheck = () => {
+        expect(vm.valid)
+          .to.be.undefined
+        expect(vm.invalid)
+          .to.be.undefined
+        expect(vm.validating)
+          .to.be.false
+        expect(vm.msg)
+          .to.equal('')
+      }
+      noValidateCheck()
       const validateCb = sinon.spy()
       const ret = vm.validate(validateCb)
       expect(validateCb)
         .to.be.calledOnce
       expect(ret instanceof window.Promise)
         .to.equal(true)
+      // change model value
+      vm.$updateProps({
+        model: 'new'
+      })
+      vm.$nextTick(() => {
+        noValidateCheck()
+        done()
+      })
     })
 
     it('should trigger events', (done) => {
       const clickHandler = sinon.spy()
       const validatingHandler = sinon.spy()
+      const validatedHandler = sinon.spy()
       vm = createValidator({
         model: '',
         rules: {
@@ -132,7 +167,8 @@ describe('Validator', () => {
         immediate: true
       }, {
         'msg-click': clickHandler,
-        validating: validatingHandler
+        validating: validatingHandler,
+        validated: validatedHandler
       })
       expect(vm.validating)
         .to.be.true
@@ -145,6 +181,8 @@ describe('Validator', () => {
         expect(clickHandler)
           .to.be.calledOnce
         expect(validatingHandler)
+          .to.be.calledOnce
+        expect(validatedHandler)
           .to.be.calledOnce
         done()
       }, 20)
