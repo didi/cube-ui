@@ -165,14 +165,14 @@
         console.log(title)
       },
       onPullingUp() {
-        // 模拟异步过程
+        // Mock async load.
         setTimeout(() => {
           const length = this.data.length
           if (length < cityData.length) {
-            // 如果有新数据
+            // If have new data, just update the data property.
             this.data.push(cityData[length])
           } else {
-            // 如果没有新数据
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.indexList.forceUpdate()
           }
         }, 1000)

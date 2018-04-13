@@ -44,10 +44,10 @@
         setTimeout(() => {
           const length = this.data.length
           if (length < cityData.length) {
-            // If have new data, update data.
+            // If have new data, just update the data property.
             this.data.push(cityData[length])
           } else {
-            // If no new data, use the method forceUpdate to tell us the load is done.
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.indexList.forceUpdate()
           }
         }, 1000)

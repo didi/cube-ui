@@ -233,22 +233,22 @@
     },
     methods: {
       onPullingDown() {
-        // Mock async request data.
+        // Mock async load.
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // If have new data, update data.
+            // If have new data, just update the data property.
             this.items.unshift(this.customList ? _foods[1] : `I am new data: ${+new Date()}`)
           } else {
-            // If no new data, use the method forceUpdate to tell us the request is done.
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
       },
       onPullingUp() {
-        // 更新数据
+        // Mock async load.
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // 如果有新数据
+            // If have new data, just update the data property.
             let newPage = this.customList ? _foods.slice(0, 5) : [
               'I am line ' + ++this.itemIndex,
               'I am line ' + ++this.itemIndex,
@@ -259,7 +259,7 @@
 
             this.items = this.items.concat(newPage)
           } else {
-            // 如果没有新数据
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
