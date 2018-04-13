@@ -426,7 +426,7 @@ describe('Validator', () => {
         .to.equal('')
     })
 
-    it('should be invalid - min: number', () => {
+    it('should be invalid - max: number', () => {
       vm = createValidator({
         model: 123,
         rules: {
@@ -437,7 +437,7 @@ describe('Validator', () => {
         .to.not.equal('')
     })
 
-    it('should be valid - min: string', () => {
+    it('should be valid - len: string', () => {
       vm = createValidator({
         model: '123',
         rules: {
@@ -448,11 +448,11 @@ describe('Validator', () => {
         .to.equal('')
     })
 
-    it('should be invalid - min: number', () => {
+    it('should be invalid - len: number', () => {
       vm = createValidator({
         model: 123,
         rules: {
-          len: 3
+          len: 4
         }
       })
       expect(vm.$data.msg)
