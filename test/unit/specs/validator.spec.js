@@ -49,7 +49,7 @@ describe('Validator', () => {
           .to.be.false
         expect(vm.result.asyncRule.message)
           .to.equal('异步失败')
-      }, 20)
+      }, 50)
 
       setTimeout(() => {
         vm.$updateProps({
@@ -80,8 +80,8 @@ describe('Validator', () => {
           expect(msgEl.textContent)
             .to.equal('')
           done()
-        }, 20)
-      }, 50)
+        }, 50)
+      }, 100)
     })
 
     it('should reset correctly', () => {
@@ -194,7 +194,7 @@ describe('Validator', () => {
         expect(validatedHandler)
           .to.be.calledOnce
         done()
-      }, 20)
+      }, 50)
     })
   })
 
