@@ -131,6 +131,56 @@
           color: #ffcd32
   ```
 
+- 上拉加载
+
+  可以通过 `pullUpLoad` 属性开启上拉加载功能，具体配置同 Scroll 组件的 `options.pullUpLoad`。
+
+  ```html
+  <cube-index-list
+    ref="indexList"
+    :data="data"
+    :title="title"
+    :pullUpLoad="true"
+    @select="selectItem"
+    @title-click="clickTitle"
+    @pulling-up="onPullingUp">
+  </cube-index-list>
+  ```
+  ```javascript
+  export default {
+    components: {
+      CubePage
+    },
+    data() {
+      return {
+        title: 'Current City: BEIJING',
+        data: cityData.slice(0, 4)
+      }
+    },
+    methods: {
+      selectItem(item) {
+        console.log(item.name)
+      },
+      clickTitle(title) {
+        console.log(title)
+      },
+      onPullingUp() {
+        // 模拟异步过程
+        setTimeout(() => {
+          const length = this.data.length
+          if (length < cityData.length) {
+            // 如果有新数据
+            this.data.push(cityData[length])
+          } else {
+            // 如果没有新数据
+            this.$refs.indexList.forceUpdate()
+          }
+        }, 1000)
+      }
+    }
+  }
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 默认值 |
@@ -139,6 +189,7 @@
 | data | 需要展示的数据 | Array | [] |
 | navbar | 是否需要导航栏 | Boolean | true |
 | speed | 点击导航栏索引时，滚动到相应位置的动画时间（单位：ms） | number | 0 |
+| pullUpLoad<sup>1.8.0+</sup> | 上拉加载，具体配置参考 scroll 组件的 `options.pullUpLoad` | Boolean/Object | false |
 
 - `data` 子配置项
 
@@ -157,3 +208,4 @@
 | - | - | - |
 | select | 点击 IndexList 的某一项后触发 | 该选项的数据 |
 | title-click | 点击 title 后触发(title 必须设置后才有效) | title属性值 |
+| pulling-up<sup>1.8.0+</sup> | 当 pullUpLoad 属性为 true 时，在上拉超过阈值时触发 | - |

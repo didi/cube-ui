@@ -40,11 +40,14 @@
         console.log(title)
       },
       onPullingUp() {
+        // Mock async load.
         setTimeout(() => {
           const length = this.data.length
           if (length < cityData.length) {
+            // If have new data, update data.
             this.data.push(cityData[length])
           } else {
+            // If no new data, use the method forceUpdate to tell us the load is done.
             this.$refs.indexList.forceUpdate()
           }
         }, 1000)

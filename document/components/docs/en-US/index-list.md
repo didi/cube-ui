@@ -131,6 +131,56 @@
           color: #ffcd32
   ```
 
+- Pull Up Load
+
+  Beside, you could use `pullUpLoad` to enable pull-up-load, the detail config is same as the `options.pullUpLoad` of Scroll.
+
+  ```html
+  <cube-index-list
+    ref="indexList"
+    :data="data"
+    :title="title"
+    :pullUpLoad="true"
+    @select="selectItem"
+    @title-click="clickTitle"
+    @pulling-up="onPullingUp">
+  </cube-index-list>
+  ```
+  ```javascript
+  export default {
+    components: {
+      CubePage
+    },
+    data() {
+      return {
+        title: 'Current City: BEIJING',
+        data: cityData.slice(0, 4)
+      }
+    },
+    methods: {
+      selectItem(item) {
+        console.log(item.name)
+      },
+      clickTitle(title) {
+        console.log(title)
+      },
+      onPullingUp() {
+        // Mock async load.
+        setTimeout(() => {
+          const length = this.data.length
+          if (length < cityData.length) {
+            // If have new data, update data.
+            this.data.push(cityData[length])
+          } else {
+            // If no new data, use the method forceUpdate to tell us the load is done.
+            this.$refs.indexList.forceUpdate()
+          }
+        }, 1000)
+      }
+    }
+  }
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Default |
@@ -139,6 +189,7 @@
 | data | data to be displayed | Array | [] |
 | navbar | whether need navbar | Boolean | true |
 | speed | when click the navigator, the transition time of scrolling to the specific anchor (unit: ms). | number | 0 |
+| pullUpLoad<sup>1.8.0+</sup> | pull-up-load, the detail config is same as the `options.pullUpLoad` of Scroll | Boolean/Object | false |
 
 - `data` sub configuration
 
@@ -157,3 +208,4 @@ Each item of `items` array must be an object that must contains the `name` attri
 | - | - | - |
 | select | triggers when clicking one of the items in IndexList | data of the item |
 | title-click | triggers when clicking title(valid only if title has been configured) | the value of title |
+| pulling-up<sup>1.8.0+</sup> | triggers when the distance of pulling up exceeds the threshold, if pullUpLoad is true | - |

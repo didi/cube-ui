@@ -233,7 +233,7 @@
     },
     methods: {
       onPullingDown() {
-        // Mock asyn request data.
+        // Mock async request data.
         setTimeout(() => {
           if (Math.random() > 0.5) {
             // If have new data, update data.
