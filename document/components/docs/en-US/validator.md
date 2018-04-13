@@ -117,41 +117,47 @@ Validator is used to validate form data and corresponding warning message.
   If the rule function returned a function(**this function receives a `resolve` callback, if this function called with `true` then it will be treated as success, otherwise it will be treated as failure**) or a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
 
   ```html
-  <cube-validator
-    v-model="valid"
-    :model="text"
-    :rules="rules"
-    :messages="messages"
-    @validating="validatingHandler"
-    @validated="validatedHandler">
-    <cube-input v-model="text" placeholder="async validate odd" />
-  </cube-validator>
+  <div class="validator-item">
+    <p>Async validate: </p>
+    <cube-validator
+      v-model="valid"
+      :model="captcha"
+      :rules="rules"
+      :messages="messages"
+      :immediate="immediate"
+      @validating="validatingHandler"
+      @validated="validatedHandler">
+      <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+    </cube-validator>
+  </div>
   ```
   ```js
   export default {
     data() {
       return {
         valid: undefined,
-        text: '',
+        captcha: '',
         rules: {
           type: 'number',
-          'async-odd': (val) => {
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
             return (resolve) => {
               setTimeout(() => {
-                resolve(Number(val) % 2 === 1)
+                resolve(val === '123456')
               }, 1000)
             }
             /** or return promise:
             return new Promise((resolve) => {
               setTimeout(() => {
-                resolve(Number(val) % 2 === 1)
+                resolve(val === '123456')
               }, 1000)
             })
             **/
           }
         },
         messages: {
-          'async-odd': 'Please input odd.'
+          captchaCheck: 'Please input "123456"'
         }
       }
     },
@@ -166,7 +172,7 @@ Validator is used to validate form data and corresponding warning message.
   }
   ```
 
-  The `async-odd` is an async rule.
+  The `captchaCheck` is an async rule.
 
 - Submit
 

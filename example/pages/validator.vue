@@ -19,8 +19,7 @@
         </cube-validator>
       </div>
       <div class="validator-item">
-        <p>Async validate: </p>
-        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate" @validating="validatingHandler" @validated="validatedHandler">
+        <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate">
           <cube-input v-model="text3" placeholder="async validate odd"></cube-input>
         </cube-validator>
       </div>
@@ -32,10 +31,23 @@
         </cube-checkbox-group>
         <cube-validator ref="validator4" v-model="isValid[3]" :model="checkList" :rules="rules4" :immediate="immediate"></cube-validator>
       </div>
-
       <div class="validator-item">
         <cube-rate v-model="rate"></cube-rate>
         <cube-validator ref="validator5" v-model="isValid[4]" :model="rate" :rules="rules5" :immediate="immediate"></cube-validator>
+      </div>
+      <div class="validator-item">
+        <p>Async validate: </p>
+        <cube-validator
+          ref="validator6"
+          v-model="isValid[5]"
+          :model="captcha"
+          :rules="rules6"
+          :messages="messages6"
+          :immediate="immediate"
+          @validating="validatingHandler"
+          @validated="validatedHandler">
+          <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+        </cube-validator>
       </div>
       <cube-button @click="submit">Submit</cube-button>
     </div>
@@ -53,7 +65,7 @@
       return {
         immediate: false,
         text1: '',
-        isValid: [undefined, undefined, undefined, undefined, undefined],
+        isValid: [undefined, undefined, undefined, undefined, undefined, undefined],
         rules1: {
           required: true,
           type: 'email',
@@ -79,7 +91,7 @@
         text3: '100',
         rules3: {
           type: 'number',
-          'async-odd': 1000
+          odd: true
         },
         checkList: [],
         rules4: {
@@ -89,26 +101,38 @@
         rules5: {
           min: 1,
           max: 4
+        },
+        captcha: '',
+        rules6: {
+          type: 'number',
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            })
+            **/
+          }
+        },
+        messages6: {
+          captchaCheck: 'Please input "123456"'
         }
       }
     },
     created() {
       Validator.setLanguage('en')
-      Validator.addRule('async-odd', (val, config, type) => {
-        return (resolve) => {
-          setTimeout(() => {
-            resolve(Number(val) % 2 === 1)
-          }, config)
-        }
-        /** or return promise:
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(Number(val) % 2 === 1)
-          }, config)
-        })
-        **/
+      Validator.addRule('odd', (val, config, type) => {
+        return Number(val) % 2 === 1
       })
-      Validator.addMessage('async-odd', 'Please input odd.')
+      Validator.addMessage('odd', 'Please input odd.')
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
       })

@@ -117,43 +117,47 @@
   支持校验规则是异步的情况，约定如果校验规则函数的返回值是一个函数（**该函数接收一个 `resolve` 回调，如果调用传入 `true` 则代表校验成功，否则都视为失败**）或者是一个 Promise 对象（**`resolve` 的值是 `true` 的话就是校验成功，否则都视为失败**）那么就是异步校验，同时在校验的过程中会派发 `validating` 事件，在校验后派发 `validated` 事件。
 
   ```html
-  <cube-validator
-    v-model="valid"
-    :model="text"
-    :rules="rules"
-    :messages="messages"
-    @validating="validatingHandler"
-    @validated="validatedHandler">
-    <cube-input v-model="text" placeholder="async validate odd" />
-  </cube-validator>
+  <div class="validator-item">
+    <p>Async validate: </p>
+    <cube-validator
+      v-model="valid"
+      :model="captcha"
+      :rules="rules"
+      :messages="messages"
+      :immediate="immediate"
+      @validating="validatingHandler"
+      @validated="validatedHandler">
+      <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+    </cube-validator>
+  </div>
   ```
   ```js
-  Validator.addRule('async-odd', )
-  Validator.addMessage('async-odd', 'Please input odd.')
   export default {
     data() {
       return {
         valid: undefined,
-        text: '',
+        captcha: '',
         rules: {
           type: 'number',
-          'async-odd': (val) => {
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
             return (resolve) => {
               setTimeout(() => {
-                resolve(Number(val) % 2 === 1)
-              }, 100)
+                resolve(val === '123456')
+              }, 1000)
             }
             /** or return promise:
             return new Promise((resolve) => {
               setTimeout(() => {
-                resolve(Number(val) % 2 === 1)
-              }, 100)
+                resolve(val === '123456')
+              }, 1000)
             })
             **/
           }
         },
         messages: {
-          'async-odd': 'Please input odd.'
+          captchaCheck: 'Please input "123456"'
         }
       }
     },
@@ -168,7 +172,7 @@
   }
   ```
 
-  上述的 `async-odd` 就是一个异步校验规则，校验过程需花费 1 秒。
+  上述的 `captchaCheck` 就是一个异步校验规则，校验过程需花费 1 秒。
 
 - 提交
 
