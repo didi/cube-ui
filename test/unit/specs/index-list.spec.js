@@ -123,6 +123,44 @@ describe('IndexList', () => {
       }, 150)
     })
 
+    it('should trigger pulling-down', function (done) {
+      this.timeout(10000)
+
+      const pullingDownHandler = sinon.spy()
+
+      vm = createIndexList({
+        title,
+        data: data.slice(0, 1),
+        pullDownRefresh: true
+      }, {
+        'pulling-down': pullingDownHandler
+      })
+
+      const scrollWrapper = vm.$el.querySelector('.cube-scroll-wrapper')
+      scrollWrapper.style.height = '300px'
+      vm.refresh()
+
+      setTimeout(() => {
+        const scrollContent = vm.$el.querySelector('.cube-scroll-content li:first-child')
+        dispatchSwipe(scrollContent, [
+          {
+            pageX: 10,
+            pageY: 10
+          },
+          {
+            pageX: 10,
+            pageY: 300
+          }
+        ], 100)
+
+        setTimeout(() => {
+          expect(pullingDownHandler).to.be.calledOnce
+
+          done()
+        }, 400)
+      }, 150)
+    })
+
     it('should fixed title', function (done) {
       this.timeout(10000)
       vm = createIndexList()
