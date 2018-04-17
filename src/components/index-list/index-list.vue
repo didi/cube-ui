@@ -1,11 +1,13 @@
 <template>
   <div class="cube-index-list">
     <cube-scroll
-      ref="indexList"
+      ref="scroll"
       :listen-scroll="listenScroll"
       :options="options"
       :data="data"
-      @scroll="scroll">
+      @scroll="scroll"
+      @pulling-down="onPullingDown"
+      @pulling-up="onPullingUp">
       <div class="cube-index-list-content" ref="content">
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
           {{ title }}
@@ -52,6 +54,8 @@
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
+  const EVENT_PULLING_UP = 'pulling-up'
+  const EVENT_PULLING_DOWN = 'pulling-down'
 
   const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
   const transformStyleKey = prefixStyle('transform')
@@ -76,6 +80,14 @@
       navbar: {
         type: Boolean,
         default: true
+      },
+      pullDownRefresh: {
+        type: [Boolean, Object],
+        default: false
+      },
+      pullUpLoad: {
+        type: [Boolean, Object],
+        default: false
       }
     },
     data() {
@@ -83,10 +95,27 @@
         currentIndex: 0,
         scrollY: -1,
         diff: -1,
-        options: {
-          probeType: 3
-        },
         titleHeight: null
+      }
+    },
+    computed: {
+      fixedTitle() {
+        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
+          return ''
+        }
+        return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
+      },
+      shortcutList() {
+        return this.data.map((group) => {
+          return group ? group.shortcut || group.name.substr(0, 1) : ''
+        })
+      },
+      options() {
+        return {
+          probeType: 3,
+          pullDownRefresh: this.pullDownRefresh,
+          pullUpLoad: this.pullUpLoad
+        }
       }
     },
     created() {
@@ -102,23 +131,10 @@
         this._calculateHeight()
       })
     },
-    computed: {
-      fixedTitle() {
-        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
-          return ''
-        }
-        return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
-      },
-      shortcutList() {
-        return this.data.map((group) => {
-          return group ? group.shortcut || group.name.substr(0, 1) : ''
-        })
-      }
-    },
     methods: {
       /* TODO: remove refresh next minor version */
       refresh() {
-        this.$refs.indexList.refresh()
+        this.$refs.scroll.refresh()
       },
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)
@@ -128,6 +144,9 @@
       },
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
+      },
+      forceUpdate() {
+        this.$refs.scroll.forceUpdate()
       },
       onShortcutTouchStart(e) {
         const target = getMatchedTarget(e, 'cube-index-list-nav-item')
@@ -146,6 +165,12 @@
         let anchorIndex = parseInt(this.touch.anchorIndex) + delta
 
         this._scrollTo(anchorIndex)
+      },
+      onPullingUp() {
+        this.$emit(EVENT_PULLING_UP)
+      },
+      onPullingDown() {
+        this.$emit(EVENT_PULLING_DOWN)
       },
       _calculateHeight() {
         this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
@@ -171,8 +196,8 @@
         } else if (index > this.listHeight.length - 2) {
           index = this.listHeight.length - 2
         }
-        this.$refs.indexList.scrollToElement(this.groupList[index], this.speed)
-        this.scrollY = this.$refs.indexList.scroll.y
+        this.$refs.scroll.scrollToElement(this.groupList[index], this.speed)
+        this.scrollY = this.$refs.scroll.scroll.y
       }
     },
     watch: {
