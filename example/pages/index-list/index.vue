@@ -5,6 +5,7 @@
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('custom')">Custom</cube-button>
         <cube-button @click="goTo('pull-up-load')">Pull Up Load</cube-button>
+        <cube-button @click="goTo('pull-down-refresh')">Pull Down Refresh</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
     </div>

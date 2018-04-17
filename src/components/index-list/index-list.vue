@@ -6,6 +6,7 @@
       :options="options"
       :data="data"
       @scroll="scroll"
+      @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">
       <div class="cube-index-list-content" ref="content">
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
@@ -54,6 +55,7 @@
   const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
   const EVENT_PULLING_UP = 'pulling-up'
+  const EVENT_PULLING_DOWN = 'pulling-down'
 
   const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
   const transformStyleKey = prefixStyle('transform')
@@ -78,6 +80,10 @@
       navbar: {
         type: Boolean,
         default: true
+      },
+      pullDownRefresh: {
+        type: [Boolean, Object],
+        default: false
       },
       pullUpLoad: {
         type: [Boolean, Object],
@@ -107,6 +113,7 @@
       options() {
         return {
           probeType: 3,
+          pullDownRefresh: this.pullDownRefresh,
           pullUpLoad: this.pullUpLoad
         }
       }
@@ -161,6 +168,9 @@
       },
       onPullingUp() {
         this.$emit(EVENT_PULLING_UP)
+      },
+      onPullingDown() {
+        this.$emit(EVENT_PULLING_DOWN)
       },
       _calculateHeight() {
         this.groupList = this.$el.getElementsByClassName('cube-index-list-group')

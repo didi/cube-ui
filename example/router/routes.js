@@ -26,6 +26,7 @@ import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
 import IndexListPullUpLoad from '../pages/index-list/pull-up-load.vue'
+import IndexListPullDownRefresh from '../pages/index-list/pull-down-refresh.vue'
 import Upload from '../pages/upload.vue'
 import Validator from '../pages/validator.vue'
 import Swipe from '../pages/swipe/index.vue'
@@ -152,6 +153,10 @@ const routes = [
       {
         path: 'pull-up-load',
         component: IndexListPullUpLoad
+      },
+      {
+        path: 'pull-down-refresh',
+        component: IndexListPullDownRefresh
       }
     ]
   },
