@@ -168,7 +168,12 @@ describe('Scroll', () => {
       props: {
         data,
         options: {
-          pullUpLoad: true
+          pullUpLoad: {
+            txt: {
+              more: 'more',
+              noMore: 'noMore'
+            }
+          }
         }
       },
       on: {
@@ -199,11 +204,21 @@ describe('Scroll', () => {
 
         // test: forceUpdate
         vm.forceUpdate()
+
         setTimeout(() => {
           expect(vm.isPullUpLoad).to.be.false
           expect(vm.pullUpDirty).to.be.false
 
-          done()
+          const pullUpTxtElm = vm.$el.querySelector('.cube-pullup-wrapper span')
+          expect(pullUpTxtElm.textContent).to.equal('noMore')
+
+          // test: resetPullUpTxt
+          vm.resetPullUpTxt()
+          vm.$nextTick(() => {
+            expect(pullUpTxtElm.textContent).to.equal('more')
+
+            done()
+          })
         }, 50)
       }, 400)
     }, 150)
