@@ -24,7 +24,7 @@
         return `width:${this.width / this.ratio}px;height:${this.height / this.ratio}px`
       }
     },
-    created() {
+    mounted() {
       this.ratio = window.devicePixelRatio
       this.width *= this.ratio
       this.height *= this.ratio
@@ -41,8 +41,6 @@
         x: this.initCenterX,
         y: this.initCenterY
       }
-    },
-    mounted() {
       this._draw()
     },
     methods: {
