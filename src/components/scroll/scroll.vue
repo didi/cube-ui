@@ -131,15 +131,10 @@
       }
     },
     watch: {
-      data: {
-        handler() {
-          setTimeout(() => {
-            this.forceUpdate(true)
-          }, this.refreshDelay)
-        },
-        // To watch the deep property change in the item of the data Array.
-        // And it's neccessary for the item change in IndexList.
-        deep: true
+      data() {
+        setTimeout(() => {
+          this.forceUpdate(true)
+        }, this.refreshDelay)
       },
       pullDownRefresh: {
         handler(newVal, oldVal) {

@@ -45,13 +45,10 @@
       onPullingDown() {
         // Mock async load.
         setTimeout(() => {
-          if (Math.random() < 0.5) {
-            // If have new data, just update the data property.
-            this.data[1].items.push(...cityData[1].items)
-          } else {
-            // If no new data, you need use the method forceUpdate to tell us the load is done.
-            this.$refs.indexList.forceUpdate()
-          }
+          // Update data.
+          this.data[1].items.push(...cityData[1].items)
+          // Call forceUpdate after finishing data load.
+          this.$refs.indexList.forceUpdate()
         }, 1000)
       }
     }
