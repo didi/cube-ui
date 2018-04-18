@@ -1,6 +1,7 @@
 import Vue from 'vue2'
 import Select from '@/modules/select'
 import instantiateComponent from '@/common/helpers/instantiate-component'
+import createVue from '../utils/create-vue'
 
 describe('Select.vue', () => {
   let vm
@@ -25,6 +26,34 @@ describe('Select.vue', () => {
     const el = vm.$el
     expect(el.querySelector('.cube-select-text').textContent.trim())
       .to.equal('2016')
+  })
+
+  it('should render correct contents - update txt', (done) => {
+    vm = createVue({
+      template: `
+        <cube-select v-model="value" :options="options" :title="title" :confirmTxt="confirmTxt" :cancelTxt="cancelTxt" />
+      `,
+      data: {
+        value: 2016,
+        options: [2013, 2014, 2015, 2016, 2017, 2018],
+        title: 'title',
+        confirmTxt: 'confirm',
+        cancelTxt: 'cancel'
+      }
+    })
+    // change txt
+    vm.$parent.title = 'title2'
+    vm.$parent.confirmTxt = 'confirm2'
+    vm.$parent.cancelTxt = 'cancel2'
+    vm.$nextTick(() => {
+      expect(vm.picker.$el.querySelector('.cube-picker-choose [data-action="cancel"]').textContent.trim())
+        .to.equal('cancel2')
+      expect(vm.picker.$el.querySelector('.cube-picker-choose [data-action="confirm"]').textContent.trim())
+        .to.equal('confirm2')
+      expect(vm.picker.$el.querySelector('.cube-picker-choose h1').textContent.trim())
+        .to.equal('title2')
+      done()
+    })
   })
 
   it('should trigger events', function (done) {
