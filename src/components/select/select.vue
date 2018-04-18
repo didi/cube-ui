@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import { findIndex } from '../../common/helpers/util'
   const COMPONENT_NAME = 'cube-select'
 
   const EVENT_CHANGE = 'change'
@@ -67,23 +68,23 @@
           return item
         })]
       },
-      findIndex() {
-        const findIndex = this.adaptOptions[0].findIndex((item) => {
+      valueIndex() {
+        const index = findIndex(this.adaptOptions[0], (item) => {
           return item.value === this.value
         })
-        this.picker && this.picker.setData(this.adaptOptions, findIndex !== -1 ? [findIndex] : [0])
+        this.picker && this.picker.setData(this.adaptOptions, index !== -1 ? [index] : [0])
 
-        return findIndex
+        return index
       },
       selectedText() {
-        return this.findIndex !== -1 ? this.adaptOptions[0][this.findIndex].text : ''
+        return this.valueIndex !== -1 ? this.adaptOptions[0][this.valueIndex].text : ''
       }
     },
     created() {
       this.picker = this.$createPicker({
         title: this.title,
         data: this.adaptOptions,
-        selectedIndex: this.findIndex !== -1 ? [this.findIndex] : [0],
+        selectedIndex: this.valueIndex !== -1 ? [this.valueIndex] : [0],
         cancelTxt: this.cancelTxt,
         confirmTxt: this.confirmTxt,
         onSelect: this.hided,
