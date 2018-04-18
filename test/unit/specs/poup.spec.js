@@ -23,7 +23,7 @@ describe('Popup', () => {
         }
       })
       expect(vm.$el.className)
-        .to.equal('cube-popup')
+        .to.equal('cube-popup cube-popup_mask')
     })
     it('should render correct contents', () => {
       vm = instantiateComponent(Vue, Popup, {
@@ -34,7 +34,7 @@ describe('Popup', () => {
       })
       vm.show()
       expect(vm.$el.className)
-        .to.equal('cube-popup cube-xx')
+        .to.equal('cube-popup cube-popup_mask cube-xx')
       expect(vm.$el.querySelector('.cube-popup-container').className)
         .to.equal('cube-popup-container cube-popup-center')
       expect(vm.$el.querySelector('.cube-popup-content').innerHTML)
