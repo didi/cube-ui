@@ -261,6 +261,9 @@
           dirty && this.refresh()
         }
       },
+      resetPullUpTxt() {
+        this.pullUpDirty = true
+      },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
           this.$refs.listWrapper.style.minHeight = this.pullDownRefresh || this.pullUpLoad ? `${getRect(this.$refs.wrapper).height + 1}px` : 0
