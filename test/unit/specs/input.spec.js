@@ -1,6 +1,7 @@
 import Vue from 'vue2'
 import Input from '@/modules/input'
 import createVue from '../utils/create-vue'
+import { createEvent } from '../utils/event'
 
 describe('Input.vue', () => {
   let vm
@@ -101,6 +102,42 @@ describe('Input.vue', () => {
             .to.equal('password')
           done()
         })
+      })
+    })
+  })
+  it('should trigger events', (done) => {
+    const focusHandler = sinon.spy()
+    const blurHandler = sinon.spy()
+    const changeHandler = sinon.spy()
+
+    vm = createVue({
+      template: `
+        <cube-input type="password" v-model="value" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" />
+      `,
+      data: {
+        value: 'value'
+      },
+      methods: {
+        focusHandler: focusHandler,
+        blurHandler: blurHandler,
+        changeHandler: changeHandler
+      }
+    })
+    const input = vm.$el.querySelector('input')
+    input.focus()
+    setTimeout(() => {
+      expect(focusHandler)
+        .to.be.calledOnce
+      input.value = 'new value'
+      input.blur()
+      const e = createEvent('', 'change')
+      input.dispatchEvent(e)
+      setTimeout(() => {
+        expect(blurHandler)
+          .to.be.calledOnce
+        expect(changeHandler)
+          .to.be.calledOnce
+        done()
       })
     })
   })
