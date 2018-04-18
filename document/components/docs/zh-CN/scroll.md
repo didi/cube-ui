@@ -83,13 +83,13 @@
     },
     methods: {
       onPullingDown() {
-        // 模拟更新数据
+        // Mock async load.
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // 如果有新数据
+            // If have new data, just update the data property.
             this.items.unshift('I am new data: ' + +new Date())
           } else {
-            // 如果没有新数据
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
@@ -130,10 +130,10 @@
     },
     methods: {
       onPullingUp() {
-        // 更新数据
+        // Mock async load.
         setTimeout(() => {
           if (Math.random() > 0.5) {
-            // 如果有新数据
+            // If have new data, just update the data property.
             let newPage = [
               'I am line ' + ++this.itemIndex,
               'I am line ' + ++this.itemIndex,
@@ -144,7 +144,7 @@
 
             this.items = this.items.concat(newPage)
           } else {
-            // 如果没有新数据
+            // If no new data, you need use the method forceUpdate to tell us the load is done.
             this.$refs.scroll.forceUpdate()
           }
         }, 1000)
