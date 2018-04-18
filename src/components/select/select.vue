@@ -69,8 +69,9 @@
         })]
       },
       valueIndex() {
+        const val = this.value
         const index = findIndex(this.adaptOptions[0], (item) => {
-          return item.value === this.value
+          return item.value === val
         })
         this.picker && this.picker.setData(this.adaptOptions, index !== -1 ? [index] : [0])
 
@@ -87,8 +88,7 @@
         selectedIndex: this.valueIndex !== -1 ? [this.valueIndex] : [0],
         cancelTxt: this.cancelTxt,
         confirmTxt: this.confirmTxt,
-        onSelect: this.hided,
-        onValueChange: this.changeHandle,
+        onSelect: this.selectHandler,
         onCancel: this.hided
       })
       this.autoPop && this.showPicker()
@@ -106,7 +106,8 @@
         this.active = false
         this.$emit(EVENT_PICKER_HIDE)
       },
-      changeHandle(selectedVal, selectedIndex, selectedText) {
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.hided()
         if (selectedVal[0] !== this.value) {
           this.$emit(EVENT_INPUT, selectedVal[0])
           this.$emit(EVENT_CHANGE, selectedVal[0], selectedIndex[0], selectedText[0])
