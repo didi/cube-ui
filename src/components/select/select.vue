@@ -79,6 +79,18 @@
       },
       selectedText() {
         return this.valueIndex !== -1 ? this.adaptOptions[0][this.valueIndex].text : ''
+      },
+      txts() {
+        return {
+          title: this.title,
+          confirmTxt: this.confirmTxt,
+          cancelTxt: this.cancelTxt
+        }
+      }
+    },
+    watch: {
+      txts() {
+        this.updatePicker()
       }
     },
     created() {
@@ -94,6 +106,9 @@
       this.autoPop && this.showPicker()
     },
     methods: {
+      updatePicker() {
+        this.picker.$updateProps(this.txts)
+      },
       showPicker() {
         if (this.disabled) {
           return
