@@ -1,6 +1,6 @@
 <template>
-  <div class="cube-popup" :style="{'z-index': zIndex}" :class="typeClass" v-show="isVisible">
-    <div class="cube-popup-mask" v-show="mask" @click="maskClick">
+  <div class="cube-popup" :style="{'z-index': zIndex}" :class="rootClass" v-show="isVisible">
+    <div class="cube-popup-mask" @click="maskClick">
       <slot name="mask"></slot>
     </div>
     <div class="cube-popup-container" :class="{'cube-popup-center': center}">
@@ -44,8 +44,14 @@
       }
     },
     computed: {
-      typeClass() {
-        return this.type ? `cube-${this.type}` : ''
+      rootClass() {
+        const cls = {
+          'cube-popup_mask': this.mask
+        }
+        if (this.type) {
+          cls[`cube-${this.type}`] = true
+        }
+        return cls
       }
     },
     methods: {
@@ -65,14 +71,21 @@
     top: 0
     bottom: 0
     z-index: 100
+    pointer-events: none
+  .cube-popup_mask
+    pointer-events: auto
+    .cube-popup-mask
+      display: block
   .cube-popup-mask, .cube-popup-container
     position: absolute
     width: 100%
     height: 100%
   .cube-popup-mask
+    display: none
     overflow: hidden
     background-color: $popup-mask-bgc
     opacity: $popup-mask-opacity
+    pointer-events: auto
     // fix some android webview opacity render bug
     &::before
       content: "."
@@ -90,6 +103,7 @@
     width: 100%
     box-sizing: border-box
     transform: translate(-100%, -100%)
+    pointer-events: auto
   .cube-popup-center
     .cube-popup-content
       position: absolute
