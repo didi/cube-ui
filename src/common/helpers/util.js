@@ -1,3 +1,18 @@
+function findIndex(ary, fn) {
+  if (ary.findIndex) {
+    return ary.findIndex(fn)
+  }
+  let index = -1
+  ary.some(function (item, i, ary) {
+    const ret = fn.call(this, item, i, ary)
+    if (ret) {
+      index = i
+      return ret
+    }
+  })
+  return index
+}
+
 function deepAssign(to, from) {
   for (let key in from) {
     if (!to[key] || typeof to[key] !== 'object') {
@@ -65,4 +80,4 @@ function resetTypeValue(obj, key, defVal) {
   }
 }
 
-export { deepAssign, createAddAPI, toLocaleDateString, resetTypeValue }
+export { findIndex, deepAssign, createAddAPI, toLocaleDateString, resetTypeValue }
