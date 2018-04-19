@@ -160,8 +160,8 @@
           fieldComponent.reset()
         })
         this.setValidity()
-        this.validating = false
-        this.pending = false
+        this.setValidating()
+        this.setPending()
       },
       validate(cb) {
         const promise = cb2PromiseWithResolve(cb)
@@ -182,11 +182,19 @@
         })
         return promise
       },
-      computedValidating() {
-        this.validating = this.fields.some((fieldComponent) => fieldComponent.validating)
+      updateValidating() {
+        const validating = this.fields.some((fieldComponent) => fieldComponent.validating)
+        this.setValidating(validating)
       },
-      computedPending() {
-        this.pending = this.fields.some((fieldComponent) => fieldComponent.pending)
+      updatePending() {
+        const pending = this.fields.some((fieldComponent) => fieldComponent.pending)
+        this.setPending(pending)
+      },
+      setValidating(validating = false) {
+        this.validating = validating
+      },
+      setPending(pending = false) {
+        this.pending = pending
       },
       updateValidity(modelKey, valid, result, dirty) {
         const curResult = this.validity[modelKey]

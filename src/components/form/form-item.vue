@@ -145,7 +145,7 @@
         this.getValidatorModel = debounce((modelValue) => {
           this.pending = false
           this.validatorModel = modelValue
-          this.form.computedPending()
+          this.form.updatePending()
           this.asyncSameCheck()
           return modelValue
         }, debounceTime, false, this.validatorModel)
@@ -179,7 +179,7 @@
               return this.validatorModel
             } else {
               this.pending = false
-              this.form.computedPending()
+              this.form.updatePending()
               return modelValue
             }
           }
@@ -194,7 +194,7 @@
         this.pending = true
         this.validatorModel = this.getValidatorModel(this.modelValue)
         if (this.pending) {
-          this.form.computedPending()
+          this.form.setPending(this.pending)
           this.originValid = undefined
         }
       },
@@ -207,11 +207,11 @@
       },
       validatingHandler() {
         this.validating = true
-        this.form.computedValidating()
+        this.form.setValidating(true)
       },
       validatedHandler() {
         this.validating = false
-        this.form.computedValidating()
+        this.form.updateValidating()
       },
       updateValidity() {
         const validator = this.$refs.validator
