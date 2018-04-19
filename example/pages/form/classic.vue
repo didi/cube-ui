@@ -185,7 +185,7 @@
         },
         options: {
           scrollToInvalidField: true,
-          layout: 'standard' // classic fresh
+          layout: 'classic' // standard fresh
         }
       }
     },

@@ -80,4 +80,76 @@ function resetTypeValue(obj, key, defVal) {
   }
 }
 
-export { findIndex, deepAssign, createAddAPI, toLocaleDateString, resetTypeValue }
+function parallel(tasks, cb) {
+  let doneCount = 0
+  let results = []
+  const tasksLen = tasks.length
+  if (!tasksLen) {
+    return cb(results)
+  }
+  tasks.forEach((task, i) => {
+    task((ret) => {
+      doneCount += 1
+      results[i] = ret
+      if (doneCount === tasksLen) {
+        // all tasks done
+        cb(results)
+      }
+    })
+  })
+}
+
+function cb2PromiseWithResolve(cb) {
+  let promise
+  if (typeof window.Promise !== 'undefined') {
+    const _cb = cb
+    promise = new window.Promise((resolve) => {
+      cb = (data) => {
+        _cb && _cb(data)
+        resolve(data)
+      }
+    })
+    promise.resolve = cb
+  }
+  return promise
+}
+
+function debounce(func, wait, immediate, initValue) {
+  let timeout
+  let result = initValue
+
+  const later = function (context, args) {
+    timeout = null
+    if (args) {
+      result = func.apply(context, args)
+    }
+  }
+
+  const debounced = function (...args) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    if (immediate) {
+      const callNow = !timeout
+      timeout = setTimeout(later, wait)
+      if (callNow) {
+        result = func.apply(this, args)
+      }
+    } else {
+      timeout = setTimeout(() => {
+        later(this, args)
+      }, wait)
+    }
+
+    return result
+  }
+
+  debounced.cancel = function () {
+    clearTimeout(timeout)
+    timeout = null
+  }
+
+  return debounced
+}
+
+export { findIndex, deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel, cb2PromiseWithResolve, debounce }

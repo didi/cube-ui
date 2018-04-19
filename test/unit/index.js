@@ -2,6 +2,8 @@ import Vue from 'vue'
 import 'basic-mouse-event-polyfill-phantomjs'
 import 'phantomjs-polyfill-find-index'
 
+window.Promise = window.Promise || Promise
+
 Vue.config.productionTip = false
 
 // require all test files (files that ends with .spec.js)

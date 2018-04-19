@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-form-item border-bottom-1px" :class="itemClass">
+  <div class="cube-form-item border-bottom-1px" ref="formItem" :class="itemClass">
     <template v-if="!isBtnField">
       <slot name="label">
         <div class="cube-form-label" v-show="fieldValue.label"><span>{{fieldValue.label}}</span></div>
@@ -8,11 +8,14 @@
         class="cube-form-field"
         v-if="hasRules"
         ref="validator"
-        v-model="isValid"
+        v-model="originValid"
         :disabled="validatorDisabled"
-        :model="modelValue"
+        :model="validatorModel"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
+        @input="validatorChangeHandler"
+        @validating="validatingHandler"
+        @validated="validatedHandler"
         @msg-click="msgClick"
       >
         <slot>
@@ -31,15 +34,21 @@
 
 <script>
   import { processField } from './fields/index'
-  import { resetTypeValue } from '../../common/helpers/util'
+  import { resetTypeValue, cb2PromiseWithResolve, debounce } from '../../common/helpers/util'
   import CubeValidator from '../validator/validator.vue'
+  import LAYOUTS from './layouts'
   import { getResetValueByType } from './fields/reset'
+  import mixin from './mixin'
   import components from './components'
   components.CubeValidator = CubeValidator
 
   const COMPONENT_NAME = 'cube-form-item'
+  const EVENT_FOCUSIN = 'focusin'
+  const EVENT_FOCUSOUT = 'focusout'
+
   export default {
     name: COMPONENT_NAME,
+    mixins: [mixin],
     props: {
       field: {
         type: Object,
@@ -51,10 +60,11 @@
     },
     data() {
       const modelKey = this.field.modelKey
+      const modelValue = modelKey ? this.form.model[modelKey] : null
       return {
         validatorDisabled: false,
-        isValid: undefined,
-        modelValue: modelKey ? this.form.model[modelKey] : null
+        modelValue: modelValue,
+        validatorModel: modelValue
       }
     },
     computed: {
@@ -73,8 +83,10 @@
           // only handle required rule for now
           'cube-form-item_required': rules && rules.required,
           'cube-form-item_btn': this.isBtnField,
-          'cube-form-item_valid': this.isValid,
-          'cube-form-item_invalid': this.isValid === false
+          'cube-form-item_validating': this.validating,
+          'cube-form-item_pending': this.pending,
+          'cube-form-item_valid': this.valid,
+          'cube-form-item_invalid': this.invalid
         }
       },
       modelVal() {
@@ -103,12 +115,10 @@
       modelValue(newModel) {
         // update form model
         this.form.model[this.fieldValue.modelKey] = newModel
+        this.updateValidatorModel()
       },
-      isValid(newValue) {
-        if (this.validatorDisabled) {
-          return
-        }
-        this.updateValidity()
+      originValid(newVal) {
+        this.lastOriginValid = newVal
       }
     },
     beforeCreate() {
@@ -116,8 +126,93 @@
     },
     created() {
       this.form.addField(this)
+      this.getValidatorModel = (modelValue) => {
+        this.pending = false
+        return modelValue
+      }
+    },
+    mounted() {
+      this.initDebounce()
+      this.initFocusEvents()
     },
     methods: {
+      initDebounce() {
+        let debounceTime = this.fieldValue.debounce
+        if (debounceTime === true) {
+          debounceTime = 200
+        }
+        if ((!debounceTime && debounceTime !== 0) || debounceTime < 0 || this.fieldValue.trigger === 'blur') return
+        this.getValidatorModel = debounce((modelValue) => {
+          this.pending = false
+          this.validatorModel = modelValue
+          this.form.updatePending()
+          this.asyncSameCheck()
+          return modelValue
+        }, debounceTime, false, this.validatorModel)
+      },
+      asyncSameCheck() {
+        const validator = this.$refs.validator
+        const validatorModel = this.validatorModel
+        if (validator) {
+          // same value, Vue do not trigger watch handler
+          // so need to force validate
+          if (validatorModel === validator.model) {
+            validator && validator.validate()
+          }
+        }
+      },
+      focusInHandler() {
+        this.focused = true
+      },
+      focusOutHandler() {
+        this.focused = false
+        this.updateValidatorModel()
+        this.asyncSameCheck()
+      },
+      initFocusEvents() {
+        if (this.fieldValue.trigger === 'blur') {
+          const formItem = this.$refs.formItem
+          formItem.addEventListener(EVENT_FOCUSIN, this.focusInHandler, false)
+          formItem.addEventListener(EVENT_FOCUSOUT, this.focusOutHandler, false)
+          this.getValidatorModel = (modelValue) => {
+            if (this.focused) {
+              return this.validatorModel
+            } else {
+              this.pending = false
+              this.form.updatePending()
+              return modelValue
+            }
+          }
+        }
+      },
+      removeFocusEvents() {
+        const formItem = this.$refs.formItem
+        formItem.removeEventListener(EVENT_FOCUSIN, this.focusInHandler, false)
+        formItem.removeEventListener(EVENT_FOCUSOUT, this.focusOutHandler, false)
+      },
+      updateValidatorModel() {
+        this.pending = true
+        this.validatorModel = this.getValidatorModel(this.modelValue)
+        if (this.pending) {
+          this.form.setPending(this.pending)
+          this.originValid = undefined
+        }
+      },
+      validatorChangeHandler() {
+        // disabled or true to true no update validity
+        if (this.validatorDisabled || (this.originValid && this.lastOriginValid)) {
+          return
+        }
+        this.updateValidity()
+      },
+      validatingHandler() {
+        this.validating = true
+        this.form.setValidating(true)
+      },
+      validatedHandler() {
+        this.validating = false
+        this.form.updateValidating()
+      },
       updateValidity() {
         const validator = this.$refs.validator
         if (validator) {
@@ -125,10 +220,25 @@
           this.form.updateValidity(this.fieldValue.modelKey, validator.valid, validator.result, validator.dirty)
         }
       },
-      validate(skipValidate) {
+      validate(cb) {
+        const promise = cb2PromiseWithResolve(cb)
+        if (promise) {
+          cb = promise.resolve
+        }
         const validator = this.$refs.validator
-        validator && validator.validate()
-        this.updateValidity()
+        if (validator) {
+          validator.validate(() => {
+            this.validatorDisabled = true
+            this.updateValidity()
+            cb && cb()
+            this.$nextTick(() => {
+              this.validatorDisabled = false
+            })
+          })
+        } else {
+          cb && cb()
+        }
+        return promise
       },
       reset() {
         const fieldValue = this.fieldValue
@@ -141,8 +251,14 @@
             this.validatorDisabled = false
           })
         }
+        this.validating = false
+        this.pending = false
       },
       msgClick() {
+        /* istanbul ignore if */
+        if (this.form.layout !== LAYOUTS.STANDARD) {
+          return
+        }
         /* istanbul ignore next */
         this.$createToast && this.$createToast({
           type: 'warn',
@@ -152,6 +268,7 @@
       }
     },
     beforeDestroy() {
+      this.removeFocusEvents()
       this.form.destroyField(this)
       this.form = null
     },

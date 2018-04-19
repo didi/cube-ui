@@ -1,6 +1,8 @@
 ## Form
 
 > New in 1.7.0+
+>
+> 1.8.0+ supported trigger validating when blur and debounce. Supported async validate too because of Validator supported it.
 
 CubeForm is a schema-based form generator component.
 
@@ -14,7 +16,7 @@ CubeForm is a schema-based form generator component.
   <cube-form
     :model="model"
     :schema="schema"
-    :immediate-validate="true"
+    :immediate-validate="false"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
@@ -78,7 +80,9 @@ CubeForm is a schema-based form generator component.
                   },
                   rules: {
                     required: true
-                  }
+                  },
+                  // validating when blur
+                  trigger: 'blur'
                 },
                 {
                   type: 'radio-group',
@@ -116,7 +120,10 @@ CubeForm is a schema-based form generator component.
                   label: 'Textarea',
                   rules: {
                     required: true
-                  }
+                  },
+                  // debounce validate
+                  // if set to true, the default debounce time will be 200(ms)
+                  debounce: 100
                 }
               ]
             },
@@ -136,7 +143,30 @@ CubeForm is a schema-based form generator component.
                   modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
-                    required: true
+                    required: true,
+                    uploaded: (val, config) => {
+                      return Promise.all(val.map((file, i) => {
+                        return new Promise((resolve, reject) => {
+                          if (file.uploadedUrl) {
+                            return resolve()
+                          }
+                          // fake request
+                          setTimeout(() => {
+                            if (i % 2) {
+                              reject(new Error())
+                            } else {
+                              file.uploadedUrl = 'uploaded/url'
+                              resolve()
+                            }
+                          }, 1000)
+                        })
+                      })).then(() => {
+                        return true
+                      })
+                    }
+                  },
+                  messages: {
+                    uploaded: '上传失败'
                   }
                 }
               ]
@@ -156,7 +186,8 @@ CubeForm is a schema-based form generator component.
           ]
         },
         options: {
-          scrollToInvalidField: true
+          scrollToInvalidField: true,
+          layout: 'standard' // classic fresh
         }
       }
     },
@@ -385,6 +416,8 @@ CubeForm is a schema-based form generator component.
   | label | Label of field | String | - | - |
   | props | This value will be the `type` or `component` props | Object | - | - |
   | rules | Validator rules, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
+  | trigger<sup>1.8.0+</sup> | If set to 'blur' then will be validate this filed when blur | String | blur/change | - |
+  | debounce<sup>1.8.0+</sup> | Debounce validating time(ms). If `trigger` is 'blur' then the debounce will be ignored | Number/Boolean | >= 0, if set to true the time will be 200(ms) | - |
   | messages | Validator messages, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
 #### FormGroup
@@ -430,8 +463,8 @@ CubeForm is a schema-based form generator component.
 
 ### Instance methods
 
-| Method name | Description |
-| - | - |
-| submit | submit form |
-| reset | reset form |
-| validate | validate form |
+| Method name | Description | Parameters | Returned value |
+| - | - | - | - |
+| submit | submit form | - | - |
+| reset | reset form | - | - |
+| validate(cb) | validate form | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |

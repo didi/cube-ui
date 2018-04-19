@@ -4,7 +4,14 @@
       <slot></slot>
     </div>
     <div class="cube-validator-msg" @click="msgClickHandler">
-      <slot name="message" :message="msg" :dirty="dirty" :validated="validated" :result="result">
+      <slot
+        name="message"
+        :message="msg"
+        :dirty="dirty"
+        :validated="validated"
+        :validating="validating"
+        :result="result"
+      >
         <span class="cube-validator-msg-def">{{ dirtyOrValidated ? msg : '' }}</span>
       </slot>
     </div>
@@ -12,10 +19,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { parallel, cb2PromiseWithResolve } from '../../common/helpers/util'
   import { rules, findMessage } from '../../common/helpers/validator'
 
   const COMPONENT_NAME = 'cube-validator'
   const EVENT_INPUT = 'input'
+  const EVENT_VALIDATING = 'validating'
+  const EVENT_VALIDATED = 'validated'
   const EVENT_MSG_CLICK = 'msg-click'
 
   export default {
@@ -47,12 +57,12 @@
       }
     },
     data() {
-      const value = this.value
       return {
-        valid: value,
+        valid: this.value,
         validated: false,
         msg: '',
         dirty: false,
+        validating: false,
         result: {}
       }
     },
@@ -67,7 +77,7 @@
         return disabled || noRules
       },
       dirtyOrValidated() {
-        return this.dirty || this.validated
+        return (this.dirty || this.validated) && !this.validating
       },
       containerClass() {
         const disabled = this.isDisabled
@@ -76,11 +86,15 @@
         }
         return {
           'cube-validator_invalid': this.invalid,
-          'cube-validator_valid': this.valid
+          'cube-validator_valid': this.valid,
+          'cube-validator_validating': this.validating
         }
       }
     },
     watch: {
+      value(newVal) {
+        this.valid = newVal
+      },
       model(newVal) {
         if (this.isDisabled) {
           return
@@ -98,57 +112,120 @@
       }
     },
     created() {
+      this._validateCount = 0
       if (!this.isDisabled && this.immediate) {
         this.validate()
       }
     },
     methods: {
-      validate() {
-        if (this.isDisabled) {
-          return
+      validate(cb) {
+        const promise = cb2PromiseWithResolve(cb)
+        if (promise) {
+          cb = promise.resolve
         }
+        if (this.isDisabled) {
+          cb && cb(this.valid)
+          return promise
+        }
+        this._validateCount++
+        const validateCount = this._validateCount
         const val = this.model
-        this.validated = true
 
-        let valid = true
         const configRules = this.rules
         const type = configRules.type
-        const result = {}
+        const allTasks = []
 
+        let requiredValid = true
         if (!configRules.required) {
-          const requiredValid = rules.required(val, true, type)
-          if (!requiredValid) {
-            // treat it as empty, no need to validate other rules
-            return this._updateModel(valid, result)
-          }
+          // treat it as empty, no need to validate other rules
+          requiredValid = rules.required(val, true, type)
         }
 
-        for (const key in configRules) {
-          const ruleValue = configRules[key]
-          let ret
-          if (typeof ruleValue === 'function') {
-            ret = ruleValue(val, configRules[key], type)
-          } else {
-            ret = !rules[key] || rules[key](val, configRules[key], type)
-          }
-          let msg = this.messages[key]
-                    ? typeof this.messages[key] === 'function' ? this.messages[key](ret) : this.messages[key]
-                    : findMessage(key, configRules[key], type, val)
-
-          if (valid && ret !== true) {
-            valid = false
-            this.msg = msg
-          }
-
-          result[key] = {
-            valid: ret === true,
-            invalid: ret !== true,
-            message: msg
+        if (requiredValid) {
+          for (const key in configRules) {
+            const ruleValue = configRules[key]
+            let ret
+            if (typeof ruleValue === 'function') {
+              ret = ruleValue(val, configRules[key], type)
+            } else {
+              ret = !rules[key] || rules[key](val, configRules[key], type)
+            }
+            allTasks.push((next) => {
+              const resolve = (_ret) => {
+                next({
+                  key: key,
+                  valid: _ret === true,
+                  ret: _ret
+                })
+              }
+              const reject = (err) => {
+                next({
+                  key: key,
+                  valid: false,
+                  ret: err
+                })
+              }
+              const resultType = typeof ret
+              if (resultType === 'object' && ret !== null && typeof ret.then === 'function') {
+                ret.then(resolve).catch(reject)
+              } else if (resultType === 'function') {
+                ret(resolve, reject)
+              } else {
+                next({
+                  key: key,
+                  valid: ret === true,
+                  ret: ret
+                })
+              }
+            })
           }
         }
-        this._updateModel(valid, result)
+        this._checkTasks(allTasks, validateCount, cb)
+        return promise
+      },
+      _checkTasks(allTasks, validateCount, cb) {
+        const configRules = this.rules
+        let isValid = true
+        const result = {}
+        let sync = true
+        this.validating = true
+        parallel(allTasks, (results) => {
+          if (this._validateCount !== validateCount) {
+            return
+          }
+          this.validating = false
+          results.forEach(({ key, valid, ret }) => {
+            const msg = this.messages[key]
+                      ? typeof this.messages[key] === 'function'
+                        ? this.messages[key](ret, valid)
+                        : this.messages[key]
+                      : findMessage(key, configRules[key], configRules.type, this.model)
+            if (isValid && !valid) {
+              isValid = false
+              this.msg = msg
+            }
+            result[key] = {
+              valid: valid,
+              invalid: !valid,
+              message: msg
+            }
+          })
+          if (!sync) {
+            this.$emit(EVENT_VALIDATED, isValid)
+          }
+          this._updateModel(isValid, result)
+          cb && cb(this.valid)
+        })
+        if (this.validating) {
+          sync = false
+          // only async validate trigger validating
+          this.$emit(EVENT_VALIDATING)
+          this.valid = undefined
+          this.$emit(EVENT_INPUT, this.valid)
+        }
       },
       _updateModel(valid, result) {
+        this.validated = true
         this.result = result
         if (result.required && result.required.invalid) {
           // required
@@ -162,6 +239,8 @@
         this.$emit(EVENT_INPUT, this.valid)
       },
       reset() {
+        this._validateCount++
+        this.validating = false
         this.dirty = false
         this.result = {}
         this.msg = ''

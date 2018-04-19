@@ -123,6 +123,9 @@ describe('Form.vue', () => {
             }
           }
         ]
+      },
+      options: {
+        scrollToInvalidField: true
       }
     })
     setTimeout(() => {
@@ -170,7 +173,258 @@ describe('Form.vue', () => {
           .to.be.undefined
         expect(vm.validity.switchValue.dirty)
           .to.be.false
+        setTimeout(() => {
+          // submit
+          vm.submit()
+          setTimeout(() => {
+            expect(vm.dirty)
+              .to.be.false
+            expect(vm.valid)
+              .to.be.false
+            expect(vm.invalid)
+              .to.be.true
+            done()
+          })
+        })
+      })
+    })
+  })
+
+  it('should validate & reset correctly - async validate', (done) => {
+    vm = createForm({
+      action: '/',
+      immediateValidate: true,
+      model: {
+        inputValue: ''
+      },
+      schema: {
+        fields: [
+          {
+            type: 'input',
+            modelKey: 'inputValue',
+            label: 'Input',
+            props: {
+              placeholder: 'Please input'
+            },
+            rules: {
+              required: true,
+              asyncRule: () => {
+                return new Promise((resolve) => {
+                  setTimeout(() => {
+                    // err
+                    resolve(false)
+                  })
+                })
+              }
+            },
+            messages: {
+              asyncRule: '异步失败'
+            }
+          }
+        ]
+      }
+    })
+    expect(vm.validating)
+      .to.be.true
+    vm.$nextTick(() => {
+      expect(vm.$el.className)
+        .to.include('cube-form_validating')
+    })
+    expect(vm.valid)
+      .to.be.undefined
+    setTimeout(() => {
+      expect(vm.validating)
+        .to.be.false
+      expect(vm.valid)
+        .to.be.false
+      expect(vm.invalid)
+        .to.be.true
+      expect(vm.validity.inputValue.valid)
+        .to.be.false
+      expect(vm.validity.inputValue.dirty)
+        .to.be.false
+      expect(vm.validity.inputValue.result.asyncRule.valid)
+        .to.be.false
+      expect(vm.validity.inputValue.result.asyncRule.message)
+        .to.equal('异步失败')
+
+      vm.model.inputValue = 'input'
+      vm.$nextTick(() => {
+        expect(vm.validating)
+          .to.be.true
+        expect(vm.valid)
+          .to.be.undefined
+        expect(vm.$el.className)
+          .to.include('cube-form_validating')
+      })
+      setTimeout(() => {
+        expect(vm.validating)
+          .to.be.false
+        expect(vm.valid)
+          .to.be.false
+        expect(vm.validity.inputValue.valid)
+          .to.be.false
+        expect(vm.validity.inputValue.dirty)
+          .to.be.true
+        expect(vm.validity.inputValue.result.asyncRule.valid)
+          .to.be.false
+
+        // reset logic
+        vm.reset()
+        expect(vm.dirty)
+          .to.be.false
+        expect(vm.validity.inputValue.valid)
+          .to.be.undefined
+        expect(vm.validating)
+          .to.be.false
+        expect(vm.validity.inputValue.dirty)
+          .to.be.false
+        expect(vm.validity.inputValue.result.asyncRule)
+          .to.be.undefined
         done()
+      }, 20)
+    }, 20)
+  })
+
+  it('should validate correctly - trigger blur', (done) => {
+    vm = createForm({
+      action: '/',
+      immediateValidate: true,
+      model: {
+        inputValue: ''
+      },
+      schema: {
+        fields: [
+          {
+            type: 'input',
+            modelKey: 'inputValue',
+            label: 'Input',
+            props: {
+              placeholder: 'Please input'
+            },
+            rules: {
+              required: true
+            },
+            trigger: 'blur'
+          }
+        ]
+      }
+    })
+    expect(vm.valid)
+      .to.be.false
+    expect(vm.dirty)
+      .to.be.false
+    vm.$nextTick(() => {
+      expect(vm.$el.className)
+        .to.include('cube-form_invalid')
+      // mock focusin
+      vm.fields[0].focusInHandler()
+      setTimeout(() => {
+        // no trigger validate, but no changing data
+        // stay the prev state
+        expect(vm.dirty)
+          .to.be.false
+        expect(vm.valid)
+          .to.be.false
+        // mock focusout
+        vm.fields[0].focusOutHandler()
+        vm.$nextTick(() => {
+          // invalid now
+          expect(vm.pending)
+            .to.be.false
+          expect(vm.dirty)
+            .to.be.false
+          expect(vm.invalid)
+            .to.be.true
+          // mock focusin again
+          vm.fields[0].focusInHandler()
+          vm.model.inputValue = 'input value'
+          setTimeout(() => {
+            // no trigger validate, in pending state
+            expect(vm.$el.className)
+              .to.include('cube-form_pending')
+            expect(vm.pending)
+              .to.be.true
+            expect(vm.dirty)
+              .to.be.false
+            expect(vm.valid)
+              .to.be.undefined
+            // mock focusout
+            vm.fields[0].focusOutHandler()
+            vm.$nextTick(() => {
+              expect(vm.pending)
+                .to.be.false
+              expect(vm.dirty)
+                .to.be.true
+              expect(vm.valid)
+                .to.be.true
+              done()
+            })
+          })
+        })
+      })
+    })
+  })
+
+  it('should validate correctly - debounce', (done) => {
+    vm = createForm({
+      action: '/',
+      immediateValidate: true,
+      model: {
+        inputValue: ''
+      },
+      schema: {
+        fields: [
+          {
+            type: 'input',
+            modelKey: 'inputValue',
+            label: 'Input',
+            props: {
+              placeholder: 'Please input'
+            },
+            rules: {
+              required: true
+            },
+            debounce: true
+          }
+        ]
+      }
+    })
+    expect(vm.valid)
+      .to.be.false
+    expect(vm.dirty)
+      .to.be.false
+    vm.$nextTick(() => {
+      expect(vm.$el.className)
+        .to.include('cube-form_invalid')
+      // change many times
+      vm.model.inputValue = 'input'
+      setTimeout(() => {
+        vm.model.inputValue = 'input2'
+        setTimeout(() => {
+          vm.model.inputValue = 'input3'
+          vm.$nextTick(() => {
+            // no change stay the initial state
+            expect(vm.$el.className)
+              .to.include('cube-form_pending')
+            expect(vm.pending)
+              .to.be.true
+            expect(vm.dirty)
+              .to.be.false
+            expect(vm.valid)
+              .to.be.undefined
+            // waiting debounce
+            setTimeout(() => {
+              expect(vm.pending)
+                .to.be.false
+              expect(vm.dirty)
+                .to.be.true
+              expect(vm.valid)
+                .to.be.true
+              done()
+            }, 220)
+          })
+        })
       })
     })
   })
@@ -250,9 +504,9 @@ describe('Form.vue', () => {
           expect(submitHandler)
             .to.be.calledOnce
           setTimeout(() => {
-            // submit validate
+            // submit validate no change because the form is valid alreay
             expect(validateHandler)
-              .to.have.callCount(4)
+              .to.have.callCount(3)
             done()
           })
         })

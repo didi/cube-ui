@@ -85,6 +85,9 @@
       }
     },
     watch: {
+      value(newVal) {
+        this.files = newVal
+      },
       files(newFiles) {
         this.$emit(EVENT_INPUT, newFiles)
       }
