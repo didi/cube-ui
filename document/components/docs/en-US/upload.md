@@ -54,14 +54,14 @@
 
   ```html
   <cube-upload
-    ref="upload2"
-    :action="action2"
+    ref="upload"
+    :action="action"
     :simultaneous-uploads="1"
     :process-file="processFile"
     @file-submitted="fileSubmitted"></cube-upload>
   ```
   ```js
-  import compress from '../modules/image'
+  import compress from '../../modules/image'
   export default {
     data() {
       return {
@@ -93,6 +93,89 @@
   The `process-file` is a function which is used to process the original file, like compress, `next` must be called with the processed file.
 
   The `file-submitted` event will be trigged after the file is processed and added to the `upload.files` with a parameter -- the file object.
+
+- Use slots
+
+  You can use slots to define your custom HTML structure.
+
+  ```html
+  <cube-upload
+    ref="upload"
+    v-model="files"
+    :action="action"
+    @files-added="addedHandler"
+    @file-error="errHandler">
+    <div class="clear-fix">
+      <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
+      <cube-upload-btn :multiple="false">
+        <div>
+          <i>＋</i>
+          <p>Please click to upload ID card</p>
+        </div>
+      </cube-upload-btn>
+    </div>
+  </cube-upload>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        action: '//jsonplaceholder.typicode.com/photos/',
+        files: []
+      }
+    },
+    methods: {
+      addedHandler() {
+        const file = this.files[0]
+        file && this.$refs.upload.removeFile(file)
+      },
+      errHandler(file) {
+        // const msg = file.response.message
+        this.$createToast({
+          type: 'warn',
+          txt: 'Upload fail',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+  Custom Style:
+  ```stylus
+  .cube-upload
+    .cube-upload-file, .cube-upload-btn
+      margin: 0
+      height: 200px
+    .cube-upload-file
+      margin: 0
+      + .cube-upload-btn
+        margin-top: -200px
+        opacity: 0
+    .cube-upload-file-def
+      width: 100%
+      height: 100%
+      .cubeic-wrong
+        display: none
+    .cube-upload-btn
+      display: flex
+      align-items: center
+      justify-content: center
+      > div
+        text-align: center
+      i
+        display: inline-flex
+        align-items: center
+        justify-content: center
+        width: 50px
+        height: 50px
+        margin-bottom: 20px
+        font-size: 32px
+        line-height: 1
+        font-style: normal
+        color: #fff
+        background-color: #333
+        border-radius: 50%
+  ```
 
 ### Props configuration
 
