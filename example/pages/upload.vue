@@ -31,7 +31,11 @@
         action: '//jsonplaceholder.typicode.com/photos/',
         action2: {
           target: '//jsonplaceholder.typicode.com/photos/',
-          prop: 'base64Value'
+          prop: 'base64Value',
+          checkSuccess(res) {
+            // success
+            return true
+          }
         },
         isUploading: true
       }

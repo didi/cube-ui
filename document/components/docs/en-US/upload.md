@@ -118,6 +118,7 @@ If `action` is a string, it will be transformed into `{ target: action }`.
 | withCredentials | Standard CORS requests would not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true | Boolean | false |
 | timeout | upload request timeout value | Number | 0 |
 | progressInterval | The time interval between progress reports (Unit: ms) | Number | 100 |
+| checkSuccess | Check the response should be successful, the parameter is `response` object. If return true then it will be treated as successful | Function | function (res) { return true } |
 
 * `processFile` sub configuration
 

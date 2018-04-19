@@ -17,7 +17,7 @@
 <script>
   import apiMixin from '../../common/mixins/api'
   import pickerMixin from '../../common/mixins/picker'
-  import { deepAssign } from '../../common/helpers/util'
+  import { deepAssign, findIndex } from '../../common/helpers/util'
   import { computeNatureMaxDay, formatType } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
@@ -145,13 +145,13 @@
       selectedIndex() {
         let selectedIndex = []
         let data = this.data
-        let findIndex
+        let index
 
         for (let i = 0; i < this.columnCount && i < 6 - this.startIndex; i++) {
-          findIndex = data.findIndex((item) => {
+          index = findIndex(data, (item) => {
             return this.valueArray[i] && item.value === this.valueArray[i]
           })
-          selectedIndex[i] = findIndex !== -1 ? findIndex : 0
+          selectedIndex[i] = index !== -1 ? index : 0
           data = data[selectedIndex[i]].children
         }
 

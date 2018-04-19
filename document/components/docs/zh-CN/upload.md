@@ -116,6 +116,7 @@
 | withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false |
 | timeout | 请求超时时间 | Number | 0 | |
 | progressInterval | 进度回调间隔（单位：ms） | Number | 100 |
+| checkSuccess | 校验是否成功函数，参数为服务端响应数据，返回值为 true 则代表成功 | Function | function (res) { return true } |
 
 * `processFile` 子配置项
 

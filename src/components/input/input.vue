@@ -15,6 +15,7 @@
       :autofocus="autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
+      @change="changeHander"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
       <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
@@ -31,6 +32,7 @@
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-input'
   const EVENT_INPUT = 'input'
+  const EVENT_CHANGE = 'change'
   const EVENT_BLUR = 'blur'
   const EVENT_FOCUS = 'focus'
 
@@ -118,6 +120,9 @@
       this._computedPwdVisible()
     },
     methods: {
+      changeHander(e) {
+        this.$emit(EVENT_CHANGE, e)
+      },
       _computedPwdVisible() {
         if (typeof this.eye === 'boolean') {
           this.pwdVisible = this.eye

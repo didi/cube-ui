@@ -13,7 +13,8 @@ export default function ajaxUpload(file, options, changeHandler) {
     withCredentials,
     timeout,
     prop = 'file',
-    progressInterval = 100
+    progressInterval = 100,
+    checkSuccess = function () { return true }
   } = options
 
   file.progress = 0
@@ -65,7 +66,9 @@ export default function ajaxUpload(file, options, changeHandler) {
     } catch (e) {}
     file.response = response
     file.responseHeaders = xhr.getAllResponseHeaders()
-    setStatus(STATUS_SUCCESS)
+
+    const isSuccess = checkSuccess(response)
+    setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
   }
   xhr.onerror = function () {
     setStatus(STATUS_ERROR)
