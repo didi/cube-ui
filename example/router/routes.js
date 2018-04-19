@@ -29,7 +29,10 @@ import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
 import IndexListPullUpLoad from '../pages/index-list/pull-up-load.vue'
 import IndexListPullDownRefresh from '../pages/index-list/pull-down-refresh.vue'
-import Upload from '../pages/upload.vue'
+import Upload from '../pages/upload/index.vue'
+import UploadDefault from '../pages/upload/default.vue'
+import UploadCompress from '../pages/upload/compress.vue'
+import UploadCustom from '../pages/upload/custom.vue'
 import Validator from '../pages/validator.vue'
 import Swipe from '../pages/swipe/index.vue'
 import SwipeDefault from '../pages/swipe/default.vue'
@@ -172,7 +175,21 @@ const routes = [
   },
   {
     path: '/upload',
-    component: Upload
+    component: Upload,
+    children: [
+      {
+        path: 'default',
+        component: UploadDefault
+      },
+      {
+        path: 'compress',
+        component: UploadCompress
+      },
+      {
+        path: 'custom',
+        component: UploadCustom
+      }
+    ]
   },
   {
     path: '/validator',
