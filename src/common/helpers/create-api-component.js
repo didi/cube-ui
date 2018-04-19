@@ -64,7 +64,8 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       const renderData = parseRenderData(config, events)
 
       cancelWatchProps()
-      processPropsAndEvents()
+      processProps()
+      processEvents()
 
       const component = api.open(renderData, renderFn, single)
       if (component.__cube__parent !== ownerInstance) {
@@ -81,9 +82,8 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       }
       return component
 
-      function processPropsAndEvents() {
+      function processProps() {
         const $props = renderData.props.$props
-        const $events = renderData.props.$events
         if ($props) {
           delete renderData.props.$props
 
@@ -112,12 +112,16 @@ export default function createAPIComponent(Vue, Component, events = [], single =
             })
           }
         }
+      }
+
+      function processEvents() {
+        const $events = renderData.props.$events
         if ($events) {
           delete renderData.props.$events
 
           Object.keys($events).forEach((event) => {
             let eventHandler = $events[event]
-            if (typeof eventHandler === 'string' && eventHandler in ownerInstance) {
+            if (typeof eventHandler === 'string') {
               eventHandler = ownerInstance[eventHandler]
             }
             renderData.on[event] = eventHandler
