@@ -77,38 +77,30 @@
 
         return index
       },
+      selectedIndex() {
+        return this.valueIndex !== -1 ? [this.valueIndex] : [0]
+      },
       selectedText() {
         return this.valueIndex !== -1 ? this.adaptOptions[0][this.valueIndex].text : ''
-      },
-      txts() {
-        return {
-          title: this.title,
-          confirmTxt: this.confirmTxt,
-          cancelTxt: this.cancelTxt
-        }
-      }
-    },
-    watch: {
-      txts() {
-        this.updatePicker()
       }
     },
     created() {
       this.picker = this.$createPicker({
-        title: this.title,
-        data: this.adaptOptions,
-        selectedIndex: this.valueIndex !== -1 ? [this.valueIndex] : [0],
-        cancelTxt: this.cancelTxt,
-        confirmTxt: this.confirmTxt,
-        onSelect: this.selectHandler,
-        onCancel: this.hided
+        $props: {
+          title: 'title',
+          data: 'adaptOptions',
+          selectedIndex: 'selectedIndex',
+          cancelTxt: 'cancelTxt',
+          confirmTxt: 'confirmTxt'
+        },
+        $events: {
+          select: 'selectHandler',
+          cancel: this.hided
+        }
       })
       this.autoPop && this.showPicker()
     },
     methods: {
-      updatePicker() {
-        this.picker.$updateProps(this.txts)
-      },
       showPicker() {
         if (this.disabled) {
           return
