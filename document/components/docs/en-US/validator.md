@@ -39,7 +39,7 @@ Validator is used to validate form data and corresponding warning message.
 
 - Add warning style to form component
 
-  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style. And we have added the red border for input and textarea by default.
+  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style.
 
   ```html
   <cube-validator :model="text" :rules="rules" v-model="valid">
@@ -112,6 +112,68 @@ Validator is used to validate form data and corresponding warning message.
     color: orange
   ```
 
+- Async validate <sup>1.8.0+</sup>
+
+  If the rule function returned a function(**this function receives a `resolve` callback, if this function called with `true` then it will be treated as success, otherwise it will be treated as failure**) or a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
+
+  ```html
+  <div class="validator-item">
+    <p>Async validate: </p>
+    <cube-validator
+      v-model="valid"
+      :model="captcha"
+      :rules="rules"
+      :messages="messages"
+      :immediate="immediate"
+      @validating="validatingHandler"
+      @validated="validatedHandler">
+      <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+    </cube-validator>
+  </div>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        valid: undefined,
+        captcha: '',
+        rules: {
+          type: 'number',
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            })
+            **/
+          }
+        },
+        messages: {
+          captchaCheck: 'Please input "123456"'
+        }
+      }
+    },
+    methods: {
+      validatingHandler() {
+        console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
+      }
+    }
+  }
+  ```
+
+  The `captchaCheck` is an async rule.
+
 - Submit
 
   Although submit is not inside of Validator, it usually be relative with Validator. Therefore, we want to introduce our best practice about submit here. It focus on the handles of multi-validator and warn message no matter whether the form data has ever changed.
@@ -171,19 +233,28 @@ Validator is used to validate form data and corresponding warning message.
 | rules | the rules for validation, you can find the details of rules below | Object | - | {} |
 | messages | custom messages for the corresponding rule | Object | - | {} |
 | immediate | Immediate validate after loaded | Boolean | true/false | false |
+| disabled<sup>1.7.0+</sup> | disabled validate or not | Boolean | true/false | false |
 
 ### Slot
 
 | Name | Description | Scope Parameters |
 | - | - | - |
 | default | the relative form component or element | - |
-| message | warning message | dirty: if the data have ever changed <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+| message | warning message | dirty: if the data have ever changed <br> validating: whether is validating <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - |
+| validating | validating (only triggered when async validateing) | - |
+| validated | validated (only triggered when async validateing) | valid: 校验是否成功 |
+| msg-click | click error message ele | - |
 
 ### Instance methods
 
-| Method name | Description |
-| - | - |
-| validate | Validate |
+| Method name | Description | Parameters | Returned value |
+| - | - | - | - |
+| validate(cb) | Validate | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |
 
 ### Rule
 

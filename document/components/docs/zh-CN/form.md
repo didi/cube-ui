@@ -1,6 +1,8 @@
 ## Form
 
 > 1.7.0 新增
+>
+> 从 1.8.0 开始支持blur 时才触发校验以及 debounce，同 Validator 一样也开始支持异步校验。
 
 表单，包含各种输入组件以及对应的校验；我们可以通过数据驱动的方式来生成完成表单。
 
@@ -14,7 +16,7 @@
   <cube-form
     :model="model"
     :schema="schema"
-    :immediate-validate="true"
+    :immediate-validate="false"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
@@ -78,7 +80,9 @@
                   },
                   rules: {
                     required: true
-                  }
+                  },
+                  // validating when blur
+                  trigger: 'blur'
                 },
                 {
                   type: 'radio-group',
@@ -116,7 +120,10 @@
                   label: 'Textarea',
                   rules: {
                     required: true
-                  }
+                  },
+                  // debounce validate
+                  // if set to true, the default debounce time will be 200(ms)
+                  debounce: 100
                 }
               ]
             },
@@ -136,7 +143,30 @@
                   modelKey: 'uploadValue',
                   label: 'Upload',
                   rules: {
-                    required: true
+                    required: true,
+                    uploaded: (val, config) => {
+                      return Promise.all(val.map((file, i) => {
+                        return new Promise((resolve, reject) => {
+                          if (file.uploadedUrl) {
+                            return resolve()
+                          }
+                          // fake request
+                          setTimeout(() => {
+                            if (i % 2) {
+                              reject(new Error())
+                            } else {
+                              file.uploadedUrl = 'uploaded/url'
+                              resolve()
+                            }
+                          }, 1000)
+                        })
+                      })).then(() => {
+                        return true
+                      })
+                    }
+                  },
+                  messages: {
+                    uploaded: '上传失败'
                   }
                 }
               ]
@@ -386,6 +416,8 @@
   | label | 字段的标签值 | String | - | - |
   | props | type 对应的组件或者自定义组件 component 所需要的 props | Object | - | - |
   | rules | 字段的校验规则，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
+  | trigger<sup>1.8.0+</sup> | 如果设置为 'blur' 那么则会在离焦后校验 | String | blur/change | - |
+  | debounce<sup>1.8.0+</sup> | 控制校验节奏，值为时间，单位 ms。如果 trigger 设置为 blur 则此项配置不生效 | Number/Boolean | >= 0，如果设置为 true，那么时间就是 200(ms) | - |
   | messages | 字段的校验消息，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
 #### CubeFormGroup
@@ -431,8 +463,8 @@
 
 ### 实例方法
 
-| 方法名 | 说明 |
-| - | - |
-| submit | 提交表单 |
-| reset | 重置表单 |
-| validate | 校验表单 |
+| 方法名 | 说明 | 参数 | 返回值 |
+| - | - | - | - |
+| submit | 提交表单 | - | - |
+| reset | 重置表单 | - | - |
+| validate(cb) | 校验表单 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 的话返回值是 Promise 对象（只有 resolved 状态，值为 valid），否则 undefined |
