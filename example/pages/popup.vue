@@ -2,20 +2,20 @@
   <cube-page type="popup-view" title="popup">
     <template slot="content">
       <div>
-        <cube-popup type="my-popup" ref="myPopup">My Popup Content 1</cube-popup>
-        <cube-button @click="showPopup('myPopup')">Show Popup</cube-button>
+        <cube-popup type="my-popup" v-model="visible1">My Popup Content 1</cube-popup>
+        <cube-button @click="showPopup(1)">Show Popup</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" :mask="false" ref="myPopup2">My Popup Content 2</cube-popup>
-        <cube-button @click="showPopup('myPopup2')">Show Popup - no mask</cube-button>
+        <cube-popup type="my-popup" v-model="visible2" :mask="false">My Popup Content 2</cube-popup>
+        <cube-button @click="showPopup(2)">Show Popup - no mask</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" :mask="false" content="<i>My Popup Content 3</i>" ref="myPopup3"></cube-popup>
-        <cube-button @click="showPopup('myPopup3')">Show Popup - with content</cube-button>
+        <cube-popup type="my-popup" v-model="visible3" :mask="false" content="<i>My Popup Content 3</i>" ref="myPopup3"></cube-popup>
+        <cube-button @click="showPopup(3)">Show Popup - with content</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" :center="false" ref="myPopup4">My Popup Content 4</cube-popup>
-        <cube-button @click="showPopup('myPopup4')">Show Popup - bottom</cube-button>
+        <cube-popup type="my-popup" v-model="visible4" :center="false" ref="myPopup4">My Popup Content 4</cube-popup>
+        <cube-button @click="showPopup(4)">Show Popup - bottom</cube-button>
       </div>
       <div>
         <cube-extend-popup content="click here hide" ref="extendPopup"></cube-extend-popup>
@@ -34,15 +34,18 @@
     data() {
       return {
         type: 'popup-dialog',
-        mask: true
+        mask: true,
+        visible1: false,
+        visible2: false,
+        visible3: false,
+        visible4: false
       }
     },
     methods: {
-      showPopup(refId) {
-        const component = this.$refs[refId]
-        component.show()
+      showPopup(i) {
+        this['visible' + i] = true
         setTimeout(() => {
-          component.hide()
+          this['visible' + i] = false
         }, 1000)
       }
     },

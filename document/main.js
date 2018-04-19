@@ -6,7 +6,7 @@ import App from './App.vue'
 import router from './router'
 import './common/js/highlight'
 
-// TODO 需要使用 vConsole 的同学请打开注释即可
+// 需要使用 vConsole 的同学请打开注释即可
 /* eslint-disable no-unused-vars */
 // import vConsole from 'vconsole'
 
