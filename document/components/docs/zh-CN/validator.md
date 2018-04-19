@@ -1,4 +1,4 @@
-## Vadidator
+## Validator
 
 > 1.5.0 新增
 
