@@ -142,6 +142,11 @@ CubeForm is a schema-based form generator component.
                   type: 'upload',
                   modelKey: 'uploadValue',
                   label: 'Upload',
+                  events: {
+                    'file-removed': (...args) => {
+                      console.log('file removed', args)
+                    }
+                  },
                   rules: {
                     required: true,
                     uploaded: (val, config) => {
@@ -415,6 +420,7 @@ CubeForm is a schema-based form generator component.
   | modelKey | Name of property in the `form` model | String | - | - |
   | label | Label of field | String | - | - |
   | props | This value will be the `type` or `component` props | Object | - | - |
+  | events<sup>1.8.0+</sup> | This value will be the `type` or `component` custom events | Object | - | - |
   | rules | Validator rules, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
   | trigger<sup>1.8.0+</sup> | If set to 'blur' then will be validate this filed when blur | String | blur/change | - |
   | debounce<sup>1.8.0+</sup> | Debounce validating time(ms). If `trigger` is 'blur' then the debounce will be ignored | Number/Boolean | >= 0, if set to true the time will be 200(ms) | - |
