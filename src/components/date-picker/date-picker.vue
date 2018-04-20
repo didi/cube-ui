@@ -160,6 +160,12 @@
       }
     },
     methods: {
+      show() {
+        this.$refs.cascadePicker.show()
+      },
+      hide() {
+        this.$refs.cascadePicker.hide()
+      },
       _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, this._arrayToDate(selectedVal), selectedVal, selectedText)
       },

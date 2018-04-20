@@ -36,7 +36,7 @@
 
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-action-sheet'
   const EVENT_SELECT = 'select'
@@ -44,7 +44,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [popupMixin],
     props: {
       data: {
         type: Array,

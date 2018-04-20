@@ -1,6 +1,7 @@
 <template>
   <cube-picker
     ref="picker"
+    v-model="isVisible"
     :title="title"
     :data="data"
     :selected-index="selectedIndex"
@@ -19,7 +20,7 @@
     HOUR_TIMESTAMP,
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
   import CubePicker from '../picker/picker.vue'
 
   const DAY_STEP = 1
@@ -43,7 +44,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [popupMixin],
     props: {
       title: {
         type: String,

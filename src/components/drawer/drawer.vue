@@ -20,7 +20,7 @@
 <script type="text/ecmascript-6">
   import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-drawer'
   const EVENT_CHANGE = 'change'
@@ -31,7 +31,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [popupMixin],
     props: {
       title: {
         type: String,

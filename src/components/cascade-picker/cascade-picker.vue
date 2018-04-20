@@ -39,6 +39,12 @@
       this._updatePickerData()
     },
     methods: {
+      show() {
+        this.$refs.picker.show()
+      },
+      hide() {
+        this.$refs.picker.hide()
+      },
       setData(data, selectedIndex = []) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex

@@ -10,7 +10,7 @@
   </transition>
 </template>
 <script type="text/ecmascript-6">
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-tip'
   const EVENT_CLICK = 'click'
@@ -18,7 +18,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [popupMixin],
     props: {
       direction: {
         type: String,

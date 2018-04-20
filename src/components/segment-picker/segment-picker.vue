@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     currentPicker () {
-      // $refs is not responsive, should not use to computed or watch, so we import this.data to responsive.
+      // $refs is not reactive, should not use to computed or watch, so we import this.data to responsive.
       for (let i = 0; i < this.data.length; i++) {
         let item = this.$refs.pickers[i]
         if (item.$attrs.index === this.current) {
