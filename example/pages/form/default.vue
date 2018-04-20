@@ -140,6 +140,11 @@
                   type: 'upload',
                   modelKey: 'uploadValue',
                   label: 'Upload',
+                  events: {
+                    'file-removed': (...args) => {
+                      console.log('file removed', args)
+                    }
+                  },
                   rules: {
                     required: true,
                     uploaded: (val, config) => {

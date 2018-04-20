@@ -142,6 +142,11 @@
                   type: 'upload',
                   modelKey: 'uploadValue',
                   label: 'Upload',
+                  events: {
+                    'file-removed': (...args) => {
+                      console.log('file removed', args)
+                    }
+                  },
                   rules: {
                     required: true,
                     uploaded: (val, config) => {
@@ -415,6 +420,7 @@
   | modelKey | 在表单的 `model` 数据源对象中所对应的 key 名字 | String | - | - |
   | label | 字段的标签值 | String | - | - |
   | props | type 对应的组件或者自定义组件 component 所需要的 props | Object | - | - |
+  | events<sup>1.8.0+</sup> | type 对应的组件或者自定义组件 component 的事件回调 | Object | - | - |
   | rules | 字段的校验规则，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
   | trigger<sup>1.8.0+</sup> | 如果设置为 'blur' 那么则会在离焦后校验 | String | blur/change | - |
   | debounce<sup>1.8.0+</sup> | 控制校验节奏，值为时间，单位 ms。如果 trigger 设置为 blur 则此项配置不生效 | Number/Boolean | >= 0，如果设置为 true，那么时间就是 200(ms) | - |
