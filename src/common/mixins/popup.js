@@ -21,16 +21,17 @@ export default {
   watch: {
     visible(newVal) {
       this.isVisible = newVal
+    },
+    isVisible(newVal) {
+      this.$emit(EVENT_TOGGLE, newVal)
     }
   },
   methods: {
     show() {
       this.isVisible = true
-      this.$emit(EVENT_TOGGLE, true)
     },
     hide() {
       this.isVisible = false
-      this.$emit(EVENT_TOGGLE, false)
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <cube-picker
       ref="picker"
+      v-model="isVisible"
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
       :title="title"
@@ -15,7 +16,7 @@
 
 <script type="text/ecmascript-6">
   import CubePicker from '../picker/picker.vue'
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
@@ -26,7 +27,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, basicPickerMixin, pickerMixin],
+    mixins: [popupMixin, basicPickerMixin, pickerMixin],
     data () {
       return {
         cascadeData: this.data.slice(),
@@ -38,12 +39,6 @@
       this._updatePickerData()
     },
     methods: {
-      show() {
-        this.$refs.picker.show()
-      },
-      hide() {
-        this.$refs.picker.hide()
-      },
       setData(data, selectedIndex = []) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex

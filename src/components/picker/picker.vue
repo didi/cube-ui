@@ -36,7 +36,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
@@ -49,7 +49,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, basicPickerMixin, pickerMixin],
+    mixins: [popupMixin, basicPickerMixin, pickerMixin],
     data() {
       return {
         pickerData: this.data.slice(),
@@ -62,6 +62,33 @@
         this.pickerSelectedIndex = []
         for (let i = 0; i < this.pickerData.length; i++) {
           this.pickerSelectedIndex[i] = 0
+        }
+      }
+    },
+    watch: {
+      isVisible(newVal) {
+        if (newVal) {
+          if (!this.wheels || this.dirty) {
+            this.$nextTick(() => {
+              this.wheels = this.wheels || []
+              let wheelWrapper = this.$refs.wheelWrapper
+              for (let i = 0; i < this.pickerData.length; i++) {
+                this._createWheel(wheelWrapper, i).enable()
+                this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
+              }
+              this.dirty && this._destroyExtraWheels()
+              this.dirty = false
+            })
+          } else {
+            for (let i = 0; i < this.pickerData.length; i++) {
+              this.wheels[i].enable()
+              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
+            }
+          }
+        } else {
+          for (let i = 0; i < this.pickerData.length; i++) {
+            this.wheels[i].disable()
+          }
         }
       }
     },
@@ -112,40 +139,6 @@
       cancel() {
         this.hide()
         this.$emit(EVENT_CANCEL)
-      },
-      show() {
-        if (this.isVisible) {
-          return
-        }
-
-        this.isVisible = true
-        if (!this.wheels || this.dirty) {
-          this.$nextTick(() => {
-            this.wheels = this.wheels || []
-            let wheelWrapper = this.$refs.wheelWrapper
-            for (let i = 0; i < this.pickerData.length; i++) {
-              this._createWheel(wheelWrapper, i).enable()
-              this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
-            }
-            this.dirty && this._destroyExtraWheels()
-            this.dirty = false
-          })
-        } else {
-          for (let i = 0; i < this.pickerData.length; i++) {
-            this.wheels[i].enable()
-            this.wheels[i].wheelTo(this.pickerSelectedIndex[i])
-          }
-        }
-      },
-      hide() {
-        if (!this.isVisible) {
-          return
-        }
-        this.isVisible = false
-
-        for (let i = 0; i < this.pickerData.length; i++) {
-          this.wheels[i].disable()
-        }
       },
       setData(data, selectedIndex) {
         this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : []
