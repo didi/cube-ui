@@ -37,10 +37,6 @@
       center: {
         type: Boolean,
         default: true
-      },
-      zIndex: {
-        type: Number,
-        default: 100
       }
     },
     computed: {

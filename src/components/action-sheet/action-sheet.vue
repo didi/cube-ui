@@ -63,9 +63,6 @@
       pickerStyle: {
         type: Boolean,
         default: false
-      },
-      zIndex: {
-        type: Number
       }
     },
     methods: {

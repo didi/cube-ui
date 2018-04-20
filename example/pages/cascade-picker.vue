@@ -4,7 +4,6 @@
       <cube-button-group>
         <cube-button @click="showCascadePicker">Cascade Picker</cube-button>
         <cube-button @click="showCityPicker">City Picker</cube-button>
-        <cube-button @click="showDatePicker">Date Picker</cube-button>
         <cube-button @click="showSetDataPicker">Set Data</cube-button>
       </cube-button-group>
     </div>
@@ -14,13 +13,8 @@
 <script>
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
-  import DatePicker from 'example/components/date-picker.vue'
-  import Vue from 'vue'
-  import createAPI from '@/modules/create-api'
   import { provinceList, cityList, areaList } from 'example/data/area'
   import { cascadeData } from 'example/data/cascade'
-
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
 
   const cityData = provinceList
   cityData.forEach(province => {
@@ -52,13 +46,6 @@
         onCancel: this.cancelHandle
       })
 
-      this.datePicker = this.$createDatePicker({
-        min: [2008, 8, 8],
-        max: [2020, 10, 20],
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-
       this.setDataPicker = this.$createCascadePicker({
         title: 'Set Data',
         onSelect: this.selectHandle,
@@ -71,9 +58,6 @@
       },
       showCityPicker() {
         this.cityPicker.show()
-      },
-      showDatePicker() {
-        this.datePicker.show()
       },
       showSetDataPicker() {
         /* setData when the picker is invisible */

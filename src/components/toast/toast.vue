@@ -36,6 +36,7 @@
         type: Number,
         default: 3000
       },
+      // By default, Toast has the bigest z-index among popoup-based components.
       zIndex: {
         type: Number,
         default: 900

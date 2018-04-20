@@ -14,9 +14,6 @@ export default {
     swipeTime: {
       type: Number,
       default: 2500
-    },
-    zIndex: {
-      type: Number
     }
   }
 }

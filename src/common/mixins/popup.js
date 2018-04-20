@@ -9,6 +9,10 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    zIndex: {
+      type: Number,
+      default: 100
     }
   },
   data() {

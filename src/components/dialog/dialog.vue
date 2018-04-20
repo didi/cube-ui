@@ -99,9 +99,6 @@
             ...defCancelBtn
           }
         }
-      },
-      zIndex: {
-        type: Number
       }
     },
     data() {

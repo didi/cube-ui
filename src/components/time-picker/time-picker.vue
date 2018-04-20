@@ -2,11 +2,13 @@
   <cube-picker
     ref="picker"
     v-model="isVisible"
-    :title="title"
     :data="data"
     :selected-index="selectedIndex"
-    :z-index="zIndex"
+    :title="title"
+    :cancel-txt="cancelTxt"
+    :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
+    :z-index="zIndex"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange"></cube-picker>
@@ -21,6 +23,7 @@
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
   import popupMixin from '../../common/mixins/popup'
+  import pickerMixin from '../../common/mixins/picker'
   import CubePicker from '../picker/picker.vue'
 
   const DAY_STEP = 1
@@ -44,7 +47,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin],
+    mixins: [popupMixin, pickerMixin],
     props: {
       title: {
         type: String,
@@ -77,9 +80,6 @@
       minuteStep: {
         type: Number,
         default: MINUTE_STEP
-      },
-      zIndex: {
-        type: Number
       }
     },
     data() {
