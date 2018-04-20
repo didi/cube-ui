@@ -19,12 +19,12 @@
         @msg-click="msgClick"
       >
         <slot>
-          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props"></component>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events"></component>
         </slot>
       </cube-validator>
       <div class="cube-form-field" v-else>
         <slot>
-          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props"></component>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events"></component>
         </slot>
       </div>
     </template>
