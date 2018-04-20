@@ -201,6 +201,10 @@
           scrollX: this.direction === DIRECTION_H
         }, this.options)
 
+        if (this.listenScroll) {
+          options.probeType = 3
+        }
+
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
         if (this.listenScroll) {
