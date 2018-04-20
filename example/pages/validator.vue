@@ -20,7 +20,7 @@
       </div>
       <div class="validator-item">
         <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate">
-          <cube-input v-model="text3" placeholder="async validate odd"></cube-input>
+          <cube-input v-model="text3" placeholder="validate odd"></cube-input>
         </cube-validator>
       </div>
       <div class="validator-item">
