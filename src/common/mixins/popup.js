@@ -19,12 +19,16 @@ export default {
     return {
       // If use the prop visible directly, the toggle will failed when user haven't set v-model as a reactive property.
       // So we use the data isVisible instead.
-      isVisible: this.visible
+      isVisible: undefined
     }
   },
   watch: {
-    visible(newVal) {
-      this.isVisible = newVal
+    visible: {
+      handler(newVal, oldVal) {
+        newVal && !oldVal && this.show()
+        oldVal && !newVal && this.hide()
+      },
+      immediate: true
     },
     isVisible(newVal) {
       this.$emit(EVENT_TOGGLE, newVal)

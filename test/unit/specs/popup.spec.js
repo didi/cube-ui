@@ -11,11 +11,13 @@ describe('Popup', () => {
         vm = null
       }
     })
+
     it('use', () => {
       Vue.use(Popup)
       expect(Vue.component(Popup.name))
         .to.be.a('function')
     })
+
     it('should render correct contents - no type', () => {
       vm = instantiateComponent(Vue, Popup, {
         props: {
@@ -25,6 +27,7 @@ describe('Popup', () => {
       expect(vm.$el.className)
         .to.equal('cube-popup cube-popup_mask')
     })
+
     it('should render correct contents', () => {
       vm = instantiateComponent(Vue, Popup, {
         props: {
@@ -40,6 +43,38 @@ describe('Popup', () => {
       expect(vm.$el.querySelector('.cube-popup-content').innerHTML)
         .to.equal('popup content')
     })
+
+    it('should toggle by change v-model visible', function (done) {
+      this.timeout(1000)
+
+      const toggleHandler = sinon.spy()
+      vm = instantiateComponent(Vue, Popup, {
+        props: {
+          visible: true
+        },
+        on: {
+          toggle: toggleHandler
+        }
+      })
+
+      vm.$parent.updateRenderData({
+        props: {
+          visible: false
+        },
+        on: {
+          toggle: toggleHandler
+        }
+      })
+
+      vm.$parent.$forceUpdate()
+
+      setTimeout(() => {
+        expect(toggleHandler).to.be.calledOnce
+
+        done()
+      }, 50)
+    })
+
     it('events', () => {
       const clickHandler = sinon.spy()
       vm = instantiateComponent(Vue, Popup, {
