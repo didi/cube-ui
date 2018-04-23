@@ -74,6 +74,10 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       processProps()
       processEvents()
 
+      if (typeof renderFn !== 'function' && single === undefined) {
+        single = !!renderFn
+        renderFn = null
+      }
       // to get Vue options
       // store router i18n ...
       const options = {
