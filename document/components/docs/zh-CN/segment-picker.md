@@ -123,11 +123,13 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
 | data | 定义各个选择器的组件名和属性 | Array | [] | - |
+| nextTxt | 下一步按钮文案 | String | '下一步' | - |
+| prevTxt | 上一步按钮文案 | String | '下一步' | - |
 | title | 标题 | String | '' | - |
 | cancelTxt | 取消按钮文案 | String | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | '确定' | - |
-| nextTxt | 下一步按钮文案 | String | '下一步' | - |
-| prevTxt | 上一步按钮文案 | String | '下一步' | - |
+| swipeTime<sup>1.8.1</sup> | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 
 * `data` 子配置项
 

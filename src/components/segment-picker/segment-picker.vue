@@ -9,8 +9,10 @@
       ref="pickers"
       :is="item.is || 'cube-picker'"
       :title="item.title || title"
-      :confirmTxt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
-      :cancelTxt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
+      :confirm-txt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
+      :cancel-txt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
+      :swipe-time="item.swipeTime || swipeTime"
+      :z-index="item.zIndex || zIndex"
       v-bind="item"
       @select="_select"
       @cancel="_cancel"
@@ -20,6 +22,9 @@
 </template>
 
 <script>
+import popupMixin from '../../common/mixins/popup'
+import pickerMixin from '../../common/mixins/picker'
+
 const COMPONENT_NAME = 'cube-segment-picker'
 const EVENT_NEXT = 'next'
 const EVENT_PREV = 'prev'
@@ -29,24 +34,13 @@ const EVENT_CHANGE = 'change'
 
 export default {
   name: COMPONENT_NAME,
+  mixins: [popupMixin, pickerMixin],
   props: {
     data: {
       type: Array,
       default() {
         return []
       }
-    },
-    title: {
-      type: String,
-      default: 'Segment Picker'
-    },
-    confirmTxt: {
-      type: String,
-      default: '确定'
-    },
-    cancelTxt: {
-      type: String,
-      default: '取消'
     },
     nextTxt: {
       type: String,
