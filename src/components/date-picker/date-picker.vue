@@ -164,21 +164,13 @@
         if (this.isVisible) {
           return
         }
-        this.$refs.cascadePicker
-          ? this.$refs.cascadePicker.show()
-          : this.$nextTick(() => {
-            this.$refs.cascadePicker.show()
-          })
+        this.$refs.cascadePicker.show()
       },
       hide() {
         if (!this.isVisible) {
           return
         }
-        this.$refs.cascadePicker
-          ? this.$refs.cascadePicker.hide()
-          : this.$nextTick(() => {
-            this.$refs.cascadePicker.hide()
-          })
+        this.$refs.cascadePicker.hide()
       },
       _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, this._arrayToDate(selectedVal), selectedVal, selectedText)

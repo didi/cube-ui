@@ -23,19 +23,23 @@ export default {
     }
   },
   watch: {
-    visible: {
-      handler(newVal, oldVal) {
-        newVal ? this.show() : this.hide()
-      },
-      immediate: true
-    },
     isVisible(newVal) {
       this.$emit(EVENT_TOGGLE, newVal)
     }
   },
+  mounted() {
+    console.log(this.isVisible)
+    this.$watch('visible', (newVal) => {
+      console.log('visible', newVal)
+      newVal ? this.show() : this.hide()
+    }, {
+      immediate: true
+    })
+  },
   methods: {
     show() {
       this.isVisible = true
+      console.log('show')
     },
     hide() {
       this.isVisible = false

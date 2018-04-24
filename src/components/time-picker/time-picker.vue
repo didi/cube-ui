@@ -109,11 +109,7 @@
         if (this.isVisible) {
           return
         }
-        this.$refs.picker
-          ? this.$refs.picker.show()
-          : this.$nextTick(() => {
-            this.$refs.picker.show()
-          })
+        this.$refs.picker.show()
 
         this._updateMinTime()
         this._initDays()

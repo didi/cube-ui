@@ -83,21 +83,13 @@ export default {
       if (this.isVisible || !this.data.length) {
         return
       }
-      this.$refs.pickers
-        ? this.currentPicker.show()
-        : this.$nextTick(() => {
-          this.currentPicker.show()
-        })
+      this.currentPicker.show()
     },
     hide() {
       if (!this.isVisible || !this.data.length) {
         return
       }
-      this.$refs.pickers
-        ? this.$refs.currentPicker.hide()
-        : this.$nextTick(() => {
-          this.$refs.currentPicker.hide()
-        })
+      this.$refs.currentPicker.hide()
     },
     _select(...args) {
       this.selectedVal[this.current] = args[0]

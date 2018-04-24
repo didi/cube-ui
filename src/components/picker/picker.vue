@@ -1,14 +1,11 @@
 <template>
   <transition name="cube-picker-fade">
-    <!-- If use v-model visible to toggle the popup, it will have a micro-delay caused by vue watch, so that the animation will be broken. -->
-    <!-- So we keep the visible true and use v-show to toggle the popup. -->
     <cube-popup
       type="picker"
       :mask="true"
       :center="false"
       :z-index="zIndex"
-      :visible="true"
-      v-show="isVisible"
+      v-model="isVisible"
       @touchmove.prevent
       @mask-click="cancel">
       <transition name="cube-picker-move">
@@ -68,6 +65,9 @@
         }
       }
     },
+    mounted() {
+      console.log('picker isVisible', this.isVisible)
+    },
     methods: {
       confirm() {
         if (!this._canConfirm()) {
@@ -117,6 +117,7 @@
         this.$emit(EVENT_CANCEL)
       },
       show() {
+        console.log('picker show:', this.isVisible)
         if (this.isVisible) {
           return
         }
