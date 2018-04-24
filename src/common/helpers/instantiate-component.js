@@ -1,7 +1,13 @@
-export default function instantiateComponent(Vue, Component, data, renderFn) {
+export default function instantiateComponent(Vue, Component, data, renderFn, options) {
   let renderData
   let childrenRenderFn
+
+  if (options === undefined) {
+    options = {}
+  }
+
   const instance = new Vue({
+    ...options,
     render(createElement) {
       let children = childrenRenderFn && childrenRenderFn(createElement)
       if (children && !Array.isArray(children)) {

@@ -179,6 +179,7 @@
       border-color: $input-focus-border-color
   .cube-input-prepend, .cube-input-append
     display: flex
+    align-items: center
   .cube-input-prepend
     + .cube-input-field
       margin-left: -5px
