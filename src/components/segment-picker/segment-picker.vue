@@ -80,10 +80,24 @@ export default {
   },
   methods: {
     show() {
-      this.data.length && this.currentPicker.show()
+      if (this.isVisible || !this.data.length) {
+        return
+      }
+      this.$refs.pickers
+        ? this.currentPicker.show()
+        : this.$nextTick(() => {
+          this.currentPicker.show()
+        })
     },
     hide() {
-      this.data.length && this.currentPicker.hide()
+      if (!this.isVisible || !this.data.length) {
+        return
+      }
+      this.$refs.pickers
+        ? this.$refs.currentPicker.hide()
+        : this.$nextTick(() => {
+          this.$refs.currentPicker.hide()
+        })
     },
     _select(...args) {
       this.selectedVal[this.current] = args[0]

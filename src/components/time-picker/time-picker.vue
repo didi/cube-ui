@@ -106,7 +106,15 @@
     },
     methods: {
       show() {
-        this.$refs.picker.show()
+        if (this.isVisible) {
+          return
+        }
+        this.$refs.picker
+          ? this.$refs.picker.show()
+          : this.$nextTick(() => {
+            this.$refs.picker.show()
+          })
+
         this._updateMinTime()
         this._initDays()
         this.today = this.days[0].value
@@ -118,7 +126,14 @@
         })
       },
       hide() {
-        this.$refs.picker.hide()
+        if (!this.isVisible) {
+          return
+        }
+        this.$refs.picker
+          ? this.$refs.picker.hide()
+          : this.$nextTick(() => {
+            this.$refs.picker.hide()
+          })
       },
       setTime(timeStamp) {
         this.selectedTimeStamp = parseInt(timeStamp)

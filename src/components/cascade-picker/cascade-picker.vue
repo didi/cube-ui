@@ -40,10 +40,24 @@
     },
     methods: {
       show() {
-        this.$refs.picker.show()
+        if (this.isVisible) {
+          return
+        }
+        this.$refs.picker
+          ? this.$refs.picker.show()
+          : this.$nextTick(() => {
+            this.$refs.picker.show()
+          })
       },
       hide() {
-        this.$refs.picker.hide()
+        if (!this.isVisible) {
+          return
+        }
+        this.$refs.picker
+          ? this.$refs.picker.hide()
+          : this.$nextTick(() => {
+            this.$refs.picker.hide()
+          })
       },
       setData(data, selectedIndex = []) {
         this.cascadeData = data
