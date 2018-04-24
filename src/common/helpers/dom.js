@@ -65,6 +65,7 @@ let vendor = (() => {
 })()
 
 export function prefixStyle(style) {
+  /* istanbul ignore if */
   if (vendor === false) {
     return false
   }
