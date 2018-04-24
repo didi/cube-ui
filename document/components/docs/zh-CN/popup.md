@@ -115,6 +115,7 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 | type | 弹层类型 | String | - | '' |
 | mask | 是否显示背景层 | Boolean | true/false | true |
 | content | 内容，HTML 字符串，在无插槽的时候有效 | String | - | '' |
@@ -125,3 +126,10 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
 | 事件名 | 说明 | 参数 |
 | - | - | - |
 | mask-click | 背景层点击 | 点击事件对象 |
+
+### 实例方法
+
+| 方法名 | 说明 |
+| - | - |
+| show | 显示 |
+| hide | 隐藏 |

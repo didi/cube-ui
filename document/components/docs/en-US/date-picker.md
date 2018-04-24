@@ -245,7 +245,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | cancelTxt | the text of the cancel button | String | - | '取消' | - |
 | confirmTxt | the text of the confirm button | String | - | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | - | 2500 | - |
-| alias | configure the alias of `value` and `text` | Object | - | {} | { value: 'id', text: 'name'} |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false | - |
 
 * `format` sub configuration
 
@@ -270,5 +270,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Method name | Description |
 | - | - |
-| show | show picker |
-| hide | hide picker |
+| show | show |
+| hide | hide |

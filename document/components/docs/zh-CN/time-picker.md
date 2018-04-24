@@ -133,12 +133,15 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
-| title | 标题 | String | '选择时间' |
-| swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |
 | delay | 将当前时间向后推算的分钟数，决定了最小可选时间 | Number | 15 |
 | day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月d日' } |
 | showNow | 是否显示当前时间 | Boolean | true |
 | minuteStep | 分钟数的步长 | Number | 10 |
+| title | 标题 | String | '选择时间' |
+| cancelTxt<sup>1.8.1</sup> | 取消按钮文案 | String | '取消' |
+| confirmTxt<sup>1.8.1</sup> | 确定按钮文案 | String | '确定' |
+| swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false |
 
 * `day`子配置项
 
@@ -161,3 +164,5 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 方法名 | 说明 | 参数 |
 | - | - | - |
 | setTime | 手动设置time-picker组件显示的时间，数据格式为时间戳 | 时间戳 |
+| show | 显示 | - |
+| hide | 隐藏 | - |

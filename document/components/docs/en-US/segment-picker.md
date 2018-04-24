@@ -151,5 +151,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Method name | Description |
 | - | - |
-| show | show picker |
-| hide | hide picker |
+| show | show |
+| hide | hide |
