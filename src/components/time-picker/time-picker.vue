@@ -1,11 +1,14 @@
 <template>
   <cube-picker
     ref="picker"
-    :title="title"
+    v-model="isVisible"
     :data="data"
     :selected-index="selectedIndex"
-    :z-index="zIndex"
+    :title="title"
+    :cancel-txt="cancelTxt"
+    :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
+    :z-index="zIndex"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange"></cube-picker>
@@ -19,7 +22,9 @@
     HOUR_TIMESTAMP,
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
+  import pickerMixin from '../../common/mixins/picker'
   import CubePicker from '../picker/picker.vue'
 
   const DAY_STEP = 1
@@ -43,7 +48,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin],
     props: {
       title: {
         type: String,
@@ -76,9 +81,6 @@
       minuteStep: {
         type: Number,
         default: MINUTE_STEP
-      },
-      zIndex: {
-        type: Number
       }
     },
     data() {
@@ -105,7 +107,11 @@
     },
     methods: {
       show() {
-        this.$refs.picker.show()
+        if (this.isVisible) {
+          return
+        }
+        this.isVisible = true
+
         this._updateMinTime()
         this._initDays()
         this.today = this.days[0].value
@@ -115,9 +121,6 @@
           this._handleHourAndMinute(true)
           this._resetTime()
         })
-      },
-      hide() {
-        this.$refs.picker.hide()
       },
       setTime(timeStamp) {
         this.selectedTimeStamp = parseInt(timeStamp)

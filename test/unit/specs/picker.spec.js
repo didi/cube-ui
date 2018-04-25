@@ -105,6 +105,36 @@ describe('Picker', () => {
       .to.equal('B')
   })
 
+  it('should toggle by change v-model visible', function (done) {
+    this.timeout(1000)
+
+    const toggleHandler = sinon.spy()
+    vm = instantiateComponent(Vue, Picker, {
+      props: {
+        visible: true
+      },
+      on: {
+        toggle: toggleHandler
+      }
+    })
+
+    vm.$parent.updateRenderData({
+      props: {
+        visible: false
+      },
+      on: {
+        toggle: toggleHandler
+      }
+    })
+    vm.$parent.$forceUpdate()
+
+    setTimeout(() => {
+      expect(toggleHandler).to.be.callCount(2)
+
+      done()
+    }, 50)
+  })
+
   it('should trigger events', function () {
     this.timeout(10000)
 

@@ -1,5 +1,7 @@
 <template>
   <transition name="cube-picker-fade">
+    <!-- If use v-model to toggle the popup, it will have a micro-delay caused by vue watch, so that the animation will be broken. -->
+    <!-- So we keep the v-model true and use v-show to toggle the popup. -->
     <cube-popup
       type="picker"
       :mask="true"
@@ -36,7 +38,8 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
 
@@ -49,7 +52,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, basicPickerMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
     data() {
       return {
         pickerData: this.data.slice(),

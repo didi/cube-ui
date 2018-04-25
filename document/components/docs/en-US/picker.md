@@ -188,6 +188,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirmTxt | the text of the confirm button | String | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
 | alias | configure the alias of `value` and `text` | Object | {} | { value: 'id', text: 'name'} |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 * `data` sub configuration
 
@@ -210,5 +211,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | Method name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
 | setData | set options in picker| Array, texts and values of options of each columns of picker | Array, indexes of selected item in each column of picker |
-| show | show picker | - | - |
-| hide | hide picker | - | - |
+| show | show | - | - |
+| hide | hide | - | - |

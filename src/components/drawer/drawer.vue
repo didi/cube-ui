@@ -20,7 +20,8 @@
 <script type="text/ecmascript-6">
   import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-drawer'
   const EVENT_CHANGE = 'change'
@@ -31,7 +32,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin],
     props: {
       title: {
         type: String,
@@ -79,7 +80,11 @@
     },
     methods: {
       show() {
+        if (this.isVisible) {
+          return
+        }
         this.isVisible = true
+
         let len = this.data.length
         for (let i = 0; i < len; i++) {
           this.index = i

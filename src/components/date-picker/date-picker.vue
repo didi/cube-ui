@@ -1,6 +1,6 @@
 <template>
   <cube-cascade-picker
-    ref="cascadePicker"
+    v-model="isVisible"
     :data="data"
     :selectedIndex="selectedIndex"
     :title="title"
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign, findIndex } from '../../common/helpers/util'
   import { computeNatureMaxDay, formatType } from '../../common/lang/date'
@@ -60,7 +61,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin],
     props: {
       min: {
         type: [Date, Array],
@@ -159,12 +160,6 @@
       }
     },
     methods: {
-      show() {
-        this.$refs.cascadePicker.show()
-      },
-      hide() {
-        this.$refs.cascadePicker.hide()
-      },
       _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, this._arrayToDate(selectedVal), selectedVal, selectedText)
       },

@@ -143,12 +143,15 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
-| title | title | String | '选择时间' |
-| swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | delay | minutes that postponed backwards from now, which determines the minimal optional time| Number | 15 |
 | day | date configuration | Object | { len: 3, filter: ['今日'], format: 'M月d日' } |
 | showNow | whether to display current time | Boolean | true |
 | minuteStep | step of the minute | Number | 10 |
+| title | title | String | '选择时间' |
+| cancelTxt<sup>1.8.1</sup> | the text of the cancel button | String | '取消' |
+| confirmTxt<sup>1.8.1</sup> | the text of the confirm button | String | '确定' |
+| swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
 
 * `day` sub configuration
 
@@ -171,3 +174,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | Method name | Description | Parameters |
 | - | - | - |
 | setTime | manually set time displayed in time-picker with with the time stamp as time format | time stamp |
+| show | show | - |
+| hide | hide | - |
