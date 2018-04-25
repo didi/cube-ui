@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import visibilityMixin from '../../common/mixins/visibility'
 import popupMixin from '../../common/mixins/popup'
 import pickerMixin from '../../common/mixins/picker'
 
@@ -34,7 +35,7 @@ const EVENT_CHANGE = 'change'
 
 export default {
   name: COMPONENT_NAME,
-  mixins: [popupMixin, pickerMixin],
+  mixins: [visibilityMixin, popupMixin, pickerMixin],
   props: {
     data: {
       type: Array,

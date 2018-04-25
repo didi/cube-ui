@@ -36,6 +36,7 @@
 
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
+  import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-action-sheet'
@@ -44,7 +45,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin],
+    mixins: [visibilityMixin, popupMixin],
     props: {
       data: {
         type: Array,

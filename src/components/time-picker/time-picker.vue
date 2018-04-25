@@ -22,6 +22,7 @@
     HOUR_TIMESTAMP,
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
+  import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import CubePicker from '../picker/picker.vue'
@@ -47,7 +48,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin],
     props: {
       title: {
         type: String,

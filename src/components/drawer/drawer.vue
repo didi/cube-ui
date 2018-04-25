@@ -20,6 +20,7 @@
 <script type="text/ecmascript-6">
   import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
+  import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-drawer'
@@ -31,7 +32,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin],
+    mixins: [visibilityMixin, popupMixin],
     props: {
       title: {
         type: String,

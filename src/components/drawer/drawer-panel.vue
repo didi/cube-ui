@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import popupMixin from '../../common/mixins/popup'
+  import visibilityMixin from '../../common/mixins/visibility'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeDrawerItem from './drawer-item.vue'
 
@@ -21,7 +21,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin],
+    mixins: [visibilityMixin],
     props: {
       data: {
         type: Array,

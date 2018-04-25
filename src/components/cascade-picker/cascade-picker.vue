@@ -16,6 +16,7 @@
 
 <script type="text/ecmascript-6">
   import CubePicker from '../picker/picker.vue'
+  import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
@@ -27,7 +28,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin, basicPickerMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
     data () {
       return {
         cascadeData: this.data.slice(),

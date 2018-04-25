@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import { deepAssign, findIndex } from '../../common/helpers/util'
@@ -60,7 +61,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin],
     props: {
       min: {
         type: [Date, Array],
