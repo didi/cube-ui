@@ -1,7 +1,6 @@
 <template>
   <transition name="cube-picker-fade">
-    <!-- If use v-model to toggle the popup, it will have a micro-delay caused by vue watch, so that the animation will be broken. -->
-    <!-- So we keep the v-model true and use v-show to toggle the popup. -->
+    <!-- Transition animation need use with v-show in the same template. -->
     <cube-popup
       type="picker"
       :mask="true"
