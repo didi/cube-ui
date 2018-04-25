@@ -65,9 +65,6 @@
         }
       }
     },
-    mounted() {
-      console.log('picker isVisible', this.isVisible)
-    },
     methods: {
       confirm() {
         if (!this._canConfirm()) {
@@ -117,7 +114,6 @@
         this.$emit(EVENT_CANCEL)
       },
       show() {
-        console.log('picker show:', this.isVisible)
         if (this.isVisible) {
           return
         }

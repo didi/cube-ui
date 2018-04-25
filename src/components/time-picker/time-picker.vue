@@ -125,11 +125,7 @@
         if (!this.isVisible) {
           return
         }
-        this.$refs.picker
-          ? this.$refs.picker.hide()
-          : this.$nextTick(() => {
-            this.$refs.picker.hide()
-          })
+        this.$refs.picker.hide()
       },
       setTime(timeStamp) {
         this.selectedTimeStamp = parseInt(timeStamp)

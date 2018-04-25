@@ -41,16 +41,18 @@ describe('TimePicker', () => {
       expect(secondWheelItem.textContent.trim())
         .to.equal('现在')
       vm.hide()
-      const nextDate = +new Date(Date.now() + 24 * 60 * 60 * 1000)
-      vm.setTime(nextDate)
-      vm.show()
       setTimeout(() => {
-        const wheel = vm.$el.querySelector('.cube-picker-wheel-wrapper > div > ul')
-        const transform = wheel.style.webkitTransform || wheel.style.transform
-        expect(transform.match(/translate\(0px,\s*(-?\d+)px\)/)[1])
-          .to.equal('-36')
-        done()
-      }, 100)
+        const nextDate = +new Date(Date.now() + 24 * 60 * 60 * 1000)
+        vm.setTime(nextDate)
+        vm.show()
+        setTimeout(() => {
+          const wheel = vm.$el.querySelector('.cube-picker-wheel-wrapper > div > ul')
+          const transform = wheel.style.webkitTransform || wheel.style.transform
+          expect(transform.match(/translate\(0px,\s*(-?\d+)px\)/)[1])
+            .to.equal('-36')
+          done()
+        }, 100)
+      })
     }, 100)
   })
 

@@ -69,7 +69,7 @@ describe('Popup', () => {
       vm.$parent.$forceUpdate()
 
       setTimeout(() => {
-        expect(toggleHandler).to.be.calledOnce
+        expect(toggleHandler).to.be.callCount(2)
 
         done()
       }, 50)

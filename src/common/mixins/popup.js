@@ -28,9 +28,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.isVisible)
     this.$watch('visible', (newVal) => {
-      console.log('visible', newVal)
       newVal ? this.show() : this.hide()
     }, {
       immediate: true
@@ -39,7 +37,6 @@ export default {
   methods: {
     show() {
       this.isVisible = true
-      console.log('show')
     },
     hide() {
       this.isVisible = false
