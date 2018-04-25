@@ -188,6 +188,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | confirmTxt | 确定按钮文案 | String | '确定' | - |
 | swipeTime | 快速滑动 picker 滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
 | alias | 配置`value`和`text`的别名 | Object | {} | { value: 'id', text: 'name'} |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 
 * `data`子配置项
 
@@ -210,5 +211,5 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 方法名 | 说明 | 参数1 | 参数2 |
 | - | - | - | - |
 | setData | 设置picker可选项 | picker每列可选项的文案和值，Array类型 | picker每列选中的索引，Array类型 |
-| show | 显示选择器 | - | - |
-| hide | 隐藏选择器 | - | - |
+| show | 显示 | - | - |
+| hide | 隐藏 | - | - |

@@ -84,6 +84,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 | type | 类型(对应不同的 icon) | String | loading/correct/error/warn | loading |
 | mask | 遮罩 | Boolean | true/false | false |
 | txt | 提示信息 | String | - | '' |
@@ -94,3 +95,10 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 事件名 | 说明 |
 | - | - |
 | timeout | 当显示时间结束时派发 |
+
+### 实例方法
+
+| 方法名 | 说明 |
+| - | - |
+| show | 显示 |
+| hide | 隐藏 |

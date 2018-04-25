@@ -151,6 +151,7 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
 | title | 标题 | String | - | '' |
 | data | 数据源 | Array | - | [] |
 | selected-index | 初始选择索引 | Array | - | [] |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 
 - `data` 子配置项
 
@@ -201,6 +202,6 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
 
 | 方法名 | 说明 | 参数1 | 参数2 | 参数3 |
 | - | - | - | - | - |
+| refill | 填充数据，改变某个 Panel 数据 | 要改变的 Panel 的索引 | 填充数据 | 默认选中项（可选，建议不填） |
 | show | 显示 | - | - | - |
 | hide | 隐藏 | - | - | - |
-| refill | 填充数据，改变某个 Panel 数据 | 要改变的 Panel 的索引 | 填充数据 | 默认选中项（可选，建议不填） |
