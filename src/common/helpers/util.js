@@ -1,3 +1,5 @@
+import { camelize } from '../lang/string'
+
 function findIndex(ary, fn) {
   if (ary.findIndex) {
     return ary.findIndex(fn)
@@ -152,4 +154,24 @@ function debounce(func, wait, immediate, initValue) {
   return debounced
 }
 
-export { findIndex, deepAssign, createAddAPI, toLocaleDateString, resetTypeValue, parallel, cb2PromiseWithResolve, debounce }
+function processComponentName(Component, { prefix = '', firstUpperCase = false } = {}) {
+  const name = Component.name
+  const pureName = name.replace(/^cube-/i, '')
+  let camelizeName = `${camelize(`${prefix}${pureName}`)}`
+  if (firstUpperCase) {
+    camelizeName = camelizeName.charAt(0).toUpperCase() + camelizeName.slice(1)
+  }
+  return camelizeName
+}
+
+export {
+  findIndex,
+  deepAssign,
+  createAddAPI,
+  toLocaleDateString,
+  resetTypeValue,
+  parallel,
+  cb2PromiseWithResolve,
+  debounce,
+  processComponentName
+}

@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script  type="text/ecmascript-6">
+<script type="text/ecmascript-6">
 const COMPONENT_NAME = 'cube-radio'
 const EVENT_INPUT = 'input'
 
