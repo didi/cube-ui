@@ -13,9 +13,12 @@
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
-            <span data-action="cancel" @click="cancel">{{cancelTxt}}</span>
-            <span data-action="confirm" @click="confirm">{{confirmTxt}}</span>
-            <h1>{{title}}</h1>
+            <span class="cancel" @click="cancel">{{cancelTxt}}</span>
+            <div class="cube-picker-titles">
+              <h1 class="cube-picker-title">{{title}}</h1>
+              <h2 v-if="subtitle" class="cube-picker-subtitle">{{subtitle}}</h2>
+            </div>
+            <span class="confirm" @click="confirm">{{confirmTxt}}</span>
           </div>
           <div class="cube-picker-content">
             <i class="border-bottom-1px"></i>
@@ -279,29 +282,38 @@
 
   .cube-picker-choose
     position: relative
+    display: flex
     height: 60px
     > span
-      position: absolute
-      top: 6px
-      padding: 16px $picker-lr-padding
       font-size: $fontsize-medium
-    > [data-action="confirm"]
-      right: 0
+      line-height: 60px
+      padding: 0 $picker-lr-padding
+      font-size: $fontsize-medium
+    .confirm
       color: $picker-confirm-btn-color
       &:active
         color: $picker-confirm-btn-active-color
-    > [data-action="cancel"]
-      left: 0
+    .cancel
       color: $picker-cancel-btn-color
       &:active
         color: $picker-cancel-btn-active-color
-    > h1
-      margin: 0
-      line-height: 60px
+    .cube-picker-titles
+      flex: auto
+      display: flex
+      height: 100%
+      flex-flow: column
+      justify-content: center
       text-align: center
-      font-weight: normal
-      font-size: $fontsize-large-x
-      color: $picker-title-color
+      .cube-picker-title
+        font-size: $fontsize-large-x
+        line-height: 25px
+        font-weight: normal
+        color: $picker-title-color
+      .cube-picker-subtitle
+        margin-top: 2px
+        line-height: 16px
+        font-size: $fontsize-small
+        color: $picker-subtitle-color
 
   .cube-picker-content
     position: relative

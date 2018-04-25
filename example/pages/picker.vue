@@ -27,6 +27,7 @@
     mounted() {
       this.picker = this.$createPicker({
         title: 'Picker',
+        subtitle: 'subtitle',
         data: [data1],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle

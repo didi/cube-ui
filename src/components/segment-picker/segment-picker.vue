@@ -9,6 +9,7 @@
       ref="pickers"
       :is="item.is || 'cube-picker'"
       :title="item.title || title"
+      :subtitle="item.subtitle || subtitle"
       :confirm-txt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
       :cancel-txt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
       :swipe-time="item.swipeTime || swipeTime"
