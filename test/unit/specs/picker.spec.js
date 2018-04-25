@@ -126,7 +126,6 @@ describe('Picker', () => {
         toggle: toggleHandler
       }
     })
-
     vm.$parent.$forceUpdate()
 
     setTimeout(() => {
