@@ -194,7 +194,7 @@
           } else {
             days.push({
               value: timestamp,
-              text: formatDate(new Date(timestamp), dayConf.format)
+              text: formatDate(new Date(timestamp), dayConf.format, 'i')
             })
           }
         }
