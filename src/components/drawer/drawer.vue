@@ -80,7 +80,11 @@
     },
     methods: {
       show() {
+        if (this.isVisible) {
+          return
+        }
         this.isVisible = true
+
         let len = this.data.length
         for (let i = 0; i < len; i++) {
           this.index = i
@@ -96,6 +100,10 @@
         this.computedStyle()
       },
       hide() {
+        if (!this.isVisible) {
+          return
+        }
+
         this.slideStyle[transform] = 'translate3d(0, 0, 0)'
         this.shouldHide = true
       },
