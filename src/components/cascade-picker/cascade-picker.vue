@@ -39,18 +39,6 @@
       this._updatePickerData()
     },
     methods: {
-      show() {
-        if (this.isVisible) {
-          return
-        }
-        this.$refs.picker.show()
-      },
-      hide() {
-        if (!this.isVisible) {
-          return
-        }
-        this.$refs.picker.hide()
-      },
       setData(data, selectedIndex = []) {
         this.cascadeData = data
         this.pickerSelectedIndex = selectedIndex

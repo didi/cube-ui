@@ -109,7 +109,7 @@
         if (this.isVisible) {
           return
         }
-        this.$refs.picker.show()
+        this.isVisible = true
 
         this._updateMinTime()
         this._initDays()
@@ -120,12 +120,6 @@
           this._handleHourAndMinute(true)
           this._resetTime()
         })
-      },
-      hide() {
-        if (!this.isVisible) {
-          return
-        }
-        this.$refs.picker.hide()
       },
       setTime(timeStamp) {
         this.selectedTimeStamp = parseInt(timeStamp)

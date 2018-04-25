@@ -7,7 +7,6 @@
       :mask="true"
       :center="false"
       :z-index="zIndex"
-      :v-model="true"
       v-show="isVisible"
       @touchmove.prevent
       @mask-click="cancel">

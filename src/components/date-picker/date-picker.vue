@@ -1,6 +1,5 @@
 <template>
   <cube-cascade-picker
-    ref="cascadePicker"
     v-model="isVisible"
     :data="data"
     :selectedIndex="selectedIndex"
@@ -160,18 +159,6 @@
       }
     },
     methods: {
-      show() {
-        if (this.isVisible) {
-          return
-        }
-        this.$refs.cascadePicker.show()
-      },
-      hide() {
-        if (!this.isVisible) {
-          return
-        }
-        this.$refs.cascadePicker.hide()
-      },
       _select(selectedVal, selectedIndex, selectedText) {
         this.$emit(EVENT_SELECT, this._arrayToDate(selectedVal), selectedVal, selectedText)
       },
