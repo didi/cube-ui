@@ -46,9 +46,9 @@ describe('Select.vue', () => {
     vm.$parent.confirmTxt = 'confirm2'
     vm.$parent.cancelTxt = 'cancel2'
     vm.$nextTick(() => {
-      expect(vm.picker.$el.querySelector('.cube-picker-choose [data-action="cancel"]').textContent.trim())
+      expect(vm.picker.$el.querySelector('.cube-picker-choose .cancel').textContent.trim())
         .to.equal('cancel2')
-      expect(vm.picker.$el.querySelector('.cube-picker-choose [data-action="confirm"]').textContent.trim())
+      expect(vm.picker.$el.querySelector('.cube-picker-choose .confirm').textContent.trim())
         .to.equal('confirm2')
       expect(vm.picker.$el.querySelector('.cube-picker-choose h1').textContent.trim())
         .to.equal('title2')
@@ -72,7 +72,7 @@ describe('Select.vue', () => {
     setTimeout(() => {
       vm.picker.scrollTo(0, 1)
       setTimeout(() => {
-        const confirmBtn = document.querySelector('.cube-picker-choose [data-action="confirm"]')
+        const confirmBtn = document.querySelector('.cube-picker-choose .confirm')
         confirmBtn.click()
         expect(changeHandle)
           .to.be.callCount(1)

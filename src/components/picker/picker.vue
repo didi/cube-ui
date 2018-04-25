@@ -14,9 +14,9 @@
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
             <span class="cancel" @click="cancel">{{cancelTxt}}</span>
-            <div class="cube-picker-titles">
-              <h1 class="cube-picker-title">{{title}}</h1>
-              <h2 v-if="subtitle" class="cube-picker-subtitle">{{subtitle}}</h2>
+            <div class="title-group">
+              <h1 class="title">{{title}}</h1>
+              <h2 v-if="subtitle" class="subtitle">{{subtitle}}</h2>
             </div>
             <span class="confirm" @click="confirm">{{confirmTxt}}</span>
           </div>
@@ -289,27 +289,27 @@
       line-height: 60px
       padding: 0 $picker-lr-padding
       font-size: $fontsize-medium
-    .confirm
+    > .confirm
       color: $picker-confirm-btn-color
       &:active
         color: $picker-confirm-btn-active-color
-    .cancel
+    > .cancel
       color: $picker-cancel-btn-color
       &:active
         color: $picker-cancel-btn-active-color
-    .cube-picker-titles
+    > .title-group
       flex: auto
       display: flex
       height: 100%
       flex-flow: column
       justify-content: center
       text-align: center
-      .cube-picker-title
+      .title
         font-size: $fontsize-large-x
         line-height: 25px
         font-weight: normal
         color: $picker-title-color
-      .cube-picker-subtitle
+      .subtitle
         margin-top: 2px
         line-height: 16px
         font-size: $fontsize-small

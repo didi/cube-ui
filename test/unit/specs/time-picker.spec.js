@@ -20,11 +20,11 @@ describe('TimePicker', () => {
   it('should render correct contents', function (done) {
     vm = createPicker()
 
-    const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+    const cancelBtn = vm.$el.querySelector('.cube-picker-choose .cancel')
     expect(cancelBtn.textContent.trim())
       .to.equal('取消')
 
-    const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+    const confirmBtn = vm.$el.querySelector('.cube-picker-choose .confirm')
     expect(confirmBtn.textContent.trim())
       .to.equal('确定')
     vm.show()
@@ -67,11 +67,11 @@ describe('TimePicker', () => {
       }
     })
 
-    const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+    const cancelBtn = vm.$el.querySelector('.cube-picker-choose .cancel')
     expect(cancelBtn.textContent.trim())
       .to.equal('取消')
 
-    const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+    const confirmBtn = vm.$el.querySelector('.cube-picker-choose .confirm')
     expect(confirmBtn.textContent.trim())
       .to.equal('确定')
     vm.show()
@@ -104,14 +104,14 @@ describe('TimePicker', () => {
     return new Promise((resolve) => {
       vm.show()
       setTimeout(() => {
-        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        const cancelBtn = vm.$el.querySelector('.cube-picker-choose .cancel')
         cancelBtn.click()
         expect(cancelHandle)
           .to.be.callCount(1)
 
         vm.show()
         setTimeout(() => {
-          const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+          const confirmBtn = vm.$el.querySelector('.cube-picker-choose .confirm')
           confirmBtn.click()
           const now = +new Date()
           expect(selectHandle)
