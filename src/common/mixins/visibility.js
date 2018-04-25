@@ -24,8 +24,8 @@ export default {
     }
   },
   mounted() {
-    this.$watch('visible', (newVal) => {
-      newVal ? this.show() : this.hide()
+    this.$watch('visible', (newVal, oldVal) => {
+      newVal ? this.show() : oldVal && this.hide()
     }, {
       immediate: true
     })

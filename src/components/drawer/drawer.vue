@@ -100,10 +100,6 @@
         this.computedStyle()
       },
       hide() {
-        if (!this.isVisible) {
-          return
-        }
-
         this.slideStyle[transform] = 'translate3d(0, 0, 0)'
         this.shouldHide = true
       },
