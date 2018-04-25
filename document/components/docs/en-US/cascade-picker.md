@@ -222,9 +222,10 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| title | title | String | '' | - |
 | data | the cascading data used to init option items | Array | [] | - |
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| title | title | String | '' | - |
+| subtitle<sup>1.8.1</sup> | subtitle | String | '' | - |
 | cancelTxt | the text of the cancel button | String | '取消' | - |
 | confirmTxt | the text of the confirm button | String | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |

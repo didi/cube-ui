@@ -124,6 +124,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | - | - | - | - | - |
 | data | define the component name and properties of each node picker | Array | [] | - |
 | title | title | String | '' | - |
+| subtitle<sup>1.8.1</sup> | subtitle | String | '' | - |
 | cancelTxt | the text of the cancel button | String | '取消' | - |
 | confirmTxt | the text of the confirm button | String | '确定' | - |
 | nextTxt | the text of the next button | String | '下一步' | - |

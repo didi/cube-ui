@@ -126,6 +126,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | nextTxt | 下一步按钮文案 | String | '下一步' | - |
 | prevTxt | 上一步按钮文案 | String | '下一步' | - |
 | title | 标题 | String | '' | - |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | '' | - |
 | cancelTxt | 取消按钮文案 | String | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | '确定' | - |
 | swipeTime<sup>1.8.1</sup> | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |

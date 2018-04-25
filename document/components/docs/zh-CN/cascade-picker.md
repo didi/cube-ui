@@ -212,9 +212,10 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
-| title | 标题 | String | '' | - |
 | data | 级联选择器的树形数据，用于初始化选项 | Array | [] | - |
 | selectedIndex | 被选中的索引值，拉起选择器后显示这个索引值对应的内容 | Array | [] | [1] |
+| title | 标题 | String | '' | - |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | '' | - |
 | cancelTxt | 取消按钮文案 | String | '取消' | - |
 | confirmTxt | 确定按钮文案 | String | '确定' | - |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
