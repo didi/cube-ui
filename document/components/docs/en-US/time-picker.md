@@ -160,7 +160,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | - | - | - | - |
 | len | date column, postpone `len` days backwards from now | Number | 3 |
 | filter | date column, map time to the text in filter | Array | ['今日'] |
-| format | format time | String | 'M月d日' |
+| format | format time | String | 'M月D日' |
 
 ### Events
 

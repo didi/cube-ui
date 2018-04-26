@@ -150,7 +150,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | - | - | - | - |
 | len | 日期列，从当前时间算起，往后推len天 | Number | 3 |
 | filter | 日期列，将时间映射为filter中的文案内容 | Array | ['今日'] |
-| format | 时间格式化 | String | 'M月d日' |
+| format | 时间格式化 | String | 'M月D日' |
 
 ### 事件
 
