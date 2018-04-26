@@ -71,7 +71,7 @@
           return {
             len: 3,
             filter: ['今日'],
-            format: 'M月d日'
+            format: 'M月D日'
           }
         }
       },

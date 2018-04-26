@@ -61,8 +61,8 @@ describe('SegmentPicker', () => {
     expect(wheels.length)
       .to.equal(7)
 
-    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose .cube-picker-cancel')
-    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose .cube-picker-confirm')
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-cancel')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-confirm')
 
     expect(cancelBtns[0].textContent.trim())
       .to.equal('Cancel')
@@ -113,8 +113,8 @@ describe('SegmentPicker', () => {
     })
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
-    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose .cube-picker-cancel')
-    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose .cube-picker-confirm')
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-cancel')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-confirm')
 
     // change
     vm.show()
@@ -202,7 +202,7 @@ describe('SegmentPicker', () => {
     })
 
     vm.$nextTick(() => {
-      const titles = vm.$el.querySelectorAll('.cube-picker-choose .cube-picker-title')
+      const titles = vm.$el.querySelectorAll('.cube-picker-title')
       expect(titles[0].textContent.trim())
         .to.equal('Dota')
 
