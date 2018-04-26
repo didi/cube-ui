@@ -58,6 +58,12 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
+    props: {
+      pending: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
         pickerData: this.data.slice(),
@@ -249,7 +255,7 @@
         }
       },
       _canConfirm() {
-        return this.wheels.every((wheel) => {
+        return !this.pending && this.wheels.every((wheel) => {
           return !wheel.isInTransition
         })
       }

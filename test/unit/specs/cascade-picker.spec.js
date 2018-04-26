@@ -158,6 +158,74 @@ describe('CascadePicker', () => {
     }, 100)
   })
 
+  it('should support async cascade', function (done) {
+    this.timeout(10000)
+
+    const data = [
+      { value: 1,
+        text: '1',
+        children: [{value: 11, text: '11'}]
+      }, {
+        value: 2,
+        text: '2'
+      }
+    ]
+
+    const selectedIndex = [0, 0]
+    const selectHandle = sinon.spy()
+
+    vm = createCascadePicker({
+      async: true,
+      data: data,
+      selectedIndex: selectedIndex.slice()
+    }, {
+      select: selectHandle,
+      change: (i, newIndex) => {
+        if (newIndex !== selectedIndex[i]) {
+          selectedIndex.splice(i, 1, newIndex)
+          if (i < 1) {
+            expect(selectHandle)
+              .to.be.callCount(0)
+            vm.$nextTick(() => {
+              const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+              confirmBtn.click()
+              expect(selectHandle)
+                .to.be.callCount(0)
+
+              setTimeout(() => {
+                data[1].children = [{value: 21, text: '21'}]
+                vm.setData(data, selectedIndex)
+                vm.$nextTick(() => {
+                  confirmBtn.click()
+                  expect(selectHandle)
+                    .to.be.callCount(1)
+
+                  done()
+                })
+              }, 500)
+            })
+          }
+        }
+      }
+    })
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      const firstWheelItems = wheels[0].querySelectorAll('li')
+
+      dispatchSwipe(firstWheelItems[1], [
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: firstWheelItems[1].offsetTop + 10
+        },
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: 60
+        }
+      ], 100)
+    }, 150)
+  })
+
   it('$updateProps', function (done) {
     this.timeout(10000)
 
@@ -190,6 +258,7 @@ describe('CascadePicker', () => {
     console.warn = function (...args) {
       msgs.push(args.join('#'))
     }
+
     vm = app.$createCascadePicker({}, true)
     expect(msgs.length)
       .to.equal(1)
