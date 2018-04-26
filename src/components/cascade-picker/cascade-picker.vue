@@ -5,6 +5,7 @@
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
       :title="title"
+      :subtitle="subtitle"
       :z-index="zIndex"
       :cancel-txt="cancelTxt"
       :confirm-txt="confirmTxt"

@@ -138,6 +138,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | showNow | 是否显示当前时间 | Boolean | true |
 | minuteStep | 分钟数的步长 | Number | 10 |
 | title | 标题 | String | '选择时间' |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | '' |
 | cancelTxt<sup>1.8.1</sup> | 取消按钮文案 | String | '取消' |
 | confirmTxt<sup>1.8.1</sup> | 确定按钮文案 | String | '确定' |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |

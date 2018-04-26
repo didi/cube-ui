@@ -22,9 +22,19 @@ describe('CascadePicker', () => {
 
   it('should render correct contents', function () {
     vm = createCascadePicker({
+      title: 'title',
+      subtitle: 'subtitle',
       data: cascadeData,
       selectedIndex: [1, 1, 3]
     })
+
+    const titleEl = vm.$el.querySelector('.cube-picker-title')
+    expect(titleEl.textContent.trim())
+      .to.equal('title')
+
+    const subtitleEl = vm.$el.querySelector('.cube-picker-subtitle')
+    expect(subtitleEl.textContent.trim())
+      .to.equal('subtitle')
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
     expect(wheels.length)
@@ -105,14 +115,14 @@ describe('CascadePicker', () => {
           .to.be.callCount(1)
 
         // select
-        const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+        const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
         confirmBtn.click()
         expect(selectHandle)
           .to.be.callCount(1)
 
         // cancel
         vm.show()
-        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
         cancelBtn.click()
         expect(cancelHandle)
           .to.be.callCount(1)

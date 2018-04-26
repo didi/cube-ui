@@ -3,6 +3,9 @@ export default {
     title: {
       type: String
     },
+    subtitle: {
+      type: String
+    },
     cancelTxt: {
       type: String,
       default: '取消'

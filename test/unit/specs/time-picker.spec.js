@@ -20,11 +20,11 @@ describe('TimePicker', () => {
   it('should render correct contents', function (done) {
     vm = createPicker()
 
-    const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+    const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
     expect(cancelBtn.textContent.trim())
       .to.equal('取消')
 
-    const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+    const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
     expect(confirmBtn.textContent.trim())
       .to.equal('确定')
     vm.show()
@@ -32,24 +32,32 @@ describe('TimePicker', () => {
       const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
       expect(wheels.length)
         .to.equal(3)
+
       const firstWheelItems = wheels[0].querySelectorAll('li')
       expect(firstWheelItems.length)
         .to.equal(3)
       expect(firstWheelItems[0].textContent.trim())
         .to.equal('今日')
-      const secondWheelItem = wheels[1].querySelector('li')
-      expect(secondWheelItem.textContent.trim())
+
+      const secondWheelItems = wheels[1].querySelectorAll('li')
+      expect(secondWheelItems[0].textContent.trim())
         .to.equal('现在')
+
       vm.hide()
+
       setTimeout(() => {
-        const nextDate = +new Date(Date.now() + 24 * 60 * 60 * 1000)
-        vm.setTime(nextDate)
+        const nextDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
+        vm.setTime(+nextDate)
         vm.show()
         setTimeout(() => {
           const wheel = vm.$el.querySelector('.cube-picker-wheel-wrapper > div > ul')
           const transform = wheel.style.webkitTransform || wheel.style.transform
           expect(transform.match(/translate\(0px,\s*(-?\d+)px\)/)[1])
             .to.equal('-36')
+
+          expect(firstWheelItems[1].textContent.trim())
+            .to.equal(`${nextDate.getMonth() + 1}月${nextDate.getDate()}日`)
+
           done()
         }, 100)
       })
@@ -67,11 +75,11 @@ describe('TimePicker', () => {
       }
     })
 
-    const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+    const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
     expect(cancelBtn.textContent.trim())
       .to.equal('取消')
 
-    const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+    const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
     expect(confirmBtn.textContent.trim())
       .to.equal('确定')
     vm.show()
@@ -104,14 +112,14 @@ describe('TimePicker', () => {
     return new Promise((resolve) => {
       vm.show()
       setTimeout(() => {
-        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
         cancelBtn.click()
         expect(cancelHandle)
           .to.be.callCount(1)
 
         vm.show()
         setTimeout(() => {
-          const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+          const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
           confirmBtn.click()
           const now = +new Date()
           expect(selectHandle)

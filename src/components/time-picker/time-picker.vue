@@ -5,6 +5,7 @@
     :data="data"
     :selected-index="selectedIndex"
     :title="title"
+    :subtitle="subtitle"
     :cancel-txt="cancelTxt"
     :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
@@ -70,7 +71,7 @@
           return {
             len: 3,
             filter: ['今日'],
-            format: 'M月d日'
+            format: 'M月D日'
           }
         }
       },
