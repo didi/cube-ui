@@ -4,6 +4,7 @@
       v-model="isVisible"
       :data="pickerData"
       :selected-index="pickerSelectedIndex"
+      :pending="pending"
       :title="title"
       :subtitle="subtitle"
       :z-index="zIndex"
@@ -30,11 +31,18 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
+    props: {
+      async: {
+        type: Boolean,
+        default: false
+      }
+    },
     data () {
       return {
         cascadeData: this.data.slice(),
         pickerSelectedIndex: this.selectedIndex.slice(),
-        pickerData: []
+        pickerData: [],
+        pending: false
       }
     },
     created() {
@@ -42,8 +50,9 @@
     },
     methods: {
       setData(data, selectedIndex = []) {
-        this.cascadeData = data
-        this.pickerSelectedIndex = selectedIndex
+        this.pending = false
+        this.cascadeData = data.slice()
+        this.pickerSelectedIndex = selectedIndex.slice()
         this._updatePickerData()
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
@@ -55,7 +64,9 @@
       _pickerChange(i, newIndex) {
         if (newIndex !== this.pickerSelectedIndex[i]) {
           this.pickerSelectedIndex.splice(i, 1, newIndex)
-          this._updatePickerData(i + 1)
+          this.async
+            ? (this.pending = true)
+            : this._updatePickerData(i + 1)
         }
         this.$emit(EVENT_CHANGE, i, newIndex)
       },
