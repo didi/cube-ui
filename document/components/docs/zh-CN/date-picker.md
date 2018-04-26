@@ -242,6 +242,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | columnCount | 列数 | Number | - | 3 | 6 |
 | format<sup>1.8.0+</sup> | 日期格式 | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'MM月', date: '第 D 日' } |
 | title | 标题 | String | - | '' | '时间选择' |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | - | '' | - |
 | cancelTxt | 取消按钮文案 | String | - | '取消' | '返回' |
 | confirmTxt | 确定按钮文案 | String | - | '确定' | '选择' |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | - | 2500 | - |

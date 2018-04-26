@@ -7,7 +7,7 @@
         <cube-button @click="showAliasPicker">Use alias</cube-button>
         <cube-button @click="showSetDataPicker">Use setData</cube-button>
         <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
-        <cube-button @click="showNormalTimePicker">Normal Time Picker</cube-button>
+        <cube-button @click="showSubtitlePicker">Use subtitle</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -16,12 +16,7 @@
 <script type="text/ecmascript-6">
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
-  import NormalTimePicker from 'example/components/normal-time-picker.vue'
   import { data1, data2, data3 } from 'example/data/picker'
-  import Vue from 'vue'
-  import createAPI from '@/modules/create-api'
-
-  createAPI(Vue, NormalTimePicker, ['select', 'cancel'], false)
 
   export default {
     mounted() {
@@ -64,8 +59,10 @@
         onCancel: this.cancelHandle
       })
 
-      this.normalTimePicker = this.$createNormalTimePicker({
-        selectedIndex: [10, 20, 59],
+      this.subtitlePicker = this.$createPicker({
+        title: 'Picker',
+        subtitle: 'subtitle',
+        data: [data1],
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
@@ -94,8 +91,8 @@
           })
         }, 1000)
       },
-      showNormalTimePicker() {
-        this.normalTimePicker.show()
+      showSubtitlePicker() {
+        this.subtitlePicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({

@@ -148,6 +148,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | showNow | whether to display current time | Boolean | true |
 | minuteStep | step of the minute | Number | 10 |
 | title | title | String | '选择时间' |
+| subtitle<sup>1.8.1</sup> | subtitle | String | '' |
 | cancelTxt<sup>1.8.1</sup> | the text of the cancel button | String | '取消' |
 | confirmTxt<sup>1.8.1</sup> | the text of the confirm button | String | '确定' |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |

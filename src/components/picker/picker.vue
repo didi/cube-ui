@@ -1,7 +1,6 @@
 <template>
   <transition name="cube-picker-fade">
-    <!-- If use v-model to toggle the popup, it will have a micro-delay caused by vue watch, so that the animation will be broken. -->
-    <!-- So we keep the v-model true and use v-show to toggle the popup. -->
+    <!-- Transition animation need use with v-show in the same template. -->
     <cube-popup
       type="picker"
       :mask="true"
@@ -13,21 +12,27 @@
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
-            <span data-action="cancel" @click="cancel">{{cancelTxt}}</span>
-            <span data-action="confirm" @click="confirm">{{confirmTxt}}</span>
-            <h1>{{title}}</h1>
+            <span class="cube-picker-cancel" @click="cancel">{{cancelTxt}}</span>
+            <div class="cube-picker-title-group">
+              <h1 class="cube-picker-title">{{title}}</h1>
+              <h2 v-if="subtitle" class="cube-picker-subtitle">{{subtitle}}</h2>
+            </div>
+            <span class="cube-picker-confirm" @click="confirm">{{confirmTxt}}</span>
           </div>
+
           <div class="cube-picker-content">
             <i class="border-bottom-1px"></i>
             <i class="border-top-1px"></i>
             <div class="cube-picker-wheel-wrapper" ref="wheelWrapper">
               <div v-for="(data,index) in pickerData" :key="index">
-                <ul class="wheel-scroll">
-                  <li v-for="(item,index) in data" class="wheel-item" :key="index">{{item[textKey]}}</li>
+                <!-- The class name of the ul and li need be configured to BetterScroll. -->
+                <ul class="cube-picker-wheel-scroll">
+                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index">{{item[textKey]}}</li>
                 </ul>
               </div>
             </div>
           </div>
+
           <div class="cube-picker-footer"></div>
         </div>
       </transition>
@@ -178,7 +183,7 @@
       },
       refillColumn(index, data) {
         const wheelWrapper = this.$refs.wheelWrapper
-        let scroll = wheelWrapper.children[index].querySelector('.wheel-scroll')
+        let scroll = wheelWrapper.children[index].querySelector('.cube-picker-wheel-scroll')
         let wheel = this.wheels ? this.wheels[index] : false
         let dist = 0
         if (scroll && wheel) {
@@ -219,7 +224,9 @@
         if (!this.wheels[i]) {
           const wheel = this.wheels[i] = new BScroll(wheelWrapper.children[i], {
             wheel: {
-              selectedIndex: this.pickerSelectedIndex[i] || 0
+              selectedIndex: this.pickerSelectedIndex[i] || 0,
+              wheelWrapperClass: 'cube-picker-wheel-scroll',
+              wheelItemClass: 'cube-picker-wheel-item'
             },
             swipeTime: this.swipeTime,
             observeDOM: false
@@ -279,29 +286,44 @@
 
   .cube-picker-choose
     position: relative
+    display: flex
     height: 60px
-    > span
-      position: absolute
-      top: 6px
-      padding: 16px $picker-lr-padding
-      font-size: $fontsize-medium
-    > [data-action="confirm"]
-      right: 0
-      color: $picker-confirm-btn-color
-      &:active
-        color: $picker-confirm-btn-active-color
-    > [data-action="cancel"]
-      left: 0
-      color: $picker-cancel-btn-color
-      &:active
-        color: $picker-cancel-btn-active-color
-    > h1
-      margin: 0
-      line-height: 60px
-      text-align: center
-      font-weight: normal
-      font-size: $fontsize-large-x
-      color: $picker-title-color
+
+  .cube-picker-confirm, .cube-picker-cancel
+    font-size: $fontsize-medium
+    line-height: 60px
+    padding: 0 $picker-lr-padding
+    font-size: $fontsize-medium
+
+  .cube-picker-confirm
+    color: $picker-confirm-btn-color
+    &:active
+      color: $picker-confirm-btn-active-color
+
+  .cube-picker-cancel
+    color: $picker-cancel-btn-color
+    &:active
+      color: $picker-cancel-btn-active-color
+
+  .cube-picker-title-group
+    flex: auto
+    display: flex
+    height: 100%
+    flex-flow: column
+    justify-content: center
+    text-align: center
+
+  .cube-picker-title
+    font-size: $fontsize-large-x
+    line-height: 25px
+    font-weight: normal
+    color: $picker-title-color
+
+  .cube-picker-subtitle
+    margin-top: 2px
+    line-height: 16px
+    font-size: $fontsize-small
+    color: $picker-subtitle-color
 
   .cube-picker-content
     position: relative
@@ -330,17 +352,18 @@
       overflow: hidden
       font-size: $fontsize-large-xx
 
-  .wheel-scroll
+  .cube-picker-wheel-scroll
     padding: 0
     margin-top: 68px
     line-height: 36px
     list-style: none
-    > li
-      list-style: none
-      height: 36px
-      overflow: hidden
-      white-space: nowrap
-      color: $picker-item-color
+
+  .cube-picker-wheel-item
+    list-style: none
+    height: 36px
+    overflow: hidden
+    white-space: nowrap
+    color: $picker-item-color
 
   .cube-picker-footer
     height: 20px

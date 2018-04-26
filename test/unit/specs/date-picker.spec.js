@@ -77,7 +77,7 @@ describe('DatePicker', () => {
     // test: _arrayToDate if (i < this.beginIndex)
     vm.show()
     setTimeout(() => {
-      const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
       confirmBtn.click()
       done()
     }, 50)
@@ -156,14 +156,14 @@ describe('DatePicker', () => {
           .to.be.callCount(1)
 
         // select
-        const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+        const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
         confirmBtn.click()
         expect(selectHandle)
           .to.be.callCount(1)
 
         // cancel
         vm.show()
-        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
         cancelBtn.click()
         expect(cancelHandle)
           .to.be.callCount(1)
@@ -205,7 +205,7 @@ describe('DatePicker', () => {
 
     vm.show()
     setTimeout(() => {
-      const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
       confirmBtn.click()
       expect(selectHandle)
         .to.be.calledWith(new Date(2010, 9, 1), [2010, 10, 1], ['2010', '10', '1'])

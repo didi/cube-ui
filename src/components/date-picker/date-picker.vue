@@ -4,6 +4,7 @@
     :data="data"
     :selectedIndex="selectedIndex"
     :title="title"
+    :subtitle="subtitle"
     :cancel-txt="cancelTxt"
     :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
