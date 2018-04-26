@@ -1,19 +1,20 @@
 <template>
   <cube-picker
-      ref="picker"
-      v-model="isVisible"
-      :data="pickerData"
-      :selected-index="pickerSelectedIndex"
-      :pending="pending"
-      :title="title"
-      :subtitle="subtitle"
-      :z-index="zIndex"
-      :cancel-txt="cancelTxt"
-      :confirm-txt="confirmTxt"
-      :swipe-time="swipeTime"
-      @select="_pickerSelect"
-      @cancel="_pickerCancel"
-      @change="_pickerChange"></cube-picker>
+    ref="picker"
+    v-model="isVisible"
+    :data="pickerData"
+    :selected-index="pickerSelectedIndex"
+    :pending="pending"
+    :title="title"
+    :subtitle="subtitle"
+    :z-index="zIndex"
+    :cancel-txt="cancelTxt"
+    :confirm-txt="confirmTxt"
+    :swipe-time="swipeTime"
+    @select="_pickerSelect"
+    @cancel="_pickerCancel"
+    @change="_pickerChange">
+  </cube-picker>
 </template>
 
 <script type="text/ecmascript-6">
@@ -65,7 +66,7 @@
         if (newIndex !== this.pickerSelectedIndex[i]) {
           this.pickerSelectedIndex.splice(i, 1, newIndex)
           this.async
-            ? (this.pending = true)
+            ? (this.pending = i !== this.pickerData.length - 1)
             : this._updatePickerData(i + 1)
         }
         this.$emit(EVENT_CHANGE, i, newIndex)

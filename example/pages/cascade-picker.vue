@@ -68,21 +68,20 @@
         onChange: (i, newIndex) => {
           if (newIndex !== asyncSelectedIndex[i]) {
             asyncSelectedIndex.splice(i, 1, newIndex)
-            if (i === 2) {
-              this.asyncPicker.setData(asyncData, asyncSelectedIndex)
-            }
-            setTimeout(() => {
-              if (i === 0) {
-                const current = asyncData[newIndex]
-                current.children = current.children || cityList[current.value]
-              }
+            if (i < 2) {
+              setTimeout(() => {
+                if (i === 0) {
+                  const current = asyncData[newIndex]
+                  current.children = current.children || cityList[current.value]
+                }
 
-              if (i === 1) {
-                const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
-                current.children = current.children || areaList[current.value]
-              }
-              this.asyncPicker.setData(asyncData, asyncSelectedIndex)
-            }, 3000)
+                if (i === 1) {
+                  const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
+                  current.children = current.children || areaList[current.value]
+                }
+                this.asyncPicker.setData(asyncData, asyncSelectedIndex)
+              }, 500)
+            }
           }
         }
       })
