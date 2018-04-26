@@ -5,6 +5,7 @@
         <cube-button @click="showCascadePicker">Cascade Picker</cube-button>
         <cube-button @click="showCityPicker">City Picker</cube-button>
         <cube-button @click="showSetDataPicker">Set Data</cube-button>
+        <cube-button @click="showAsyncPicker">Async Cascade</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -16,13 +17,18 @@
   import { provinceList, cityList, areaList } from 'example/data/area'
   import { cascadeData } from 'example/data/cascade'
 
-  const cityData = provinceList
+  const cityData = provinceList.slice()
   cityData.forEach(province => {
     province.children = cityList[province.value]
     province.children.forEach(city => {
       city.children = areaList[city.value]
     })
   })
+
+  const asyncData = provinceList.slice()
+  const asyncSelectedIndex = [0, 0, 0]
+  asyncData[0].children = cityList[asyncData[0].value]
+  asyncData[0].children[0].children = areaList[asyncData[0].children[0].value]
 
   export default {
     mounted() {
@@ -51,6 +57,34 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
+
+      this.asyncPicker = this.$createCascadePicker({
+        title: 'Async Cascade',
+        async: true,
+        data: asyncData,
+        selectedIndex: asyncSelectedIndex.slice(),
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle,
+        onChange: (i, newIndex) => {
+          if (newIndex !== asyncSelectedIndex[i]) {
+            asyncSelectedIndex.splice(i, 1, newIndex)
+            if (i < 2) {
+              setTimeout(() => {
+                if (i === 0) {
+                  const current = asyncData[newIndex]
+                  current.children = current.children || cityList[current.value]
+                }
+
+                if (i === 1) {
+                  const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
+                  current.children = current.children || areaList[current.value]
+                }
+                this.asyncPicker.setData(asyncData, asyncSelectedIndex)
+              }, 500)
+            }
+          }
+        }
+      })
     },
     methods: {
       showCascadePicker() {
@@ -68,6 +102,9 @@
           /* setData when the picker is visible */
           this.setDataPicker.setData(cityData, [1, 1, 0])
         }, 1000)
+      },
+      showAsyncPicker() {
+        this.asyncPicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({
