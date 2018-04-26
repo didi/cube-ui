@@ -4,6 +4,7 @@
   "description": "A fantastic mobile ui lib implement by Vue",
   "main": "lib/index.js",
   "module": "src/index.js",
+  "postCompile": true,
   "scripts": {
     "prebuild": "npm run unit",
     "build": "node build/build.js",
