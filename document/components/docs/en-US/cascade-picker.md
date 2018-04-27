@@ -55,47 +55,47 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
       this.cascadePicker = this.$createCascadePicker({
         title: 'Cascade Picker',
         data: cascadeData,
-        selectedIndex: [1, 0, 0],
-        cancelTxt: 'Cancel',
-        confirmTxt: 'Confirm',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        selectedIndex: [0, 1, 0],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
       showCascadePicker() {
         this.cascadePicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
+
   When the first column goes to `Fruit`, the data of second column are `Apple` and `Orange`. And so on, when the second column goes to on `Orange`, the data of third column are `Three` and `Four`.
 
-- Province-city-area Picker
+- Address Picker
 
-  For province-city-area picker, the only thing you need to do is constructing the cascading data.
+  For address picker, the only thing you need to do is constructing the cascading data.
 
   ```html
-  <cube-button @click="showCityPicker">City Picker</cube-button>
+  <cube-button @click="showAddressPicker">Address Picker</cube-button>
   ```
   ```js
   import { provinceList, cityList, areaList } from 'example/data/area'
 
-  const cityData = provinceList
-  cityData.forEach(province => {
+  const addressData = provinceList
+  addressData.forEach(province => {
     province.children = cityList[province.value]
     province.children.forEach(city => {
       city.children = areaList[city.value]
@@ -104,71 +104,30 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
   export default {
     mounted () {
-      this.cityPicker = this.$createCascadePicker({
+      this.addressPicker = this.$createCascadePicker({
         title: 'City Picker',
-        data: cityData,
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        data: addressData,
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
-      showCityPicker() {
-        this.cityPicker.show()
-      }
-    }
-  }
-  ```
-
-- Date Picker
-
-  As same as province-city-area picker, you just need to construct the cascading data. Besides, we have written a [DatePicker component in example](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue), which could help you construct the cascading data with start date and end date.
-
-  ```html
-  <cube-button @click="showDatePicker">Date Picker</cube-button>
-  ```
-  ```js
-  import DatePicker from 'example/components/date-picker.vue'
-
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
-
-  export default {
-    mounted () {
-      this.datePicker = this.$createDatePicker({
-        min: [2008, 8, 8],
-        max: [2020, 10, 20],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    methods: {
-      showDatePicker() {
-        this.datePicker.show()
+      showAddressPicker() {
+        this.addressPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
@@ -179,40 +138,105 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   You could use `setData` to reset the cascading data and selected index of `CascadePicker` instance no matter whether the picker is visible.
 
   ```html
-  <cube-button @click="showPicker">SetData Picker</cube-button>
+  <cube-button @click="showSetDataPicker">SetData Picker</cube-button>
   ```
   ```js
   export default {
     mounted () {
       this.setDataPicker = this.$createCascadePicker({
         title: 'Set Data',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
       showSetDataPicker() {
-        /* setData when the picker is invisible */
+        // setData when the picker is invisible.
         this.setDataPicker.setData(cascadeData)
 
         this.setDataPicker.show()
         setTimeout(() => {
-          /* setData when the picker is visible */
-          this.setDataPicker.setData(cityData, [1, 1, 0])
+          // setData when the picker is visible.
+          this.setDataPicker.setData(addressData, [1, 1, 0])
         }, 1000)
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
+- Async load data
+
+  When the data is too large, it will be really hard to construct the whole cascade data tree at beginning. For this case, you could use the property `async` to enable async load data and update the data at the event `change`. Before the data is updated, we will block the confirm handler temporarily.
+
+  ```html
+  <cube-button @click="showAsyncPicker">Async Load Data</cube-button>
+  ```
+  ```js
+  export default {
+    mounted () {
+      this.asyncPicker = this.$createCascadePicker({
+        title: 'Async Load Data',
+        async: true,
+        data: asyncData,
+        selectedIndex: asyncSelectedIndex.slice(),
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle,
+        onChange: this.asyncChangeHandle
+      })
+    },
+    methods: {
+      asyncChangeHandle(i, newIndex) {
+        if (newIndex !== asyncSelectedIndex[i]) {
+          asyncSelectedIndex[i] = newIndex
+          // If the first two column is changed, request the data for rest columns.
+          if (i < 2) {
+            // Mock async load.
+            setTimeout(() => {
+              if (i === 0) {
+                const current = asyncData[newIndex]
+                current.children = current.children || asyncCityList[current.value]
+                current.children[0].children = current.children[0].children || asyncAreaList[current.children[0].value]
+                asyncSelectedIndex[1] = 0
+                asyncSelectedIndex[2] = 0
+              }
+
+              if (i === 1) {
+                const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
+                current.children = current.children || asyncAreaList[current.value]
+                asyncSelectedIndex[2] = 0
+              }
+              this.asyncPicker.setData(asyncData, asyncSelectedIndex)
+            }, 500)
+          }
+        }
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
@@ -224,6 +248,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | - | - | - | - | - |
 | data | the cascading data used to init option items | Array | [] | - |
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| async<sup>1.8.1</sup> | async load data | Boolean | false | - |
 | title | title | String | '' | - |
 | subtitle<sup>1.8.1</sup> | subtitle | String | '' | - |
 | cancelTxt | the text of the cancel button | String | '取消' | - |
