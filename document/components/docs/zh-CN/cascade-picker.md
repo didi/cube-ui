@@ -55,38 +55,47 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
       this.cascadePicker = this.$createCascadePicker({
         title: 'Cascade Picker',
         data: cascadeData,
-        selectedIndex: [1, 0, 0],
-        cancelTxt: 'Cancel',
-        confirmTxt: 'Confirm',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          console.log('select', selectedVal, selectedIndex, selectedText)
-        },
-        onCancel: () => {
-          console.log('cancel')
-        }
+        selectedIndex: [0, 1, 0],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
       showCascadePicker() {
         this.cascadePicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
+
   当第一列选中`Fruit`时，第二列的选项是`Apple`、`Orange`。以此类推，当第二列选中`Orange`时，第三列的选项是`Three`、`Four`。
 
-- 省市区选择器
+- 地址选择器
 
-  对于省市区选择器，只需要构造出级联选择器的数据结构传入就可以了。
+  对于地址选择器，只需要构造出级联选择器的数据结构传入就可以了。
 
   ```html
-  <cube-button @click="showCityPicker">City Picker</cube-button>
+  <cube-button @click="showAddressPicker">Address Picker</cube-button>
   ```
   ```js
   import { provinceList, cityList, areaList } from 'example/data/area'
 
-  const cityData = provinceList
-  cityData.forEach(province => {
+  const addressData = provinceList
+  addressData.forEach(province => {
     province.children = cityList[province.value]
     province.children.forEach(city => {
       city.children = areaList[city.value]
@@ -95,71 +104,30 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
   export default {
     mounted () {
-      this.cityPicker = this.$createCascadePicker({
+      this.addressPicker = this.$createCascadePicker({
         title: 'City Picker',
-        data: cityData,
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        data: addressData,
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
-      showCityPicker() {
-        this.cityPicker.show()
-      }
-    }
-  }
-  ```
-
-- 日期选择器
-
-  日期选择器的原理也是一样，就是构造出级联选择器的数据结构。而且我们还在示例中提供一个[日期选择器组件](https://github.com/didi/cube-ui/blob/dev/example/components/date-picker.vue)，可以传入起始日期和结束日期，帮你生成相应的级联树形数据结构。用法如下：
-
-  ```html
-  <cube-button @click="showDatePicker">Date Picker</cube-button>
-  ```
-  ```js
-  import DatePicker from 'example/components/date-picker.vue'
-
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
-
-  export default {
-    mounted () {
-      this.datePicker = this.$createDatePicker({
-        min: [2008, 8, 8],
-        max: [2020, 10, 20],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
-    methods: {
-      showDatePicker() {
-        this.datePicker.show()
+      showAddressPicker() {
+        this.addressPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
@@ -170,39 +138,105 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   `setData`方法，用于重置`CascadePicker`实例的数据和选中的索引。
 
   ```html
-  <cube-button @click="showPicker">SetData Picker</cube-button>
+  <cube-button @click="showSetDataPicker">SetData Picker</cube-button>
   ```
   ```js
   export default {
     mounted () {
       this.setDataPicker = this.$createCascadePicker({
         title: 'Set Data',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
       })
     },
     methods: {
       showSetDataPicker() {
-        // setData when picker is invisible
+        // setData when the picker is invisible.
         this.setDataPicker.setData(cascadeData)
+
         this.setDataPicker.show()
         setTimeout(() => {
-          // setData when picker is visible
-          this.setDataPicker.setData(cityData, [1, 1, 0])
+          // setData when the picker is visible.
+          this.setDataPicker.setData(addressData, [1, 1, 0])
         }, 1000)
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
+- 异步加载数据
+
+  当数据量太大时，可能难以在最开始就生成完整的级联数据树。这时，你可以配置 `async` 属性开启异步加载级联数据，在 `change` 事件时，去更新数据，并且在你更新完数据之前，用户点击确认会是无效的。
+
+  ```html
+  <cube-button @click="showAsyncPicker">Async Load Data</cube-button>
+  ```
+  ```js
+  export default {
+    mounted () {
+      this.asyncPicker = this.$createCascadePicker({
+        title: 'Async Load Data',
+        async: true,
+        data: asyncData,
+        selectedIndex: asyncSelectedIndex.slice(),
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle,
+        onChange: this.asyncChangeHandle
+      })
+    },
+    methods: {
+      asyncChangeHandle(i, newIndex) {
+        if (newIndex !== asyncSelectedIndex[i]) {
+          asyncSelectedIndex[i] = newIndex
+          // If the first two column is changed, request the data for rest columns.
+          if (i < 2) {
+            // Mock async load.
+            setTimeout(() => {
+              if (i === 0) {
+                const current = asyncData[newIndex]
+                current.children = current.children || asyncCityList[current.value]
+                current.children[0].children = current.children[0].children || asyncAreaList[current.children[0].value]
+                asyncSelectedIndex[1] = 0
+                asyncSelectedIndex[2] = 0
+              }
+
+              if (i === 1) {
+                const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
+                current.children = current.children || asyncAreaList[current.value]
+                asyncSelectedIndex[2] = 0
+              }
+              this.asyncPicker.setData(asyncData, asyncSelectedIndex)
+            }, 500)
+          }
+        }
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
@@ -214,6 +248,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | - | - | - | - | - |
 | data | 级联选择器的树形数据，用于初始化选项 | Array | [] | - |
 | selectedIndex | 被选中的索引值，拉起选择器后显示这个索引值对应的内容 | Array | [] | [1] |
+| async<sup>1.8.1</sup> | 异步加载数据 | Boolean | false | - |
 | title | 标题 | String | '' | - |
 | subtitle<sup>1.8.1</sup> | 副标题 | String | '' | - |
 | cancelTxt | 取消按钮文案 | String | '取消' | - |
