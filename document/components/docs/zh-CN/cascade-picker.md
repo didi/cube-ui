@@ -186,6 +186,13 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   <cube-button @click="showAsyncPicker">Async Load Data</cube-button>
   ```
   ```js
+  import { provinceList, cityList, areaList } from 'example/data/area'
+
+  const asyncData = provinceList
+  const asyncSelectedIndex = [0, 0, 0]
+  asyncData[0].children = cityList[asyncData[0].value]
+  asyncData[0].children[0].children = areaList[asyncData[0].children[0].value]
+
   export default {
     mounted () {
       this.asyncPicker = this.$createCascadePicker({
@@ -208,15 +215,15 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
             setTimeout(() => {
               if (i === 0) {
                 const current = asyncData[newIndex]
-                current.children = current.children || asyncCityList[current.value]
-                current.children[0].children = current.children[0].children || asyncAreaList[current.children[0].value]
+                current.children = current.children || cityList[current.value]
+                current.children[0].children = current.children[0].children || areaList[current.children[0].value]
                 asyncSelectedIndex[1] = 0
                 asyncSelectedIndex[2] = 0
               }
 
               if (i === 1) {
                 const current = asyncData[asyncSelectedIndex[0]].children[newIndex]
-                current.children = current.children || asyncAreaList[current.value]
+                current.children = current.children || areaList[current.value]
                 asyncSelectedIndex[2] = 0
               }
               this.asyncPicker.setData(asyncData, asyncSelectedIndex)
