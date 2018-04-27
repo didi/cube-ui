@@ -282,6 +282,9 @@
         this.scroll.off('scroll', this._pullDownScrollHandle)
       },
       _pullDownHandle() {
+        if (this.resetPullDownTimer) {
+          clearTimeout(this.resetPullDownTimer)
+        }
         this.beforePullDown = false
         this.isPullingDown = true
         this.$emit(EVENT_PULLING_DOWN)
@@ -310,13 +313,12 @@
         return new Promise((resolve) => {
           setTimeout(() => {
             this.scroll.finishPullDown()
-            this.isPullingDown = false
             resolve()
           }, stopTime)
         })
       },
       _afterPullDown(dirty) {
-        setTimeout(() => {
+        this.resetPullDownTimer = setTimeout(() => {
           this.pullDownStyle = `top:${PULL_DOWN_ELEMENT_INITIAL_HEIGHT}px`
           this.beforePullDown = true
           dirty && this.refresh()
