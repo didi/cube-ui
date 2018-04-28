@@ -102,13 +102,7 @@
         return this.type === 'password' && this.eye && !this.disabled
       },
       eyeClass() {
-        if (typeof this.eye === 'boolean') {
-          return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
-        } else {
-          return this.eye && this.eye.reverse
-            ? this.pwdVisible ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
-            : this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
-        }
+        return this.pwdVisible ^ this.eye.reverse ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
       }
     },
     watch: {
@@ -131,10 +125,13 @@
       },
       _computedPwdVisible() {
         if (typeof this.eye === 'boolean') {
-          this.pwdVisible = this.eye
-        } else {
-          this.pwdVisible = this.eye.open
+          let open = this.eye
+          this.eye = {
+            open: open,
+            reverse: false
+          }
         }
+        this.pwdVisible = !this.eye.reverse ? this.eye.open : !this.eye.open
       },
       handleFocus(e) {
         this.$emit(EVENT_FOCUS, e)
