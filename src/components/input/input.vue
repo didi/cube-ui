@@ -102,7 +102,13 @@
         return this.type === 'password' && this.eye && !this.disabled
       },
       eyeClass() {
-        return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
+        if (typeof this.eye === 'boolean') {
+          return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
+        } else {
+          return this.eye && this.eye.reverse
+            ? this.pwdVisible ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
+            : this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
+        }
       }
     },
     watch: {
