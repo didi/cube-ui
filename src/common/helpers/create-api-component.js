@@ -16,7 +16,7 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       }
       let instanceSingle = options
       if (typeof options === 'object') {
-        instanceSingle = !!options.single
+        instanceSingle = options.single
         delete options.single
       }
 
@@ -28,7 +28,17 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       }
       if (instanceSingle && singleComponent) {
         singleInstance.updateRenderData(data, renderFn)
+        // visibility mixin watch visible should not hide
+        singleComponent._createAPI_reuse = true
         singleInstance.$forceUpdate()
+        const oldVisible = singleComponent.visible
+        singleComponent.$nextTick(() => {
+          singleComponent._createAPI_reuse = false
+          // prop visible true -> to
+          if (oldVisible && singleComponent.visible) {
+            singleComponent.show()
+          }
+        })
         // singleComponent.show && singleComponent.show()
         return singleComponent
       }
@@ -75,7 +85,7 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       processEvents()
 
       if (typeof renderFn !== 'function' && single === undefined) {
-        single = !!renderFn
+        single = renderFn
         renderFn = null
       }
       // to get Vue options

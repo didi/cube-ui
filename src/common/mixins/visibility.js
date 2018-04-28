@@ -25,7 +25,11 @@ export default {
   },
   mounted() {
     this.$watch('visible', (newVal, oldVal) => {
-      newVal ? this.show() : oldVal && this.hide()
+      if (newVal) {
+        this.show()
+      } else if (oldVal && !this._createAPI_reuse) {
+        this.hide()
+      }
     }, {
       immediate: true
     })
