@@ -102,7 +102,7 @@
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
       },
       _showPwdEye() {
-        return this.type === 'password' && !this.disabled
+        return this.type === 'password' && this.eye && !this.disabled
       },
       eyeClass() {
         const eye = this.formatedEye
