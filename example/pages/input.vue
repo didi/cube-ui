@@ -34,10 +34,10 @@
                             @update:value="updatePwd"></switch-option>
             <switch-option class="item" name="show eye" :value="showEye"
                             @update:value="updateShowEye" v-if="isPwd"></switch-option>
-            <switch-option class="item" name="password visible" :value="pwdVisible"
-                            @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
             <switch-option class="item" name="reverse" :value="reverse"
                             @update:value="updateReverse" v-if="isPwd && showEye"></switch-option>
+            <switch-option class="item" name="password visible" :value="pwdVisible"
+                            @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
           </div>
         </div>
       </div>
