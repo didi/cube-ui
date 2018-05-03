@@ -95,15 +95,14 @@
         currentIndex: 0,
         scrollY: -1,
         diff: -1,
-        titleHeight: null
+        titleHeight: 0
       }
     },
     computed: {
       fixedTitle() {
-        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
-          return ''
-        }
-        return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
+        this.title && !this.titleHeight && this._caculateTitleHeight()
+
+        return this.scrollY <= -this.titleHeight && this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
       },
       shortcutList() {
         return this.data.map((group) => {
@@ -127,7 +126,7 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.titleHeight = this.title && this.$refs.title ? getRect(this.$refs.title).height : 0
+        this.title && this._caculateTitleHeight()
         this._calculateHeight()
       })
     },
@@ -172,6 +171,9 @@
       onPullingDown() {
         this.$emit(EVENT_PULLING_DOWN)
       },
+      _caculateTitleHeight() {
+        this.titleHeight = this.$refs.title ? getRect(this.$refs.title).height : 0
+      },
       _calculateHeight() {
         this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
         const subTitleEl = this.$el.getElementsByClassName('cube-index-list-anchor')[0]
@@ -208,7 +210,7 @@
       },
       title(newVal) {
         this.$nextTick(() => {
-          this.titleHeight = newVal && this.$refs.title ? getRect(this.$refs.title).height : 0
+          this._caculateTitleHeight()
           this._calculateHeight()
         })
       },
