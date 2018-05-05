@@ -1,13 +1,15 @@
 <template>
   <transition name="cube-drawer-move">
     <div class="cube-drawer-panel" v-show="isVisible">
-      <cube-scroll ref="scroll" :data="data">
-        <ul class="cube-drawer-list">
-          <slot>
-            <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" />
-          </slot>
-        </ul>
-      </cube-scroll>
+      <div class="cube-drawer-scroll-wrapper">
+        <cube-scroll ref="scroll" :data="data">
+          <ul class="cube-drawer-list">
+            <slot>
+              <cube-drawer-item v-for="(item, i) in data" :item="item" :key="i" :index="i" />
+            </slot>
+          </ul>
+        </cube-scroll>
+      </div>
     </div>
   </transition>
 </template>
@@ -83,7 +85,6 @@
   .cube-drawer-panel
     position: relative
     z-index: 1
-    height: 100%
     flex: 1
     width: 170px
     overflow: hidden
@@ -93,6 +94,10 @@
       margin-left: -67px
     &:first-child
       box-shadow: none
+    .cube-drawer-scroll-wrapper // fix flex item height: 100% bug in android
+      position: absolute
+      top: 0
+      bottom: 0
 
   .cube-drawer-move-enter, .cube-drawer-move-leave-to
     transform: translate(67px, 0)
