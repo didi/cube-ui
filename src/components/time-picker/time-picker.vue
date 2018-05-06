@@ -177,7 +177,8 @@
 
           resetStamp = resetStamp % HOUR_TIMESTAMP
           const minute = Math.floor(resetStamp / (this.minuteStep * MINUTE_TIMESTAMP))
-          const minuteIndex = minute - (dayIndex || hourIndex ? 0 : Math.floor(this.minTime.getMinutes() / this.minuteStep))
+          const isPart = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
+          const minuteIndex = minute - (isPart ? Math.floor(this.minTime.getMinutes() / this.minuteStep) : 0)
 
           this.selectedIndex.splice(0, 3, dayIndex, hourIndex, minuteIndex)
         }
