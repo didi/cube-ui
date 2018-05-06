@@ -1,8 +1,8 @@
 <template>
-  <cube-picker
+  <cube-cascade-picker
     ref="picker"
     v-model="isVisible"
-    :data="pickerData"
+    :data="cascadeData"
     :selected-index="selectedIndex"
     :title="title"
     :subtitle="subtitle"
@@ -12,12 +12,11 @@
     :z-index="zIndex"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
-    @change="_pickerChange"></cube-picker>
+    @change="_pickerChange">
+  </cube-cascade-picker>
 </template>
 
 <script type="text/ecmascript-6">
-  // TODO: 有延时，特别的延时超过一天的时候，是否还需要‘现在’？
-
   import {
     pad,
     formatDate,
@@ -30,26 +29,23 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
-  import CubePicker from '../picker/picker.vue'
+  import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
+
+  const NOW = {
+    value: 'now',
+    text: '现在'
+  }
 
   const COMPONENT_NAME = 'cube-time-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
 
-  const normalHours = []
-  for (let i = 0; i < 24; i++) {
-    normalHours.push({
-      value: i,
-      text: i + '点'
-    })
-  }
-
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin],
     components: {
-      CubePicker
+      CubeCascadePicker
     },
     props: {
       title: {
@@ -103,40 +99,50 @@
         }
         return days
       },
-      normalMinutes() {
-        const normalMinutes = []
+      hours() {
+        const hours = []
+        for (let i = 0; i < 24; i++) {
+          hours.push({
+            value: i,
+            text: i + '点',
+            children: this.minutes
+          })
+        }
+        return hours
+      },
+      partHours() {
+        const partHours = this.hours.slice(this.minTime.getHours())
+        partHours[0] = Object.assign({}, partHours[0], {children: this.partMinutes})
+
+        if (this.showNow) {
+          partHours.unshift({
+            value: NOW.value,
+            text: NOW.text,
+            children: []
+          })
+        }
+        return partHours
+      },
+      minutes() {
+        const minutes = []
         for (let i = 0; i < 60; i += this.minuteStep) {
-          normalMinutes.push({
+          minutes.push({
             value: i,
             text: pad(i) + '分'
           })
         }
-        return normalMinutes
+        return minutes
       },
-      pickerData() {
-        if (this.selectedIndex[0]) {
-          return [this.days, normalHours, this.normalMinutes]
-        }
-        const hours = normalHours.slice(this.minTime.getHours())
-
-        if (this.showNow) {
-          hours.unshift({
-            value: 'now',
-            text: '现在'
-          })
-          if (this.selectedIndex[1] === 0) {
-            return [this.days, hours, []]
-          }
-        }
-
-        if ((this.showNow && this.selectedIndex[1] === 1) || (!this.showNow && this.selectedIndex[0] === 0)) {
-          const begin = Math.floor(this.minTime.getMinutes() / this.minuteStep)
-          const minutes = this.normalMinutes.slice(begin)
-
-          return [this.days, hours, minutes]
-        }
-
-        return [this.days, hours, this.normalMinutes]
+      partMinutes() {
+        const begin = Math.floor(this.minTime.getMinutes() / this.minuteStep)
+        return this.minutes.slice(begin)
+      },
+      cascadeData() {
+        const data = this.days.slice()
+        data.forEach((item, index) => {
+          item.children = index ? this.hours : this.partHours
+        })
+        return data
       }
     },
     methods: {
@@ -180,14 +186,11 @@
         this.now = new Date()
       },
       _pickerChange(i, newIndex) {
-        if (this.selectedIndex[i] !== newIndex) {
-          this.selectedIndex.splice(i, 1, newIndex)
-        }
-        this.$emit(EVENT_CHANGE)
+        this.$emit(EVENT_CHANGE, i, newIndex)
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
-        if (this.showNow && !selectedIndex[0] && !selectedIndex[1]) {
-          this.$emit(EVENT_SELECT, +new Date(), '现在')
+        if (selectedVal[1] === NOW.value) {
+          this.$emit(EVENT_SELECT, +new Date(), NOW.text)
         } else {
           const timestamp = +getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
           const text = selectedText[0] + ' ' + selectedText[1] + ':' + selectedText[2]
