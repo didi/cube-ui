@@ -33,7 +33,7 @@
 
   const NOW = {
     value: 'now',
-    text: '现在'
+    defaultText: '现在'
   }
 
   const COMPONENT_NAME = 'cube-time-picker'
@@ -67,7 +67,7 @@
         }
       },
       showNow: {
-        type: Boolean,
+        type: [Boolean, Object],
         default: true
       },
       minuteStep: {
@@ -83,6 +83,9 @@
       }
     },
     computed: {
+      nowText() {
+        return (this.showNow && this.showNow.text) || NOW.defaultText
+      },
       minTime() {
         return new Date(+this.now + this.delay * MINUTE_TIMESTAMP)
       },
@@ -117,7 +120,7 @@
         if (this.showNow) {
           partHours.unshift({
             value: NOW.value,
-            text: NOW.text,
+            text: this.nowText,
             children: []
           })
         }
@@ -165,11 +168,12 @@
         const minTime = this.minTime
 
         if (value <= +minTime) {
-          return [0, 0, 0]
+          this.selectedIndex = [0, 0, 0]
         } else {
-          const dayIndex = getDayDiff(new Date(value), minTime)
+          const valueDate = new Date(value)
+          const dayIndex = getDayDiff(valueDate, minTime)
 
-          const valueZeroStamp = getZeroStamp(new Date(value))
+          const valueZeroStamp = getZeroStamp(valueDate)
           let resetStamp = value - valueZeroStamp
           const hour = Math.floor(resetStamp / HOUR_TIMESTAMP)
           const minHour = this.minTime.getHours()
@@ -180,7 +184,7 @@
           const isPart = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
           const minuteIndex = minute - (isPart ? Math.floor(this.minTime.getMinutes() / this.minuteStep) : 0)
 
-          this.selectedIndex.splice(0, 3, dayIndex, hourIndex, minuteIndex)
+          this.selectedIndex = [dayIndex, hourIndex, minuteIndex]
         }
       },
       _updateNow() {
@@ -191,9 +195,9 @@
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
         if (selectedVal[1] === NOW.value) {
-          this.$emit(EVENT_SELECT, +new Date(), NOW.text)
+          this.$emit(EVENT_SELECT, +new Date(), this.nowText)
         } else {
-          const timestamp = +getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
+          const timestamp = getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
           const text = selectedText[0] + ' ' + selectedText[1] + ':' + selectedText[2]
           this.value = timestamp
           this.$emit(EVENT_SELECT, timestamp, text)
