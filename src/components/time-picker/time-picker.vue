@@ -153,14 +153,14 @@
         this.isVisible = true
 
         this._updateNow()
-        this._updateSelecteIndex()
+        this._updateSelectedIndex()
       },
       setTime(value) {
         this.value = value
 
-        this.isVisible && this._updateSelecteIndex()
+        this.isVisible && this._updateSelectedIndex()
       },
-      _updateSelecteIndex() {
+      _updateSelectedIndex() {
         const value = this.value
         const minTime = this.minTime
 
