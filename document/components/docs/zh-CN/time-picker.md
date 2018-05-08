@@ -134,7 +134,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 参数 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
 | delay | 将当前时间向后推算的分钟数，决定了最小可选时间 | Number | 15 |
-| day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月d日' } |
+| day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
 | showNow | 是否显示当前时间 | Boolean | true |
 | minuteStep | 分钟数的步长 | Number | 10 |
 | title | 标题 | String | '选择时间' |
