@@ -55,6 +55,7 @@
 
   const EVENT_SCROLL = 'scroll'
   const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
+  const EVENT_SCROLL_END = 'scroll-end'
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
@@ -84,6 +85,10 @@
         }
       },
       listenScroll: {
+        type: Boolean,
+        default: false
+      },
+      listenScrollEnd: {
         type: Boolean,
         default: false
       },
@@ -216,6 +221,12 @@
         if (this.listenBeforeScroll) {
           this.scroll.on('beforeScrollStart', () => {
             this.$emit(EVENT_BEFORE_SCROLL_START)
+          })
+        }
+
+        if (this.listenScrollEnd) {
+          this.scroll.on('scrollEnd', (pos) => {
+            this.$emit(EVENT_SCROLL_END, pos)
           })
         }
 
