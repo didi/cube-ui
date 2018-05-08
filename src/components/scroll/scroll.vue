@@ -4,7 +4,13 @@
       <div ref="listWrapper" class="cube-scroll-list-wrapper">
         <slot>
           <ul class="cube-scroll-list">
-            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+            <li
+              class="cube-scroll-item border-bottom-1px"
+              v-for="(item, index) in data"
+              :key="index"
+              @click="clickItem(item)">
+              {{item}}
+            </li>
           </ul>
         </slot>
       </div>
@@ -20,12 +26,12 @@
       </slot>
     </div>
     <slot
-        name="pulldown"
-        :pullDownRefresh="pullDownRefresh"
-        :pullDownStyle="pullDownStyle"
-        :beforePullDown="beforePullDown"
-        :isPullingDown="isPullingDown"
-        :bubbleY="bubbleY">
+      name="pulldown"
+      :pullDownRefresh="pullDownRefresh"
+      :pullDownStyle="pullDownStyle"
+      :beforePullDown="beforePullDown"
+      :isPullingDown="isPullingDown"
+      :bubbleY="bubbleY">
       <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
         <div class="before-trigger" v-if="beforePullDown">
           <bubble :y="bubbleY"></bubble>
