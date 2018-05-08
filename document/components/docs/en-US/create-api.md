@@ -1,6 +1,6 @@
 ## create-api module
 
-This module exports a function called `createAPI` with which you can invoke the custom component which has been instantiated in api form. And It could be called both in Vue instance context and [general js file](#/en-US/docs/create-api#cube-HowtouseingeneralJSfilesoruseitinglobal-anchor).
+This module exports a function called `createAPI` with which you can invoke the custom component which has been instantiated in api form. And It could be called both in Vue instance context and [general js file](https://didi.github.io/cube-ui/#/en-US/docs/create-api#cube-HowtouseingeneralJSfilesoruseitinglobal-anchor).
 
 
 __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use`.
