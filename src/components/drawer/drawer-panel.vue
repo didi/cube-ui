@@ -97,8 +97,9 @@
   .cube-drawer-scroll-wrapper // fix flex item height: 100% bug in android
     position: absolute
     top: 0
-    bottom: 0
+    left: 0
     width: 100%
+    height: 100%
 
   .cube-drawer-move-enter, .cube-drawer-move-leave-to
     transform: translate(67px, 0)
