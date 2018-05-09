@@ -24,6 +24,8 @@
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
+  const EVENT_SCROLL_END = 'scroll-end'
+
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
 
@@ -60,6 +62,10 @@
       speed: {
         type: Number,
         default: 400
+      },
+      bounce: {
+        type: [Boolean, Object],
+        default: false
       },
       allowVertical: {
         type: Boolean,
@@ -161,7 +167,7 @@
           scrollX: this.direction === DIRECTION_H,
           scrollY: this.direction === DIRECTION_V,
           momentum: false,
-          bounce: false,
+          bounce: this.bounce,
           eventPassthrough,
           snap: {
             loop: this.loop,
@@ -192,7 +198,7 @@
           }
         })
       },
-      _onScrollEnd() {
+      _onScrollEnd(pos) {
         const { pageX, pageY } = this.slide.getCurrentPage()
         let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
@@ -203,6 +209,7 @@
         if (this.autoPlay) {
           this._play()
         }
+        this.$emit(EVENT_SCROLL_END, pos, this.currentPageIndex)
       },
       _initDots() {
         this.dots = new Array(this.children.length)
