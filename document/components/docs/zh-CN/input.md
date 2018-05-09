@@ -79,7 +79,7 @@
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | autocomplete | 自动补全 | Boolean | true/false | false |
 | clearable | 是否使用清空按钮 | Boolean | true/false | false |
-| eye | 默认 false，密码眼睛不可见；如果是 true 则使用密码眼睛，且密码可见；还可配置为对象`{ open: false }`，那么眼睛可见，`open` 用来控制密码是否可见 | Boolean/Object | true/false/{open: `true/false`} | false |
+| eye | 默认 false，密码眼睛不可见；如果是 true ，则相当于配置为对象 `{ open: true, reverse: false }`。对象形式表示使用密码眼睛。其中 `open` 控制眼睛张开还是闭合。`reverse` 控制密码可见和眼睛开闭是否相反。 | Boolean/Object | true/false/{open: true/false, reverse: true/false} | false |
 
 ### 插槽
 
