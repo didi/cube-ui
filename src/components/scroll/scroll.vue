@@ -88,11 +88,15 @@
           return {}
         }
       },
-      listenScroll: {
-        type: Boolean,
-        default: false
+      scrollEvents: {
+        type: Array,
+        default() {
+          return []
+        }
       },
-      listenScrollEnd: {
+      // TODO: add to be deprecated warn
+      // TODO: plan to remove at 1.10.0
+      listenScroll: {
         type: Boolean,
         default: false
       },
@@ -210,25 +214,27 @@
           scrollX: this.direction === DIRECTION_H
         }, this.options)
 
-        if (this.listenScroll) {
+        const listenScroll = this.scrollEvents.length ? this.scrollEvents.indexOf(EVENT_SCROLL) !== -1 : this.listenScroll
+        if (listenScroll) {
           options.probeType = 3
         }
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        if (this.listenScroll) {
+        if (listenScroll) {
           this.scroll.on('scroll', (pos) => {
             this.$emit(EVENT_SCROLL, pos)
           })
         }
 
-        if (this.listenBeforeScroll) {
+        const listenBeforeScroll = this.scrollEvents.length ? this.scrollEvents.indexOf(EVENT_BEFORE_SCROLL_START) !== -1 : this.listenBeforeScroll
+        if (listenBeforeScroll) {
           this.scroll.on('beforeScrollStart', () => {
             this.$emit(EVENT_BEFORE_SCROLL_START)
           })
         }
 
-        if (this.listenScrollEnd) {
+        if (this.scrollEvents.indexOf(EVENT_SCROLL_END) !== -1) {
           this.scroll.on('scrollEnd', (pos) => {
             this.$emit(EVENT_SCROLL_END, pos)
           })
