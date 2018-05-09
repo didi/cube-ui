@@ -67,7 +67,7 @@
       eye() {
         if (this.isPwd && this.showEye) {
           return {
-            open: this.pwdVisible,
+            open: this.reverse ? !this.pwdVisible : this.pwdVisible,
             reverse: this.reverse
           }
         } else {

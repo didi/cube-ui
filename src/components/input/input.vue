@@ -93,7 +93,7 @@
     computed: {
       _type() {
         const type = this.type
-        if (type === 'password' && this.formatedEye.open) {
+        if (type === 'password' && this.eye && this.pwdVisible) {
           return 'text'
         }
         return type
@@ -104,13 +104,12 @@
       _showPwdEye() {
         return this.type === 'password' && this.eye && !this.disabled
       },
-      eyeClass() {
+      pwdVisible() {
         const eye = this.formatedEye
-        let shouleBeVisible = !eye.open
-        if (eye.reverse) {
-          shouleBeVisible = !shouleBeVisible
-        }
-        return shouleBeVisible ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
+        return eye.reverse ? !eye.open : eye.open
+      },
+      eyeClass() {
+        return this.formatedEye.open ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
       }
     },
     watch: {
