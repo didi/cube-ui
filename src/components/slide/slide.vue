@@ -94,6 +94,9 @@
       const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
+          if (key === 'data') {
+            this._destroy()
+          }
           /* istanbul ignore next */
           this.$nextTick(() => {
             this.refresh()
@@ -136,6 +139,9 @@
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _destroy() {
+        this.slide && this.slide.destroy()
       },
       _refresh() {
         this._updateSlideDom(true)
@@ -268,10 +274,9 @@
     },
     destroyed() {
       this._deactivated()
-      if (this.slide) {
-        this.slide.destroy()
-        this.slide = null
-      }
+      this._destroy()
+
+      this.slide = null
     },
     components: {
       CubeSlideItem
