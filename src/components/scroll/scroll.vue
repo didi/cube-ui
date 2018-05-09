@@ -8,9 +8,7 @@
               class="cube-scroll-item border-bottom-1px"
               v-for="(item, index) in data"
               :key="index"
-              @click="clickItem(item)">
-              {{item}}
-            </li>
+              @click="clickItem(item)">{{item}}</li>
           </ul>
         </slot>
       </div>

@@ -6,7 +6,8 @@
           v-for="(item, index) in data"
           :key="index"
           @click.native="clickItem(item, index)"
-          :item="item"></cube-slide-item>
+          :item="item">
+        </cube-slide-item>
       </slot>
     </div>
     <div class="cube-slide-dots" v-if="showDots">
