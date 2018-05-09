@@ -161,6 +161,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | showClose | whether to show close button | Boolean | true/false | false |
 | confirmBtn | confirm button configuration | Object/String | - | { text: '确定', active: true, href: 'javascript:;' } |
 | cancelBtn | cancel button configuration | Object/String | - | { text: '取消', active: false, href: 'javascript:;' } |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 * `confirmBtn` sub configuration
 
@@ -194,3 +195,10 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirm | triggers when the confirm button is clicked | e - event target |
 | cancel | triggers when the cancel button is clicked | e - event target |
 | close | triggers when the close button is clicked | e - event target |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| show | show |
+| hide | hide |

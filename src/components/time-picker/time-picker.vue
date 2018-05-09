@@ -1,11 +1,15 @@
 <template>
   <cube-picker
     ref="picker"
-    :title="title"
+    v-model="isVisible"
     :data="data"
     :selected-index="selectedIndex"
-    :z-index="zIndex"
+    :title="title"
+    :subtitle="subtitle"
+    :cancel-txt="cancelTxt"
+    :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
+    :z-index="zIndex"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange"></cube-picker>
@@ -19,7 +23,9 @@
     HOUR_TIMESTAMP,
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
+  import pickerMixin from '../../common/mixins/picker'
   import CubePicker from '../picker/picker.vue'
 
   const DAY_STEP = 1
@@ -43,15 +49,11 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin],
     props: {
       title: {
         type: String,
         default: '选择时间'
-      },
-      swipeTime: {
-        type: Number,
-        default: 2500
       },
       // delay is valid when less than (the minute left in today + 1440).
       // So, it will be security when less than 1440.
@@ -65,7 +67,7 @@
           return {
             len: 3,
             filter: ['今日'],
-            format: 'M月d日'
+            format: 'M月D日'
           }
         }
       },
@@ -76,9 +78,6 @@
       minuteStep: {
         type: Number,
         default: MINUTE_STEP
-      },
-      zIndex: {
-        type: Number
       }
     },
     data() {
@@ -105,7 +104,11 @@
     },
     methods: {
       show() {
-        this.$refs.picker.show()
+        if (this.isVisible) {
+          return
+        }
+        this.isVisible = true
+
         this._updateMinTime()
         this._initDays()
         this.today = this.days[0].value
@@ -115,9 +118,6 @@
           this._handleHourAndMinute(true)
           this._resetTime()
         })
-      },
-      hide() {
-        this.$refs.picker.hide()
       },
       setTime(timeStamp) {
         this.selectedTimeStamp = parseInt(timeStamp)
@@ -191,7 +191,7 @@
           } else {
             days.push({
               value: timestamp,
-              text: formatDate(new Date(timestamp), dayConf.format)
+              text: formatDate(new Date(timestamp), dayConf.format, 'i')
             })
           }
         }

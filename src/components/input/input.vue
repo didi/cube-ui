@@ -84,13 +84,16 @@
       return {
         inputValue: this.value,
         isFocus: false,
-        pwdVisible: false
+        formatedEye: {
+          open: false,
+          reverse: false
+        }
       }
     },
     computed: {
       _type() {
         const type = this.type
-        if (type === 'password' && this.pwdVisible) {
+        if (type === 'password' && this.formatedEye.open) {
           return 'text'
         }
         return type
@@ -102,7 +105,12 @@
         return this.type === 'password' && this.eye && !this.disabled
       },
       eyeClass() {
-        return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
+        const eye = this.formatedEye
+        let shouleBeVisible = !eye.open
+        if (eye.reverse) {
+          shouleBeVisible = !shouleBeVisible
+        }
+        return shouleBeVisible ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
       }
     },
     watch: {
@@ -112,22 +120,22 @@
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
       },
-      eye() {
-        this._computedPwdVisible()
+      eye: {
+        handler() {
+          this.formateEye()
+        },
+        immediate: true
       }
-    },
-    created() {
-      this._computedPwdVisible()
     },
     methods: {
       changeHander(e) {
         this.$emit(EVENT_CHANGE, e)
       },
-      _computedPwdVisible() {
+      formateEye() {
         if (typeof this.eye === 'boolean') {
-          this.pwdVisible = this.eye
+          this.formatedEye.open = this.eye
         } else {
-          this.pwdVisible = this.eye.open
+          Object.assign(this.formatedEye, this.eye)
         }
       },
       handleFocus(e) {
@@ -143,7 +151,7 @@
         this.$refs.input.focus()
       },
       handlePwdEye() {
-        this.pwdVisible = !this.pwdVisible
+        this.formatedEye.open = !this.formatedEye.open
       }
     }
   }

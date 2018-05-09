@@ -161,6 +161,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | showClose | 是否显示关闭按钮 | Boolean | true/false | false |
 | confirmBtn | 确认按钮参数配置 | Object/String | - | { text: '确定', active: true, href: 'javascript:;' } |
 | cancelBtn | 取消按钮参数配置 | Object/String | - | { text: '取消', active: false, href: 'javascript:;' } |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 
 * `confirmBtn` 子配置项
 
@@ -194,3 +195,10 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | confirm | 点击确认按钮后触发 | 事件对象 e |
 | cancel | 点击取消按钮后触发 | 事件对象 e |
 | close | 点击关闭按钮后触发 | 事件对象 e |
+
+### 实例方法
+
+| 方法名 | 说明 |
+| - | - |
+| show | 显示 |
+| hide | 隐藏 |

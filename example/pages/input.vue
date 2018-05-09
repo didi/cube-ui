@@ -34,6 +34,8 @@
                             @update:value="updatePwd"></switch-option>
             <switch-option class="item" name="show eye" :value="showEye"
                             @update:value="updateShowEye" v-if="isPwd"></switch-option>
+            <switch-option class="item" name="reverse" :value="reverse"
+                            @update:value="updateReverse" v-if="isPwd && showEye"></switch-option>
             <switch-option class="item" name="password visible" :value="pwdVisible"
                             @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
           </div>
@@ -57,14 +59,16 @@
         readonly: false,
         isPwd: true,
         showEye: true,
-        pwdVisible: true
+        pwdVisible: true,
+        reverse: false
       }
     },
     computed: {
       eye() {
         if (this.isPwd && this.showEye) {
           return {
-            open: this.pwdVisible
+            open: this.pwdVisible,
+            reverse: this.reverse
           }
         } else {
           return false
@@ -90,6 +94,9 @@
       },
       updatePwdVisible(val) {
         this.pwdVisible = val
+      },
+      updateReverse(val) {
+        this.reverse = val
       }
     },
     components: {

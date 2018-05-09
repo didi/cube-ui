@@ -14,13 +14,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
   const COMPONENT_NAME = 'cube-popup'
   const EVENT_MASK_CLICK = 'mask-click'
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin],
     props: {
       type: {
         type: String,
@@ -37,10 +38,6 @@
       center: {
         type: Boolean,
         default: true
-      },
-      zIndex: {
-        type: Number,
-        default: 100
       }
     },
     computed: {

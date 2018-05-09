@@ -177,17 +177,61 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
+- Subtitle
+
+  You could configure subtitle by the property `subtitle`.
+
+  ```html
+  <cube-button @click="showSubtitlePicker">Use subtitle</cube-button>
+  ```
+  ```js
+  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
+    { text: '幽鬼', value: '幽鬼' }]
+  export default {
+    mounted () {
+      this.subtitlePicker = this.$createPicker({
+        title: 'Picker',
+        subtitle: 'subtitle',
+        data: [col1Data],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+    },
+    methods: {
+      showSubtitlePicker () {
+        this.subtitlePicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| title | title | String | '' | - |
 | data | data that passed into picker, whose length determines the columns of picker | Array | [] | - |
 | selectedIndex | the index of the selected value, corresponding content will be displayed when picker shows | Array | [] | [1] |
+| title | title | String | '' | - |
+| subtitle<sup>1.8.1</sup> | subtitle | String | '' | - |
 | cancelTxt | the text of the cancel button | String | '取消' | - |
 | confirmTxt | the text of the confirm button | String | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
 | alias | configure the alias of `value` and `text` | Object | {} | { value: 'id', text: 'name'} |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 * `data` sub configuration
 
@@ -210,5 +254,5 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | Method name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
 | setData | set options in picker| Array, texts and values of options of each columns of picker | Array, indexes of selected item in each column of picker |
-| show | show picker | - | - |
-| hide | hide picker | - | - |
+| show | show | - | - |
+| hide | hide | - | - |

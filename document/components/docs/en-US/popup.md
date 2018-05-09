@@ -128,6 +128,7 @@ __Notice:__ All the components above used create-api, so you should read [create
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | type | the type of popup | String | - | '' |
 | mask | whether to show background layer | Boolean | true/false | true |
 | content | content, HTML string, valid when there's no slot | String | - | '' |
@@ -138,3 +139,10 @@ __Notice:__ All the components above used create-api, so you should read [create
 | Event Name | Description | Parameters |
 | - | - | - |
 | mask-click | triggers when the background layer is clicked | click event target |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| show | show |
+| hide | hide |

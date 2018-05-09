@@ -3,6 +3,9 @@ export default {
     title: {
       type: String
     },
+    subtitle: {
+      type: String
+    },
     cancelTxt: {
       type: String,
       default: '取消'
@@ -14,9 +17,6 @@ export default {
     swipeTime: {
       type: Number,
       default: 2500
-    },
-    zIndex: {
-      type: Number
     }
   }
 }
