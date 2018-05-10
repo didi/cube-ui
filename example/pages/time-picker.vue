@@ -52,7 +52,7 @@
           })
         }
 
-        const time = new Date().valueOf() + 1 * 60 * 60 * 1000 * 24 * 3
+        const time = new Date().valueOf() + 1 * 60 * 60 * 1000 * 24
         this.setTimePiker.setTime(time)
         this.setTimePiker.show()
       },

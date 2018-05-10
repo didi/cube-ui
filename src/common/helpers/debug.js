@@ -8,6 +8,6 @@ export const warn = function (msg, componentName) {
 export const tip = function (msg, componentName) {
   if (process.env.NODE_ENV !== 'production') {
     const component = componentName ? `<${componentName}> ` : ''
-    console.warn(`[Cube warn]: ${component}${msg}`)
+    console.warn(`[Cube tip]: ${component}${msg}`)
   }
 }
