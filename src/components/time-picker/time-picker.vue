@@ -31,15 +31,15 @@
   import pickerMixin from '../../common/mixins/picker'
   import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
 
-  const NOW = {
-    value: 'now',
-    defaultText: '现在'
-  }
-
   const COMPONENT_NAME = 'cube-time-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
+
+  const NOW = {
+    value: 'now',
+    defaultText: '现在'
+  }
 
   export default {
     name: COMPONENT_NAME,

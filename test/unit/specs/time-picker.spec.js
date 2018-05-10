@@ -97,6 +97,25 @@ describe('TimePicker', () => {
     }, 100)
   })
 
+  it('should render correct contents - showNow text', function (done) {
+    vm = createPicker({
+      showNow: {
+        text: 'now text'
+      }
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+
+      const secondWheelItems = wheels[1].querySelectorAll('li')
+      expect(secondWheelItems[0].textContent.trim())
+        .to.equal('now text')
+
+      done()
+    }, 100)
+  })
+
   it('should trigger events', function (done) {
     this.timeout(10000)
 
