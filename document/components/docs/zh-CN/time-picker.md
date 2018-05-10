@@ -135,7 +135,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | - | - | - | - |
 | delay | 将当前时间向后推算的分钟数，决定了最小可选时间 | Number | 15 |
 | day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
-| showNow | 是否显示当前时间 | Boolean | true |
+| showNow | 是否显示现在；以及现在选项的文案<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
 | minuteStep | 分钟数的步长 | Number | 10 |
 | title | 标题 | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | 副标题 | String | '' |
@@ -144,13 +144,19 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false |
 
-* `day`子配置项
+* `day` 子配置项
 
 | 参数 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
 | len | 日期列，从当前时间算起，往后推len天 | Number | 3 |
 | filter | 日期列，将时间映射为filter中的文案内容 | Array | ['今日'] |
 | format | 时间格式化 | String | 'M月D日' |
+
+* `showNow` 子配置项
+
+| 参数 | 说明 | 类型 | 默认值 |
+| - | - | - | - |
+| text<sup>1.9.0</sup> | 现在选项的文案 | String | '现在' |
 
 ### 事件
 
