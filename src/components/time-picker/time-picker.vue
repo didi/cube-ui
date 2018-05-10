@@ -170,19 +170,28 @@
         if (value <= +minTime) {
           this.selectedIndex = [0, 0, 0]
         } else {
+          // calculate dayIndex
           const valueDate = new Date(value)
           const dayIndex = getDayDiff(valueDate, minTime)
 
-          const valueZeroStamp = getZeroStamp(valueDate)
-          let resetStamp = value - valueZeroStamp
-          const hour = Math.floor(resetStamp / HOUR_TIMESTAMP)
-          const minHour = this.minTime.getHours()
-          const hourIndex = hour - (dayIndex ? 0 : this.showNow ? (minHour - 1) : minHour)
+          if (dayIndex >= this.days.length) {
+            // TODO: add cube warn
+            return
+          }
 
-          resetStamp = resetStamp % HOUR_TIMESTAMP
-          const minute = Math.floor(resetStamp / (this.minuteStep * MINUTE_TIMESTAMP))
-          const isPart = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
-          const minuteIndex = minute - (isPart ? Math.floor(this.minTime.getMinutes() / this.minuteStep) : 0)
+          // calculate hourIndex
+          const hour = valueDate.getHours()
+          const beginHour = dayIndex === 0
+                            ? this.showNow ? this.minTime.getHours() - 1 : this.minTime.getHours()
+                            : 0
+          const hourIndex = hour - beginHour
+
+          // calculate minuteIndex
+          const minute = Math.floor(valueDate.getMinutes() / this.minuteStep)
+          const beginMinute = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
+                              ? Math.floor(this.minTime.getMinutes() / this.minuteStep)
+                              : 0
+          const minuteIndex = minute - beginMinute
 
           this.selectedIndex = [dayIndex, hourIndex, minuteIndex]
         }
