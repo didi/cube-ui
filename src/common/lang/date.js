@@ -47,11 +47,15 @@ function formatDate(date, format, regExpAttributes) {
   return format
 }
 
-function getZeroDate(date) {
+function getZeroStamp(date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
-  return new Date(year + '/' + month + '/' + day + ' 00:00:00')
+  return +new Date(year + '/' + month + '/' + day + ' 00:00:00')
+}
+
+function getDayDiff(date1, date2) {
+  return Math.floor((getZeroStamp(date1) - getZeroStamp(date2)) / DAY_TIMESTAMP)
 }
 
 function getNow() {
@@ -78,7 +82,8 @@ export {
   pad,
   formatType,
   formatDate,
-  getZeroDate,
+  getZeroStamp,
+  getDayDiff,
   getNow,
   computeNatureMaxDay
 }

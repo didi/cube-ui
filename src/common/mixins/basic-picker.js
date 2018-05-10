@@ -30,14 +30,15 @@ export default {
     },
     textKey() {
       return this.alias.text || DEFAULT_KEYS.text
+    },
+    merge() {
+      return [this.data, this.selectedIndex]
     }
   },
   watch: {
-    data(newVal) {
-      this.setData(newVal, this.selectedIndex)
-    },
-    selectedIndex(newVal) {
-      this.setData(this.data, newVal)
+    // Merge the watch handlers of data and selectedIndex into one.
+    merge(newVal) {
+      this.setData(newVal[0], newVal[1])
     }
   }
 }

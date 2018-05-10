@@ -1,6 +1,7 @@
 import Vue from 'vue2'
 import TimePicker from '@/modules/time-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
+import { dispatchSwipe } from '../utils/event'
 
 describe('TimePicker', () => {
   let vm
@@ -96,7 +97,26 @@ describe('TimePicker', () => {
     }, 100)
   })
 
-  it('should trigger events', function () {
+  it('should render correct contents - showNow text', function (done) {
+    vm = createPicker({
+      showNow: {
+        text: 'now text'
+      }
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+
+      const secondWheelItems = wheels[1].querySelectorAll('li')
+      expect(secondWheelItems[0].textContent.trim())
+        .to.equal('now text')
+
+      done()
+    }, 100)
+  })
+
+  it('should trigger events', function (done) {
     this.timeout(10000)
 
     const selectHandle = sinon.spy()
@@ -109,27 +129,71 @@ describe('TimePicker', () => {
     }
 
     vm = createPicker({}, events)
-    return new Promise((resolve) => {
-      vm.show()
+
+    // cancel
+    vm.show()
+    const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
+    cancelBtn.click()
+    expect(cancelHandle)
+      .to.be.callCount(1)
+
+    // change
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      const firstWheelItems = wheels[0].querySelectorAll('li')
+
+      dispatchSwipe(firstWheelItems[1], [
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: firstWheelItems[1].offsetTop + 10
+        },
+        {
+          pageX: 300,
+          pageY: 380
+        }
+      ], 100)
       setTimeout(() => {
-        const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
-        cancelBtn.click()
-        expect(cancelHandle)
+        expect(changeHandle)
           .to.be.callCount(1)
 
-        vm.show()
-        setTimeout(() => {
-          const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
-          confirmBtn.click()
-          const now = +new Date()
-          expect(selectHandle)
-            .to.be.callCount(1)
-          expect(selectHandle.args[0][0])
-            .to.be.closeTo(now, 2)
-          resolve()
-        }, 100)
-      }, 100)
+        // select: now
+        const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+        confirmBtn.click()
+        const now = +new Date()
+        expect(selectHandle)
+          .to.be.callCount(1)
+        expect(selectHandle.args[0][0])
+          .to.be.closeTo(now, 2)
+
+        done()
+      }, 1000)
+    }, 100)
+  })
+
+  it('should have correct args when select normal time', function (done) {
+    const selectHandle = sinon.spy()
+    vm = createPicker({
+      showNow: false,
+      delay: 0,
+      minuteStep: 1
+    }, {
+      select: selectHandle
     })
+
+    // select: now
+    vm.show()
+    setTimeout(() => {
+      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+      confirmBtn.click()
+      const now = +new Date()
+      expect(selectHandle)
+        .to.be.callCount(1)
+      expect(selectHandle.args[0][0])
+        .to.be.closeTo(now, 60 * 1000)
+
+      done()
+    }, 100)
   })
 
   it('should add warn log when sigle is true', () => {

@@ -145,7 +145,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | - | - | - | - |
 | delay | minutes that postponed backwards from now, which determines the minimal optional time| Number | 15 |
 | day | date configuration | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
-| showNow | whether to display current time | Boolean | true |
+| showNow | whether to display now; configure the text of option now<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
 | minuteStep | step of the minute | Number | 10 |
 | title | title | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | subtitle | String | '' |
@@ -161,6 +161,12 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | len | date column, postpone `len` days backwards from now | Number | 3 |
 | filter | date column, map time to the text in filter | Array | ['今日'] |
 | format | format time | String | 'M月D日' |
+
+* `showNow` sub configuration
+
+| Attribute | Description | Type | Default |
+| - | - | - | - |
+| text<sup>1.9.0</sup> | the text of option now | String | '现在' |
 
 ### Events
 
