@@ -235,7 +235,8 @@
 | 事件名 | 说明 | 参数 |
 | - | - | - |
 | click | 点击列表项时触发 | item - 该列表项的数据 |
-| scroll | 当 listenScroll 为 true 时，根据 probeType 的值决定派发时机 | Object {x, y} - 滚动的实时坐标 |
+| scroll | 当 listenScroll 为 true 时，根据 probeType 的值决定派发时机 | Object {x, y} - 当前滚动位置 |
 | before-scroll-start | 当 listenBeforeScroll 属性为 true 时，在滚动开始之前触发 | - |
+| scroll-end| 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 当前滚动位置 |
 | pulling-down | 当 pullDownRefresh 属性为 true 时，在下拉超过阈值时触发 | - |
 | pulling-up | 当 pullUpLoad 属性为 true 时，在上拉超过阈值时触发 | - |
