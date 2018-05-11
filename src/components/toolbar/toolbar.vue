@@ -2,28 +2,15 @@
   <div class="cube-toolbar">
     <div class="cube-toolbar-position">
       <div class="cube-toolbar-mod">
-        <ul class="cube-toolbar-ex" v-if="exSeries" v-show="isShowEx">
-          <li v-for="(item,index) in exSeries" class="border-right-1px">
-            <cube-button :icon="item.icon" @click="buttonClick($event, item, index, 1)">
-              <cube-checkbox v-if="item.type == 'checkbox'" v-model="item.checked" :label="item.text" class="cube-toolbar-chb" ></cube-checkbox>
-              <span v-else v-html="item.text"></span>
-            </cube-button>
-            <div class="cube-toolbar-down" v-if="index == exSeries.length - 1">
-              <i class="dd-cubeic-pulldown cube-toolbar-pulldown"></i>
-            </div>
-          </li>
+        <ul class="cube-toolbar-action-group more" v-if="moreActions" v-show="showMore">
+          <cube-toolbar-item v-for="(action, index) in moreActions" :key="index" :action="action"></cube-toolbar-item>
+          <div class="cube-toolbar-down">
+            <i class="dd-cubeic-pulldown cube-toolbar-pulldown"></i>
+          </div>
         </ul>
 
-        <ul class="cube-toolbar-base">
-          <li v-for="(item,index) in baseSeries" class="border-right-1px">
-            <cube-button :icon="item.icon" @click="buttonClick($event, item, index)">
-              <cube-checkbox v-if="item.type == 'checkbox'" v-model="item.checked" :label="item.text" class="cube-toolbar-chb"></cube-checkbox>
-              <span v-else v-html="item.text"></span>
-            </cube-button>
-          </li>
-          <li v-if="exSeries" class="border-right-1px more-button">
-            <cube-button icon="dd-cubeic-more" @click="moreClick"></cube-button>
-          </li>
+        <ul class="cube-toolbar-action-group">
+          <cube-toolbar-item v-for="(action, index) in basicActions" :key="index" :action="action"></cube-toolbar-item>
         </ul>
       </div>
     </div>
@@ -31,8 +18,7 @@
 </template>
 
 <script>
-  import CubeButton from '../button/button'
-  import CubeCheckbox from '../checkbox/checkbox'
+  import CubeToolbarItem from './toolbar-item.vue'
 
   const COMPONENT_NAME = 'cube-toolbar'
   const EVENT_MORE_CLICK = 'more-click'
@@ -40,38 +26,34 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      baseSeries: {
+      actions: {
         type: Array
       },
-      exSeries: {
+      moreActions: {
         type: Array
       }
     },
     data() {
       return {
-        isShowEx: false
+        showMore: false
       }
     },
-    methods: {
-      buttonClick(event, data, index, isEx) {
-        this.isShowEx = false
-        if (data.disabled) {
-          event.preventDefault()
-          event.stopPropagation()
-          return
-        }
-        data.$index = index
-        data.$isExBar = isEx || 0
-        typeof data.handleClick === 'function' && data.handleClick(event, data)
-      },
-      moreClick() {
-        this.isShowEx = !this.isShowEx
-        this.$emit(EVENT_MORE_CLICK, this.isShowEx)
+    computed: {
+      basicActions() {
+        const basicActions = this.actions.slice()
+        this.moreActions && basicActions.push({
+          type: 'button',
+          icon: 'dd-cubeic-more',
+          clickHandler: () => {
+            this.isShowEx = !this.showMore
+            this.$emit(EVENT_MORE_CLICK, this.showMore)
+          }
+        })
+        return basicActions
       }
     },
     components: {
-      CubeButton,
-      CubeCheckbox
+      CubeToolbarItem
     }
   }
 </script>
@@ -107,8 +89,7 @@
   .cube-toolbar-mod
     flex-fix()
 
-  .cube-toolbar-ex,
-  .cube-toolbar-base
+  .cube-toolbar-action-group
     display: flex
     border-radius: 2px
     box-shadow: 0 1px 6px rgba(0, 0, 0, .24)
@@ -163,7 +144,7 @@
         &:active::after
           display: none
 
-  .cube-toolbar-ex
+  .cube-toolbar-action-group.more
     margin-bottom: $borderspacing
 
   .cube-toolbar-down
