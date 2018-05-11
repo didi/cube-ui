@@ -69,7 +69,7 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
-  $borderspacing = 10px
+  $toolbar-bottom-spacing = 10px
   $barBgColor = #fcfcfc
   $shadow-color = rgba(0, 0, 0, 0.08)
   $shadow-active-color = #e8e8e8
@@ -78,7 +78,7 @@
   .cube-toolbar
     position: fixed
     left: 0
-    bottom: $borderspacing
+    bottom: $toolbar-bottom-spacing
     height: 0
     width: 100%
     z-index: 2
@@ -91,7 +91,7 @@
     width: 100%
     box-sizing: border-box
     display: flex
-    padding: 0 $borderspacing
+    padding: 0 $toolbar-bottom-spacing
 
   .cube-toolbar-mod
     flex-fix()
@@ -158,14 +158,14 @@
 
   .cube-toolbar-action-group
     .more
-      margin-bottom: $borderspacing
+      margin-bottom: $toolbar-bottom-spacing
 
   .cube-toolbar-down
     position: absolute
     top: $height
     left: 0
     width: 100%
-    height: $borderspacing
+    height: $toolbar-bottom-spacing
 
   .cube-toolbar-pulldown
     position: absolute
