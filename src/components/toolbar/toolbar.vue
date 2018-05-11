@@ -25,9 +25,15 @@
 
   export default {
     name: COMPONENT_NAME,
+    components: {
+      CubeToolbarItem
+    },
     props: {
       actions: {
-        type: Array
+        type: Array,
+        default() {
+          return []
+        }
       },
       moreActions: {
         type: Array
@@ -42,7 +48,6 @@
       basicActions() {
         const basicActions = this.actions.slice()
         this.moreActions && basicActions.push({
-          type: 'button',
           icon: 'cubeic-more',
           clickHandler: () => {
             this.showMore = !this.showMore
@@ -56,9 +61,6 @@
       moreBarClick() {
         this.showMore = false
       }
-    },
-    components: {
-      CubeToolbarItem
     }
   }
 </script>
@@ -143,14 +145,20 @@
         border: 0 none
         color: $color-grey
         font-size: $fontsize-small
+        .orange
+          color: $color-orange
         i
           margin-right: 0
           font-size: $fontsize-small
+          &.cubeic-more
+            color: $color-light-grey
+            font-size: $fontsize-large
         &:active::after
           display: none
 
-  .cube-toolbar-action-group.more
-    margin-bottom: $borderspacing
+  .cube-toolbar-action-group
+    .more
+      margin-bottom: $borderspacing
 
   .cube-toolbar-down
     position: absolute
