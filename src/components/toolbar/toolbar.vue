@@ -2,7 +2,7 @@
   <div class="cube-toolbar">
     <div class="cube-toolbar-position">
       <div class="cube-toolbar-mod">
-        <ul class="cube-toolbar-action-group more" v-if="moreActions" v-show="showMore">
+        <ul class="cube-toolbar-action-group more" v-if="moreActions" v-show="showMore" @click="moreBarClick">
           <cube-toolbar-item v-for="(action, index) in moreActions" :key="index" :action="action"></cube-toolbar-item>
           <div class="cube-toolbar-down">
             <i class="dd-cubeic-pulldown cube-toolbar-pulldown"></i>
@@ -43,13 +43,18 @@
         const basicActions = this.actions.slice()
         this.moreActions && basicActions.push({
           type: 'button',
-          icon: 'dd-cubeic-more',
+          icon: 'cubeic-more',
           clickHandler: () => {
-            this.isShowEx = !this.showMore
+            this.showMore = !this.showMore
             this.$emit(EVENT_MORE_CLICK, this.showMore)
           }
         })
         return basicActions
+      }
+    },
+    methods: {
+      moreBarClick() {
+        this.showMore = false
       }
     },
     components: {
