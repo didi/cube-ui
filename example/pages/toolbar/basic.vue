@@ -16,7 +16,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
+  import CubePage from '../../components/cube-page.vue'
 
   export default {
     data() {

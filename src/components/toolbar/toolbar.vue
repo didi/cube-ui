@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-toolbar" :class="cls">
+  <div class="cube-toolbar">
     <div class="cube-toolbar-position">
       <div class="cube-toolbar-mod">
         <ul class="cube-toolbar-ex" v-if="exSeries" v-show="isShowEx">
@@ -39,9 +39,6 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      cls: {
-        type: String
-      },
       baseSeries: {
         type: Array
       },

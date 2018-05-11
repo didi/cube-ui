@@ -43,6 +43,10 @@
               {
                 path: '/tip',
                 text: 'Tip'
+              },
+              {
+                path: '/toolbar',
+                text: 'Toolbar'
               }
             ]
           },
