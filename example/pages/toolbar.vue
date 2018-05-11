@@ -4,15 +4,14 @@
       <div class="options">
         <div class="option-list">
           <div class="group">
-            <switch-option class="item" name="More" :value="more"
+            <switch-option class="item" name="More Actions" :value="more"
               @update:value="updateMore"></switch-option>
           </div>
         </div>
       </div>
       <cube-toolbar
         :actions="actions"
-        :moreActions="more ? moreActions : undefined"
-        @more-click="moreClickHandler">
+        :moreActions="more ? moreActions : undefined">
       </cube-toolbar>
     </div>
   </cube-page>
@@ -76,9 +75,6 @@
           txt: 'clicked ' + action.text,
           time: 1000
         }).show()
-      },
-      moreClickHandler: function(showMore) {
-        console.log('showMore:', showMore)
       }
     }
   }
