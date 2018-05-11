@@ -1,6 +1,6 @@
 import {
   Style,
-  Button,
+  Toolbar,
   Scroll,
   Popup,
   TimePicker,
@@ -35,7 +35,7 @@ function install(Vue) {
   install.installed = true
   const components = [
     Style,
-    Button,
+    Toolbar,
     TimePicker,
     SegmentPicker,
     DatePicker,

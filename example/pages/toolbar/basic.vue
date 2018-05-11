@@ -11,7 +11,6 @@
 
       <cube-toolbar v-for="(item, index) in propsArray" :key="index" :base-series="item.baseSeries" :cls="item.cls" :ex-series="item.exSeries" @more-click="item.moreClickHandler"></cube-toolbar>
     </div>
-
   </cube-page>
 </template>
 

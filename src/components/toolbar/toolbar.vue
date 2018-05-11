@@ -31,7 +31,8 @@
 </template>
 
 <script>
-  import { Button as CubeButton, Checkbox as CubeCheckbox } from 'cube-ui'
+  import CubeButton from '../button/button'
+  import CubeCheckbox from '../checkbox/checkbox'
 
   const COMPONENT_NAME = 'cube-toolbar'
   const EVENT_MORE_CLICK = 'more-click'
@@ -77,7 +78,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
-  @require "~cube-ui/src/common/stylus/mixin.styl"
+  @require "../../common/stylus/mixin.styl"
 
   $borderspacing = 10px
   $barBgColor = #fcfcfc

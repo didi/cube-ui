@@ -1,84 +1,97 @@
 import Style from './modules/style'
 
-import Button from './modules/button'
+// Basic
+import Tip from './modules/tip'
+import Toolbar from './modules/toolbar'
+
+// Form
 import CheckboxGroup from './modules/checkbox-group'
 import RadioGroup from './modules/radio'
-import Switch from './modules/switch'
-import Popup from './modules/popup'
-import Dialog from './modules/dialog'
-import Toast from './modules/toast'
 import Input from './modules/input'
-import Validator from './modules/validator'
-import Select from './modules/select'
 import Textarea from './modules/textarea'
+import Select from './modules/select'
+import Switch from './modules/switch'
 import Rate from './modules/rate'
+import Validator from './modules/validator'
+import Upload from './modules/upload'
 import Form from './modules/form'
 
-import Tip from './modules/tip'
+// Popup
+import Popup from './modules/popup'
+import Toast from './modules/toast'
+import Dialog from './modules/dialog'
 import ActionSheet from './modules/action-sheet'
-import Slide from './modules/slide'
-import IndexList from './modules/index-list'
+import Drawer from './modules/drawer'
+import DatePicker from './modules/date-picker'
 import TimePicker from './modules/time-picker'
 import SegmentPicker from './modules/segment-picker'
-import DatePicker from './modules/date-picker'
+
+// Scroll
 import Scroll from './modules/scroll'
-
-import Upload from './modules/upload'
+import Slide from './modules/slide'
+import IndexList from './modules/index-list'
 import Swipe from './modules/swipe'
-import Drawer from './modules/drawer'
 
+// Others
 import BScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
 
-const Picker = SegmentPicker.Picker
-const CascadePicker = SegmentPicker.CascadePicker
+const Button = Toolbar.Button
+const Loading = Toast.Loading
 const Checkbox = CheckboxGroup.Checkbox
+const Radio = RadioGroup.Radio
 const FormGroup = Form.Group
 const FormItem = Form.Item
-const Loading = Toast.Loading
-const SlideItem = Slide.Item
-const Radio = RadioGroup.Radio
-const SwipeItem = Swipe.Item
 const DrawerPanel = Drawer.Panel
 const DrawerItem = Drawer.Item
+const Picker = SegmentPicker.Picker
+const CascadePicker = SegmentPicker.CascadePicker
+const SlideItem = Slide.Item
+const SwipeItem = Swipe.Item
 
 export {
   Style,
+  // Basic
   Button,
-  Scroll,
+  Loading,
+  Tip,
+  Toolbar,
+  // Form
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  FormGroup,
+  FormItem,
+  // Popup
   Popup,
+  Toast,
   Picker,
   TimePicker,
   CascadePicker,
   SegmentPicker,
   DatePicker,
-  Select,
-  Form,
-  FormGroup,
-  FormItem,
   Dialog,
-  Tip,
-  Toast,
-  Input,
-  Validator,
-  Textarea,
-  Rate,
   ActionSheet,
-  Checkbox,
-  CheckboxGroup,
-  Radio,
-  RadioGroup,
-  Switch,
-  Slide,
-  SlideItem,
-  Loading,
-  IndexList,
-  Upload,
-  Swipe,
-  SwipeItem,
   Drawer,
   DrawerPanel,
   DrawerItem,
+  // Scroll
+  Scroll,
+  Slide,
+  SlideItem,
+  IndexList,
+  Swipe,
+  SwipeItem,
+  // Others
   BScroll,
   createAPI
 }
