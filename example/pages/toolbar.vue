@@ -29,7 +29,7 @@
     data() {
       let money = 10
       return {
-        more: true,
+        more: false,
         actions: [
           {
             text: '完成订单',

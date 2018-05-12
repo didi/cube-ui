@@ -71,7 +71,7 @@
     left: $toolbar-spacing
     right: $toolbar-spacing
     bottom: $toolbar-spacing
-    safe-area-mixin(bottom, bottom)
+    safe-area-mixin(padding-bottom, bottom)
     z-index: 2
 
   .cube-toolbar-action-group
