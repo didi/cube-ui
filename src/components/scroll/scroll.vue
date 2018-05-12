@@ -351,9 +351,10 @@
         }, this.scroll.options.bounceTime)
       },
       _checkAbandon() {
-        if (this.listenScroll || this.listenBeforeScroll) {
-          tip('The property "listen-scroll" and "listen-before-scroll" are going to be abandon, please use the new property "scroll-events" to replace them. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor', COMPONENT_NAME)
-        }
+        const abandonKeys = ['listenScroll', 'listenBeforeScroll']
+        abandonKeys.forEach((key) => {
+          this[key] && tip(`The property "${key}" are going to be abandon, please use the new property "scroll-events" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
       }
     },
     components: {

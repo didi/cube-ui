@@ -22,6 +22,7 @@
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
+  import { tip } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
@@ -55,6 +56,14 @@
         type: Boolean,
         default: true
       },
+      threshold: {
+        type: Number,
+        default: 0.3
+      },
+      speed: {
+        type: Number,
+        default: 400
+      },
       autoPlay: {
         type: Boolean,
         default: true
@@ -78,15 +87,7 @@
           return {}
         }
       },
-      // The props threshold, speed, allowVertical, stopPropagation could be removed in next minor version.
-      threshold: {
-        type: Number,
-        default: 0.3
-      },
-      speed: {
-        type: Number,
-        default: 400
-      },
+      // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
         default: false
@@ -266,6 +267,12 @@
           }
           this._refresh()
         }, 60)
+      },
+      _checkAbandon() {
+        const abandonKeys = ['allowVertical', 'stopPropagation']
+        abandonKeys.forEach((key) => {
+          this[key] && tip(`The property "${key}" are going to be abandon, please use the new property "scroll-options" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
       }
     },
     mounted() {
@@ -274,6 +281,8 @@
       })
 
       window.addEventListener('resize', this._resizeHandler)
+
+      this._checkAbandon()
     },
     activated() {
       /* istanbul ignore next */
