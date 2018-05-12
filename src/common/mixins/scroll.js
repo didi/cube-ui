@@ -8,6 +8,13 @@ const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END
 
 export default {
   props: {
+    // the options of BetterScroll
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     scrollEvents: {
       type: Array,
       default() {

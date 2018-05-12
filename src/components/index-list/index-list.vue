@@ -119,7 +119,6 @@
       }
     },
     created() {
-      this.listenScroll = true
       this.groupList = []
       this.listHeight = []
       this.touch = {}

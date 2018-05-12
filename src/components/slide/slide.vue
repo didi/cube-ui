@@ -80,13 +80,6 @@
         type: String,
         default: DIRECTION_H
       },
-      // the options of BetterScroll
-      scrollOptions: {
-        type: Object,
-        default() {
-          return {}
-        }
-      },
       // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
@@ -104,7 +97,7 @@
       }
     },
     created() {
-      const needRefreshProps = ['data', 'loop', 'autoPlay', 'options', 'threshold', 'speed', 'allowVertical']
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
           // To fix the render bug when add items since loop.
@@ -195,7 +188,7 @@
             speed: this.speed
           },
           stopPropagation: this.stopPropagation
-        }, this.scrollOptions)
+        }, this.options)
 
         this.slide = new BScroll(this.$refs.slide, options)
 

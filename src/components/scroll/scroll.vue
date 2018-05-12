@@ -49,6 +49,7 @@
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
+  import scrollMixin from '../../common/mixins/scroll'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
   import { tip } from '../../common/helpers/debug'
@@ -65,9 +66,6 @@
 
   const EVENT_SCROLL = 'scroll'
   const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
-  const EVENT_SCROLL_END = 'scroll-end'
-
-  const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
 
   const DEFAULT_OPTIONS = {
     observeDOM: true,
@@ -80,28 +78,12 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin],
     props: {
       data: {
         type: Array,
         default() {
           return []
-        }
-      },
-      options: {
-        type: Object,
-        default() {
-          return {}
-        }
-      },
-      scrollEvents: {
-        type: Array,
-        default() {
-          return []
-        },
-        validator(arr) {
-          return arr.every((item) => {
-            return SCROLL_EVENTS.indexOf(item) !== -1
-          })
         }
       },
       // TODO: plan to remove at 1.10.0

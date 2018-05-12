@@ -51,6 +51,8 @@
             ref="scroll"
             :data="items"
             :options="scrollOptions"
+            :scroll-events="scrollEvents"
+            @scroll="scrollHandler"
             @pulling-down="onPullingDown"
             @pulling-up="onPullingUp">
             <ul v-if="customList" class="foods-wrapper">
@@ -183,7 +185,8 @@
             value: 'swipeBounce'
           }
         ],
-        customPullDown: false
+        customPullDown: false,
+        scrollEvents: ['scroll']
       }
     },
     components: {
@@ -323,6 +326,9 @@
           this.$refs.scroll.destroy()
           this.$refs.scroll.initScroll()
         })
+      },
+      scrollHandler(...args) {
+        // console.log('scroll:', ...args)
       }
     }
   }
