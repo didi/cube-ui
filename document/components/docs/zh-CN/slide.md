@@ -157,13 +157,14 @@
 | data | 用于 side-item 列表渲染的数据，当需要使用内置的默认内容，或者让组件自动监听数据变化重新渲染时，此参数必传 | Array | - | [] |
 | initialIndex | 初始索引值 | Number | - | 0 |
 | loop | 是否循环播放 | Boolean | true/false | true |
+| showDots | 是否显示轮播指示点 | Boolean | true/false | true |
 | autoPlay | 是否自动播放 | Boolean | true/false | true |
 | interval | 播放间隔 | Number | - | 4000 |
+| direction | 轮播方向 | String | horizontal/vertical | horizontal |
+| options<sup>1.9.0</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
-| direction | 轮播方向 | String | horizontal/vertical | horizontal |
-| showDots | 是否显示轮播指示点 | Boolean | true/false | true |
 | stopPropagation | 是否阻止事件冒泡，可用于解决嵌套同方向slide时会遇到的事件冒泡问题 | Boolean | true/false | false |
 
 ### 插槽

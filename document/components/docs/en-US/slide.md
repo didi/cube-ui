@@ -173,13 +173,14 @@
 | - | - | - | - | - |
 | initialIndex | initial index | Number | - | 0 |
 | loop | whether to loop play | Boolean | true/false | true |
+| showDots | whether to show the indicator dots | Boolean | true/false | true |
 | autoPlay | whether to play  automatically | Boolean | true/false | true |
 | interval | interval of play | Number | - | 4000 |
+| direction | slide direction | String | horizontal/vertical | horizontal |
+| options<sup>1.9.0</sup> | the options of better-scroll, details see[BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
 | threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
 | speed | speed of switching pages | Number | - | 400 |
 | allowVertical | whether to allow vertical scrolling | Boolean | true/false | false |
-| direction | slide direction | String | horizontal/vertical | horizontal |
-| showDots | whether to show the indicator dots | Boolean | true/false | true |
 | stopPropagation | whether to stop propagation, which could use to solve the problem of event propagation when nest same direction slide | Boolean | true/false | false |
 
 ### Slot
