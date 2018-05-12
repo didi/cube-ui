@@ -30,6 +30,7 @@
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
+  import { warn } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-time-picker'
   const EVENT_SELECT = 'select'
@@ -175,7 +176,7 @@
           const dayIndex = getDayDiff(valueDate, minTime)
 
           if (dayIndex >= this.days.length) {
-            // TODO: add cube warn
+            warn('Use "setTime" to set a time exceeded to the option range do not actually work.', COMPONENT_NAME)
             return
           }
 

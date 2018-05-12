@@ -38,36 +38,60 @@ function buildPack(webpackConfig, cb, spinnerText) {
   })
 }
 
-buildPack(webpackConfig, function () {
-  webpackConfig.output.filename = utils.assetsPath('[name].min.js')
-  webpackConfig.output.chunkFilename = '[name].min.js'
-  webpackConfig.plugins.splice(2, 1, new ExtractTextPlugin(utils.assetsPath('[name].min.css')), new OptimizeCSSPlugin({
-    cssProcessorOptions: {
-      safe: true
-    }
-  }))
-  // add UglifyJsPlugin
-  webpackConfig.plugins.splice(2, 0, new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }))
+function fullBuild(cb) {
+  // build index.js
   buildPack(webpackConfig, function () {
-    buildPack(webpackModulesConfig, function () {
-      webpackModulesConfig.output.filename = utils.assetsPath('[name]/[name].min.js')
-      webpackModulesConfig.output.chunkFilename = '[name]/[name].min.js'
-      webpackModulesConfig.plugins.splice(2, 1, new ExtractTextPlugin(utils.assetsPath('[name]/[name].min.css')), new OptimizeCSSPlugin({
-        cssProcessorOptions: {
-          safe: true
-        }
-      }))
-      // 增加 UglifyJsPlugin
-      webpackModulesConfig.plugins.splice(2, 0, new webpack.optimize.UglifyJsPlugin({
+
+    // build cube.min.js
+    webpackConfig.output.filename = utils.assetsPath('[name].min.js')
+    webpackConfig.output.chunkFilename = '[name].min.js'
+    webpackConfig.plugins.splice(1, 1, 
+      new webpack.DefinePlugin({
+        'process.env': config.build.env
+      }),
+      new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         }
-      }))
-      buildPack(webpackModulesConfig, null, 'building for compressed component files...')
-    }, 'building for uncompressed component files...')
-  }, 'building for compressed files...')
-})
+      }),
+      new ExtractTextPlugin(utils.assetsPath('[name].min.css')),
+      new OptimizeCSSPlugin({
+        cssProcessorOptions: {
+          safe: true
+        }
+      })
+    )
+    buildPack(webpackConfig, function () {
+      cb && cb()
+    }, 'building for cube.min.js')
+  }, 'building for index.js')
+}
+
+function modulesBuild() {
+  // build ${module}/index.js
+  buildPack(webpackModulesConfig, function () {
+
+    // build ${module}/${module}.min.js
+    webpackModulesConfig.output.filename = utils.assetsPath('[name]/[name].min.js')
+    webpackModulesConfig.output.chunkFilename = '[name]/[name].min.js'
+    webpackModulesConfig.plugins.splice(1, 1,
+      new webpack.DefinePlugin({
+        'process.env': config.build.env
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      }),
+      new ExtractTextPlugin(utils.assetsPath('[name]/[name].min.css')),
+      new OptimizeCSSPlugin({
+        cssProcessorOptions: {
+          safe: true
+        }
+      })
+    )
+    buildPack(webpackModulesConfig, null, 'building for ${module}/${module}.min.js')
+  }, 'building for ${module}/index.js')
+}
+
+fullBuild(modulesBuild)
