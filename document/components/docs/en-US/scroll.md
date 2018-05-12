@@ -178,8 +178,9 @@
 | data | data used for list rendering | Array | - | [] |
 | options | the options of better-scroll | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | scrolling direction | String | 'vertical', 'horizontal' | 'vertical' |
-| listenScroll | whether to dispatch scroll event | Boolean | true/false | false |
-| listenBeforeScroll | whether to dispatch  before-scroll-start event | Boolean | true/false | false |
+| scroll-events<sup>1.9.0</sup> | configure which scroll events need be triggered | Array | could include: 'scroll', 'before-scroll-start', 'scroll-end' | [] |
+| listen-scroll | whether to dispatch scroll event. `abandon soon`, please use the property `scroll-events` instead. | Boolean | true/false | false |
+| listen-before-scroll | whether to dispatch  before-scroll-start event. `abandon soon`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
@@ -218,7 +219,8 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | Event Name | Description | Parameters |
 | - | - | - |
 | click | triggers when clicking the list item | item - the data of the list item |
-| scroll | triggers according to the value of probeType, if listenScroll is true | Object {x, y} - real-time scrolling coordinates |
-| before-scroll-start | triggers before scrolling start, if  listenBeforeScroll | - |
+| scroll | if `scroll-events` includes `scroll`, it will be triggered according to the value of probeType, if listenScroll is true | Object {x, y} - real-time scrolling coordinates |
+| before-scroll-start | if `scroll-events` includes `before-scroll-start`, it will be triggered before scrolling start | - |
+| scroll-end<sup>1.9.0</sup> | if `scroll-events` includes `scroll-end`, it will be triggered when scroll end. | Object {x, y} - real-time scrolling coordinates |
 | pulling-down | triggers when the distance of pulling down exceeds the threshold, if pullDownRefresh is true | - |
 | pulling-up | triggers when the distance of pulling up exceeds the threshold, if pullUpLoad is true | - |
