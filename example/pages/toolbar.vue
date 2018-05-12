@@ -1,5 +1,5 @@
 <template>
-  <cube-page type="index-list" title="IndexList" class="option-demo">
+  <cube-page type="toolbar" title="Toolbar" class="option-demo">
     <div slot="content">
       <div class="options">
         <div class="option-list">
