@@ -30,6 +30,12 @@
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
 
+  const DEFAULT_OPTIONS = {
+    momentum: false,
+    click: true,
+    observeDOM: false
+  }
+
   export default {
     name: COMPONENT_NAME,
     props: {
@@ -56,6 +62,22 @@
         type: Number,
         default: 4000
       },
+      showDots: {
+        type: Boolean,
+        default: true
+      },
+      direction: {
+        type: String,
+        default: DIRECTION_H
+      },
+      // the options of BetterScroll
+      options: {
+        type: Object,
+        default() {
+          return {}
+        }
+      },
+      // The props threshold, speed, allowVertical, stopPropagation could be removed in next minor version.
       threshold: {
         type: Number,
         default: 0.3
@@ -64,10 +86,6 @@
         type: Number,
         default: 400
       },
-      bounce: {
-        type: [Boolean, Object],
-        default: false
-      },
       allowVertical: {
         type: Boolean,
         default: false
@@ -75,14 +93,6 @@
       stopPropagation: {
         type: Boolean,
         default: false
-      },
-      direction: {
-        type: String,
-        default: DIRECTION_H
-      },
-      showDots: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -92,12 +102,14 @@
       }
     },
     created() {
-      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'options', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
+          // To fix the render bug when add items since loop.
           if (key === 'data') {
             this._destroy()
           }
+
           /* istanbul ignore next */
           this.$nextTick(() => {
             this.refresh()
@@ -122,7 +134,7 @@
         if (this.slide === null) {
           return
         }
-        this.slide && this.slide.destroy()
+        this._destroy()
         clearTimeout(this._timer)
 
         if (this.slide) {
@@ -170,21 +182,20 @@
       },
       _initSlide() {
         const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
-        this.slide = new BScroll(this.$refs.slide, {
+
+        const options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollX: this.direction === DIRECTION_H,
           scrollY: this.direction === DIRECTION_V,
-          momentum: false,
-          bounce: this.bounce,
           eventPassthrough,
           snap: {
             loop: this.loop,
             threshold: this.threshold,
             speed: this.speed
           },
-          stopPropagation: this.stopPropagation,
-          click: true,
-          observeDOM: false
-        })
+          stopPropagation: this.stopPropagation
+        }, this.options)
+
+        this.slide = new BScroll(this.$refs.slide, options)
 
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
