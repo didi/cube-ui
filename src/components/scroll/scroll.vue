@@ -50,6 +50,7 @@
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
   import { getRect } from '../../common/helpers/dom'
+  import { camelize } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -141,6 +142,15 @@
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
         return (pullDownRefresh && pullDownRefresh.txt) || DEFAULT_REFRESH_TXT
+      },
+      finalScrollEvents() {
+        const finalScrollEvents = this.scrollEvents.slice()
+
+        if (!finalScrollEvents.length) {
+          this.listenScroll && finalScrollEvents.push(EVENT_SCROLL)
+          this.listenBeforeScroll && finalScrollEvents.push(EVENT_BEFORE_SCROLL_START)
+        }
+        return finalScrollEvents
       }
     },
     watch: {
@@ -211,34 +221,13 @@
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
-          scrollX: this.direction === DIRECTION_H
+          scrollX: this.direction === DIRECTION_H,
+          probeType: this.scrollEvents.indexOf(EVENT_SCROLL) !== -1 ? 3 : 1
         }, this.options)
-
-        const listenScroll = this.scrollEvents.length ? this.scrollEvents.indexOf(EVENT_SCROLL) !== -1 : this.listenScroll
-        if (listenScroll) {
-          options.probeType = 3
-        }
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        if (listenScroll) {
-          this.scroll.on('scroll', (pos) => {
-            this.$emit(EVENT_SCROLL, pos)
-          })
-        }
-
-        const listenBeforeScroll = this.scrollEvents.length ? this.scrollEvents.indexOf(EVENT_BEFORE_SCROLL_START) !== -1 : this.listenBeforeScroll
-        if (listenBeforeScroll) {
-          this.scroll.on('beforeScrollStart', () => {
-            this.$emit(EVENT_BEFORE_SCROLL_START)
-          })
-        }
-
-        if (this.scrollEvents.indexOf(EVENT_SCROLL_END) !== -1) {
-          this.scroll.on('scrollEnd', (pos) => {
-            this.$emit(EVENT_SCROLL_END, pos)
-          })
-        }
+        this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
           this._onPullDownRefresh()
@@ -288,6 +277,13 @@
       },
       resetPullUpTxt() {
         this.pullUpDirty = true
+      },
+      _listenScrollEvents() {
+        this.finalScrollEvents.forEach((event) => {
+          this.scroll.on(camelize(event), (...args) => {
+            this.$emit(event, ...args)
+          })
+        })
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {

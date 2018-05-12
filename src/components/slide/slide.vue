@@ -71,10 +71,16 @@
         default: DIRECTION_H
       },
       // the options of BetterScroll
-      options: {
+      scrollOptions: {
         type: Object,
         default() {
           return {}
+        }
+      },
+      scrollEvents: {
+        tyep: Array,
+        default() {
+          return []
         }
       },
       // The props threshold, speed, allowVertical, stopPropagation could be removed in next minor version.
@@ -193,13 +199,15 @@
             speed: this.speed
           },
           stopPropagation: this.stopPropagation
-        }, this.options)
+        }, this.scrollOptions)
 
         this.slide = new BScroll(this.$refs.slide, options)
 
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
+
+        this._listenScrollEvents()
 
         const slideEl = this.$refs.slide
         slideEl.removeEventListener('touchend', this._touchEndEvent, false)
@@ -216,18 +224,24 @@
           }
         })
       },
-      _onScrollEnd(pos) {
+      _onScrollEnd() {
         const { pageX, pageY } = this.slide.getCurrentPage()
         let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
           this.currentPageIndex = pageIndex
-          this.$emit(EVENT_CHANGE, this.currentPageIndex)
+          this.$emit(EVENT_CHANGE, pageIndex)
         }
 
         if (this.autoPlay) {
           this._play()
         }
-        this.$emit(EVENT_SCROLL_END, pos, this.currentPageIndex)
+      },
+      _listenScrollEvents() {
+        this.scrollEvents.forEach((event) => {
+          this.scroll.on(camelize(event), (...args) => {
+            this.$emit(event, ...args)
+          })
+        })
       },
       _initDots() {
         this.dots = new Array(this.children.length)
