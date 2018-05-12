@@ -5,6 +5,7 @@ import {
   Button,
   Loading,
   Tip,
+  Toolbar,
   // form
   Checkbox,
   CheckboxGroup,
@@ -45,6 +46,7 @@ const components = [
   Button,
   Loading,
   Tip,
+  Toolbar,
   // form
   Checkbox,
   CheckboxGroup,

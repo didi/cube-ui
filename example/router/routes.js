@@ -43,6 +43,7 @@ import DrawerCustom from '../pages/drawer/custom.vue'
 import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
+import Toolbar from '../pages/toolbar.vue'
 
 const routes = [
   {
@@ -236,6 +237,10 @@ const routes = [
         component: SlideHorizontal
       }
     ]
+  },
+  {
+    path: '/toolbar',
+    component: Toolbar
   }
 ]
 
