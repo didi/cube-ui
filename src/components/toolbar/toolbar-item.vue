@@ -1,16 +1,15 @@
 <template>
-  <li class="cube-toolbar-item">
-    <cube-button :icon="action.icon" @click="clickHandler($event, action)">
+  <li class="cube-toolbar-item border-right-1px">
+    <cube-button :icon="action.icon" @click="clickHandler">
       <cube-checkbox
+        class="cube-toolbar-chb"
+        v-model="action.checked"
         v-if="action.type == 'checkbox'"
-        v-model="action.checked" :label="action.text"
-        class="cube-toolbar-chb">
+        :label="action.text">
       </cube-checkbox>
       <span v-else v-html="action.text"></span>
     </cube-button>
-    <div v-if="hasDown" class="cube-toolbar-down">
-      <i class="cubeic-pulldown cube-toolbar-pulldown"></i>
-    </div>
+    <i class="cube-toolbar-down"></i>
   </li>
 </template>
 
@@ -19,6 +18,7 @@
   import CubeCheckbox from '../checkbox/checkbox'
 
   const COMPONENT_NAME = 'cube-toolbar-item'
+  const EVENT_CLICK = 'click'
 
   export default {
     name: COMPONENT_NAME,
@@ -32,15 +32,11 @@
         default() {
           return {}
         }
-      },
-      hasDown: {
-        type: Boolean,
-        default: false
       }
     },
     methods: {
-      clickHandler($event, action) {
-        action.clickHandler && action.clickHandler($event, action)
+      clickHandler() {
+        this.$emit(EVENT_CLICK)
       }
     }
   }
@@ -57,20 +53,17 @@
     background-color: $toolbar-bgc
     &:last-child
       position: static
-    &:last-child::after
-      border: 0 none
+      &::after
+        display: none
     &:active
       background-color: $toolbar-active-bgc
-    &:active .cube-toolbar-down .cube-toolbar-pulldown
-      color: $toolbar-active-bgc
+    &:active
       &::after
-        background-color: $toolbar-active-bgc
-    &:active::after
-      border-color: transparent
+        border-color: transparent
 
     /* reset cube-checkbox style */
     .cube-toolbar-chb
-      height: $toolbar-height
+      height: 44px
       padding: 0
       font-size: $fontsize-small
       background-color: transparent
@@ -95,41 +88,9 @@
         background-color: transparent
       &:active::after
         display: none
-
-      .orange
-        color: $color-orange
       i
         margin-right: 0
-        font-size: $fontsize-small
         &.cubeic-more
           color: $color-light-grey
           font-size: $fontsize-large
-
-  .cube-toolbar-down
-    position: absolute
-    top: $toolbar-height
-    left: 0
-    width: 100%
-    height: $toolbar-spacing
-
-  .cube-toolbar-pulldown
-    position: absolute
-    right: 9%
-    top: -100%
-    color: $toolbar-bgc
-    font-size: $fontsize-large-xxx
-    text-shadow: 0 1px 3px $toolbar-active-bgc
-    transform: scale(1.3)
-    &::after
-      content: ""
-      display: block
-      position: absolute
-      left: 30%
-      top: 50%
-      margin-top: -4px
-      width: 40%
-      height: 2px
-      background-color: $toolbar-bgc
-
-
 </style>

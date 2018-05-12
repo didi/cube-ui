@@ -11,7 +11,8 @@
       </div>
       <cube-toolbar
         :actions="actions"
-        :moreActions="more ? moreActions : undefined">
+        :moreActions="more ? moreActions : undefined"
+        @click="clickHandler">
       </cube-toolbar>
     </div>
   </cube-page>
@@ -27,13 +28,12 @@
       SwitchOption
     },
     data() {
-      let money = 10
       return {
-        more: false,
+        more: true,
+        money: 10,
         actions: [
           {
-            text: '完成订单',
-            clickHandler: this.clickHandler
+            text: '完成订单'
           },
           {
             text: '打车来接',
@@ -42,25 +42,19 @@
           },
           {
             text: '一口价<span class="orange">10元</span>',
-            clickHandler(event, data) {
-              money += 10
-              data.text = '一口价<span class="orange">' + money + '元</span>'
-            }
+            action: 'moreMoney'
           }
         ],
         moreActions: [
           {
-            text: '操作a',
-            clickHandler: this.clickHandler
+            text: '操作a'
           },
           {
-            text: '操作b',
-            clickHandler: this.clickHandler
+            text: '操作b'
           },
           {
             text: '操作c',
-            icon: 'dd-cubeic-right',
-            clickHandler: this.clickHandler
+            icon: 'cubeic-right'
           }
         ]
       }
@@ -69,10 +63,15 @@
       updateMore(val) {
         this.more = val
       },
-      clickHandler(event, action) {
+      clickHandler(item) {
+        if (item.action) {
+          this.money += 10
+          item.text = '一口价<span class="orange">' + this.money + '元</span>'
+          return
+        }
         this.$createToast({
           type: 'correct',
-          txt: 'clicked ' + action.text,
+          txt: 'clicked ' + item.text,
           time: 1000
         }).show()
       }
