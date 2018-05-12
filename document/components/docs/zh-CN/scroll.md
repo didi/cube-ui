@@ -193,8 +193,8 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | data | 用于列表渲染的数据 | Array | - | [] |
-| options | better-scroll 配置项 | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | scroll-events<sup>1.9.0</sup> | 配置需要派发的 scroll 事件 | Array | 可包含子项：'scroll', 'before-scroll-start', 'scroll-end' | [] |
 | listen-scroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listen-before-scroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
@@ -236,8 +236,8 @@
 | 事件名 | 说明 | 参数 |
 | - | - | - |
 | click | 点击列表项时触发 | item - 该列表项的数据 |
-| scroll | 当 `scroll-events` 包含 `scroll` 时，根据 probeType 的值决定派发时机 | Object {x, y} - 当前滚动位置 |
+| scroll | 当 `scroll-events` 包含 `scroll` 时，根据 probeType 的值决定派发时机 | Object {x, y} - 实时滚动位置的坐标 |
 | before-scroll-start | 当 `scroll-events` 包含 `before-scroll-start` 时，在滚动开始之前触发 | - |
-| scroll-end<sup>1.9.0</sup> | 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 当前滚动位置 |
+| scroll-end<sup>1.9.0</sup> | 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 实时滚动位置的坐标 |
 | pulling-down | 当 pullDownRefresh 属性为 true 时，在下拉超过阈值时触发 | - |
 | pulling-up | 当 pullUpLoad 属性为 true 时，在上拉超过阈值时触发 | - |
