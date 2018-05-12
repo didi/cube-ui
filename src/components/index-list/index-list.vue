@@ -2,7 +2,7 @@
   <div class="cube-index-list">
     <cube-scroll
       ref="scroll"
-      :listen-scroll="true"
+      :scroll-events="scrollEvents"
       :options="options"
       :data="data"
       @scroll="scroll"
@@ -92,6 +92,7 @@
     },
     data() {
       return {
+        scrollEvents: ['scroll'],
         currentIndex: 0,
         scrollY: -1,
         diff: -1,

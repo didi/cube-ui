@@ -51,6 +51,7 @@
   import Bubble from '../bubble/bubble.vue'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
+  import { tip } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -351,8 +352,7 @@
       },
       _checkAbandon() {
         if (this.listenScroll || this.listenBeforeScroll) {
-          // TODO: use tip, add component name
-          console.warn('The property "listen-scroll" and "listen-before-scroll" are going to be abandon, please use the better property "scroll-events" to replace them. You could find the details in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor')
+          tip('The property "listen-scroll" and "listen-before-scroll" are going to be abandon, please use the new property "scroll-events" to replace them. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor', COMPONENT_NAME)
         }
       }
     },
