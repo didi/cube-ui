@@ -195,8 +195,9 @@
 | data | 用于列表渲染的数据 | Array | - | [] |
 | options | better-scroll 配置项 | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
-| listenScroll | 是否派发 scroll 事件 | Boolean | true/false | false |
-| listenBeforeScroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
+| scroll-events | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
+| listen-scroll | 是否派发 scroll 事件 | Boolean | true/false | false |
+| listen-before-scroll | 是否派发 before-scroll-start 事件 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
@@ -237,6 +238,6 @@
 | click | 点击列表项时触发 | item - 该列表项的数据 |
 | scroll | 当 listenScroll 为 true 时，根据 probeType 的值决定派发时机 | Object {x, y} - 当前滚动位置 |
 | before-scroll-start | 当 listenBeforeScroll 属性为 true 时，在滚动开始之前触发 | - |
-| scroll-end| 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 当前滚动位置 |
+| scroll-end<sup>1.9.0</sup> | 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 当前滚动位置 |
 | pulling-down | 当 pullDownRefresh 属性为 true 时，在下拉超过阈值时触发 | - |
 | pulling-up | 当 pullUpLoad 属性为 true 时，在上拉超过阈值时触发 | - |

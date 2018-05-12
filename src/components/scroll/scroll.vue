@@ -65,6 +65,8 @@
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
 
+  const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
+
   const DEFAULT_OPTIONS = {
     observeDOM: true,
     click: true,
@@ -93,17 +95,23 @@
         type: Array,
         default() {
           return []
+        },
+        validator(arr) {
+          return arr.every((item) => {
+            return SCROLL_EVENTS.indexOf(item) !== -1
+          })
         }
       },
-      // TODO: add to be deprecated warn
       // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
-        default: false
+        default: false,
+        validator: abandonTip
       },
       listenBeforeScroll: {
         type: Boolean,
-        default: false
+        default: false,
+        validator: abandonTip
       },
       direction: {
         type: String,
@@ -279,11 +287,16 @@
         this.pullUpDirty = true
       },
       _listenScrollEvents() {
-        this.finalScrollEvents.forEach((event) => {
-          this.scroll.on(camelize(event), (...args) => {
+        for (let i; i < this.finalScrollEvents.length; i++) {
+          this.scroll.on(camelize(this.finalScrollEvents[i]), (...args) => {
             this.$emit(event, ...args)
           })
-        })
+        }
+        // const camelEvent = camelize(1)
+        // this.finalScrollEvents.forEach((event) => {
+        //   const camelEvent = camelize(event)
+          
+        // })
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
@@ -346,6 +359,11 @@
       Loading,
       Bubble
     }
+  }
+
+  function abandonTip(value) {
+    // TODO: use tip, add component name
+    value && console.warn('The property is going to be abandon, please use the better property "scroll-events" to replace it. You could find the details in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor')
   }
 </script>
 
