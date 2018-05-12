@@ -58,12 +58,13 @@
   const DEFAULT_REFRESH_TXT = 'Refresh success'
   const PULL_DOWN_ELEMENT_INITIAL_HEIGHT = -50
 
-  const EVENT_SCROLL = 'scroll'
-  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
-  const EVENT_SCROLL_END = 'scroll-end'
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
+
+  const EVENT_SCROLL = 'scroll'
+  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
+  const EVENT_SCROLL_END = 'scroll-end'
 
   const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
 
@@ -105,13 +106,11 @@
       // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
-        default: false,
-        validator: abandonTip
+        default: false
       },
       listenBeforeScroll: {
         type: Boolean,
-        default: false,
-        validator: abandonTip
+        default: false
       },
       direction: {
         type: String,
@@ -216,6 +215,7 @@
       this.$nextTick(() => {
         this.initScroll()
       })
+      this._checkAbandon()
     },
     beforeDestroy() {
       this.destroy()
@@ -287,16 +287,11 @@
         this.pullUpDirty = true
       },
       _listenScrollEvents() {
-        for (let i; i < this.finalScrollEvents.length; i++) {
-          this.scroll.on(camelize(this.finalScrollEvents[i]), (...args) => {
+        this.finalScrollEvents.forEach((event) => {
+          this.scroll.on(camelize(event), (...args) => {
             this.$emit(event, ...args)
           })
-        }
-        // const camelEvent = camelize(1)
-        // this.finalScrollEvents.forEach((event) => {
-        //   const camelEvent = camelize(event)
-          
-        // })
+        })
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
@@ -353,17 +348,18 @@
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
+      },
+      _checkAbandon() {
+        if (this.listenScroll || this.listenBeforeScroll) {
+          // TODO: use tip, add component name
+          console.warn('The property "listen-scroll" and "listen-before-scroll" are going to be abandon, please use the better property "scroll-events" to replace them. You could find the details in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor')
+        }
       }
     },
     components: {
       Loading,
       Bubble
     }
-  }
-
-  function abandonTip(value) {
-    // TODO: use tip, add component name
-    value && console.warn('The property is going to be abandon, please use the better property "scroll-events" to replace it. You could find the details in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor')
   }
 </script>
 

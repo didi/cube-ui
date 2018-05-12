@@ -2,7 +2,7 @@
   <div class="cube-index-list">
     <cube-scroll
       ref="scroll"
-      :listen-scroll="listenScroll"
+      :listen-scroll="true"
       :options="options"
       :data="data"
       @scroll="scroll"

@@ -21,11 +21,11 @@
 <script type="text/ecmascript-6">
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
+  import scrollMixin from '../../common/mixins/scroll'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
-  const EVENT_SCROLL_END = 'scroll-end'
 
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
@@ -38,6 +38,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin],
     props: {
       data: {
         type: Array,
@@ -75,12 +76,6 @@
         type: Object,
         default() {
           return {}
-        }
-      },
-      scrollEvents: {
-        tyep: Array,
-        default() {
-          return []
         }
       },
       // The props threshold, speed, allowVertical, stopPropagation could be removed in next minor version.
@@ -235,13 +230,6 @@
         if (this.autoPlay) {
           this._play()
         }
-      },
-      _listenScrollEvents() {
-        this.scrollEvents.forEach((event) => {
-          this.scroll.on(camelize(event), (...args) => {
-            this.$emit(event, ...args)
-          })
-        })
       },
       _initDots() {
         this.dots = new Array(this.children.length)
