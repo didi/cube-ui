@@ -33,7 +33,8 @@
         money: 10,
         actions: [
           {
-            text: '完成订单'
+            text: '完成订单',
+            action: 'showText'
           },
           {
             text: '打车来接',
@@ -47,14 +48,17 @@
         ],
         moreActions: [
           {
-            text: '操作a'
+            text: '操作a',
+            action: 'showText'
           },
           {
-            text: '操作b'
+            text: '操作b',
+            action: 'showText'
           },
           {
             text: '操作c',
-            icon: 'cubeic-right'
+            icon: 'cubeic-right',
+            action: 'showText'
           }
         ]
       }
@@ -63,17 +67,21 @@
       updateMore(val) {
         this.more = val
       },
-      clickHandler(item) {
-        if (item.action) {
-          this.money += 10
-          item.text = '一口价<span class="orange">' + this.money + '元</span>'
-          return
-        }
+      showText(item) {
         this.$createToast({
           type: 'correct',
           txt: 'clicked ' + item.text,
           time: 1000
         }).show()
+      },
+      moreMoney(item) {
+        this.money += 10
+        item.text = '一口价<span class="orange">' + this.money + '元</span>'
+      },
+      clickHandler(item) {
+        if (item.action) {
+          this[item.action](item)
+        }
       }
     }
   }
