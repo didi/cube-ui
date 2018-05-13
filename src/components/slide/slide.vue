@@ -220,10 +220,11 @@
           this.$emit(EVENT_CHANGE, pageIndex)
         }
 
+        this.$emit(EVENT_SCROLL_END, pageIndex)
+
         if (this.autoPlay) {
           this._play()
         }
-        this.$emit(EVENT_SCROLL_END, pageIndex)
       },
       _initDots() {
         this.dots = new Array(this.children.length)
