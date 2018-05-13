@@ -20,7 +20,8 @@
           "subList": {
             "button": "Button",
             "loading": "Loading",
-            "tip": "Tip"
+            "tip": "Tip",
+            "toolbar": "Toolbar"
           }
         },
         "form": {
