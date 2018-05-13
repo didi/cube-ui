@@ -197,8 +197,6 @@
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        this._listenScrollEvents()
-
         const slideEl = this.$refs.slide
         slideEl.removeEventListener('touchend', this._touchEndEvent, false)
         this._touchEndEvent = () => {
