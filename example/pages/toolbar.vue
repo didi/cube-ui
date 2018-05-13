@@ -29,7 +29,7 @@
     },
     data() {
       return {
-        more: true,
+        more: false,
         money: 10,
         actions: [
           {
