@@ -1,14 +1,14 @@
 ## Toolbar
 
-> 1.9.0 新增
+> New in 1.9.0+
 
-工具栏，可以组合多个按钮，复选框操作为一个工具栏。
+Toolbar, with actions & more-actions.
 
-### 示例
+### Example
 
-- 基础使用
+- Basic
 
-  将每个操作的类型和文本传入 `actions` 属性。
+  You can use `actions` to define the toolbar actions.
 
   ```html
   <cube-toolbar :actions="actions" @click="clickHandler"></cube-toolbar>
@@ -56,9 +56,11 @@
   }
   ```
 
-- 更多操作
+  You can use handle the action in `click` event handler.
 
-  你还可以通过 `moreActions` 属性传入更多操作，就会把工具栏扩展成可展开收起的双层工具栏。
+- More actions
+
+  You can use `moreActions` to define more actions.
 
   ```html
   <cube-toolbar
@@ -124,24 +126,24 @@
   }
   ```
 
-### Props 配置
+### Props
 
-| 参数 | 说明 | 类型 | 默认值 | 示例 |
+| Attribute | Description | Type | Accepted Values | Demo |
 | - | - | - | - | - |
-| actions | 定义一组操作 | Array | [] | [ {text: '完成订单' } ] |
-| moreActions | 定义更多的一组操作 | Array | [] | [ {text: '完成订单' } ] |
+| actions | actions description | Array | [] | [ {text: '完成订单' } ] |
+| moreActions | more actions | Array | [] | [ {text: '完成订单' } ] |
 
-* `actions` 子配置项
+* `actions` sub configuration
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| type | 类型，包括 button 和 checkbox | String | button/checkbox | button |
-| text | 文案，支持写入 html | String | - | '' |
-| checked | 当为 checkbox 类型时，checkbox的初始状态 | Boolean | true/false | false |
+| type | type, button or checkbox | String | button/checkbox | button |
+| text | text, support html string | String | - | '' |
+| checked | if type is checkbox, then this value will be the Checkbox's model alue | Boolean | true/false | false |
 
-### 事件
+### Events
 
-| 事件名 | 说明 | 参数 |
+| Event Name | Description | Parameters |
 | - | - | - |
-| click | 点击某一项触发 | 该项 item 的值 |
-| more-click | 当有更多操作时，点击更多按钮时触发 | 更多操作是否是显示状态 |
+| click | clicked one item | item value |
+| more-click | clicked more item | whether more actions is visible |
