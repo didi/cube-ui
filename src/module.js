@@ -4,6 +4,7 @@ import Style from './modules/style'
 import Button from './modules/button'
 import Loading from './modules/loading'
 import Tip from './modules/tip'
+import Toolbar from './modules/toolbar'
 
 // Form
 import Checkbox from './modules/checkbox'
@@ -55,6 +56,7 @@ export {
   Button,
   Loading,
   Tip,
+  Toolbar,
   // form
   Checkbox,
   CheckboxGroup,
