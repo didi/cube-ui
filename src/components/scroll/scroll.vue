@@ -51,7 +51,7 @@
   import Bubble from '../bubble/bubble.vue'
   import scrollMixin from '../../common/mixins/scroll'
   import { getRect } from '../../common/helpers/dom'
-  import { camelize } from '../../common/lang/string'
+  import { camelize, kebab } from '../../common/lang/string'
   import { tip } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-scroll'
@@ -349,7 +349,7 @@
       _checkDeprecated() {
         const deprecatedKeys = ['listenScroll', 'listenBeforeScroll']
         deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${key}" is deprecated, please use the new property "scroll-events" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "scroll-events" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
         })
       }
     },

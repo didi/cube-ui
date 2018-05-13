@@ -23,6 +23,7 @@
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
   import { tip } from '../../common/helpers/debug'
+  import { kebab } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
@@ -265,7 +266,7 @@
       _checkDeprecated() {
         const deprecatedKeys = ['allowVertical', 'stopPropagation']
         deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${key}" is deprecated, please use the new property "scroll-options" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
         })
       }
     },
