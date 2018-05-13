@@ -179,8 +179,8 @@
 | direction | scrolling direction | String | 'vertical', 'horizontal' | 'vertical' |
 | options | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
 | scroll-events<sup>1.9.0</sup> | configure which scroll events need be triggered | Array | could include: 'scroll', 'before-scroll-start', 'scroll-end' | [] |
-| listen-scroll | whether to dispatch scroll event. `abandon soon`, please use the property `scroll-events` instead. | Boolean | true/false | false |
-| listen-before-scroll | whether to dispatch  before-scroll-start event. `abandon soon`, please use the property `scroll-events` instead. | Boolean | true/false | false |
+| listen-scroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
+| listen-before-scroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.

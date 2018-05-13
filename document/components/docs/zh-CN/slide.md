@@ -164,8 +164,8 @@
 | options<sup>1.9.0</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
-| allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
-| stopPropagation | 是否阻止事件冒泡，可用于解决嵌套同方向slide时会遇到的事件冒泡问题 | Boolean | true/false | false |
+| allowVertical | 是否允许竖向滚动。`即将废弃`，推荐使用 `options` 属性 | Boolean | true/false | false |
+| stopPropagation | 是否阻止事件冒泡，可用于解决嵌套同方向slide时会遇到的事件冒泡问题。`即将废弃`，推荐使用 `options` 属性 | Boolean | true/false | false |
 
 ### 插槽
 

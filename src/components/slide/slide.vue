@@ -262,10 +262,10 @@
           this._refresh()
         }, 60)
       },
-      _checkAbandon() {
-        const abandonKeys = ['allowVertical', 'stopPropagation']
-        abandonKeys.forEach((key) => {
-          this[key] && tip(`The property "${key}" are going to be abandon, please use the new property "scroll-options" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+      _checkDeprecated() {
+        const deprecatedKeys = ['allowVertical', 'stopPropagation']
+        deprecatedKeys.forEach((key) => {
+          this[key] && tip(`The property "${key}" is deprecated, please use the new property "scroll-options" to replace it. You could find the details at https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
         })
       }
     },
@@ -276,7 +276,7 @@
 
       window.addEventListener('resize', this._resizeHandler)
 
-      this._checkAbandon()
+      this._checkDeprecated()
     },
     activated() {
       /* istanbul ignore next */
