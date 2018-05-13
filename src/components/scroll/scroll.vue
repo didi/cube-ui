@@ -4,7 +4,11 @@
       <div ref="listWrapper" class="cube-scroll-list-wrapper">
         <slot>
           <ul class="cube-scroll-list">
-            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+            <li
+              class="cube-scroll-item border-bottom-1px"
+              v-for="(item, index) in data"
+              :key="index"
+              @click="clickItem(item)">{{item}}</li>
           </ul>
         </slot>
       </div>
@@ -20,12 +24,12 @@
       </slot>
     </div>
     <slot
-        name="pulldown"
-        :pullDownRefresh="pullDownRefresh"
-        :pullDownStyle="pullDownStyle"
-        :beforePullDown="beforePullDown"
-        :isPullingDown="isPullingDown"
-        :bubbleY="bubbleY">
+      name="pulldown"
+      :pullDownRefresh="pullDownRefresh"
+      :pullDownStyle="pullDownStyle"
+      :beforePullDown="beforePullDown"
+      :isPullingDown="isPullingDown"
+      :bubbleY="bubbleY">
       <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
         <div class="before-trigger" v-if="beforePullDown">
           <bubble :y="bubbleY"></bubble>
@@ -45,7 +49,10 @@
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
+  import scrollMixin from '../../common/mixins/scroll'
   import { getRect } from '../../common/helpers/dom'
+  import { camelize, kebab } from '../../common/lang/string'
+  import { tip } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -53,11 +60,15 @@
   const DEFAULT_REFRESH_TXT = 'Refresh success'
   const PULL_DOWN_ELEMENT_INITIAL_HEIGHT = -50
 
-  const EVENT_SCROLL = 'scroll'
-  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
+
+  const EVENT_SCROLL = 'scroll'
+  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
+  const EVENT_SCROLL_END = 'scroll-end'
+
+  const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
 
   const DEFAULT_OPTIONS = {
     observeDOM: true,
@@ -70,6 +81,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin],
     props: {
       data: {
         type: Array,
@@ -77,12 +89,18 @@
           return []
         }
       },
-      options: {
-        type: Object,
+      scrollEvents: {
+        type: Array,
         default() {
-          return {}
+          return []
+        },
+        validator(arr) {
+          return arr.every((item) => {
+            return SCROLL_EVENTS.indexOf(item) !== -1
+          })
         }
       },
+      // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
         default: false
@@ -128,6 +146,15 @@
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
         return (pullDownRefresh && pullDownRefresh.txt) || DEFAULT_REFRESH_TXT
+      },
+      finalScrollEvents() {
+        const finalScrollEvents = this.scrollEvents.slice()
+
+        if (!finalScrollEvents.length) {
+          this.listenScroll && finalScrollEvents.push(EVENT_SCROLL)
+          this.listenBeforeScroll && finalScrollEvents.push(EVENT_BEFORE_SCROLL_START)
+        }
+        return finalScrollEvents
       }
     },
     watch: {
@@ -185,6 +212,7 @@
       this.$nextTick(() => {
         this.initScroll()
       })
+      this._checkDeprecated()
     },
     beforeDestroy() {
       this.destroy()
@@ -198,26 +226,13 @@
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
-          scrollX: this.direction === DIRECTION_H
+          scrollX: this.direction === DIRECTION_H,
+          probeType: this.scrollEvents.indexOf(EVENT_SCROLL) !== -1 ? 3 : 1
         }, this.options)
-
-        if (this.listenScroll) {
-          options.probeType = 3
-        }
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        if (this.listenScroll) {
-          this.scroll.on('scroll', (pos) => {
-            this.$emit(EVENT_SCROLL, pos)
-          })
-        }
-
-        if (this.listenBeforeScroll) {
-          this.scroll.on('beforeScrollStart', () => {
-            this.$emit(EVENT_BEFORE_SCROLL_START)
-          })
-        }
+        this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
           this._onPullDownRefresh()
@@ -267,6 +282,13 @@
       },
       resetPullUpTxt() {
         this.pullUpDirty = true
+      },
+      _listenScrollEvents() {
+        this.finalScrollEvents.forEach((event) => {
+          this.scroll.on(camelize(event), (...args) => {
+            this.$emit(event, ...args)
+          })
+        })
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
@@ -323,6 +345,12 @@
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
+      },
+      _checkDeprecated() {
+        const deprecatedKeys = ['listenScroll', 'listenBeforeScroll']
+        deprecatedKeys.forEach((key) => {
+          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "scroll-events" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
       }
     },
     components: {

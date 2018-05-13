@@ -2,8 +2,12 @@
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
       <slot>
-        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)"
-                         :item="item"></cube-slide-item>
+        <cube-slide-item
+          v-for="(item, index) in data"
+          :key="index"
+          @click.native="clickItem(item, index)"
+          :item="item">
+        </cube-slide-item>
       </slot>
     </div>
     <div class="cube-slide-dots" v-if="showDots">
@@ -17,15 +21,27 @@
 <script type="text/ecmascript-6">
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
+  import scrollMixin from '../../common/mixins/scroll'
+  import { tip } from '../../common/helpers/debug'
+  import { kebab } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
+  const EVENT_SCROLL_END = 'scroll-end'
+
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
 
+  const DEFAULT_OPTIONS = {
+    momentum: false,
+    click: true,
+    observeDOM: false
+  }
+
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin],
     props: {
       data: {
         type: Array,
@@ -42,14 +58,6 @@
         type: Boolean,
         default: true
       },
-      autoPlay: {
-        type: Boolean,
-        default: true
-      },
-      interval: {
-        type: Number,
-        default: 4000
-      },
       threshold: {
         type: Number,
         default: 0.3
@@ -58,6 +66,23 @@
         type: Number,
         default: 400
       },
+      autoPlay: {
+        type: Boolean,
+        default: true
+      },
+      interval: {
+        type: Number,
+        default: 4000
+      },
+      showDots: {
+        type: Boolean,
+        default: true
+      },
+      direction: {
+        type: String,
+        default: DIRECTION_H
+      },
+      // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
         default: false
@@ -65,14 +90,6 @@
       stopPropagation: {
         type: Boolean,
         default: false
-      },
-      direction: {
-        type: String,
-        default: DIRECTION_H
-      },
-      showDots: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -82,9 +99,14 @@
       }
     },
     created() {
-      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this.$watch(key, () => {
+          // To fix the render bug when add items since loop.
+          if (key === 'data') {
+            this._destroy()
+          }
+
           /* istanbul ignore next */
           this.$nextTick(() => {
             this.refresh()
@@ -109,7 +131,7 @@
         if (this.slide === null) {
           return
         }
-        this.slide && this.slide.destroy()
+        this._destroy()
         clearTimeout(this._timer)
 
         if (this.slide) {
@@ -127,6 +149,9 @@
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _destroy() {
+        this.slide && this.slide.destroy()
       },
       _refresh() {
         this._updateSlideDom(true)
@@ -154,21 +179,20 @@
       },
       _initSlide() {
         const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
-        this.slide = new BScroll(this.$refs.slide, {
+
+        const options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollX: this.direction === DIRECTION_H,
           scrollY: this.direction === DIRECTION_V,
-          momentum: false,
-          bounce: false,
           eventPassthrough,
           snap: {
             loop: this.loop,
             threshold: this.threshold,
             speed: this.speed
           },
-          stopPropagation: this.stopPropagation,
-          click: true,
-          observeDOM: false
-        })
+          stopPropagation: this.stopPropagation
+        }, this.options)
+
+        this.slide = new BScroll(this.$refs.slide, options)
 
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
@@ -190,11 +214,14 @@
         })
       },
       _onScrollEnd() {
-        let pageIndex = this.slide.getCurrentPage().pageX
+        const { pageX, pageY } = this.slide.getCurrentPage()
+        let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
           this.currentPageIndex = pageIndex
-          this.$emit(EVENT_CHANGE, this.currentPageIndex)
+          this.$emit(EVENT_CHANGE, pageIndex)
         }
+
+        this.$emit(EVENT_SCROLL_END, pageIndex)
 
         if (this.autoPlay) {
           this._play()
@@ -235,6 +262,12 @@
           }
           this._refresh()
         }, 60)
+      },
+      _checkDeprecated() {
+        const deprecatedKeys = ['allowVertical', 'stopPropagation']
+        deprecatedKeys.forEach((key) => {
+          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
       }
     },
     mounted() {
@@ -243,6 +276,8 @@
       })
 
       window.addEventListener('resize', this._resizeHandler)
+
+      this._checkDeprecated()
     },
     activated() {
       /* istanbul ignore next */
@@ -257,10 +292,9 @@
     },
     destroyed() {
       this._deactivated()
-      if (this.slide) {
-        this.slide.destroy()
-        this.slide = null
-      }
+      this._destroy()
+
+      this.slide = null
     },
     components: {
       CubeSlideItem
