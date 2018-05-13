@@ -14,26 +14,6 @@ export default {
       default() {
         return {}
       }
-    },
-    scrollEvents: {
-      type: Array,
-      default() {
-        return []
-      },
-      validator(arr) {
-        return arr.every((item) => {
-          return SCROLL_EVENTS.indexOf(item) !== -1
-        })
-      }
-    }
-  },
-  methods: {
-    _listenScrollEvents() {
-      this.scrollEvents.forEach((event) => {
-        this.scroll.on(camelize(event), (...args) => {
-          this.$emit(event, ...args)
-        })
-      })
     }
   }
 }

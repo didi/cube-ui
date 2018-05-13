@@ -27,6 +27,7 @@
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
+  const EVENT_SCROLL_END = 'scroll-end'
 
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
@@ -224,6 +225,7 @@
         if (this.autoPlay) {
           this._play()
         }
+        this.$emit(EVENT_SCROLL_END, pageIndex)
       },
       _initDots() {
         this.dots = new Array(this.children.length)

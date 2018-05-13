@@ -178,7 +178,6 @@
 | interval | interval of play | Number | - | 4000 |
 | direction | slide direction | String | horizontal/vertical | horizontal |
 | options<sup>1.9.0</sup> | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
-| scroll-events<sup>1.9.0</sup> | configure which scroll events need be triggered | Array | could include: 'scroll', 'before-scroll-start', 'scroll-end' | [] |
 | threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
 | speed | speed of switching pages | Number | - | 400 |
 | allowVertical | whether to allow vertical scrolling | Boolean | true/false | false |
@@ -196,9 +195,7 @@
 | Event Name | Description | Parameters |
 | - | - | - |
 | change | triggers when current slide changes | index of current slide |
-| scroll<sup>1.9.0</sup> | if `scroll-events` includes `scroll`, it will be triggered according to the value of probeType, if listenScroll is true | Object {x, y} - real-time scrolling coordinates |
-| before-scroll-start<sup>1.9.0</sup> | if `scroll-events` includes `before-scroll-start`, it will be triggered before scrolling start | - |
-| scroll-end<sup>1.9.0</sup> | if `scroll-events` includes `scroll-end`, it will be triggered when scroll end. | Object {x, y} - real-time scrolling coordinates |
+| scroll-end<sup>1.9.0</sup> | triggers when scroll end. | index of current slide |
 
 
 ### Instance methods

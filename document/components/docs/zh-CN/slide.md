@@ -162,7 +162,6 @@
 | interval | 播放间隔 | Number | - | 4000 |
 | direction | 轮播方向 | String | horizontal/vertical | horizontal |
 | options<sup>1.9.0</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
-| scroll-events<sup>1.9.0</sup> | 配置需要派发的 scroll 事件 | Array | 可包含子项：'scroll', 'before-scroll-start', 'scroll-end' | [] |
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动 | Boolean | true/false | false |
@@ -179,10 +178,8 @@
 
 | 事件名 | 说明 | 参数 |
 | - | - | - |
-| change | Slide 当前展示项发生改变时触发 | 当前展示项的索引值 |
-| scroll<sup>1.9.0</sup> | 当 `scroll-events` 包含 `scroll` 时，根据 probeType 的值决定派发时机 | Object {x, y} - 实时滚动位置的坐标 |
-| before-scroll-start<sup>1.9.0</sup> | 当 `scroll-events` 包含 `before-scroll-start` 时，在滚动开始之前触发 | - |
-| scroll-end<sup>1.9.0</sup> | 当 `scroll-events` 包含 `scroll-end` 时，在滚动结束时触发 | Object {x, y} - 实时滚动位置的坐标 |
+| change | Slide 页面切换时触发 | 当前页面的索引值 |
+| scroll-end<sup>1.9.0</sup> | 在滚动结束时触发 | 当前页面的索引值 |
 
 ### 实例方法
 
