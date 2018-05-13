@@ -43,6 +43,8 @@ export class Button extends CubeUIComponent {}
 export class Loading extends CubeUIComponent {}
 /** Tip Component */
 export class Tip extends CubeUIComponent {}
+/** Toolbar Component */
+export class Toolbar extends CubeUIComponent {}
 // form
 /** Checkbox Component */
 export class Checkbox extends CubeUIComponent {}
