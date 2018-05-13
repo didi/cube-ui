@@ -11,7 +11,7 @@
       </div>
       <cube-toolbar
         :actions="actions"
-        :moreActions="more ? moreActions : undefined"
+        :more-actions="more ? moreActions : undefined"
         @click="clickHandler">
       </cube-toolbar>
     </div>

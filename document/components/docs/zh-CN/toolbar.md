@@ -11,17 +11,17 @@
   将每个操作的类型和处理函数传入 `actions` 属性。
 
   ```html
-  <cube-toolbar :actions="actions"></cube-toolbar>
+  <cube-toolbar :actions="actions" @click="clickHandler"></cube-toolbar>
   ```
   ```js
   export default {
     data() {
-      let money = 10
       return {
+        money: 10,
         actions: [
           {
             text: '完成订单',
-            clickHandler: this.clickHandler
+            action: 'showText'
           },
           {
             text: '打车来接',
@@ -30,21 +30,27 @@
           },
           {
             text: '一口价<span class="orange">10元</span>',
-            clickHandler(event, data) {
-              money += 10
-              data.text = '一口价<span class="orange">' + money + '元</span>'
-            }
+            action: 'moreMoney'
           }
         ]
       }
     },
     methods: {
-      clickHandler(event, action) {
+      showText(item) {
         this.$createToast({
           type: 'correct',
-          txt: 'clicked ' + action.text,
+          txt: 'clicked ' + item.text,
           time: 1000
         }).show()
+      },
+      moreMoney(item) {
+        this.money += 10
+        item.text = '一口价<span class="orange">' + this.money + '元</span>'
+      },
+      clickHandler(item) {
+        if (item.action) {
+          this[item.action](item)
+        }
       }
     }
   }
@@ -55,7 +61,10 @@
   你还可以通过 `moreActions` 属性传入更多操作，就会把工具栏扩展成可展开收起的双层工具栏。
 
   ```html
-  <cube-toolbar :actions="actions" :moreActions="moreActions"></cube-toolbar>
+  <cube-toolbar
+    :actions="actions"
+    :more-actions="moreActions"
+    @click="clickHandler"></cube-toolbar>
   ```
   ```js
   export default {
@@ -65,7 +74,7 @@
         actions: [
           {
             text: '完成订单',
-            clickHandler: this.clickHandler
+            action: 'showText'
           },
           {
             text: '打车来接',
@@ -74,36 +83,42 @@
           },
           {
             text: '一口价<span class="orange">10元</span>',
-            clickHandler(event, data) {
-              money += 10
-              data.text = '一口价<span class="orange">' + money + '元</span>'
-            }
+            action: 'moreMoney'
           }
         ],
         moreActions: [
           {
             text: '操作a',
-            clickHandler: this.clickHandler
+            action: 'showText'
           },
           {
             text: '操作b',
-            clickHandler: this.clickHandler
+            action: 'showText'
           },
           {
             text: '操作c',
-            icon: 'dd-cubeic-right',
-            clickHandler: this.clickHandler
+            icon: 'cubeic-right',
+            action: 'showText'
           }
         ]
       }
     },
     methods: {
-      clickHandler(event, action) {
+      showText(item) {
         this.$createToast({
           type: 'correct',
-          txt: 'clicked ' + action.text,
+          txt: 'clicked ' + item.text,
           time: 1000
         }).show()
+      },
+      moreMoney(item) {
+        this.money += 10
+        item.text = '一口价<span class="orange">' + this.money + '元</span>'
+      },
+      clickHandler(item) {
+        if (item.action) {
+          this[item.action](item)
+        }
       }
     }
   }
@@ -113,8 +128,8 @@
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
-| actions | 定义一组操作 | Array | [] | [ {text: '完成订单', clickHandler: (event, action) => {}} |
-| moreActions | 定义更多的一组操作 | Array | [] | [ {text: '完成订单', clickHandler: (event, action) => {}} |
+| actions | 定义一组操作 | Array | [] | [ {text: '完成订单' } ] |
+| moreActions | 定义更多的一组操作 | Array | [] | [ {text: '完成订单' } ] |
 
 * `actions` 子配置项
 
@@ -122,11 +137,11 @@
 | - | - | - | - | - |
 | type | 类型，包括 button 和 checkbox | String | button/checkbox | button |
 | text | 文案，支持写入 html | String | - | '' |
-| clickHandler | 点击的处理函数，参数1：点击事件 event；参数2：点击项的操作配置 action | Function | - | - |
 | checked | 当为 checkbox 类型时，checkbox的初始状态 | Boolean | true/false | false |
 
 ### 事件
 
 | 事件名 | 说明 | 参数 |
 | - | - | - |
+| click | 点击某一项触发 | 该项 item 的值 |
 | more-click | 当有更多操作时，点击更多按钮时触发 | 更多操作的显示状态 |
