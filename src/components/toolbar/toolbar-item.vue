@@ -30,6 +30,7 @@
       action: {
         type: Object,
         default() {
+          /* istanbul ignore next */
           return {}
         }
       }
@@ -78,8 +79,7 @@
     /* reset cube-btn style */
     .cube-btn
       position: relative
-      padding-left: 5px
-      padding-right: 5px
+      padding: 0 5px
       background-color: transparent
       border: 0 none
       color: $color-grey

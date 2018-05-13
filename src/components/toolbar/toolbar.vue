@@ -3,8 +3,7 @@
     <ul
       class="cube-toolbar-group cube-toolbar-group-more"
       v-if="moreActions"
-      v-show="showMore"
-      @click="moreBarClick">
+      v-show="showMore">
       <cube-toolbar-item
         v-for="(action, index) in moreActions"
         :key="index"
@@ -37,6 +36,7 @@
       actions: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },
@@ -60,9 +60,6 @@
       }
     },
     methods: {
-      moreBarClick() {
-        this.showMore = false
-      },
       itemClick(action) {
         if (action.$cubeMore) {
           this.showMore = !this.showMore
