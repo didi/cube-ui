@@ -294,42 +294,44 @@ describe('Scroll', () => {
   it('should trigger other events', function (done) {
     const scrollHandle = sinon.spy()
     const beforeScrollHandle = sinon.spy()
+    const scrollEndHandle = sinon.spy()
 
     vm = createScroll({
       data,
-      listenScroll: true,
-      listenBeforeScroll: true,
+      scrollEvents: ['scroll', 'scroll-end'],
       options: {
         pullUpLoad: true
       }
     }, {
       scroll: scrollHandle,
-      'before-scroll-start': beforeScrollHandle
+      'before-scroll-start': beforeScrollHandle,
+      'scroll-end': scrollEndHandle
     })
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
 
     const listItem = vm.$el.querySelector('.cube-scroll-content li:nth-child(3)')
-    dispatchSwipe(listItem, [
-      {
-        pageX: 10,
-        pageY: 200
-      },
-      {
-        pageX: 10,
-        pageY: 10
-      }
-    ], 100)
 
     setTimeout(() => {
-      // TODO: why failed
-      // expect(scrollHandle)
-      //   .to.be.called
-      // expect(beforeScrollHandle)
-      //   .to.be.callCount(1)
+      dispatchSwipe(listItem, [
+        {
+          pageX: 10,
+          pageY: 200
+        },
+        {
+          pageX: 10,
+          pageY: 10
+        }
+      ], 100)
 
-      done()
-    }, 400)
+      setTimeout(() => {
+        expect(scrollHandle).to.be.called
+        expect(beforeScrollHandle).to.be.callCount(0)
+        expect(scrollEndHandle).to.be.callCount(1)
+
+        done()
+      }, 1500)
+    }, 100)
   })
 
   it('should call correct method', function () {
