@@ -2,7 +2,7 @@
   <div class="cube-index-list">
     <cube-scroll
       ref="scroll"
-      :listen-scroll="listenScroll"
+      :scroll-events="scrollEvents"
       :options="options"
       :data="data"
       @scroll="scroll"
@@ -92,6 +92,7 @@
     },
     data() {
       return {
+        scrollEvents: ['scroll'],
         currentIndex: 0,
         scrollY: -1,
         diff: -1,
@@ -118,7 +119,6 @@
       }
     },
     created() {
-      this.listenScroll = true
       this.groupList = []
       this.listHeight = []
       this.touch = {}

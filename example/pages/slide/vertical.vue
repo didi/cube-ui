@@ -1,14 +1,13 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
     <div slot="content">
-      <div ref="slideWrapper" class="slide-container-v">
+      <div class="slide-container-v">
         <cube-slide
-            ref="slide"
-            :data="items"
-            :loop="loop"
-            :showDots="false"
-            direction="vertical"
-           >
+          :data="items"
+          :loop="loop"
+          :showDots="false"
+          direction="vertical"
+          @change="change">
         </cube-slide>
       </div>
     </div>
@@ -42,6 +41,11 @@
           }
         ],
         loop: true
+      }
+    },
+    methods: {
+      change(current) {
+        console.log('当前轮播图序号为:' + current)
       }
     },
     components: {

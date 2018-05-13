@@ -11,7 +11,7 @@
             :interval="interval"
             :threshold="threshold"
             :speed="speed"
-            :allow-vertical="allowVertical"
+            :options="options"
             @change="changePage"
             @click="clickPage">
           <template v-if="dotsSlot" slot="dots" slot-scope="props">
@@ -91,6 +91,13 @@
         initialIndex: 1,
         dotsSlot: false,
         addItem3: false
+      }
+    },
+    computed: {
+      options() {
+        return {
+          eventPassthrough: this.allowVertical ? 'vertical' : ''
+        }
       }
     },
     watch: {
