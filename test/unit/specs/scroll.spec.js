@@ -291,14 +291,14 @@ describe('Scroll', () => {
     })
   })
 
-  it('should trigger other events', function (done) {
+  it('should trigger scroll events', function (done) {
     const scrollHandle = sinon.spy()
     const beforeScrollHandle = sinon.spy()
     const scrollEndHandle = sinon.spy()
 
     vm = createScroll({
       data,
-      scrollEvents: ['scroll', 'scroll-end'],
+      scrollEvents: ['scroll', 'before-scroll-start', 'scroll-end'],
       options: {
         pullUpLoad: true
       }
@@ -326,8 +326,50 @@ describe('Scroll', () => {
 
       setTimeout(() => {
         expect(scrollHandle).to.be.called
-        expect(beforeScrollHandle).to.be.callCount(0)
+        expect(beforeScrollHandle).to.be.callCount(1)
         expect(scrollEndHandle).to.be.callCount(1)
+
+        done()
+      }, 1500)
+    }, 100)
+  })
+
+  it('should not trigger scroll events', function (done) {
+    const scrollHandle = sinon.spy()
+    const beforeScrollHandle = sinon.spy()
+    const scrollEndHandle = sinon.spy()
+
+    vm = createScroll({
+      data,
+      options: {
+        pullUpLoad: true
+      }
+    }, {
+      scroll: scrollHandle,
+      'before-scroll-start': beforeScrollHandle,
+      'scroll-end': scrollEndHandle
+    })
+    vm.$refs.wrapper.style.height = '200px'
+    vm.refresh()
+
+    const listItem = vm.$el.querySelector('.cube-scroll-content li:nth-child(3)')
+
+    setTimeout(() => {
+      dispatchSwipe(listItem, [
+        {
+          pageX: 10,
+          pageY: 200
+        },
+        {
+          pageX: 10,
+          pageY: 10
+        }
+      ], 100)
+
+      setTimeout(() => {
+        expect(scrollHandle).to.be.callCount(0)
+        expect(beforeScrollHandle).to.be.callCount(0)
+        expect(scrollEndHandle).to.be.callCount(0)
 
         done()
       }, 1500)
