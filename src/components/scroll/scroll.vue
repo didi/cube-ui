@@ -227,7 +227,7 @@
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
-          probeType: this.scrollEvents.indexOf(EVENT_SCROLL) !== -1 ? 3 : 1
+          probeType: this.finalScrollEvents.indexOf(EVENT_SCROLL) !== -1 ? 3 : 1
         }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
