@@ -36,7 +36,8 @@
   const DEFAULT_OPTIONS = {
     momentum: false,
     click: true,
-    observeDOM: false
+    observeDOM: false,
+    bounce: false
   }
 
   export default {
