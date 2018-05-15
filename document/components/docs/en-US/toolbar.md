@@ -55,6 +55,10 @@ Toolbar, with actions & more-actions.
     }
   }
   ```
+  ```stylus
+  .orange
+    color: #fc9153
+  ```
 
   You can use handle the action in `click` event handler.
 
@@ -71,8 +75,8 @@ Toolbar, with actions & more-actions.
   ```js
   export default {
     data() {
-      let money = 10
       return {
+        money: 10,
         actions: [
           {
             text: '完成订单',
@@ -124,6 +128,10 @@ Toolbar, with actions & more-actions.
       }
     }
   }
+  ```
+  ```stylus
+  .orange
+    color: #fc9153
   ```
 
 ### Props

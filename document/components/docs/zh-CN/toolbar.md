@@ -55,6 +55,10 @@
     }
   }
   ```
+  ```stylus
+  .orange
+    color: #fc9153
+  ```
 
 - 更多操作
 
@@ -69,8 +73,8 @@
   ```js
   export default {
     data() {
-      let money = 10
       return {
+        money: 10,
         actions: [
           {
             text: '完成订单',
@@ -122,6 +126,10 @@
       }
     }
   }
+  ```
+  ```stylus
+  .orange
+    color: #fc9153
   ```
 
 ### Props 配置
