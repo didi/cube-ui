@@ -134,4 +134,9 @@ sup
   border-radius: 4px
 table
   i[class^="cubeic-"]
-    font-size: 20px
+    &::before
+      font-size: 20px
+    &::after
+      content: attr(class)
+      display: block
+      margin: -6px 0 8px 0
