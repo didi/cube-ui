@@ -32,13 +32,15 @@
       :bubbleY="bubbleY">
       <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
         <div class="before-trigger" v-if="beforePullDown">
-          <bubble :y="bubbleY"></bubble>
+∫          <div class="bubble">
+            <bubble :y="bubbleY"></bubble>
+          </div>
         </div>
         <div class="after-trigger" v-else>
           <div v-if="isPullingDown" class="loading">
             <loading></loading>
           </div>
-          <div v-else><span>{{ refreshTxt }}</span></div>
+          <div v-else class="text"><span>{{ refreshTxt }}</span></div>
         </div>
       </div>
     </slot>
@@ -58,7 +60,8 @@
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
-  const PULL_DOWN_ELEMENT_INITIAL_HEIGHT = -50
+  const DEFAULT_PULL_DOWN_ELEMENT_HEIGHT = 60
+  const DEFAULT_STOP_TIME = 600
 
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
@@ -312,12 +315,13 @@
         this.$emit(EVENT_PULLING_DOWN)
       },
       _pullDownScrollHandle(pos) {
+        const {height = DEFAULT_PULL_DOWN_ELEMENT_HEIGHT, stop} = this.pullDownRefresh
         if (this.beforePullDown) {
-          this.bubbleY = Math.max(0, pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT)
-          this.pullDownStyle = `top:${Math.min(pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT, 10)}px`
+          this.bubbleY = Math.max(0, pos.y - height)
+          this.pullDownStyle = `top:${Math.min(pos.y - height, 0)}px`
         } else {
           this.bubbleY = 0
-          this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
+          this.pullDownStyle = `top:${Math.min(pos.y - stop, 0)}px`
         }
       },
       _onPullUpLoad() {
@@ -331,7 +335,7 @@
         this.$emit(EVENT_PULLING_UP)
       },
       _reboundPullDown() {
-        const {stopTime = 600} = this.pullDownRefresh
+        const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
         return new Promise((resolve) => {
           setTimeout(() => {
             this.scroll.finishPullDown()
@@ -340,8 +344,9 @@
         })
       },
       _afterPullDown(dirty) {
+        const {height = DEFAULT_PULL_DOWN_ELEMENT_HEIGHT} = this.pullDownRefresh
         this.resetPullDownTimer = setTimeout(() => {
-          this.pullDownStyle = `top:${PULL_DOWN_ELEMENT_INITIAL_HEIGHT}px`
+          this.pullDownStyle = `top: -${height}px`
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
@@ -376,8 +381,15 @@
     justify-content: center
     align-items: center
     transition: all
+    .before-trigger
+      .bubble
+        line-height: 0
+        padding-top: 6px
     .after-trigger
-      margin-top: 5px
+      .loading
+        padding: 8px 0
+      .text
+        padding: 12px 0
 
   .cube-pullup-wrapper
     width: 100%
