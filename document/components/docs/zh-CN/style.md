@@ -11,23 +11,23 @@ style 模块主要包含就是样式部分，包含内置 icon、基础的 reset
 
 内置 icon 有 65 个：
 
-| 图标 | <i class="cubeic-eye-invisible"></i> | <i class="cubeic-eye-visible"></i> | <i class="cubeic-square-right"></i> | <i class="cubeic-select"></i> |
+| 图标 | <i class="cubeic-eye-invisible"></i> | <i class="cubeic-eye-visible"></i> | <i class="cubeic-person"></i> | <i class="cubeic-select"></i> |
 | :-: | :-: | :-: | :-: | :-: |
-| 类名 | cubeic-eye-invisible | cubeic-eye-visible | cubeic-square-right | cubeic-select |
-| 图标 | <i class="cubeic-pulldown"></i> | <i class="cubeic-pullup"></i> | <i class="cubeic-more"></i> | <i class="cubeic-back"></i> |
-| 类名 | cubeic-pulldown | cubeic-pullup | cubeic-more | cubeic-back |
-| 图标 | <i class="cubeic-arrow"></i> | <i class="cubeic-close"></i> | <i class="cubeic-warn"></i> | <i class="cubeic-question"></i> |
-| 类名 | cubeic-arrow | cubeic-close | cubeic-warn | cubeic-question |
-| 图标 | <i class="cubeic-right"></i> | <i class="cubeic-wrong"></i> | <i class="cubeic-info"></i> | <i class="cubeic-remove"></i> |
-| 类名 | cubeic-right | cubeic-wrong | cubeic-info | cubeic-remove |
-| 图标 | <i class="cubeic-add"></i> | <i class="cubeic-share"></i> | <i class="cubeic-no-wifi"></i> | <i class="cubeic-smile"></i> |
-| 类名 | cubeic-add | cubeic-share | cubeic-no-wifi | cubeic-smile |
-| 图标 | <i class="cubeic-sad"></i> | <i class="cubeic-email"></i> | <i class="cubeic-game"></i> | <i class="cubeic-wifi"></i> |
-| 类名 | cubeic-sad | cubeic-email | cubeic-game | cubeic-wifi |
+| 类名 | cubeic-eye-invisible | cubeic-eye-visible | cubeic-person | cubeic-select |
+| 图标 | <i class="cubeic-pulldown"></i> | <i class="cubeic-pullup"></i> | <i class="cubeic-back"></i> | <i class="cubeic-arrow"></i> |
+| 类名 | cubeic-pulldown | cubeic-pullup | cubeic-back | cubeic-arrow |
+| 图标 | <i class="cubeic-more"></i> | <i class="cubeic-close"></i> | <i class="cubeic-warn"></i> | <i class="cubeic-question"></i> |
+| 类名 | cubeic-more | cubeic-close | cubeic-warn | cubeic-question |
+| 图标 | <i class="cubeic-right"></i> | <i class="cubeic-wrong"></i> | <i class="cubeic-add"></i> | <i class="cubeic-remove"></i> |
+| 类名 | cubeic-right | cubeic-wrong | cubeic-add | cubeic-remove |
+| 图标 | <i class="cubeic-info"></i> | <i class="cubeic-share"></i> | <i class="cubeic-no-wifi"></i> | <i class="cubeic-wifi"></i> |
+| 类名 | cubeic-info | cubeic-share | cubeic-no-wifi | cubeic-wifi |
+| 图标 | <i class="cubeic-sad"></i> | <i class="cubeic-smile"></i> | <i class="cubeic-game"></i> | <i class="cubeic-email"></i> |
+| 类名 | cubeic-sad | cubeic-smile | cubeic-game | cubeic-email |
 | 图标 | <i class="cubeic-hot"></i> | <i class="cubeic-notification"></i> | <i class="cubeic-delete"></i> | <i class="cubeic-vip"></i> |
 | 类名 | cubeic-hot | cubeic-notification | cubeic-delete | cubeic-vip |
-| 图标 | <i class="cubeic-mute"></i> | <i class="cubeic-danger"></i> | <i class="cubeic-volume"></i> | <i class="cubeic-bad"></i> |
-| 类名 | cubeic-mute | cubeic-danger | cubeic-volume | cubeic-bad |
+| 图标 | <i class="cubeic-mute"></i> | <i class="cubeic-volume"></i> | <i class="cubeic-good"></i> | <i class="cubeic-bad"></i> |
+| 类名 | cubeic-mute | cubeic-volume | cubeic-good | cubeic-bad |
 | 图标 | <i class="cubeic-mobile-phone"></i> | <i class="cubeic-aim"></i> | <i class="cubeic-navigation"></i> | <i class="cubeic-safe-pay"></i> |
 | 类名 | cubeic-mobile-phone | cubeic-aim | cubeic-navigation | cubeic-safe-pay |
 | 图标 | <i class="cubeic-tag"></i> | <i class="cubeic-lock"></i> | <i class="cubeic-unlock"></i> | <i class="cubeic-edit"></i> |
@@ -38,14 +38,14 @@ style 模块主要包含就是样式部分，包含内置 icon、基础的 reset
 | 类名 | cubeic-red-packet | cubeic-star | cubeic-setting | cubeic-home |
 | 图标 | <i class="cubeic-credit-card"></i> | <i class="cubeic-mall"></i> | <i class="cubeic-microphone"></i> | <i class="cubeic-search"></i> |
 | 类名 | cubeic-credit-card | cubeic-mall | cubeic-microphone | cubeic-search |
-| 图标 | <i class="cubeic-good"></i> | <i class="cubeic-alert"></i> | <i class="cubeic-picture"></i> | <i class="cubeic-message"></i> |
-| 类名 | cubeic-good | cubeic-alert | cubeic-picture | cubeic-message |
+| 图标 | <i class="cubeic-danger"></i> | <i class="cubeic-alert"></i> | <i class="cubeic-picture"></i> | <i class="cubeic-message"></i> |
+| 类名 | cubeic-danger | cubeic-alert | cubeic-picture | cubeic-message |
 | 图标 | <i class="cubeic-phone"></i> | <i class="cubeic-location"></i> | <i class="cubeic-like"></i> | <i class="cubeic-camera"></i> |
 | 类名 | cubeic-phone | cubeic-location | cubeic-like | cubeic-camera |
-| 图标 | <i class="cubeic-person"></i> | <i class="cubeic-round-border"></i> | <i class="cubeic-important"></i> | <i class="cubeic-ok"></i> |
-| 类名 | cubeic-person | cubeic-round-border | cubeic-important | cubeic-ok |
-| 图标 | <i class="cubeic-square-border"></i> |  |  |  |
-| 类名 | cubeic-square-border |  |  |  |
+| 图标 | <i class="cubeic-square-right"></i> | <i class="cubeic-square-border"></i> | <i class="cubeic-round-border"></i> | <i class="cubeic-ok"></i> |
+| 类名 | cubeic-square-right | cubeic-square-border | cubeic-round-border | cubeic-ok |
+| 图标 | <i class="cubeic-important"></i> |  |  |  |
+| 类名 | cubeic-important |  |  |  |
 
 ### reset.css
 
