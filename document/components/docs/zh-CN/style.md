@@ -1,6 +1,35 @@
 ## style 模块
 
-style 模块主要包含就是样式部分，包含基础的 reset、基础通用样式以及内置 icon。
+style 模块主要包含就是样式部分，包含内置 icon、基础的 reset 以及基础通用样式。
+
+
+### 内置 icon
+
+图标是利用 [font-face](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) 规则自定义字体 `"cube-icon"` 实现的。
+
+使用的时候只需要加入对应的类名即可，例如 alert 图标，可以这样用：`<i class="cubeic-alert"></i>`。
+
+内置 icon 有 65 个：
+
+| - | - | - | - |
+| :-: | :-: | :-: | :-: |
+| <i class="cubeic-eye-invisible"></i> | <i class="cubeic-eye-visible"></i> | <i class="cubeic-person"></i> | <i class="cubeic-select"></i> |
+| <i class="cubeic-pulldown"></i> | <i class="cubeic-pullup"></i> | <i class="cubeic-back"></i> | <i class="cubeic-arrow"></i> |
+| <i class="cubeic-more"></i> | <i class="cubeic-close"></i> | <i class="cubeic-warn"></i> | <i class="cubeic-question"></i> |
+| <i class="cubeic-right"></i> | <i class="cubeic-wrong"></i> | <i class="cubeic-add"></i> | <i class="cubeic-remove"></i> |
+| <i class="cubeic-info"></i> | <i class="cubeic-share"></i> | <i class="cubeic-no-wifi"></i> | <i class="cubeic-wifi"></i> |
+| <i class="cubeic-sad"></i> | <i class="cubeic-smile"></i> | <i class="cubeic-game"></i> | <i class="cubeic-email"></i> |
+| <i class="cubeic-hot"></i> | <i class="cubeic-notification"></i> | <i class="cubeic-delete"></i> | <i class="cubeic-vip"></i> |
+| <i class="cubeic-mute"></i> | <i class="cubeic-volume"></i> | <i class="cubeic-good"></i> | <i class="cubeic-bad"></i> |
+| <i class="cubeic-mobile-phone"></i> | <i class="cubeic-aim"></i> | <i class="cubeic-navigation"></i> | <i class="cubeic-safe-pay"></i> |
+| <i class="cubeic-tag"></i> | <i class="cubeic-lock"></i> | <i class="cubeic-unlock"></i> | <i class="cubeic-edit"></i> |
+| <i class="cubeic-scan"></i> | <i class="cubeic-qr-code"></i> | <i class="cubeic-calendar"></i> | <i class="cubeic-time"></i> |
+| <i class="cubeic-red-packet"></i> | <i class="cubeic-star"></i> | <i class="cubeic-setting"></i> | <i class="cubeic-home"></i> |
+| <i class="cubeic-credit-card"></i> | <i class="cubeic-mall"></i> | <i class="cubeic-microphone"></i> | <i class="cubeic-search"></i> |
+| <i class="cubeic-danger"></i> | <i class="cubeic-alert"></i> | <i class="cubeic-picture"></i> | <i class="cubeic-message"></i> |
+| <i class="cubeic-phone"></i> | <i class="cubeic-location"></i> | <i class="cubeic-like"></i> | <i class="cubeic-camera"></i> |
+| <i class="cubeic-square-right"></i> | <i class="cubeic-square-border"></i> | <i class="cubeic-round-border"></i> | <i class="cubeic-ok"></i> ||
+| <i class="cubeic-important"></i> |  |  |  |
 
 ### reset.css
 
@@ -160,13 +189,3 @@ body, html
       height: 300%
       transform: scale(.333) translateZ(0)
 ```
-
-### 内置 icon
-
-图标是利用 [font-face](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) 规则自定义字体 `"cube-icon"` 实现的。
-
-内置 icon 有 13 个：
-
-![cube icons](https://raw.githubusercontent.com/didi/cube-ui/master/assets/icon.png)
-
-使用的时候只需要加入对应的类名即可，例如 alert 图标，可以这样用：`<i class="cubeic-alert"></i>`。
