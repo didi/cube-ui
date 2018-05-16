@@ -58,7 +58,7 @@
         default: false
       },
       autocomplete: {
-        type: Boolean,
+        type: [Boolean, String],
         default: false
       },
       name: String,
