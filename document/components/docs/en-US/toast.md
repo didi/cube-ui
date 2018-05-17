@@ -79,25 +79,71 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   Set `type` to change the tip icon.You can see accepted types in the following `Props configuration`.
 
+- Callback
+
+  ```html
+  <cube-button @click="showToastCallback">Toast - callback</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showToastCallbak() {
+        const toast = this.$createToast({
+          txt: 'Timeout',
+          time: 1000,
+          onTimeout: () => {
+            console.log('Timeout')
+          }
+        })
+        toast.show()
+      }
+    }
+  }
+  ```
+
+  Besides set `onTimeout`.You can pass the callback through `$events` too.
+
+  ```js
+  export default {
+    methods: {
+      showToastCallbak() {
+        const toast = this.$createToast({
+          txt: 'Timeout',
+          time: 1000,
+          $events: {
+            timeout: () => {
+              console.log('Timeout')
+            }
+          }
+        })
+        toast.show()
+      }
+    }
+  }
+  ```
+
+  ​
+
 ### Props configuration
 
-| Attribute | Description | Type | Accepted Values | Default |
-| - | - | - | - | - |
-| type | toast type(different types of icons) | String | loading/correct/error/warn | loading |
-| mask | whether to show mask layer | Boolean | true/false | false |
-| txt | tip text | String | - | '' |
-| time | display duration, millisecond | Number | - | 3000 |
-| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
+| Attribute               | Description                          | Type    | Accepted Values            | Default |
+| ----------------------- | ------------------------------------ | ------- | -------------------------- | ------- |
+| type                    | toast type(different types of icons) | String  | loading/correct/error/warn | loading |
+| mask                    | whether to show mask layer           | Boolean | true/false                 | false   |
+| txt                     | tip text                             | String  | -                          | ''      |
+| time                    | display duration, millisecond        | Number  | -                          | 3000    |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model`   | Boolean | true/false                 | false   |
 
 ### Events
 
-| Event Name | Description |
-| - | - |
-| timeout | triggers when the display time is out |
+| Event Name | Description                           |
+| ---------- | ------------------------------------- |
+| timeout    | triggers when the display time is out |
 
 ### Instance methods
 
 | Method name | Description |
-| - | - |
-| show | show |
-| hide | hide |
+| ----------- | ----------- |
+| show        | show        |
+| hide        | hide        |
