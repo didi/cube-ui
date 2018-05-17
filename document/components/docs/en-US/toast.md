@@ -123,27 +123,25 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
-  ​
-
 ### Props configuration
 
-| Attribute               | Description                          | Type    | Accepted Values            | Default |
-| ----------------------- | ------------------------------------ | ------- | -------------------------- | ------- |
-| type                    | toast type(different types of icons) | String  | loading/correct/error/warn | loading |
-| mask                    | whether to show mask layer           | Boolean | true/false                 | false   |
-| txt                     | tip text                             | String  | -                          | ''      |
-| time                    | display duration, millisecond        | Number  | -                          | 3000    |
-| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model`   | Boolean | true/false                 | false   |
+| Attribute | Description | Type | Accepted Values | Default |
+| - | - | - | - | - |
+| type | toast type(different types of icons) | String | loading/correct/error/warn | loading |
+| mask | whether to show mask layer | Boolean | true/false | false |
+| txt | tip text | String  | - | '' |
+| time | display duration, millisecond | Number | - | 3000 |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 ### Events
 
-| Event Name | Description                           |
-| ---------- | ------------------------------------- |
-| timeout    | triggers when the display time is out |
+| Event Name | Description |
+| - | - |
+| timeout | triggers when the display time is out |
 
 ### Instance methods
 
 | Method name | Description |
-| ----------- | ----------- |
-| show        | show        |
-| hide        | hide        |
+| - | - |
+| show | show |
+| hide | hide |
