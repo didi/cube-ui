@@ -18,7 +18,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "codecov": "codecov",
-    "test": "npm run unit && npm run codecov"
+    "test": "npm run unit && npm run codecov",
+    "cm": "git-cz"
   },
   "husky": {
     "hooks": {
@@ -27,7 +28,9 @@
     }
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "files": [
     "src",
@@ -79,6 +82,7 @@
     "copy-webpack-plugin": "^4.5.0",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -143,6 +147,11 @@
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "engines": {
     "node": ">= 4.0.0",
