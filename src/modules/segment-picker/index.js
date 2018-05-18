@@ -15,6 +15,7 @@ SegmentPicker.install = function (Vue) {
 }
 
 SegmentPicker.Picker = Picker
+CascadePicker.Picker = Picker
 SegmentPicker.CascadePicker = CascadePicker
 
 export default SegmentPicker
