@@ -36,7 +36,7 @@ import {
   IndexList,
   Swipe,
   // module
-  BScroll,
+  BetterScroll,
   createAPI
 } from './module'
 import { processComponentName } from './common/helpers/util'
@@ -96,7 +96,7 @@ const Cube = {
   /* eslint-disable no-undef */
   version: __VERSION__,
   install,
-  BScroll,
+  BScroll: BetterScroll,
   createAPI
 }
 

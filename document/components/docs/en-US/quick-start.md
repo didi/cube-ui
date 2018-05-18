@@ -43,8 +43,8 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         // add stylus dependencies
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.1.2",
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-post-compile-plugin": "^0.3.1",
+        "webpack-transform-modules-plugin": "^0.3.2"
       }
     }
     ```
@@ -117,7 +117,7 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         }
       },
       "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-transform-modules-plugin": "^0.3.2"
       }
     }
     ```
@@ -179,39 +179,52 @@ import {
 
 **Notice:** In this case, you also need to import [style module](#/en-US/docs/style).
 
-You can choose to register globally or partially:
+Then register globally:
 
 ```js
 // register globally
 Vue.use(Button)
-
-// or register partially
-// in certain somponents
-{
-  components: {
-    CubeButton: Button
-  }
-}
+// ...
 ```
-All the components that can be imported on demand are listed below:
+All the components and modules that can be imported on demand are listed below:
 
 ```js
 import {
+  // basic style
+  Style,
+  // basic
   Button,
-  Checkbox,
-  CheckboxGroup,
   Loading,
   Tip,
+  Toolbar,
+  // form
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  // popup
   Popup,
   Toast,
   Picker,
+  CascadePicker,
+  DatePicker,
   TimePicker,
+  SegmentPicker,
   Dialog,
   ActionSheet,
+  Drawer,
+  // scroll
   Scroll,
   Slide,
-  IndexList
-  // ... more
+  IndexList,
+  Swipe
 } from 'cube-ui'
 ```
 
