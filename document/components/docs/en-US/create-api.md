@@ -179,4 +179,13 @@ import Hello from './hello.vue'
 Hello.$create(config, renderFn)
 ```
 
+Or components in cube-ui, like Dialog:
+
+```js
+import { Dialog } from 'cube-ui'
+Dialog.$create({
+  ...
+})
+```
+
 There is another idea which used the mode of data-driven. For example, in vuex, you could use a global state to label whether to call the component, and watch this state in App.vue to handle this component.

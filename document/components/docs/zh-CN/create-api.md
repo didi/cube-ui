@@ -182,4 +182,13 @@ import Hello from './hello.vue'
 Hello.$create(config, renderFn)
 ```
 
+或者内置的组件，例如 Dialog：
+
+```js
+import { Dialog } from 'cube-ui'
+Dialog.$create({
+  ...
+})
+```
+
 还有一种思路是通过数据驱动，比如用 vuex 维护一个全局 state，在需要调用该组件时更新状态，然后在 App.vue 里去 watch 这个状态变化来调用该组件。
