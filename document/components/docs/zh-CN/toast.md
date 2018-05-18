@@ -80,15 +80,59 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
   `type` 字段决定了 Toast 的显示图标类型，具体对应关系，参见下方的 Props 配置。
 
+- 事件回调
+
+  ```html
+  <cube-button @click="showToastCallback">Toast - callback</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showToastCallbak() {
+        const toast = this.$createToast({
+          txt: 'Timeout',
+          time: 1000,
+          onTimeout: () => {
+            console.log('Timeout')
+          }
+        })
+        toast.show()
+      }
+    }
+  }
+  ```
+
+  除了设置 `onTimeout` 的形式，还可以通过 `$events` 传入事件回调。
+
+  ```js
+  export default {
+    methods: {
+      showToastCallbak() {
+        const toast = this.$createToast({
+          txt: 'Timeout',
+          time: 1000,
+          $events: {
+            timeout: () => {
+              console.log('Timeout')
+            }
+          }
+        })
+        toast.show()
+      }
+    }
+  }
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
-| type | 类型(对应不同的 icon) | String | loading/correct/error/warn | loading |
+| type | 类型(对应不同的 icon) | String  | loading/correct/error/warn | loading |
 | mask | 遮罩 | Boolean | true/false | false |
-| txt | 提示信息 | String | - | '' |
-| time | 显示时间 | Number | - | 3000 |
+| txt | 提示信息 | String  | - | '' |
+| time | 显示时间 | Number  | - | 3000 |
 
 ### 事件
 
