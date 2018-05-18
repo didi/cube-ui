@@ -38,7 +38,7 @@ import IndexList from './modules/index-list'
 import Swipe from './modules/swipe'
 
 // module
-import BScroll from './modules/better-scroll'
+import BetterScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
 
 const FormGroup = Form.Group
@@ -93,6 +93,6 @@ export {
   SwipeItem,
   Swipe,
   // module
-  BScroll,
+  BetterScroll,
   createAPI
 }

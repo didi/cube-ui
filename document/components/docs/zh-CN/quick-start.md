@@ -10,7 +10,7 @@
 $ vue init cube-ui/cube-template projectname
 ```
 
-关于初始化时特殊的配置项，请参考 [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki)
+关于初始化时特殊的配置项，请参考 [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki)。
 
 如果你打算在现有项目中使用 cube-ui，请先参考<a href="#cube-安装-anchor" class="anchor">安装</a>部分。
 
@@ -43,8 +43,8 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
         // 新增 stylus 相关依赖
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.2.1",
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-post-compile-plugin": "^0.3.1",
+        "webpack-transform-modules-plugin": "^0.3.2"
       }
     }
     ```
@@ -116,7 +116,7 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
         }
       },
       "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-transform-modules-plugin": "^0.3.2"
       }
     }
     ```
@@ -178,40 +178,53 @@ import {
 
 **注意：** 按需引入的话，是不会打包[基础样式](#/zh-CN/docs/style)部分的，所以在使用的时候需要引入 style 模块。
 
-你可以选择全局注册也可以选择局部注册：
+我们推荐直接全局注册：
 
 ```js
 // 全局注册
 Vue.use(Button)
-
-// 或者局部注册
-// 某个组件中
-{
-  components: {
-    CubeButton: Button
-  }
-}
+// ...
 ```
 
-所有的可按需引入的组件：
+所有的可按需引入的组件以及模块：
 
 ```js
 import {
+  // 基础样式
+  Style,
+  // basic
   Button,
-  Checkbox,
-  CheckboxGroup,
   Loading,
   Tip,
+  Toolbar,
+  // form
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  // popup
   Popup,
   Toast,
   Picker,
+  CascadePicker,
+  DatePicker,
   TimePicker,
+  SegmentPicker,
   Dialog,
   ActionSheet,
+  Drawer,
+  // scroll
   Scroll,
   Slide,
-  IndexList
-  // ... more
+  IndexList,
+  Swipe
 } from 'cube-ui'
 ```
 
