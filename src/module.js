@@ -9,7 +9,7 @@ import Toolbar from './modules/toolbar'
 // Form
 import Checkbox from './modules/checkbox'
 import CheckboxGroup from './modules/checkbox-group'
-import RadioGroup from './modules/radio'
+import RadioGroup from './modules/radio-group'
 import Input from './modules/input'
 import Textarea from './modules/textarea'
 import Select from './modules/select'
