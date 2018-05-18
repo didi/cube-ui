@@ -21,8 +21,8 @@
         this.toast = this.$createToast({
           time: 1000,
           txt: 'Toast time 1s',
-          onHide: () => {
-            console.log('hide')
+          onTimeout: () => {
+            console.log('timeout')
           }
         })
         this.toast.show()
