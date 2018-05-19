@@ -14,7 +14,7 @@ git push origin master
 # replace src/ __VERSION__
 node ./build/release/replace-version.js
 # publish
-npm publish --registry=https://registry.npmjs.org
+npm publish
 # checkout src/index.js
 git checkout src/index.js
 git checkout dev
