@@ -22,7 +22,12 @@ if (files) {
 var webpackConfig = merge(baseWebpackConfig, {
   entry: modules,
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
+    rules: utils.styleLoaders({
+      sourceMap: config.build.productionSourceMap,
+      extract: {
+        publicPath: '../'
+      }
+    })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
