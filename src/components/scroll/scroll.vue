@@ -23,6 +23,7 @@
         </div>
       </slot>
     </div>
+    <div ref="pulldown">
     <slot
       name="pulldown"
       :pullDownRefresh="pullDownRefresh"
@@ -31,19 +32,20 @@
       :isPullingDown="isPullingDown"
       :bubbleY="bubbleY">
       <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
-        <div class="before-trigger" v-if="beforePullDown">
-∫          <div class="bubble">
+        <div class="before-trigger" v-show="beforePullDown">
+          <div class="bubble">
             <bubble :y="bubbleY"></bubble>
           </div>
         </div>
-        <div class="after-trigger" v-else>
-          <div v-if="isPullingDown" class="loading">
+        <div class="after-trigger" v-show="!beforePullDown">
+          <div v-show="isPullingDown" class="loading">
             <loading></loading>
           </div>
-          <div v-else class="text"><span>{{ refreshTxt }}</span></div>
+          <div v-show="!isPullingDown" class="text"><span>{{ refreshTxt }}</span></div>
         </div>
       </div>
     </slot>
+  </div>
   </div>
 </template>
 
@@ -60,7 +62,6 @@
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
-  const DEFAULT_PULL_DOWN_ELEMENT_HEIGHT = 60
   const DEFAULT_STOP_TIME = 600
 
   const EVENT_CLICK = 'click'
@@ -128,12 +129,15 @@
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
-        pullDownStyle: ''
+        pullDownStyle: '',
+        pullDownStop: 40,
+        // pullDownStop2: 40,
+        pullDownHeight: 60
       }
     },
     computed: {
       pullDownRefresh() {
-        return this.options.pullDownRefresh
+        return Object.assign({stop: this.pullDownStop}, this.options.pullDownRefresh)
       },
       pullUpLoad() {
         return this.options.pullUpLoad
@@ -227,6 +231,10 @@
         }
         this._calculateMinHeight()
 
+        if (this.options.pullDownRefresh) {
+          this._getPullDownEleHeight()
+        }
+
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
@@ -238,6 +246,7 @@
         this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
+          this._getPullDownEleHeight()
           this._onPullDownRefresh()
         }
 
@@ -271,6 +280,7 @@
       forceUpdate(dirty = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
+          // this.scroll.scrollTo(0, this.pullDownStop2, 300)
           this._reboundPullDown().then(() => {
             this._afterPullDown(dirty)
           })
@@ -315,13 +325,13 @@
         this.$emit(EVENT_PULLING_DOWN)
       },
       _pullDownScrollHandle(pos) {
-        const {height = DEFAULT_PULL_DOWN_ELEMENT_HEIGHT, stop} = this.pullDownRefresh
         if (this.beforePullDown) {
-          this.bubbleY = Math.max(0, pos.y - height)
-          this.pullDownStyle = `top:${Math.min(pos.y - height, 0)}px`
+          this.bubbleY = Math.max(0, pos.y - this.pullDownHeight)
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownHeight, 0)}px`
         } else {
           this.bubbleY = 0
-          this.pullDownStyle = `top:${Math.min(pos.y - stop, 0)}px`
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
+          // this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop2, 0)}px`
         }
       },
       _onPullUpLoad() {
@@ -344,9 +354,8 @@
         })
       },
       _afterPullDown(dirty) {
-        const {height = DEFAULT_PULL_DOWN_ELEMENT_HEIGHT} = this.pullDownRefresh
         this.resetPullDownTimer = setTimeout(() => {
-          this.pullDownStyle = `top: -${height}px`
+          this.pullDownStyle = `top: -${this.pullDownHeight}px`
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
@@ -355,6 +364,24 @@
         const deprecatedKeys = ['listenScroll', 'listenBeforeScroll']
         deprecatedKeys.forEach((key) => {
           this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "scroll-events" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
+      },
+      _getPullDownEleHeight() {
+        const pulldown = this.$refs.pulldown.firstChild
+        this.pullDownHeight = getRect(pulldown).height
+
+        this.beforePullDown = false
+        this.isPullingDown = true
+        this.$nextTick().then(() => {
+          this.pullDownStop = getRect(pulldown).height
+
+        //   this.beforePullDown = false
+        //   this.isPullingDown = false
+        // }).then(() => {
+        //   this.pullDownStop2 = getRect(pulldown).height
+
+          this.beforePullDown = true
+          this.isPullingDown = false
         })
       }
     },
@@ -383,6 +410,7 @@
     transition: all
     .before-trigger
       .bubble
+        height: 54px
         line-height: 0
         padding-top: 6px
     .after-trigger

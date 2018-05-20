@@ -128,9 +128,6 @@
 
   import { ease } from '../data/ease'
 
-  const CUSTOM_PULLDOWN_HEIGHT = 50
-  const DEFAULT_PULLDOWN_HEIGHT = 60
-
   const _data = [
     'I am line 1',
     'I am line 2',
@@ -222,18 +219,15 @@
           scrollbar: this.scrollbarObj
         }
       },
-      pullDownRefreshHeight() {
-        return this.customPullDown ? CUSTOM_PULLDOWN_HEIGHT : DEFAULT_PULLDOWN_HEIGHT
-      },
       scrollbarObj: function () {
         return this.scrollbar ? {fade: this.scrollbarFade} : false
       },
       pullDownRefreshObj: function () {
         return this.pullDownRefresh ? {
           threshold: parseInt(this.pullDownRefreshThreshold),
-          stop: parseInt(this.pullDownRefreshStop),
-          txt: this.pullDownRefreshTxt,
-          height: this.pullDownRefreshHeight
+          // Do not need to set stop value, but you can if you want
+          // stop: parseInt(this.pullDownRefreshStop),
+          txt: this.pullDownRefreshTxt
         } : false
       },
       pullUpLoadObj: function () {
