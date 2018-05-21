@@ -411,7 +411,7 @@
         padding-top: 6px
     .after-trigger
       .loading
-        padding: 40px 0
+        padding: 8px 0
       .text
         padding: 12px 0
 
