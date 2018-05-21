@@ -5,7 +5,7 @@
       <cube-scroll
         ref="scroll"
         :data="[]"
-        :listenScroll="true"
+        :scroll-events="['scroll']"
         :options="scrollOptions"
         @scroll="onScrollHandle"
         @pulling-down="onPullingDown">
