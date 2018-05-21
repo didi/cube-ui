@@ -231,10 +231,6 @@
         }
         this._calculateMinHeight()
 
-        if (this.options.pullDownRefresh) {
-          this._getPullDownEleHeight()
-        }
-
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
@@ -415,7 +411,7 @@
         padding-top: 6px
     .after-trigger
       .loading
-        padding: 8px 0
+        padding: 40px 0
       .text
         padding: 12px 0
 

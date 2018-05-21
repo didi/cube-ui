@@ -16,9 +16,9 @@
             <input-option v-if="pullDownRefresh" class="item sub first" name="threshold (≥ 40)"
                           :value="pullDownRefreshThreshold" min-value="40"
                           @update:value="updatePullDownRefreshThreshold"></input-option>
-            <input-option v-if="pullDownRefresh" class="item sub" name="stop (≥ 40)" :value="pullDownRefreshStop"
+            <!-- <input-option v-if="pullDownRefresh" class="item sub" name="stop (≥ 40)" :value="pullDownRefreshStop"
                           min-value="40"
-                          @update:value="updatePullDownRefreshStop"></input-option>
+                          @update:value="updatePullDownRefreshStop"></input-option> -->
             <input-option v-if="pullDownRefresh" class="item sub" name="txt" :value="pullDownRefreshTxt"
                           @update:value="updatePullDownRefreshTxt"></input-option>
             <switch-option v-if="pullDownRefresh" class="item sub last" name="Custom Animation" :value="customPullDown"
