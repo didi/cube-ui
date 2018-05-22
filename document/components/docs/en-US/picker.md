@@ -62,7 +62,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
     { text: '金箍棒', value: '金箍棒' }]
   export default {
     mounted () {
-      this.picker = this.$createPicker({
+      this.mutiPicker = this.$createPicker({
         title: 'Multi-column Picker',
         data: [col1Data, col2Data, col3Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
@@ -149,7 +149,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
     { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
   export default {
     mounted () {
-      this.picker = this.$createPicker({
+      this.setDataPicker = this.$createPicker({
         title: 'Use SetData',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
@@ -170,8 +170,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
     },
     methods: {
       showSetDataPicker () {
-        this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
-        this.picker.show()
+        this.setDataPicker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
+        this.setDataPicker.show()
       }
     }
   }
