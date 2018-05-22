@@ -9,7 +9,7 @@ npm install --registry=https://registry.npmjs.org
 npm run build
 # ADD commit
 git add -A
-git commit -m 'publish build'
+git commit -m 'build: package'
 git push origin master
 # replace src/ __VERSION__
 node ./build/release/replace-version.js

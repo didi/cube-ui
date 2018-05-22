@@ -6,7 +6,7 @@ git pull origin master
 npm run doc-demo-build
 # ADD commit
 git add docs/
-git commit -m 'docs build'
+git commit -m 'build: docs'
 git push origin master
 git checkout dev
 git rebase master
