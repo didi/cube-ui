@@ -62,7 +62,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     { text: '金箍棒', value: '金箍棒' }]
   export default {
     mounted () {
-      this.picker = this.$createPicker({
+      this.mutiPicker = this.$createPicker({
         title: 'Multi-column Picker',
         data: [col1Data, col2Data, col3Data],
         onSelect: (selectedVal, selectedIndex, selectedText) => {
@@ -147,7 +147,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
   export default {
     mounted () {
-      this.picker = this.$createPicker({
+      this.setDataPicker = this.$createPicker({
         title: 'Use SetData',
         onSelect: (selectedVal, selectedIndex, selectedText) => {
           this.$createDialog({
@@ -168,8 +168,8 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     },
     methods: {
       showSetDataPicker () {
-        this.picker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
-        this.picker.show()
+        this.setDataPicker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
+        this.setDataPicker.show()
       }
     }
   }
