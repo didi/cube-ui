@@ -296,6 +296,7 @@
     height: 60px
 
   .cube-picker-confirm, .cube-picker-cancel
+    flex: 0 0 28px
     font-size: $fontsize-medium
     line-height: 60px
     padding: 0 $picker-lr-padding
