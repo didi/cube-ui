@@ -140,7 +140,9 @@
       },
       data() {
         const data = []
+        console.time('xx')
         this._generateData(this.startIndex, 0, data)
+        console.timeEnd('xx')
         return data
       },
       selectedIndex() {
@@ -214,7 +216,7 @@
         if (!this._rangeCache) {
           this._rangeCache = {}
         }
-        const k = type + year + min + max
+        const k = type + year + min + max + fatherIsMin + fatherIsMax
         if (this._rangeCache[k]) {
           return this._rangeCache[k]
         }
