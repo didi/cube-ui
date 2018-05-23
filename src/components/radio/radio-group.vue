@@ -21,7 +21,7 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: String,
+      value: [String, Number],
       options: {
         type: Array,
         default() {

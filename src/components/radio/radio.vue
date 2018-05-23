@@ -19,7 +19,7 @@ const EVENT_INPUT = 'input'
 export default {
   name: COMPONENT_NAME,
   props: {
-    value: String,
+    value: [String, Number],
     option: {
       type: [String, Object],
       required: true
@@ -43,6 +43,9 @@ export default {
       this.radioValue = newV
     },
     radioValue(newV) {
+      if (typeof value === 'number') {
+        newV = Number(newV)
+      }
       this.$emit(EVENT_INPUT, newV)
     }
   },
