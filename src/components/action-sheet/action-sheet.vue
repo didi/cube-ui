@@ -139,9 +139,9 @@
     &:last-of-type
       border-none()
     &[data-align="left"]
-      text-align left
+      text-align: left
     &[data-align="right"]
-      text-align right
+      text-align: right
 
   .cube-action-sheet-space
     height: 6px
