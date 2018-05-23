@@ -29,19 +29,19 @@
       return {
         selected: '',
         options: ['Option1', 'Option2'],
-        selected2: '3',
+        selected2: 3,
         options2: [
           {
             label: 'Option1',
-            value: '1'
+            value: 1
           },
           {
             label: 'Option2',
-            value: '2'
+            value: 2
           },
           {
             label: 'Option3',
-            value: '3',
+            value: 3,
             disabled: true
           }
         ],
