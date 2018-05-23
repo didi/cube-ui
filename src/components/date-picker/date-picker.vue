@@ -140,9 +140,7 @@
       },
       data() {
         const data = []
-        console.time('xx')
         this._generateData(this.startIndex, 0, data)
-        console.timeEnd('xx')
         return data
       },
       selectedIndex() {
