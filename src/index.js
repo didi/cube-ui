@@ -6,6 +6,7 @@ import {
   Loading,
   Tip,
   Toolbar,
+  ImagePreview,
   // form
   Checkbox,
   CheckboxGroup,
@@ -47,6 +48,7 @@ const components = [
   Loading,
   Tip,
   Toolbar,
+  ImagePreview,
   // form
   Checkbox,
   CheckboxGroup,

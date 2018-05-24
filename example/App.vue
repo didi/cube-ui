@@ -47,6 +47,10 @@
               {
                 path: '/toolbar',
                 text: 'Toolbar'
+              },
+              {
+                path: '/image-preview',
+                text: 'ImagePreview'
               }
             ]
           },
