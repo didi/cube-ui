@@ -33,8 +33,10 @@
         </li>
       </ul>
     </div>
-    <div class="cube-index-list-fixed cube-index-list-anchor" ref="fixed" v-show="fixedTitle">
-      {{ fixedTitle }}
+    <div ref="fixed"
+      v-show="fixedTitle"
+      v-html="fixedTitle"
+      class="cube-index-list-fixed cube-index-list-anchor">
     </div>
   </div>
 </template>
