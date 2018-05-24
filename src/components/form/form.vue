@@ -336,8 +336,6 @@
           -webkit-text-stroke-width: 0.2px
           -moz-osx-font-smoothing: grayscale
     .cube-form-label
-      display: flex
-      align-items: center
       width: 100px
       padding-right: 10px
     .cube-checkbox-group, .cube-radio-group
