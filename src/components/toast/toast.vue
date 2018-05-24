@@ -3,7 +3,7 @@
     <cube-popup type="toast" :z-index="zIndex" :mask="mask" v-show="isVisible">
       <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
       <cube-loading v-show="isLoading"></cube-loading>
-      <div v-show="txt" class="cube-toast-tip">{{txt}}</div>
+      <div v-show="txt" class="cube-toast-tip" v-html="txt"></div>
     </cube-popup>
   </transition>
 </template>
