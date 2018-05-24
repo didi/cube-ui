@@ -24,28 +24,28 @@
       </slot>
     </div>
     <div ref="pulldown">
-    <slot
-      name="pulldown"
-      :pullDownRefresh="pullDownRefresh"
-      :pullDownStyle="pullDownStyle"
-      :beforePullDown="beforePullDown"
-      :isPullingDown="isPullingDown"
-      :bubbleY="bubbleY">
-      <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
-        <div class="before-trigger" v-show="beforePullDown">
-          <div class="bubble">
-            <bubble :y="bubbleY"></bubble>
+      <slot
+        name="pulldown"
+        :pullDownRefresh="pullDownRefresh"
+        :pullDownStyle="pullDownStyle"
+        :beforePullDown="beforePullDown"
+        :isPullingDown="isPullingDown"
+        :bubbleY="bubbleY">
+        <div v-if="pullDownRefresh" class="cube-pulldown-wrapper" :style="pullDownStyle">
+          <div class="before-trigger" v-if="beforePullDown">
+            <div class="bubble">
+              <bubble :y="bubbleY"></bubble>
+            </div>
+          </div>
+          <div class="after-trigger" v-else>
+            <div v-if="isPullingDown" class="loading">
+              <loading></loading>
+            </div>
+            <div v-else class="text"><span>{{ refreshTxt }}</span></div>
           </div>
         </div>
-        <div class="after-trigger" v-show="!beforePullDown">
-          <div v-show="isPullingDown" class="loading">
-            <loading></loading>
-          </div>
-          <div v-show="!isPullingDown" class="text"><span>{{ refreshTxt }}</span></div>
-        </div>
-      </div>
-    </slot>
-  </div>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -131,13 +131,16 @@
         bubbleY: 0,
         pullDownStyle: '',
         pullDownStop: 40,
-        // pullDownStop2: 40,
         pullDownHeight: 60
       }
     },
     computed: {
       pullDownRefresh() {
-        return Object.assign({stop: this.pullDownStop}, this.options.pullDownRefresh)
+        const pullDownRefresh = this.options.pullDownRefresh
+        if (typeof pullDownRefresh === 'boolean') {
+          return pullDownRefresh
+        }
+        return Object.assign({stop: this.pullDownStop}, pullDownRefresh)
       },
       pullUpLoad() {
         return this.options.pullUpLoad
@@ -276,7 +279,6 @@
       forceUpdate(dirty = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          // this.scroll.scrollTo(0, this.pullDownStop2, 300)
           this._reboundPullDown().then(() => {
             this._afterPullDown(dirty)
           })
@@ -327,7 +329,6 @@
         } else {
           this.bubbleY = 0
           this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
-          // this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop2, 0)}px`
         }
       },
       _onPullUpLoad() {
@@ -370,11 +371,6 @@
         this.isPullingDown = true
         this.$nextTick().then(() => {
           this.pullDownStop = getRect(pulldown).height
-
-        //   this.beforePullDown = false
-        //   this.isPullingDown = false
-        // }).then(() => {
-        //   this.pullDownStop2 = getRect(pulldown).height
 
           this.beforePullDown = true
           this.isPullingDown = false
