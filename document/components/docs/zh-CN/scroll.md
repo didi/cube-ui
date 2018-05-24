@@ -213,7 +213,8 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | threshold | 下拉刷新动作的下拉距离阈值 | Number | - | 90 |
-| stop | 回弹停留的位置 | Number | - | 40 |
+| stop | 回弹停留的位置 | Number | - | 组件会自动计算回弹时显示的元素高度作为默认值 |
+| stopTime | 刷新成功的文案显示时间 | Number | - | 600 |
 | txt | 刷新成功的文案 | String | - | 'Refresh success' |
 
 - `pullUpLoad` 子配置项
