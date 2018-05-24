@@ -19,6 +19,12 @@
           </slot>
         </ul>
       </div>
+      <template slot="pullup">
+        <slot name="pullup"></slot>
+      </template>
+      <template slot="pulldown">
+        <slot name="pulldown"></slot>
+      </template>
     </cube-scroll>
     <div v-if="navbar" class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul class="cube-index-list-nav-list">
