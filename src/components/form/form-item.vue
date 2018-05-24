@@ -298,12 +298,15 @@
     &::after
       display: none
   .cube-form-label
+    display: flex
+    align-items: center
     word-wrap: break-word
     word-break: break-word
   .cube-form-item_required
     .cube-form-label
       &::before
         content: "*"
+        display: block
         margin-top: 1px
         margin-right: .3em
         color: $form-label-required-color
