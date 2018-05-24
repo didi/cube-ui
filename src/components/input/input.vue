@@ -167,6 +167,7 @@
     background-color: $input-bgc
     border-1px($input-border-color)
   .cube-input-field
+    display: block
     flex: 1
     width: 100%
     padding: 10px
