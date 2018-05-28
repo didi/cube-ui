@@ -1,6 +1,6 @@
 <template>
   <li class="cube-index-list-group">
-    <h2 class="cube-index-list-anchor">{{group.name}}</h2>
+    <h2 class="cube-index-list-anchor" v-html="group.name"></h2>
     <ul>
       <slot>
         <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem"></cube-index-list-item>

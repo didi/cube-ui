@@ -245,6 +245,13 @@
 
 Each item of `items` array must be an object that must contains the `name` attribute which is used for displaying the content; For example:  `items`: `[{name: 'xx', ...}, ...]`
 
+### Slot
+
+| Name | Description | Scope Parameters |
+| - | - | - |
+| pulldown | located above the list and shown when pulling down refreshing | the detail is the same as Scroll component's pulldown slot scope parameters |
+| pullup | located below the list and shown when pulling up loading | the detail is the same as Scroll component's pullup slot scope parameters |
+
 ### Events
 
 | Event Name | Description | Parameters |
