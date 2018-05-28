@@ -63,16 +63,16 @@
                   class="cube-pulldown-wrapper"
                   :style="props.pullDownStyle">
                 <div
-                    v-if="props.beforePullDown"
+                    v-show="props.beforePullDown"
                     class="before-trigger"
-                    :style="{paddingTop: props.bubbleY - 10 + 'px'}">
+                    :style="{paddingTop: props.bubbleY + 'px'}">
                   <span :class="{rotate: props.bubbleY > pullDownRefreshThreshold - 40}">↓</span>
                 </div>
-                <div class="after-trigger" v-else>
-                  <div v-if="props.isPullingDown" class="loading">
+                <div class="after-trigger" v-show="!props.beforePullDown">
+                  <div v-show="props.isPullingDown" class="loading">
                     <cube-loading></cube-loading>
                   </div>
-                  <div v-else class="text"><span class="refresh-text">Refresh success</span></div>
+                  <div v-show="!props.isPullingDown" class="text"><span class="refresh-text">Refresh success</span></div>
                 </div>
               </div>
             </template>
@@ -212,6 +212,7 @@ export default {
   .cube-pulldown-wrapper 
     .before-trigger 
       font-size: 30px
+      line-height: 30px
       align-self: flex-end
       span 
         display: inline-block
