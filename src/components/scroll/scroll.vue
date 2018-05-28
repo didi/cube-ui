@@ -23,7 +23,7 @@
         </div>
       </slot>
     </div>
-    <div ref="pulldown">
+    <div v-if="pullDownRefresh" class="cube-pulldown" ref="pulldown">
       <slot
         name="pulldown"
         :pullDownRefresh="pullDownRefresh"
@@ -31,17 +31,15 @@
         :beforePullDown="beforePullDown"
         :isPullingDown="isPullingDown"
         :bubbleY="bubbleY">
-        <div v-if="pullDownRefresh" class="cube-pulldown-wrapper" :style="pullDownStyle">
-          <div class="before-trigger" v-if="beforePullDown">
-            <div class="bubble">
-              <bubble :y="bubbleY"></bubble>
-            </div>
+        <div class="cube-pulldown-wrapper" :style="pullDownStyle">
+          <div class="before-trigger" v-show="beforePullDown">
+            <bubble :y="bubbleY" class="bubble"></bubble>
           </div>
-          <div class="after-trigger" v-else>
-            <div v-if="isPullingDown" class="loading">
+          <div class="after-trigger" v-show="!beforePullDown">
+            <div v-show="isPullingDown" class="loading">
               <loading></loading>
             </div>
-            <div v-else class="text"><span>{{ refreshTxt }}</span></div>
+            <div v-show="!isPullingDown" class="text"><span>{{ refreshTxt }}</span></div>
           </div>
         </div>
       </slot>
@@ -136,9 +134,12 @@
     },
     computed: {
       pullDownRefresh() {
-        const pullDownRefresh = this.options.pullDownRefresh
-        if (typeof pullDownRefresh === 'boolean') {
+        let pullDownRefresh = this.options.pullDownRefresh
+        if (pullDownRefresh === false) {
           return pullDownRefresh
+        }
+        if (pullDownRefresh === true) {
+          pullDownRefresh = {}
         }
         return Object.assign({stop: this.pullDownStop}, pullDownRefresh)
       },
@@ -401,10 +402,9 @@
     align-items: center
     transition: all
     .before-trigger
-      .bubble
-        height: 54px
-        line-height: 0
-        padding-top: 6px
+      height: 54px
+      line-height: 0
+      padding-top: 6px
     .after-trigger
       .loading
         padding: 8px 0
