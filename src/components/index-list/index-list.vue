@@ -21,7 +21,7 @@
       </div>
       <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
         <slot name="pullup"
-          pullUpLoad="props.pullUpLoad"
+          :pullUpLoad="props.pullUpLoad"
           :isPullUpLoad="props.isPullUpLoad">
         </slot>
       </template>
