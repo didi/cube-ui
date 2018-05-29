@@ -39,7 +39,7 @@
             <div v-show="isPullingDown" class="loading">
               <loading></loading>
             </div>
-            <div v-show="!isPullingDown" class="text"><span>{{ refreshTxt }}</span></div>
+            <div v-show="!isPullingDown" class="cube-pulldown-loaded"><span>{{ refreshTxt }}</span></div>
           </div>
         </div>
       </slot>
@@ -280,7 +280,7 @@
       forceUpdate(dirty = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          this._reboundPullDown().then(() => {
+          this._reboundPullDown(() => {
             this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
@@ -342,14 +342,12 @@
         this.isPullUpLoad = true
         this.$emit(EVENT_PULLING_UP)
       },
-      _reboundPullDown() {
+      _reboundPullDown(next) {
         const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            this.scroll.finishPullDown()
-            resolve()
-          }, stopTime)
-        })
+        setTimeout(() => {
+          this.scroll.finishPullDown()
+          next()
+        }, stopTime)
       },
       _afterPullDown(dirty) {
         this.resetPullDownTimer = setTimeout(() => {
@@ -370,7 +368,7 @@
 
         this.beforePullDown = false
         this.isPullingDown = true
-        this.$nextTick().then(() => {
+        this.$nextTick(() => {
           this.pullDownStop = getRect(pulldown).height
 
           this.beforePullDown = true
@@ -408,7 +406,7 @@
     .after-trigger
       .loading
         padding: 8px 0
-      .text
+      .cube-pulldown-loaded
         padding: 12px 0
 
   .cube-pullup-wrapper
