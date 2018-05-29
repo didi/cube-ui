@@ -249,8 +249,8 @@
 
 | 名字 | 说明 | 作用域参数 |
 | - | - | - |
-| pulldown<sup>1.9.0+</sup> | 位于列表上方，会在下拉刷新时显示，与 scroll 组件相同 | 具体参考 scroll 组件的 pulldown 插槽作用域参数介绍 |
-| pullup<sup>1.9.0+</sup> | 位于列表下方，会在上拉加载时显示，与 scroll 组件相同  | 具体参考 scroll 组件的 pullup 插槽作用域参数介绍 |
+| pulldown<sup>1.9.4+</sup> | 位于列表上方，会在下拉刷新时显示，与 scroll 组件相同 | 具体参考 scroll 组件的 pulldown 插槽作用域参数介绍 |
+| pullup<sup>1.9.4+</sup> | 位于列表下方，会在上拉加载时显示，与 scroll 组件相同  | 具体参考 scroll 组件的 pullup 插槽作用域参数介绍 |
 
 ### 事件
 
