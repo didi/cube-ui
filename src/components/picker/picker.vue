@@ -300,6 +300,7 @@
     font-size: $fontsize-medium
     line-height: 60px
     padding: 0 $picker-lr-padding
+    box-sizing: content-box
     font-size: $fontsize-medium
 
   .cube-picker-confirm

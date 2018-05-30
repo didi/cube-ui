@@ -69,6 +69,7 @@
       display: block
       width: $switch-width
       height: $switch-height
+      box-sizing: content-box
       border: 1px solid $switch-off-border-color
       border-radius: $switch-height
       background-color: $switch-off-border-color

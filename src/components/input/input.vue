@@ -196,6 +196,7 @@
     height: 1em
     line-height: 1
     padding: 10px
+    box-sizing: content-box
     color: $input-clear-icon-color
     > i
       display: inline-block
