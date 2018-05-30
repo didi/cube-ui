@@ -172,6 +172,7 @@
       width: 30px
       height: 30px
       padding: 10px
+      box-sizing: content-box
       border-radius: 50%
       background-color: $dialog-icon-bgc
     +
