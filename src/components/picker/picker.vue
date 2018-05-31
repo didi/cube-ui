@@ -15,8 +15,8 @@
             <span class="cube-picker-cancel" @click="cancel">{{cancelTxt}}</span>
             <span class="cube-picker-confirm" @click="confirm">{{confirmTxt}}</span>
             <div class="cube-picker-title-group">
-              <h1 class="cube-picker-title">{{title}}</h1>
-              <h2 v-if="subtitle" class="cube-picker-subtitle">{{subtitle}}</h2>
+              <h1 class="cube-picker-title" v-html="title"></h1>
+              <h2 v-if="subtitle" class="cube-picker-subtitle" v-html="subtitle"></h2>
             </div>
           </div>
 
