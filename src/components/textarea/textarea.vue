@@ -57,11 +57,18 @@
     computed: {
       remain() {
         return this.maxlength - this.value.length
+      },
+      sliceLength() {
+        return isEven(this.maxlength)
+          ? this.maxlength
+          : this.maxlength - 1
       }
     },
     watch: {
       value(newValue) {
-        this.textareaValue = newValue
+        this.textareaValue = this.remain < 0
+          ? newValue.slice(0, this.sliceLength)
+          : newValue
       },
       textareaValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)

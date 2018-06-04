@@ -167,6 +167,10 @@ function processComponentName(Component, { prefix = '', firstUpperCase = false }
   return camelizeName
 }
 
+function isEven(value) {
+  return value % 2 === 0
+}
+
 export {
   findIndex,
   deepAssign,
@@ -176,5 +180,6 @@ export {
   parallel,
   cb2PromiseWithResolve,
   debounce,
-  processComponentName
+  processComponentName,
+  isEven
 }
