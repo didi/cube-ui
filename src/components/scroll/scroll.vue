@@ -135,7 +135,7 @@
     computed: {
       pullDownRefresh() {
         let pullDownRefresh = this.options.pullDownRefresh
-        if (pullDownRefresh === false) {
+        if (!pullDownRefresh) {
           return pullDownRefresh
         }
         if (pullDownRefresh === true) {
