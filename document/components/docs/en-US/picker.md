@@ -232,6 +232,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
 | alias | configure the alias of `value` and `text` | Object | {} | { value: 'id', text: 'name'} |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
+| mask-closable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
 
 * `data` sub configuration
 

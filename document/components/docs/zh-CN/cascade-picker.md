@@ -263,6 +263,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
 | alias | 配置`value`和`text`的别名，用法同`Picker`组件 | Object | {} | { value: 'id', text: 'name'} |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false | false |
+| mask-closable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true |
 
 * `data`子配置项
 
