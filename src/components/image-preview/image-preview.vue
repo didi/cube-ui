@@ -1,38 +1,253 @@
 <template>
-  <cube-popup type="image-preview" v-show="isVisible">
-  </cube-popup>
+  <transition name="cube-image-preview-fade">
+    <cube-popup type="image-preview" :center="false" v-show="isVisible">
+      <div class="cube-image-preview-container">
+        <cube-slide
+          ref="slide"
+          v-if="isVisible"
+          :data="imgs"
+          :initial-index="initialIndex"
+          :auto-play="false"
+          :options="options"
+          @change="slideChangeHanlder">
+          <cube-slide-item
+            v-for="(img, index) in imgs"
+            :key="index"
+            @click.native="itemClickHandler(index)">
+            <div class="cube-image-preview-item">
+              <cube-scroll :options="scrollOptions" ref="items">
+                <img :src="img" @load="imgLoad(index)">
+              </cube-scroll>
+            </div>
+          </cube-slide-item>
+          <template
+            slot="dots"
+            slot-scope="props">
+            <slot name="footer" :current="props.current">
+              <span class="cube-image-preview-counter">{{props.current + 1}}/{{props.dots.length}}</span>
+            </slot>
+          </template>
+        </cube-slide>
+      </div>
+    </cube-popup>
+  </transition>
 </template>
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
+  import CubeSlide from '../slide/slide.vue'
+  import CubeSlideItem from '../slide/slide-item.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
+  import { isAndroid } from '../../common/helpers/env'
 
   const COMPONENT_NAME = 'cube-image-preview'
+  const EVENT_CHANGE = 'change'
+  const EVENT_HIDE = 'hide'
 
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
     props: {
+      initialIndex: {
+        type: Number,
+        default: 0
+      },
+      imgs: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
+    data() {
+      return {
+        lastPageIndex: this.initialIndex,
+        options: {
+          observeDOM: false,
+          bounce: {
+            left: true,
+            right: true
+          },
+          useTransition: !isAndroid,
+          probeType: 3
+        },
+        scrollOptions: {
+          observeDOM: false,
+          zoom: true,
+          bindToWrapper: true,
+          freeScroll: true,
+          scrollX: true,
+          scrollY: true,
+          probeType: 3,
+          bounce: false,
+          useTransition: isAndroid,
+          click: false,
+          dblclick: true,
+          bounceTime: 300
+        }
+      }
     },
     computed: {
     },
     methods: {
       show() {
         this.isVisible = true
+        this.$nextTick(() => {
+          this.$refs.items.forEach((scrollItem) => {
+            this.$nextTick(() => {
+              this.$refs.slide.slide.on('beforeScrollStart', this.slideBeforeScrollStartHandler)
+              this.$refs.slide.slide.on('scrollStart', this.slideScrollStartHandler)
+              this.$refs.slide.slide.on('scroll', this.slideScrollHandler)
+              this.$refs.slide.slide.on('scrollEnd', this.slideScrollEndHandler)
+              scrollItem.scroll.on('zoomStart', this.zoomStartHandler.bind(this, scrollItem.scroll))
+              scrollItem.scroll.on('scroll', this.checkBoundary.bind(this, scrollItem.scroll))
+              scrollItem.scroll.on('scrollEnd', this.scrollEnd.bind(this, scrollItem.scroll))
+              scrollItem.scroll.on('dblclick', this.dblclickHandler.bind(this, scrollItem.scroll))
+            })
+          })
+        })
       },
       hide() {
         this.isVisible = false
+        this.$emit(EVENT_HIDE)
+      },
+      prev() {
+        const slide = this.$refs.slide.slide
+        slide && slide.prev()
+      },
+      next() {
+        const slide = this.$refs.slide.slide
+        slide && slide.next()
+      },
+      goTo(index) {
+        const slide = this.$refs.slide.slide
+        slide && slide.goToPage(index, 0)
+      },
+      imgLoad(i) {
+        this.$refs.items[i].scroll.refresh()
+      },
+      slideChangeHanlder(currentPageIndex) {
+        if (this.lastPageIndex >= 0) {
+          const scroll = this.$refs.items[this.lastPageIndex].scroll
+          scroll.scale = 1
+          scroll.lastcale = 1
+          scroll.refresh()
+          this.slideScrollEndHandler()
+        }
+        this.lastPageIndex = currentPageIndex
+        this.$emit(EVENT_CHANGE, currentPageIndex)
+      },
+      slideScrollStartHandler() {
+        if (this._scrolling && !this._hasEnableSlide) {
+          this.$refs.slide.slide.disable()
+        } else {
+          this.$refs.slide.slide.enable()
+        }
+      },
+      slideScrollEndHandler() {
+        this.$refs.items.forEach((scrollItem) => {
+          this.scrollEnd(scrollItem.scroll)
+        })
+      },
+      _scroll(scroll) {
+        this.$refs.slide.slide.disable()
+        this.$refs.slide.slide.refresh()
+        scroll.enable()
+      },
+      _slide(scroll) {
+        this.$refs.slide.slide.enable()
+        scroll.disable()
+      },
+      scrollEnd(scroll) {
+        if (this.dblZooming) {
+          this.dblZooming = false
+        }
+        this._hasEnableSlide = false
+        this._scrolling = false
+        scroll.enable()
+        this.$refs.slide.slide.enable()
+      },
+      checkBoundary(scroll, pos) {
+        if (scroll.movingDirectionX) {
+          this._scrolling = true
+          const reached = scroll.movingDirectionX === -1 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
+          if (reached) {
+            this._hasEnableSlide = true
+            this._slide(scroll)
+          } else {
+            if (!this._hasEnableSlide) {
+              this._scroll(scroll)
+            }
+          }
+        } else if (scroll.movingDirectionY) {
+          this._scrolling = true
+          this._scroll(scroll)
+        }
+      },
+      zoomStartHandler(scroll) {
+        this._scroll(scroll)
+      },
+      dblclickHandler(scroll, e) {
+        this.dblZooming = true
+        this.zoomTo(scroll, scroll.scale > 1 ? 1 : 2, e)
+        scroll.disable()
+      },
+      itemClickHandler(index) {
+        setTimeout(() => {
+          !this.dblZooming && this.hide()
+        }, 300)
+      },
+      zoomTo(scroll, scale, e) {
+        scroll.zoomTo(scale, e.pageX, e.pageY)
       }
     },
     components: {
-      CubePopup
+      CubePopup,
+      CubeSlide,
+      CubeSlideItem
     }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+  .cube-image-preview-fade-enter, .cube-image-preview-fade-leave-active
+    opacity: 0
+  .cube-image-preview-fade-enter-active, .cube-image-preview-fade-leave-active
+    transition: all .3s ease-in-out
+
   .cube-image-preview
+    .cube-popup-mask
+      opacity: .6
     .cube-popup-content
+      width: 100%
+      height: 100%
+    .cube-slide-item
       display: flex
       align-items: center
+      justify-content: center
+      overflow: hidden
+      img
+        display: block
+        height: auto
+        max-width: 100%
+        max-height: 100%
+    .cube-slide-dots
+      bottom: 50px
+      .cube-image-preview-counter
+        width: auto
+        height: auto
+        font-size: $fontsize-medium
+        color: $image-preview-counter-color
+        background: none
+  .cube-image-preview-container
+    height: 100%
+    margin: 0 -10px
+  .cube-image-preview-item
+    position: relative
+    padding: 0 10px
+    height: 100%
+    .cube-scroll-wrapper
+      display: flex
+      align-items: center
+      justify-content: center
 </style>
