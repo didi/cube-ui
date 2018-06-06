@@ -23,25 +23,27 @@
         </div>
       </slot>
     </div>
-    <slot
-      name="pulldown"
-      :pullDownRefresh="pullDownRefresh"
-      :pullDownStyle="pullDownStyle"
-      :beforePullDown="beforePullDown"
-      :isPullingDown="isPullingDown"
-      :bubbleY="bubbleY">
-      <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
-        <div class="before-trigger" v-if="beforePullDown">
-          <bubble :y="bubbleY"></bubble>
-        </div>
-        <div class="after-trigger" v-else>
-          <div v-if="isPullingDown" class="loading">
-            <loading></loading>
+    <div v-if="pullDownRefresh" class="cube-pulldown" ref="pulldown">
+      <slot
+        name="pulldown"
+        :pullDownRefresh="pullDownRefresh"
+        :pullDownStyle="pullDownStyle"
+        :beforePullDown="beforePullDown"
+        :isPullingDown="isPullingDown"
+        :bubbleY="bubbleY">
+        <div class="cube-pulldown-wrapper" :style="pullDownStyle">
+          <div class="before-trigger" v-show="beforePullDown">
+            <bubble :y="bubbleY" class="bubble"></bubble>
           </div>
-          <div v-else><span>{{ refreshTxt }}</span></div>
+          <div class="after-trigger" v-show="!beforePullDown">
+            <div v-show="isPullingDown" class="loading">
+              <loading></loading>
+            </div>
+            <div v-show="!isPullingDown" class="cube-pulldown-loaded"><span>{{ refreshTxt }}</span></div>
+          </div>
         </div>
-      </div>
-    </slot>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -58,7 +60,7 @@
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
-  const PULL_DOWN_ELEMENT_INITIAL_HEIGHT = -50
+  const DEFAULT_STOP_TIME = 600
 
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
@@ -125,12 +127,21 @@
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
-        pullDownStyle: ''
+        pullDownStyle: '',
+        pullDownStop: 40,
+        pullDownHeight: 60
       }
     },
     computed: {
       pullDownRefresh() {
-        return this.options.pullDownRefresh
+        let pullDownRefresh = this.options.pullDownRefresh
+        if (pullDownRefresh === false) {
+          return pullDownRefresh
+        }
+        if (pullDownRefresh === true) {
+          pullDownRefresh = {}
+        }
+        return Object.assign({stop: this.pullDownStop}, pullDownRefresh)
       },
       pullUpLoad() {
         return this.options.pullUpLoad
@@ -235,6 +246,7 @@
         this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
+          this._getPullDownEleHeight()
           this._onPullDownRefresh()
         }
 
@@ -268,7 +280,7 @@
       forceUpdate(dirty = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          this._reboundPullDown().then(() => {
+          this._reboundPullDown(() => {
             this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
@@ -313,11 +325,11 @@
       },
       _pullDownScrollHandle(pos) {
         if (this.beforePullDown) {
-          this.bubbleY = Math.max(0, pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT)
-          this.pullDownStyle = `top:${Math.min(pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT, 10)}px`
+          this.bubbleY = Math.max(0, pos.y - this.pullDownHeight)
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownHeight, 0)}px`
         } else {
           this.bubbleY = 0
-          this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
         }
       },
       _onPullUpLoad() {
@@ -330,18 +342,16 @@
         this.isPullUpLoad = true
         this.$emit(EVENT_PULLING_UP)
       },
-      _reboundPullDown() {
-        const {stopTime = 600} = this.pullDownRefresh
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            this.scroll.finishPullDown()
-            resolve()
-          }, stopTime)
-        })
+      _reboundPullDown(next) {
+        const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
+        setTimeout(() => {
+          this.scroll.finishPullDown()
+          next()
+        }, stopTime)
       },
       _afterPullDown(dirty) {
         this.resetPullDownTimer = setTimeout(() => {
-          this.pullDownStyle = `top:${PULL_DOWN_ELEMENT_INITIAL_HEIGHT}px`
+          this.pullDownStyle = `top: -${this.pullDownHeight}px`
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
@@ -350,6 +360,19 @@
         const deprecatedKeys = ['listenScroll', 'listenBeforeScroll']
         deprecatedKeys.forEach((key) => {
           this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "scroll-events" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
+      },
+      _getPullDownEleHeight() {
+        const pulldown = this.$refs.pulldown.firstChild
+        this.pullDownHeight = getRect(pulldown).height
+
+        this.beforePullDown = false
+        this.isPullingDown = true
+        this.$nextTick(() => {
+          this.pullDownStop = getRect(pulldown).height
+
+          this.beforePullDown = true
+          this.isPullingDown = false
         })
       }
     },
@@ -376,8 +399,15 @@
     justify-content: center
     align-items: center
     transition: all
+    .before-trigger
+      height: 54px
+      line-height: 0
+      padding-top: 6px
     .after-trigger
-      margin-top: 5px
+      .loading
+        padding: 8px 0
+      .cube-pulldown-loaded
+        padding: 12px 0
 
   .cube-pullup-wrapper
     width: 100%
