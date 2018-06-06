@@ -81,6 +81,10 @@ __Notice:__ All the components above used create-api, so you should read [create
     },
     methods: {
       showPopup() {
+        this.position = positions[cur++]
+        if (cur === positions.length) {
+          cur = 0
+        }
         const component = this.$refs.myPopup4
         component.show()
         setTimeout(() => {
