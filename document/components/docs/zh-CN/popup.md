@@ -72,6 +72,10 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
     },
     methods: {
       showPopup() {
+        this.position = positions[cur++]
+        if (cur === positions.length) {
+          cur = 0
+        }
         const component = this.$refs.myPopup4
         component.show()
         setTimeout(() => {
