@@ -48,7 +48,8 @@
         this.$emit(EVENT_ITEM_CLICK, item, index)
       },
       onBtnClick(btn, index) {
-        this.$emit(EVENT_BTN_CLICK, btn, index)
+        const item = this.data[index]
+        this.$emit(EVENT_BTN_CLICK, btn, index, item)
       },
       onItemActive(index) {
         if (index === this.activeIndex) {
