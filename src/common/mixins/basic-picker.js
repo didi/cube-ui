@@ -22,6 +22,10 @@ export default {
       default() {
         return {}
       }
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

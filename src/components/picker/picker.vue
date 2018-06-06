@@ -8,7 +8,7 @@
       :z-index="zIndex"
       v-show="isVisible"
       @touchmove.prevent
-      @mask-click="cancel">
+      @mask-click="maskClick">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
@@ -122,6 +122,9 @@
         if (changed) {
           this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
+      },
+      maskClick() {
+        this.maskClosable && this.cancel()
       },
       cancel() {
         this.hide()
