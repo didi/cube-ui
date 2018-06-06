@@ -1,6 +1,13 @@
 <template>
   <transition name="cube-dialog-fade">
-    <cube-popup type="dialog" :z-index="zIndex" :mask="true" :center="true" v-show="isVisible">
+    <cube-popup
+      type="dialog"
+      :z-index="zIndex"
+      :mask="true"
+      :center="true"
+      v-show="isVisible"
+      @mask-click="maskClick"
+      >
       <div class="cube-dialog-main">
         <span class="cube-dialog-close" v-show="showClose" @click="close"><i class="cubeic-close"></i></span>
         <div :class="containerClass">
@@ -122,6 +129,9 @@
       }
     },
     methods: {
+      maskClick(e) {
+        this.maskClosable && this.cancel(e)
+      },
       confirm(e) {
         if (this._confirmBtn.disabled) {
           return
@@ -172,6 +182,7 @@
       width: 30px
       height: 30px
       padding: 10px
+      box-sizing: content-box
       border-radius: 50%
       background-color: $dialog-icon-bgc
     +

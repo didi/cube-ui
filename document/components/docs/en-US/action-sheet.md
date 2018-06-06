@@ -144,6 +144,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | active | the highlighted item's index | Number | - | -1 |
 | pickerStyle | Picker style | Boolean | true/false | false |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
+| mask-closable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
 
 * `data` sub configuration
 

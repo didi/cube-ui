@@ -196,7 +196,8 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | threshold | the threshold of  distance that pulling down for  refreshing | Number | - | 90 |
-| stop | the position where rebounding stays | Number | - | 40 |
+| stop | the position where rebounding stays | Number | - | Scroll component will calculate the height of pulldown element as default `stop` value |
+| stopTime | the time that keep showing the text of refreshing success | Number | - | 600 |
 | txt | the text shown when refreshing successfully | String | - | 'Refresh success' |
 
 - `pullUpLoad` sub configuration

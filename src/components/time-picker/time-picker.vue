@@ -94,7 +94,7 @@
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
 
-        for (let i = dayDiff; i < this.day.len; i++) {
+        for (let i = 0; i < this.day.len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
           days.push({
             value: timestamp,

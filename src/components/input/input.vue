@@ -167,6 +167,7 @@
     background-color: $input-bgc
     border-1px($input-border-color)
   .cube-input-field
+    display: block
     flex: 1
     width: 100%
     padding: 10px
@@ -195,6 +196,7 @@
     height: 1em
     line-height: 1
     padding: 10px
+    box-sizing: content-box
     color: $input-clear-icon-color
     > i
       display: inline-block

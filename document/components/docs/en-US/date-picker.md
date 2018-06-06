@@ -233,7 +233,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Props configuration
 
-| Attribute | Description | Type | Accepted Values | Default | Example | 
+| Attribute | Description | Type | Accepted Values | Default | Example |
 | - | - | - | - | - | - |
 | min | the minimum value of optional range | Date, Array | - | new Date(2010, 1, 1) | new Date(2008, 7, 8) |
 | max | the maximum value of optional range | Date, Array | - | new Date(2020, 12, 31) | new Date(2020, 9, 20) |
@@ -247,6 +247,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirmTxt | the text of the confirm button | String | - | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | - | 2500 | - |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false | - |
+| mask-closable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
 
 * `format` sub configuration
 

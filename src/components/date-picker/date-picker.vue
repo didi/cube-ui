@@ -101,7 +101,7 @@
     },
     computed: {
       formatConfig() {
-        let formatConfig = Object.assign({}, DEFAULT_FORMAT)
+        const formatConfig = Object.assign({}, DEFAULT_FORMAT)
         deepAssign(formatConfig, this.format)
 
         return formatConfig
@@ -120,7 +120,7 @@
         return natureRangeCache
       },
       startIndex() {
-        let startIndex = TYPE_LIST.indexOf(this.startColumn)
+        const startIndex = TYPE_LIST.indexOf(this.startColumn)
         return startIndex < 0 ? 0 : startIndex
       },
       minArray() {
@@ -139,13 +139,12 @@
                 : this.value
       },
       data() {
-        let data = []
+        const data = []
         this._generateData(this.startIndex, 0, data)
-
         return data
       },
       selectedIndex() {
-        let selectedIndex = []
+        const selectedIndex = []
         let data = this.data
         let index
 
@@ -172,16 +171,16 @@
       },
       _generateData(i, count, item) {
         if (count === 0) {
-          let min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin)
-          let max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax)
-          item.push(...this._range(TYPE_LIST[i], min, max, true, true))
+          const min = i === 0 ? this.minArray[0] : Math.max(this.minArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin)
+          const max = i === 0 ? this.maxArray[0] : Math.min(this.maxArray[0], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax)
+          item.push.apply(item, this._range(TYPE_LIST[i], min, max, true, true))
         } else {
           if (i < 3 || item.isMin || item.isMax) {
-            let natureMax = i === 2 ? computeNatureMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax
-            let min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin
-            let max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
+            const natureMax = i === 2 ? computeNatureMaxDay(item.value, item.year) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMax
+            const min = item.isMin ? Math.max(this.minArray[count], NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin) : NATURE_BOUNDARY_MAP[TYPE_LIST[i]].natureMin
+            const max = item.isMax ? Math.min(this.maxArray[count], natureMax) : natureMax
 
-            let storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
+            const storageYear = i === 1 && this.startIndex === 0 && this.columnCount >= 3 && item.value
             item.children = this._range(TYPE_LIST[i], min, max, item.isMin, item.isMax, storageYear)
           } else {
             item.children = this.natureRangeCache[TYPE_LIST[i]]
@@ -189,7 +188,7 @@
         }
         if (count < this.columnCount - 1 && i < 5) {
           (item.children || item).forEach(subItem => {
-            this._generateData(i + 1, count + 1, subItem)
+            !subItem.children && this._generateData(i + 1, count + 1, subItem)
           })
         }
       },
@@ -211,11 +210,19 @@
 
         return new Date(...args)
       },
-      _range(type, min, max, fatherIsMin, fatherIsMax, year) {
-        let arr = []
+      _range(type, min, max, fatherIsMin, fatherIsMax, year = 0) {
+        if (!this._rangeCache) {
+          this._rangeCache = {}
+        }
+        const k = type + year + min + max + fatherIsMin + fatherIsMax
+        if (this._rangeCache[k]) {
+          return this._rangeCache[k]
+        }
+        const arr = []
+        const format = this.formatConfig[type]
         for (let i = min; i <= max; i++) {
           const object = {
-            text: formatType(type, this.formatConfig[type], i, 'i'),
+            text: formatType(type, format, i, 'i'),
             value: i
           }
 
@@ -225,6 +232,7 @@
 
           arr.push(object)
         }
+        this._rangeCache[k] = arr
         return arr
       }
     }

@@ -110,7 +110,7 @@ export default {
     margin-right: $ui-width - 1em
     line-height: 1
     color: transparent
-    background-color: currentColor
+    background-color: transparent
     border-radius: 50%
     &::before, i
       transition: all .2s
@@ -135,7 +135,7 @@ export default {
         width: 50%
         height: 50%
         transform: translate(-50%, -50%) scale(.8)
-        background-color: currentColor
+        // background-color: transparent
         border-radius: 50%
   .cube-radio_selected
     .cube-radio-ui
@@ -144,7 +144,9 @@ export default {
         color: transparent
       i
         transform: scale(1)
-        color: $radio-selected-icon-color
+        // color: $radio-selected-icon-color
+        &::before
+          background-color: $radio-selected-icon-color
   .cube-radio_disabled
     .cube-radio-ui
       background-color: $radio-disabled-icon-bgc
@@ -160,8 +162,11 @@ export default {
           transform: translate(-50%, -50%) scale(1)
     &.cube-radio_selected
       .cube-radio-ui
-        &::before, i
+        &::before
           color: $radio-hollow-selected-icon-color
+        i
+          &::before
+            background-color: $radio-hollow-selected-icon-color
     &.cube-radio_disabled
       .cube-radio-ui
         &::before
@@ -169,6 +174,7 @@ export default {
       &.cube-radio_selected
         .cube-radio-ui
           i
-            color: $radio-hollow-disabled-icon-color
+            &::before
+              background-color: $radio-hollow-disabled-icon-color
 </style>
 

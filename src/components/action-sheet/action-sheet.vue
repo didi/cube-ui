@@ -7,10 +7,10 @@
       :mask="true"
       :z-index="zIndex"
       v-show="isVisible"
-      @touchmove.prevent="noop"
-      @mask-click="cancel">
+      @touchmove.prevent
+      @mask-click="maskClick">
       <transition name="cube-action-sheet-move">
-        <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop="noop">
+        <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <h1 class="cube-action-sheet-title border-bottom-1px" v-show="pickerStyle || title">{{title}}</h1>
           <div class="cube-action-sheet-content">
             <ul class="cube-action-sheet-list">
@@ -59,15 +59,20 @@
       },
       title: {
         type: String,
-        default: ' '
+        default: ''
       },
       pickerStyle: {
         type: Boolean,
         default: false
+      },
+      maskClosable: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
-      noop() {
+      maskClick() {
+        this.maskClosable && this.cancel()
       },
       cancel() {
         this.hide()

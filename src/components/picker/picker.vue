@@ -8,16 +8,16 @@
       :z-index="zIndex"
       v-show="isVisible"
       @touchmove.prevent
-      @mask-click="cancel">
+      @mask-click="maskClick">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
             <span class="cube-picker-cancel" @click="cancel">{{cancelTxt}}</span>
-            <div class="cube-picker-title-group">
-              <h1 class="cube-picker-title">{{title}}</h1>
-              <h2 v-if="subtitle" class="cube-picker-subtitle">{{subtitle}}</h2>
-            </div>
             <span class="cube-picker-confirm" @click="confirm">{{confirmTxt}}</span>
+            <div class="cube-picker-title-group">
+              <h1 class="cube-picker-title" v-html="title"></h1>
+              <h2 v-if="subtitle" class="cube-picker-subtitle" v-html="subtitle"></h2>
+            </div>
           </div>
 
           <div class="cube-picker-content">
@@ -122,6 +122,9 @@
         if (changed) {
           this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
+      },
+      maskClick() {
+        this.maskClosable && this.cancel()
       },
       cancel() {
         this.hide()
@@ -285,35 +288,38 @@
     background: $picker-bgc
 
   .cube-picker-move-enter, .cube-picker-move-leave-active
-    transform: translate3d(0, 273px, 0)
+    transform: translate3d(0, 100%, 0)
 
   .cube-picker-move-enter-active, .cube-picker-move-leave-active
     transition: all .3s ease-in-out
 
   .cube-picker-choose
     position: relative
-    display: flex
     height: 60px
 
   .cube-picker-confirm, .cube-picker-cancel
-    flex: 0 0 28px
     font-size: $fontsize-medium
     line-height: 60px
     padding: 0 $picker-lr-padding
+    box-sizing: content-box
     font-size: $fontsize-medium
 
   .cube-picker-confirm
+    position: absolute
+    right: 0
     color: $picker-confirm-btn-color
     &:active
       color: $picker-confirm-btn-active-color
 
   .cube-picker-cancel
+    position: absolute
+    left: 0
     color: $picker-cancel-btn-color
     &:active
       color: $picker-cancel-btn-active-color
 
   .cube-picker-title-group
-    flex: auto
+    padding: 0 60px
     display: flex
     height: 100%
     flex-flow: column

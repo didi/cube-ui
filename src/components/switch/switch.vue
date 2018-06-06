@@ -66,9 +66,10 @@
         opacity: 0.3
     .cube-switch-ui
       position: relative
-      display: inline-block
+      display: block
       width: $switch-width
       height: $switch-height
+      box-sizing: content-box
       border: 1px solid $switch-off-border-color
       border-radius: $switch-height
       background-color: $switch-off-border-color
@@ -87,7 +88,7 @@
         background-color: $color-white
         box-shadow: 0 1px 3px rgba(0, 0, 0, .4)
     .cube-switch-label
-      display: inline-block
+      display: block
       margin-left: 10px
       &:empty
         margin-left: 0
