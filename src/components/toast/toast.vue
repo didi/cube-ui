@@ -25,6 +25,10 @@
         type: String,
         default: 'loading'
       },
+      icon: {
+        type: String,
+        default: ''
+      },
       mask: {
         type: Boolean,
         default: false
@@ -46,6 +50,9 @@
     computed: {
       iconClass() {
         const iconClass = {}
+        if (this.icon) {
+          iconClass[this.icon] = true
+        }
         const classMap = {
           correct: 'cubeic-right',
           error: 'cubeic-wrong',
