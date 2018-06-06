@@ -1,5 +1,5 @@
 <template>
-  <cube-page type="form" title="Form">
+  <cube-page type="image-preview" title="ImagePreview">
     <div slot="content">
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
