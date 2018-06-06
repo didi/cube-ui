@@ -3,7 +3,7 @@
     <div class="cube-popup-mask" @click="maskClick">
       <slot name="mask"></slot>
     </div>
-    <div class="cube-popup-container" :class="{'cube-popup-center': center}">
+    <div class="cube-popup-container" :class="containerClass">
       <div class="cube-popup-content" v-if="$slots.default">
         <slot></slot>
       </div>
@@ -38,6 +38,10 @@
       center: {
         type: Boolean,
         default: true
+      },
+      position: {
+        type: String,
+        default: ''
       }
     },
     computed: {
@@ -49,11 +53,28 @@
           cls[`cube-${this.type}`] = true
         }
         return cls
+      },
+      containerClass() {
+        const center = this.center
+        const position = this.position
+        if (position) {
+          return {
+            [`cube-popup-${position}`]: true
+          }
+        }
+        if (center) {
+          return {
+            'cube-popup-center': true
+          }
+        }
       }
     },
     methods: {
       maskClick(e) {
         this.$emit(EVENT_MASK_CLICK, e)
+        if (this.maskClosable) {
+          this.hide()
+        }
       }
     }
   }
@@ -101,12 +122,33 @@
     box-sizing: border-box
     transform: translate(-100%, -100%)
     pointer-events: auto
-  .cube-popup-center
+  .cube-popup-center,
+  .cube-popup-right,
+  .cube-popup-left
     .cube-popup-content
-      position: absolute
       top: -50%
       left: -50%
       width: auto
       max-width: 100%
-      transform: translate(-50%, -50%)
+      transform: translate(0, 0)
+  .cube-popup-right,
+  .cube-popup-left
+    .cube-popup-content
+      height: 100%
+      top: -100%
+  .cube-popup-center
+      .cube-popup-content
+        transform: translate(-50%, -50%)
+  .cube-popup-top
+    .cube-popup-content
+      top: -100%
+      left: -100%
+      transform: translate(0, 0)
+  .cube-popup-right
+    .cube-popup-content
+      top: -100%
+      right: 100%
+  .cube-popup-left
+    .cube-popup-content
+      left: -100%
 </style>
