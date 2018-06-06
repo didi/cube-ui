@@ -285,7 +285,7 @@
     background: $picker-bgc
 
   .cube-picker-move-enter, .cube-picker-move-leave-active
-    transform: translate3d(0, 273px, 0)
+    transform: translate3d(0, 100%, 0)
 
   .cube-picker-move-enter-active, .cube-picker-move-leave-active
     transition: all .3s ease-in-out
