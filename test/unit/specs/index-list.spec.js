@@ -207,7 +207,7 @@ describe('IndexList', () => {
             },
             {
               pageX: 300,
-              pageY: 380
+              pageY: 370
             }
           ], 100)
         }, 20)
