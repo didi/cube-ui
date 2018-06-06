@@ -1,6 +1,12 @@
 <template>
   <transition name="cube-toast-fade">
-    <cube-popup type="toast" :z-index="zIndex" :mask="mask" v-show="isVisible">
+    <cube-popup
+      type="toast"
+      :z-index="zIndex"
+      :mask="mask"
+      v-show="isVisible"
+      @mask-click="maskClick"
+      >
       <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
       <cube-loading v-show="isLoading"></cube-loading>
       <div v-show="txt" class="cube-toast-tip" v-html="txt"></div>
@@ -69,6 +75,9 @@
       }
     },
     methods: {
+      maskClick() {
+        this.maskClosable && this.hide()
+      },
       show() {
         this.isVisible = true
         this.clearTimer()
