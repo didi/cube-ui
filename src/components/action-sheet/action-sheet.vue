@@ -59,7 +59,7 @@
       },
       title: {
         type: String,
-        default: ' '
+        default: ''
       },
       pickerStyle: {
         type: Boolean,
