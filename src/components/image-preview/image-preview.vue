@@ -12,10 +12,9 @@
           @change="slideChangeHanlder">
           <cube-slide-item
             v-for="(img, index) in imgs"
-            :key="index"
-            @click.native="itemClickHandler(index)">
-            <div class="cube-image-preview-item">
-              <cube-scroll :options="scrollOptions" ref="items">
+            :key="index">
+            <div class="cube-image-preview-item" @click="itemClickHandler(index)">
+              <cube-scroll :options="scrollOptions" ref="items" @dblclick.native="dblclickHandler(index, $event)">
                 <img :src="img" @load="imgLoad(index)">
               </cube-scroll>
             </div>
@@ -102,7 +101,6 @@
               scrollItem.scroll.on('zoomStart', this.zoomStartHandler.bind(this, scrollItem.scroll))
               scrollItem.scroll.on('scroll', this.checkBoundary.bind(this, scrollItem.scroll))
               scrollItem.scroll.on('scrollEnd', this.scrollEnd.bind(this, scrollItem.scroll))
-              scrollItem.scroll.on('dblclick', this.dblclickHandler.bind(this, scrollItem.scroll))
             })
           })
         })
@@ -161,11 +159,14 @@
       scrollEnd(scroll) {
         if (this.dblZooming) {
           this.dblZooming = false
+          clearTimeout(this.clickTid)
         }
         this._hasEnableSlide = false
         this._scrolling = false
         scroll.enable()
-        this.$refs.slide.slide.enable()
+        setTimeout(() => {
+          this.$refs.slide.slide.enable()
+        })
       },
       checkBoundary(scroll, pos) {
         if (scroll.movingDirectionX) {
@@ -187,13 +188,15 @@
       zoomStartHandler(scroll) {
         this._scroll(scroll)
       },
-      dblclickHandler(scroll, e) {
+      dblclickHandler(index, e) {
+        const scroll = this.$refs.items[index].scroll
         this.dblZooming = true
         this.zoomTo(scroll, scroll.scale > 1 ? 1 : 2, e)
         scroll.disable()
       },
       itemClickHandler(index) {
-        setTimeout(() => {
+        clearTimeout(this.clickTid)
+        this.clickTid = setTimeout(() => {
           !this.dblZooming && this.hide()
         }, 300)
       },
