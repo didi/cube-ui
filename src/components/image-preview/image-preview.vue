@@ -44,6 +44,7 @@
   import CubePopup from '../popup/popup.vue'
   import CubeSlide from '../slide/slide.vue'
   import CubeSlideItem from '../slide/slide-item.vue'
+  import CubeScroll from '../scroll/scroll.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import { isAndroid } from '../../common/helpers/env'
@@ -231,7 +232,8 @@
     components: {
       CubePopup,
       CubeSlide,
-      CubeSlideItem
+      CubeSlideItem,
+      CubeScroll
     }
   }
 </script>
