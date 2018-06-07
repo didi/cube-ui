@@ -17,7 +17,7 @@
             v-for="(img, index) in imgs"
             :key="index"
           >
-            <div class="cube-image-preview-item" @click="itemClickHandler(index)">
+            <div class="cube-image-preview-item" @click="itemClickHandler">
               <cube-scroll
                 ref="items"
                 :options="scrollOptions"
@@ -116,7 +116,6 @@
         this.$nextTick(() => {
           this.$refs.items.forEach((scrollItem) => {
             this.$nextTick(() => {
-              this.$refs.slide.slide.on('beforeScrollStart', this.slideBeforeScrollStartHandler)
               this.$refs.slide.slide.on('scrollStart', this.slideScrollStartHandler)
               this.$refs.slide.slide.on('scrollEnd', this.slideScrollEndHandler)
               scrollItem.scroll.on('zoomStart', this.zoomStartHandler.bind(this, scrollItem.scroll))
@@ -143,11 +142,15 @@
         slide && slide.goToPage(index, 0)
       },
       imgLoad(i) {
-        this.$refs.items[i].scroll.refresh()
+        /* istanbul ignore if */
+        if (this.isVisible && this.$refs.items) {
+          this.$refs.items[i].scroll.refresh()
+        }
       },
       setPageIndex(currentPageIndex) {
         if (this.lastPageIndex >= 0 && this.lastPageIndex !== currentPageIndex) {
           const scroll = this.$refs.items[this.lastPageIndex].scroll
+          /* istanbul ignore if */
           if (scroll.scale !== 1) {
             scroll.scale = 1
             scroll.lastcale = 1
@@ -220,7 +223,7 @@
         this.zoomTo(scroll, scroll.scale > 1 ? 1 : 2, e)
         scroll.disable()
       },
-      itemClickHandler(index) {
+      itemClickHandler() {
         clearTimeout(this.clickTid)
         this.clickTid = setTimeout(() => {
           !this.dblZooming && this.hide()
