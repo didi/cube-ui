@@ -49,9 +49,7 @@ import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
-import ImagePreview from '../pages/image-preview/index.vue'
-import ImagePreviewDefault from '../pages/image-preview/default.vue'
-// import ImagePreviewCustom from '../pages/image-preview/custom.vue'
+import ImagePreview from '../pages/image-preview.vue'
 
 const routes = [
   {
@@ -118,17 +116,7 @@ const routes = [
   },
   {
     path: '/image-preview',
-    component: ImagePreview,
-    children: [
-      {
-        path: 'default',
-        component: ImagePreviewDefault
-      }
-      // {
-      //   path: 'custom',
-      //   component: ImagePreviewCustom
-      // }
-    ]
+    component: ImagePreview
   },
   {
     path: '/popup',

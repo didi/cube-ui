@@ -3,14 +3,13 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-button @click="showImagePreview">Show ImagePreview</cube-button>
-        <cube-image-preview :imgs="imgs" ref="imagePreview" />
       </div>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../../components/cube-page.vue'
+  import CubePage from '../components/cube-page.vue'
 
   export default {
     data() {
@@ -25,7 +24,12 @@
     },
     methods: {
       showImagePreview() {
-        this.$refs.imagePreview.show()
+        if (!this.imagePreview) {
+          this.imagePreview = this.$createImagePreview({
+            imgs: this.imgs
+          })
+        }
+        this.imagePreview.show()
       }
     },
     components: {

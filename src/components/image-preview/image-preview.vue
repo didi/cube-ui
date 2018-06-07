@@ -6,22 +6,31 @@
           ref="slide"
           v-if="isVisible"
           :data="imgs"
-          :initial-index="initialIndex"
+          :initial-index="lastPageIndex"
           :auto-play="false"
+          :loop="loop"
+          :interval="interval"
           :options="options"
-          @change="slideChangeHanlder">
+          @change="slideChangeHanlder"
+        >
           <cube-slide-item
             v-for="(img, index) in imgs"
-            :key="index">
+            :key="index"
+          >
             <div class="cube-image-preview-item" @click="itemClickHandler(index)">
-              <cube-scroll :options="scrollOptions" ref="items" @dblclick.native="dblclickHandler(index, $event)">
-                <img :src="img" @load="imgLoad(index)">
+              <cube-scroll
+                ref="items"
+                :options="scrollOptions"
+                @dblclick.native="dblclickHandler(index, $event)"
+              >
+                <img class="cube-image-preview-img" :src="img" @load="imgLoad(index)">
               </cube-scroll>
             </div>
           </cube-slide-item>
           <template
             slot="dots"
-            slot-scope="props">
+            slot-scope="props"
+          >
             <slot name="footer" :current="props.current">
               <span class="cube-image-preview-counter">{{props.current + 1}}/{{props.dots.length}}</span>
             </slot>
@@ -56,6 +65,14 @@
         default() {
           return []
         }
+      },
+      loop: {
+        type: Boolean,
+        default: true
+      },
+      interval: {
+        type: Number,
+        default: 4000
       }
     },
     data() {
@@ -86,7 +103,10 @@
         }
       }
     },
-    computed: {
+    watch: {
+      initialIndex(newIndex) {
+        this.setPageIndex(newIndex)
+      }
     },
     methods: {
       show() {
@@ -96,11 +116,10 @@
             this.$nextTick(() => {
               this.$refs.slide.slide.on('beforeScrollStart', this.slideBeforeScrollStartHandler)
               this.$refs.slide.slide.on('scrollStart', this.slideScrollStartHandler)
-              this.$refs.slide.slide.on('scroll', this.slideScrollHandler)
               this.$refs.slide.slide.on('scrollEnd', this.slideScrollEndHandler)
               scrollItem.scroll.on('zoomStart', this.zoomStartHandler.bind(this, scrollItem.scroll))
               scrollItem.scroll.on('scroll', this.checkBoundary.bind(this, scrollItem.scroll))
-              scrollItem.scroll.on('scrollEnd', this.scrollEnd.bind(this, scrollItem.scroll))
+              scrollItem.scroll.on('scrollEnd', this.scrollEndHandler.bind(this, scrollItem.scroll))
             })
           })
         })
@@ -124,15 +143,20 @@
       imgLoad(i) {
         this.$refs.items[i].scroll.refresh()
       },
-      slideChangeHanlder(currentPageIndex) {
-        if (this.lastPageIndex >= 0) {
+      setPageIndex(currentPageIndex) {
+        if (this.lastPageIndex >= 0 && this.lastPageIndex !== currentPageIndex) {
           const scroll = this.$refs.items[this.lastPageIndex].scroll
-          scroll.scale = 1
-          scroll.lastcale = 1
-          scroll.refresh()
-          this.slideScrollEndHandler()
+          if (scroll.scale !== 1) {
+            scroll.scale = 1
+            scroll.lastcale = 1
+            scroll.refresh()
+          }
         }
         this.lastPageIndex = currentPageIndex
+      },
+      slideChangeHanlder(currentPageIndex) {
+        this.setPageIndex(currentPageIndex)
+        this.slideScrollEndHandler()
         this.$emit(EVENT_CHANGE, currentPageIndex)
       },
       slideScrollStartHandler() {
@@ -144,7 +168,7 @@
       },
       slideScrollEndHandler() {
         this.$refs.items.forEach((scrollItem) => {
-          this.scrollEnd(scrollItem.scroll)
+          this.scrollEndHandler(scrollItem.scroll)
         })
       },
       _scroll(scroll) {
@@ -156,7 +180,7 @@
         this.$refs.slide.slide.enable()
         scroll.disable()
       },
-      scrollEnd(scroll) {
+      scrollEndHandler(scroll) {
         if (this.dblZooming) {
           this.dblZooming = false
           clearTimeout(this.clickTid)
@@ -198,7 +222,7 @@
         clearTimeout(this.clickTid)
         this.clickTid = setTimeout(() => {
           !this.dblZooming && this.hide()
-        }, 300)
+        }, this.scrollOptions.bounceTime)
       },
       zoomTo(scroll, scale, e) {
         scroll.zoomTo(scale, e.pageX, e.pageY)
@@ -213,6 +237,7 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+
   .cube-image-preview-fade-enter, .cube-image-preview-fade-leave-active
     opacity: 0
   .cube-image-preview-fade-enter-active, .cube-image-preview-fade-leave-active
@@ -229,11 +254,6 @@
       align-items: center
       justify-content: center
       overflow: hidden
-      img
-        display: block
-        height: auto
-        max-width: 100%
-        max-height: 100%
     .cube-slide-dots
       bottom: 50px
       .cube-image-preview-counter
@@ -253,4 +273,9 @@
       display: flex
       align-items: center
       justify-content: center
+    .cube-image-preview-img
+      display: block
+      height: auto
+      max-width: 100%
+      max-height: 100%
 </style>
