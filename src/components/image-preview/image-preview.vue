@@ -9,7 +9,7 @@
           :initial-index="lastPageIndex"
           :auto-play="false"
           :loop="loop"
-          :interval="interval"
+          :speed="speed"
           :options="options"
           @change="slideChangeHanlder"
         >
@@ -64,6 +64,7 @@
       imgs: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },
@@ -71,9 +72,9 @@
         type: Boolean,
         default: true
       },
-      interval: {
+      speed: {
         type: Number,
-        default: 4000
+        default: 400
       }
     },
     data() {
