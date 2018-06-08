@@ -29,6 +29,7 @@
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
   const EVENT_SCROLL_END = 'scroll-end'
+  const EVENT_SCROLL = 'scroll'
 
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
@@ -198,7 +199,12 @@
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
-
+        /* dispatch scroll position */
+        if (this.options.listenScroll) {
+          //  ensure dispatch scroll position constantly
+          this.options.probeType = 3
+          this.slide.on('scroll', this._onScroll)
+        }
         const slideEl = this.$refs.slide
         slideEl.removeEventListener('touchend', this._touchEndEvent, false)
         this._touchEndEvent = () => {
@@ -227,6 +233,9 @@
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _onScroll(pos) {
+        this.$emit(EVENT_SCROLL, pos)
       },
       _initDots() {
         this.dots = new Array(this.children.length)
