@@ -58,7 +58,6 @@ export {
   Loading,
   Tip,
   Toolbar,
-  ImagePreview,
   // form
   Checkbox,
   CheckboxGroup,
@@ -87,6 +86,7 @@ export {
   DrawerItem,
   DrawerPanel,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   SlideItem,

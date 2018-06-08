@@ -6,7 +6,6 @@ import {
   Loading,
   Tip,
   Toolbar,
-  ImagePreview,
   // form
   Checkbox,
   CheckboxGroup,
@@ -31,6 +30,7 @@ import {
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
