@@ -115,13 +115,19 @@
       show() {
         this.isVisible = true
         this.$nextTick(() => {
-          this._init()
+          this._listenSlide()
+          this._listenScroll()
         })
       },
-      _init() {
-        const slide = this.$refs.slide.slide
-        slide.on('scrollStart', this.slideScrollStartHandler)
-        slide.on('scrollEnd', this.slideScrollEndHandler)
+      _listenSlide() {
+        // waiting slide initial
+        this.$nextTick(() => {
+          const slide = this.$refs.slide.slide
+          slide.on('scrollStart', this.slideScrollStartHandler)
+          slide.on('scrollEnd', this.slideScrollEndHandler)
+        })
+      },
+      _listenScroll() {
         // waiting scroll initial
         this.$nextTick(() => {
           this.$refs.items.forEach((scrollItem) => {
