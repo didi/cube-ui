@@ -1,12 +1,16 @@
 import Vue from 'vue2'
 import CubeTabNav from '@/modules/tab-nav'
+import CubeTabContainer from '@/modules/tab-container'
 import createVue from '../utils/create-vue'
 
-describe('TabNav.vue', () => {
+describe('Tabs', () => {
   let vm
   it('use', () => {
     Vue.use(CubeTabNav)
     expect(Vue.component(CubeTabNav.name))
+      .to.be.a('function')
+    Vue.use(CubeTabContainer)
+    expect(Vue.component(CubeTabContainer.name))
       .to.be.a('function')
   })
   it('props', (done) => {
@@ -29,6 +33,64 @@ describe('TabNav.vue', () => {
         .to.be.equal('天辉')
       done()
     })
+  })
+  it('should render correct content when pass data prop', (done) => {
+    const vm = createVue({
+      template: `
+      <div>
+        <cube-tab-nav v-model="selectedLabel">
+          <cube-tab-nav-item ref="navItem" v-for="(item, index) in tabs" :label="item.label" :key="index">
+          {{item.label}}
+          </cube-tab-nav-item>
+        </cube-tab-nav>
+        <cube-tab-container v-model="selectedLabel" :data="tabs"></cube-tab-container>
+      </div>
+    `,
+      data: {
+        selectedLabel: '夜魇',
+        tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
+      }
+    })
+    setTimeout(() => {
+      const items = vm.$parent.$el.querySelectorAll('.cube-tab-container-item')
+      const firstTab = vm.$parent.$refs.navItem[0].$el
+      firstTab.click()
+      expect(items[0].innerText)
+        .to.include('天辉')
+      done()
+    }, 300)
+  })
+  it('should excute correct transition when tab is clicked', (done) => {
+    vm = createVue({
+      template: `
+      <div class="cube-tabs-container">
+        <cube-tab-nav v-model="selectedLabel">
+          <cube-tab-nav-item ref="navItem" v-for="(item, index) in tabs" :label="item.label" :key="index">
+          {{item.label}}
+          </cube-tab-nav-item>
+        </cube-tab-nav>
+        <cube-tab-container v-model="selectedLabel">
+          <cube-tab-container-item ref="containerItem" v-for="(item, index) in tabs" :label="item.label" :key="index">
+          {{item.label}}
+          </cube-tab-container-item>
+        </cube-tab-container>
+      </div>
+    `,
+      data: {
+        selectedLabel: '天辉',
+        tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
+      }
+    })
+    setTimeout(() => {
+      const tab = vm.$parent.$refs.navItem[1].$el
+      const containerItem = vm.$parent.$refs.containerItem[0]
+      tab.click()
+      setTimeout(() => {
+        expect(containerItem.transitionName)
+          .to.be.equal('cube-tab-reverse-transition')
+        done()
+      }, 1000)
+    }, 100)
   })
   it('should toggle v-model value', () => {
     vm = createCubeTabNav()
