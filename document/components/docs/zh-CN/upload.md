@@ -188,6 +188,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
+| v-model | 文件列表 | Array | [] | [{ name, size, url, status: 'success', progress: 1 }] |
 | action | 上传行为配置项，最少包含上传目标的 URL 地址 | String/Object | '' | { target: '/upload' } |
 | max | 最大上传文件个数 | Number | 10 | - |
 | auto | 是否自动上传，即选择完文件后自动开始上传 | Boolean | true | - |
