@@ -20,7 +20,7 @@ describe('Tabs', () => {
       </cube-tab-nav>
     `,
       data: {
-        selectedLabel: '天辉',
+        selectedLabel: '夜魇',
         tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
       }
     })
@@ -30,7 +30,7 @@ describe('Tabs', () => {
       expect(vm.$el.querySelectorAll('.cube-tab-bar').length)
         .to.be.equal(1)
       expect(vm.$el.querySelectorAll('.cube-tab-nav-item-label')[0].innerText)
-        .to.be.equal('天辉')
+        .to.include('天辉')
       done()
     })
   })
