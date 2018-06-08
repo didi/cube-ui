@@ -14,27 +14,18 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import { warn } from '../../common/helpers/debug'
-
   const COMPONENT_NAME = 'cube-tab-nav-item'
 
   const EVENT_INPUT = 'input'
   const EVENT_CLICK = 'tab-click'
 
-  const WARNING = '"label" prop is not  allowed to be empty when you use cube-tab-nav-item component'
-
   export default {
     name: COMPONENT_NAME,
     props: {
       label: {
-        type: [String, Number]
+        type: [String, Number],
+        required: true
       }
-    },
-    data () {
-      return {}
-    },
-    mounted () {
-      this.setWarning()
     },
     computed: {
       isActive () {
@@ -42,10 +33,6 @@
       }
     },
     methods: {
-      setWarning () {
-        /* istanbul ignore if */
-        if (this.label === undefined) warn(WARNING)
-      },
       handleClick () {
         /* istanbul ignore if */
         if (this.label === undefined) return

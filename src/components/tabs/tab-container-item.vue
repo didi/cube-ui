@@ -6,17 +6,15 @@
   </transition>
 </template>
 <script type="text/ecmascript-6">
-  import { warn } from '../../common/helpers/debug'
-
   const COMPONENT_NAME = 'cube-tab-container-item'
   const TRANSITION_NAME = 'cube-tab-transition'
-  const WARNING = `"label" prop is not  allowed to be empty when you use cube-tab-container-item component`
 
   export default {
     name: COMPONENT_NAME,
     props: {
       label: {
-        type: [String, Number]
+        type: [String, Number],
+        required: true
       }
     },
     data () {
@@ -27,12 +25,6 @@
     computed: {
       isActive () {
         return this.$parent.value !== undefined && this.$parent.value === this.label
-      }
-    },
-    methods: {
-      setWarning () {
-        /* istanbul ignore if */
-        if (this.label === undefined) warn(WARNING)
       }
     }
   }
