@@ -18,7 +18,6 @@
 
   const COMPONENT_NAME = 'cube-tab-nav'
 
-  const TRANSITION = prefixStyle('transition')
   const TRANSFORM = prefixStyle('transform')
 
   export default {
@@ -66,7 +65,6 @@
         this.$nextTick(() => {
           const { width, index } = this._getTabBarWidthAndIndex()
           tabBar.style.width = `${width}px`
-          tabBar.style[TRANSITION] = `all 0.2s linear`
           this.setTabBarTransform(this._getOffsetLeft(index))
         })
       },
@@ -115,31 +113,35 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+
   .cube-tab-nav
     position: relative
     display: flex
     align-items: center
     justify-content: center
     font-size: 100%
-    background-color $color-white
+    background-color: $color-white
     &.is-fixed-top
-      position fixed
-      top 0
-      right 0
-      left 0
-      z-index 99
+      position: fixed
+      top: 0
+      right: 0
+      left: 0
+      z-index: 99
     &.is-fixed-bottom
-      position fixed
-      bottom 0
-      right 0
-      left 0
-      z-index 99
+      position: fixed
+      bottom: 0
+      right: 0
+      left: 0
+      z-index: 99
 
   .cube-tab-bar
-    position absolute
-    left 0
-    bottom 0
-    height 2px
-    width 20px
-    background-color $color-dark-orange
+    position: absolute
+    left: 0
+    bottom: 0
+    height: 2px
+    width: 20px
+    transition: all 0.2s linear
+    background-color: $color-dark-orange
+
+
 </style>

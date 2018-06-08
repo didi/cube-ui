@@ -34,7 +34,7 @@
   .cube-tab-container-item
     width: 100%
     font-size: 100%
-    background-color $color-white
+    background-color: $color-white
     transition: transform .4s cubic-bezier(.86, 0, .07, 1)
 
   .cube-tab-transition-enter

@@ -48,20 +48,20 @@
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   .cube-tab-nav-item
-    flex 1
-    padding 7px 0
+    flex: 1
+    padding: 7px 0
     font-size: 100%
-    color $color-grey
-    text-align center
+    color: $color-grey
+    text-align: center
     &.inline
-      display flex
-      align-content center
-      justify-content center
+      display: flex
+      align-content: center
+      justify-content: center
     &.active
-      color $color-dark-orange
+      color: $color-dark-orange
     .cube-tab-nav-item-icon
       &.add-margin-bottom
-        margin-bottom 2px
+        margin-bottom: 2px
       > i
         display: inline-block
         font-size 100%
