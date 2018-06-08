@@ -49,6 +49,11 @@ import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
+import TabsIndex from '../pages/tabs'
+import TabNav from '../pages/tabs/tab-nav.vue'
+import Tabs from '../pages/tabs/tabs.vue'
+import TabsBasic from '../pages/tabs/tabs-basic.vue'
+import TabsComposite from '../pages/tabs/tabs-composite.vue'
 
 const routes = [
   {
@@ -268,6 +273,32 @@ const routes = [
   {
     path: '/toolbar',
     component: Toolbar
+  },
+  {
+    path: '/tabs-nav',
+    component: TabNav
+  },
+  {
+    path: '/tabs',
+    component: TabsIndex,
+    children: [
+      {
+        path: 'tabs-nav',
+        component: TabNav
+      },
+      {
+        path: 'tabs',
+        component: Tabs,
+        children: [
+          { path: 'basic',
+            component: TabsBasic
+          },
+          { path: 'composite',
+            component: TabsComposite
+          }
+        ]
+      }
+    ]
   }
 ]
 
