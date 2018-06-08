@@ -115,14 +115,20 @@
       show() {
         this.isVisible = true
         this.$nextTick(() => {
+          this._init()
+        })
+      },
+      _init() {
+        const slide = this.$refs.slide.slide
+        slide.on('scrollStart', this.slideScrollStartHandler)
+        slide.on('scrollEnd', this.slideScrollEndHandler)
+        // waiting scroll initial
+        this.$nextTick(() => {
           this.$refs.items.forEach((scrollItem) => {
-            this.$nextTick(() => {
-              this.$refs.slide.slide.on('scrollStart', this.slideScrollStartHandler)
-              this.$refs.slide.slide.on('scrollEnd', this.slideScrollEndHandler)
-              scrollItem.scroll.on('zoomStart', this.zoomStartHandler.bind(this, scrollItem.scroll))
-              scrollItem.scroll.on('scroll', this.checkBoundary.bind(this, scrollItem.scroll))
-              scrollItem.scroll.on('scrollEnd', this.scrollEndHandler.bind(this, scrollItem.scroll))
-            })
+            const scroll = scrollItem.scroll
+            scroll.on('zoomStart', this.zoomStartHandler.bind(this, scroll))
+            scroll.on('scroll', this.checkBoundary.bind(this, scroll))
+            scroll.on('scrollEnd', this.scrollEndHandler.bind(this, scroll))
           })
         })
       },
@@ -169,10 +175,11 @@
         this.$emit(EVENT_CHANGE, currentPageIndex)
       },
       slideScrollStartHandler() {
+        const slide = this.$refs.slide.slide
         if (this._scrolling && !this._hasEnableSlide) {
-          this.$refs.slide.slide.disable()
+          slide.disable()
         } else {
-          this.$refs.slide.slide.enable()
+          slide.enable()
         }
       },
       slideScrollEndHandler() {
@@ -181,8 +188,9 @@
         })
       },
       _scroll(scroll) {
-        this.$refs.slide.slide.disable()
-        this.$refs.slide.slide.refresh()
+        const slide = this.$refs.slide.slide
+        slide.disable()
+        slide.refresh()
         scroll.enable()
       },
       _slide(scroll) {
