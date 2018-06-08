@@ -2,6 +2,7 @@
   <div class="cube-tab-container">
     <slot>
       <cube-tab-container-item
+        ref="containerItem"
         v-for="(item, index) in data"
         :label="item.label"
         :key="index">
@@ -32,6 +33,7 @@
     methods: {
       _collectLabels () {
         const slots = this.$slots.default
+        const containerItems = this.$refs.containerItem
         let labels = []
         let label
         if (slots) {
@@ -39,28 +41,40 @@
             label = vnode.componentOptions.propsData && vnode.componentOptions.propsData.label
             if (label) labels.push(label)
           })
+        } else if (containerItems) {
+          containerItems.forEach((item) => {
+            labels.push(item.label)
+          })
         }
         return labels
       },
       _compare (former, latter) {
         return former > latter
       },
-      _setTransitionName (slots, transitionName) {
-        slots.forEach((vnode) => {
-          vnode.componentInstance.transitionName = transitionName
-        })
+      _setTransitionName (transitionName) {
+        const slots = this.$slots.default
+        const containerItems = this.$refs.containerItem
+        if (slots) {
+          slots.forEach((vnode) => {
+            vnode.componentInstance.transitionName = transitionName
+          })
+        } else if (containerItems) {
+          containerItems.forEach((instance) => {
+            instance.transitionName = transitionName
+          })
+        }
       }
     },
     watch: {
       value (newV, oldV) {
         const labels = this._collectLabels()
-        const slots = this.$slots.default
+        /* istanbul ignore if */
         if (!labels.length) return
         const newIndex = labels.findIndex(label => label === newV)
         const oldIndex = labels.findIndex(label => label === oldV)
         this.$nextTick(() => {
           const transitionName = this._compare(newIndex, oldIndex) ? TRANSITION_REVERSE_NAME : TRANSITION_NAME
-          this._setTransitionName(slots, transitionName)
+          this._setTransitionName(transitionName)
         })
       }
     }

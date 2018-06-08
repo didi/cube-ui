@@ -43,9 +43,11 @@
     },
     methods: {
       setWarning () {
+        /* istanbul ignore if */
         if (this.label === undefined) warn(WARNING)
       },
       handleClick () {
+        /* istanbul ignore if */
         if (this.label === undefined) return
         const eventsStack = [EVENT_INPUT, EVENT_CLICK]
         eventsStack.forEach((event) => {

@@ -2,6 +2,7 @@
   <div class="cube-tab-nav" :class="[_resolveFixedCls]">
     <slot>
       <cube-tab-nav-item
+        ref="navItem"
         v-for="(item, index) in data"
         :label="item.label"
         :key="index">
@@ -59,6 +60,7 @@
     },
     methods: {
       _updateTabBarStyle () {
+        /* istanbul ignore if */
         if (!this.showTabBar) return
         const tabBar = this.$refs.tabBar
         this.$nextTick(() => {
@@ -76,12 +78,13 @@
         let width = 0
         let index = 0
         const slots = this.$slots.default
+        const navItems = this.$refs.navItem
         if (slots) {
           index = slots.findIndex((vnode) => vnode.componentOptions.propsData && vnode.componentOptions.propsData.label === this.value)
           width = (slots[index].elm && slots[index].elm.clientWidth) || 0
-        } else if (this.data.length) {
-          index = this.data.findIndex((data) => data && data.label === this.value)
-          width = document.querySelectorAll('.cube-tab-nav-item')[index].clientWidth
+        } else if (navItems) {
+          index = navItems.findIndex((instance) => instance.label === this.value)
+          width = this.$refs.navItem[index].$el.clientWidth
         }
         return {
           width, index
@@ -90,14 +93,14 @@
       _getOffsetLeft (index) {
         let offsetLeft = 0
         const slots = this.$slots.default
+        const navItems = this.$refs.navItem
         if (slots) {
           slots.forEach((vnode, i) => {
             if (i < index) offsetLeft += vnode.elm.clientWidth || 0
           })
-        } else if (this.data.length) {
-          const tabNavItems = Array.from(document.querySelectorAll('.cube-tab-nav-item'))
-          tabNavItems.forEach((item, i) => {
-            if (i < index) offsetLeft += item.clientWidth || 0
+        } else if (navItems) {
+          navItems.forEach((instance, i) => {
+            if (i < index) offsetLeft += instance.$el.clientWidth || 0
           })
         }
         return offsetLeft

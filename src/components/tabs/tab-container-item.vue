@@ -31,6 +31,7 @@
     },
     methods: {
       setWarning () {
+        /* istanbul ignore if */
         if (this.label === undefined) warn(WARNING)
       }
     }
