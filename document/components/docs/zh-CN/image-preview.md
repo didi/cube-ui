@@ -1,5 +1,7 @@
 ## ImagePreview
 
+> 1.10.0 新增
+
 图片预览，支持切换、放大缩小等能力。
 
 __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。

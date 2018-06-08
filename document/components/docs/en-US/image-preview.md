@@ -1,5 +1,7 @@
 ## ImagePreview
 
+> New in 1.10.0+
+
 Image preview. Support swipe, zoomin zoomout.
 
 __Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
