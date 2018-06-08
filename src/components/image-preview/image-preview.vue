@@ -2,6 +2,9 @@
   <transition name="cube-image-preview-fade">
     <cube-popup type="image-preview" :center="false" v-show="isVisible">
       <div class="cube-image-preview-container">
+        <div class="cube-image-preview-header">
+          <slot name="header" :current="lastPageIndex"></slot>
+        </div>
         <cube-slide
           ref="slide"
           v-if="isVisible"
@@ -11,7 +14,7 @@
           :loop="loop"
           :speed="speed"
           :options="options"
-          @change="slideChangeHanlder"
+          @change="slideChangeHandler"
         >
           <cube-slide-item
             v-for="(img, index) in imgs"
@@ -27,15 +30,13 @@
               </cube-scroll>
             </div>
           </cube-slide-item>
-          <template
-            slot="dots"
-            slot-scope="props"
-          >
-            <slot name="footer" :current="props.current">
-              <span class="cube-image-preview-counter">{{props.current + 1}}/{{props.dots.length}}</span>
-            </slot>
-          </template>
+          <template slot="dots"><i></i></template>
         </cube-slide>
+        <div class="cube-image-preview-footer">
+          <slot name="footer" :current="lastPageIndex">
+            <span class="cube-image-preview-counter">{{lastPageIndex + 1}}/{{imgs.length}}</span>
+          </slot>
+        </div>
       </div>
     </cube-popup>
   </transition>
@@ -149,17 +150,20 @@
       },
       setPageIndex(currentPageIndex) {
         if (this.lastPageIndex >= 0 && this.lastPageIndex !== currentPageIndex) {
-          const scroll = this.$refs.items[this.lastPageIndex].scroll
-          /* istanbul ignore if */
-          if (scroll.scale !== 1) {
-            scroll.scale = 1
-            scroll.lastcale = 1
-            scroll.refresh()
+          const item = this.$refs.items[this.lastPageIndex]
+          if (item) {
+            const scroll = item.scroll
+            /* istanbul ignore if */
+            if (scroll.scale !== 1) {
+              scroll.scale = 1
+              scroll.lastcale = 1
+              scroll.refresh()
+            }
           }
         }
         this.lastPageIndex = currentPageIndex
       },
-      slideChangeHanlder(currentPageIndex) {
+      slideChangeHandler(currentPageIndex) {
         this.setPageIndex(currentPageIndex)
         this.slideScrollEndHandler()
         this.$emit(EVENT_CHANGE, currentPageIndex)
@@ -260,17 +264,25 @@
       align-items: center
       justify-content: center
       overflow: hidden
-    .cube-slide-dots
-      bottom: 50px
-      .cube-image-preview-counter
-        width: auto
-        height: auto
-        font-size: $fontsize-medium
-        color: $image-preview-counter-color
-        background: none
   .cube-image-preview-container
     height: 100%
     margin: 0 -10px
+  .cube-image-preview-header,
+  .cube-image-preview-footer
+    position: absolute
+    left: 0
+    right: 0
+  .cube-image-preview-header
+    top: 0
+  .cube-image-preview-footer
+    bottom: 0
+  .cube-image-preview-counter
+    position: absolute
+    bottom: 50px
+    width: 100%
+    text-align: center
+    font-size: $fontsize-medium
+    color: $image-preview-counter-color
   .cube-image-preview-item
     position: relative
     padding: 0 10px
