@@ -47,10 +47,6 @@
               {
                 path: '/toolbar',
                 text: 'Toolbar'
-              },
-              {
-                path: '/image-preview',
-                text: 'ImagePreview'
               }
             ]
           },
@@ -148,6 +144,10 @@
               {
                 path: '/drawer',
                 text: 'Drawer'
+              },
+              {
+                path: '/image-preview',
+                text: 'ImagePreview'
               }
             ]
           },

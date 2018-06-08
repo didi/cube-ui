@@ -115,10 +115,6 @@ const routes = [
     component: Toolbar
   },
   {
-    path: '/image-preview',
-    component: ImagePreview
-  },
-  {
     path: '/popup',
     component: Popup
   },
@@ -161,6 +157,24 @@ const routes = [
   {
     path: '/action-sheet',
     component: ActionSheet
+  },
+  {
+    path: '/drawer',
+    component: Drawer,
+    children: [
+      {
+        path: 'default',
+        component: DrawerDefault
+      },
+      {
+        path: 'custom',
+        component: DrawerCustom
+      }
+    ]
+  },
+  {
+    path: '/image-preview',
+    component: ImagePreview
   },
   {
     path: '/scroll',
@@ -243,20 +257,6 @@ const routes = [
       {
         path: 'custom',
         component: SwipeCustom
-      }
-    ]
-  },
-  {
-    path: '/drawer',
-    component: Drawer,
-    children: [
-      {
-        path: 'default',
-        component: DrawerDefault
-      },
-      {
-        path: 'custom',
-        component: DrawerCustom
       }
     ]
   },
