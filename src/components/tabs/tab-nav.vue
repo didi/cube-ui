@@ -81,7 +81,7 @@
         const navItems = this.$refs.navItem
         if (slots) {
           index = slots.findIndex((vnode) => vnode.componentOptions.propsData && vnode.componentOptions.propsData.label === this.value)
-          width = (slots[index].elm && slots[index].elm.clientWidth) || 0
+          width = (slots[index].elm && slots[index].elm.clientWidth)
         } else if (navItems) {
           index = navItems.findIndex((instance) => instance.label === this.value)
           width = this.$refs.navItem[index].$el.clientWidth
@@ -96,11 +96,11 @@
         const navItems = this.$refs.navItem
         if (slots) {
           slots.forEach((vnode, i) => {
-            if (i < index) offsetLeft += vnode.elm.clientWidth || 0
+            if (i < index) offsetLeft += vnode.elm.clientWidth
           })
         } else if (navItems) {
           navItems.forEach((instance, i) => {
-            if (i < index) offsetLeft += instance.$el.clientWidth || 0
+            if (i < index) offsetLeft += instance.$el.clientWidth
           })
         }
         return offsetLeft
