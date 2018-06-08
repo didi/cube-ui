@@ -25,8 +25,6 @@ describe('Tabs', () => {
       }
     })
     vm.$nextTick(() => {
-      expect(window.getComputedStyle(vm.$el).top)
-        .to.equal('0px')
       expect(vm.$el.querySelectorAll('.cube-tab-bar').length)
         .to.be.equal(1)
       expect(vm.$el.querySelectorAll('.cube-tab-nav-item-label')[0].innerText)
