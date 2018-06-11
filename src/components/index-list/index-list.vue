@@ -3,7 +3,7 @@
     <cube-scroll
       ref="scroll"
       :scroll-events="scrollEvents"
-      :options="options"
+      :options="scrollOptions"
       :data="data"
       @scroll="scroll"
       @pulling-down="onPullingDown"
@@ -67,6 +67,9 @@
 
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
+  import scrollMixin from '../../common/mixins/scroll'
+  import { tip } from '../../common/helpers/debug'
+  import { kebab } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -79,6 +82,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin],
     props: {
       title: {
         type: String,
@@ -127,12 +131,12 @@
           return group ? group.shortcut || group.name.substr(0, 1) : ''
         })
       },
-      options() {
-        return {
+      scrollOptions() {
+        return Object.assign({}, {
           probeType: 3,
           pullDownRefresh: this.pullDownRefresh,
           pullUpLoad: this.pullUpLoad
-        }
+        }, this.options)
       }
     },
     created() {
@@ -142,6 +146,7 @@
       this.subTitleHeight = 0
     },
     mounted() {
+      this._checkDeprecated()
       this.$nextTick(() => {
         this.title && this._caculateTitleHeight()
         this._calculateHeight()
@@ -217,6 +222,12 @@
         }
         this.$refs.scroll.scrollToElement(this.groupList[index], this.speed)
         this.scrollY = this.$refs.scroll.scroll.y
+      },
+      _checkDeprecated() {
+        const deprecatedKeys = ['pullDownRefresh', 'pullUpLoad']
+        deprecatedKeys.forEach((key) => {
+          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/index-list#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
+        })
       }
     },
     watch: {
