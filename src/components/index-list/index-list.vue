@@ -68,8 +68,7 @@
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
   import scrollMixin from '../../common/mixins/scroll'
-  import { tip } from '../../common/helpers/debug'
-  import { kebab } from '../../common/lang/string'
+  import deprecated from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -82,7 +81,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin],
+    mixins: [scrollMixin, deprecated],
     props: {
       title: {
         type: String,
@@ -104,11 +103,13 @@
       },
       pullDownRefresh: {
         type: [Boolean, Object],
-        default: false
+        default: false,
+        deprecated: true
       },
       pullUpLoad: {
         type: [Boolean, Object],
-        default: false
+        default: false,
+        deprecated: true
       }
     },
     data() {
@@ -145,7 +146,6 @@
       this.subTitleHeight = 0
     },
     mounted() {
-      this._checkDeprecated()
       this.$nextTick(() => {
         this.title && this._caculateTitleHeight()
         this._calculateHeight()
@@ -221,12 +221,6 @@
         }
         this.$refs.scroll.scrollToElement(this.groupList[index], this.speed)
         this.scrollY = this.$refs.scroll.scroll.y
-      },
-      _checkDeprecated() {
-        const deprecatedKeys = ['pullDownRefresh', 'pullUpLoad']
-        deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/index-list#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
-        })
       }
     },
     watch: {
