@@ -70,7 +70,7 @@
 
 - 自定义提示插槽
 
-  用 messages 属性只能配置提示信息文案，但当你想加图标等自定义提示时，可以使用 message 插槽。这是一个作用域插槽，提供的作用域参数基本可以说，完全能够满足所有的灵活定制需求，参数包括了：dirty，待检验的数据是否有修改过；message，首条没通过的规则的提示信息；result，对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } }。
+  用 messages 属性只能配置提示信息文案，但当你想加图标等自定义提示时，可以使用 message 插槽。这是一个作用域插槽，提供的作用域参数基本上能够满足所有的灵活定制需求，参数包括了：dirty，待检验的数据是否有修改过；message，首条没通过的规则的提示信息；result，对象，内含每条规则的校验结果和提示信息，如{ required: { valid: false, invalid: true, message: '必填' } }。
 
   ```html
   <cube-validator v-model="valid" :model="text" :rules="rules" :messages="messages">
