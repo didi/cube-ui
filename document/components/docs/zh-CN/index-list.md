@@ -231,8 +231,9 @@
 | data | 需要展示的数据 | Array | [] |
 | navbar | 是否需要导航栏 | Boolean | true |
 | speed | 点击导航栏索引时，滚动到相应位置的动画时间（单位：ms） | number | 0 |
-| pullUpLoad<sup>1.8.0+</sup> | 上拉加载，具体配置参考 scroll 组件的 `options.pullUpLoad` | Boolean/Object | false |
-| pullDownRefresh<sup>1.8.0+</sup> | 下拉刷新，具体配置参考 scroll 组件的 `options.pullDownRefresh` | Boolean/Object | false |
+| options<sup>1.9.8+</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
+| pullUpLoad<sup>1.8.0+</sup> | 上拉加载，具体配置参考 scroll 组件的 `options.pullUpLoad`。`即将废弃`，推荐使用 `options` 属性 | Boolean/Object | false |
+| pullDownRefresh<sup>1.8.0+</sup> | 下拉刷新，具体配置参考 scroll 组件的 `options.pullDownRefresh`。`即将废弃`，推荐使用 `options` 属性 | Boolean/Object | false |
 
 - `data` 子配置项
 
