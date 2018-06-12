@@ -133,7 +133,6 @@
       },
       scrollOptions() {
         return Object.assign({}, {
-          probeType: 3,
           pullDownRefresh: this.pullDownRefresh,
           pullUpLoad: this.pullUpLoad
         }, this.options)
