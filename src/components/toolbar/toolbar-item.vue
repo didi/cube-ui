@@ -1,6 +1,6 @@
 <template>
   <li class="cube-toolbar-item border-right-1px">
-    <cube-button :icon="action.icon" @click="clickHandler">
+    <cube-button :icon="action.icon">
       <cube-checkbox
         class="cube-toolbar-chb"
         v-model="action.checked"
@@ -18,7 +18,6 @@
   import CubeCheckbox from '../checkbox/checkbox'
 
   const COMPONENT_NAME = 'cube-toolbar-item'
-  const EVENT_CLICK = 'click'
 
   export default {
     name: COMPONENT_NAME,
@@ -33,11 +32,6 @@
           /* istanbul ignore next */
           return {}
         }
-      }
-    },
-    methods: {
-      clickHandler() {
-        this.$emit(EVENT_CLICK)
       }
     }
   }

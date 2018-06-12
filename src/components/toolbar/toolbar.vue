@@ -8,14 +8,14 @@
         v-for="(action, index) in moreActions"
         :key="index"
         :action="action"
-        @click="itemClick(action)"></cube-toolbar-item>
+        @click.native="itemClick(action)"></cube-toolbar-item>
     </ul>
     <ul class="cube-toolbar-group">
       <cube-toolbar-item
         v-for="(action, index) in basicActions"
         :key="index"
         :action="action"
-        @click="itemClick(action)"></cube-toolbar-item>
+        @click.native="itemClick(action)"></cube-toolbar-item>
     </ul>
   </div>
 </template>
