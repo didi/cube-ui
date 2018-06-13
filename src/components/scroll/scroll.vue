@@ -106,14 +106,16 @@
       listenScroll: {
         type: Boolean,
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       listenBeforeScroll: {
         type: Boolean,
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       direction: {
         type: String,

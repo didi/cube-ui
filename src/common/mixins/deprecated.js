@@ -1,5 +1,6 @@
 import { tip } from '../../common/helpers/debug'
 import { kebab } from '../../common/lang/string'
+import isEqual from 'lodash.isequal'
 
 export default {
   methods: {
@@ -7,9 +8,12 @@ export default {
       const props = this.$options.props
       const componentName = this.$options.name
 
-      Object.keys(props).forEach((key) => {
-        if (props[key].deprecated && this[key] !== props[key].default) {
-          tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "${props[key].replacedBy}" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/${componentName.substr(5)}#cube-Propsconfiguration-anchor`, componentName)
+      Object.entries(props).forEach(([key, prop]) => {
+        const deprecated = prop.deprecated
+        const def = typeof prop.default === 'function' ? prop.default() : prop.default
+
+        if (deprecated && !isEqual(this[key], def)) {
+          tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "${deprecated.replacedBy}" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/${componentName.substr(5)}#cube-Propsconfiguration-anchor`, componentName)
         }
       })
     }

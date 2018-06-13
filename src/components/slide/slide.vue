@@ -86,14 +86,16 @@
       allowVertical: {
         type: Boolean,
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       stopPropagation: {
         type: Boolean,
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {

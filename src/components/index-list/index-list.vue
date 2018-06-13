@@ -104,14 +104,16 @@
       pullDownRefresh: {
         type: [Boolean, Object],
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       pullUpLoad: {
         type: [Boolean, Object],
         default: false,
-        deprecated: true,
-        replacedBy: 'options'
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {
