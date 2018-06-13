@@ -68,7 +68,7 @@
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
   import scrollMixin from '../../common/mixins/scroll'
-  import deprecated from '../../common/mixins/deprecated'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -81,7 +81,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, deprecated],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       title: {
         type: String,
@@ -104,12 +104,14 @@
       pullDownRefresh: {
         type: [Boolean, Object],
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       },
       pullUpLoad: {
         type: [Boolean, Object],
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       }
     },
     data() {

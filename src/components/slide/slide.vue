@@ -22,7 +22,7 @@
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
-  import deprecated from '../../common/mixins/deprecated'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
@@ -41,7 +41,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, deprecated],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -86,12 +86,14 @@
       allowVertical: {
         type: Boolean,
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       },
       stopPropagation: {
         type: Boolean,
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       }
     },
     data() {

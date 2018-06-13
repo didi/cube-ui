@@ -6,10 +6,11 @@ export default {
     _checkDeprecated() {
       const props = this.$options.props
       const componentName = this.$options.name
-      const deprecatedKeys = Object.keys(props).filter(prop => props[prop].deprecated)
 
-      deprecatedKeys.forEach((key) => {
-        this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/${componentName.substr(5)}#cube-Propsconfiguration-anchor`, componentName)
+      Object.keys(props).forEach((key) => {
+        if (props[key].deprecated && this[key] !== props[key].default) {
+          tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "${props[key].replacedBy}" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/${componentName.substr(5)}#cube-Propsconfiguration-anchor`, componentName)
+        }
       })
     }
   },

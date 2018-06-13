@@ -52,7 +52,7 @@
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
   import scrollMixin from '../../common/mixins/scroll'
-  import deprecated from '../../common/mixins/deprecated'
+  import deprecatedMixin from '../../common/mixins/deprecated'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
 
@@ -83,7 +83,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, deprecated],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -106,12 +106,14 @@
       listenScroll: {
         type: Boolean,
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       },
       listenBeforeScroll: {
         type: Boolean,
         default: false,
-        deprecated: true
+        deprecated: true,
+        replacedBy: 'options'
       },
       direction: {
         type: String,
