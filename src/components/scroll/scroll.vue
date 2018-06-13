@@ -52,9 +52,9 @@
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
   import scrollMixin from '../../common/mixins/scroll'
+  import deprecatedMixin from '../../common/mixins/deprecated'
   import { getRect } from '../../common/helpers/dom'
-  import { camelize, kebab } from '../../common/lang/string'
-  import { tip } from '../../common/helpers/debug'
+  import { camelize } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -83,7 +83,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -105,11 +105,17 @@
       // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       listenBeforeScroll: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       direction: {
         type: String,
@@ -223,7 +229,6 @@
       this.$nextTick(() => {
         this.initScroll()
       })
-      this._checkDeprecated()
     },
     beforeDestroy() {
       this.destroy()
@@ -355,12 +360,6 @@
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
-      },
-      _checkDeprecated() {
-        const deprecatedKeys = ['listenScroll', 'listenBeforeScroll']
-        deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "scroll-events" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/scroll#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
-        })
       },
       _getPullDownEleHeight() {
         const pulldown = this.$refs.pulldown.firstChild

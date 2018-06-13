@@ -3,7 +3,7 @@
     <cube-scroll
       ref="scroll"
       :scroll-events="scrollEvents"
-      :options="options"
+      :options="scrollOptions"
       :data="data"
       @scroll="scroll"
       @pulling-down="onPullingDown"
@@ -67,6 +67,8 @@
 
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
+  import scrollMixin from '../../common/mixins/scroll'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -79,6 +81,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       title: {
         type: String,
@@ -99,12 +102,18 @@
         default: true
       },
       pullDownRefresh: {
-        type: [Boolean, Object],
-        default: false
+        type: [Object, Boolean],
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       pullUpLoad: {
-        type: [Boolean, Object],
-        default: false
+        type: [Object, Boolean],
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {
@@ -127,12 +136,11 @@
           return group ? group.shortcut || group.name.substr(0, 1) : ''
         })
       },
-      options() {
-        return {
-          probeType: 3,
+      scrollOptions() {
+        return Object.assign({}, {
           pullDownRefresh: this.pullDownRefresh,
           pullUpLoad: this.pullUpLoad
-        }
+        }, this.options)
       }
     },
     created() {

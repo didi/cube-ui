@@ -7,7 +7,7 @@
             ref="indexList"
             :data="data"
             :title="title"
-            :pullDownRefresh="pullDownRefresh"
+            :options="options"
             @select="selectItem"
             @title-click="clickTitle"
             @pulling-down="onPullingDown">
@@ -30,8 +30,10 @@
       return {
         title: 'Current City: BEIJING',
         data: cityData,
-        pullDownRefresh: {
-          stop: 55
+        options: {
+          pullDownRefresh: {
+            stop: 55
+          }
         }
       }
     },

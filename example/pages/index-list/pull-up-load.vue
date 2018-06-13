@@ -7,7 +7,7 @@
             ref="indexList"
             :data="data"
             :title="title"
-            :pullUpLoad="true"
+            :options="options"
             @select="selectItem"
             @title-click="clickTitle"
             @pulling-up="onPullingUp">
@@ -29,7 +29,10 @@
     data() {
       return {
         title: 'Current City: BEIJING',
-        data: cityData.slice(0, 4)
+        data: cityData.slice(0, 4),
+        options: {
+          pullUpLoad: true
+        }
       }
     },
     methods: {
