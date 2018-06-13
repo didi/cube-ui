@@ -102,15 +102,15 @@
         default: true
       },
       pullDownRefresh: {
-        type: [Boolean, Object],
-        default: false,
+        type: [Object, Boolean],
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }
       },
       pullUpLoad: {
-        type: [Boolean, Object],
-        default: false,
+        type: [Object, Boolean],
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }

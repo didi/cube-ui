@@ -56,8 +56,7 @@
   ],
   "license": "Apache",
   "dependencies": {
-    "better-scroll": "^1.12.0",
-    "lodash.isequal": "^4.5.0"
+    "better-scroll": "^1.12.0"
   },
   "peerDependencies": {
     "vue": "^2.5.13"

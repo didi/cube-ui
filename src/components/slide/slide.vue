@@ -85,14 +85,14 @@
       // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
-        default: false,
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }
       },
       stopPropagation: {
         type: Boolean,
-        default: false,
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }

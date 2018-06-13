@@ -105,14 +105,14 @@
       // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
-        default: false,
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }
       },
       listenBeforeScroll: {
         type: Boolean,
-        default: false,
+        default: undefined,
         deprecated: {
           replacedBy: 'options'
         }
