@@ -12,6 +12,8 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import { findIndex } from '../../common/helpers/util'
+
   const COMPONENT_NAME = 'cube-tab-container'
 
   const TRANSITION_NAME = 'cube-tab-transition'
@@ -70,8 +72,8 @@
         const labels = this._collectLabels()
         /* istanbul ignore if */
         if (!labels.length) return
-        const newIndex = labels.findIndex(label => label === newV)
-        const oldIndex = labels.findIndex(label => label === oldV)
+        const newIndex = findIndex(labels, (label) => label === newV)
+        const oldIndex = findIndex(labels, (label) => label === oldV)
         this.$nextTick(() => {
           const transitionName = this._compare(newIndex, oldIndex) ? TRANSITION_REVERSE_NAME : TRANSITION_NAME
           this._setTransitionName(transitionName)

@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-tab-nav" :class="[_resolveFixedCls]">
+  <div class="cube-tab-nav" :class="resolveFixedCls">
     <slot>
       <cube-tab-nav-item
         ref="navItem"
@@ -9,16 +9,18 @@
         {{item.label}}
       </cube-tab-nav-item>
     </slot>
-    <div v-if='showTabBar' ref="tabBar" class="cube-tab-bar"></div>
+    <div v-if='showSlider' ref="slider" class="cube-tab-slider"></div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import { prefixStyle } from '../../common/helpers/dom'
+  import { findIndex } from '../../common/helpers/util'
   import CubeTabNavItem from './tab-nav-item.vue'
 
   const COMPONENT_NAME = 'cube-tab-nav'
 
   const TRANSFORM = prefixStyle('transform')
+  const TRANSITION = prefixStyle('transition')
 
   export default {
     name: COMPONENT_NAME,
@@ -43,49 +45,57 @@
         type: Boolean,
         default: false
       },
-      showTabBar: {
+      showSlider: {
         type: Boolean,
         default: false
+      },
+      useTransition: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
-      _resolveFixedCls () {
+      resolveFixedCls () {
         if (!this.fixed) return ''
         return `is-fixed-${this.fixed}`
       }
     },
     mounted () {
-      this._updateTabBarStyle()
+      this._updateSliderStyle()
     },
     methods: {
-      _updateTabBarStyle () {
+      _updateSliderStyle () {
         /* istanbul ignore if */
-        if (!this.showTabBar) return
-        const tabBar = this.$refs.tabBar
+        if (!this.showSlider) return
+        const slider = this.$refs.slider
         this.$nextTick(() => {
-          const { width, index } = this._getTabBarWidthAndIndex()
-          tabBar.style.width = `${width}px`
-          this.setTabBarTransform(this._getOffsetLeft(index))
+          const { width, index } = this._getSliderWidthAndIndex()
+          slider.style.width = `${width}px`
+          this.setSliderTransform(this._getOffsetLeft(index))
         })
       },
-      setTabBarTransform (offset) {
-        const tabBar = this.$refs.tabBar
-        if (tabBar) tabBar.style[TRANSFORM] = `translateX(${offset}px) translateZ(0px)`
+      setSliderTransform (offset) {
+        const slider = this.$refs.slider
+        if (slider) {
+          if (this.useTransition) slider.style[TRANSITION] = `all 0.2s linear`
+          slider.style[TRANSFORM] = `translateX(${offset}px) translateZ(0px)`
+        }
       },
-      _getTabBarWidthAndIndex () {
+      _getSliderWidthAndIndex () {
         let width = 0
         let index = 0
         const slots = this.$slots.default
         const navItems = this.$refs.navItem
         if (slots) {
-          index = slots.findIndex((vnode) => vnode.componentOptions.propsData && vnode.componentOptions.propsData.label === this.value)
+          index = findIndex(slots, (vnode) => vnode.componentOptions.propsData && vnode.componentOptions.propsData.label === this.value)
           width = (slots[index].elm && slots[index].elm.clientWidth)
         } else if (navItems) {
-          index = navItems.findIndex((instance) => instance.label === this.value)
+          index = findIndex(navItems, (instance) => instance.label === this.value)
           width = this.$refs.navItem[index].$el.clientWidth
         }
         return {
-          width, index
+          width,
+          index
         }
       },
       _getOffsetLeft (index) {
@@ -106,7 +116,7 @@
     },
     watch: {
       value () {
-        this._updateTabBarStyle()
+        this._updateSliderStyle()
       }
     }
   }
@@ -134,13 +144,12 @@
       left: 0
       z-index: 99
 
-  .cube-tab-bar
+  .cube-tab-slider
     position: absolute
     left: 0
     bottom: 0
     height: 2px
     width: 20px
-    transition: all 0.2s linear
     background-color: $color-dark-orange
 
 
