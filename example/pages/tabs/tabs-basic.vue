@@ -1,7 +1,7 @@
 <template>
   <cube-page type="tabs-basic-view" title="Tabs-basic">
     <div slot="content">
-      <cube-tab-nav v-model="selectedLabel" showTabBar>
+      <cube-tab-nav v-model="selectedLabel" showSlider>
         <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
           <i slot="icon" :class="item.class"></i>
           {{item.label}}

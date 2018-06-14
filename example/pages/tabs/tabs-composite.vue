@@ -2,8 +2,9 @@
   <cube-page type="tabs-composite-view" title="Tabs-composite">
     <div slot="content">
       <cube-tab-nav v-model="selectedLabel"
-                    showTabBar
-                    ref="tabBar"
+                    showSlider
+                    :useTransition="disabled"
+                    ref="tabNav"
                     :data="tabLabels">
       </cube-tab-nav>
       <div class="slide-container">
@@ -76,6 +77,7 @@
     data () {
       return {
         selectedLabel: '推荐',
+        disabled: false,
         tabLabels: [{
           label: '关注'
         }, {
@@ -104,12 +106,10 @@
       },
       scroll (pos) {
         const x = Math.abs(pos.x)
-        const tabItemWidth = this.$refs.tabBar.$el.clientWidth
+        const tabItemWidth = this.$refs.tabNav.$el.clientWidth
         const slideScrollerWidth = this.$refs.slide.slide.scrollerWidth
         const deltaX = x / slideScrollerWidth * tabItemWidth
-        //  prevent modifying tar-bar's transform when slide dispatch change event
-        if (x % tabItemWidth === 0) return
-        this.$refs.tabBar.setTabBarTransform(deltaX)
+        this.$refs.tabNav.setSliderTransform(deltaX)
       },
       resolveTitle (item) {
         return `${item.name}关注了问题 · ${item.postTime} 小时前`
@@ -135,7 +135,7 @@
   .cube-tab-nav-item
     &.active
       color black!important
-  .cube-tab-bar
+  .cube-tab-slider
       background-color black!important
   .cube-page
     > .wrapper
@@ -150,6 +150,7 @@
     bottom 0
 
   .list-wrapper
+    overflow hidden
     li
       padding 15px 10px
       margin-top 10px

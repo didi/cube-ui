@@ -5,14 +5,14 @@
       <div class="section">
         <cube-tab-nav v-model="selectedLabelDefault"
                       :data="tabs"
-                      showTabBar
+                      showSlider
                       @tab-click="handleClick">
         </cube-tab-nav>
       </div>
-      <!-- showTabBar -->
+      <!-- showSlider -->
       <div class="section">
         <cube-tab-nav v-model="selectedLabelSlots"
-                      showTabBar
+                      showSlider
                       @tab-click="handleClick">
           <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
             <i slot="icon" :class="item.class"></i>
@@ -23,7 +23,7 @@
       <!-- inline -->
       <div class="section">
         <cube-tab-nav v-model="selectedLabelInline"
-                      showTabBar
+                      showSlider
                       inline
                       @tab-click="handleClick">
           <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
@@ -35,7 +35,6 @@
       <!-- fix bottom-->
       <div class="section">
         <cube-tab-nav v-model="selectedLabelSlotsOnly"
-                      showTabBar
                       fixed="bottom"
                       inline
                       @tab-click="handleClick">
