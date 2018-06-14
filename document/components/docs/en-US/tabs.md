@@ -54,12 +54,12 @@ export default {
 - Custom slot
 
 In fact, our common needs are icons and text effects which looks like app navigation styles, so the `cube-tab-nav` component also supports the use of slots.
-Note that you must wrap your custom slot with the `cube-tab-nav-item` component。
+Note that you must use the `cube-tab-nav-item` component as a sub-component of the first level to wrap your custom slot.
 
 ```html
 <template>
   <cube-tab-nav v-model="selectedLabelSlots"
-                showTabBar
+                showSlider
                 inline
                 fixed="bottom"
                 @tab-click="clickHandler">
@@ -99,7 +99,7 @@ export default {
     }
   }
 ```
-At the same time, `cube-tab-nav` also supports other configurations, `showTabBar` controls whether to turn on the effect of underscore, `inline` to determine whether the icon and label are in a line, `fixed` to locate `cube-tab-nav`, currently only supports `top/bottom`, as shown in the sample code.
+At the same time, `cube-tab-nav` also supports other configurations, `showSlider` controls whether to turn on the effect of underscore, `inline` to determine whether the icon and label are in a line, `fixed` to locate `cube-tab-nav`, currently only supports `top/bottom`,`useTransition` controls whether the underscore use transition, as shown in the sample code.
 
 ### cube-tab-nav&cube-tab-container
 
@@ -107,7 +107,7 @@ Usually, we want to display different containers with the tab switch, So we need
 
 ```html
 <template>
-  <cube-tab-nav v-model="selectedLabel" showTabBar>
+  <cube-tab-nav v-model="selectedLabel" showSlider>
     <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
       <i slot="icon" :class="item.class"></i>
       {{item.label}}
@@ -174,8 +174,9 @@ In fact, `cube-tab-nav` can be combined with many other cube-ui's components (su
 | value | Use v-model to select the corresponding tab when initializing. | String/Number | - | - |
 | data | For data rendered with `cube-tab-nav`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label`.  If a custom slot is used, this value may not be passed. | Array | [{label: 1}, {label: 2}] | [] |
 | fixed | Set position | String | bottom/top | - |
-| showTabBar | Whether to turn on the underscore follow effect | Boolean | true/false | false |
+| showSlider | Whether to turn on the underscore follow effect | Boolean | true/false | false |
 | inline | Whether text and icons are displayed on one line | Boolean | true/false | false |
+| useTransition | Whether to use transition | Boolean | true/false | true |
 
 - `cube-tab-nav-item`
 
@@ -216,9 +217,9 @@ In fact, `cube-tab-nav` can be combined with many other cube-ui's components (su
 
 - `cube-tab-nav`
 
-This method works when the instance's `showTabBar` property is set to true.
+This method works when the instance's `showSlider` property is set to true.
 
 | Method name | Description | Parameter Type |
 | - | - | - |
-| setTabBarTransform | Change the underscore's transformX of the `cube-tab-nav` component (you must set `showTabBar` to true) | Number |
+| setSliderTransform | Change the underscore's transformX of the `cube-tab-nav` component (you must set `showSlider` to true) | Number |
 

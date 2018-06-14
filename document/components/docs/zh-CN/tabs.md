@@ -53,12 +53,12 @@ export default {
 - 自定义插槽
 
 实际上我们更常见的需求是图标搭配文字效果，因此 `cube-tab-nav` 组件也支持了插槽的使用方式，
-注意必须搭配`cube-tab-nav-item`组件来包裹你自定义插槽。
+注意必须搭配`cube-tab-nav-item`组件作为第一层级的子组件,来包裹你自定义插槽。
 
 ```html
 <template>
   <cube-tab-nav v-model="selectedLabelSlots"
-                showTabBar
+                showSlider
                 inline
                 fixed="bottom"
                 @tab-click="clickHandler">
@@ -98,7 +98,7 @@ export default {
     }
   }
 ```
-同时还支持一些配置项,`showTabBar`控制是否开启下划线跟随的效果，`inline`来决定icon与label是否处于一行，`fixed`来给`cube-tab-nav`进行定位，目前只支持`top/bottom`,如示例代码所示。
+同时还支持一些配置项,`showSlider`控制是否开启下划线跟随的效果，`inline`来决定icon与label是否处于一行，`fixed`来给`cube-tab-nav`进行定位，目前只支持`top/bottom`，`useTransition`控制下划线是否使用transition过渡，如示例代码所示。
 
 ### cube-tab-nav&cube-tab-container
 
@@ -106,7 +106,7 @@ export default {
 
 ```html
 <template>
-  <cube-tab-nav v-model="selectedLabel" showTabBar>
+  <cube-tab-nav v-model="selectedLabel" showSlider>
     <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
       <i slot="icon" :class="item.class"></i>
       {{item.label}}
@@ -173,8 +173,9 @@ export default {
 | value | 使用v-model，初始化时选中对应的tab | String/Number | - | - |
 | data | 用于 `cube-tab-nav` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`，如果使用自定义插槽，可不传此值。 | Array | [{label: 1}, {label: 2}] | [] |
 | fixed | 设置定位方式 | String | bottom/top | - |
-| showTabBar | 是否开启下划线跟随效果 | Boolean | true/false | false |
+| showSlider | 是否开启下划线跟随效果 | Boolean | true/false | false |
 | inline | 文字与图标是否显示在一行 | Boolean | true/false | false |
+| useTransition | 是否开启transition过渡 | Boolean | true/false | true |
 
 - `cube-tab-nav-item` 配置
 
@@ -215,9 +216,9 @@ export default {
 
 - `cube-tab-nav` 实例方法
 
-当该实例的`showTabBar`属性设置为true，该方法才有效。
+当该实例的`showSlider`属性设置为true，该方法才有效。
 
 | 方法名 | 说明 | 参数类型 |
 | - | - | - |
-| setTabBarTransform | 改变`cube-tab-nav`组件的下划线的transformX(必须设置`showTabBar`为true) | Number |
+| setSliderTransform | 改变`cube-tab-nav`组件的下划线的transformX(必须设置`showSlider`为true) | Number |
 
