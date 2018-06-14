@@ -107,14 +107,14 @@
         type: Boolean,
         default: undefined,
         deprecated: {
-          replacedBy: 'options'
+          replacedBy: 'scroll-events'
         }
       },
       listenBeforeScroll: {
         type: Boolean,
         default: undefined,
         deprecated: {
-          replacedBy: 'options'
+          replacedBy: 'scroll-events'
         }
       },
       direction: {
