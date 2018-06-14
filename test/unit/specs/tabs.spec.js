@@ -16,7 +16,7 @@ describe('Tabs', () => {
   it('props', (done) => {
     vm = createVue({
       template: `
-      <cube-tab-nav v-model="selectedLabel" fixed="top" :data="tabs" showTabBar>
+      <cube-tab-nav v-model="selectedLabel" fixed="top" :data="tabs" showSlider>
       </cube-tab-nav>
     `,
       data: {
@@ -25,7 +25,7 @@ describe('Tabs', () => {
       }
     })
     vm.$nextTick(() => {
-      expect(vm.$el.querySelectorAll('.cube-tab-bar').length)
+      expect(vm.$el.querySelectorAll('.cube-tab-slider').length)
         .to.be.equal(1)
       expect(vm.$el.querySelectorAll('.cube-tab-nav-item-label')[0].innerText)
         .to.include('天辉')
@@ -110,7 +110,7 @@ describe('Tabs', () => {
 function createCubeTabNav (options) {
   const vm = createVue({
     template: `
-      <cube-tab-nav v-model="selectedLabel" showTabBar @tab-click="handleClick">
+      <cube-tab-nav v-model="selectedLabel" showSlider @tab-click="handleClick">
         <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index" >
           <i slot="icon" :class="item.class"></i>
           {{item.label}}
