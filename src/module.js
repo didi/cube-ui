@@ -36,6 +36,9 @@ import Scroll from './modules/scroll'
 import Slide from './modules/slide'
 import IndexList from './modules/index-list'
 import Swipe from './modules/swipe'
+import Sticky from './modules/sticky'
+import ScrollNav from './modules/scroll-nav'
+import ScrollNavBar from './modules/scroll-nav-bar'
 
 // module
 import BetterScroll from './modules/better-scroll'
@@ -48,6 +51,8 @@ const Radio = RadioGroup.Radio
 const SwipeItem = Swipe.Item
 const DrawerPanel = Drawer.Panel
 const DrawerItem = Drawer.Item
+const StickyEle = Sticky.Ele
+const ScrollNavPanel = ScrollNav.Panel
 
 export {
   // style
@@ -92,6 +97,11 @@ export {
   IndexList,
   SwipeItem,
   Swipe,
+  StickyEle,
+  Sticky,
+  ScrollNavPanel,
+  ScrollNav,
+  ScrollNavBar,
   // module
   BetterScroll,
   createAPI
