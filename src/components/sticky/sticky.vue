@@ -5,8 +5,7 @@
       <div
         ref="fixedEle"
         v-show="fixedShow"
-        class="cube-sticky-fixed"
-        :class="!checkTop && 'cube-sticky-fixed_shadow'">
+        class="cube-sticky-fixed">
           <slot name="fixed" :current="currentKey"></slot>
         </div>
     </transition>
@@ -198,9 +197,6 @@
     top: 0
     left: 0
     right: 0
-  .cube-sticky-fixed_shadow
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .2)
-
   .cube-sticky-fixed-fade-enter, .cube-sticky-fixed-fade-leave-active
     opacity: 0
   .cube-sticky-fixed-fade-enter-active, .cube-sticky-fixed-fade-leave-active
