@@ -27,7 +27,8 @@
               <div v-for="(data,index) in pickerData" :key="index">
                 <!-- The class name of the ul and li need be configured to BetterScroll. -->
                 <ul class="cube-picker-wheel-scroll">
-                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index">{{item[textKey]}}</li>
+                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index" v-html="item[textKey]">
+                  </li>
                 </ul>
               </div>
             </div>
