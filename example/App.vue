@@ -166,6 +166,18 @@
               {
                 path: '/swipe',
                 text: 'Swipe'
+              },
+              {
+                path: '/sticky',
+                text: 'Sticky'
+              },
+              {
+                path: '/scroll-nav-bar',
+                text: 'ScrollNavBar'
+              },
+              {
+                path: '/scroll-nav',
+                text: 'ScrollNav'
               }
             ]
           }

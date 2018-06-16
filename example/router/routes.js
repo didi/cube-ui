@@ -49,6 +49,14 @@ import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
+import Sticky from '../pages/sticky/index.vue'
+import StickyScroll from '../pages/sticky/scroll.vue'
+import StickyNative from '../pages/sticky/native.vue'
+import StickyWechat from '../pages/sticky/wechat.vue'
+import ScrollNav from '../pages/scroll-nav/index.vue'
+import ScrollNavDefault from '../pages/scroll-nav/default.vue'
+import ScrollNavSide from '../pages/scroll-nav/side.vue'
+import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 
 const routes = [
   {
@@ -268,6 +276,42 @@ const routes = [
   {
     path: '/toolbar',
     component: Toolbar
+  },
+  {
+    path: '/sticky',
+    component: Sticky,
+    children: [
+      {
+        path: 'scroll',
+        component: StickyScroll
+      },
+      {
+        path: 'native',
+        component: StickyNative
+      },
+      {
+        path: 'wechat',
+        component: StickyWechat
+      }
+    ]
+  },
+  {
+    path: '/scroll-nav-bar',
+    component: ScrollNavBar
+  },
+  {
+    path: '/scroll-nav',
+    component: ScrollNav,
+    children: [
+      {
+        path: 'default',
+        component: ScrollNavDefault
+      },
+      {
+        path: 'side',
+        component: ScrollNavSide
+      }
+    ]
   }
 ]
 
