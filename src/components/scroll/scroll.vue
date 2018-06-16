@@ -391,6 +391,9 @@
     height: 100%
     overflow: hidden
 
+  .cube-scroll-list-wrapper
+    overflow: hidden
+
   .cube-pulldown-wrapper
     position: absolute
     width: 100%
