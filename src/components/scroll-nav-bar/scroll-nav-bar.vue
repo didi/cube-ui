@@ -153,6 +153,8 @@
       text-align: center
     .cube-scroll-content
       display: inline-block
+    .cube-scroll-nav-bar-items
+      white-space: nowrap
   .cube-scroll-nav-bar_vertical
     height: 100%
     justify-content: center
@@ -160,7 +162,6 @@
     .cube-scroll-nav-bar-item
       display: block
   .cube-scroll-nav-bar-items
-    white-space: nowrap
     font-size: $fontsize-medium
   .cube-scroll-nav-bar-item
     display: inline-block
