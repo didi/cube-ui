@@ -46,16 +46,16 @@
           return val === DIRECTION_H || val === DIRECTION_V
         }
       },
-      txts: {
+      labels: {
         type: Array,
         default() {
           return []
         }
       },
-      labels: {
+      txts: {
         type: Array,
         default() {
-          return []
+          return this.labels
         }
       },
       current: {
@@ -155,6 +155,8 @@
       display: inline-block
   .cube-scroll-nav-bar_vertical
     height: 100%
+    justify-content: center
+    text-align: center
     .cube-scroll-nav-bar-item
       display: block
   .cube-scroll-nav-bar-items
