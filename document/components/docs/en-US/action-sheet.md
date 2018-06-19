@@ -140,11 +140,12 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | title | actionsheet's title | String | - | '' |
+| cancelTxt<sup>1.9.9</sup> | the text of the cancel button | String | - | '取消' |
 | data | the data list to display | Array | - | [] |
 | active | the highlighted item's index | Number | - | -1 |
 | pickerStyle | Picker style | Boolean | true/false | false |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
-| mask-closable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
 
 * `data` sub configuration
 

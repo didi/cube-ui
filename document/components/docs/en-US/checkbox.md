@@ -61,7 +61,7 @@
 | option | option value | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
 | shape | icon shape | String | circle/square | circle |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
 * `option` sub configuration
 

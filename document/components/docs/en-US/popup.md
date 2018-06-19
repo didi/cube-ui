@@ -165,7 +165,7 @@ __Notice:__ All the components above used create-api, so you should read [create
 | content | content, HTML string, valid when there's no slot | String | - | '' |
 | center | whether to be in center in horizontal and vertical direction | Boolean | true/false | true |
 | position<sup>1.9.6</sup> | content position, if set position then `center` will be ignored | String | top/right/bottom/left/center | '' |
-| mask-closable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
 
 ### Events
 

@@ -139,7 +139,7 @@
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
-| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
+| hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `options` 子配置项
 

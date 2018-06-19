@@ -75,7 +75,7 @@ __Notice:__ Cause this component depend on Picker component, and Picker used cre
 | options | options | Array | - | [] |
 | v-model | the selected value | Any | - | - |
 | placeholder | placeholder | String | - | '请选择' |
-| auto-pop | whether auto pop picker | Boolean | true/false | false |
+| autoPop | whether auto pop picker | Boolean | true/false | false |
 | disabled | whether disabled | Boolean | true/false | false |
 | title | the title of picker | String | - | '请选择' |
 | cancelTxt | the cancel text of picker | String | - | '取消' |
