@@ -27,7 +27,7 @@
             </ul>
           </div>
           <div class="cube-action-sheet-space"></div>
-          <div class="cube-action-sheet-cancel" @click="cancel"><span>取消</span></div>
+          <div class="cube-action-sheet-cancel" @click="cancel"><span>{{cancelTxt}}</span></div>
         </div>
       </transition>
     </cube-popup>
@@ -68,6 +68,10 @@
       maskClosable: {
         type: Boolean,
         default: true
+      },
+      cancelTxt: {
+        type: String,
+        default: '取消'
       }
     },
     methods: {
