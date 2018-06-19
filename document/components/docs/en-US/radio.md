@@ -139,7 +139,7 @@ Radio component. You could set the options and the position of the radio's icon.
 | options | the array of radio options | Array | - | - |
 | position | icon position | String | left/right | left |
 | horizontal | whether use horizontal layout | Boolean | true/false | false |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
 * `options` sub configuration
 

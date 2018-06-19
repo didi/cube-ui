@@ -73,7 +73,7 @@ __注：__ 由于此组件依赖 [Picker](#/zh-CN/docs/picker) 组件，而 Pick
 | options | 选项 | Array | - | [] |
 | v-model | 选中的值 | Any | - | - |
 | placeholder | 占位文案 | String | - | '请选择' |
-| auto-pop | 是否自动弹出选择器 | Boolean | true/false | false |
+| autoPop | 是否自动弹出选择器 | Boolean | true/false | false |
 | disabled | 是否禁用 | Boolean | true/false | false |
 | title | 选择器的标题 | String | - | '请选择' |
 | cancelTxt | 选择器的取消按钮文案 | String | - | '取消' |

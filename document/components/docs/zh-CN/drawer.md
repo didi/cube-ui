@@ -150,7 +150,7 @@ __注：__ 组件依赖父容器相对定位或者绝对定位，因为 Drawer �
 | - | - | - | - | - |
 | title | 标题 | String | - | '' |
 | data | 数据源 | Array | - | [] |
-| selected-index | 初始选择索引 | Array | - | [] |
+| selectedIndex | 初始选择索引 | Array | - | [] |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 
 - `data` 子配置项

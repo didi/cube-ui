@@ -142,7 +142,7 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
 | content | 内容，HTML 字符串，在无插槽的时候有效 | String | - | '' |
 | center | 是否水平垂直居中的 | Boolean | true/false | true |
 | position<sup>1.9.6</sup> | 内容展示位置，优先级比 center 高 | String | top/right/bottom/left/center | '' |
-| mask-closable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
 
 ### 事件
 

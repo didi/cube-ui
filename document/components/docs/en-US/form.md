@@ -353,7 +353,7 @@ CubeForm is a schema-based form generator component.
 | - | - | - | - | - |
 | model | The model/target JSON object | Object | - | {} |
 | schema | the schema object with fields | Object | - | {} |
-| immediate-validate | If true, we will run validation after load | Boolean | true/false | false |
+| immediateValidate | If true, we will run validation after load | Boolean | true/false | false |
 | action | Form action value | String | - | undefined |
 | options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 

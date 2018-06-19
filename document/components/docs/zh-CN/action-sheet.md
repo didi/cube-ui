@@ -140,11 +140,12 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | title | 组件的标题 | String | - | '' |
+| cancelTxt<sup>1.9.9</sup> | 取消文案 | String | - | '取消' |
 | data | 需要展示的数据列表 | Array | - | [] |
 | active | 高亮第几个选项 | Number | - | -1 |
 | pickerStyle | Picker 样式 | Boolean | true/false | false |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
-| mask-closable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true |
 
 * `data` 子配置项
 

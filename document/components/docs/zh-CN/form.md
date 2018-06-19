@@ -353,7 +353,7 @@
 | - | - | - | - | - |
 | model | 数据源 | Object | - | {} |
 | schema | 生成表单依赖的模式 | Object | - | {} |
-| immediate-validate | 初始化时是否立即校验 | Boolean | true/false | false |
+| immediateValidate | 初始化时是否立即校验 | Boolean | true/false | false |
 | action | 表单 Form action 的值 | String | - | undefined |
 | options | 配置项 | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 
