@@ -21,7 +21,6 @@
     },
     mounted() {
       this.sticky.addEle(this)
-      this.refresh()
     },
     methods: {
       refresh() {
@@ -30,16 +29,6 @@
           el.style.height = ''
           el.style.height = `${el.offsetHeight}px`
         }
-      },
-      getSticky() {
-        let p = this.$parent
-        while (p) {
-          if (p.isSticky) {
-            return p
-          }
-          p = p.$parent
-        }
-        return null
       }
     },
     beforeDestroy() {

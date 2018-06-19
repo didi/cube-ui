@@ -6,7 +6,7 @@
         ref="fixedEle"
         v-show="fixedShow"
         class="cube-sticky-fixed">
-          <slot name="fixed" :current="currentKey"></slot>
+        <slot name="fixed" :current="currentKey"></slot>
         </div>
     </transition>
   </div>
@@ -53,7 +53,7 @@
         heights: [],
         diff: 0,
         currentIndex: -1,
-        currentKey: ''
+        currentKey: -1
       }
     },
     computed: {
@@ -77,7 +77,6 @@
       this.isSticky = true
     },
     created() {
-      this.fixedEle = null
       this.fixedEleHeight = 0
       this.eles = []
     },
@@ -123,10 +122,10 @@
         this.positions.splice(i, 1)
       },
       refresh() {
-        this.eles.forEach((ele) => {
-          ele.refresh()
-        })
         this.$nextTick(() => {
+          this.eles.forEach((ele) => {
+            ele.refresh()
+          })
           this._calculateHeight()
           this.computeCurrentSticky(this.pos)
         })
