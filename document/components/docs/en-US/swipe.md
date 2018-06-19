@@ -10,7 +10,7 @@ The Swipe component, which provides a WeChat list left slip function, makes it e
 
 - Basic Usage
 
-The common scenario of `Swipe` component is to match `Scroll` components. It can not only scroll vertically, but also slide out some buttons to do list items. Of course, `Swipe` components can also be used separately. 
+The common scenario of `Swipe` component is to match `Scroll` components. It can not only scroll vertically, but also slide out some buttons to do list items. Of course, `Swipe` components can also be used separately.
 
 ```html
 <template>
@@ -252,14 +252,14 @@ The default slot can be used with the `cube-swipe-item` component to realize the
 ### Props configuration
 
 - `cube-swipe` configuration
- 
+
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | data | For `swipe` list rendered data, when you need to use the built-in default slot, this parameter will be passed. Every item in the array is an Object type, including `item` and `btns`. These two parameters are described in `cube-swipe-item`. If a custom slot is used, this value may not be passed.  | Array | - | [] |
 | autoShrink | Decide whether to automatically shrink the slider when the button is clicked, If you use a custom slot, you can pass this value directly to the `cube-swipe-item`. | Boolean | - | false |
 
 - `cube-swipe-item` 配置
- 
+
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | item | Data for `swipe-item` list item rendering, when you need to use the built-in default slot, this parameter must be transmitted, and there are 2 fields, `value` and `text`, representing the value of the data item and the displayed copy respectively, but if you use custom slot, you can not pass this value. | Object | - | {} |
@@ -273,10 +273,10 @@ The default slot can be used with the `cube-swipe-item` component to realize the
 
 When you use a custom slot, you can listen directly to the events on the `cube-swipe-item`.
 
-| Event Name | Description | Parameters 1 | Parameters 2 |
-| - | - | - | - |
-| item-click | Triggered when the list item is clicked | Clicked list item | The Index of the clicked list item in the list |
-| btn-click | Triggered when the button is clicked | Clicked button | The index of the clicked button in the list |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
+| - | - | - | - | - |
+| item-click | Triggered when the list item is clicked | Clicked list item | The Index of the clicked list item in the list | - |
+| btn-click | Triggered when the button is clicked | Clicked button | The index of the clicked button in the list | the list item<sup>1.9.7</sup> |
 
 - `cube-swipe-item` event
 
