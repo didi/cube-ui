@@ -2,7 +2,12 @@
   <cube-page type="scroll-nav-side" title="ScrollNav">
     <div slot="content">
       <div class="view-wrapper">
-        <cube-scroll-nav :side-style="true" :data="data" current="精选热菜" @change="changeHandler">
+        <cube-scroll-nav
+          :side-style="true"
+          :data="data"
+          :current="current"
+          @change="changeHandler"
+          @sticky-change="stickyChangeHandler">
           <ul class="prepend-header" slot="prepend">
             <li>11</li>
             <li>22</li>
@@ -36,12 +41,16 @@
     },
     data() {
       return {
-        data: goods
+        data: goods,
+        current: goods[3].name
       }
     },
     methods: {
       changeHandler(label) {
         console.log('changed to:', label)
+      },
+      stickyChangeHandler(current) {
+        console.log('sticky-change', current)
       }
     }
   }
