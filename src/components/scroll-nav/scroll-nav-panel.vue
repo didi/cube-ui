@@ -24,6 +24,7 @@
       txt: {
         type: [String, Number, Object],
         default() {
+          /* istanbul ignore next */
           return this.label
         }
       }
