@@ -49,12 +49,14 @@
       labels: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return []
         }
       },
       txts: {
         type: Array,
         default() {
+          /* istanbul ignore next */
           return this.labels
         }
       },
