@@ -82,10 +82,6 @@
     },
     mounted() {
       this.$watch('currentIndex', (newIndex, oldIndex) => {
-        if (newIndex === oldIndex) {
-          return
-        }
-
         const oldEle = this.eles[oldIndex]
         const newEle = this.eles[newIndex]
 
