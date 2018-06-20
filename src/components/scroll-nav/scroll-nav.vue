@@ -7,9 +7,7 @@
         :options="options"
         :data="data"
         @scroll="scrollHandler"
-        @scroll-end="scrollEndHandler"
-        @pulling-down="onPullingDown"
-        @pulling-up="onPullingUp">
+        @scroll-end="scrollEndHandler">
         <slot name="prepend"></slot>
         <div class="cube-scroll-nav-main">
           <cube-sticky-ele ref="navBarEle" ele-key="cube-scroll-nav-bar">
@@ -34,21 +32,6 @@
             </template>
           </cube-sticky>
         </div>
-        <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
-          <slot name="pullup"
-            :pullUpLoad="props.pullUpLoad"
-            :isPullUpLoad="props.isPullUpLoad">
-          </slot>
-        </template>
-        <template v-if="$slots.pulldown || $scopedSlots.pulldown" slot="pulldown" slot-scope="props">
-          <slot name="pulldown"
-            :pullDownRefresh="props.pullDownRefresh"
-            :pullDownStyle="props.pullDownStyle"
-            :beforePullDown="props.beforePullDown"
-            :isPullingDown="props.isPullingDown"
-            :bubbleY="props.bubbleY">
-          </slot>
-        </template>
       </cube-scroll>
     </cube-sticky>
   </div>
@@ -66,8 +49,6 @@
   const DIRECTION_V = 'vertical'
 
   const COMPONENT_NAME = 'cube-scroll-nav'
-  const EVENT_PULLING_DOWN = 'pulling-down'
-  const EVENT_PULLING_UP = 'pulling-up'
   const EVENT_CHANGE = 'change'
   const EVENT_STICKY_CHANGE = 'sticky-change'
 
@@ -186,19 +167,6 @@
       },
       scrollEndHandler() {
         this._jumping = false
-      },
-      forceUpdate() {
-        this.$refs.scroll.forceUpdate()
-        // should refresh after pull up or pull down
-        this.$nextTick(() => {
-          this.refresh()
-        })
-      },
-      onPullingUp() {
-        this.$emit(EVENT_PULLING_UP)
-      },
-      onPullingDown() {
-        this.$emit(EVENT_PULLING_DOWN)
       },
       addPanel(panel) {
         this.panels.push(panel)
