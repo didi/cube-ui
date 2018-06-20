@@ -53,10 +53,10 @@ import Sticky from '../pages/sticky/index.vue'
 import StickyScroll from '../pages/sticky/scroll.vue'
 import StickyNative from '../pages/sticky/native.vue'
 import StickyWechat from '../pages/sticky/wechat.vue'
+import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 import ScrollNav from '../pages/scroll-nav/index.vue'
 import ScrollNavDefault from '../pages/scroll-nav/default.vue'
 import ScrollNavSide from '../pages/scroll-nav/side.vue'
-import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 
 const routes = [
   {
