@@ -1,23 +1,23 @@
 <template>
-  <div class="cube-tab-nav" :class="resolveFixedCls">
+  <div class="cube-tab-bar" :class="resolveFixedCls">
     <slot>
-      <cube-tab-nav-item
-        ref="navItem"
+      <cube-tab
+        ref="tab"
         v-for="(item, index) in data"
         :label="item.label"
         :key="index">
         {{item.label}}
-      </cube-tab-nav-item>
+      </cube-tab>
     </slot>
-    <div v-if='showSlider' ref="slider" class="cube-tab-slider"></div>
+    <div v-if='showSlider' ref="slider" class="cube-tab-bar-slider"></div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import { prefixStyle } from '../../common/helpers/dom'
   import { findIndex } from '../../common/helpers/util'
-  import CubeTabNavItem from './tab-nav-item.vue'
+  import CubeTab from './tab.vue'
 
-  const COMPONENT_NAME = 'cube-tab-nav'
+  const COMPONENT_NAME = 'cube-tab-bar'
 
   const TRANSFORM = prefixStyle('transform')
   const TRANSITION = prefixStyle('transition')
@@ -25,7 +25,12 @@
   export default {
     name: COMPONENT_NAME,
     components: {
-      CubeTabNavItem
+      CubeTab
+    },
+    data () {
+      return {
+        tabs: []
+      }
     },
     props: {
       value: {
@@ -64,6 +69,13 @@
       this._updateSliderStyle()
     },
     methods: {
+      addTab (childVm) {
+        this.tabs.push(childVm)
+      },
+      removeTab (childVm) {
+        const index = this.tabs.indexOf(childVm)
+        if (index > -1) this.tabs.splice(index, 1)
+      },
       _updateSliderStyle () {
         /* istanbul ignore if */
         if (!this.showSlider) return
@@ -76,22 +88,20 @@
       },
       setSliderTransform (offset) {
         const slider = this.$refs.slider
+        if (typeof offset === 'number') {
+          offset = `${offset}px`
+        }
         if (slider) {
           if (this.useTransition) slider.style[TRANSITION] = `all 0.2s linear`
-          slider.style[TRANSFORM] = `translateX(${offset}px) translateZ(0px)`
+          slider.style[TRANSFORM] = `translateX(${offset}) translateZ(0px)`
         }
       },
       _getSliderWidthAndIndex () {
         let width = 0
         let index = 0
-        const slots = this.$slots.default
-        const navItems = this.$refs.navItem
-        if (slots) {
-          index = findIndex(slots, (vnode) => vnode.componentOptions.propsData && vnode.componentOptions.propsData.label === this.value)
-          width = (slots[index].elm && slots[index].elm.clientWidth)
-        } else if (navItems) {
-          index = findIndex(navItems, (instance) => instance.label === this.value)
-          width = this.$refs.navItem[index].$el.clientWidth
+        if (this.tabs.length > 0) {
+          index = findIndex(this.tabs, (tab) => tab.label === this.value)
+          width = this.tabs[index].$el.clientWidth
         }
         return {
           width,
@@ -100,17 +110,9 @@
       },
       _getOffsetLeft (index) {
         let offsetLeft = 0
-        const slots = this.$slots.default
-        const navItems = this.$refs.navItem
-        if (slots) {
-          slots.forEach((vnode, i) => {
-            if (i < index) offsetLeft += vnode.elm.clientWidth
-          })
-        } else if (navItems) {
-          navItems.forEach((instance, i) => {
-            if (i < index) offsetLeft += instance.$el.clientWidth
-          })
-        }
+        this.tabs.forEach((tab, i) => {
+          if (i < index) offsetLeft += tab.$el.clientWidth
+        })
         return offsetLeft
       }
     },
@@ -124,13 +126,12 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
 
-  .cube-tab-nav
+  .cube-tab-bar
     position: relative
     display: flex
     align-items: center
     justify-content: center
     font-size: 100%
-    background-color: $color-white
     &.is-fixed-top
       position: fixed
       top: 0
@@ -144,7 +145,7 @@
       left: 0
       z-index: 99
 
-  .cube-tab-slider
+  .cube-tab-bar-slider
     position: absolute
     left: 0
     bottom: 0

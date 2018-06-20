@@ -39,8 +39,8 @@ import {
   BetterScroll,
   createAPI,
   // tabs
-  TabNav,
-  TabContainer
+  TabBar,
+  TabPanels
 } from './module'
 import { processComponentName } from './common/helpers/util'
 
@@ -79,9 +79,9 @@ const components = [
   Slide,
   IndexList,
   Swipe,
-  // navigation
-  TabNav,
-  TabContainer
+  // tabs
+  TabBar,
+  TabPanels
 ]
 
 function install(Vue) {

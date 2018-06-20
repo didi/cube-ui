@@ -1,13 +1,13 @@
 <template>
   <transition :name="transitionName">
-    <div class="cube-tab-container-item" v-show="isActive">
+    <div class="cube-tab-panel" v-show="isActive">
       <slot></slot>
     </div>
   </transition>
 </template>
 <script type="text/ecmascript-6">
-  const COMPONENT_NAME = 'cube-tab-container-item'
-  const TRANSITION_NAME = 'cube-tab-transition'
+  const COMPONENT_NAME = 'cube-tab-panel'
+  const TRANSITION_NAME = 'cube-tab-panel-transition'
 
   export default {
     name: COMPONENT_NAME,
@@ -26,36 +26,44 @@
       isActive () {
         return this.$parent.value !== undefined && this.$parent.value === this.label
       }
+    },
+    mounted () {
+      this.$parent.addPanel(this)
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el)
+      }
+      this.$parent.removePanel(this)
     }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
-  .cube-tab-container-item
+  .cube-tab-panel
     width: 100%
     font-size: 100%
-    background-color: $color-white
     transition: transform .4s cubic-bezier(.86, 0, .07, 1)
 
-  .cube-tab-transition-enter
+  .cube-tab-panel-transition-enter
     transform: translate(100%)
 
-  .cube-tab-transition-enter-to
+  .cube-tab-panel-transition-enter-to
     transform: translate(0)
     top: 0
 
-  .cube-tab-transition-leave, .cube-tab-transition-leave-active
+  .cube-tab-panel-transition-leave, .cube-tab-panel-transition-leave-active
     position: absolute
 
-  .cube-tab-transition-leave-to
+  .cube-tab-panel-transition-leave-to
     position: absolute
     top: 0
     transform: translate(-100%)
 
-  .cube-tab-reverse-transition-enter, .cube-tab-transition-leave-to
+  .cube-tab-panel-reverse-transition-enter, .cube-tab-panel-transition-leave-to
     transform: translate(-100%)
 
-  .cube-tab-reverse-transition-leave, .cube-tab-reverse-transition-leave-to
+  .cube-tab-panel-reverse-transition-leave, .cube-tab-panel-reverse-transition-leave-to
     top: 0
     position: absolute
     transform: translate(100%)

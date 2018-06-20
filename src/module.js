@@ -42,8 +42,8 @@ import BetterScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
 
 // tabs
-import TabNav from './modules/tab-nav'
-import TabContainer from './modules/tab-container'
+import TabBar from './modules/tab-bar'
+import TabPanels from './modules/tab-panels'
 
 const FormGroup = Form.Group
 const FormItem = Form.Item
@@ -52,8 +52,8 @@ const Radio = RadioGroup.Radio
 const SwipeItem = Swipe.Item
 const DrawerPanel = Drawer.Panel
 const DrawerItem = Drawer.Item
-const TabNavItem = TabNav.Item
-const TabContainerItem = TabContainer.Item
+const Tab = TabBar.Item
+const TabPanel = TabPanels.Item
 
 export {
   // style
@@ -102,8 +102,8 @@ export {
   BetterScroll,
   createAPI,
   // tabs
-  TabNav,
-  TabNavItem,
-  TabContainer,
-  TabContainerItem
+  TabBar,
+  Tab,
+  TabPanels,
+  TabPanel
 }
