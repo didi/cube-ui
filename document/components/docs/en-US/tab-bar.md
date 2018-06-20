@@ -144,7 +144,7 @@ export default {
 }
 ```
 
-In fact, `cube-tab-bar` can be combined with many other cube-ui's components (such as: `cube-scroll`, `cube-slide`) to make a similar effect to the layout of native apps. Click on the `ScrollTab Demo` or `tab-composite` example on the right to see the effect
+In fact, `cube-tab-bar` can be combined with many other cube-ui's components (such as: `cube-scroll`, `cube-slide`) to make a similar effect to the layout of native apps. Click on the `ScrollTab Demo` and `tab-composite` example on the right to see the effect
 
 ### Props
 
