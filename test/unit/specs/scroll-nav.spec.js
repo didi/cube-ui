@@ -132,7 +132,9 @@ describe('ScrollNav', () => {
           .to.have.callCount(index)
         done()
       }
-      vm.$refs.scroll.scroll.on('scrollEnd', scrollEnd)
+      setTimeout(() => {
+        vm.$refs.scroll.scroll.on('scrollEnd', scrollEnd)
+      }, 100)
     }, 350)
   })
 
