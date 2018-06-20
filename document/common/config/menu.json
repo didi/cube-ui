@@ -22,7 +22,7 @@
             "loading": "Loading",
             "tip": "Tip",
             "toolbar": "Toolbar",
-            "tabs": "Tabs"
+            "tab-bar": "TabBar"
           }
         },
         "form": {
@@ -100,7 +100,7 @@
             "loading": "Loading",
             "tip": "Tip",
             "toolbar": "Toolbar",
-            "tabs": "Tabs"
+            "tab-bar": "TabBar"
           }
         },
         "form": {
