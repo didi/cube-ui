@@ -13,12 +13,12 @@
         <slot name="prepend"></slot>
         <div class="cube-scroll-nav-main">
           <cube-sticky-ele ref="navBarEle" ele-key="cube-scroll-nav-bar">
-            <slot name="bar" :txts="barTxts" :labels="labels" :current="currentSticky">
+            <slot name="bar" :txts="barTxts" :labels="labels" :current="active">
               <cube-scroll-nav-bar
                 :direction="barDirection"
                 :txts="barTxts"
                 :labels="labels"
-                :current="currentSticky" />
+                :current="active" />
             </slot>
           </cube-sticky-ele>
           <cube-sticky
@@ -69,6 +69,7 @@
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
   const EVENT_CHANGE = 'change'
+  const EVENT_STICKY_CHANGE = 'sticky-change'
 
   export default {
     name: COMPONENT_NAME,
@@ -98,11 +99,6 @@
       }
     },
     computed: {
-      currentSticky() {
-        const active = this.active
-        const label = this.labels[0]
-        return active || label
-      },
       barDirection() {
         return this.sideStyle ? DIRECTION_V : DIRECTION_H
       }
@@ -130,6 +126,9 @@
           const el = this.$refs.pageSticky.$el.querySelector('.cube-sticky-fixed')
           this.$refs.scroll.$el.appendChild(el)
         }
+        if (!this.current) {
+          this.active = this.stickyCurrent = this.labels[0]
+        }
         this.refresh()
         this.jumpTo(this.current)
       })
@@ -140,6 +139,7 @@
         this.$refs.sticky.refresh()
         this.$refs.pageSticky.refresh()
         this.pageStickyOffset = this.sideStyle ? 0 : this.$refs.navBarEle.$el.offsetHeight
+        this.$refs.scroll.refresh()
       },
       setBar(bar) {
         this.navBar = bar
@@ -176,6 +176,7 @@
         this.$nextTick(() => {
           this.navBar && this.navBar.refresh()
         })
+        this.$emit(EVENT_STICKY_CHANGE, current)
       },
       scrollHandler(pos) {
         this.scrollY = -pos.y
@@ -188,6 +189,10 @@
       },
       forceUpdate() {
         this.$refs.scroll.forceUpdate()
+        // should refresh after pull up or pull down
+        this.$nextTick(() => {
+          this.refresh()
+        })
       },
       onPullingUp() {
         this.$emit(EVENT_PULLING_UP)
@@ -198,7 +203,7 @@
       addPanel(panel) {
         this.panels.push(panel)
         this.labels.push(panel.label)
-        this.barTxts.push(panel.txt)
+        this.barTxts.push(panel.title)
       },
       removePanel(panel) {
         const i = this.panels.indexOf(panel)
