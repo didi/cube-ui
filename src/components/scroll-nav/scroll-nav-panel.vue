@@ -1,7 +1,7 @@
 <template>
   <div class="cube-scroll-nav-panel" :data-panel-id="label">
     <cube-sticky-ele :ele-key="label">
-      <h2 class="cube-scroll-nav-panel-title">{{txt.name || txt}}</h2>
+      <h2 class="cube-scroll-nav-panel-title" v-html="title"></h2>
     </cube-sticky-ele>
     <slot></slot>
   </div>
@@ -21,7 +21,7 @@
         type: [String, Number],
         required: true
       },
-      txt: {
+      title: {
         type: [String, Number, Object],
         default() {
           /* istanbul ignore next */
