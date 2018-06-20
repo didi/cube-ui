@@ -143,7 +143,7 @@ export default {
 }
 ```
 
-事实上，`cube-tab-bar`还能搭配许多其他cube-ui的组件(cube-slide,cube-scroll)来做出类似原生app布局的效果。可点击右边的`ScrollTab Demo`与`tab-composite`示例来查看效果
+事实上，`cube-tab-bar`还能搭配许多其他cube-ui的组件(cube-slide, cube-scroll)来做出类似原生app布局的效果。可点击右边的`ScrollTab Demo`与`tab-composite`示例来查看效果
 
 ### Props 配置
 
