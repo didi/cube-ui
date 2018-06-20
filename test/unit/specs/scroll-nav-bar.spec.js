@@ -17,7 +17,7 @@ const labels = [
   '出租车'
 ]
 
-describe.only('ScrollNavBar', () => {
+describe('ScrollNavBar', () => {
   let vm
 
   afterEach(() => {
