@@ -1,47 +1,47 @@
 <template>
-  <cube-page type="tab-nav-view" title="TabNav">
+  <cube-page type="tab-bar-view" title="TabBar">
     <div slot="content">
       <!-- default -->
       <div class="section">
-        <cube-tab-nav v-model="selectedLabelDefault"
+        <cube-tab-bar v-model="selectedLabelDefault"
                       :data="tabs"
                       showSlider
                       @tab-click="handleClick">
-        </cube-tab-nav>
+        </cube-tab-bar>
       </div>
       <!-- showSlider -->
       <div class="section">
-        <cube-tab-nav v-model="selectedLabelSlots"
+        <cube-tab-bar v-model="selectedLabelSlots"
                       showSlider
                       @tab-click="handleClick">
-          <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
+          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
             <i slot="icon" :class="item.class"></i>
             {{item.label}}
-          </cube-tab-nav-item>
-        </cube-tab-nav>
+          </cube-tab>
+        </cube-tab-bar>
       </div>
       <!-- inline -->
       <div class="section">
-        <cube-tab-nav v-model="selectedLabelInline"
+        <cube-tab-bar v-model="selectedLabelInline"
                       showSlider
                       inline
                       @tab-click="handleClick">
-          <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
+          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
             <i slot="icon" :class="item.class"></i>
             {{item.label}}
-          </cube-tab-nav-item>
-        </cube-tab-nav>
+          </cube-tab>
+        </cube-tab-bar>
       </div>
       <!-- fix bottom-->
       <div class="section">
-        <cube-tab-nav v-model="selectedLabelSlotsOnly"
+        <cube-tab-bar v-model="selectedLabelSlotsOnly"
                       fixed="bottom"
                       inline
                       @tab-click="handleClick">
-          <cube-tab-nav-item v-for="(item, index) in tabs" :label="item.label" :key="index">
+          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
             <i slot="icon" :class="item.class"></i>
-          </cube-tab-nav-item>
-        </cube-tab-nav>
+          </cube-tab>
+        </cube-tab-bar>
       </div>
     </div>
   </cube-page>
@@ -74,7 +74,7 @@
     },
     methods: {
       handleClick (label) {
-        console.log('tabs was clicked', label)
+        console.log('tab was clicked', label)
       }
     },
     components: {
@@ -89,14 +89,18 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "~@/common/stylus/variable.styl"
-  .section
-    margin-bottom 10px
-  .option-list
-    .group
-      margin-bottom: 15px
-    .item
-      height: 52px!important
-      border: 1px solid rgba(0, 0, 0, .1)
-      background-color: white
-      border-radius: 5px
+  .tab-bar-view
+    .section
+      margin-bottom 10px
+      background-color white
+    .option-list
+      .group
+        margin-bottom: 15px
+      .item
+        height: 52px!important
+        border: 1px solid rgba(0, 0, 0, .1)
+        background-color: white
+        border-radius: 5px
+    .cube-tab-bar
+      background-color white
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <cube-page type="tabs-composite-view" title="Tabs-composite">
+  <cube-page type="tab-composite-view" title="tab-composite">
     <div slot="content">
-      <cube-tab-nav v-model="selectedLabel"
+      <cube-tab-bar v-model="selectedLabel"
                     showSlider
                     :useTransition="disabled"
                     ref="tabNav"
                     :data="tabLabels">
-      </cube-tab-nav>
+      </cube-tab-bar>
       <div class="slide-container">
         <cube-slide
           ref="slide"
@@ -24,7 +24,7 @@
           <cube-slide-item>
             <cube-scroll :data="followersData">
               <ul class="list-wrapper">
-                <li v-for="item in followersData" class="list-item">
+                <li v-for="(item, index) in followersData" class="list-item" :key="index">
                   <div class="top">
                     <img :src="item.avatar" class="avatar">
                     <span class="time">{{resolveTitle(item)}}</span>
@@ -39,7 +39,7 @@
           <cube-slide-item>
             <cube-scroll :data="recommendData">
               <ul class="list-wrapper">
-                <li v-for="item in recommendData" class="list-item">
+                <li v-for="(item, index) in recommendData" class="list-item" :key="index">
                   <div class="top is-black is-bold line-height">
                     {{item.question}}
                   </div>
@@ -52,7 +52,7 @@
           <cube-slide-item>
             <cube-scroll :data="hotData">
               <ul class="list-wrapper">
-                <li v-for="item in hotData" class="list-item">
+                <li v-for="(item, index) in hotData" class="list-item" :key="index">
                   <div class="hot-title">
                     <span class="hot-sequence">{{item.sequence}}</span>
                     <span></span>
@@ -71,7 +71,7 @@
 
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
-  import { FOLLOWERS_DATA, RECOMMEND_DATA, HOT_DATA } from '../../data/tabs'
+  import { FOLLOWERS_DATA, RECOMMEND_DATA, HOT_DATA } from '../../data/tab-bar'
 
   export default {
     data () {
@@ -132,65 +132,69 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   /* 覆盖样式 */
-  .cube-tab-nav-item
-    &.active
-      color black!important
-  .cube-tab-slider
-      background-color black!important
   .cube-page
-    > .wrapper
-      > .content
-        margin 0
-
-  .slide-container
-    position fixed
-    top 74px
-    left 0
-    right 0
-    bottom 0
-
-  .list-wrapper
-    overflow hidden
-    li
-      padding 15px 10px
-      margin-top 10px
-      text-align left
+    &.tab-composite-view
+      > .wrapper
+        > .content
+          margin 0
+  .tab-composite-view
+    .cube-tab-bar
       background-color white
-      font-size 14px
-      color #999
-      white-space normal
-      .line-height
-        line-height 1.5
-      .is-black
-        color black
-      .is-grey
+    .cube-tab
+      &.active
+        color black!important
+    .cube-tab-bar-slider
+        background-color black!important
+
+    .slide-container
+      position fixed
+      top 74px
+      left 0
+      right 0
+      bottom 0
+
+    .list-wrapper
+      overflow hidden
+      li
+        padding 15px 10px
+        margin-top 10px
+        text-align left
+        background-color white
+        font-size 14px
         color #999
-      .is-bold
-        font-weight bold
-      .top
-        display flex
-        .avatar
-          width 15px
-          height 15px
-          margin-right 2px
-          border-radius 100%
-        .time
-          flex 1
-      .middle
-        display flex
-        margin 10px 0
-        color black
-      .hot-title
-        display flex
-        align-items center
-        font-size 12px
-        .hot-sequence
-          display inline-block
-          margin-right 2px
-          padding 3px 6px
-          border-radius 2px
-          background-color darkgoldenrod
-          color white
-      .hot-content
-        margin-top 15px
+        white-space normal
+        .line-height
+          line-height 1.5
+        .is-black
+          color black
+        .is-grey
+          color #999
+        .is-bold
+          font-weight bold
+        .top
+          display flex
+          .avatar
+            width 15px
+            height 15px
+            margin-right 2px
+            border-radius 100%
+          .time
+            flex 1
+        .middle
+          display flex
+          margin 10px 0
+          color black
+        .hot-title
+          display flex
+          align-items center
+          font-size 12px
+          .hot-sequence
+            display inline-block
+            margin-right 2px
+            padding 3px 6px
+            border-radius 2px
+            background-color darkgoldenrod
+            color white
+        .hot-content
+          margin-top 15px
 </style>

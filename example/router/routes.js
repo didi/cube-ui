@@ -49,11 +49,12 @@ import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
-import TabsIndex from '../pages/tabs'
-import TabNav from '../pages/tabs/tab-nav.vue'
-import Tabs from '../pages/tabs/tabs.vue'
-import TabsBasic from '../pages/tabs/tabs-basic.vue'
-import TabsComposite from '../pages/tabs/tabs-composite.vue'
+import TabBarIndex from '../pages/tab-bar/index.vue'
+import TabBar from '../pages/tab-bar/tab-bar.vue'
+import Tab from '../pages/tab-bar/tab-entry.vue'
+import TabBasic from '../pages/tab-bar/tab-basic.vue'
+import TabComposite from '../pages/tab-bar/tab-composite.vue'
+import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
 
 const routes = [
   {
@@ -275,26 +276,26 @@ const routes = [
     component: Toolbar
   },
   {
-    path: '/tabs-nav',
-    component: TabNav
-  },
-  {
-    path: '/tabs',
-    component: TabsIndex,
+    path: '/tab-bar',
+    component: TabBarIndex,
     children: [
       {
-        path: 'tabs-nav',
-        component: TabNav
+        path: 'tab-bar',
+        component: TabBar
       },
       {
-        path: 'tabs',
-        component: Tabs,
+        path: 'scroll-tab',
+        component: ScrollTab
+      },
+      {
+        path: 'tab',
+        component: Tab,
         children: [
           { path: 'basic',
-            component: TabsBasic
+            component: TabBasic
           },
           { path: 'composite',
-            component: TabsComposite
+            component: TabComposite
           }
         ]
       }

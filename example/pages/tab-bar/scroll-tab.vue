@@ -1,34 +1,87 @@
 <template>
-  <cube-page type="tabs-basic-view" title="tab-basic">
+  <cube-page type="scroll-tab-view" title="ScrollTab">
     <div slot="content">
-      <cube-tab-bar v-model="selectedLabel">
-        <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
-          <i slot="icon" :class="item.class"></i>
-          {{item.label}}
-        </cube-tab>
-      </cube-tab-bar>
+      <div class="left-panel">
+        <cube-scroll>
+          <cube-tab-bar v-model="selectedLabel" :data="tabs" @tab-click="clickHandler"></cube-tab-bar>
+        </cube-scroll>
+      </div>
+      <div class="right-panel">
+        <cube-scroll ref="scroll">
+          <ul>
+            <li v-for="(hero, index) in scrollData">
+              <img :src="hero.avatar" alt="">
+              <span>{{hero.name}}</span>
+            </li>
+          </ul>
+        </cube-scroll>
+      </div>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
+  import * as DATAS from '../../data/tab-bar'
+  const DATA_MAP = {
+    '近战': DATAS.MELEE_HEROES,
+    '远程': DATAS.REMOTE_HEROES,
+    '辅助': DATAS.SUPPORT_HEROES,
+    '法师': DATAS.MAGIC_HEROES,
+    '打野': DATAS.JUNGLE_HEROES,
+    '坦克': DATAS.TANK_HEROES,
+    '隐身': DATAS.INVISIBLE_HEROES,
+    '后期': DATAS.CARRY_HEROES,
+    '闪烁': DATAS.BLINK_HEROES,
+    '爆发': DATAS.HIGH_DAMAGE_HEROES,
+    '召唤': DATAS.INVOKE_HEROES,
+    '眩晕': DATAS.DIZZY_HEROES
+  }
   export default {
     data() {
       return {
-        selectedLabel: '天辉',
+        selectedLabel: '近战',
+        scrollData: [],
         tabs: [{
-          label: '天辉',
-          class: 'cubeic-like',
-          heroes: ['敌法师', '卓尔游侠', '主宰', '米拉娜', '变体精灵', '幻影长矛手', '复仇之魂', '力丸', '矮人狙击手', '圣堂刺客', '露娜', '赏金猎人', '熊战士']
+          label: '近战'
         }, {
-          label: '夜魇',
-          class: 'cubeic-star',
-          heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
+          label: '远程'
+        }, {
+          label: '辅助'
+        }, {
+          label: '法师'
+        }, {
+          label: '打野'
+        }, {
+          label: '坦克'
+        }, {
+          label: '隐身'
+        }, {
+          label: '后期'
+        }, {
+          label: '闪烁'
+        }, {
+          label: '爆发'
+        }, {
+          label: '召唤'
+        }, {
+          label: '眩晕'
         }]
       }
     },
-    computed: {
+    created () {
+      this.scrollData = DATA_MAP[this.selectedLabel]
+    },
+    methods: {
+      clickHandler (label) {
+        this.scrollData = DATA_MAP[label]
+        this.$nextTick(() => {
+          // reset better-scroll'postion
+          this.$refs.scroll.scrollTo(0, 0)
+          // you need to caculate scroll-content height when your dom has changed in nextTick
+          this.$refs.scroll.refresh()
+        })
+      }
     },
     components: {
       CubePage
@@ -41,9 +94,43 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  .tab-panel-li
-    padding 0 16px
-    height 40px
-    line-height 40px
-    border-top 1px solid #eee
+  .cube-scroll-list-wrapper
+    .cube-tab-bar
+      flex-wrap: wrap
+      .cube-tab
+        width: 100%
+        flex-basis: unset
+        height: 40px
+        line-height: 40px
+        color: #db8931
+        &.active
+          color #fff
+          background-color: #a74b00
+  .left-panel
+    position: absolute
+    top: 44px
+    left: 0
+    bottom: 0
+    width: 80px
+    background-color: #2d2d2d
+
+  .right-panel
+    position: absolute
+    top: 44px
+    left: 80px
+    right: 0
+    bottom: 0
+    li
+      height 80px
+      display flex
+      align-items center
+      background-color #171819
+      img
+        width 102px
+        margin 0 10px
+        border: 1px solid #ff9f38
+        border-radius: 3px
+        box-shadow: 0 1px 5px 0 #000
+      span
+        color: #db8931
 </style>

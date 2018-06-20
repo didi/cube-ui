@@ -1,9 +1,9 @@
 <template>
-  <cube-page type="tabs" title="Tabs">
+  <cube-page type="tab-entry" title="Tab Entry">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="goTo('basic')">tabs-basic</cube-button>
-        <cube-button @click="goTo('composite')">tabs-composite</cube-button>
+        <cube-button @click="goTo('basic')">tab-basic</cube-button>
+        <cube-button @click="goTo('composite')">tab-composite</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
     </div>
@@ -23,7 +23,7 @@
     },
     methods: {
       goTo(subPath) {
-        this.$router.push('/tabs/tabs/' + subPath)
+        this.$router.push('/tab-bar/tab/' + subPath)
       }
     }
   }

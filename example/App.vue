@@ -49,8 +49,8 @@
                 text: 'Toolbar'
               },
               {
-                path: '/tabs',
-                text: 'Tabs'
+                path: '/tab-bar',
+                text: 'TabBar'
               }
             ]
           },
