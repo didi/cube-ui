@@ -4,7 +4,7 @@
       <cube-button-group>
         <cube-button @click="goTo('scroll')">Scroll</cube-button>
         <cube-button @click="goTo('native')">Native Scroll</cube-button>
-        <cube-button @click="goTo('wechat')">Wechat</cube-button>
+        <cube-button @click="goTo('wechat')">WeChat</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
     </div>

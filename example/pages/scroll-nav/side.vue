@@ -13,7 +13,11 @@
             <li>22</li>
             <li>333</li>
           </ul>
-          <cube-scroll-nav-panel v-for="item in data" :key="item.name" :label="item.name">
+          <cube-scroll-nav-panel
+            v-for="item in data"
+            :key="item.name"
+            :label="item.name"
+            :title="item.name">
             <ul>
               <li v-for="food in item.foods">
                 <div>
