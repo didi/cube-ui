@@ -67,11 +67,13 @@
         if (newVal >= 0) {
           newVal = 0
         }
+        if (this._fixedTop === newVal) {
+          return
+        }
+        this._fixedTop = newVal
         this.$refs.fixedEle.style[transformStyleKey] = `translate3d(0, ${newVal}px, 0)`
       },
-      pos(newY) {
-        this.computeCurrentSticky(newY)
-      },
+      pos: 'computeCurrentSticky',
       currentIndex(newIndex, oldIndex) {
         const oldEle = this.eles[oldIndex]
         const newEle = this.eles[newIndex]
@@ -128,7 +130,6 @@
         })
       },
       computeCurrentSticky(scrollY) {
-        scrollY = Math.round(scrollY)
         scrollY += this.offset
 
         const positions = this.positions
