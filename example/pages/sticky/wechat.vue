@@ -16,13 +16,13 @@
               </ul>
             </cube-sticky-ele>
             <ul>
-              <li v-for="item in items" class="border-top-1px">{{item}}</li>
+              <li v-for="item in items">{{item}}</li>
             </ul>
             <ul>
-              <li v-for="item in items2" class="border-top-1px">{{item}}</li>
+              <li v-for="item in items2">{{item}}</li>
             </ul>
             <ul>
-              <li v-for="item in items3" class="border-top-1px">{{item}}</li>
+              <li v-for="item in items3">{{item}}</li>
             </ul>
           </cube-scroll>
           <ul class="sticky-header" slot="fixed">
