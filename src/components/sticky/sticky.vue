@@ -71,6 +71,32 @@
       },
       pos(newY) {
         this.computeCurrentSticky(newY)
+      },
+      currentIndex(newIndex, oldIndex) {
+        const oldEle = this.eles[oldIndex]
+        const newEle = this.eles[newIndex]
+
+        const currentKey = (newEle && newEle.eleKey !== undefined) ? newEle.eleKey : newIndex === -1 ? '' : newIndex
+        const fixedEle = this.$refs.fixedEle
+        const fixedSlot = this.$slots.fixed || this.$scopedSlots.fixed
+
+        if (fixedSlot) {
+          this.fixedEleHeight = fixedEle.offsetHeight
+        } else {
+          const oldChild = fixedEle.firstElementChild
+          if (oldEle) {
+            oldEle.$el.appendChild(oldChild)
+          }
+          if (newEle) {
+            fixedEle.appendChild(newEle.$el.firstElementChild)
+            this.fixedEleHeight = fixedEle.offsetHeight
+          } else {
+            this.fixedEleHeight = 0
+          }
+        }
+
+        this.currentKey = currentKey
+        this.$emit(EVENT_CHANGE, currentKey)
       }
     },
     beforeCreate() {
@@ -81,31 +107,6 @@
       this.eles = []
     },
     mounted() {
-      this.$watch('currentIndex', (newIndex, oldIndex) => {
-        const oldEle = this.eles[oldIndex]
-        const newEle = this.eles[newIndex]
-
-        this.currentKey = (newEle && newEle.eleKey !== undefined) ? newEle.eleKey : newIndex === -1 ? '' : newIndex
-
-        const fixedEle = this.$refs.fixedEle
-        if (this.$slots.fixed || this.$scopedSlots.fixed) {
-          this.fixedEleHeight = fixedEle.offsetHeight
-          this.$emit(EVENT_CHANGE, this.currentKey)
-          return
-        }
-
-        const oldChild = fixedEle.firstElementChild
-        if (oldEle) {
-          oldEle.$el.appendChild(oldChild)
-        }
-        if (newEle) {
-          fixedEle.appendChild(newEle.$el.firstElementChild)
-          this.fixedEleHeight = fixedEle.offsetHeight
-        } else {
-          this.fixedEleHeight = 0
-        }
-        this.$emit(EVENT_CHANGE, this.currentKey)
-      })
       this.refresh()
     },
     methods: {
@@ -179,9 +180,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "../../common/stylus/variable.styl"
-  @require "../../common/stylus/mixin.styl"
-
   .cube-sticky
     position: relative
     height: 100%
