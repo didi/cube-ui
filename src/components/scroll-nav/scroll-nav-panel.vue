@@ -22,7 +22,7 @@
         required: true
       },
       title: {
-        type: [String, Number, Object],
+        type: [String, Number],
         default() {
           /* istanbul ignore next */
           return this.label
