@@ -23,7 +23,9 @@
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
   import * as DATAS from '../../data/tab-bar'
+
   const DATA_MAP = {
+    '全部': DATAS.ALL_HEROES,
     '近战': DATAS.MELEE_HEROES,
     '远程': DATAS.REMOTE_HEROES,
     '辅助': DATAS.SUPPORT_HEROES,
@@ -35,14 +37,17 @@
     '闪烁': DATAS.BLINK_HEROES,
     '爆发': DATAS.HIGH_DAMAGE_HEROES,
     '召唤': DATAS.INVOKE_HEROES,
-    '眩晕': DATAS.DIZZY_HEROES
+    '眩晕': DATAS.DIZZY_HEROES,
+    '治疗': DATAS.HEALER_HEROES
   }
   export default {
-    data() {
+    data () {
       return {
-        selectedLabel: '近战',
+        selectedLabel: '全部',
         scrollData: [],
         tabs: [{
+          label: '全部'
+        }, {
           label: '近战'
         }, {
           label: '远程'
@@ -66,6 +71,8 @@
           label: '召唤'
         }, {
           label: '眩晕'
+        }, {
+          label: '治疗'
         }]
       }
     },
@@ -102,10 +109,14 @@
         flex-basis: unset
         height: 40px
         line-height: 40px
+        font-size: 14px
         color: #db8931
+        transition all .3s ease-in
         &.active
           color #fff
+          font-size 16px
           background-color: #a74b00
+
   .left-panel
     position: absolute
     top: 44px
@@ -120,6 +131,7 @@
     left: 80px
     right: 0
     bottom: 0
+    background-color: #171819
     li
       height 80px
       display flex

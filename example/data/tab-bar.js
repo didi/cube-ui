@@ -91,6 +91,32 @@ export const HOT_DATA = [{
   question: '高考之后，人生转弯'
 }]
 
+export const ALL_HEROES = [
+  { name: '天穹守望者', avatar: 'http://dota2dbpic.uuu9.com/cb880d14-e6a2-4737-8fe7-dab43281e24144575.jpg' },
+  { name: '上古巨神', avatar: 'http://dota2dbpic.uuu9.com/73aa3fe9-be47-49e2-82b1-75d44d069c20Elder_Titan.png' },
+  {
+    name: '灰烬之灵',
+    avatar: 'http://dota2dbpic.uuu9.com/4c54e1ab-0c34-4f4a-8236-26e3ffa08274legion_commander_full.png'
+  },
+  { name: '地精撕裂者', avatar: 'http://dota2dbpic.uuu9.com/d637e928-6289-4561-8c7d-b40d96c539d000.jpg' },
+  { name: '双头龙', avatar: 'http://dota2dbpic.uuu9.com/7148a12f-a0ed-4307-a46b-830d278a5a00thd.gif' },
+  { name: '魅惑魔女', avatar: 'http://dota2dbpic.uuu9.com/5bf5a558-74e5-49f5-91a1-6167cf8d00ffeh.gif' },
+  { name: '先知', avatar: 'http://dota2dbpic.uuu9.com/0878a84c-30cf-434c-84c1-4a2ccf3e52fcfur.gif' },
+  { name: '地精修补匠', avatar: 'http://dota2dbpic.uuu9.com/92a8eaa6-7141-4300-bca9-01d02f30e453tk.png' },
+  { name: '暗影恶魔', avatar: 'http://dota2dbpic.uuu9.com/5476d96a-cb17-45de-8f17-379d0a74ab92Eredar.gif' },
+  { name: '暗影萨满', avatar: 'http://dota2dbpic.uuu9.com/13098635-b43e-459f-88ac-0a9ec28fc9b4ss.gif' },
+  { name: '祈求者', avatar: 'http://dota2dbpic.uuu9.com/99ffd3b8-0691-4922-8467-2667bf83804bKael.gif' },
+  { name: '黑暗贤者', avatar: 'http://dota2dbpic.uuu9.com/57252321-1b37-495c-8ac1-f68306d5d48eDS.gif' },
+  { name: '受折磨的灵魂', avatar: 'http://dota2dbpic.uuu9.com/1c87b008-31d1-4000-92e5-18aa5486a641TS.gif' },
+  { name: '蝙蝠骑士', avatar: 'http://dota2dbpic.uuu9.com/ea3ed2fa-cbb4-44ac-a06b-a9029608c2b8batrider.jpg' },
+  { name: '秀逗魔导士', avatar: 'http://dota2dbpic.uuu9.com/4860461c-ae68-401a-809f-f4c7a0b63aedlina.gif' },
+  { name: '宙斯', avatar: 'http://dota2dbpic.uuu9.com/7be0f49d-6287-4278-9ff0-a42bbd7956cfzeus.gif' },
+  { name: '赏金猎人', avatar: 'http://dota2dbpic.uuu9.com/cf7f3664-7a7c-4d5e-94f5-98c0c2fd0deebh.gif' },
+  { name: '复仇之魂', avatar: 'http://dota2dbpic.uuu9.com/9608a806-4bf0-47a0-a4ba-20b491fa3121vs.gif' },
+  { name: '圣堂刺客', avatar: 'http://dota2dbpic.uuu9.com/25340f33-d595-46de-bc11-2453bb83de2bta.gif' },
+  { name: '矮人直升机', avatar: 'http://dota2dbpic.uuu9.com/cc02d678-beef-4cee-931e-815b04aa513bcopter.gif' },
+  { name: '风暴之灵', avatar: 'http://dota2dbpic.uuu9.com/c4e5c967-dbab-4a24-aa51-7e035dc683c2ST.gif' }
+]
 export const MELEE_HEROES = [
   { name: '齐天大圣', avatar: 'http://dota2dbpic.uuu9.com/5f813eaa-e738-4ea5-a425-f260cd01334c3159302_mk105x60.jpg' },
   { name: '大地之灵', avatar: 'http://dota2dbpic.uuu9.com/e037c631-cddd-41e1-899d-36db1a7d3df5legion_commander_full.png' },
@@ -382,4 +408,17 @@ export const DIZZY_HEROES = [
   { name: '潮汐猎人', avatar: 'http://dota2dbpic.uuu9.com/508e0019-b6de-4ae2-8e00-b8428bb6d16btidehunter_full.png' },
   { name: '山岭巨人', avatar: 'http://dota2dbpic.uuu9.com/7da65f49-9894-4c0b-888b-00ce495cc909000.jpg' },
   { name: '屠夫', avatar: 'http://dota2dbpic.uuu9.com/b4e99c9b-91e5-431e-89ca-a9fe3171120cuntitled.jpg' }
+]
+
+export const HEALER_HEROES = [
+  { name: '↵地狱领主↵', avatar: 'http://dota2dbpic.uuu9.com/a0e68aea-de06-46f2-b841-70be213b68b7Abaddon.png' },
+  { name: '↵凤凰↵', avatar: 'http://dota2dbpic.uuu9.com/17772b4c-76ff-4f49-84c2-66d8edb21b41phoenix.png' },
+  { name: '↵魅惑魔女↵', avatar: 'http://dota2dbpic.uuu9.com/5bf5a558-74e5-49f5-91a1-6167cf8d00ffeh.gif' },
+  { name: '↵暗影牧师↵', avatar: 'http://dota2dbpic.uuu9.com/d14b7a6b-4931-4dc4-aa3e-17fc6cfc00b8sp.gif' },
+  { name: '↵术士↵', avatar: 'http://dota2dbpic.uuu9.com/fbd48581-1c31-4077-8959-1ec0aae04eebwl.gif' },
+  { name: '↵主宰↵', avatar: 'http://dota2dbpic.uuu9.com/b3ce2f49-daf9-452a-b516-fa8406d77fc4jugg.gif' },
+  { name: '↵瘟疫法师↵', avatar: 'http://dota2dbpic.uuu9.com/c5399443-a946-4fc8-9621-4484bfec859fNEC.gif' },
+  { name: '↵巫医↵', avatar: 'http://dota2dbpic.uuu9.com/793a1a57-0fea-4395-aa86-5add327b337fwd.gif' },
+  { name: '↵神灵武士↵', avatar: 'http://dota2dbpic.uuu9.com/8aea3dbb-d148-4ce2-93dc-06c4aeef331800.jpg' },
+  { name: '↵全能骑士↵', avatar: 'http://dota2dbpic.uuu9.com/01ddcdb3-fb3d-412b-a6cf-e85bc473a35a00.jpg' }
 ]
