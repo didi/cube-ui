@@ -37,7 +37,7 @@ describe('Sticky', () => {
     expect(vm.currentIndex)
       .to.equal(-1)
     expect(vm.currentKey)
-      .to.equal(-1)
+      .to.equal('')
     setTimeout(() => {
       vm.$parent.scrollTo(280)
       setTimeout(() => {
@@ -61,7 +61,7 @@ describe('Sticky', () => {
             expect(vm.currentIndex)
               .to.equal(-1)
             expect(vm.currentKey)
-              .to.equal(-1)
+              .to.equal('')
             done()
           })
         })
@@ -80,7 +80,7 @@ describe('Sticky', () => {
     expect(vm.currentIndex)
       .to.equal(-1)
     expect(vm.currentKey)
-      .to.equal(-1)
+      .to.equal('')
     setTimeout(() => {
       vm.$parent.scrollTo(280)
       setTimeout(() => {
@@ -104,7 +104,7 @@ describe('Sticky', () => {
             expect(vm.currentIndex)
               .to.equal(-1)
             expect(vm.currentKey)
-              .to.equal(-1)
+              .to.equal('')
             done()
           })
         })
