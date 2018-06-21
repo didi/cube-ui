@@ -144,7 +144,7 @@
         }
       },
       pageStickyChangeHandler(current) {
-        if (current === -1) {
+        if (current === '') {
           current = this.labels[0]
         }
         this.stickyCurrent = current
