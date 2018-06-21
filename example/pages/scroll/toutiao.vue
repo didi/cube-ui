@@ -17,7 +17,7 @@
           <cube-scroll
             ref="contentScroll"
             :data="content"
-            :options="contentScrollOptions"
+            :options="options"
             @pulling-down="onPullingDown"
             @pulling-up="onPullingUp">
             <ul class="imgs-wrapper">
@@ -26,15 +26,13 @@
               </li>
             </ul>
             <template slot="pulldown" slot-scope="props">
-              <div
-                  v-if="props.pullDownRefresh"
-                  class="cube-pulldown-wrapper"
-                  :style="props.pullDownStyle">
-                <div
-                    v-if="props.beforePullDown"
-                    class="before-trigger"
-                    :style="{paddingTop: props.bubbleY + 'px'}">
-                  <span :class="{rotate: props.bubbleY > contentScrollOptions.pullDownRefresh.threshold - 60}">↓</span>
+              <div v-if="props.pullDownRefresh"
+                class="cube-pulldown-wrapper"
+                :style="props.pullDownStyle">
+                <div v-if="props.beforePullDown"
+                  class="before-trigger"
+                  :style="{paddingTop: props.bubbleY + 'px'}">
+                  <span :class="{rotate: props.bubbleY > 0}">↓</span>
                 </div>
                 <div class="after-trigger" v-else>
                   <div v-show="props.isPullingDown" class="loading">
@@ -76,7 +74,7 @@ export default {
   data() {
     return {
       content: imgs.slice(),
-      contentScrollOptions: {
+      options: {
         pullDownRefresh: {
           threshold: 60,
           // stop: 44,
@@ -179,10 +177,12 @@ export default {
   .cube-pulldown-wrapper
     text-align: center
     .before-trigger
+      height: auto
       font-size: 30px
       align-self: flex-end
       span
         display: inline-block
+        line-height: 1
         transition: all 0.3s
         color: #666
         padding: 15px 0

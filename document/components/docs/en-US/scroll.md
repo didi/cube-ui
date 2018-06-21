@@ -1,175 +1,299 @@
 ## Scroll
 
-`Scroll` component, which is encapsulated based on `better-scroll`, provides high-quality native scrolling experience and has convenient configuration along tith events.
+`Scroll` component, which is encapsulated based on `better-scroll`, provides high-quality native scrolling experience and has convenient configuration along with events.
+
+### Scrolling principle
+The better-scroll's scrolling principle is, the length of the first child element exceeds the length of the container in the scroll direction.
+
+So for the Scroll component, The length of `.cube-scroll-content`, the scroll-content, must be larger than `.cube-scroll-wrapper`, the container element. Depending on the direction of scrolling, there are two situations:
+
+1）Scrolling vertically: **The height of the content element must be greater than the container element.** Since the height of the container element will be stretched by the height of the child element by default, in order to satisfy our scrolling premise, you need to give the Scroll component's `.cube-scroll-wrapper` element an fixed height.
+
+2）Scrolling horizontally: **The width of the content element must be greater than the container element.** Since the child element's width does not exceed the container element by default, the Scroll component's `.cube-scroll-content` element needs to be set to a width greater than the `.cube-scroll-wrapper`.
 
 ### Example
 
-- Basic usage
+Five sample code to quickly understand how to use the Scroll component.
 
-  By setting `data` to an array, you can generate the list which can scrolls elegantly in the container.
+- **Basic usage - Default**
+
+  By setting the data property to an array, you can generate an elegantly scrolling list. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/default.vue).
 
   ```html
-  <div class="scroll-wrapper">
-    <cube-scroll :data="items"></cube-scroll>
+  <div class="scroll-list-wrap">
+    <cube-scroll
+      ref="scroll"
+      :data="items"
+      :options="options">
+    </cube-scroll>
   </div>
   ```
 
-- Config the options of better-scroll
+  ```stylus
+  .scroll-list-wrap
+    height: 350px
+  ```
 
-  By setting `options`, you can config the options of better-scroll, includes scrollbar, pull-down-to-refresh, pull-up-to-load etc. Detailed options are shown in [the Document of better-scroll](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html). We just introduce several common options here.
+  > **Note**: As the scrolling principle above, it is necessary to provide a fixed height to the scroll container, and scroll only when the height of the scroll content is greater than the height of the container.
 
-  1  Scroll bar
+  In the prop `options`, you are able to control the scroll bar seen or not via `scrollbar`, and configure the initial position by `startX/startY`.
 
-  Default is without scroll bar. You can set it to fade-in-fade-out or always-show style.
+  Scroll component provide a `scrollTo()` method that allows you to manually control the list scroll position.
+
+  ```javascript
+  scrollTo() {
+    this.$refs.scroll.scrollTo(
+      0,
+      this.scrollToY,
+      this.scrollToTime,
+      ease[this.scrollToEasing]
+    )
+  },
+  ```
+
+  In fact, this is a very useful method, such as when we want to achieve "click different anchor, list scroll to the corresponding position to show different content", you can use the `scrollTo ()` method.
+
+- **Scrolling horizontally - Horizontal**
+
+  Scroll component support horizontal scrolling by specifying `direction = 'horizental'`. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)
 
   ```html
-  <cube-scroll :data="items" :options="options"></cube-scroll>
+  <div class="horizontal-scroll-list-wrap">
+    <cube-scroll
+      ref="scroll"
+      direction="horizontal">
+      <ul class="list-wrapper">
+        <li v-for="item in items" class="list-item">{{ item }}</li>
+      </ul>
+    </cube-scroll>
+  </div>
   ```
+
+  ```stylus
+  .cube-scroll-content
+    display: inline-block
+    .list-wrapper
+      padding: 0 10px
+      line-height: 60px
+      white-space: nowrap
+      .list-item
+        display: inline-block
+  ```
+
+  > **Note**：As the scrolling principle above, the CSS style setting here is required, and scrolling is possible only when the scrolling content is wider than the container width.
+
+- **Custom content - Customized**
+
+  The Scroll component supports the customization of list content through default slot. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/config.vue).
+
+  ```html
+  <div class="scroll-list-wrap">
+    <cube-scroll
+      ref="scroll"
+      :options="options"
+      @pulling-down="onPullingDown"
+      @pulling-up="onPullingUp">
+      ... // custom content
+    </cube-scroll>
+  </div>
+  ```
+
+  Scroll components also support **pull-down refresh** and **pull-up load** capabilities. By default, there is no pulldown refresh/pullup load. You can enable corresponding functions by `pullDownRefresh` and `pullUpLoad`. After opening, when pulling down, the Scroll component will show the default pulldown animation and dispatch pulldown events. You can monitor the `pull-down` event to update the data. Similarly, after the pull-up load is enabled, the data can be updated by the `pull-up` event.
+
+  `pullDownRefresh`'s related configurations include: drop threshold (threshold), rebound position (stop), update successful copy (txt) and copy display time (stopTime). See the [Props configuration](#/en-US/docs/scroll#cube-Propsconfiguration-anchor) for all the configuration items and meanings of the `pullDownRefresh` and `pullUpLoad` objects.
+
   ```javascript
-  export default {
-    data() {
+  ... // ignore 
+  computed: {
+    options() {
       return {
-        items: [1, 2, 3, 4, 5],
-        options: {
-          scrollbar: {
-            fade: false
-          }
-        }
+        pullDownRefresh: this.pullDownRefreshObj,
+        pullUpLoad: this.pullUpLoadObj,
+        scrollbar: true
       }
-    }
+    },
+    ...
+  },
+  methods: {
+    onPullingDown() {
+      // simulate asynchronous request data
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          // if data update
+          this.items.unshift(_foods[1])
+        } else {
+          // if no data update
+          this.$refs.scroll.forceUpdate()
+        }
+      }, 1000)
+    },
+    onPullingUp() {
+      // simulate asynchronous request data
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          // if data update
+          let newPage = _foods.slice(0, 5)
+          this.items = this.items.concat(newPage)
+        } else {
+          // if no data update
+          this.$refs.scroll.forceUpdate()
+        }
+      }, 1000)
+    },
+    ...
   }
   ```
 
-  2  Pull down to refresh
+  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. When the data is updated, the Scroll component will invoke `forceUpate()` method internally.
 
-  There is no pull-down-to-refresh function by default. Configuring `pullDownRefresh` option can turn on the dispatching of the event `pulling-down` and the animation of pulling down. You can listen to `pulling-down` event to update data.
+- **Custom pull-down refresh animation - Fake JD App**
+
+  If you don't like the built-in pull-down refresh and pull-up loading animations, you can also use the scope slots for custom animations. The variables exposed by [the scoped slots](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots) of the Scroll component are perfect to meet the needs of custom pull-down/pull-up animations in most scenarios. The following example imitates the pull-down refresh animation of Jingdong App's homepage. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue).
 
   ```html
   <cube-scroll
     ref="scroll"
-    :data="items"
-    :options="options"
+    :scroll-events="['scroll']"
+    :options="scrollOptions"
+    @scroll="onScrollHandle"
     @pulling-down="onPullingDown">
-  </cube-scroll>
-  ```
-  ```javascript
-  export default {
-    data() {
-      return {
-        items: [1, 2, 3, 4, 5],
-        options: {
-          pullDownRefresh: {
-            threshold: 90,
-            stop: 40,
-            txt: 'Refresh success'
-          }
-        }
-      }
-    },
-    methods: {
-      onPullingDown() {
-        // Mock async load.
-        setTimeout(() => {
-          if (Math.random() > 0.5) {
-            // If have new data, just update the data property.
-            this.items.unshift('I am new data: ' + +new Date())
-          } else {
-            // If no new data, you need use the method forceUpdate to tell us the load is done.
-            this.$refs.scroll.forceUpdate()
-          }
-        }, 1000)
-      }
-    }
-  }
-  ```
-
-- Pulling up to load
-
-  There is no pull-up-to-load function by default. Configuring `pullUpLoad` option can turn on the dispatching of the event `pulling-up` and the animation of pulling up. You can listen to `pulling-up` event to update data.
-
-  ```html
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :options="options"
-    @pulling-up="onPullingUp"></cube-scroll>
-  ```
-  ```javascript
-  export default {
-    data() {
-      return {
-        items: [1, 2, 3, 4, 5],
-        itemIndex: 5,
-        options: {
-          pullUpLoad: {
-            threshold: 0,
-            txt: {
-              more: 'Load more',
-              noMore: 'No more data'
-            }
-          }
-        }
-      }
-    },
-    methods: {
-      onPullingUp() {
-        // Mock async load.
-        setTimeout(() => {
-          if (Math.random() > 0.5) {
-            // If have new data, just update the data property.
-            let newPage = [
-              'I am line ' + ++this.itemIndex,
-              'I am line ' + ++this.itemIndex,
-              'I am line ' + ++this.itemIndex,
-              'I am line ' + ++this.itemIndex,
-              'I am line ' + ++this.itemIndex
-            ]
-
-            this.items = this.items.concat(newPage)
-          } else {
-            // If no new data, you need use the method forceUpdate to tell us the load is done.
-            this.$refs.scroll.forceUpdate()
-          }
-        }, 1000)
-      }
-    }
-  }
-  ```
-
-- Customize the animation of pulling down refreshing and pulling up loading
-
-  If you don't like the built-in slots of pulling down refreshing and pulling up loading, you can use [scoped slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) to customize animation. The example below uses scoped slots to customize animation of pulling down refreshing, while pulling up loading keeps default built-in animation.
-
-  ```html
-  <cube-scroll
-    ref="scroll"
-    :data="items"
-    :options="options"
-    @pulling-down="onPullingDown"
-    @pulling-up="onPullingUp">
+    <img src="http://om0jxp12h.bkt.clouddn.com/jd_content.JPG">
     <template slot="pulldown" slot-scope="props">
-      <div
-        v-if="props.pullDownRefresh"
+      <div v-if="props.pullDownRefresh"
         class="cube-pulldown-wrapper"
-        :style="props.pullDownStyle">
-        <div
-          v-if="props.beforePullDown"
-          class="before-trigger"
-          :style="{paddingTop: props.bubbleY + 'px'}">
-          <span :class="{rotate: props.bubbleY > 40}">↓</span>
-        </div>
-        <div class="after-trigger" v-else>
-          <div v-if="props.isPullingDown" class="loading">
-            <cube-loading></cube-loading>
-          </div>
-          <div v-else><span>Refresh success</span></div>
+        :style="pullDownStyle">
+        <div class="pulldown-content">
+          <img src="http://om0jxp12h.bkt.clouddn.com/pulldow-img.jpg">
+          <span v-if="props.beforePullDown">{{ pullDownTip }}</span>
+          <template v-else>
+            <span v-if="props.isPullingDown">正在更新...</span>
+            <span v-else>更新成功</span>
+          </template>
         </div>
       </div>
     </template>
   </cube-scroll>
   ```
+  ```javascript
+  data() {
+    return {
+      options: {
+        pullDownRefresh: {
+          threshold: 60,
+          stop: 40,
+          txt: '更新成功'
+        }
+      },
+      ...
+    }
+  },
+  computed: {
+    pullDownTip() {
+      if (this.pullDownY <= 60) {
+        return '下拉刷新...'
+      } else if (this.pullDownY <= 90) {
+        return '继续下拉有惊喜...'
+      } else {
+        return '松手得惊喜！'
+      }
+    },
+    headerStyle() {
+      return Math.min(1, Math.max(0, 1 - this.pullDownY / 40))
+    }
+  },
+  methods: {
+    onScrollHandle(pos) {
+      this.pullDownY = pos.y
+      if (pos.y > 0) {
+        this.pullDownStyle = `top:${pos.y}px`
+        this.triggerSurpriseFlag = false
+        if (this.pullDownY > 90) {
+          this.triggerSurpriseFlag = true
+        }
+      }
+      this.$refs.topHeader.style.opacity = this.headerStyle
+    },
+    onPullingDown() {
+      if (this.triggerSurpriseFlag) {
+        this.triggerSurprise = true
+        this.$refs.scroll.forceUpdate()
+        return
+      }
+      setTimeout(() => {
+        this.$refs.scroll.forceUpdate()
+      }, 1000)
+    },
+    ...
+  }
+  ```
+  Through the scope parameters provided by the scoped slots, such as: `beforePulldown` and `isPullingDown`, allows you control the animation process. Tht other scope parameters, see [slots](#/en-US/docs/scroll#cube-Slot-anchor). In a complete pulldown refresh, the status of `beforePullDown` and `isPullingDown` changes as follows:
 
-  With the parameters that scoped slots provide, you can control the process of animation according to the change of the state. Detailed scope parameters and their meaning are shown below in 'Slots'.
+  | step | beforePulldown | isPullingDown | note
+  | - | - | - | - |
+  | 1. Untrigger pull-down refresh | true | - | Show pattern guide user continues to  pull down |
+  | 2. Trigger pull-down refresh | false | true | Asynchronous request data，show loading |
+  | 3. Request data success | false | false | invoke `forceUpdate()`, show success copy |
+  | 4. A pull-down refresh complete | true | - | after invoke `forceUpdate()`, delay stopTime to step 4 |
+
+- **Advanced usage - Fake TouTiao App**
+
+Scroll components can meet the scrolling needs of most mobile applications. In this example, using two Scroll components, one  vertical and one horizontal, to imitates the Toutiao App's home page. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue).
+
+```html
+  <div class="nav-scroll-list-wrap">
+    <cube-scroll ref="navScroll" direction="horizontal">
+      <ul class="nav-wrapper">
+        <li v-for="(item, index) in navTxts" :key="index" class="nav-item">{{ item }}</li>
+      </ul>
+    </cube-scroll>
+    <div class="more-wrapper">
+      <span class="more"></span>
+    </div>
+  </div>
+  <div class="content-scroll-wrapper">
+    <div class="content-scroll-list-wrap" ref="scrollWrapper">
+      <cube-scroll
+        ref="contentScroll"
+        :data="content"
+        :options="options"
+        @pulling-down="onPullingDown"
+        @pulling-up="onPullingUp">
+        <ul class="imgs-wrapper">
+          <li v-for="(item, index) in content" :key="index" class="imgs-item">
+            <img :src="item.url">
+          </li>
+        </ul>
+        <template slot="pulldown" slot-scope="props">
+          <div v-if="props.pullDownRefresh"
+            class="cube-pulldown-wrapper"
+            :style="props.pullDownStyle">
+            <div v-if="props.beforePullDown"
+              class="before-trigger"
+              :style="{paddingTop: props.bubbleY + 'px'}">
+              <span :class="{rotate: props.bubbleY > options.pullDownRefresh.threshold - 60}">↓</span>
+            </div>
+            <div class="after-trigger" v-else>
+              <div v-show="props.isPullingDown" class="loading">
+                <cube-loading></cube-loading>
+              </div>
+              <transition name="success">
+                <div v-show="!props.isPullingDown" class="text-wrapper"><span class="refresh-text">今日头条推荐引擎有x条更新</span></div>
+              </transition>
+            </div>
+          </div>
+        </template>
+      </cube-scroll>
+    </div>
+  </div>
+  ```
+
+  In contrast to faking JD App example, pulldown refreshing custom animations use `pullDownStyle` and `bubbleY` in pulldown scope slots to facilitate pulldown animations.
+
+  The `pullDownStyle` is used to control the position of the pull-down content. The value is the string `top: n px` (n represents a number). The Scroll component controls the position of the pull-down content via the absolutely positioned `top` value. The initial state has a negative `top` value, and the value is just the height of the pull-down content, so the drop-down content is hidden above the scroll area. When the pull-down process is started, the Scroll component will gradually increase the `top` value and update the pull-down content position in real time. The maximum value of `top` is 0, that is, the `top` value no longer increases when the pull-down content is completely displayed. So, `pullY - height <= top <= 0`. (pullY is the drop-down distance, height is the drop-down content height)
+
+  `bubbleY` is used to help implement custom animations. In the default animation, `bubbleY` is used to control the length of the bubble tail; in the Toutiao example, is used to control the padding-top value of the arrow, to indirectly control the arrow position. The minimum value of `bubbleY` is 0. In the pull-down process, when the pull-down distance is greater than the height of the pull-down content, `bubbleY` starts to increase. That is, `0 <= bubbleY <= pullY - height`.
+
+  > **Note:** In this example, the `pullDownRefresh` configuration item does not have a `stop` value, but it is still able to bounce back to the correct location after the pulldown. The reason is that when the Scroll component is initialized, the pulldown height will be used as the `stop` default value when `beforePullDown === false && isPullingDown === true`.
 
 ### Props configuration
 
@@ -225,3 +349,12 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | scroll-end<sup>1.9.0</sup> | if `scroll-events` includes `scroll-end`, it will be triggered when scroll end. | Object {x, y} - real-time scrolling coordinates |
 | pulling-down | triggers when the distance of pulling down exceeds the threshold, if pullDownRefresh is true | - |
 | pulling-up | triggers when the distance of pulling up exceeds the threshold, if pullUpLoad is true | - |
+
+
+### methods
+
+| Method Name | Description | Parameters |
+| - | - | - |
+| scrollTo | Scroll to specific position. | x: horizontal position<br> y: vertical position<br> time: transition time<br> ease: easing function |
+| disable | Disable scroll. | - |
+| enable | Enable scroll. It's enabled by default | - |

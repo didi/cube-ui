@@ -2,8 +2,8 @@
   <cube-page type="scroll-view" title="Scroll" class="option-demo">
     <div slot="content" class="scroll-wrapper">
       <div class="demo">
-        <div class="title">Herizontal Demo</div>
-        <div class="herizontal-scroll-list-wrap">
+        <div class="title">horizontal Demo</div>
+        <div class="horizontal-scroll-list-wrap">
           <cube-scroll
             ref="scroll"
             :data="items"
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.herizontal-scroll-list-wrap
+.horizontal-scroll-list-wrap
   border: 1px solid rgba(0, 0, 0, 0.1)
   border-radius: 5px
   transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
@@ -64,7 +64,6 @@ export default {
   .cube-scroll-content
     display: inline-block
     .list-wrapper
-      display: inline-block
       padding: 0 10px
       line-height: 60px
       white-space: nowrap
