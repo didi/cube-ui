@@ -65,8 +65,6 @@
         items3: _data.concat()
       }
     },
-    mounted() {
-    },
     methods: {
       scrollHandler({ y }) {
         this.scrollY = -y

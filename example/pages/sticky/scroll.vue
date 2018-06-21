@@ -2,7 +2,7 @@
   <cube-page type="sticky-view-scroll" title="Sticky">
     <template slot="content">
       <div class="sticky-view-container">
-        <cube-sticky :pos="scrollY" :check-top="checkTop">
+        <cube-sticky :pos="scrollY">
           <cube-scroll
             :scroll-events="scrollEvents"
             @scroll="scrollHandler">
@@ -71,13 +71,10 @@
       return {
         scrollEvents: ['scroll'],
         scrollY: 0,
-        checkTop: true,
         items: _data.concat(),
         items2: _data.concat(),
         items3: _data.concat()
       }
-    },
-    mounted() {
     },
     methods: {
       scrollHandler({ y }) {

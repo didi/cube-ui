@@ -3,7 +3,12 @@
     <div slot="content">
       <cube-scroll-nav-bar :current="current" :labels="labels" @change="changeHandler" />
       <div class="side-container">
-        <cube-scroll-nav-bar direction="vertical" :current="current" :labels="labels" @change="changeHandler">
+        <cube-scroll-nav-bar
+          direction="vertical"
+          :current="current"
+          :labels="labels"
+          :txts="txts"
+          @change="changeHandler">
           <i slot-scope="props">{{props.txt}}</i>
         </cube-scroll-nav-bar>
       </div>
@@ -29,6 +34,18 @@
           '豪华车',
           '二手车',
           '出租车'
+        ],
+        txts: [
+          '1快车',
+          '2小巴',
+          '3专车',
+          '4顺风车',
+          '5代驾',
+          '6公交',
+          '7自驾租车',
+          '8豪华车',
+          '9二手车',
+          '10出租车'
         ]
       }
     },
