@@ -63,10 +63,6 @@
       current: {
         type: [String, Number],
         default: ''
-      },
-      adjust: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
