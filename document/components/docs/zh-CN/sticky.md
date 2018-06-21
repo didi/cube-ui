@@ -22,7 +22,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items">{{item}}</li>
       </ul>
       <cube-sticky-ele ele-key="22">
         <ul class="sticky-header">
@@ -31,7 +31,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items2" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items2">{{item}}</li>
       </ul>
       <cube-sticky-ele ele-key="33">
         <ul class="sticky-header">
@@ -39,7 +39,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items3" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items3">{{item}}</li>
       </ul>
     </cube-scroll>
     <template slot="fixed" slot-scope="props">
@@ -108,7 +108,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items">{{item}}</li>
       </ul>
       <cube-sticky-ele>
         <ul class="sticky-header">
@@ -117,7 +117,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items2" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items2">{{item}}</li>
       </ul>
       <cube-sticky-ele>
         <ul class="sticky-header">
@@ -125,7 +125,7 @@
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items3" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items3">{{item}}</li>
       </ul>
     </div>
   </cube-sticky>

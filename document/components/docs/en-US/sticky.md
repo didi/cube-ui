@@ -22,7 +22,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items">{{item}}</li>
       </ul>
       <cube-sticky-ele ele-key="22">
         <ul class="sticky-header">
@@ -31,7 +31,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items2" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items2">{{item}}</li>
       </ul>
       <cube-sticky-ele ele-key="33">
         <ul class="sticky-header">
@@ -39,7 +39,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items3" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items3">{{item}}</li>
       </ul>
     </cube-scroll>
     <template slot="fixed" slot-scope="props">
@@ -106,7 +106,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items">{{item}}</li>
       </ul>
       <cube-sticky-ele>
         <ul class="sticky-header">
@@ -115,7 +115,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items2" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items2">{{item}}</li>
       </ul>
       <cube-sticky-ele>
         <ul class="sticky-header">
@@ -123,7 +123,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         </ul>
       </cube-sticky-ele>
       <ul>
-        <li v-for="item in items3" class="border-top-1px">{{item}}</li>
+        <li v-for="item in items3">{{item}}</li>
       </ul>
     </div>
   </cube-sticky>
