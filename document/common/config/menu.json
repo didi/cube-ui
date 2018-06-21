@@ -61,7 +61,10 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList",
-            "swipe": "Swipe"
+            "swipe": "Swipe",
+            "sticky": "Sticky",
+            "scroll-nav-bar": "ScrollNavBar",
+            "scroll-nav": "ScrollNav"
           }
         }
       }
@@ -138,7 +141,10 @@
             "scroll": "Scroll",
             "slide": "Slide",
             "index-list": "IndexList",
-            "swipe": "Swipe"
+            "swipe": "Swipe",
+            "sticky": "Sticky",
+            "scroll-nav-bar": "ScrollNavBar",
+            "scroll-nav": "ScrollNav"
           }
         }
       }
