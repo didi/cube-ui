@@ -28,6 +28,10 @@
   export default {
     name: COMPONENT_NAME,
     props: {
+      pos: {
+        type: Number,
+        required: true
+      },
       checkTop: {
         type: Boolean,
         default: true
@@ -37,10 +41,6 @@
         default() {
           return this.checkTop ? '' : 'cube-sticky-fixed-fade'
         }
-      },
-      pos: {
-        type: Number,
-        default: 0
       },
       offset: {
         type: Number,
@@ -53,7 +53,7 @@
         heights: [],
         diff: 0,
         currentIndex: -1,
-        currentKey: -1
+        currentKey: ''
       }
     },
     computed: {
@@ -85,7 +85,7 @@
         const oldEle = this.eles[oldIndex]
         const newEle = this.eles[newIndex]
 
-        this.currentKey = (newEle && newEle.eleKey) || newIndex
+        this.currentKey = (newEle && newEle.eleKey !== undefined) ? newEle.eleKey : newIndex === -1 ? '' : newIndex
 
         const fixedEle = this.$refs.fixedEle
         if (this.$slots.fixed || this.$scopedSlots.fixed) {
