@@ -40,40 +40,15 @@
     '眩晕': DATAS.DIZZY_HEROES,
     '治疗': DATAS.HEALER_HEROES
   }
+  const genTabLabels = Object.keys(DATA_MAP).map(label => ({
+    label
+  }))
   export default {
     data () {
       return {
         selectedLabel: '全部',
         scrollData: [],
-        tabs: [{
-          label: '全部'
-        }, {
-          label: '近战'
-        }, {
-          label: '远程'
-        }, {
-          label: '辅助'
-        }, {
-          label: '法师'
-        }, {
-          label: '打野'
-        }, {
-          label: '坦克'
-        }, {
-          label: '隐身'
-        }, {
-          label: '后期'
-        }, {
-          label: '闪烁'
-        }, {
-          label: '爆发'
-        }, {
-          label: '召唤'
-        }, {
-          label: '眩晕'
-        }, {
-          label: '治疗'
-        }]
+        tabs: genTabLabels
       }
     },
     created () {
