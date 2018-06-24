@@ -213,6 +213,11 @@ $drawer-title-bdc := $color-light-grey-ss
 $drawer-title-bgc := $color-white
 $drawer-panel-bgc := $color-white
 $drawer-item-active-bgc := $color-light-grey-opacity
+
+// tab-bar & tab-panel
+$tab-grey := $color-grey
+$tab-light-grey := $color-light-grey
+$tab-active := $color-dark-orange
 ```
 
 ### 配置 webpack
