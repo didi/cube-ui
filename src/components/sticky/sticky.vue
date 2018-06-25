@@ -7,7 +7,7 @@
         v-show="fixedShow"
         class="cube-sticky-fixed">
         <slot name="fixed" :current="currentKey"></slot>
-        </div>
+      </div>
     </transition>
   </div>
 </template>
