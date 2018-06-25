@@ -66,7 +66,7 @@
     computed: {
       indicatorConf() {
         let indicator = this.indicator
-        if (indicator === 'boolean') {
+        if (typeof indicator === 'boolean') {
           indicator = {}
         }
         return Object.assign({}, DEFAULT_INDICATOR, indicator)
