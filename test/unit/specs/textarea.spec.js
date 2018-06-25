@@ -23,6 +23,16 @@ describe('Textarea.vue', () => {
     expect(el.querySelector('textarea'))
       .to.be.ok
   })
+  it('should render correct contents - no indicator', () => {
+    vm = createTextarea('', false)
+    const el = vm.$el
+    expect(el.className)
+      .to.equal('cube-textarea-wrapper')
+    expect(el.querySelector('textarea'))
+      .to.be.ok
+    expect(el.querySelector('.cube-textarea-indicator'))
+      .not.to.be.ok
+  })
   it('should not expand when blur', () => {
     vm = createTextarea()
     expect(vm.$el.offsetHeight)
@@ -49,15 +59,34 @@ describe('Textarea.vue', () => {
     setTimeout(() => {
       expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
         .to.equal('56')
-      done()
+      vm.$parent.value = new Array(61).join('1')
+      setTimeout(() => {
+        expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
+          .to.equal('0')
+        // update maxlength
+        vm.$parent.maxlength = 30
+        vm.$parent.$set(vm.$parent, 'indicator', {
+          negative: false,
+          remain: true
+        })
+        setTimeout(() => {
+          expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
+            .to.equal('0')
+          done()
+        })
+      })
     })
   })
   it('should change value', (done) => {
-    vm = createTextarea(1)
+    vm = createTextarea(1, {
+      remain: false
+    })
     vm.$parent.value = '1234'
     setTimeout(() => {
       expect(vm.$el.querySelector('textarea').value)
         .to.equal('1234')
+      expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
+        .to.equal('4')
       done()
     }, 100)
   })
@@ -81,12 +110,14 @@ describe('Textarea.vue', () => {
   })
 })
 
-function createTextarea (value) {
+function createTextarea (value, indicator = true) {
   const vm = createVue({
     template: `
       <cube-textarea
         :disabled="disabled"
         :readonly="readonly"
+        :indicator="indicator"
+        :maxlength="maxlength"
         v-model="value"
       >
       </cube-textarea>
@@ -94,7 +125,9 @@ function createTextarea (value) {
     data: {
       disabled: false,
       readonly: false,
-      value: value && 'test'
+      maxlength: 60,
+      value: value && 'test',
+      indicator: indicator
     }
   })
   return vm
