@@ -49,8 +49,6 @@
     },
     data() {
       return {
-        positions: [],
-        heights: [],
         diff: 0,
         currentIndex: -1,
         currentKey: ''
@@ -107,6 +105,8 @@
     created() {
       this.fixedEleHeight = 0
       this.eles = []
+      this.positions = []
+      this.heights = []
     },
     mounted() {
       this.refresh()
@@ -168,8 +168,8 @@
         const eles = this.eles
         eles.forEach((ele, i) => {
           const { top, height } = getRect(ele.$el)
-          this.$set(this.positions, i, top)
-          this.$set(this.heights, i, height)
+          this.positions[i] = top
+          this.heights[i] = height
         })
         this.fixedEleHeight = this.$refs.fixedEle.offsetHeight
       }
