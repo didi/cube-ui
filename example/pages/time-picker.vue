@@ -4,6 +4,7 @@
       <cube-button-group>
         <cube-button @click="showTimePicker">TimePicker</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
+        <cube-button @click="showFormatPicker">Config format</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
@@ -43,6 +44,16 @@
           })
         }
         this.configDayPicker.show()
+      },
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
       },
       showSetTimePiker() {
         if (!this.setTimePiker) {

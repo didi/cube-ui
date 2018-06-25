@@ -28,7 +28,7 @@ function pad(value) {
   return ('00' + value).substr(('' + value).length)
 }
 
-function formatDate(date, format, regExpAttributes) {
+function formatDate(date, format, regExpAttributes = 'i') {
   const map = {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
