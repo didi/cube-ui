@@ -18,8 +18,6 @@
     prefixStyle
   } from '../../common/helpers/dom'
 
-  import CubeScroll from '../scroll/scroll.vue'
-
   const COMPONENT_NAME = 'cube-sticky'
   const EVENT_CHANGE = 'change'
 
@@ -173,9 +171,6 @@
         })
         this.fixedEleHeight = this.$refs.fixedEle.offsetHeight
       }
-    },
-    components: {
-      CubeScroll
     }
   }
 </script>
