@@ -1,10 +1,13 @@
 <template>
-  <div class="cube-tab-bar" :class="{'cube-tab-bar_inline': inline}">
+  <div
+    class="cube-tab-bar"
+    :class="{'cube-tab-bar_inline': inline}">
     <slot>
       <cube-tab
         v-for="(item, index) in data"
         :label="item.label"
-        :key="item.label" v-html="item.label">
+        :icon="item.icon"
+        :key="item.label">
       </cube-tab>
     </slot>
     <div v-if="showSlider" ref="slider" class="cube-tab-bar-slider"></div>
@@ -67,15 +70,15 @@
         const index = this.tabs.indexOf(tab)
         if (index > -1) this.tabs.splice(index, 1)
       },
-      trigger (eventType, label) {
-        const treatedEventAsSpecial = [EVENT_INPUT, EVENT_CHANGE]
-        // only when value changed, emit change & input event
-        if (treatedEventAsSpecial.indexOf(eventType) > -1 && label !== this.value) {
-          this.$emit(eventType, label)
-        }
+      trigger (label) {
         // emit click event as long as tab is clicked
-        if (eventType === EVENT_CLICK) {
-          this.$emit(eventType, label)
+        this.$emit(EVENT_CLICK, label)
+        // only when value changed, emit change & input event
+        if (label !== this.value) {
+          const changedEvents = [EVENT_INPUT, EVENT_CHANGE]
+          changedEvents.forEach((eventType) => {
+            this.$emit(eventType, label)
+          })
         }
       },
       _updateSliderStyle () {
@@ -95,7 +98,7 @@
         }
         if (slider) {
           if (this.useTransition) slider.style[TRANSITION] = `all 0.2s linear`
-          slider.style[TRANSFORM] = `translateX(${offset}) translateZ(0px)`
+          slider.style[TRANSFORM] = `translateX(${offset}) translateZ(0)`
         }
       },
       _getSliderWidthAndIndex () {
@@ -133,11 +136,12 @@
     display: flex
     align-items: center
     justify-content: center
-    &.cube-tab-bar_inline
-      .cube-tab
-        display: flex
-        align-content: center
-        justify-content: center
+
+  .cube-tab-bar_inline
+    .cube-tab
+      display: flex
+      align-content: center
+      justify-content: center
 
   .cube-tab-bar-slider
     position: absolute

@@ -1,6 +1,8 @@
 <template>
   <div class="cube-tab-panel">
-    <slot>{{label}}</slot>
+    <slot>
+      <span v-html="label"></span>
+    </slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -18,9 +20,6 @@
       this.$parent.addPanel(this)
     },
     destroyed () {
-      if (this.$el && this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
-      }
       this.$parent.removePanel(this)
     }
   }
@@ -29,5 +28,6 @@
   @require "../../common/stylus/variable.styl"
 
   .cube-tab-panel
-    float: left
+    width: 100%
+    flex: 1 0 auto
 </style>

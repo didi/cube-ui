@@ -37,25 +37,14 @@
       this.panels = []
     },
     mounted () {
-      this._initPanelsWidth()
       this._move(this.value)
     },
     methods: {
-      _initPanelsWidth () {
-        const panelsGroup = this.$refs.panelsGroup
-        const panelWidth = this.$refs.panels.clientWidth
-        let totalWidth = panelWidth * this.panels.length
-        panelsGroup.style.width = `${totalWidth}px`
-        this.panels.forEach((panel) => {
-          panel.$el.style.width = `${panelWidth}px`
-        })
-      },
       _move(label) {
         const curIndex = findIndex(this.panels, panel => panel.label === label)
         const panelsGroup = this.$refs.panelsGroup
-        const panel = this.$refs.panels
-        const distance = -(curIndex * panel.clientWidth)
-        panelsGroup.style[TRANSFORM] = `translateX(${distance}px)`
+        const distance = -(curIndex * 100)
+        panelsGroup.style[TRANSFORM] = `translateX(${distance}%)`
       },
       addPanel (panel) {
         this.panels.push(panel)
@@ -81,6 +70,7 @@
     overflow: hidden
 
   .cube-tab-panels-group
+    display: flex
     transition: all .4s cubic-bezier(.86,0,.07,1)
     &::after
       content: ''

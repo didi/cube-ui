@@ -1,20 +1,18 @@
 <template>
-  <div class="cube-tab"
-       :class="{'cube-tab_active': isActive}"
-       @click="handleClick"
-  >
+  <div
+    class="cube-tab"
+    :class="{'cube-tab_active': isActive}"
+    @click="handleClick">
     <slot name="icon">
       <i :class="icon"></i>
     </slot>
-    <slot>{{label}}</slot>
+    <slot>
+      <span v-html="label"></span>
+    </slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-tab'
-
-  const EVENT_CLICK = 'click'
-  const EVENT_INPUT = 'input'
-  const EVENT_CHANGE = 'change'
 
   export default {
     name: COMPONENT_NAME,
@@ -32,9 +30,6 @@
       this.$parent.addTab(this)
     },
     destroyed () {
-      if (this.$el && this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
-      }
       this.$parent.removeTab(this)
     },
     computed: {
@@ -44,10 +39,7 @@
     },
     methods: {
       handleClick (item) {
-        const eventsStack = [EVENT_INPUT, EVENT_CLICK, EVENT_CHANGE]
-        eventsStack.forEach((event) => {
-          this.$parent.trigger(event, this.label)
-        })
+        this.$parent.trigger(this.label)
       }
     }
   }
@@ -60,8 +52,9 @@
     padding: 7px 0
     color: $tab-color
     text-align: center
-    &.cube-tab_active
-      color: $tab-label-active
     > i
       display: inline-block
+
+  .cube-tab_active
+    color: $tab-active-color
 </style>
