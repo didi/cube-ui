@@ -16,18 +16,18 @@ describe('TabBar', () => {
   it('props', (done) => {
     vm = createVue({
       template: `
-      <cube-tab-bar v-model="selectedLabel" fixed="top" :data="tabs" showSlider>
+      <cube-tab-bar v-model="selectedLabel" :data="tabs" showSlider>
       </cube-tab-bar>
     `,
       data: {
         selectedLabel: '夜魇',
-        tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
+        tabs: [{ label: '天辉', icon: 'cubeic-like' }, { label: '夜魇', icon: 'cubeic-star' }]
       }
     })
     vm.$nextTick(() => {
       expect(vm.$el.querySelectorAll('.cube-tab-bar-slider').length)
         .to.be.equal(1)
-      expect(vm.$el.querySelectorAll('.cube-tab-label')[0].innerText)
+      expect(vm.$el.querySelectorAll('.cube-tab')[0].innerText)
         .to.include('天辉')
       done()
     })
@@ -46,7 +46,7 @@ describe('TabBar', () => {
     `,
       data: {
         selectedLabel: '夜魇',
-        tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
+        tabs: [{ label: '天辉', icon: 'cubeic-like' }, { label: '夜魇', icon: 'cubeic-star' }]
       }
     })
     setTimeout(() => {
@@ -58,51 +58,22 @@ describe('TabBar', () => {
       done()
     }, 300)
   })
-  it('should excute correct transition when tab is clicked', (done) => {
-    vm = createVue({
-      template: `
-      <div class="cube-tabs-container">
-        <cube-tab-bar v-model="selectedLabel">
-          <cube-tab ref="tab" v-for="(item, index) in tabs" :label="item.label" :key="index">
-          {{item.label}}
-          </cube-tab>
-        </cube-tab-bar>
-        <cube-tab-panels v-model="selectedLabel">
-          <cube-tab-panel ref="panel" v-for="(item, index) in tabs" :label="item.label" :key="index">
-          {{item.label}}
-          </cube-tab-panel>
-        </cube-tab-panels>
-      </div>
-    `,
-      data: {
-        selectedLabel: '天辉',
-        tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
-      }
-    })
-    setTimeout(() => {
-      const tab = vm.$parent.$refs.tab[1].$el
-      const containerItem = vm.$parent.$refs.panel[0]
-      tab.click()
-      setTimeout(() => {
-        expect(containerItem.transitionName)
-          .to.be.equal('cube-tab-panel-reverse-transition')
-        done()
-      }, 1000)
-    }, 100)
-  })
   it('should toggle v-model value', () => {
-    vm = createCubeTabBar()
+    vm = createTabBar()
     const items = vm.$el.querySelectorAll('.cube-tab')
     items[1].click()
     expect(vm.$parent.selectedLabel)
       .to.be.equal('夜魇')
   })
-  it('should trigger tab-click event', () => {
-    const tabClickHandler = sinon.spy()
-    vm = createCubeTabBar({ handler: tabClickHandler })
+  it('should trigger click and change event', () => {
+    const clickHandler = sinon.spy()
+    const changeHandler = sinon.spy()
+    vm = createTabBar({ clickHandler, changeHandler })
     const items = vm.$el.querySelectorAll('.cube-tab')
     items[1].click()
-    expect(tabClickHandler)
+    expect(clickHandler)
+      .to.be.calledOnce
+    expect(changeHandler)
       .to.be.calledOnce
   })
   it('should remove child dom when child component destroyed', (done) => {
@@ -135,26 +106,27 @@ describe('TabBar', () => {
       expect(vm.$parent.$el.querySelectorAll('.cube-tab-panel').length)
         .to.be.equal(1)
       done()
-    }, 100)
+    }, 1000)
   })
 })
 
-function createCubeTabBar (options) {
+function createTabBar (options) {
   const vm = createVue({
     template: `
-      <cube-tab-bar v-model="selectedLabel" showSlider @tab-click="handleClick">
+      <cube-tab-bar v-model="selectedLabel" showSlider @click="clickHandler" @change="changeHandler">
         <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index" >
-          <i slot="icon" :class="item.class"></i>
+          <i slot="icon" :class="item.icon"></i>
           {{item.label}}
         </cube-tab>
       </cube-tab-bar>
     `,
     data: {
       selectedLabel: '天辉',
-      tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
+      tabs: [{ label: '天辉', icon: 'cubeic-like' }, { label: '夜魇', icon: 'cubeic-star' }]
     },
     methods: {
-      handleClick: (options && options.handler) || function () {}
+      clickHandler: (options && options.clickHandler) || function () {},
+      changeHandler: (options && options.changeHandler) || function () {}
     }
   })
   return vm
