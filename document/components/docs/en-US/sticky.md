@@ -283,7 +283,7 @@ If `eleKey` is undefined, CubeSticky will get the index of CubeStickyEle as the 
 | Name | Description | Scope Parameters |
 | - | - | - |
 | default | default content | - |
-| fixed | custom sticky content when the sticky element is fixed | current: key of the fixed sticky element |
+| fixed | custom sticky content when the sticky element is fixed | current: key of the fixed sticky element<br>index: index of the sticky element(index is not reactive) |
 
 ### Events
 
