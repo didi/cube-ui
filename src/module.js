@@ -5,6 +5,8 @@ import Button from './modules/button'
 import Loading from './modules/loading'
 import Tip from './modules/tip'
 import Toolbar from './modules/toolbar'
+import TabBar from './modules/tab-bar'
+import TabPanels from './modules/tab-panels'
 
 // Form
 import Checkbox from './modules/checkbox'
@@ -41,10 +43,6 @@ import Swipe from './modules/swipe'
 import BetterScroll from './modules/better-scroll'
 import createAPI from './modules/create-api'
 
-// tabs
-import TabBar from './modules/tab-bar'
-import TabPanels from './modules/tab-panels'
-
 const FormGroup = Form.Group
 const FormItem = Form.Item
 const SlideItem = Slide.Item
@@ -52,8 +50,8 @@ const Radio = RadioGroup.Radio
 const SwipeItem = Swipe.Item
 const DrawerPanel = Drawer.Panel
 const DrawerItem = Drawer.Item
-const Tab = TabBar.Item
-const TabPanel = TabPanels.Item
+const Tab = TabBar.Tab
+const TabPanel = TabPanels.Panel
 
 export {
   // style
@@ -63,6 +61,10 @@ export {
   Loading,
   Tip,
   Toolbar,
+  TabBar,
+  Tab,
+  TabPanels,
+  TabPanel,
   // form
   Checkbox,
   CheckboxGroup,
@@ -100,10 +102,5 @@ export {
   Swipe,
   // module
   BetterScroll,
-  createAPI,
-  // tabs
-  TabBar,
-  Tab,
-  TabPanels,
-  TabPanel
+  createAPI
 }

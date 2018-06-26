@@ -5,6 +5,6 @@ TabBar.install = function (Vue) {
   Vue.component(Tab.name, Tab)
 }
 
-TabBar.Item = Tab
+TabBar.Tab = Tab
 
 export default TabBar

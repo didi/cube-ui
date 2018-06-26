@@ -1,23 +1,20 @@
 <template>
   <div class="cube-tab"
-       :class="{ active: isActive, inline: $parent.inline }"
+       :class="{'cube-tab_active': isActive}"
        @click="handleClick"
   >
-    <div v-if="$slots.icon"
-         class="cube-tab-icon"
-         :class="{'add-margin-bottom' : $slots.default && !$parent.inline}">
-      <slot name="icon"></slot>
-    </div>
-    <div class="cube-tab-label">
-      <slot></slot>
-    </div>
+    <slot name="icon">
+      <i :class="icon"></i>
+    </slot>
+    <slot>{{label}}</slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-tab'
 
+  const EVENT_CLICK = 'click'
   const EVENT_INPUT = 'input'
-  const EVENT_CLICK = 'tab-click'
+  const EVENT_CHANGE = 'change'
 
   export default {
     name: COMPONENT_NAME,
@@ -25,6 +22,10 @@
       label: {
         type: [String, Number],
         required: true
+      },
+      icon: {
+        type: String,
+        value: ''
       }
     },
     mounted () {
@@ -38,14 +39,14 @@
     },
     computed: {
       isActive () {
-        return this.$parent.value !== undefined && this.$parent.value === this.label
+        return this.$parent.value === this.label
       }
     },
     methods: {
-      handleClick () {
-        const eventsStack = [EVENT_INPUT, EVENT_CLICK]
+      handleClick (item) {
+        const eventsStack = [EVENT_INPUT, EVENT_CLICK, EVENT_CHANGE]
         eventsStack.forEach((event) => {
-          this.$parent.$emit(event, this.label)
+          this.$parent.trigger(event, this.label)
         })
       }
     }
@@ -53,23 +54,14 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
-  @require "../../common/stylus/mixin.styl"
+
   .cube-tab
     flex: 1
     padding: 7px 0
-    font-size: 100%
-    color: $tab-grey
+    color: $tab-color
     text-align: center
-    &.inline
-      display: flex
-      align-content: center
-      justify-content: center
-    &.active
-      color: $tab-active
-    .cube-tab-icon
-      &.add-margin-bottom
-        margin-bottom: 2px
-      > i
-        display: inline-block
-        font-size 100%
+    &.cube-tab_active
+      color: $tab-label-active
+    > i
+      display: inline-block
 </style>

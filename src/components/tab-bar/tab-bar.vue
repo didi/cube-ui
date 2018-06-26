@@ -1,15 +1,13 @@
 <template>
-  <div class="cube-tab-bar" :class="resolveFixedCls">
+  <div class="cube-tab-bar" :class="{'cube-tab-bar_inline': inline}">
     <slot>
       <cube-tab
-        ref="tab"
         v-for="(item, index) in data"
         :label="item.label"
-        :key="index">
-        {{item.label}}
+        :key="item.label" v-html="item.label">
       </cube-tab>
     </slot>
-    <div v-if='showSlider' ref="slider" class="cube-tab-bar-slider"></div>
+    <div v-if="showSlider" ref="slider" class="cube-tab-bar-slider"></div>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -19,6 +17,10 @@
 
   const COMPONENT_NAME = 'cube-tab-bar'
 
+  const EVENT_INPUT = 'input'
+  const EVENT_CHANGE = 'change'
+  const EVENT_CLICK = 'click'
+
   const TRANSFORM = prefixStyle('transform')
   const TRANSITION = prefixStyle('transition')
 
@@ -27,24 +29,16 @@
     components: {
       CubeTab
     },
-    data () {
-      return {
-        tabs: []
-      }
-    },
     props: {
       value: {
-        type: [String, Number]
+        type: [String, Number],
+        required: true
       },
       data: {
         type: Array,
         default () {
           return []
         }
-      },
-      fixed: {
-        type: String,
-        default: ''
       },
       inline: {
         type: Boolean,
@@ -59,22 +53,30 @@
         default: true
       }
     },
-    computed: {
-      resolveFixedCls () {
-        if (!this.fixed) return ''
-        return `is-fixed-${this.fixed}`
-      }
+    created () {
+      this.tabs = []
     },
     mounted () {
       this._updateSliderStyle()
     },
     methods: {
-      addTab (childVm) {
-        this.tabs.push(childVm)
+      addTab (tab) {
+        this.tabs.push(tab)
       },
-      removeTab (childVm) {
-        const index = this.tabs.indexOf(childVm)
+      removeTab (tab) {
+        const index = this.tabs.indexOf(tab)
         if (index > -1) this.tabs.splice(index, 1)
+      },
+      trigger (eventType, label) {
+        const treatedEventAsSpecial = [EVENT_INPUT, EVENT_CHANGE]
+        // only when value changed, emit change & input event
+        if (treatedEventAsSpecial.indexOf(eventType) > -1 && label !== this.value) {
+          this.$emit(eventType, label)
+        }
+        // emit click event as long as tab is clicked
+        if (eventType === EVENT_CLICK) {
+          this.$emit(eventType, label)
+        }
       },
       _updateSliderStyle () {
         /* istanbul ignore if */
@@ -131,19 +133,11 @@
     display: flex
     align-items: center
     justify-content: center
-    font-size: 100%
-    &.is-fixed-top
-      position: fixed
-      top: 0
-      right: 0
-      left: 0
-      z-index: 99
-    &.is-fixed-bottom
-      position: fixed
-      bottom: 0
-      right: 0
-      left: 0
-      z-index: 99
+    &.cube-tab-bar_inline
+      .cube-tab
+        display: flex
+        align-content: center
+        justify-content: center
 
   .cube-tab-bar-slider
     position: absolute
@@ -151,7 +145,5 @@
     bottom: 0
     height: 2px
     width: 20px
-    background-color: $color-dark-orange
-
-
+    background-color: $tab-slider-bgc
 </style>

@@ -1,23 +1,24 @@
 <template>
-  <div class="cube-tab-panels">
-    <slot>
-      <cube-tab-panel
-        ref="panel"
-        v-for="(item, index) in data"
-        :label="item.label"
-        :key="index">
-        {{item.label}}
-      </cube-tab-panel>
-    </slot>
+  <div class="cube-tab-panels" ref="panels">
+    <div class="cube-tab-panels-group" ref="panelsGroup">
+      <slot>
+        <cube-tab-panel
+          v-for="(item, index) in data"
+          :label="item.label"
+          :key="item.label">
+        </cube-tab-panel>
+      </slot>
+    </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import TabPanel from './tab-panel.vue'
+  import { findIndex } from '../../common/helpers/util'
+  import { prefixStyle } from '../../common/helpers/dom'
+
+  const TRANSFORM = prefixStyle('transform')
 
   const COMPONENT_NAME = 'cube-tab-panels'
-
-  const TRANSITION_NAME = 'cube-tab-panel-transition'
-  const TRANSITION_REVERSE_NAME = 'cube-tab-panel-reverse-transition'
 
   export default {
     name: COMPONENT_NAME,
@@ -32,46 +33,41 @@
         }
       }
     },
-    data () {
-      return {
-        panels: []
-      }
+    created () {
+      this.panels = []
+    },
+    mounted () {
+      this._initPanelsWidth()
+      this._move(this.value)
     },
     methods: {
-      addPanel (childVm) {
-        this.panels.push(childVm)
-      },
-      removePanel (childVm) {
-        const index = this.panels.indexOf(childVm)
-        if (index > -1) this.panels.splice(index, 1)
-      },
-      _collectLabels () {
-        let labels = []
-        if (this.panels.length > 0) {
-          labels = this.panels.map(panel => panel.label)
-        }
-        return labels
-      },
-      _compare (former, latter) {
-        return former > latter
-      },
-      _setTransitionName (transitionName) {
+      _initPanelsWidth () {
+        const panelsGroup = this.$refs.panelsGroup
+        const panelWidth = this.$refs.panels.clientWidth
+        let totalWidth = panelWidth * this.panels.length
+        panelsGroup.style.width = `${totalWidth}px`
         this.panels.forEach((panel) => {
-          panel.transitionName = transitionName
+          panel.$el.style.width = `${panelWidth}px`
         })
+      },
+      _move(label) {
+        const curIndex = findIndex(this.panels, panel => panel.label === label)
+        const panelsGroup = this.$refs.panelsGroup
+        const panel = this.$refs.panels
+        const distance = -(curIndex * panel.clientWidth)
+        panelsGroup.style[TRANSFORM] = `translateX(${distance}px)`
+      },
+      addPanel (panel) {
+        this.panels.push(panel)
+      },
+      removePanel (panel) {
+        const index = this.panels.indexOf(panel)
+        if (index > -1) this.panels.splice(index, 1)
       }
     },
     watch: {
-      value (newV, oldV) {
-        const labels = this._collectLabels()
-        /* istanbul ignore if */
-        if (!labels.length) return
-        const newIndex = labels.indexOf(newV)
-        const oldIndex = labels.indexOf(oldV)
-        this.$nextTick(() => {
-          const transitionName = this._compare(newIndex, oldIndex) ? TRANSITION_REVERSE_NAME : TRANSITION_NAME
-          this._setTransitionName(transitionName)
-        })
+      value (newV) {
+        this._move(newV)
       }
     },
     components: { TabPanel }
@@ -79,9 +75,15 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+
   .cube-tab-panels
     position: relative
     overflow: hidden
-    font-size: 100%
-    color: $tab-light-grey
+
+  .cube-tab-panels-group
+    transition: all .4s cubic-bezier(.86,0,.07,1)
+    &::after
+      content: ''
+      display: block
+      clear: both
 </style>

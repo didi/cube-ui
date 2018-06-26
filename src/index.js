@@ -50,6 +50,8 @@ const components = [
   Loading,
   Tip,
   Toolbar,
+  TabBar,
+  TabPanels,
   // form
   Checkbox,
   CheckboxGroup,
@@ -78,10 +80,7 @@ const components = [
   Scroll,
   Slide,
   IndexList,
-  Swipe,
-  // tabs
-  TabBar,
-  TabPanels
+  Swipe
 ]
 
 function install(Vue) {

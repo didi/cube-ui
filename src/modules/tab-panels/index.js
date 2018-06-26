@@ -6,6 +6,6 @@ TabPanels.install = function (Vue) {
   Vue.component(TabPanel.name, TabPanel)
 }
 
-TabPanels.Item = TabPanel
+TabPanels.Panel = TabPanel
 
 export default TabPanels
