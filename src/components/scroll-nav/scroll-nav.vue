@@ -59,6 +59,10 @@
       data: {
         type: Array
       },
+      speed: {
+        type: Number,
+        default: 300
+      },
       sideStyle: {
         type: Boolean,
         default: false
@@ -132,7 +136,7 @@
           this.jumpTo(label)
         })
       },
-      jumpTo(label, time = 300) {
+      jumpTo(label) {
         if (!label) {
           return
         }
@@ -140,7 +144,7 @@
         if (labelEl) {
           this._jumping = true
           const offset = this.pageStickyOffset
-          this.$refs.scroll.scrollToElement(labelEl, time, 0, this.sideStyle ? (offset + 1) : (-offset + 1))
+          this.$refs.scroll.scrollToElement(labelEl, this.speed, 0, this.sideStyle ? (offset + 0.5) : (-offset + 0.5))
         }
       },
       pageStickyChangeHandler(current) {
