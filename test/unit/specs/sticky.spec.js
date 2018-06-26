@@ -45,6 +45,8 @@ describe('Sticky', () => {
           .to.equal(0)
         expect(vm.currentKey)
           .to.equal(0)
+        expect(vm.currentDiff)
+          .to.equal(250)
         const fixed = vm.$el.querySelector('.cube-sticky-fixed')
         expect(fixed.style.display)
           .not.equal('none')
@@ -56,12 +58,16 @@ describe('Sticky', () => {
             .to.equal(1)
           expect(vm.currentKey)
             .to.equal('2')
+          expect(vm.currentDiff)
+            .to.equal(20)
           vm.$parent.scrollTo(0)
           setTimeout(() => {
             expect(vm.currentIndex)
               .to.equal(-1)
             expect(vm.currentKey)
               .to.equal('')
+            expect(vm.currentDiff)
+              .to.equal(0)
             done()
           })
         })
@@ -88,6 +94,8 @@ describe('Sticky', () => {
           .to.equal(0)
         expect(vm.currentKey)
           .to.equal(0)
+        expect(vm.currentDiff)
+          .to.equal(220)
         const fixed = vm.$el.querySelector('.cube-sticky-fixed')
         expect(fixed.style.display)
           .not.equal('none')
@@ -99,12 +107,16 @@ describe('Sticky', () => {
             .to.equal(2)
           expect(vm.currentKey)
             .to.equal('3')
+          expect(vm.currentDiff)
+            .to.equal(10)
           vm.$parent.scrollTo(0)
           setTimeout(() => {
             expect(vm.currentIndex)
               .to.equal(-1)
             expect(vm.currentKey)
               .to.equal('')
+            expect(vm.currentDiff)
+              .to.equal(0)
             done()
           })
         })
@@ -114,8 +126,10 @@ describe('Sticky', () => {
 
   it('should trigger events', (done) => {
     const changeHandler = sinon.spy()
+    const onDiffChange = sinon.spy()
     vm = createSticky(undefined, {
-      onChange: changeHandler
+      onChange: changeHandler,
+      onDiffChange: onDiffChange
     })
     setTimeout(() => {
       vm.$parent.scrollTo(280)
@@ -124,12 +138,16 @@ describe('Sticky', () => {
           .to.be.calledOnce
         expect(changeHandler)
           .to.be.calledWith(0)
+        expect(onDiffChange)
+          .to.be.calledOnce
         vm.$parent.scrollTo(500)
         setTimeout(() => {
           expect(changeHandler)
             .to.be.calledTwice
           expect(changeHandler)
             .to.be.calledWith('2')
+          expect(onDiffChange)
+            .to.be.calledTwice
           done()
         })
       })
@@ -156,7 +174,11 @@ describe('Sticky', () => {
     return createVue({
       template: `
         <div style="height:400px;font-size:30px;">
-          <cube-sticky :pos="scrollY" :check-top="checkTop" @change="changeHandler">
+          <cube-sticky
+            :pos="scrollY"
+            :check-top="checkTop"
+            @change="changeHandler"
+            @diff-change="diffChangeHandler">
             <div
               ref="scroller"
               style="height:100%;overflow:auto;"
@@ -202,8 +224,11 @@ describe('Sticky', () => {
         items3: _data.concat()
       },
       methods: {
-        changeHandler(cur) {
-          events.onChange && events.onChange.call(this, cur)
+        changeHandler(key, index) {
+          events.onChange && events.onChange.call(this, key, index)
+        },
+        diffChangeHandler(diff, height) {
+          events.onDiffChange && events.onDiffChange.call(this, diff, height)
         },
         scrollHandler(e) {
           this.scrollY = e.currentTarget.scrollTop
