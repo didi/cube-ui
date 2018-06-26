@@ -1,7 +1,6 @@
 <template>
   <div class="cube-tab-panel">
     <slot>
-      <span v-html="label"></span>
     </slot>
   </div>
 </template>

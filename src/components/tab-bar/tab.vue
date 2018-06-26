@@ -23,7 +23,7 @@
       },
       icon: {
         type: String,
-        value: ''
+        default: ''
       }
     },
     mounted () {

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="cube-tab-bar"
-    :class="{'cube-tab-bar_inline': inline}">
+  <div class="cube-tab-bar" :class="{'cube-tab-bar_inline': inline}">
     <slot>
       <cube-tab
         v-for="(item, index) in data"
