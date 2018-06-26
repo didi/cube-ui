@@ -3,44 +3,43 @@
     <div slot="content">
       <!-- default -->
       <div class="section">
-        <cube-tab-bar v-model="selectedLabelDefault"
-                      :data="tabs"
-                      showSlider
-                      @click="clickHandler"
-                      @change="changeHandler"
-        >
+        <cube-tab-bar
+          v-model="selectedLabelDefault"
+          :data="tabs"
+          showSlider
+          @click="clickHandler"
+          @change="changeHandler">
         </cube-tab-bar>
       </div>
       <!-- showSlider -->
       <div class="section">
-        <cube-tab-bar v-model="selectedLabelSlots"
-                      showSlider
-                      @click="clickHandler"
-                      @change="changeHandler"
-        >
+        <cube-tab-bar
+          v-model="selectedLabelSlots"
+          showSlider
+          @click="clickHandler"
+          @change="changeHandler">
           <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
           </cube-tab>
         </cube-tab-bar>
       </div>
       <!-- inline -->
       <div class="section">
-        <cube-tab-bar v-model="selectedLabelInline"
-                      showSlider
-                      inline
-                      @click="clickHandler"
-                      @change="changeHandler"
-        >
+        <cube-tab-bar
+          v-model="selectedLabelInline"
+          showSlider
+          inline
+          @click="clickHandler"
+          @change="changeHandler">
           <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
           </cube-tab>
         </cube-tab-bar>
       </div>
       <!-- icon-slot-->
       <div class="section">
-        <cube-tab-bar v-model="selectedLabelSlotsOnly"
-                      @click="clickHandler">
+        <cube-tab-bar v-model="selectedLabelSlotsOnly" @click="clickHandler">
           <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
             <i slot="icon" :class="item.icon"></i>
-            <!-- use en empty tag to replace default slot-->
+            <!-- use en empty tag to replace default slot -->
             <span></span>
           </cube-tab>
         </cube-tab-bar>
@@ -102,7 +101,7 @@
       .group
         margin-bottom: 15px
       .item
-        height: 52px!important
+        height: 52px
         border: 1px solid rgba(0, 0, 0, .1)
         background-color: white
         border-radius: 5px
