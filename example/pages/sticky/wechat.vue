@@ -5,7 +5,8 @@
         <cube-sticky
           :pos="scrollY"
           :check-top="checkTop"
-          fixed-show-ani="sticky-fixed-show">
+          fixed-show-ani="sticky-fixed-show"
+          @diff-change="diffChange">
           <cube-scroll
             :scroll-events="scrollEvents"
             @scroll="scrollHandler">
@@ -25,7 +26,7 @@
               <li v-for="item in items3">{{item}}</li>
             </ul>
           </cube-scroll>
-          <ul class="sticky-header" slot="fixed">
+          <ul class="sticky-header" slot="fixed" ref="stickyHeader">
             <li>header</li>
           </ul>
         </cube-sticky>
@@ -68,6 +69,13 @@
     methods: {
       scrollHandler({ y }) {
         this.scrollY = -y
+      },
+      diffChange(diff, height) {
+        let opacity = 0
+        if (height) {
+          opacity = diff / height
+        }
+        this.$refs.stickyHeader.style.opacity = opacity
       }
     },
     components: {
@@ -92,8 +100,8 @@
         padding: 20px 10px
       .sticky-header
         color: #fff
-        visibility: hidden
-        background-color: #666
+        opacity: 0
+        background-color: rgba(0, 0, 0, .6)
       .cube-sticky
         .cube-scroll-wrapper
           background-color: #fff
@@ -104,12 +112,7 @@
       .cube-sticky-ele
         margin-top: -60px
         margin-bottom: 4px
-      .cube-sticky-fixed
-        .sticky-header
-          visibility: visible
-          background-color: rgba(0, 0, 0, .6)
       .sticky-fixed-show-enter, .sticky-fixed-show-leave-active
-        opacity: 0
         transform: translate(0, -100%)
       .sticky-fixed-show-enter-active, .sticky-fixed-show-leave-active
         transition: all .5s ease-in-out
