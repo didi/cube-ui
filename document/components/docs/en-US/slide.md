@@ -183,8 +183,7 @@
         }
       },
       methods: {
-        scroll (pos) {
-          const {x, y} = pos
+        scroll ({x, y}) {
           console.log(x, y)
         }
       }
@@ -219,8 +218,8 @@
 | Event Name | Description | Parameters |
 | - | - | - |
 | change | triggered when current slide changes | index of current slide |
-| scroll-end<sup>1.9.0</sup> | triggered when scroll end. | index of current slide |
 | scroll<sup>1.10.0</sup> | triggered when slide is scrolling | Object {x, y} - scroll position |
+| scroll-end<sup>1.9.0</sup> | triggered when scroll end. | index of current slide |
 
 
 ### Instance methods

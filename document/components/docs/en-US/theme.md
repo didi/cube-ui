@@ -216,7 +216,7 @@ $drawer-item-active-bgc := $color-light-grey-opacity
 
 // tab-bar & tab-panel
 $tab-color := $color-grey
-$tab-label-active := $color-dark-orange
+$tab-active-color := $color-dark-orange
 $tab-slider-bgc := $color-dark-orange
 ```
 

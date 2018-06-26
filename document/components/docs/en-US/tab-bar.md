@@ -8,7 +8,7 @@ Implementing the function of tab switching.
 
 The following demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/tab-bar).
 
-### cube-tab-bar
+### CubeTabBar
 
 `cube-tab-bar` supports click highlighting, underscore follow-up effects, and custom slots for icon-label-like app-navigation styles.
 
@@ -58,8 +58,7 @@ and it will dispatch `click` and `change` event at the proper time. The paramete
 
 - Custom slot
 
-  In fact, we always want to display icons and text effects which looks like app navigation styles, so the `cube-tab-bar` component also supports the use of slot.
-Note that you must use the `cube-tab` component as a sub-component of the first level to wrap your custom slot.
+  In fact, we always want to display icons and text effects which looks like app navigation styles, so the `cube-tab-bar` component also supports the use of slot.Note that you must use the `cube-tab` component as a sub-component of the first level to wrap your custom slot.
 
   ```html
   <template>
@@ -107,7 +106,7 @@ Note that you must use the `cube-tab` component as a sub-component of the first 
   ```
   At the same time, `cube-tab-bar` also supports other configurations, `showSlider` controls whether to turn on the effect of underscore, `inline` to determine whether the icon and label are in a line, `useTransition` controls whether the underscore use transition, as shown in the sample code.
 
-### cube-tab-bar&cube-tab-panels
+### CubeTabBar&CubeTabPanels
 
 Usually, our requirement is to display different panel as tabs are switched, so we need to use the `cube-tab-panels` component. `cube-tab-panels` must be nested with `cube-tab-panel`. The label values passed to `cube-tab` and `cube-tab-panel` must be the same, because it is necessary to create the relationship between tab with panel. They are linked by the same `v-model`.To see the effect, click on the `tab-basic` demo on the right
 
@@ -154,7 +153,7 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
 ### Props
 
-- `cube-tab-bar`
+- CubeTabBar
 
   | Attribute | Description | Type | Demo | Default |
   | - | - | - | - | - |
@@ -164,20 +163,20 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
   | inline | Whether text and icons are displayed on one line | Boolean | true/false | false |
   | useTransition | Whether to use transition | Boolean | true/false | true |
 
-- `cube-tab`
+- CubeTab
 
   | Attribute | Description | Type | Needed | Default |
   | - | - | - | - | - |
   | label | Use it to determine which tab is clicked | String/Number | yes | - |
 
-- `cube-tab-panels`
+- CubeTabPanels
 
   | Attribute | Description | Type | Demo | Default |
   | - | - | - | - | - |
   | value | Use v-model to display the corresponding panels at initialization | String/Number | - | - |
   | data | For data rendered with `cube-tab-panels`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label`.  If a custom slot is used, this value may not be passed. | Array | [{label: 1}, {label: 2}] | [] |
 
-- `cube-tab-panel`
+- CubeTabPanel
 
   | Attribute | Description | Type | Needed | Default |
   | - | - | - | - | - |
@@ -185,7 +184,7 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
 ### Slot
 
-- `cube-tab`
+- CubeTab
 
   | Attribute | Description |
   | - | - |
@@ -194,16 +193,16 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
 ### Events
 
-- `cube-tab-bar`
+- CubeTabBar
 
   | Event Name | Description | parameter |
   | - | - | - | - |
   | click | Dispatched when the tab is clicked | The label value of the tab which is selected |
-  | change | Dispatched when different tab is clicked | The label value of the tab which is selected |
+  | change | Dispatched when tab changed | The label value of the tab which is selected |
 
 ### Instance methods
 
-- `cube-tab-bar`
+- CubeTabBar
 
   This method works when the instance's `showSlider` property is set to true.
 

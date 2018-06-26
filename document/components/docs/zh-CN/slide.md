@@ -166,8 +166,7 @@
         }
       },
       methods: {
-        scroll (pos) {
-          const {x, y} = pos
+        scroll ({x, y}) {
           console.log(x, y)
         }
       }
@@ -203,8 +202,8 @@
 | 事件名 | 说明 | 参数 |
 | - | - | - |
 | change | Slide 页面切换时触发 | 当前页面的索引值 |
-| scroll-end<sup>1.9.0</sup> | 在滚动结束时触发 | 当前页面的索引值 |
 | scroll<sup>1.10.0</sup> | 滚动中实时派发 | Object {x, y} -滚动位置的坐标值 |
+| scroll-end<sup>1.9.0</sup> | 在滚动结束时触发 | 当前页面的索引值 |
 
 ### 实例方法
 

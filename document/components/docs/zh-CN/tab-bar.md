@@ -8,7 +8,7 @@
 
 如下示例相关代码在[这里](https://github.com/didi/cube-ui/tree/master/example/pages/tab-bar)
 
-### cube-tab-bar组件
+### CubeTabBar
 
 支持默认的点击高亮效果，又支持下划线跟随的效果，并且支持自定义的插槽，实现icon与label搭配的类似于app底部选项卡的样式
 
@@ -106,7 +106,7 @@
   ```
   同时还支持一些配置项,`showSlider`控制是否开启下划线跟随的效果，`inline`来决定icon与label是否处于一行，`useTransition`控制下划线是否使用transition过渡，如示例代码所示。
 
-### cube-tab-bar&cube-tab-panels
+### CubeTabBar&CubeTabPanels
 
 往往我们的需求是随着tab的切换显示不同的容器，这个时候需要搭配`cube-tab-panels`组件。`cube-tab-panels`必须嵌套`cube-tab-panel`.传入`cube-tab`与`cube-tab-panel`的label值必须一致，因为需要建立一个tab对应一个panel的关系。他们通过相同的`v-model`联动。查看效果可点击右边的`tab-basic`示例。
 
@@ -151,7 +151,7 @@ export default {
 
 ### Props 配置
 
-- `cube-tab-bar` 配置
+- CubeTabBar
 
   | 参数 | 说明 | 类型 | 示例 | 默认值 |
   | - | - | - | - | - |
@@ -161,28 +161,28 @@ export default {
   | inline | 文字与图标是否显示在一行 | Boolean | true/false | false |
   | useTransition | 是否开启transition过渡 | Boolean | true/false | true |
 
-- `cube-tab` 配置
+- CubeTab
 
   | 参数 | 说明 | 类型 | 是否必传 | 默认值 |
   | - | - | - | - | - |
   | label | 用于判断哪个tab点击从而高亮 | String/Number | 是 | - |
 
-- `cube-tab-panels` 配置
+- CubeTabPanels
 
   | 参数 | 说明 | 类型 | 示例 | 默认值 |
   | - | - | - | - | - |
   | value | 使用v-model，初始化时显示对应的panels | String/Number | - | - |
   | data | 用于 `cube-tab-panels` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`，如果使用自定义插槽，可不传此值。 | Array | [{label: 1}, {label: 2}] | [] |
 
-- `cube-tab-panel` 配置
+- CubeTabBar
 
   | 参数 | 说明 | 类型 | 是否必传 | 默认值 |
   | - | - | - | - | - |
-  | label | 用于判断panel被显示 | String/Number | 是 | - |
+  | label | 用于显示panel | String/Number | 是 | - |
 
 ### 插槽
 
-- `cube-tab`组件
+- CubeTab
 
   | 名称 | 说明 |
   | - | - |
@@ -191,7 +191,7 @@ export default {
 
 ### 事件
 
-- `cube-tab-bar` 事件
+- CubeTabBar
 
   | 事件名 | 说明 | 参数1 |
   | - | - | - | - |
@@ -200,7 +200,7 @@ export default {
 
 ### 实例方法
 
-- `cube-tab-bar` 实例方法
+- CubeTabBar
 
   当该实例的`showSlider`属性设置为true，该方法才有效。
 
