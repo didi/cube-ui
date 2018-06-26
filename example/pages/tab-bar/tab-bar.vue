@@ -6,17 +6,19 @@
         <cube-tab-bar v-model="selectedLabelDefault"
                       :data="tabs"
                       showSlider
-                      @tab-click="handleClick">
+                      @click="clickHandler"
+                      @change="changeHandler"
+        >
         </cube-tab-bar>
       </div>
       <!-- showSlider -->
       <div class="section">
         <cube-tab-bar v-model="selectedLabelSlots"
                       showSlider
-                      @tab-click="handleClick">
-          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
-            <i slot="icon" :class="item.class"></i>
-            {{item.label}}
+                      @click="clickHandler"
+                      @change="changeHandler"
+        >
+          <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
           </cube-tab>
         </cube-tab-bar>
       </div>
@@ -25,21 +27,21 @@
         <cube-tab-bar v-model="selectedLabelInline"
                       showSlider
                       inline
-                      @tab-click="handleClick">
-          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
-            <i slot="icon" :class="item.class"></i>
-            {{item.label}}
+                      @click="clickHandler"
+                      @change="changeHandler"
+        >
+          <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
           </cube-tab>
         </cube-tab-bar>
       </div>
-      <!-- fix bottom-->
+      <!-- icon-slot-->
       <div class="section">
         <cube-tab-bar v-model="selectedLabelSlotsOnly"
-                      fixed="bottom"
-                      inline
-                      @tab-click="handleClick">
-          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index">
-            <i slot="icon" :class="item.class"></i>
+                      @click="clickHandler">
+          <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
+            <i slot="icon" :class="item.icon"></i>
+            <!-- use en empty tag to replace default slot-->
+            <span></span>
           </cube-tab>
         </cube-tab-bar>
       </div>
@@ -59,22 +61,25 @@
         selectedLabelSlotsOnly: 'Home',
         tabs: [{
           label: 'Home',
-          class: 'cubeic-home'
+          icon: 'cubeic-home'
         }, {
           label: 'Like',
-          class: 'cubeic-like'
+          icon: 'cubeic-like'
         }, {
           label: 'Vip',
-          class: 'cubeic-vip'
+          icon: 'cubeic-vip'
         }, {
           label: 'Me',
-          class: 'cubeic-person'
+          icon: 'cubeic-person'
         }]
       }
     },
     methods: {
-      handleClick (label) {
+      clickHandler (label) {
         console.log('tab was clicked', label)
+      },
+      changeHandler (label) {
+        console.log('value has changed, now is', label)
       }
     },
     components: {
@@ -91,8 +96,8 @@
   @import "~@/common/stylus/variable.styl"
   .tab-bar-view
     .section
-      margin-bottom 10px
-      background-color white
+      margin-bottom: 10px
+      background-color: white
     .option-list
       .group
         margin-bottom: 15px
@@ -102,5 +107,5 @@
         background-color: white
         border-radius: 5px
     .cube-tab-bar
-      background-color white
+      background-color: white
 </style>

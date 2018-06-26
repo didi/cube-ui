@@ -3,7 +3,7 @@
     <div slot="content">
       <div class="left-panel">
         <cube-scroll>
-          <cube-tab-bar v-model="selectedLabel" :data="tabs" @tab-click="clickHandler"></cube-tab-bar>
+          <cube-tab-bar v-model="selectedLabel" :data="tabs" @change="changeHandler"></cube-tab-bar>
         </cube-scroll>
       </div>
       <div class="right-panel">
@@ -55,7 +55,7 @@
       this.scrollData = DATA_MAP[this.selectedLabel]
     },
     methods: {
-      clickHandler (label) {
+      changeHandler (label) {
         this.scrollData = DATA_MAP[label]
         this.$nextTick(() => {
           // reset better-scroll'postion
@@ -87,9 +87,9 @@
         font-size: 14px
         color: #db8931
         transition all .3s ease-in
-        &.active
-          color #fff
-          font-size 16px
+        &.cube-tab_active
+          color: #fff
+          font-size: 16px
           background-color: #a74b00
 
   .left-panel
@@ -108,13 +108,13 @@
     bottom: 0
     background-color: #171819
     li
-      height 80px
-      display flex
-      align-items center
-      background-color #171819
+      height: 80px
+      display: flex
+      align-items: center
+      background-color: #171819
       img
-        width 102px
-        margin 0 10px
+        width: 102px
+        margin: 0 10px
         border: 1px solid #ff9f38
         border-radius: 3px
         box-shadow: 0 1px 5px 0 #000

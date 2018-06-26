@@ -10,12 +10,10 @@
       <div class="slide-container">
         <cube-slide
           ref="slide"
-          :threshold="threshold"
           :loop="loop"
           :initial-index="initialIndex"
           :auto-play="autoPlay"
           :show-dots="showDots"
-          :speed="speed"
           :options="options"
           @scroll="scroll"
           @change="changePage"
@@ -72,6 +70,7 @@
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
   import { FOLLOWERS_DATA, RECOMMEND_DATA, HOT_DATA } from '../../data/tab-bar'
+  import { findIndex } from '../../../src/common/helpers/util'
 
   export default {
     data () {
@@ -85,8 +84,6 @@
         }, {
           label: '热榜'
         }],
-        threshold: 0.3,
-        speed: 400,
         loop: false,
         autoPlay: false,
         showDots: false,
@@ -121,7 +118,7 @@
     computed: {
       initialIndex () {
         let index = 0
-        index = this.tabLabels.findIndex(item => item.label === this.selectedLabel)
+        index = findIndex(this.tabLabels, item => item.label === this.selectedLabel)
         return index
       }
     },
@@ -136,65 +133,66 @@
     &.tab-composite-view
       > .wrapper
         > .content
-          margin 0
+          margin: 0
+
   .tab-composite-view
     .cube-tab-bar
-      background-color white
+      background-color: white
     .cube-tab
-      &.active
-        color black!important
+      &.cube-tab_active
+        color: black !important
     .cube-tab-bar-slider
-        background-color black!important
+      background-color: black !important
 
     .slide-container
-      position fixed
-      top 74px
-      left 0
-      right 0
-      bottom 0
+      position: fixed
+      top: 74px
+      left: 0
+      right: 0
+      bottom: 0
 
     .list-wrapper
-      overflow hidden
+      overflow: hidden
       li
-        padding 15px 10px
-        margin-top 10px
-        text-align left
-        background-color white
-        font-size 14px
-        color #999
-        white-space normal
+        padding: 15px 10px
+        margin-top: 10px
+        text-align: left
+        background-color: white
+        font-size: 14px
+        color: #999
+        white-space: normal
         .line-height
-          line-height 1.5
+          line-height: 1.5
         .is-black
-          color black
+          color: black
         .is-grey
-          color #999
+          color: #999
         .is-bold
-          font-weight bold
+          font-weight: bold
         .top
-          display flex
+          display: flex
           .avatar
-            width 15px
-            height 15px
-            margin-right 2px
-            border-radius 100%
+            width: 15px
+            height: 15px
+            margin-right: 2px
+            border-radius: 100%
           .time
-            flex 1
+            flex: 1
         .middle
-          display flex
-          margin 10px 0
-          color black
+          display: flex
+          margin: 10px 0
+          color: black
         .hot-title
-          display flex
-          align-items center
-          font-size 12px
+          display: flex
+          align-items: center
+          font-size: 12px
           .hot-sequence
-            display inline-block
-            margin-right 2px
-            padding 3px 6px
-            border-radius 2px
-            background-color darkgoldenrod
-            color white
+            display: inline-block
+            margin-right: 2px
+            padding: 3px 6px
+            border-radius: 2px
+            background-color: darkgoldenrod
+            color: white
         .hot-content
-          margin-top 15px
+          margin-top: 15px
 </style>
