@@ -144,7 +144,7 @@
         const checkTop = this.checkTop
 
         const len = positions.length
-        for (let i = 0; i < len; i++) {
+        for (let i = len - 1; i >= 0; i--) {
           const isLast = i === len - 1
           const nextTop = isLast ? scrollY : positions[i + 1]
           let top
