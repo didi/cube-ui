@@ -6,6 +6,7 @@
           v-for="(item, index) in data"
           :label="item.label"
           :key="item.label">
+          {{item.label}}
         </cube-tab-panel>
       </slot>
     </div>
