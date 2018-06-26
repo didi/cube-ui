@@ -145,6 +145,7 @@
 | data | 数据源，可选 | Array | - | - |
 | sideStyle | 是否是侧边样式 | Boolean | true/false | false |
 | current | 当前导航 active 项的 key 值 | String/Number | - | '' |
+| speed | 点击导航切换到指定位置的速度 | Number | - | 300 |
 
 #### CubeScrollNavPanel
 

@@ -145,6 +145,7 @@ ScrollNav component. You can use it to sticky your navigation bar and content.
 | data | optional, data source | Array | - | - |
 | sideStyle | If set to `true` then the navigation bar will be at the side position | Boolean | true/false | false |
 | current | the default navigation value(label of panel) | String/Number | - | '' |
+| speed | speed of navigating to target panel | Number | - | 300 |
 
 #### CubeScrollNavPanel
 
