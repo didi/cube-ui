@@ -20,6 +20,7 @@
 
   const COMPONENT_NAME = 'cube-sticky'
   const EVENT_CHANGE = 'change'
+  const EVENT_DIFF_CHANGE = 'diff-change'
 
   const transformStyleKey = prefixStyle('transform')
 
@@ -48,6 +49,7 @@
     data() {
       return {
         diff: 0,
+        currentDiff: 0,
         currentIndex: -1,
         currentKey: ''
       }
@@ -63,6 +65,7 @@
         if (newVal >= 0) {
           newVal = 0
         }
+        newVal = Math.ceil(newVal)
         if (this._fixedTop === newVal) {
           return
         }
@@ -78,23 +81,29 @@
         const fixedEle = this.$refs.fixedEle
         const fixedSlot = this.$slots.fixed || this.$scopedSlots.fixed
 
-        if (fixedSlot) {
-          this.fixedEleHeight = fixedEle.offsetHeight
-        } else {
-          const oldChild = fixedEle.firstElementChild
-          if (oldEle) {
-            oldEle.$el.appendChild(oldChild)
-          }
-          if (newEle) {
-            fixedEle.appendChild(newEle.$el.firstElementChild)
+        this.$nextTick(() => {
+          if (fixedSlot) {
             this.fixedEleHeight = fixedEle.offsetHeight
           } else {
-            this.fixedEleHeight = 0
+            const oldChild = fixedEle.firstElementChild
+            if (oldEle) {
+              oldEle.$el.appendChild(oldChild)
+            }
+            if (newEle) {
+              fixedEle.appendChild(newEle.$el.firstElementChild)
+              this.fixedEleHeight = fixedEle.offsetHeight
+            } else {
+              this.fixedEleHeight = 0
+            }
           }
-        }
+        })
 
         this.currentKey = currentKey
-        this.$emit(EVENT_CHANGE, currentKey)
+        this.$emit(EVENT_CHANGE, currentKey, newIndex)
+      },
+      currentDiff(newVal) {
+        const height = this.heights[this.currentIndex] || 0
+        this.$emit(EVENT_DIFF_CHANGE, newVal, height)
       }
     },
     beforeCreate() {
@@ -151,6 +160,7 @@
 
           if (scrollY >= top && scrollY <= max) {
             this.currentIndex = i
+            this.currentDiff = scrollY - top
             const diff = nextTop - scrollY
             if (diff >= 0 && !isLast) {
               this.diff = diff - (this.fixedEleHeight || heights[i])
@@ -161,6 +171,7 @@
           }
         }
         this.currentIndex = -1
+        this.currentDiff = 0
       },
       _calculateHeight() {
         const eles = this.eles
