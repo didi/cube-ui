@@ -97,9 +97,9 @@ describe('TabBar', () => {
         tabs: [{ label: '天辉', class: 'cubeic-like' }, { label: '夜魇', class: 'cubeic-star' }]
       }
     })
-    // destroyed tab
-    vm.$parent.$refs.tab[0].$destroy()
-    vm.$parent.$refs.panel[0].$destroy()
+    // destroyed tab and panel
+    vm.$parent.tabs.splice(0, 1)
+    console.log(vm.$parent.$el)
     setTimeout(() => {
       expect(vm.$parent.$el.querySelectorAll('.cube-tab').length)
         .to.be.equal(1)
