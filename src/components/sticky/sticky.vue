@@ -6,7 +6,7 @@
         ref="fixedEle"
         v-show="fixedShow"
         class="cube-sticky-fixed">
-        <slot name="fixed" :current="currentKey"></slot>
+        <slot name="fixed" :current="currentKey" :index="currentIndex"></slot>
       </div>
     </transition>
   </div>
