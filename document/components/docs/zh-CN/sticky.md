@@ -183,7 +183,8 @@
   <cube-sticky
     :pos="scrollY"
     :check-top="checkTop"
-    fixed-show-ani="sticky-fixed-show">
+    fixed-show-ani="sticky-fixed-show"
+    @diff-change="diffChange">
     <cube-scroll
       :scroll-events="scrollEvents"
       @scroll="scrollHandler">
@@ -203,7 +204,7 @@
         <li v-for="item in items3" class="border-top-1px">{{item}}</li>
       </ul>
     </cube-scroll>
-    <ul class="sticky-header" slot="fixed">
+    <ul class="sticky-header" slot="fixed" ref="stickyHeader">
       <li>header</li>
     </ul>
   </cube-sticky>
@@ -240,19 +241,27 @@
     methods: {
       scrollHandler({ y }) {
         this.scrollY = -y
+      },
+      diffChange() {
+        let opacity = 0
+        if (height) {
+          opacity = diff / height
+        }
+        this.$refs.stickyHeader.style.opacity = opacity
       }
     }
   }
   ```
   ```stylus
   .sticky-fixed-show-enter, .sticky-fixed-show-leave-active
-    opacity: 0
     transform: translate(0, -100%)
   .sticky-fixed-show-enter-active, .sticky-fixed-show-leave-active
     transition: all .5s ease-in-out
   ```
 
   可以通过 `fixed-show-ani` 指定当元素吸附时出现的 `transition` 名字，我们这里指定 `sticky-fixed-show`，所以相对应的我们在样式中加了对应的动画控制效果。
+
+  同时可以通过 `diff-change` 事件得到当前 sticky 元素滚动的差值，一般我们可以和当前 sticky 元素的高做除法得到相对百分比，可以精细控制出现的具体细节。
 
 ### Props
 
@@ -282,9 +291,10 @@
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
-| - | - | - |
-| change | 吸附的元素发生改变时触发 | current - 吸附的元素的 key 值，如果没有的话，则为 '' |
+| 事件名 | 说明 | 参数1 | 参数2 |
+| - | - | - | - |
+| change | 吸附的元素发生改变时触发 | current - 吸附的元素的 key 值，如果没有的话，则为 '' | index - 吸附元素的索引值，没有的话，则为 -1（这个索引值不是响应式的） |
+| diff-change | sticky 元素滚动的差值改变时触发 | diff - 差值，最小 0 | height: 当前 sticky 元素的高度 |
 
 ### 实例方法
 

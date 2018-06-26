@@ -179,7 +179,8 @@ Sticky component, the element will be sticky when the scroll position matched th
   <cube-sticky
     :pos="scrollY"
     :check-top="checkTop"
-    fixed-show-ani="sticky-fixed-show">
+    fixed-show-ani="sticky-fixed-show"
+    @diff-change="diffChange">
     <cube-scroll
       :scroll-events="scrollEvents"
       @scroll="scrollHandler">
@@ -199,7 +200,7 @@ Sticky component, the element will be sticky when the scroll position matched th
         <li v-for="item in items3" class="border-top-1px">{{item}}</li>
       </ul>
     </cube-scroll>
-    <ul class="sticky-header" slot="fixed">
+    <ul class="sticky-header" slot="fixed" ref="stickyHeader">
       <li>header</li>
     </ul>
   </cube-sticky>
@@ -236,19 +237,27 @@ Sticky component, the element will be sticky when the scroll position matched th
     methods: {
       scrollHandler({ y }) {
         this.scrollY = -y
+      },
+      diffChange() {
+        let opacity = 0
+        if (height) {
+          opacity = diff / height
+        }
+        this.$refs.stickyHeader.style.opacity = opacity
       }
     }
   }
   ```
   ```stylus
   .sticky-fixed-show-enter, .sticky-fixed-show-leave-active
-    opacity: 0
     transform: translate(0, -100%)
   .sticky-fixed-show-enter-active, .sticky-fixed-show-leave-active
     transition: all .5s ease-in-out
   ```
 
   `fixed-show-ani` is used to set the `transition` name of the sticky element when it's fixed.
+
+  You can get current sticky ele's fixed diff value on `diff-change` event.
 
 ### Props
 
@@ -278,9 +287,10 @@ If `eleKey` is undefined, CubeSticky will get the index of CubeStickyEle as the 
 
 ### Events
 
-| Event Name | Description | Parameters |
-| - | - | - |
-| change | triggers when fixed sticky element changed | current - key of the fixed sticky element, if there is no fixed sticky element this value will be '' |
+| Event Name | Description | Parameters 1 | Parameters 2 |
+| - | - | - | - |
+| change | triggers when fixed sticky element changed | current - key of the fixed sticky element, if there is no fixed sticky element this value will be '' | index - index of sticky element, if there is no fixed sticky element this value will be -1 (index is not reactive) |
+| diff-change | triggers when sticky element scrolling diff value changed | diff - diff value | height: height of current sticky element |
 
 ### Instance methods
 
