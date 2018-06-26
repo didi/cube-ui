@@ -86,7 +86,7 @@
         line-height: 40px
         font-size: 14px
         color: #db8931
-        transition all .3s ease-in
+        transition: all .3s ease-in
         &.cube-tab_active
           color: #fff
           font-size: 16px

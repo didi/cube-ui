@@ -138,11 +138,10 @@
   .tab-composite-view
     .cube-tab-bar
       background-color: white
-    .cube-tab
-      &.cube-tab_active
-        color: black !important
+    .cube-tab, .cube-tab_active
+        color: black
     .cube-tab-bar-slider
-      background-color: black !important
+      background-color: black
 
     .slide-container
       position: fixed
