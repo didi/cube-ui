@@ -61,7 +61,7 @@ describe('ScrollNav', () => {
       expect(vm.$el.querySelector('.cube-scroll-wrapper > .cube-sticky-fixed .cube-scroll-nav-panel-title').textContent.trim())
         .to.equal(cityData[1].name)
       done()
-    }, 350)
+    }, 400)
   })
 
   it('should sticky & nav correctly', function (done) {
@@ -134,8 +134,8 @@ describe('ScrollNav', () => {
       }
       setTimeout(() => {
         vm.$refs.scroll.scroll.on('scrollEnd', scrollEnd)
-      }, 100)
-    }, 350)
+      }, 120)
+    }, 400)
   })
 
   function createScrollNav(props = {}, events = {}, showPrepend = true) {
@@ -146,9 +146,17 @@ describe('ScrollNav', () => {
         <li>333</li>
       </ul>
     `
+    const data = {
+      sideStyle: false,
+      current: '',
+      data: cityData
+    }
+    Object.keys(props).forEach((k) => {
+      data[k] = props[k]
+    })
     return createVue({
       template: `
-        <div style="height:300px;">
+        <div style="height:300px;font-size:16px;">
           <cube-scroll-nav
             :side-style="sideStyle"
             :current="current"
@@ -169,12 +177,7 @@ describe('ScrollNav', () => {
           </cube-scroll-nav>
         </div>
       `,
-      data: {
-        sideStyle: false,
-        current: '',
-        data: cityData,
-        ...props
-      },
+      data: data,
       methods: {
         changeHandler(current) {
           events.onChange && events.onChange.call(this, current)
