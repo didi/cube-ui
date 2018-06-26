@@ -215,9 +215,9 @@ $drawer-panel-bgc := $color-white
 $drawer-item-active-bgc := $color-light-grey-opacity
 
 // tab-bar & tab-panel
-$tab-grey := $color-grey
-$tab-light-grey := $color-light-grey
-$tab-active := $color-dark-orange
+$tab-color := $color-grey
+$tab-label-active := $color-dark-orange
+$tab-slider-bgc := $color-dark-orange
 ```
 
 ### webpack config
