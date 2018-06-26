@@ -78,7 +78,6 @@
         scrollY: 0,
         labels: [],
         barTxts: [],
-        stickyCurrent: this.current,
         active: this.current,
         pageStickyOffset: 0
       }
@@ -104,12 +103,13 @@
     created() {
       this.navBar = null
       this.panels = []
+      this.stickyCurrent = this.current
     },
     mounted() {
       this.$nextTick(() => {
         if (this.sideStyle) {
-          const el = this.$refs.pageSticky.$el.querySelector('.cube-sticky-fixed')
-          this.$refs.scroll.$el.appendChild(el)
+          const fixedEle = this.$refs.pageSticky.$refs.fixedEle
+          this.$refs.scroll.$el.appendChild(fixedEle)
         }
         if (!this.current) {
           this.active = this.stickyCurrent = this.labels[0]
@@ -144,7 +144,7 @@
         if (labelEl) {
           this._jumping = true
           const offset = this.pageStickyOffset
-          this.$refs.scroll.scrollToElement(labelEl, this.speed, 0, this.sideStyle ? (offset + 0.5) : (-offset + 0.5))
+          this.$refs.scroll.scrollToElement(labelEl, this.speed, 0, this.sideStyle ? offset : -offset)
         }
       },
       pageStickyChangeHandler(current) {
