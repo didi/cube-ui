@@ -27,7 +27,7 @@ describe('TabBar', () => {
     vm.$nextTick(() => {
       expect(vm.$el.querySelectorAll('.cube-tab-bar-slider').length)
         .to.be.equal(1)
-      expect(vm.$el.querySelectorAll('.cube-tab')[0].innerText)
+      expect(vm.$el.querySelectorAll('.cube-tab')[0].getElementsByTagName('span')[0].textContent)
         .to.include('天辉')
       done()
     })
@@ -53,7 +53,7 @@ describe('TabBar', () => {
       const items = vm.$parent.$el.querySelectorAll('.cube-tab-panel')
       const firstTab = vm.$parent.$refs.tab[0].$el
       firstTab.click()
-      expect(items[0].innerText)
+      expect(items[0].textContent)
         .to.include('天辉')
       done()
     }, 300)
@@ -99,7 +99,6 @@ describe('TabBar', () => {
     })
     // destroyed tab and panel
     vm.$parent.tabs.splice(0, 1)
-    console.log(vm.$parent.$el)
     setTimeout(() => {
       expect(vm.$parent.$el.querySelectorAll('.cube-tab').length)
         .to.be.equal(1)
