@@ -114,7 +114,7 @@
       background-color: #171819
       img
         width: 102px
-        margin: 0 10px
+        margin: 0 10px 0 20px
         border: 1px solid #ff9f38
         border-radius: 3px
         box-shadow: 0 1px 5px 0 #000

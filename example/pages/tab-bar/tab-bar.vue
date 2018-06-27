@@ -6,7 +6,6 @@
         <cube-tab-bar
           v-model="selectedLabelDefault"
           :data="tabs"
-          showSlider
           @click="clickHandler"
           @change="changeHandler">
         </cube-tab-bar>
