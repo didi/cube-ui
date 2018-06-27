@@ -73,8 +73,4 @@
   .cube-tab-panels-group
     display: flex
     transition: all .4s cubic-bezier(.86, 0, .07, 1)
-    &::after
-      content: ""
-      display: block
-      clear: both
 </style>

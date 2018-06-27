@@ -7,7 +7,7 @@
       <i :class="icon"></i>
     </slot>
     <slot>
-      <span v-html="label"></span>
+      <div v-html="label"></div>
     </slot>
   </div>
 </template>
@@ -52,8 +52,6 @@
     padding: 7px 0
     color: $tab-color
     text-align: center
-    > i
-      display: inline-block
 
   .cube-tab_active
     color: $tab-active-color
