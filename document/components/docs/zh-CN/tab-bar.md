@@ -14,7 +14,7 @@
 
 - 默认样式
 
-  传入如下 `tabs` 的数据结构便能初始化 `cube-tab-bar`，必须使用 `v-model` 指令来选中对应的 tab， v-model 的参数的值必须与某一项 tab 的 label 属性对应，并且不同的时机派发 `click` 与 `change` 事件，参数则是每次选中的 tab 对应的 label 值。
+  传入如下 `tabs` 的数据结构便能初始化 `cube-tab-bar`，必须使用 `v-model` 指令来选中对应的 tab， v-model 的参数的值必须与某一项 tab 的 label 属性对应，icon 属性是用做于 class 选择器，一般是用字体图标样式，`cube-tab-bar` 在不同的时机派发 `click` 与 `change` 事件，参数则是每次选中的 tab 对应的 label 值。
 
   ```html
   <template>
@@ -33,13 +33,17 @@
       return {
         selectedLabelDefault: 'Vip'
         tabs: [{
-          label: 'Home'
+          label: 'Home',
+          icon: 'cubeic-home'
         }， {
-          label: 'Like'
+          label: 'Like',
+          icon: 'cubeic-like'
         }， {
-          label: 'Vip'
+          label: 'Vip',
+          icon: 'cubeic-vip'
         }， {
-          label: 'Me'
+          label: 'Me',
+          icon: 'cubeic-person'
         }]
       }
     }，

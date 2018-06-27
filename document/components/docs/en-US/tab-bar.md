@@ -14,7 +14,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
 
 - Basic usage
 
-  You can initialize `cube-tab-bar` by passing in the data structure of `tabs` as follows. You must use the `v-model` directive to select the corresponding tab. The value of the v-model argument must correspond to the label attribute of a tab in `cube-tab-bar`, and it will dispatch `click` and `change` event at the proper time. The parameter is the label value corresponding to each selected tab.
+  You can initialize `cube-tab-bar` by passing in the data structure of `tabs` as follows. You must use the `v-model` directive to select the corresponding tab. The value of the v-model argument must correspond to the label attribute of a tab in `cube-tab-bar`. The icon attribute is used as a class selector, which is generally used with icon-font class. It will dispatch `click` and `change` event at the proper time. The parameter is the label value corresponding to each selected tab.
 
   ```html
   <template>
