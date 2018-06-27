@@ -83,6 +83,7 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       cancelWatchProps()
       processProps()
       processEvents()
+      process$()
 
       if (typeof renderFn !== 'function' && single === undefined) {
         single = renderFn
@@ -157,6 +158,16 @@ export default function createAPIComponent(Vue, Component, events = [], single =
             renderData.on[event] = eventHandler
           })
         }
+      }
+
+      function process$() {
+        const props = renderData.props
+        Object.keys(props).forEach((prop) => {
+          if (prop.charAt(0) === '$') {
+            renderData[prop.slice(1)] = props[prop]
+            delete props[prop]
+          }
+        })
       }
 
       function cancelWatchProps() {
