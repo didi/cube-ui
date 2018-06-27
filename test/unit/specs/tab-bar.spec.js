@@ -27,7 +27,7 @@ describe('TabBar', () => {
     vm.$nextTick(() => {
       expect(vm.$el.querySelectorAll('.cube-tab-bar-slider').length)
         .to.be.equal(1)
-      expect(vm.$el.querySelectorAll('.cube-tab')[0].getElementsByTagName('span')[0].textContent)
+      expect(vm.$el.querySelectorAll('.cube-tab')[0].getElementsByTagName('div')[0].textContent)
         .to.include('天辉')
       done()
     })
