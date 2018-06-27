@@ -69,6 +69,19 @@ __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use
     1. If `eventValue` is not a string value, then use `eventValue` as the event handler.
     1. If `eventValue` is a string value, then use the caller's `eventValue` property value as the event handler.
 
+    After 1.10.0+, you can set [all avaliable properties in Vue](https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth), but you need to add prefix `$`, eg:
+
+    ```js
+    this.$createAaBb({
+      $attrs: {
+        id: 'id'
+      },
+      $class: {
+        'my-class': true
+      }
+    })
+    ```
+
     **The Returned value `instance`:**
 
     `instance` is a instantiated Vue component.

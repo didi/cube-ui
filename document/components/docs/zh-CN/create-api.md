@@ -68,6 +68,19 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
     1. 如果 `eventValue` 是非字符串，则直接取配置的 `eventValue` 作为值
     1. 如果 `eventValue` 是字符串，则直接获取当前实例上下文对应的 `eventValue` 的值
 
+    1.10.0 版本以后 `config` 中可以设置 Vue 支持的所有的[配置值](https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth)，但是必须要加 `$`，例如：
+
+    ```js
+    this.$createAaBb({
+      $attrs: {
+        id: 'id'
+      },
+      $class: {
+        'my-class': true
+      }
+    })
+    ```
+
     **返回值 `instance`：**
 
     `instance` 就是组件实例。
