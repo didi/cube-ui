@@ -2,7 +2,7 @@
   <div class="home-view" :class="{'home-view-docs': isDocs, 'home-view-demo': isExample, opacity1: opacity1}">
     <div class="navigator" ref="navigator" :class="{ active: showTabs }">
       <div class="logo">
-        <router-link to="/"><img src="./didi-logo.svg" alt="DiDi"></router-link>
+        <router-link to="/"><img src="./logo.png" alt="Cube-UI"></router-link>
       </div>
       <div class="tabs">
         <i></i>
@@ -160,13 +160,17 @@
         display: block
         height: 100%
         margin: 0 80px
-      @media screen and (max-width: 960px)
-        float: none
-        text-align: center
-        img
-          transform: scale(1.6)
       img
         height: 100%
+        transform: scale(.5)
+        transform-origin: 0 center
+      @media screen and (max-width: 960px)
+        float: none
+        a
+          float: none
+          text-align: center
+          img
+            transform-origin: center center
     .tabs
       float: right
       padding: 0 30px
