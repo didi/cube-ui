@@ -22,13 +22,13 @@
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
-  import { tip } from '../../common/helpers/debug'
-  import { kebab } from '../../common/lang/string'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
   const EVENT_SCROLL_END = 'scroll-end'
+  const EVENT_SCROLL = 'scroll'
 
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
@@ -42,7 +42,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -86,11 +86,17 @@
       // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       stopPropagation: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {
@@ -198,7 +204,12 @@
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
-
+        /* dispatch scroll position */
+        if (this.options.listenScroll) {
+          //  ensure dispatch scroll position constantly
+          this.options.probeType = 3
+          this.slide.on('scroll', this._onScroll)
+        }
         const slideEl = this.$refs.slide
         slideEl.removeEventListener('touchend', this._touchEndEvent, false)
         this._touchEndEvent = () => {
@@ -227,6 +238,9 @@
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _onScroll(pos) {
+        this.$emit(EVENT_SCROLL, pos)
       },
       _initDots() {
         this.dots = new Array(this.children.length)
@@ -263,12 +277,6 @@
           }
           this._refresh()
         }, 60)
-      },
-      _checkDeprecated() {
-        const deprecatedKeys = ['allowVertical', 'stopPropagation']
-        deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
-        })
       }
     },
     mounted() {
@@ -277,8 +285,6 @@
       })
 
       window.addEventListener('resize', this._resizeHandler)
-
-      this._checkDeprecated()
     },
     activated() {
       /* istanbul ignore next */

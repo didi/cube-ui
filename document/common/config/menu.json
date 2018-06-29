@@ -21,7 +21,8 @@
             "button": "Button",
             "loading": "Loading",
             "tip": "Tip",
-            "toolbar": "Toolbar"
+            "toolbar": "Toolbar",
+            "tab-bar": "TabBar"
           }
         },
         "form": {
@@ -52,7 +53,8 @@
             "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet",
-            "drawer": "Drawer"
+            "drawer": "Drawer",
+            "image-preview": "ImagePreview"
           }
         },
         "scroll": {
@@ -101,7 +103,8 @@
             "button": "Button",
             "loading": "Loading",
             "tip": "Tip",
-            "toolbar": "Toolbar"
+            "toolbar": "Toolbar",
+            "tab-bar": "TabBar"
           }
         },
         "form": {
@@ -132,7 +135,8 @@
             "segment-picker": "SegmentPicker",
             "dialog": "Dialog",
             "action-sheet": "ActionSheet",
-            "drawer": "Drawer"
+            "drawer": "Drawer",
+            "image-preview": "ImagePreview"
           }
         },
         "scroll": {

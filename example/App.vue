@@ -47,6 +47,10 @@
               {
                 path: '/toolbar',
                 text: 'Toolbar'
+              },
+              {
+                path: '/tab-bar',
+                text: 'TabBar'
               }
             ]
           },
@@ -144,6 +148,10 @@
               {
                 path: '/drawer',
                 text: 'Drawer'
+              },
+              {
+                path: '/image-preview',
+                text: 'ImagePreview'
               }
             ]
           },

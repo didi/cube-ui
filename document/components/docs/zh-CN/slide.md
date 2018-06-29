@@ -150,6 +150,29 @@
 
   作用域插槽提供了所需的当前索引值 `current` 以及长度 `dots`。
 
+- 实时派发滚动的距离<sup>1.10.0</sup>
+
+  ```html
+  <cube-slide :options="options" @scroll="scroll"></cube-slide>
+  ```
+
+  ```javascript
+    export default {
+      data() {
+        return {
+          options: {
+            listenScroll: true
+          }
+        }
+      },
+      methods: {
+        scroll ({x, y}) {
+          console.log(x, y)
+        }
+      }
+    }
+    ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -179,6 +202,7 @@
 | 事件名 | 说明 | 参数 |
 | - | - | - |
 | change | Slide 页面切换时触发 | 当前页面的索引值 |
+| scroll<sup>1.10.0</sup> | 滚动中实时派发 | Object {x, y} -滚动位置的坐标值 |
 | scroll-end<sup>1.9.0</sup> | 在滚动结束时触发 | 当前页面的索引值 |
 
 ### 实例方法

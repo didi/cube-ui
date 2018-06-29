@@ -176,6 +176,36 @@ describe('Slide.vue', () => {
     }, 100)
   })
 
+  it('should trigger scroll when changed', function (done) {
+    this.timeout(10000)
+    const scrollHandler = sinon.spy()
+    vm = createVue({
+      template: `
+      <cube-slide :autoPlay="autoPlay" :interval="interval" :threshold="threshold" :options="options" @scroll="scroll" style="width:300px;height:100px;">
+        <cube-slide-item v-for="(item,index) in items" :key="index" :item="item"></cube-slide-item>
+      </cube-slide>
+    `,
+      data: {
+        items,
+        autoPlay: true,
+        threshold: 0.1,
+        interval: 100,
+        options: {
+          listenScroll: true,
+          probeType: 3
+        }
+      },
+      methods: {
+        scroll: scrollHandler
+      }
+    })
+
+    setTimeout(() => {
+      expect(scrollHandler).to.be.called
+      done()
+    }, 2000)
+  })
+
   it('should go to right pageIndex if set initialIndex', function (done) {
     vm = createVue({
       template: `

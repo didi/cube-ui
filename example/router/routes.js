@@ -27,7 +27,7 @@ import Scroll from '../pages/scroll/index.vue'
 import ScrollDefault from '../pages/scroll/default.vue'
 import ScrollConfig from '../pages/scroll/config.vue'
 import ScrollJd from '../pages/scroll/jd.vue'
-import ScrollHerizontal from '../pages/scroll/herizontal.vue'
+import ScrollHorizontal from '../pages/scroll/horizontal.vue'
 import ScrollToutiao from '../pages/scroll/toutiao.vue'
 import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
@@ -57,6 +57,13 @@ import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 import ScrollNav from '../pages/scroll-nav/index.vue'
 import ScrollNavDefault from '../pages/scroll-nav/default.vue'
 import ScrollNavSide from '../pages/scroll-nav/side.vue'
+import ImagePreview from '../pages/image-preview.vue'
+import TabBarIndex from '../pages/tab-bar/index.vue'
+import TabBar from '../pages/tab-bar/tab-bar.vue'
+import Tab from '../pages/tab-bar/tab-entry.vue'
+import TabBasic from '../pages/tab-bar/tab-basic.vue'
+import TabComposite from '../pages/tab-bar/tab-composite.vue'
+import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
 
 const routes = [
   {
@@ -118,6 +125,10 @@ const routes = [
     component: Tip
   },
   {
+    path: '/toolbar',
+    component: Toolbar
+  },
+  {
     path: '/popup',
     component: Popup
   },
@@ -162,6 +173,24 @@ const routes = [
     component: ActionSheet
   },
   {
+    path: '/drawer',
+    component: Drawer,
+    children: [
+      {
+        path: 'default',
+        component: DrawerDefault
+      },
+      {
+        path: 'custom',
+        component: DrawerCustom
+      }
+    ]
+  },
+  {
+    path: '/image-preview',
+    component: ImagePreview
+  },
+  {
     path: '/scroll',
     component: Scroll,
     children: [
@@ -178,8 +207,8 @@ const routes = [
         component: ScrollJd
       },
       {
-        path: 'herizontal',
-        component: ScrollHerizontal
+        path: 'horizontal',
+        component: ScrollHorizontal
       },
       {
         path: 'toutiao',
@@ -246,20 +275,6 @@ const routes = [
     ]
   },
   {
-    path: '/drawer',
-    component: Drawer,
-    children: [
-      {
-        path: 'default',
-        component: DrawerDefault
-      },
-      {
-        path: 'custom',
-        component: DrawerCustom
-      }
-    ]
-  },
-  {
     path: '/slide',
     component: Slide,
     children: [
@@ -310,6 +325,32 @@ const routes = [
       {
         path: 'side',
         component: ScrollNavSide
+      }
+    ]
+  },
+  {
+    path: '/tab-bar',
+    component: TabBarIndex,
+    children: [
+      {
+        path: 'tab-bar',
+        component: TabBar
+      },
+      {
+        path: 'scroll-tab',
+        component: ScrollTab
+      },
+      {
+        path: 'tab',
+        component: Tab,
+        children: [
+          { path: 'basic',
+            component: TabBasic
+          },
+          { path: 'composite',
+            component: TabComposite
+          }
+        ]
       }
     ]
   }

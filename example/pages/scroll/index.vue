@@ -2,11 +2,11 @@
   <cube-page type="scroll" title="Scroll">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="goTo('default')">Default</cube-button>
-        <cube-button @click="goTo('config')">Config</cube-button>
-        <cube-button @click="goTo('herizontal')">Herizontal</cube-button>
-        <cube-button @click="goTo('jd')">京东</cube-button>
-        <cube-button @click="goTo('toutiao')">头条</cube-button>
+        <cube-button @click="goTo('default')"><span class="scroll-example">1. Default</span></cube-button>
+        <cube-button @click="goTo('horizontal')"><span class="scroll-example">2. Horizontal</span></cube-button>
+        <cube-button @click="goTo('config')"><span class="scroll-example">3. Customized</span></cube-button>
+        <cube-button @click="goTo('jd')"><span class="scroll-example">4. JD</span></cube-button>
+        <cube-button @click="goTo('toutiao')"><span class="scroll-example">5. Toutiao</span></cube-button>
       </cube-button-group>
       <cube-view></cube-view>
     </div>
@@ -33,4 +33,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .scroll-example
+    display: inline-block
+    width: 100px
+    margin: auto
+    text-align: left
 </style>

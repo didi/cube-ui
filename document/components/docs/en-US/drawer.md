@@ -150,7 +150,7 @@ __Notice:__ Drawer component's container element should be be a relative or abso
 | - | - | - | - | - |
 | title | title | String | - | '' |
 | data | data source | Array | - | [] |
-| selected-index | initial selected index | Array | - | [] |
+| selectedIndex | initial selected index | Array | - | [] |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 - `data` sub configuration

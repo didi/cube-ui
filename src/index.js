@@ -30,6 +30,7 @@ import {
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
@@ -40,7 +41,10 @@ import {
   ScrollNavBar,
   // module
   BetterScroll,
-  createAPI
+  createAPI,
+  // tabs
+  TabBar,
+  TabPanels
 } from './module'
 import { processComponentName } from './common/helpers/util'
 
@@ -50,6 +54,8 @@ const components = [
   Loading,
   Tip,
   Toolbar,
+  TabBar,
+  TabPanels,
   // form
   Checkbox,
   CheckboxGroup,
@@ -74,6 +80,7 @@ const components = [
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
