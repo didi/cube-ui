@@ -24,8 +24,6 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "../../common/stylus/variable.styl"
-
   .cube-tab-panel
     width: 100%
     flex: 1 0 auto

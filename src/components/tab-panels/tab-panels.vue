@@ -64,8 +64,6 @@
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "../../common/stylus/variable.styl"
-
   .cube-tab-panels
     position: relative
     overflow: hidden
