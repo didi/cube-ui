@@ -1090,9 +1090,9 @@ better-assert@~1.0.0:
   dependencies:
     callsite "1.0.0"
 
-better-scroll@1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/better-scroll/-/better-scroll-1.12.0.tgz#f15e1e316eb609690de6c733538b2b092aa3b118"
+better-scroll@^1.12.4:
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/better-scroll/-/better-scroll-1.12.4.tgz#27d722fe7b6844176feb136da4f2fd39c70f973e"
   dependencies:
     babel-runtime "^6.0.0"
 
