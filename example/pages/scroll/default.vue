@@ -22,7 +22,7 @@
           <cube-scroll
             ref="scroll"
             :data="items"
-            :options="scrollOptions">
+            :options="options">
           </cube-scroll>
         </div>
       </div>
@@ -99,11 +99,16 @@ export default {
       customPullDown: false
     }
   },
-  components: {
-    CubePage,
-    SwitchOption,
-    InputOption,
-    SelectOption
+  computed: {
+    options() {
+      return {
+        scrollbar: this.scrollbarObj,
+        startY: this.startY
+      }
+    },
+    scrollbarObj: function() {
+      return this.scrollbar ? { fade: this.scrollbarFade } : false
+    }
   },
   watch: {
     scrollbarObj: {
@@ -114,17 +119,6 @@ export default {
     },
     startY() {
       this.rebuildScroll()
-    }
-  },
-  computed: {
-    scrollOptions() {
-      return {
-        scrollbar: this.scrollbarObj,
-        startY: this.startY
-      }
-    },
-    scrollbarObj: function() {
-      return this.scrollbar ? { fade: this.scrollbarFade } : false
     }
   },
   methods: {
@@ -160,6 +154,12 @@ export default {
         this.$refs.scroll.initScroll()
       })
     }
+  },
+  components: {
+    CubePage,
+    SwitchOption,
+    InputOption,
+    SelectOption
   }
 }
 </script>
