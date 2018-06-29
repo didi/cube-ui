@@ -10,6 +10,12 @@ export function dispatchClick(target, props) {
   target.dispatchEvent(event)
 }
 
+export function dispatchDblclick(target, props) {
+  const event = createEvent('', 'dblclick')
+  Object.assign(event, props)
+  target.dispatchEvent(event)
+}
+
 export function dispatchTap(target) {
   const touch = {
     pageX: target.offsetLeft + 1,
@@ -66,4 +72,26 @@ export function dispatchSwipe(target, touches, duration, cb) {
   } else {
     moveAndEnd()
   }
+}
+
+export function dispatchMoveAction(target, touches, stepDuration, moveCb, endCb) {
+  dispatchTouchStart(target, touches[0])
+  if (!endCb) {
+    endCb = moveCb
+    moveCb = null
+  }
+  const nextMove = function (i) {
+    setTimeout(() => {
+      dispatchTouchMove(target, touches[i])
+      moveCb && moveCb(i)
+      if (i === touches.length - 1) {
+        // last one
+        dispatchTouchEnd(target, touches[i])
+        endCb && endCb()
+      } else {
+        nextMove(++i)
+      }
+    }, stepDuration)
+  }
+  nextMove(1)
 }

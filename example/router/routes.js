@@ -49,6 +49,7 @@ import Slide from '../pages/slide/index.vue'
 import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
+import ImagePreview from '../pages/image-preview.vue'
 
 const routes = [
   {
@@ -110,6 +111,10 @@ const routes = [
     component: Tip
   },
   {
+    path: '/toolbar',
+    component: Toolbar
+  },
+  {
     path: '/popup',
     component: Popup
   },
@@ -152,6 +157,24 @@ const routes = [
   {
     path: '/action-sheet',
     component: ActionSheet
+  },
+  {
+    path: '/drawer',
+    component: Drawer,
+    children: [
+      {
+        path: 'default',
+        component: DrawerDefault
+      },
+      {
+        path: 'custom',
+        component: DrawerCustom
+      }
+    ]
+  },
+  {
+    path: '/image-preview',
+    component: ImagePreview
   },
   {
     path: '/scroll',
@@ -238,20 +261,6 @@ const routes = [
     ]
   },
   {
-    path: '/drawer',
-    component: Drawer,
-    children: [
-      {
-        path: 'default',
-        component: DrawerDefault
-      },
-      {
-        path: 'custom',
-        component: DrawerCustom
-      }
-    ]
-  },
-  {
     path: '/slide',
     component: Slide,
     children: [
@@ -264,10 +273,6 @@ const routes = [
         component: SlideHorizontal
       }
     ]
-  },
-  {
-    path: '/toolbar',
-    component: Toolbar
   }
 ]
 
