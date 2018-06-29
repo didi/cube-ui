@@ -89,6 +89,46 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
   `format` attribute can set the text in `M year d day` format when the `len` is greater than the length of `filter` array.
 
+- Format
+
+  You can use property `format` to configure the format of `formatedTime`, an argument of event `select`.
+
+  ```html
+  <cube-button @click="showFormatPicker">Config format</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - Set time manually
 
   ```html

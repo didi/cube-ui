@@ -42,6 +42,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   `showNow` 用于控制是否显示“现在”时间，`minuteStep` 用于控制分钟的步长，`delay` 则表示的是当前时间向后推迟的时间，决定了最小可选时间。
 
 - 日期选项配置
+
   ```html
   <cube-button @click="showTimePicker">TimePicker - day options</cube-button>
   ```
@@ -84,6 +85,46 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   `filer`属性设置第一列日期展示的文案；
 
   `format`属性用以格式化日期显示的方式，当`len`的数量大于`filter`的数组长度时，会以`M月d日`的格式显示文案。
+
+- Format 配置
+
+  通过 `format` 属性可配置 `select` 事件的 `formatedTime` 参数的格式。
+
+  ```html
+  <cube-button @click="showFormatPicker">Config format</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
 
 - 手动设置时间
   ```html
