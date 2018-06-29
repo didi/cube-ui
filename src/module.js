@@ -5,7 +5,8 @@ import Button from './modules/button'
 import Loading from './modules/loading'
 import Tip from './modules/tip'
 import Toolbar from './modules/toolbar'
-import ImagePreview from './modules/image-preview'
+import TabBar from './modules/tab-bar'
+import TabPanels from './modules/tab-panels'
 
 // Form
 import Checkbox from './modules/checkbox'
@@ -31,6 +32,7 @@ import SegmentPicker from './modules/segment-picker'
 import Dialog from './modules/dialog'
 import ActionSheet from './modules/action-sheet'
 import Drawer from './modules/drawer'
+import ImagePreview from './modules/image-preview'
 
 // Scroll
 import Scroll from './modules/scroll'
@@ -49,6 +51,8 @@ const Radio = RadioGroup.Radio
 const SwipeItem = Swipe.Item
 const DrawerPanel = Drawer.Panel
 const DrawerItem = Drawer.Item
+const Tab = TabBar.Tab
+const TabPanel = TabPanels.Panel
 
 export {
   // style
@@ -58,6 +62,10 @@ export {
   Loading,
   Tip,
   Toolbar,
+  TabBar,
+  Tab,
+  TabPanels,
+  TabPanel,
   // form
   Checkbox,
   CheckboxGroup,

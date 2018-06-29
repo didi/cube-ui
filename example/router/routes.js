@@ -50,6 +50,12 @@ import SlideVertical from '../pages/slide/vertical.vue'
 import SlideHorizontal from '../pages/slide/horizontal.vue'
 import Toolbar from '../pages/toolbar.vue'
 import ImagePreview from '../pages/image-preview.vue'
+import TabBarIndex from '../pages/tab-bar/index.vue'
+import TabBar from '../pages/tab-bar/tab-bar.vue'
+import Tab from '../pages/tab-bar/tab-entry.vue'
+import TabBasic from '../pages/tab-bar/tab-basic.vue'
+import TabComposite from '../pages/tab-bar/tab-composite.vue'
+import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
 
 const routes = [
   {
@@ -271,6 +277,36 @@ const routes = [
       {
         path: 'horizontal',
         component: SlideHorizontal
+      }
+    ]
+  },
+  {
+    path: '/toolbar',
+    component: Toolbar
+  },
+  {
+    path: '/tab-bar',
+    component: TabBarIndex,
+    children: [
+      {
+        path: 'tab-bar',
+        component: TabBar
+      },
+      {
+        path: 'scroll-tab',
+        component: ScrollTab
+      },
+      {
+        path: 'tab',
+        component: Tab,
+        children: [
+          { path: 'basic',
+            component: TabBasic
+          },
+          { path: 'composite',
+            component: TabComposite
+          }
+        ]
       }
     ]
   }

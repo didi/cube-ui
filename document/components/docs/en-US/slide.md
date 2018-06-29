@@ -167,6 +167,29 @@
 
   The scoped slots provide two parameters: current active index `current` and slide items length `dots`.
 
+- Dispatch scroll position in real time<sup>1.10.0</sup>
+
+  ```html
+  <cube-slide :options="options" @scroll="scroll"></cube-slide>
+  ```
+
+  ```javascript
+    export default {
+      data() {
+        return {
+          options: {
+            listenScroll: true
+          }
+        }
+      },
+      methods: {
+        scroll ({x, y}) {
+          console.log(x, y)
+        }
+      }
+    }
+    ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -194,8 +217,9 @@
 
 | Event Name | Description | Parameters |
 | - | - | - |
-| change | triggers when current slide changes | index of current slide |
-| scroll-end<sup>1.9.0</sup> | triggers when scroll end. | index of current slide |
+| change | triggered when current slide changes | index of current slide |
+| scroll<sup>1.10.0</sup> | triggered when slide is scrolling | Object {x, y} - scroll position |
+| scroll-end<sup>1.9.0</sup> | triggered when scroll end. | index of current slide |
 
 
 ### Instance methods

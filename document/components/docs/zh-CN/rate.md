@@ -84,7 +84,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | v-model | 绑定的评分值 | Number | - | 0 |
-| max | 星星个数 | Number | - | false |
+| max | 星星个数 | Number | - | 5 |
 | disabled | 禁用状态 | Boolean | true/false | false |
 | justify | 是否自适应容器宽度（通过在星星之间增加空隙） | Boolean | true/false | false |
 

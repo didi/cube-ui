@@ -21,7 +21,8 @@
             "button": "Button",
             "loading": "Loading",
             "tip": "Tip",
-            "toolbar": "Toolbar"
+            "toolbar": "Toolbar",
+            "tab-bar": "TabBar"
           }
         },
         "form": {
@@ -99,7 +100,8 @@
             "button": "Button",
             "loading": "Loading",
             "tip": "Tip",
-            "toolbar": "Toolbar"
+            "toolbar": "Toolbar",
+            "tab-bar": "TabBar"
           }
         },
         "form": {

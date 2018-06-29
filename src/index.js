@@ -38,7 +38,10 @@ import {
   Swipe,
   // module
   BetterScroll,
-  createAPI
+  createAPI,
+  // tabs
+  TabBar,
+  TabPanels
 } from './module'
 import { processComponentName } from './common/helpers/util'
 
@@ -48,7 +51,8 @@ const components = [
   Loading,
   Tip,
   Toolbar,
-  ImagePreview,
+  TabBar,
+  TabPanels,
   // form
   Checkbox,
   CheckboxGroup,
@@ -73,6 +77,7 @@ const components = [
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
