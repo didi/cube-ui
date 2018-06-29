@@ -1,6 +1,6 @@
 {
   "name": "cube-ui",
-  "version": "1.9.5",
+  "version": "1.9.9",
   "description": "A fantastic mobile ui lib implement by Vue",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -56,7 +56,7 @@
   ],
   "license": "Apache",
   "dependencies": {
-    "better-scroll": "^1.11.1"
+    "better-scroll": "^1.12.0"
   },
   "peerDependencies": {
     "vue": "^2.5.13"

@@ -22,8 +22,7 @@
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
-  import { tip } from '../../common/helpers/debug'
-  import { kebab } from '../../common/lang/string'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
@@ -43,7 +42,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin],
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -87,11 +86,17 @@
       // The props allowVertical, stopPropagation could be removed in next minor version.
       allowVertical: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       },
       stopPropagation: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {
@@ -272,12 +277,6 @@
           }
           this._refresh()
         }, 60)
-      },
-      _checkDeprecated() {
-        const deprecatedKeys = ['allowVertical', 'stopPropagation']
-        deprecatedKeys.forEach((key) => {
-          this[key] && tip(`The property "${kebab(key)}" is deprecated, please use the recommended property "options" to replace it. Details could be found in https://didi.github.io/cube-ui/#/en-US/docs/slide#cube-Propsconfiguration-anchor`, COMPONENT_NAME)
-        })
       }
     },
     mounted() {
@@ -286,8 +285,6 @@
       })
 
       window.addEventListener('resize', this._resizeHandler)
-
-      this._checkDeprecated()
     },
     activated() {
       /* istanbul ignore next */

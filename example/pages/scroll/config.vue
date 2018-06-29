@@ -10,9 +10,9 @@
             <input-option v-if="pullDownRefresh" class="item sub first" name="threshold (≥ 40)"
                           :value="pullDownRefreshThreshold" min-value="40"
                           @update:value="updatePullDownRefreshThreshold"></input-option>
-            <input-option v-if="pullDownRefresh" class="item sub" name="stop (≥ 40)" :value="pullDownRefreshStop"
+            <!-- <input-option v-if="pullDownRefresh" class="item sub" name="stop (≥ 40)" :value="pullDownRefreshStop"
                           min-value="40"
-                          @update:value="updatePullDownRefreshStop"></input-option>
+                          @update:value="updatePullDownRefreshStop"></input-option> -->
             <input-option v-if="pullDownRefresh" class="item sub" name="txt" :value="pullDownRefreshTxt"
                           @update:value="updatePullDownRefreshTxt"></input-option>
             <switch-option v-if="pullDownRefresh" class="item sub last" name="Custom Animation" :value="customPullDown"
@@ -63,16 +63,16 @@
                   class="cube-pulldown-wrapper"
                   :style="props.pullDownStyle">
                 <div
-                    v-if="props.beforePullDown"
+                    v-show="props.beforePullDown"
                     class="before-trigger"
-                    :style="{paddingTop: props.bubbleY - 10 + 'px'}">
+                    :style="{paddingTop: props.bubbleY + 'px'}">
                   <span :class="{rotate: props.bubbleY > pullDownRefreshThreshold - 40}">↓</span>
                 </div>
-                <div class="after-trigger" v-else>
-                  <div v-if="props.isPullingDown" class="loading">
+                <div class="after-trigger" v-show="!props.beforePullDown">
+                  <div v-show="props.isPullingDown" class="loading">
                     <cube-loading></cube-loading>
                   </div>
-                  <div v-else><span class="refresh-text">Refresh success</span></div>
+                  <div v-show="!props.isPullingDown" class="text"><span class="refresh-text">Refresh success</span></div>
                 </div>
               </div>
             </template>
@@ -129,7 +129,8 @@ export default {
     pullDownRefreshObj: function() {
       return this.pullDownRefresh ? {
         threshold: parseInt(this.pullDownRefreshThreshold),
-        stop: parseInt(this.pullDownRefreshStop),
+        // Do not need to set stop value, but you can if you want
+        // stop: parseInt(this.pullDownRefreshStop),
         txt: this.pullDownRefreshTxt
       } : false
     },
@@ -175,9 +176,9 @@ export default {
     updatePullDownRefreshThreshold(val) {
       this.pullDownRefreshThreshold = val
     },
-    updatePullDownRefreshStop(val) {
-      this.pullDownRefreshStop = val
-    },
+    // updatePullDownRefreshStop(val) {
+    //   this.pullDownRefreshStop = val
+    // },
     updatePullDownRefreshTxt(val) {
       this.pullDownRefreshTxt = val
     },
@@ -211,6 +212,7 @@ export default {
   .cube-pulldown-wrapper 
     .before-trigger 
       font-size: 30px
+      line-height: 30px
       align-self: flex-end
       span 
         display: inline-block

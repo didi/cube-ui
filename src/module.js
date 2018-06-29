@@ -32,6 +32,7 @@ import SegmentPicker from './modules/segment-picker'
 import Dialog from './modules/dialog'
 import ActionSheet from './modules/action-sheet'
 import Drawer from './modules/drawer'
+import ImagePreview from './modules/image-preview'
 
 // Scroll
 import Scroll from './modules/scroll'
@@ -93,6 +94,7 @@ export {
   DrawerItem,
   DrawerPanel,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   SlideItem,

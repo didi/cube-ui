@@ -92,7 +92,10 @@ describe('Toast', () => {
             ins = this.$createToast({
               type: 'warn',
               txt: 'toast api content',
-              time: 100
+              time: 100,
+              $class: {
+                'my-toast': true
+              }
             })
             ins.show()
           }
@@ -104,6 +107,8 @@ describe('Toast', () => {
       expect(ins.$el.parentElement)
         .to.equal(document.body)
       setTimeout(() => {
+        expect(ins.$el.className)
+          .to.include('my-toast')
         expect(ins.$el.querySelector('.cube-toast-tip').textContent)
         .to.equal('toast api content')
         ins.remove()

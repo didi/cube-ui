@@ -20,7 +20,7 @@ __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use
 
   - `const instance = this.$createAaBb(config, renderFn, single)`
 
-    Parameters：
+    **Parameters：**
 
     | Attribute | Description | Type | Accepted Values | Default |
     | - | - | - | - | - |
@@ -28,7 +28,7 @@ __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use
     | renderFn | Optional, used to generate the VNode child node in the slot scene in general | Function | - | function (createElement) {...} |
     | single | Optional, whether the instantiated component is a singleton or not. If two parameters are provided and the `renderFn`'s type is not function, then the `single` value is the sencond parameter's value. | Boolean | single in createAPI() | - |
 
-    Config options `config`:
+    **Config options `config`:**
 
     It will be passed to the component as its props except the events in `events`(It will transform by default, eg: If `events` has value `['click']`, then the prop `onClick` will be treated as component's event and not component's props).
 
@@ -69,9 +69,27 @@ __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use
     1. If `eventValue` is not a string value, then use `eventValue` as the event handler.
     1. If `eventValue` is a string value, then use the caller's `eventValue` property value as the event handler.
 
-    The Returned value `instance`:
+    After 1.10.0+, you can set [all avaliable properties in Vue](https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth), but you need to add prefix `$`, eg:
 
-    `instance` is a instantiated Vue component，and the `remove` method will be **attached** to this instance.You can invoke the `remove` method to destroy the component and detach the component's content from `body` element. If the caller is destroyed and the `instance` will be destroyed too.
+    ```js
+    this.$createAaBb({
+      $attrs: {
+        id: 'id'
+      },
+      $class: {
+        'my-class': true
+      }
+    })
+    ```
+
+    **The Returned value `instance`:**
+
+    `instance` is a instantiated Vue component.
+    > And the `remove` method will be **attached** to this instance.
+
+    You can invoke the `remove` method to destroy the component and detach the component's content from `body` element.
+
+    If the caller is destroyed and the `instance` will be destroyed too.
 
 - Example:
 

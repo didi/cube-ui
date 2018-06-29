@@ -14,8 +14,8 @@
         <cube-button @click="showPopup(3)">Show Popup - with content</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" v-model="visible4" :center="false" ref="myPopup4">My Popup Content 4</cube-popup>
-        <cube-button @click="showPopup(4)">Show Popup - bottom</cube-button>
+        <cube-popup type="my-popup" v-model="visible4" :position="position" :mask-closable="true" ref="myPopup4">My Popup Content 4</cube-popup>
+        <cube-button @click="showPopup(4)">top/right/bottom/left/center</cube-button>
       </div>
       <div>
         <cube-extend-popup content="click here hide" ref="extendPopup"></cube-extend-popup>
@@ -30,6 +30,8 @@
   import CubePage from '../components/cube-page.vue'
   import CubeExtendPopup from '../components/extend-popup.vue'
 
+  const positions = ['top', 'right', 'bottom', 'left', 'center']
+  let cur = 0
   export default {
     data() {
       return {
@@ -38,15 +40,22 @@
         visible1: false,
         visible2: false,
         visible3: false,
-        visible4: false
+        visible4: false,
+        position: ''
       }
     },
     methods: {
       showPopup(i) {
+        if (i === 4) {
+          this.position = positions[cur++]
+          if (cur === positions.length) {
+            cur = 0
+          }
+        }
         this['visible' + i] = true
         setTimeout(() => {
           this['visible' + i] = false
-        }, 1000)
+        }, 2000)
       }
     },
     components: {

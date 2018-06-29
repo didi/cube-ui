@@ -148,6 +148,10 @@
               {
                 path: '/drawer',
                 text: 'Drawer'
+              },
+              {
+                path: '/image-preview',
+                text: 'ImagePreview'
               }
             ]
           },

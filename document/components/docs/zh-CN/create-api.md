@@ -19,7 +19,7 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
 
   - `const instance = this.$createAaBb(config, renderFn, single)`
 
-    参数：
+    **参数：**
 
     | 参数 | 说明 | 类型 | 默认值 | 示例 |
     | - | - | - | - | - |
@@ -27,7 +27,7 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
     | renderFn | 可选参数，用于生成子 VNode 节点，一般场景是处理 slot | Function | - | function (createElement) {...} |
     | single | 可选参数，创建的时候决定是否是单例的，优先级更高，如果没有传入 renderFn 的话，single 的值就是第二个参数的值 | Boolean | createAPI() 中传入的 single | - |
 
-    配置参数 `config`：
+    **配置参数 `config`：**
 
     默认所有的值都会当做 props，但是要排除 createAPI 传入的 `events` 中的事件（默认会做转换，例如：`events` 的值为 `['click']`，那么 `config` 中的 `onClick` 就是作为 `click` 事件的回调函数，而不是作为 props 传递给组件）。
 
@@ -68,9 +68,27 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
     1. 如果 `eventValue` 是非字符串，则直接取配置的 `eventValue` 作为值
     1. 如果 `eventValue` 是字符串，则直接获取当前实例上下文对应的 `eventValue` 的值
 
-    返回值 `instance`：
+    1.10.0 版本以后 `config` 中可以设置 Vue 支持的所有的[配置值](https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth)，但是必须要加 `$`，例如：
 
-    `instance` 就是组件实例，这个实例会被**附加**或者**代理** `remove` 方法，如果调用了，该实例就会被销毁且会从 `body` 下移除。如果说实例化上下文（即 `this.$createXx` 中的 `this`）销毁的话会自动移除销毁该实例元素。
+    ```js
+    this.$createAaBb({
+      $attrs: {
+        id: 'id'
+      },
+      $class: {
+        'my-class': true
+      }
+    })
+    ```
+
+    **返回值 `instance`：**
+
+    `instance` 就是组件实例。
+    > 这个实例会被**附加或代理 `remove` 方法**
+
+    如果调用了，该实例就会被销毁且会从 `body` 下移除。
+
+    如果说实例化上下文（即 `this.$createXx` 中的 `this`）销毁的话会自动移除销毁该实例元素。
 
 - 示例：
 

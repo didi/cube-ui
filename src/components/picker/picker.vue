@@ -8,7 +8,7 @@
       :z-index="zIndex"
       v-show="isVisible"
       @touchmove.prevent
-      @mask-click="cancel">
+      @mask-click="maskClick">
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
@@ -27,7 +27,8 @@
               <div v-for="(data,index) in pickerData" :key="index">
                 <!-- The class name of the ul and li need be configured to BetterScroll. -->
                 <ul class="cube-picker-wheel-scroll">
-                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index">{{item[textKey]}}</li>
+                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index" v-html="item[textKey]">
+                  </li>
                 </ul>
               </div>
             </div>
@@ -122,6 +123,9 @@
         if (changed) {
           this.$emit(EVENT_VALUE_CHANGE, this.pickerSelectedVal, this.pickerSelectedIndex, pickerSelectedText)
         }
+      },
+      maskClick() {
+        this.maskClosable && this.cancel()
       },
       cancel() {
         this.hide()
@@ -285,7 +289,7 @@
     background: $picker-bgc
 
   .cube-picker-move-enter, .cube-picker-move-leave-active
-    transform: translate3d(0, 273px, 0)
+    transform: translate3d(0, 100%, 0)
 
   .cube-picker-move-enter-active, .cube-picker-move-leave-active
     transition: all .3s ease-in-out

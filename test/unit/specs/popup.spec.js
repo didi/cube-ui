@@ -26,22 +26,29 @@ describe('Popup', () => {
       })
       expect(vm.$el.className)
         .to.equal('cube-popup cube-popup_mask')
+      expect(vm.$el.querySelector('.cube-popup-container').className)
+        .to.equal('cube-popup-container cube-popup-center')
     })
 
     it('should render correct contents', () => {
       vm = instantiateComponent(Vue, Popup, {
         props: {
           type: 'xx',
-          content: 'popup content'
+          content: 'popup content',
+          position: 'top',
+          maskClosable: true
         }
       })
       vm.show()
       expect(vm.$el.className)
         .to.equal('cube-popup cube-popup_mask cube-xx')
       expect(vm.$el.querySelector('.cube-popup-container').className)
-        .to.equal('cube-popup-container cube-popup-center')
+        .to.equal('cube-popup-container cube-popup-top')
       expect(vm.$el.querySelector('.cube-popup-content').innerHTML)
         .to.equal('popup content')
+      vm.$el.querySelector('.cube-popup-mask').click()
+      expect(vm.isVisible)
+        .to.be.false
     })
 
     it('should toggle by change v-model visible', function (done) {

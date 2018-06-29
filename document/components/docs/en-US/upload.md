@@ -8,6 +8,7 @@
 
 | Attribute | Description | Type |
 | - | - | - |
+| v-model | file list | Array | [] | [{ name, size, url, status: 'success', progress: 1 }] |
 | name | file name | String |
 | size | file size | Number |
 | url | file url, created by URL.createObjectURL, for preview | String |

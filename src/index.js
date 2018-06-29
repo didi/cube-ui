@@ -30,6 +30,7 @@ import {
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
@@ -76,6 +77,7 @@ const components = [
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,

@@ -65,7 +65,7 @@
 | options | array of checkbox options | Array | - | - |
 | horizontal | whether in horizontal order | Boolean | true/false | false |
 | shape | icon shape | String | circle/square | circle |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
 * `options` sub configuration
 

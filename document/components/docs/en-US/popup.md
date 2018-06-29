@@ -65,6 +65,37 @@ __Notice:__ All the components above used create-api, so you should read [create
 
   You only need to pass the HTML fragment on to `content`.
 
+- Control the content position & mask closable<sup>1.9.6</sup>
+  ```html
+  <cube-popup type="my-popup" :position="position" :mask-closable="true" ref="myPopup4">My Popup Content 4</cube-popup>
+  <cube-button @click="showPopup">top/right/bottom/left/center</cube-button>
+  ```
+  ```js
+  const positions = ['top', 'right', 'bottom', 'left', 'center']
+  let cur = 0
+  export default {
+    data() {
+      return {
+        position: ''
+      }
+    },
+    methods: {
+      showPopup() {
+        this.position = positions[cur++]
+        if (cur === positions.length) {
+          cur = 0
+        }
+        const component = this.$refs.myPopup4
+        component.show()
+        setTimeout(() => {
+          component.hide()
+        }, 2000)
+      }
+    }
+  }
+  ```
+  You can use `position` to control the content's position and use `mask-closable` to control mask closable.
+
 - Setting to bottom
 
   ```html
@@ -133,6 +164,8 @@ __Notice:__ All the components above used create-api, so you should read [create
 | mask | whether to show background layer | Boolean | true/false | true |
 | content | content, HTML string, valid when there's no slot | String | - | '' |
 | center | whether to be in center in horizontal and vertical direction | Boolean | true/false | true |
+| position<sup>1.9.6</sup> | content position, if set position then `center` will be ignored | String | top/right/bottom/left/center | '' |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
 
 ### Events
 

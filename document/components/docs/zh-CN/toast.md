@@ -133,6 +133,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | mask | 遮罩 | Boolean | true/false | false |
 | txt | 提示信息 | String  | - | '' |
 | time | 显示时间 | Number  | - | 3000 |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
 
 ### 事件
 
