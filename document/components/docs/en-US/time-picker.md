@@ -110,7 +110,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           day: {
             len: 5,
             filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
-            format: 'M year d day'
+            format: 'M year D day'
           },
           onSelect: (selectedTime, selectedText) => {
             this.$createDialog({
@@ -153,7 +153,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirmTxt<sup>1.8.1</sup> | the text of the confirm button | String | '确定' |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
-| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true |
+| format<sup>1.10.0</sup> | the format for selectedText the argument of select event, and the 'day' will be replaced by the text of day option | String | 'day H点:MM分' |
 
 * `day` sub configuration
 
