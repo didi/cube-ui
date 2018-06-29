@@ -4,6 +4,7 @@
       <cube-button-group>
         <cube-button @click="showTimePicker">TimePicker</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
+        <cube-button @click="showFormatPicker">Config format</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
@@ -44,6 +45,16 @@
         }
         this.configDayPicker.show()
       },
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
       showSetTimePiker() {
         if (!this.setTimePiker) {
           this.setTimePiker = this.$createTimePicker({
@@ -56,11 +67,11 @@
         this.setTimePiker.setTime(time)
         this.setTimePiker.show()
       },
-      selectHandler(selectedTime, selectedText) {
+      selectHandler(selectedTime, selectedText, formatedTime) {
         this.$createDialog({
           type: 'warn',
-          title: `选中的时间戳是 ${selectedTime}`,
-          content: `选中的内容是 ${selectedText}`,
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
           icon: 'cubeic-alert'
         }).show()
       },
