@@ -132,6 +132,7 @@
       barChange(label) {
         this.active = label
         // waiting touchend
+        // so the inner scroll won't affect the touchend logic
         this.$nextTick(() => {
           this.jumpTo(label)
         })
@@ -168,6 +169,8 @@
         this.active = current
       },
       stickyChangeHandler(current) {
+        // when sticky change waiting dom changed
+        // then refresh navBar(navBar will get correct height)
         this.$nextTick(() => {
           this.navBar && this.navBar.refresh()
         })
