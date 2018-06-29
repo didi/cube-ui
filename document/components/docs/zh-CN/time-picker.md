@@ -144,7 +144,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false |
 | maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true |
-| format<sup>1.10.0</sup> | select 事件参数 selectedText 的格式，其中 day 会替换成当前日期选项的文案 | String | 'day H点:MM分' |
+| format<sup>1.10.0</sup> | select 事件参数 selectedText 的格式，其中 day 会替换成当前日期选项的文案 | String | 'day h点:mm分' |
 
 * `day` 子配置项
 

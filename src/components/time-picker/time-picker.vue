@@ -77,7 +77,7 @@
       },
       format: {
         type: String,
-        default: 'day H点:MM分'
+        default: 'day h点:mm分'
       }
     },
     data() {

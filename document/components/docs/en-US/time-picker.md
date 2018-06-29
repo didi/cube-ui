@@ -154,7 +154,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true |
-| format<sup>1.10.0</sup> | the format for selectedText the argument of select event, and the 'day' will be replaced by the text of day option | String | 'day H点:MM分' |
+| format<sup>1.10.0</sup> | the format for selectedText the argument of select event, and the 'day' will be replaced by the text of day option | String | 'day h点:mm分' |
 
 * `day` sub configuration
 
