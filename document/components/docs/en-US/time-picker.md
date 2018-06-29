@@ -20,11 +20,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           showNow: true,
           minuteStep: 5,
           delay: 15,
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
               title: `selected time: ${selectedTime}`,
-              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -62,14 +62,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
             filter: ['Today', 'Tomorrow'],
             format: 'M year d day'
           },
-          onSelect(selectedTime, selectedText) {
-            console.log(selectedTime, selectedText)
-          },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
               title: `selected time: ${selectedTime}`,
-              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -112,11 +109,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
             filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
             format: 'M year D day'
           },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
               title: `selected time: ${selectedTime}`,
-              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -154,7 +151,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true |
-| format<sup>1.10.0</sup> | the format of formatTime the third argument of select event | String | 'YYYY/M/D hh:mm' |
+| format<sup>1.10.0</sup> | the format of formatedTime the third argument of select event | String | 'YYYY/M/D hh:mm' |
 
 * `day` sub configuration
 
@@ -174,7 +171,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
 | - | - | - | - | - |
-| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time | formatTime<sup>1.10.0</sup> |
+| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time | formatedTime<sup>1.10.0</sup> |
 | change | triggers when the roller scrolls | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column | - |
 | cancel | triggers when clicking the cancel button | - | - | - |
 

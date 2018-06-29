@@ -219,8 +219,8 @@
         }
 
         this.value = timestamp
-        const formatTime = formatDate(new Date(timestamp), this.format)
-        this.$emit(EVENT_SELECT, timestamp, text, formatTime)
+        const formatedTime = formatDate(new Date(timestamp), this.format)
+        this.$emit(EVENT_SELECT, timestamp, text, formatedTime)
       },
       _pickerCancel() {
         this.$emit(EVENT_CANCEL)
