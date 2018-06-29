@@ -30,6 +30,7 @@ import {
   Dialog,
   ActionSheet,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   Slide,
@@ -47,6 +48,7 @@ const components = [
   Loading,
   Tip,
   Toolbar,
+  ImagePreview,
   // form
   Checkbox,
   CheckboxGroup,

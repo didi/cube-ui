@@ -5,6 +5,7 @@ import Button from './modules/button'
 import Loading from './modules/loading'
 import Tip from './modules/tip'
 import Toolbar from './modules/toolbar'
+import ImagePreview from './modules/image-preview'
 
 // Form
 import Checkbox from './modules/checkbox'
@@ -85,6 +86,7 @@ export {
   DrawerItem,
   DrawerPanel,
   Drawer,
+  ImagePreview,
   // scroll
   Scroll,
   SlideItem,
