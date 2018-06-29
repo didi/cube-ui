@@ -181,7 +181,7 @@ describe('TimePicker', () => {
       select: selectHandle
     })
 
-    // select: now
+    // select: normal time
     vm.show()
     setTimeout(() => {
       const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
@@ -191,6 +191,33 @@ describe('TimePicker', () => {
         .to.be.callCount(1)
       expect(selectHandle.args[0][0])
         .to.be.closeTo(now, 60 * 1000)
+
+      done()
+    }, 100)
+  })
+
+  it('should have correct selectText when config format', function (done) {
+    const selectHandle = sinon.spy()
+    vm = createPicker({
+      showNow: false,
+      delay: 0,
+      minuteStep: 1,
+      format: 'day h:m'
+    }, {
+      select: selectHandle
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+      confirmBtn.click()
+      const now = new Date()
+      console.log(now)
+      console.log(`${now.getHours()}:${now.getMinutes()}`)
+      expect(selectHandle)
+        .to.be.callCount(1)
+      expect(selectHandle.args[0][1])
+        .to.be.equal(`今日 ${now.getHours()}:${now.getMinutes()}`)
 
       done()
     }, 100)
