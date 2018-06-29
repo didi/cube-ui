@@ -257,8 +257,8 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | month | 月的格式，`M` 不补 0，`MM` 补 0 | String | `M` | `MM月` |
 | date | 日的格式，`D` 不补 0，`DD` 补 0 | String | `D` | `第 D 日` |
 | hour | 时的格式，`h` 不补 0，`hh` 补 0 | String | `hh` | `h点` |
-| month | 分的格式，`m` 不补 0，`mm` 补 0 | String | `mm` | `mm分` |
-| month | 秒的格式，`s` 不补 0，`ss` 补 0 | String | `ss` | `ss秒` |
+| minute | 分的格式，`m` 不补 0，`mm` 补 0 | String | `mm` | `mm分` |
+| second | 秒的格式，`s` 不补 0，`ss` 补 0 | String | `ss` | `ss秒` |
 
 ### 事件
 

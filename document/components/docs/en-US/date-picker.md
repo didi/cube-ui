@@ -257,8 +257,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | month | the format of month, `M` don't pad 0，`MM` pad 0 | String | `M` | `MM月` |
 | date | the format of date, `D` don't pad 0，`DD` pad 0 | String | `D` | `第 D 日` |
 | hour | the format of hour, `h` don't pad 0，`hh` pad 0 | String | `hh` | `h点` |
-| month | the format of month, `m` don't pad 0，`mm` pad 0 | String | `mm` | `mm分` |
-| month | the format of month, `s` don't pad 0，`ss` pad 0 | String | `ss` | `ss秒` |
+| minute | the format of minute, `m` don't pad 0，`mm` pad 0 | String | `mm` | `mm分` |
+| second | the format of second, `s` don't pad 0，`ss` pad 0 | String | `ss` | `ss秒` |
 
 ### Events
 

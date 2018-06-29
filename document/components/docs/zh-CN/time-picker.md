@@ -19,11 +19,11 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
           showNow: true,
           minuteStep: 5,
           delay: 15,
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -42,6 +42,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   `showNow` 用于控制是否显示“现在”时间，`minuteStep` 用于控制分钟的步长，`delay` 则表示的是当前时间向后推迟的时间，决定了最小可选时间。
 
 - 日期选项配置
+
   ```html
   <cube-button @click="showTimePicker">TimePicker - day options</cube-button>
   ```
@@ -59,11 +60,11 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
             filter: ['今天', '明天'],
             format: 'M月d日'
           },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -85,6 +86,46 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
   `format`属性用以格式化日期显示的方式，当`len`的数量大于`filter`的数组长度时，会以`M月d日`的格式显示文案。
 
+- Format 配置
+
+  通过 `format` 属性可配置 `select` 事件的 `formatedTime` 参数的格式。
+
+  ```html
+  <cube-button @click="showFormatPicker">Config format</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - 手动设置时间
   ```html
   <cube-button @click="showTimePicker">TimePicker - setTime(next hour)</cube-button>
@@ -102,13 +143,13 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
           day: {
             len: 5,
             filter: ['今天', '明天', '后天'],
-            format: 'M月d日'
+            format: 'M月D日'
           },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -143,7 +184,8 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | confirmTxt<sup>1.8.1</sup> | 确定按钮文案 | String | '确定' |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false |
-| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true |
+| format<sup>1.10.0</sup> | select 事件参数 formatedTime 的格式 | String | 'YYYY/M/D hh:mm' |
 
 * `day` 子配置项
 
@@ -161,11 +203,11 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 ### 事件
 
-| 事件名 | 说明 | 参数1 | 参数2 |
-| - | - | - | - |
-| select | 点击确认按钮触发此事件 | selectedTime: 当前选中的timestamp | selectText: 当前选中的时间文案 |
-| change | 滑动改变time-picker滚轴时触发此事件 | selectedTime: 当前选中的timestamp | selectText: 当前选中的时间文案 |
-| cancel | 点击取消按钮触发此事件 | - | - |
+| 事件名 | 说明 | 参数1 | 参数2 | 参数3 |
+| - | - | - | - | - |
+| select | 点击确认按钮触发此事件 | selectedTime: 当前选中的timestamp | selectText: 当前选中的时间文案 | formatedTime: 格式化日期<sup>1.10.0</sup> |
+| change | 滚轴滚动后触发此事件 | index: 当前滚动列次序，Number类型 | selectedIndex: 当前列选中项的索引，Number类型 | - |
+| cancel | 点击取消按钮触发此事件 | - | - | - |
 
 ### 实例方法
 
