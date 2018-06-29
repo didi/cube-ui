@@ -20,11 +20,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           showNow: true,
           minuteStep: 5,
           delay: 15,
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -62,14 +62,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
             filter: ['Today', 'Tomorrow'],
             format: 'M year d day'
           },
-          onSelect(selectedTime, selectedText) {
-            console.log(selectedTime, selectedText)
-          },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -92,6 +89,46 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
   `format` attribute can set the text in `M year d day` format when the `len` is greater than the length of `filter` array.
 
+- Format
+
+  You can use property `format` to configure the format of `formatedTime`, an argument of event `select`.
+
+  ```html
+  <cube-button @click="showFormatPicker">Config format</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - Set time manually
 
   ```html
@@ -110,13 +147,13 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           day: {
             len: 5,
             filter: ['Today', 'Tomorrow', 'The day after tomorrow'],
-            format: 'M year d day'
+            format: 'M year D day'
           },
-          onSelect: (selectedTime, selectedText) => {
+          onSelect: (selectedTime, selectedText, formatedTime) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp: ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -153,7 +190,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirmTxt<sup>1.8.1</sup> | the text of the confirm button | String | '确定' |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
-| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true |
+| format<sup>1.10.0</sup> | the format of formatedTime the third argument of select event | String | 'YYYY/M/D hh:mm' |
 
 * `day` sub configuration
 
@@ -171,11 +209,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Events
 
-| Event Name | Description | Parameters 1 | Parameters 2 |
-| - | - | - | - |
-| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time |
-| change | triggers when sliding to change time-picker roller | selectedTime: currently selected timestamp | selectText: text of currently selected time |
-| cancel | triggers when clicking the cancel button | - | - |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
+| - | - | - | - | - |
+| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time | formatedTime<sup>1.10.0</sup> |
+| change | triggers when the roller scrolls | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column | - |
+| cancel | triggers when clicking the cancel button | - | - | - |
 
 ### Instance methods
 

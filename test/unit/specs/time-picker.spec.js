@@ -181,7 +181,7 @@ describe('TimePicker', () => {
       select: selectHandle
     })
 
-    // select: now
+    // select: normal time
     vm.show()
     setTimeout(() => {
       const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
@@ -196,7 +196,32 @@ describe('TimePicker', () => {
     }, 100)
   })
 
-  it('should add warn log when sigle is true', () => {
+  it('should have correct selectText when config format', function (done) {
+    const selectHandle = sinon.spy()
+    vm = createPicker({
+      showNow: false,
+      delay: 0,
+      minuteStep: 1,
+      format: 'h:m'
+    }, {
+      select: selectHandle
+    })
+
+    vm.show()
+    setTimeout(() => {
+      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+      confirmBtn.click()
+      const now = new Date()
+      expect(selectHandle)
+        .to.be.callCount(1)
+      expect(selectHandle.args[0][2])
+        .to.be.equal(`${now.getHours()}:${now.getMinutes()}`)
+
+      done()
+    }, 100)
+  })
+
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
