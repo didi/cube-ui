@@ -23,8 +23,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           onSelect: (selectedTime, selectedText) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -68,8 +68,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           onSelect: (selectedTime, selectedText) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -115,8 +115,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
           onSelect: (selectedTime, selectedText) => {
             this.$createDialog({
               type: 'warn',
-              title: `selected timestamp: ${selectedTime}`,
-              content: `selected content ${selectedText}`,
+              title: `selected time: ${selectedTime}`,
+              content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
               icon: 'cubeic-alert'
             }).show()
           },
@@ -154,7 +154,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true |
-| format<sup>1.10.0</sup> | the format for selectedText the argument of select event, and the 'day' will be replaced by the text of day option | String | 'day h点:mm分' |
+| format<sup>1.10.0</sup> | the format of formatTime the third argument of select event | String | 'YYYY/M/D hh:mm' |
 
 * `day` sub configuration
 
@@ -172,11 +172,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Events
 
-| Event Name | Description | Parameters 1 | Parameters 2 |
-| - | - | - | - |
-| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time |
-| change | triggers when sliding to change time-picker roller | selectedTime: currently selected timestamp | selectText: text of currently selected time |
-| cancel | triggers when clicking the cancel button | - | - |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
+| - | - | - | - | - |
+| select | triggers when clicking the confirm button | selectedTime: currently selected timestamp | selectText: text of currently selected time | formatTime<sup>1.10.0</sup> |
+| change | triggers when the roller scrolls | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column | - |
+| cancel | triggers when clicking the cancel button | - | - | - |
 
 ### Instance methods
 

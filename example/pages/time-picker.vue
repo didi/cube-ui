@@ -67,11 +67,11 @@
         this.setTimePiker.setTime(time)
         this.setTimePiker.show()
       },
-      selectHandler(selectedTime, selectedText) {
+      selectHandler(selectedTime, selectedText, formatTime) {
         this.$createDialog({
           type: 'warn',
-          title: `选中的时间戳是 ${selectedTime}`,
-          content: `选中的内容是 ${selectedText}`,
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatTime}`,
           icon: 'cubeic-alert'
         }).show()
       },

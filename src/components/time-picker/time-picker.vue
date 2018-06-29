@@ -77,7 +77,7 @@
       },
       format: {
         type: String,
-        default: 'day h点:mm分'
+        default: 'YYYY/M/D hh:mm'
       }
     },
     data() {
@@ -208,22 +208,22 @@
         this.$emit(EVENT_CHANGE, i, newIndex)
       },
       _pickerSelect(selectedVal, selectedIndex, selectedText) {
+        let timestamp
+        let text
         if (selectedVal[1] === NOW.value) {
-          this.$emit(EVENT_SELECT, +new Date(), this.nowText)
+          timestamp = +new Date()
+          text = this.nowText
         } else {
-          const timestamp = getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
-          const text = this._formatText(timestamp, selectedText[0])
-          this.value = timestamp
-          this.$emit(EVENT_SELECT, timestamp, text)
+          timestamp = getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
+          text = selectedText[0] + ' ' + selectedText[1] + ':' + selectedText[2]
         }
+
+        this.value = timestamp
+        const formatTime = formatDate(new Date(timestamp), this.format)
+        this.$emit(EVENT_SELECT, timestamp, text, formatTime)
       },
       _pickerCancel() {
         this.$emit(EVENT_CANCEL)
-      },
-      _formatText(timestamp, dayText) {
-        let formatText = this.format
-        formatText = formatText.replace(/day/ig, dayText)
-        return formatDate(new Date(timestamp), formatText)
       }
     }
   }
