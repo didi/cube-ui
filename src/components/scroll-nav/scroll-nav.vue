@@ -168,7 +168,9 @@
         this.active = current
       },
       stickyChangeHandler(current) {
-        this.navBar && this.navBar.refresh()
+        this.$nextTick(() => {
+          this.navBar && this.navBar.refresh()
+        })
         this.$emit(EVENT_STICKY_CHANGE, current)
       },
       scrollHandler(pos) {
