@@ -24,6 +24,31 @@ Multi-line input box components. You can use the `v-model` directive to create t
   }
   ```
 
+
+- Config indicator
+
+  ```html
+  <cube-textarea v-model="value" indicator="indicator"></cube-textarea>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        indicator: {
+          negative: true,
+          remain: true
+        }
+      }
+    }
+  }
+  ```
+
+  If `indicator` is `false` then the indicator element will not be visible.
+
+  If `indicator` is `true`, the config equals `{remain: true, negative: true}`.
+
+  If `indicator` is an object, you can use `remain` and `negative` to control whether show the remaining count(if `remain` is `false` means show the textarea value length) and whether allow remaining number is negative.
+
 - Multiple configurations
 
   Support the native attributes of the textarea element.
@@ -63,6 +88,20 @@ Multi-line input box components. You can use the `v-model` directive to create t
 | maxlength | maxlength of input | Number | - | 60 |
 | placeholder | placeholder of input | String | - | empty |
 | autofocus | autofocus status | Boolean | true/false | false |
+| indicator<sup>1.10.0</sup> | indicator config | Boolean/Object | true/false/{} | true |
+
+- indicator sub configuration
+
+  If `indicator` is `false` then the indicator element will not be visible.
+
+  If `indicator` is `true`, the config equals `{remain: true, negative: true}`.
+
+  If `indicator` is an object:
+
+  | Attribute | Description | Type | Accepted Values | Default |
+  | - | - | - | - | - |
+  | remain | whether show the remaining count, if this value is `false` means show the textarea value length | Boolean | true/false | true |
+  | negative | avaliable when `remain` is true, this value control whether allow remaining number is negative | Boolean | true/false | true |
 
 ### Event
 

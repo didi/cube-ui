@@ -10,13 +10,18 @@
       @focus="handleFocus"
       @blur="handleBlur">
     </textarea>
-    <span v-show="expanded" class="cube-textarea-indicator">{{remain}}</span>
+    <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'
+
+  const DEFAULT_INDICATOR = {
+    negative: true,
+    remain: true
+  }
 
   export default {
     name: COMPONENT_NAME,
@@ -52,11 +57,29 @@
       maxlength: {
         type: Number,
         default: 60
+      },
+      indicator: {
+        type: [Boolean, Object],
+        default: true
       }
     },
     computed: {
+      indicatorConf() {
+        let indicator = this.indicator
+        if (typeof indicator === 'boolean') {
+          indicator = {}
+        }
+        return Object.assign({}, DEFAULT_INDICATOR, indicator)
+      },
+      count() {
+        return this.textareaValue.length
+      },
       remain() {
-        return this.maxlength - this.value.length
+        let diff = this.maxlength - this.count
+        if (!this.indicatorConf.negative && diff < 0) {
+          diff = 0
+        }
+        return diff
       }
     },
     watch: {
