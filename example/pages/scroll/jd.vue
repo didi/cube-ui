@@ -6,7 +6,7 @@
         ref="scroll"
         :data="[]"
         :scroll-events="['scroll']"
-        :options="scrollOptions"
+        :options="options"
         @scroll="onScrollHandle"
         @pulling-down="onPullingDown">
         <img src="http://om0jxp12h.bkt.clouddn.com/jd_content.JPG">
@@ -44,7 +44,7 @@ import CubePage from '../../components/cube-page.vue'
 export default {
   data() {
     return {
-      scrollOptions: {
+      options: {
         pullDownRefresh: {
           threshold: 60,
           stop: 40,
@@ -72,7 +72,7 @@ export default {
       }
     },
     headerStyle() {
-      return `${Math.min(1, Math.max(0, 1 - this.pullDownY / 40))}`
+      return Math.min(1, Math.max(0, 1 - this.pullDownY / 40))
     }
   },
   methods: {

@@ -36,7 +36,7 @@
           <cube-scroll
             ref="scroll"
             :data="items"
-            :options="scrollOptions"
+            :options="options"
             @pulling-down="onPullingDown"
             @pulling-up="onPullingUp">
             <ul class="foods-wrapper">
@@ -119,7 +119,7 @@ export default {
     SelectOption
   },
   computed: {
-    scrollOptions() {
+    options() {
       return {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
