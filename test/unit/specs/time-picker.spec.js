@@ -202,7 +202,7 @@ describe('TimePicker', () => {
       showNow: false,
       delay: 0,
       minuteStep: 1,
-      format: 'day h:m'
+      format: 'h:m'
     }, {
       select: selectHandle
     })
@@ -212,18 +212,16 @@ describe('TimePicker', () => {
       const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
       confirmBtn.click()
       const now = new Date()
-      console.log(now)
-      console.log(`${now.getHours()}:${now.getMinutes()}`)
       expect(selectHandle)
         .to.be.callCount(1)
-      expect(selectHandle.args[0][1])
-        .to.be.equal(`今日 ${now.getHours()}:${now.getMinutes()}`)
+      expect(selectHandle.args[0][2])
+        .to.be.equal(`${now.getHours()}:${now.getMinutes()}`)
 
       done()
     }, 100)
   })
 
-  it('should add warn log when sigle is true', () => {
+  it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
     const msgs = []
