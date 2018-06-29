@@ -36,6 +36,9 @@ import {
   Slide,
   IndexList,
   Swipe,
+  Sticky,
+  ScrollNav,
+  ScrollNavBar,
   // module
   BetterScroll,
   createAPI,
@@ -82,7 +85,10 @@ const components = [
   Scroll,
   Slide,
   IndexList,
-  Swipe
+  Swipe,
+  Sticky,
+  ScrollNav,
+  ScrollNavBar
 ]
 
 function install(Vue) {
