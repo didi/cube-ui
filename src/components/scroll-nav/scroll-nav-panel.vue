@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-scroll-nav-panel" :data-panel-id="label">
+  <div class="cube-scroll-nav-panel">
     <cube-sticky-ele :ele-key="label">
       <h2 class="cube-scroll-nav-panel-title" v-html="title"></h2>
     </cube-sticky-ele>

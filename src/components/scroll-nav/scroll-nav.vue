@@ -140,12 +140,22 @@
         if (!label) {
           return
         }
-        const labelEl = this.$refs.sticky.$el.querySelector(`.cube-scroll-nav-panel[data-panel-id="${label}"]`)
-        if (labelEl) {
+        const panel = this.getPanel(label)
+        if (panel) {
           this._jumping = true
           const offset = this.pageStickyOffset
-          this.$refs.scroll.scrollToElement(labelEl, this.speed, 0, this.sideStyle ? offset : -offset)
+          this.$refs.scroll.scrollToElement(panel.$el, this.speed, 0, this.sideStyle ? offset : -offset)
         }
+      },
+      getPanel(label) {
+        let panel = null
+        this.panels.some((_panel) => {
+          if (_panel.label === label) {
+            panel = _panel
+            return true
+          }
+        })
+        return panel
       },
       pageStickyChangeHandler(current) {
         if (current === '') {
@@ -158,9 +168,7 @@
         this.active = current
       },
       stickyChangeHandler(current) {
-        this.$nextTick(() => {
-          this.navBar && this.navBar.refresh()
-        })
+        this.navBar && this.navBar.refresh()
         this.$emit(EVENT_STICKY_CHANGE, current)
       },
       scrollHandler(pos) {
