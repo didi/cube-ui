@@ -47,6 +47,10 @@
               {
                 path: '/toolbar',
                 text: 'Toolbar'
+              },
+              {
+                path: '/tab-bar',
+                text: 'TabBar'
               }
             ]
           },
