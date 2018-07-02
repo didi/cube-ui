@@ -45,6 +45,10 @@ export class Loading extends CubeUIComponent {}
 export class Tip extends CubeUIComponent {}
 /** Toolbar Component */
 export class Toolbar extends CubeUIComponent {}
+/** TabBar Component */
+export class TabBar extends CubeUIComponent {}
+/** TabPanels Component */
+export class TabPanels extends CubeUIComponent {}
 // form
 /** Checkbox Component */
 export class Checkbox extends CubeUIComponent {}
@@ -91,6 +95,8 @@ export class Dialog extends CubeUIComponent {}
 export class ActionSheet extends CubeUIComponent {}
 /** Drawer Component */
 export class Drawer extends CubeUIComponent {}
+/** ImagePreview Component */
+export class ImagePreview extends CubeUIComponent {}
 // scroll
 /** Scroll Component */
 export class Scroll extends CubeUIComponent {}
@@ -100,6 +106,12 @@ export class Slide extends CubeUIComponent {}
 export class IndexList extends CubeUIComponent {}
 /** Swipe Component */
 export class Swipe extends CubeUIComponent {}
+/** Sticky Component */
+export class Sticky extends CubeUIComponent {}
+/** ScrollNavBar Component */
+export class ScrollNavBar extends CubeUIComponent {}
+/** ScrollNav Component */
+export class ScrollNav extends CubeUIComponent {}
 
 // Vue prototype $createXx
 declare module 'vue/types/vue' {
@@ -120,5 +132,7 @@ declare module 'vue/types/vue' {
     $createDialog(options: object): Dialog
     /** create ActionSheet instance */
     $createActionSheet(options: object): ActionSheet
+    /** create ImagePreview instance */
+    $createImagePreview(options: object): ImagePreview
   }
 }
