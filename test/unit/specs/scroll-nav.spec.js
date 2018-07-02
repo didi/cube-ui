@@ -158,7 +158,7 @@ describe('ScrollNav', () => {
       template: `
         <div style="height:300px;font-size:16px;">
           <cube-scroll-nav
-            :side-style="side"
+            :side="side"
             :current="current"
             @change="changeHandler"
             @sticky-change="stickyChangeHandler">
