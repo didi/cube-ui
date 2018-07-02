@@ -86,7 +86,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
   `format`属性用以格式化日期显示的方式，当`len`的数量大于`filter`的数组长度时，会以`M月d日`的格式显示文案。
 
-- Format 配置
+- Format 配置<sup>1.10.0+</sup>
 
   通过 `format` 属性可配置 `select` 事件的 `formatedTime` 参数的格式。
 
