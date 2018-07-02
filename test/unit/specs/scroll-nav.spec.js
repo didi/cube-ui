@@ -45,9 +45,9 @@ describe('ScrollNav', () => {
     }, 50)
   })
 
-  it('should render correct contents - sideStyle', (done) => {
+  it('should render correct contents - side', (done) => {
     vm = createScrollNav({
-      sideStyle: true,
+      side: true,
       current: cityData[1].name
     }, {}, false)
     setTimeout(() => {
@@ -98,7 +98,7 @@ describe('ScrollNav', () => {
     const changeHandler = sinon.spy()
     const stickyChangeHandler = sinon.spy()
     vm = createScrollNav({
-      sideStyle: true,
+      side: true,
       current: cityData[1].name
     }, {
       onChange: changeHandler,
@@ -147,7 +147,7 @@ describe('ScrollNav', () => {
       </ul>
     `
     const data = {
-      sideStyle: false,
+      side: false,
       current: '',
       data: cityData
     }
@@ -158,7 +158,7 @@ describe('ScrollNav', () => {
       template: `
         <div style="height:300px;font-size:16px;">
           <cube-scroll-nav
-            :side-style="sideStyle"
+            :side-style="side"
             :current="current"
             @change="changeHandler"
             @sticky-change="stickyChangeHandler">
