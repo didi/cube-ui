@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-scroll-nav" :class="{'cube-scroll-nav_side': sideStyle}">
+  <div class="cube-scroll-nav" :class="{'cube-scroll-nav_side': side}">
     <cube-sticky ref="sticky" :pos="scrollY" @change="stickyChangeHandler">
       <cube-scroll
         ref="scroll"
@@ -27,7 +27,7 @@
             <div class="cube-scroll-nav-panels">
               <slot></slot>
             </div>
-            <template slot="fixed" v-if="!sideStyle">
+            <template slot="fixed" v-if="!side">
               <div></div>
             </template>
           </cube-sticky>
@@ -63,7 +63,7 @@
         type: Number,
         default: 300
       },
-      sideStyle: {
+      side: {
         type: Boolean,
         default: false
       },
@@ -84,7 +84,7 @@
     },
     computed: {
       barDirection() {
-        return this.sideStyle ? DIRECTION_V : DIRECTION_H
+        return this.side ? DIRECTION_V : DIRECTION_H
       }
     },
     watch: {
@@ -107,7 +107,7 @@
     },
     mounted() {
       this.$nextTick(() => {
-        if (this.sideStyle) {
+        if (this.side) {
           const fixedEle = this.$refs.pageSticky.$refs.fixedEle
           this.$refs.scroll.$el.appendChild(fixedEle)
         }
@@ -123,7 +123,7 @@
         this.navBar && this.navBar.refresh()
         this.$refs.sticky.refresh()
         this.$refs.pageSticky.refresh()
-        this.pageStickyOffset = this.sideStyle ? 0 : this.$refs.navBarEle.$el.offsetHeight
+        this.pageStickyOffset = this.side ? 0 : this.$refs.navBarEle.$el.offsetHeight
         this.$refs.scroll.refresh()
       },
       setBar(bar) {
@@ -145,7 +145,7 @@
         if (panel) {
           this._jumping = true
           const offset = this.pageStickyOffset
-          this.$refs.scroll.scrollToElement(panel.$el, this.speed, 0, this.sideStyle ? offset : -offset)
+          this.$refs.scroll.scrollToElement(panel.$el, this.speed, 0, this.side ? offset : -offset)
         }
       },
       getPanel(label) {
