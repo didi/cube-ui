@@ -89,7 +89,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
   `format` attribute can set the text in `M year d day` format when the `len` is greater than the length of `filter` array.
 
-- Format
+- Format<sup>1.10.0+</sup>
 
   You can use property `format` to configure the format of `formatedTime`, an argument of event `select`.
 
