@@ -161,7 +161,7 @@ export default {
   | 参数 | 说明 | 类型 | 示例 | 默认值 |
   | - | - | - | - | - |
   | value | 使用 v-model，初始化时选中对应的 tab | String/Number | - | - |
-  | data | 用于 `cube-tab-bar` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`，如果使用自定义插槽，可不传此值 | Array | [{label: 1}， {label: 2}] | [] |
+  | data | 用于 `cube-tab-bar` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label` 和 `icon`，如果使用自定义插槽，可不传此值 | Array | [{label: 1, icon: 'cubeic-like'}， {label: 2, icon: 'cubeic-like'}] | [] |
   | showSlider | 是否开启下划线跟随效果 | Boolean | true/false | false |
   | inline | 文字与图标是否显示在一行 | Boolean | true/false | false |
   | useTransition | 是否开启 transition 过渡 | Boolean | true/false | true |
@@ -179,7 +179,7 @@ export default {
   | value | 使用 v-model，初始化时显示对应的 panels | String/Number | - | - |
   | data | 用于 `cube-tab-panels` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`，如果使用自定义插槽，可不传此值 | Array | [{label: 1}， {label: 2}] | [] |
 
-- CubeTabBar
+- CubeTabPanel
 
   | 参数 | 说明 | 类型 | 是否必传 | 默认值 |
   | - | - | - | - | - |

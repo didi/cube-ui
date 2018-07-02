@@ -158,7 +158,7 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
   | Attribute | Description | Type | Demo | Default |
   | - | - | - | - | - |
   | value | Use v-model to select the corresponding tab when initializing. | String/Number | - | - |
-  | data | For data rendered with `cube-tab-bar`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label`.  If a custom slot is used, this value may not be passed | Array | [{label: 1}, {label: 2}] | [] |
+  | data | For data rendered with `cube-tab-bar`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label` and `icon`.  If a custom slot is used, this value may not be passed | Array | [{label: 1, icon: 'cubeic-like'}, {label: 2, icon: 'cubeic-like'}] | [] |
   | showSlider | Whether to turn on the underscore follow effect | Boolean | true/false | false |
   | inline | Whether text and icons are displayed on one line | Boolean | true/false | false |
   | useTransition | Whether to use transition | Boolean | true/false | true |
