@@ -112,13 +112,13 @@ Pay attention that the name of the API is `$create` + `${component name}`. For e
 
 #### Scroll
 
-- [Scroll 滚动](#/en-US/docs/scroll)
-- [Slide 幻灯片](#/en-US/docs/slide)
-- [IndexList 索引列表](#/en-US/docs/index-list)
-- [Swipe 滑块](#/en-US/docs/swipe)
-- [Sticky 吸附](#/en-US/docs/sticky)
-- [ScrollNavBar 滚动导航条](#/en-US/docs/scroll-nav-bar)
-- [ScrollNav 滚动导航](#/en-US/docs/scroll-nav)
+- [Scroll](#/en-US/docs/scroll)
+- [Slide](#/en-US/docs/slide)
+- [IndexList](#/en-US/docs/index-list)
+- [Swipe](#/en-US/docs/swipe)
+- [Sticky](#/en-US/docs/sticky)
+- [ScrollNavBar](#/en-US/docs/scroll-nav-bar)
+- [ScrollNav](#/en-US/docs/scroll-nav)
 
 Most of the scroll components are all implemented based on [better-scroll](https://github.com/ustbhuangyi/better-scroll) and `Scroll` Component is the encapsulation of better-scroll.
 
