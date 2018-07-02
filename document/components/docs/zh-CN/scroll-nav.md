@@ -74,7 +74,7 @@
 
   ```html
   <cube-scroll-nav
-    :side-style="true"
+    :side="true"
     :data="data"
     :current="current"
     @change="changeHandler"
@@ -126,7 +126,7 @@
   }
   ```
 
-  `side-style` 设置为 `true` 代表是一个侧边样式效果；
+  `side` 设置为 `true` 代表是一个侧边样式效果；
 
   `data` 则是默认传入的数据，这个数据会被传入内部使用的 `cube-scroll` 组件，当 `data` 发生变化时，scroll 组件会自动刷新；
 
@@ -143,7 +143,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | data | 数据源，可选 | Array | - | - |
-| sideStyle | 是否是侧边样式 | Boolean | true/false | false |
+| side | 是否是侧边样式 | Boolean | true/false | false |
 | current | 当前导航 active 项的 key 值 | String/Number | - | '' |
 | speed | 点击导航切换到指定位置的速度 | Number | - | 300 |
 
