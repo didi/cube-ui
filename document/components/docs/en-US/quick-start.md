@@ -29,8 +29,6 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
 
     ```json
     {
-      // webpack-post-compile-plugin depends on compileDependencies
-      "compileDependencies": ["cube-ui"],
       // webpack-transform-modules-plugin depends on transformModules
       "transformModules": {
         "cube-ui": {
@@ -39,12 +37,11 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         }
       },
       "devDependencies": {
-        "babel-plugin-transform-modules": "^0.1.0",
         // add stylus dependencies
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.3.1",
-        "webpack-transform-modules-plugin": "^0.3.2"
+        "webpack-post-compile-plugin": "^0.4.1",
+        "webpack-transform-modules-plugin": "^0.3.5"
       }
     }
     ```
@@ -117,7 +114,7 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         }
       },
       "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.3.2"
+        "webpack-transform-modules-plugin": "^0.3.5"
       }
     }
     ```
