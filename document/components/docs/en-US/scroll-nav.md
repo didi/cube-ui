@@ -74,7 +74,7 @@ ScrollNav component. You can use it to sticky your navigation bar and content.
 
   ```html
   <cube-scroll-nav
-    :side-style="true"
+    :side="true"
     :data="data"
     :current="current"
     @change="changeHandler"
@@ -126,7 +126,7 @@ ScrollNav component. You can use it to sticky your navigation bar and content.
   }
   ```
 
-  If set `side-style` to `true` then the navigation bar will be at the side position.
+  If set `side` to `true` then the navigation bar will be at the side position.
 
   `data` is the data source, it will be passed to `cube-scroll` component, if the `data` updated then `cube-scroll` will be auto refreshed.
 
@@ -143,7 +143,7 @@ ScrollNav component. You can use it to sticky your navigation bar and content.
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | data | optional, data source | Array | - | - |
-| sideStyle | If set to `true` then the navigation bar will be at the side position | Boolean | true/false | false |
+| side | If set to `true` then the navigation bar will be at the side position | Boolean | true/false | false |
 | current | the default navigation value(label of panel) | String/Number | - | '' |
 | speed | speed of navigating to target panel | Number | - | 300 |
 
