@@ -3,7 +3,7 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-scroll-nav
-          :side-style="true"
+          :side="true"
           :data="data"
           :current="current"
           @change="changeHandler"
