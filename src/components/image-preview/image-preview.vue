@@ -48,7 +48,6 @@
   import CubeScroll from '../scroll/scroll.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
-  import { isAndroid } from '../../common/helpers/env'
 
   const COMPONENT_NAME = 'cube-image-preview'
   const EVENT_CHANGE = 'change'
@@ -87,7 +86,6 @@
             left: true,
             right: true
           },
-          useTransition: !isAndroid,
           probeType: 3
         },
         scrollOptions: {
@@ -99,7 +97,6 @@
           scrollY: true,
           probeType: 3,
           bounce: false,
-          useTransition: isAndroid,
           click: false,
           dblclick: true,
           bounceTime: 300
@@ -133,6 +130,7 @@
           this.$refs.items.forEach((scrollItem) => {
             const scroll = scrollItem.scroll
             scroll.on('zoomStart', this.zoomStartHandler.bind(this, scroll))
+            scroll.on('beforeScrollStart', this.beforeScrollHandler)
             scroll.on('scroll', this.checkBoundary.bind(this, scroll))
             scroll.on('scrollEnd', this.scrollEndHandler.bind(this, scroll))
           })
@@ -203,7 +201,13 @@
         this.$refs.slide.slide.enable()
         scroll.disable()
       },
+      beforeScrollHandler() {
+        // for touchstart scrollEnd
+        // cancel it, do not enable slide
+        clearTimeout(this.enableSlideTid)
+      },
       scrollEndHandler(scroll) {
+        clearTimeout(this.enableSlideTid)
         if (this.dblZooming) {
           this.dblZooming = false
           clearTimeout(this.clickTid)
@@ -211,7 +215,7 @@
         this._hasEnableSlide = false
         this._scrolling = false
         scroll.enable()
-        setTimeout(() => {
+        this.enableSlideTid = setTimeout(() => {
           this.$refs.slide.slide.enable()
         })
       },
