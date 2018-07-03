@@ -130,89 +130,93 @@ describe('ImagePreview', () => {
       vm = createImagePreview()
       vm.show()
       setTimeout(() => {
-        const item = vm.$refs.items[0]
-        const itemScroll = item.scroll
-        const slide = vm.$refs.slide
-        const slideScroll = slide.slide
-        const ele = item.$el
-        dispatchSwipe(ele, [
-          [
-            {
-              pageX: 320,
-              pageY: 200
-            },
-            {
-              pageX: 320,
-              pageY: 200
-            }
-          ],
-          [
-            {
-              pageX: 360,
-              pageY: 200
-            },
-            {
-              pageX: 280,
-              pageY: 200
-            }
-          ]
-        ], 100)
-        setTimeout(() => {
-          // zoomed
-          expect(Math.round(itemScroll.scale))
-            .not.to.equal(1)
-          dispatchMoveAction(ele, [
-            {
-              pageX: 360,
-              pageY: 400
-            },
-            {
-              pageX: 360,
-              pageY: 380
-            },
-            {
-              pageX: 360,
-              pageY: 360
-            },
-            {
-              pageX: 320,
-              pageY: 340
-            },
-            {
-              pageX: 280,
-              pageY: 340
-            },
-            {
-              pageX: 240,
-              pageY: 340
-            },
-            {
-              pageX: 200,
-              pageY: 340
-            },
-            {
-              pageX: 160,
-              pageY: 340
-            },
-            {
-              pageX: 10,
-              pageY: 340
-            }
-          ], 30, (i) => {
-            // move cb
-          }, () => {
-            // end cb
-            expect(itemScroll.enabled)
-              .to.be.false
-            expect(slideScroll.enabled)
-              .to.be.true
-            setTimeout(() => {
-              expect(vm.lastPageIndex)
-                .to.equal(0)
-              done()
-            }, 1000)
-          })
-        }, 300)
+        const img = new window.Image()
+        img.src = imgs[0]
+        img.onload = () => {
+          const item = vm.$refs.items[0]
+          const itemScroll = item.scroll
+          const slide = vm.$refs.slide
+          const slideScroll = slide.slide
+          const ele = item.$el
+          dispatchSwipe(ele, [
+            [
+              {
+                pageX: 320,
+                pageY: 200
+              },
+              {
+                pageX: 320,
+                pageY: 200
+              }
+            ],
+            [
+              {
+                pageX: 360,
+                pageY: 200
+              },
+              {
+                pageX: 280,
+                pageY: 200
+              }
+            ]
+          ], 100)
+          setTimeout(() => {
+            // zoomed
+            expect(Math.round(itemScroll.scale))
+              .not.to.equal(1)
+            dispatchMoveAction(ele, [
+              {
+                pageX: 360,
+                pageY: 400
+              },
+              {
+                pageX: 360,
+                pageY: 380
+              },
+              {
+                pageX: 360,
+                pageY: 360
+              },
+              {
+                pageX: 320,
+                pageY: 340
+              },
+              {
+                pageX: 280,
+                pageY: 340
+              },
+              {
+                pageX: 240,
+                pageY: 340
+              },
+              {
+                pageX: 200,
+                pageY: 340
+              },
+              {
+                pageX: 160,
+                pageY: 340
+              },
+              {
+                pageX: 10,
+                pageY: 340
+              }
+            ], 30, (i) => {
+              // move cb
+            }, () => {
+              // end cb
+              expect(itemScroll.enabled)
+                .to.be.false
+              expect(slideScroll.enabled)
+                .to.be.true
+              setTimeout(() => {
+                expect(vm.currentPageIndex)
+                  .to.equal(0)
+                done()
+              }, 1000)
+            })
+          }, 500)
+        }
       }, 300)
     })
 
