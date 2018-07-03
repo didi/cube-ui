@@ -6,6 +6,8 @@ import {
   Loading,
   Tip,
   Toolbar,
+  TabBar,
+  TabPanels,
   // form
   Checkbox,
   CheckboxGroup,
@@ -41,10 +43,7 @@ import {
   ScrollNavBar,
   // module
   BetterScroll,
-  createAPI,
-  // tabs
-  TabBar,
-  TabPanels
+  createAPI
 } from './module'
 import { processComponentName } from './common/helpers/util'
 
