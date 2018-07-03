@@ -3,13 +3,13 @@
     <cube-popup type="image-preview" :center="false" v-show="isVisible">
       <div class="cube-image-preview-container">
         <div class="cube-image-preview-header">
-          <slot name="header" :current="lastPageIndex"></slot>
+          <slot name="header" :current="currentPageIndex"></slot>
         </div>
         <cube-slide
           ref="slide"
           v-if="isVisible"
           :data="imgs"
-          :initial-index="lastPageIndex"
+          :initial-index="currentPageIndex"
           :auto-play="false"
           :loop="loop"
           :speed="speed"
@@ -33,8 +33,8 @@
           <template slot="dots"><i></i></template>
         </cube-slide>
         <div class="cube-image-preview-footer">
-          <slot name="footer" :current="lastPageIndex">
-            <span class="cube-image-preview-counter">{{lastPageIndex + 1}}/{{imgs.length}}</span>
+          <slot name="footer" :current="currentPageIndex">
+            <span class="cube-image-preview-counter">{{currentPageIndex + 1}}/{{imgs.length}}</span>
           </slot>
         </div>
       </div>
@@ -79,7 +79,7 @@
     },
     data() {
       return {
-        lastPageIndex: this.initialIndex,
+        currentPageIndex: this.initialIndex,
         options: {
           observeDOM: false,
           bounce: {
@@ -159,8 +159,8 @@
         }
       },
       setPageIndex(currentPageIndex) {
-        if (this.lastPageIndex >= 0 && this.lastPageIndex !== currentPageIndex) {
-          const item = this.$refs.items[this.lastPageIndex]
+        if (this.currentPageIndex >= 0 && this.currentPageIndex !== currentPageIndex) {
+          const item = this.$refs.items[this.currentPageIndex]
           if (item) {
             const scroll = item.scroll
             /* istanbul ignore if */
@@ -171,7 +171,7 @@
             }
           }
         }
-        this.lastPageIndex = currentPageIndex
+        this.currentPageIndex = currentPageIndex
       },
       slideChangeHandler(currentPageIndex) {
         this.setPageIndex(currentPageIndex)
