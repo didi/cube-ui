@@ -7,7 +7,7 @@
                     ref="tabNav"
                     :data="tabLabels">
       </cube-tab-bar>
-      <div class="slide-container">
+      <div class="tab-slide-container">
         <cube-slide
           ref="slide"
           :loop="loop"
@@ -143,7 +143,7 @@
     .cube-tab-bar-slider
       background-color: black
 
-    .slide-container
+    .tab-slide-container
       position: fixed
       top: 74px
       left: 0
