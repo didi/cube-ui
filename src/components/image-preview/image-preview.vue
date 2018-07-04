@@ -48,6 +48,7 @@
   import CubeScroll from '../scroll/scroll.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
+  import { isAndroid } from '../../common/helpers/env'
 
   const COMPONENT_NAME = 'cube-image-preview'
   const EVENT_CHANGE = 'change'
@@ -86,6 +87,7 @@
             left: true,
             right: true
           },
+          useTransition: !isAndroid,
           probeType: 3
         },
         scrollOptions: {
