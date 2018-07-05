@@ -53,6 +53,7 @@
   import Bubble from '../bubble/bubble.vue'
   import scrollMixin from '../../common/mixins/scroll'
   import deprecatedMixin from '../../common/mixins/deprecated'
+  import parentMixinCreator from '../../common/mixins/parent'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
 
@@ -83,7 +84,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, deprecatedMixin],
+    mixins: [scrollMixin, deprecatedMixin, parentMixinCreator('isScroll', 'parentScroll')],
     props: {
       data: {
         type: Array,
@@ -225,6 +226,9 @@
       /* istanbul ignore next */
       this.disable()
     },
+    beforeCreate() {
+      this.isScroll = true
+    },
     mounted() {
       this.$nextTick(() => {
         this.initScroll()
@@ -249,6 +253,7 @@
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
         this._listenScrollEvents()
+        this._handleNestScroll()
 
         if (this.pullDownRefresh) {
           this._getPullDownEleHeight()
@@ -306,6 +311,36 @@
             this.$emit(event, ...args)
           })
         })
+      },
+      _handleNestScroll() {
+        if (this.parentScroll) {
+          this.$nextTick(() => {
+            const innerScroll = this.scroll
+            const outerScroll = this.parentScroll.scroll
+            console.log(this.parentScroll)
+            const scrolls = [outerScroll, innerScroll]
+            scrolls.forEach(scroll => {
+              scroll.on('scrollEnd', () => {
+                this.touchStart = false
+                outerScroll.enable()
+                innerScroll.enable()
+              })
+            })
+            innerScroll.on('scroll', (pos) => {
+              const y = pos.y
+              if (!this.touchStart) {
+                const reachBoundary = innerScroll.movingDirectionY === -1 ? y >= 0 : y <= innerScroll.maxScrollY
+                if (reachBoundary) {
+                  innerScroll.disable()
+                  outerScroll.enable()
+                } else {
+                  outerScroll.disable()
+                }
+                this.touchStart = true
+              }
+            })
+          })
+        }
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
