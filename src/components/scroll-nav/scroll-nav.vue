@@ -54,6 +54,11 @@
 
   export default {
     name: COMPONENT_NAME,
+    provide() {
+      return {
+        scrollNav: this
+      }
+    },
     mixins: [scrollMixin],
     props: {
       data: {
@@ -96,9 +101,6 @@
       active(newVal) {
         this.$emit(EVENT_CHANGE, newVal)
       }
-    },
-    beforeCreate() {
-      this.isScrollNav = true
     },
     created() {
       this.navBar = null
