@@ -8,14 +8,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import parentMixinCreator from '../../common/mixins/parent'
   import CubeStickyEle from '../sticky/sticky-ele.vue'
 
   const COMPONENT_NAME = 'cube-scroll-nav-panel'
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [parentMixinCreator('isScrollNav', 'scrollNav')],
+    inject: ['scrollNav'],
     props: {
       label: {
         type: [String, Number],

@@ -26,7 +26,6 @@
 
 <script type="text/ecmascript-6">
   import scrollMixin from '../../common/mixins/scroll'
-  import parentMixinCreator from '../../common/mixins/parent'
   import CubeScroll from '../scroll/scroll.vue'
 
   const DIRECTION_H = 'horizontal'
@@ -37,7 +36,12 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, parentMixinCreator('isScrollNav', 'scrollNav')],
+    inject: {
+      scrollNav: {
+        default: null
+      }
+    },
+    mixins: [scrollMixin],
     props: {
       direction: {
         type: String,

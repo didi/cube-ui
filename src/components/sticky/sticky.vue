@@ -26,6 +26,11 @@
 
   export default {
     name: COMPONENT_NAME,
+    provide() {
+      return {
+        sticky: this
+      }
+    },
     props: {
       pos: {
         type: Number,
@@ -105,9 +110,6 @@
         const height = this.heights[this.currentIndex] || 0
         this.$emit(EVENT_DIFF_CHANGE, newVal, height)
       }
-    },
-    beforeCreate() {
-      this.isSticky = true
     },
     created() {
       this.fixedEleHeight = 0

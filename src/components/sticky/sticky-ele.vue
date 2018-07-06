@@ -7,13 +7,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import parentMixinCreator from '../../common/mixins/parent'
-
   const COMPONENT_NAME = 'cube-sticky-ele'
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [parentMixinCreator('isSticky', 'sticky')],
+    inject: ['sticky'],
     props: {
       eleKey: {
         type: [Number, String]
