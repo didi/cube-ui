@@ -241,9 +241,10 @@
             swipeTime: this.swipeTime,
             observeDOM: false
           })
-          wheel.on('scrollEnd', () => {
+          wheel._cube_scrollEnd = () => {
             this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
-          })
+          }
+          wheel.on('scrollEnd', wheel._cube_scrollEnd)
         } else {
           this.wheels[i].refresh()
         }
@@ -254,7 +255,9 @@
         if (this.wheels.length > dataLength) {
           const extraWheels = this.wheels.splice(dataLength)
           extraWheels.forEach((wheel) => {
+            wheel.off('scrollEnd', wheel._cube_scrollEnd)
             wheel.destroy()
+            wheel._cube_scrollEnd = null
           })
         }
       },
@@ -263,6 +266,14 @@
           return !wheel.isInTransition
         })
       }
+    },
+    beforeDestroy() {
+      this.wheels && this.wheels.forEach((wheel) => {
+        wheel.off('scrollEnd', wheel._cube_scrollEnd)
+        wheel.destroy()
+        wheel._cube_scrollEnd = null
+      })
+      this.wheels = null
     },
     components: {
       CubePopup

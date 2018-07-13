@@ -106,9 +106,10 @@
       }
     },
     created() {
+      this._dataWatchers = []
       const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
-        this.$watch(key, () => {
+        this._dataWatchers.push(this.$watch(key, () => {
           // To fix the render bug when add items since loop.
           if (key === 'data') {
             this._destroy()
@@ -118,7 +119,7 @@
           this.$nextTick(() => {
             this.refresh()
           })
-        })
+        }))
       })
     },
     watch: {
@@ -300,8 +301,12 @@
     destroyed() {
       this._deactivated()
       this._destroy()
-
       this.slide = null
+
+      this._dataWatchers.forEach((cancalWatcher) => {
+        cancalWatcher()
+      })
+      this._dataWatchers = null
     },
     components: {
       CubeSlideItem

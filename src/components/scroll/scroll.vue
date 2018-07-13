@@ -270,7 +270,10 @@
         this.scroll && this.scroll.refresh()
       },
       destroy() {
-        this.scroll && this.scroll.destroy()
+        if (this.scroll) {
+          this._offScrollEvents()
+          this.scroll.destroy()
+        }
         this.scroll = null
       },
       scrollTo() {
@@ -301,11 +304,22 @@
         this.pullUpDirty = true
       },
       _listenScrollEvents() {
+        this._scrollEventsHandlers = {}
         this.finalScrollEvents.forEach((event) => {
-          this.scroll.on(camelize(event), (...args) => {
+          const _event = camelize(event)
+          this._scrollEventsHandlers[_event] = (...args) => {
             this.$emit(event, ...args)
-          })
+          }
+          this.scroll.on(_event, this._scrollEventsHandlers[_event])
         })
+      },
+      _offScrollEvents() {
+        this.finalScrollEvents.forEach((event) => {
+          const _event = camelize(event)
+          this.scroll.off(_event, this._scrollEventsHandlers[_event])
+          this._scrollEventsHandlers[_event] = null
+        })
+        this._scrollEventsHandlers = null
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
