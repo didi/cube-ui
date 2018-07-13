@@ -209,9 +209,9 @@
     display: flex
     flex-direction: column
     overflow: hidden
-    box-shadow: -2px 0 2px rgba(0, 0, 0, .2)
     transform: translate3d(0, 0, 0)
     transition: transform .3s ease-in-out
+    box-shadow: -2px 0 2px rgba(0, 0, 0, .2)
   .cube-drawer-title
     position: relative
     padding: 0 20px

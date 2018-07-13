@@ -182,11 +182,9 @@
 
   .cube-tip-zoom-enter-active
     animation: tip-in .4s
-    transform: translateZ(0)
 
   .cube-tip-zoom-leave-active
     animation: tip-out .2s
-    transform: translateZ(0)
 
   @keyframes tip-in
     0%
