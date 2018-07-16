@@ -60,7 +60,8 @@
         if (!this.minuteStepPicker) {
           this.minuteStepPicker = this.$createTimePicker({
             minuteStep: {
-              rule: 'ceil'
+              rule: 'ceil',
+              step: 15
             },
             onSelect: this.selectHandler,
             onCancel: this.cancelHandler

@@ -44,7 +44,8 @@
 
   const INT_RULE = {
     floor: 'floor',
-    ceil: 'ceil'
+    ceil: 'ceil',
+    round: 'round'
   }
 
   const DEFAULT_STEP = 10
