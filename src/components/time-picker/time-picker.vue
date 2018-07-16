@@ -103,7 +103,8 @@
         return Math[INT_RULE[this.minuteStep.rule] || INT_RULE.floor]
       },
       minuteStepNumber() {
-        return typeof minuteStep === 'number' ? this.minuteStep : (this.minuteStep.step || DEFAULT_STEP)
+        const minuteStep = this.minuteStep
+        return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
         return new Date(+this.now + this.delay * MINUTE_TIMESTAMP)
