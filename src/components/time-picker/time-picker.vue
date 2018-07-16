@@ -42,6 +42,13 @@
     defaultText: '现在'
   }
 
+  const INT_RULE = {
+    floor: 'floor',
+    ceil: 'ceil'
+  }
+
+  const DEFAULT_STEP = 10
+
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin],
@@ -72,8 +79,8 @@
         default: true
       },
       minuteStep: {
-        type: Number,
-        default: 10
+        type: [Number, Object],
+        default: DEFAULT_STEP
       },
       format: {
         type: String,
@@ -90,6 +97,12 @@
     computed: {
       nowText() {
         return (this.showNow && this.showNow.text) || NOW.defaultText
+      },
+      minuteStepRule() {
+        return Math[INT_RULE[this.minuteStep.rule] || INT_RULE.floor]
+      },
+      minuteStepNumber() {
+        return typeof minuteStep === 'number' ? this.minuteStep : (this.minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
         return new Date(+this.now + this.delay * MINUTE_TIMESTAMP)
@@ -133,7 +146,7 @@
       },
       minutes() {
         const minutes = []
-        for (let i = 0; i < 60; i += this.minuteStep) {
+        for (let i = 0; i < 60; i += this.minuteStepNumber) {
           minutes.push({
             value: i,
             text: pad(i) + '分'
@@ -142,7 +155,7 @@
         return minutes
       },
       partMinutes() {
-        const begin = Math.floor(this.minTime.getMinutes() / this.minuteStep)
+        const begin = this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
         return this.minutes.slice(begin)
       },
       cascadeData() {
@@ -192,9 +205,9 @@
           const hourIndex = hour - beginHour
 
           // calculate minuteIndex
-          const minute = Math.floor(valueDate.getMinutes() / this.minuteStep)
+          const minute = this.minuteStepRule(valueDate.getMinutes() / this.minuteStepNumber)
           const beginMinute = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
-                              ? Math.floor(this.minTime.getMinutes() / this.minuteStep)
+                              ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
                               : 0
           const minuteIndex = minute - beginMinute
 
