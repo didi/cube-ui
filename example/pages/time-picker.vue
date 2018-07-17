@@ -5,6 +5,7 @@
         <cube-button @click="showTimePicker">TimePicker</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
         <cube-button @click="showFormatPicker">Config format</cube-button>
+        <cube-button @click="showMinuteStepPicker">Config minute step</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
@@ -54,6 +55,19 @@
           })
         }
         this.formatPicker.show()
+      },
+      showMinuteStepPicker() {
+        if (!this.minuteStepPicker) {
+          this.minuteStepPicker = this.$createTimePicker({
+            minuteStep: {
+              rule: 'ceil',
+              step: 15
+            },
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.minuteStepPicker.show()
       },
       showSetTimePiker() {
         if (!this.setTimePiker) {
