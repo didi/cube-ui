@@ -233,6 +233,35 @@ describe('TimePicker', () => {
       .to.equal(1)
     console.warn = originWarn
   })
+
+  testMinuteStep()
+
+  function testMinuteStep() {
+    const minuteStepConfigs = [{
+      rule: 'floor',
+      step: 5
+    }, {
+      rule: 'ceil',
+      step: 8
+    }, {
+      rule: 'round',
+      step: 10
+    }]
+
+    minuteStepConfigs.forEach((item) => {
+      it(`should init minutes correct when minute step is ${item}`, function () {
+        vm = createPicker({
+          showNow: false,
+          delay: 0,
+          minuteStep: item,
+          format: 'h:m'
+        })
+
+        expect(vm.partMinutes[0].value)
+          .to.equal(Math[item.rule](vm.minTime.getMinutes() / item.step) * item.step)
+      })
+    })
+  }
 })
 
 function createPicker(props = {}, events = {}) {
