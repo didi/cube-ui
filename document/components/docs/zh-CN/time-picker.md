@@ -220,7 +220,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | delay | 将当前时间向后推算的分钟数，决定了最小可选时间 | Number | 15 |
 | day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
 | showNow | 是否显示现在；以及现在选项的文案<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
-| minuteStep | 分钟数的步长。 当为 Object 时还可以配置取整规则，详见后续 `minuteStep` 子配置项说明 | Number, Object | 10 |
+| minuteStep | 分钟数的步长。 当为 Object 时还可以配置取整规则，详见后续 `minuteStep` 子配置项说明<sup>1.10.5</sup> | Number, Object<sup>1.10.5</sup> | 10 |
 | title | 标题 | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | 副标题 | String | '' |
 | cancelTxt<sup>1.8.1</sup> | 取消按钮文案 | String | '取消' |
@@ -244,7 +244,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | - | - | - | - |
 | text | 现在选项的文案 | String | '现在' |
 
-* `minuteStep` 子配置项<sup>1.9.0</sup>
+* `minuteStep` 子配置项<sup>1.10.5</sup>
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
