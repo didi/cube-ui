@@ -93,6 +93,7 @@
             const oldChild = fixedEle.firstElementChild
             if (oldEle) {
               oldEle.$el.appendChild(oldChild)
+              oldEle.refresh()
             }
             if (newEle) {
               fixedEle.appendChild(newEle.$el.firstElementChild)
