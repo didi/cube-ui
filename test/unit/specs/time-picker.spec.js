@@ -237,16 +237,23 @@ describe('TimePicker', () => {
   testMinuteStep()
 
   function testMinuteStep() {
-    const minuteStepConfigs = [{
-      rule: 'floor',
-      step: 5
-    }, {
-      rule: 'ceil',
-      step: 8
-    }, {
-      rule: 'round',
-      step: 10
-    }]
+    const minuteStepConfigs = [
+      undefined,
+      15, {
+        rule: 'ceil'
+      }, {
+        step: 15
+      }, {
+        rule: 'floor',
+        step: 5
+      }, {
+        rule: 'ceil',
+        step: 8
+      }, {
+        rule: 'round',
+        step: 10
+      }
+    ]
 
     minuteStepConfigs.forEach((item) => {
       it(`should init minutes correct when minute step is ${item}`, function () {
@@ -257,8 +264,11 @@ describe('TimePicker', () => {
           format: 'h:m'
         })
 
+        const step = (typeof item === 'number' ? item : (item && item.step)) || 10
+        const rule = (item && item.rule) || 'floor'
+
         expect(vm.partMinutes[0].value)
-          .to.equal(Math[item.rule](vm.minTime.getMinutes() / item.step) * item.step)
+          .to.equal(Math[rule](vm.minTime.getMinutes() / step) * step)
       })
     })
   }
