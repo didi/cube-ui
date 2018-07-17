@@ -100,14 +100,24 @@
         return (this.showNow && this.showNow.text) || NOW.defaultText
       },
       minuteStepRule() {
-        return Math[INT_RULE[this.minuteStep.rule] || INT_RULE.floor]
+        const minuteStep = this.minuteStep
+        return (typeof minuteStep === 'object' && Math[INT_RULE[minuteStep.rule]]) || Math[INT_RULE.floor]
       },
       minuteStepNumber() {
         const minuteStep = this.minuteStep
         return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
-        return new Date(+this.now + this.delay * MINUTE_TIMESTAMP)
+        let minTimeStamp = +this.now + this.delay * MINUTE_TIMESTAMP
+
+        // Handle the minTime selectable change caused by minute step.
+        const minute = new Date(minTimeStamp).getMinutes()
+        const intMinute = this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber
+        if (intMinute >= 60) {
+          minTimeStamp += (60 - minute) * MINUTE_TIMESTAMP
+        }
+
+        return new Date(minTimeStamp)
       },
       days() {
         const days = []
