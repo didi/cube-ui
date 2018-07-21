@@ -178,7 +178,8 @@
       data() {
         return {
           options: {
-            listenScroll: true
+            listenScroll: true,
+            probeType: 3
           }
         }
       },
