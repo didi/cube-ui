@@ -205,10 +205,8 @@
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
-        /* dispatch scroll position */
-        if (this.options.listenScroll) {
-          //  ensure dispatch scroll position constantly
-          this.options.probeType = 3
+        /* dispatch scroll position constantly */
+        if (this.options.listenScroll && this.options.probeType === 3) {
           this.slide.on('scroll', this._onScroll)
         }
         const slideEl = this.$refs.slide
