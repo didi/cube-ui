@@ -14,13 +14,13 @@
           :initial-index="initialIndex"
           :auto-play="autoPlay"
           :show-dots="showDots"
-          :options="options"
+          :options="slideOptions"
           @scroll="scroll"
           @change="changePage"
         >
           <!-- 关注 -->
           <cube-slide-item>
-            <cube-scroll :data="followersData">
+            <cube-scroll :data="followersData" :options="scrollOptions">
               <ul class="list-wrapper">
                 <li v-for="(item, index) in followersData" class="list-item" :key="index">
                   <div class="top">
@@ -35,7 +35,7 @@
           </cube-slide-item>
           <!-- 推荐 -->
           <cube-slide-item>
-            <cube-scroll :data="recommendData">
+            <cube-scroll :data="recommendData" :options="scrollOptions">
               <ul class="list-wrapper">
                 <li v-for="(item, index) in recommendData" class="list-item" :key="index">
                   <div class="top is-black is-bold line-height">
@@ -48,7 +48,7 @@
             </cube-scroll>
           </cube-slide-item>
           <cube-slide-item>
-            <cube-scroll :data="hotData">
+            <cube-scroll :data="hotData" :options="scrollOptions">
               <ul class="list-wrapper">
                 <li v-for="(item, index) in hotData" class="list-item" :key="index">
                   <div class="hot-title">
@@ -87,9 +87,15 @@
         loop: false,
         autoPlay: false,
         showDots: false,
-        options: {
+        slideOptions: {
           listenScroll: true,
-          probeType: 3
+          probeType: 3,
+          /* lock y-direction when scrolling horizontally and  vertically at the same time */
+          directionLockThreshold: 0
+        },
+        scrollOptions: {
+          /* lock x-direction when scrolling horizontally and  vertically at the same time */
+          directionLockThreshold: 0
         },
         followersData: FOLLOWERS_DATA,
         recommendData: RECOMMEND_DATA,
