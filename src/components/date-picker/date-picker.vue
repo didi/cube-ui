@@ -2,13 +2,14 @@
   <cube-cascade-picker
     v-model="isVisible"
     :data="data"
-    :selectedIndex="selectedIndex"
+    :selected-index="selectedIndex"
     :title="title"
     :subtitle="subtitle"
     :cancel-txt="cancelTxt"
     :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
     :z-index="zIndex"
+    :mask-closable="maskClosable"
     @select="_select"
     @cancel="_cancel"
     @change="_change">

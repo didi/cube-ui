@@ -10,6 +10,7 @@
     :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
     :z-index="zIndex"
+    :mask-closable="maskClosable"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange">

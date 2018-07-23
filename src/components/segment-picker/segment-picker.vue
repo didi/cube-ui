@@ -14,6 +14,7 @@
       :cancel-txt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
       :swipe-time="item.swipeTime || swipeTime"
       :z-index="item.zIndex || zIndex"
+      :mask-closable="maskClosable"
       v-bind="item"
       @select="_select"
       @cancel="_cancel"
