@@ -11,6 +11,7 @@
     :cancel-txt="cancelTxt"
     :confirm-txt="confirmTxt"
     :swipe-time="swipeTime"
+    :mask-closable="maskClosable"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
     @change="_pickerChange">
