@@ -98,18 +98,28 @@ export default function createAPIComponent(Vue, Component, events = [], single =
         options.parent = ownerInstance
       }
 
+      const eventBeforeDestroy = 'hook:beforeDestroy'
+
       const component = api.open(renderData, renderFn, options)
-      if (component.__cube__parent !== ownerInstance) {
-        component.__cube__parent = ownerInstance
+      let oldOwnerInstance = component.__cube__parent
+      if (oldOwnerInstance !== ownerInstance) {
+        if (oldOwnerInstance) {
+          oldOwnerInstance.$off(eventBeforeDestroy, oldOwnerInstance.__cube_destroy_handler)
+          oldOwnerInstance.__cube_destroy_handler = null
+        }
+        oldOwnerInstance = component.__cube__parent = ownerInstance
         const beforeDestroy = function () {
           cancelWatchProps()
-          if (component.__cube__parent === ownerInstance) {
+          if (oldOwnerInstance === ownerInstance) {
             component.remove()
+            oldOwnerInstance = component.__cube__parent = null
           }
-          ownerInstance.$off('hook:beforeDestroy', beforeDestroy)
-          component.__cube__parent = null
+          ownerInstance.$off(eventBeforeDestroy, beforeDestroy)
         }
-        isInVueInstance && ownerInstance.$on('hook:beforeDestroy', beforeDestroy)
+        if (isInVueInstance) {
+          ownerInstance.__cube_destroy_handler = beforeDestroy
+          ownerInstance.$on(eventBeforeDestroy, beforeDestroy)
+        }
       }
       return component
 
