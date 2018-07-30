@@ -31,7 +31,7 @@
   export default {
     data () {
       return {
-        selectedLabelDefault: 'Vip'
+        selectedLabelDefault: 'Vip',
         tabs: [{
           label: 'Home',
           icon: 'cubeic-home'
@@ -51,7 +51,7 @@
       clickHandler (label) {
         // if you clicked home tab, then print 'Home'
         console.log(label)
-      }，
+      },
       changeHandler (label) {
         // if you clicked different tab, this methods can be emitted
       }
@@ -85,7 +85,7 @@
   export default {
     data () {
       return {
-        selectedLabelSlots: 'Like'
+        selectedLabelSlots: 'Like',
         tabs: [{
           label: 'Home',
           icon: 'cubeic-home'

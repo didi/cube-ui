@@ -31,7 +31,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
   export default {
     data() {
       return {
-        selectedLabelDefault: 'Vip'
+        selectedLabelDefault: 'Vip',
         tabs: [{
           label: 'Home'
         }, {
@@ -80,7 +80,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
   export default {
     data () {
       return {
-        selectedLabelSlots: 'Like'
+        selectedLabelSlots: 'Like',
         tabs: [{
           label: 'Home',
           icon: 'cubeic-home'
