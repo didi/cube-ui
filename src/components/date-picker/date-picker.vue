@@ -154,7 +154,7 @@
             return this.valueArray[i] && item.value === this.valueArray[i]
           })
           selectedIndex[i] = index !== -1 ? index : 0
-          data = data[selectedIndex[i]].children
+          data = data[selectedIndex[i]] && data[selectedIndex[i]].children
         }
 
         return selectedIndex
@@ -189,7 +189,7 @@
         }
         if (count < this.columnCount - 1 && i < 5) {
           (item.children || item).forEach(subItem => {
-            !subItem.children && this._generateData(i + 1, count + 1, subItem)
+            (!subItem.children || subItem.isMin || subItem.isMax) && this._generateData(i + 1, count + 1, subItem)
           })
         }
       },
