@@ -190,6 +190,7 @@
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动。`即将废弃`，推荐使用 `options` 属性 | Boolean | true/false | false |
 | stopPropagation | 是否阻止事件冒泡，可用于解决嵌套同方向slide时会遇到的事件冒泡问题。`即将废弃`，推荐使用 `options` 属性 | Boolean | true/false | false |
+| refreshResetCurrent<sup>1.10.10</sup> | 当刷新时是否重置索引 | Boolean | true/false | true |
 
 ### 插槽
 

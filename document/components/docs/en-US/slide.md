@@ -206,6 +206,7 @@
 | speed | speed of switching pages | Number | - | 400 |
 | allowVertical | whether to allow vertical scrolling. `Deprecated`, please use the property `options` instead. | Boolean | true/false | false |
 | stopPropagation | whether to stop propagation, which could use to solve the problem of event propagation when nest same direction slide. `Deprecated`, please use the property `options` instead. | Boolean | true/false | false |
+| refreshResetCurrent<sup>1.10.10</sup> | whether to reset index when refresh | Boolean | true/false | true |
 
 ### Slot
 
