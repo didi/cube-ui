@@ -222,9 +222,9 @@
         })
       },
       checkBoundary(scroll, pos) {
-        if (scroll.movingDirectionX) {
+        if (scroll.distX) {
           this._scrolling = true
-          const reached = scroll.movingDirectionX === -1 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
+          const reached = scroll.distX > 0 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
           if (reached) {
             this._hasEnableSlide = true
             this._slide(scroll)
@@ -233,7 +233,7 @@
               this._scroll(scroll)
             }
           }
-        } else if (scroll.movingDirectionY) {
+        } else if (scroll.distY) {
           this._scrolling = true
           this._scroll(scroll)
         }
