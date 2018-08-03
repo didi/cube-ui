@@ -97,6 +97,10 @@
         deprecated: {
           replacedBy: 'options'
         }
+      },
+      refreshResetCurrent: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -142,7 +146,7 @@
         this._destroy()
         clearTimeout(this._timer)
 
-        if (this.slide) {
+        if (this.slide && this.refreshResetCurrent) {
           this.currentPageIndex = 0
         }
         this._updateSlideDom()
