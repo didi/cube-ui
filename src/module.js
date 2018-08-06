@@ -36,6 +36,7 @@ import ImagePreview from './modules/image-preview'
 
 // Scroll
 import Scroll from './modules/scroll'
+import InfinityScroll from './modules/infinity-scroll'
 import Slide from './modules/slide'
 import IndexList from './modules/index-list'
 import Swipe from './modules/swipe'
@@ -102,6 +103,7 @@ export {
   ImagePreview,
   // scroll
   Scroll,
+  InfinityScroll,
   SlideItem,
   Slide,
   IndexList,

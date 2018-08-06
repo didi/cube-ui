@@ -35,6 +35,7 @@ import {
   ImagePreview,
   // scroll
   Scroll,
+  InfinityScroll,
   Slide,
   IndexList,
   Swipe,
@@ -82,6 +83,7 @@ const components = [
   ImagePreview,
   // scroll
   Scroll,
+  InfinityScroll,
   Slide,
   IndexList,
   Swipe,
