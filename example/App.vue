@@ -162,6 +162,9 @@
               {
                 path: '/scroll',
                 text: 'Scroll'
+              }, {
+                path: '/infinity-scroll',
+                text: 'InfinityScroll'
               },
               {
                 path: '/slide',

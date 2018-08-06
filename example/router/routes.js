@@ -64,6 +64,7 @@ import Tab from '../pages/tab-bar/tab-entry.vue'
 import TabBasic from '../pages/tab-bar/tab-basic.vue'
 import TabComposite from '../pages/tab-bar/tab-composite.vue'
 import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
+import InfinityScroll from '../pages/infinity-scroll/infinity-scroll'
 
 const routes = [
   {
@@ -189,6 +190,10 @@ const routes = [
   {
     path: '/image-preview',
     component: ImagePreview
+  },
+  {
+    path: '/infinity-scroll',
+    component: InfinityScroll
   },
   {
     path: '/scroll',
