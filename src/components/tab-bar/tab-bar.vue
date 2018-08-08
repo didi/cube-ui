@@ -147,5 +147,5 @@
     bottom: 0
     height: 2px
     width: 20px
-    background-color: $tab-slider-bgc
+    background-color: $color-light-grey
 </style>

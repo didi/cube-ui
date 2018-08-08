@@ -75,17 +75,18 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
+
   .cube-infinity-scroll
     position: relative
     height: 100%
     overflow: hidden
     .cube-infinity-scroll-template
-      display none
+      display: none
     .cube-infinity-scroll-tombstone
       width: 100%
       padding: 10px 0
     .cube-infinity-scroll-tombstone_default
-      background-color: $color-light-grey
+      background-color: $infinity-scroll-tombstone-bgc
       width: 90%
       margin: 0 auto
       height: 20px
