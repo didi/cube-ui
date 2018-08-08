@@ -7,7 +7,6 @@
       :mask="true"
       :z-index="zIndex"
       v-show="isVisible"
-      @touchmove.prevent
       @mask-click="maskClick">
       <transition name="cube-action-sheet-move">
         <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
