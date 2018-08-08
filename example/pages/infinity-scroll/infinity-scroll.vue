@@ -45,7 +45,7 @@
     data() {
       return {
         options: {
-          useTransition: false
+          useTransition: false // 解决使用 transition 做动画时的“白屏”问题
         }
       }
     },
@@ -58,7 +58,6 @@
         // Fetch at least 30 or count more objects for display.
         count = Math.max(30, count)
         const infinityScroll = this.$refs.infinityScroll
-        console.log(infinityScroll)
         if (this.pageNum++ > 20) {
           infinityScroll.setItems(false)
         } else {
