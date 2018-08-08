@@ -14,11 +14,11 @@ You need to know about three concepts about `cube-infinity-scroll`，`tombstone`
 
 - fetch
 
-  `cube-infinity-scroll` component dispatches a `fetch` event at the appropriate time to notify the user to load new data. The first argument to the function is `count` , which is the amount of data needed. You only need to call the `setItems` method of the component instance after getting the data, and the data will be loaded. __Note that our data type must be Array__. However, the amount of data passed in by the the user may not equal `count`, fortunately the component is smart enough to always dispatch the `fetch` event until the total amount of data you load is not less than `count` and will store rest data and waiting for the next render. If you want to stop the infinity scroll, you can call the instance's `setItems` method and pass in `false`.
+  `cube-infinity-scroll` component dispatches a `fetch` event at the appropriate time to notify the user to load new data. The first argument to the function is `count` , which is the amount of data needed. You only need to call the `setItems` method of the component instance after getting the data, and the data will be loaded. __Note that your data type must be Array__. However, the amount of data passed in by the the user may not equal `count`, fortunately the component is smart enough to always dispatch the `fetch` event until the total amount of data you loaded is not less than `count` and will store rest data and wait for the next render. If you want to stop the infinity scroll, you can call the instance's `setItems` method and pass in `false`.
 
 - render
 
-  You must implement your own `render` function and pass it to the `cube-infinity-scroll` component by props. The first argument to the function is the list item to be rendered, the second argument is the reusable list item dom element on the page, so this parameter may not exist when there is no reusable item dom element. Inside the `render` function, we can use the first argument to render the dom node of the list item, __you must return the element node__. This component can get this element node and add it to the page.
+  You must implement your own `render` function and pass it to the `cube-infinity-scroll` component by props. The first argument to the function is the list item to be rendered, the second argument is the reusable list item dom element on the page, so this parameter may not exist when there is no reusable item dom element. Inside the `render` function, you can use the first argument to render the dom node of the list item, __you must return the element node__. This component can get this element node and add it to the page.
 
 ### Example
 
@@ -75,11 +75,11 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     }
   ```
 
-  > In this example, the `options` configuration sets `useTransition` to `false` because if the component scrolls too fast, "white screen" problem will occur and the browser will optimize when using css3 transition. This configuration forces the animation to be implemented by js, so the effect of the animation depends on the performance of the phone.
+  > In this example, the `options` configuration sets `useTransition` to `false` because if the component scrolls too fast, "White Screen" problem will occur and the browser will optimize when using css3 transition. This configuration forces the animation to be implemented by js, so the effect of the animation depends on the performance of the phone.
 
 - Customized Tombstone Slot
 
-  In fact, we often customize the different `tombstone` styles according to the list items to be rendered, so the `cube-infinity-scroll` component also supports the use of `slot`, as follows:
+  In fact, the user often customize the different `tombstone` styles according to the list items to be rendered, so the `cube-infinity-scroll` component also supports the use of `slot`, as follows:
 
   ```html
   <template>
