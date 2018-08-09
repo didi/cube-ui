@@ -5,7 +5,6 @@
         <cube-infinity-scroll
           ref="infinityScroll"
           @fetch="fetchData"
-          :options="options"
           :render="render">
           <!-- dom to be cloned as render template -->
           <div slot="render" class="render-template" ref="render">
@@ -20,7 +19,7 @@
           </div>
           <!-- dom to be cloned as tombstone -->
           <div slot="tombstone" class="tombstone-template">
-            <img width="48" height="48" src="./unknown.jpg">
+            <img width="48" height="48" src="unknown.jpg">
             <div>
               <p></p>
               <p></p>
@@ -42,13 +41,6 @@
   const INIT_TIME = new Date().getTime()
 
   export default {
-    data() {
-      return {
-        options: {
-          useTransition: false // 解决使用 transition 做动画时的“白屏”问题
-        }
-      }
-    },
     created () {
       this.nextItem = 0
       this.pageNum = 0
@@ -73,7 +65,7 @@
       render (item, div) {
         div = div || this.$refs.render.cloneNode(true)
         div.dataset.id = item.id
-        div.querySelector('.avatar').src = require(`./avatar${item.avatar}.jpg`)
+        div.querySelector('.avatar').src = `avatar${item.avatar}.jpg`
         div.querySelector('.bubble p').textContent = item.message
         div.querySelector('.bubble .posted-date').textContent = item.time.toString()
         let img = div.querySelector('.bubble img')
@@ -115,7 +107,7 @@
         resolve(item)
       } else {
         let image = new window.Image()
-        image.src = require(`./image${item.image}.jpg`)
+        image.src = `image${item.image}.jpg`
         image.addEventListener('load', function () {
           item.image = image
           resolve(item)
