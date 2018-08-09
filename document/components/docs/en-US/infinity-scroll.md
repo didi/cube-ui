@@ -33,7 +33,6 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     <cube-infinity-scroll
       ref="infinityScroll"
       @fetch="fetchData"
-      :options="options"
       :render="render">
       <!-- dom to be cloned as render template -->
       <div slot="render" class="render-template" ref="render">
@@ -46,13 +45,6 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
 
   ```js
     export default {
-      data() {
-        return {
-          options: {
-            useTransition: false // Solve the "white screen" problem when using css3 transition
-          }
-        }
-      },
       methods: {
         fetchData (count) {
           // Load no less than 30 amount of data. If more data is loaded than the component needs, it will be automatically loaded and wait for the next render.
@@ -75,7 +67,7 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     }
   ```
 
-  > In this example, the `options` configuration sets `useTransition` to `false` because if the component scrolls too fast, "White Screen" problem will occur and the browser will optimize when using css3 transition. This configuration forces the animation to be implemented by js, so the effect of the animation depends on the performance of the phone.
+  > If the component scrolls too fast, "White Screen" problem will occur because the browser will optimize when using the css3 transition. However, the component accepts `options` as props, which is an object. You can set its first-level property `useTransition` to `false`, and then use javascript to perform the animation, so the fluency of the animation depends on the performance of the phone.
 
 - Customized Tombstone Slot
 
@@ -86,7 +78,6 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     <cube-infinity-scroll
       ref="infinityScroll"
       @fetch="fetchData"
-      :options="options"
       :render="render">
       <!-- dom to be cloned as render template -->
       <div slot="render" class="render-template" ref="render">
@@ -95,7 +86,7 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
       </div>
       <!-- dom to be cloned as tombstone -->
       <div slot="tombstone" class="tombstone-template">
-        <img width="48" height="48" src="./unknown.jpg">
+        <img width="48" height="48" src="unknown.jpg">
         <div>
           <p></p>
           <p></p>

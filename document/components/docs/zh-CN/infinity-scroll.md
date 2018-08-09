@@ -34,7 +34,6 @@
     <cube-infinity-scroll
       ref="infinityScroll"
       @fetch="fetchData"
-      :options="options"
       :render="render">
       <!-- dom to be cloned as render template -->
       <div slot="render" class="render-template" ref="render">
@@ -47,13 +46,6 @@
 
   ```js
     export default {
-      data() {
-        return {
-          options: {
-            useTransition: false // 解决使用 transition 做动画时的“白屏”问题
-          }
-        }
-      },
       methods: {
         fetchData (count) {
           // 每次加载不少于30条数据，如果加载数据多于组件需要的，会自动被装载并等待下次渲染
@@ -76,7 +68,7 @@
     }
   ```
 
-  > 在本例中，`options` 配置项将 `useTransition` 设置为 false，是因为组件如果滚动过快，会出现“白屏”的情况，浏览器在使用css3 transition过渡时候会有优化。通过此配置项强制让动画通过 js 实现，因此动画的效果依赖于手机的性能
+  > 组件如果滚动过快，会出现“白屏”的情况，是因为浏览器在使用 css3 transition 过渡时候会有优化。不过组件接受 `options` 作为props，它是一个对象，只要将它的第一级属性 `useTransition` 设置为 false，即可用 js 来执行动画，因此动画的流畅性依赖于手机的性能。
 
 - 自定义 Tombstone 插槽
 
@@ -87,7 +79,6 @@
     <cube-infinity-scroll
       ref="infinityScroll"
       @fetch="fetchData"
-      :options="options"
       :render="render">
       <!-- dom to be cloned as render template -->
       <div slot="render" class="render-template" ref="render">
