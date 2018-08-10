@@ -358,3 +358,6 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | scrollTo | Scroll to specific position. | x: horizontal position<br> y: vertical position<br> time: transition time<br> ease: easing function |
 | disable | Disable scroll. | - |
 | enable | Enable scroll. It's enabled by default | - |
+| forceUpdate | If a pulldown/pullup refresh has no data update, you should call `forceUpdate()` method to force update pullUp/pullDown state | - |
+| resetPullUpTxt | Reset pull up txt when pull up state changed from no data to data updated | - |
+| refresh | Refresh, computed height and called BetterScroll instance's refresh | - |

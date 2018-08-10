@@ -358,4 +358,7 @@
 | - | - | - |
 | scrollTo | 滚动到指定位置 | x: 横向位置<br> y: 纵向位置<br> time: 过渡动画时间<br> ease: 动画曲线 |
 | disable | 禁用滚动 | - |
-| enable | 启用滚动，默认是开启滚动的。 | - |
+| enable | 启用滚动，默认是开启滚动的 | - |
+| forceUpdate | 强制更新状态，用于上拉或者下拉无数据的情况 | - |
+| resetPullUpTxt | 当从无更多切换到有更多时，重置上拉文本内容 | - |
+| refresh | 刷新，重新计算高度且刷新 BetterScroll 实例 | - |
