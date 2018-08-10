@@ -131,12 +131,14 @@
         handler() {
           this.formatClearable()
         },
+        deep: true,
         immediate: true
       },
       eye: {
         handler() {
           this.formateEye()
         },
+        deep: true,
         immediate: true
       }
     },
