@@ -53,7 +53,6 @@
   import Bubble from '../bubble/bubble.vue'
   import scrollMixin from '../../common/mixins/scroll'
   import deprecatedMixin from '../../common/mixins/deprecated'
-  import parentMixinCreator from '../../common/mixins/parent'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
 
@@ -84,7 +83,17 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [scrollMixin, deprecatedMixin, parentMixinCreator('isScroll', 'parentScroll')],
+    mixins: [scrollMixin, deprecatedMixin],
+    provide() {
+      return {
+        parentScroll: this
+      }
+    },
+    inject: {
+      parentScroll: {
+        default: null
+      }
+    },
     props: {
       data: {
         type: Array,
