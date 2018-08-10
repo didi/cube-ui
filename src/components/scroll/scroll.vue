@@ -326,9 +326,9 @@
           this.$nextTick(() => {
             const innerScroll = this.scroll
             const outerScroll = this.parentScroll.scroll
-            console.log(this.parentScroll)
             const scrolls = [outerScroll, innerScroll]
             scrolls.forEach(scroll => {
+              // scroll ended always enable them
               scroll.on('scrollEnd', () => {
                 this.touchStart = false
                 outerScroll.enable()
