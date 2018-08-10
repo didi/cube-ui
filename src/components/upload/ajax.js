@@ -17,6 +17,8 @@ export default function ajaxUpload(file, options, changeHandler) {
     checkSuccess = function () { return true }
   } = options
 
+  const realTarget = typeof target === 'function' ? target.call(this, file) : target
+
   file.progress = 0
   file.status = STATUS_UPLOADING
 
@@ -77,7 +79,7 @@ export default function ajaxUpload(file, options, changeHandler) {
     setStatus(STATUS_ERROR)
   }
 
-  xhr.open('POST', target, true)
+  xhr.open('POST', realTarget, true)
   if (withCredentials) {
     xhr.withCredentials = true
   }
