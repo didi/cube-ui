@@ -121,10 +121,7 @@ describe('Input.vue', () => {
 
     expect(vm.$el.querySelector('.cube-input-clear'))
       .to.be.null
-    vm.$parent.clearable = {
-      visible: true,
-      blurHidden: false
-    }
+    vm.$parent.clearable.blurHidden = false
     vm.$nextTick(() => {
       expect(vm.$el.querySelector('.cube-input-clear'))
         .not.to.be.null
