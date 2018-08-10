@@ -69,12 +69,12 @@ export default function ajaxUpload(file, options, changeHandler) {
     file.response = response
     file.responseHeaders = xhr.getAllResponseHeaders()
 
-    if (checkSuccess.length <= 1) {
-      const isSuccess = checkSuccess(response)
+    if (checkSuccess.length <= 2) {
+      const isSuccess = checkSuccess(response, file)
       setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
     } else {
       // callback
-      checkSuccess(response, (isSuccess) => {
+      checkSuccess(response, file, (isSuccess) => {
         setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
       })
     }
