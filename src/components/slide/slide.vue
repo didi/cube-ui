@@ -130,6 +130,7 @@
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
           this.slide && this.slide.goToPage(newIndex)
+          this.currentPageIndex = newIndex;
         }
       }
     },
