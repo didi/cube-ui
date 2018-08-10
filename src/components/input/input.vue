@@ -181,16 +181,15 @@
       color: $input-placeholder-color!important
       text-overflow: ellipsis
     + .cube-input-append
-      margin-left: -5px
+      .cube-input-clear, .cube-input-eye
+        &:first-child
+          margin-left: -5px
   .cube-input_active
     &::after
       border-color: $input-focus-border-color
   .cube-input-prepend, .cube-input-append
     display: flex
     align-items: center
-  .cube-input-prepend
-    + .cube-input-field
-      margin-left: -5px
   .cube-input-clear, .cube-input-eye
     width: 1em
     height: 1em
