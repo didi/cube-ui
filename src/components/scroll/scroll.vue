@@ -235,9 +235,6 @@
       /* istanbul ignore next */
       this.disable()
     },
-    beforeCreate() {
-      this.isScroll = true
-    },
     mounted() {
       this.$nextTick(() => {
         this.initScroll()
