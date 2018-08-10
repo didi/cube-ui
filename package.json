@@ -6,6 +6,7 @@
   "module": "src/index.js",
   "typings": "types/index.d.ts",
   "postCompile": true,
+  "sideEffects": false,
   "scripts": {
     "build": "node build/build.js",
     "dev": "node build/dev-server.js",
