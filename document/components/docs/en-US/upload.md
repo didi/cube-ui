@@ -197,8 +197,8 @@ If `action` is a string, it will be transformed into `{ target: action }`.
 | target | the upload target URL for the multipart POST request, if this value is a function, then it will be called with the file object as parameter and the returned value as the URL | String/Function<sup>1.11.0+</sup> | - |
 | fileName | the name of the multipart POST parameter | String | 'file' |
 | prop | which property in file object will be uploaded | String | 'file' |
-| headers | extra headers to include in the multipart POST | Object | {} |
-| data | extra data to include in the multipart POST | Object | {} |
+| headers | extra headers to include in the multipart POST, if this value is a function, then it will be called with the file object as parameter and the returned value as headers | Object/Function<sup>1.11.0+</sup> | {} |
+| data | extra data to include in the multipart POST, if this value is a function, then it will be called with the file object as parameter and the returned value as data | Object/Function<sup>1.11.0+</sup> | {} |
 | withCredentials | Standard CORS requests would not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true | Boolean | false |
 | timeout | upload request timeout value | Number | 0 |
 | progressInterval | The time interval between progress reports (Unit: ms) | Number | 100 |

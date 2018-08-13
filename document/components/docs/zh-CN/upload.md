@@ -204,8 +204,8 @@
 | target | 上传目标 URL，如果为函数，则传入当前文件对象调用得到目标 URL | String/Function<sup>1.11.0+</sup> | - |
 | fileName | 上传文件时文件的参数名 | String | 'file' |
 | prop | 上传的时候使用文件对象的 prop 属性所对应的值 | String | 'file' |
-| headers | 自定义请求头 | Object | {} |
-| data | 上传需要附加数据 | Object | {} |
+| headers | 自定义请求头，如果为函数，则传入当前文件对象调用得到 headers | Object/Function<sup>1.11.0+</sup> | {} |
+| data | 上传需要附加数据，如果为函数，则传入当前文件对象调用得到 data | Object/Function<sup>1.11.0+</sup> | {} |
 | withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false |
 | timeout | 请求超时时间 | Number | 0 | |
 | progressInterval | 进度回调间隔（单位：ms） | Number | 100 |
