@@ -16,18 +16,24 @@ describe('InfinityScroll', () => {
       .to.be.a('function')
   })
   it('should provide render function as props and must return a dom', () => {
-    let vm = createInfinityScroll()
+    vm = createInfinityScroll()
     expect(vm.$parent.render()).to.be.an.instanceof(window.HTMLElement)
   })
+  it('should call correct method', () => {
+    vm = createInfinityScroll()
+    vm.disable()
+    vm.enable()
+    vm.destroy()
+  })
   it('should call "setItems" api of InfinityScroll instance in fetchData function', (done) => {
-    let vm = createInfinityScroll()
+    vm = createInfinityScroll()
     setTimeout(() => {
       expect(vm.items.length).to.equal(3)
       done()
     }, 100)
   })
   it('should call "setItems" api of InfinityScroll instance and pass false when you wanna stop infinity scroll', (done) => {
-    let vm = createInfinityScroll(true)
+    vm = createInfinityScroll(true)
     setTimeout(() => {
       expect(vm.infinityScroll.infiniteScroller.hasMore).to.equal(false)
       done()
@@ -64,7 +70,7 @@ describe('InfinityScroll', () => {
             }]
             infinityScroll.setItems(items)
           } else {
-            // 停止无线滚动
+            // stop scrolling
             infinityScroll.setItems(false)
           }
         }
