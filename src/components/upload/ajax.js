@@ -1,4 +1,5 @@
 import {
+  evalOpts,
   STATUS_SUCCESS,
   STATUS_UPLOADING,
   STATUS_ERROR
@@ -17,7 +18,7 @@ export default function ajaxUpload(file, options, changeHandler) {
     checkSuccess = function () { return true }
   } = options
 
-  const realTarget = typeof target === 'function' ? target.call(this, file) : target
+  const realTarget = evalOpts(target, file)
 
   file.progress = 0
   file.status = STATUS_UPLOADING
@@ -52,8 +53,9 @@ export default function ajaxUpload(file, options, changeHandler) {
   }
 
   const formData = new window.FormData()
-  Object.keys(data).forEach((key) => {
-    formData.append(key, data[key])
+  const realData = evalOpts(data, file)
+  Object.keys(realData).forEach((key) => {
+    formData.append(key, realData[key])
   })
   formData.append(fileName, file[prop])
 
@@ -90,8 +92,9 @@ export default function ajaxUpload(file, options, changeHandler) {
   if (withCredentials) {
     xhr.withCredentials = true
   }
-  Object.keys(headers).forEach((key) => {
-    xhr.setRequestHeader(key, headers[key])
+  const realHeaders = evalOpts(headers, file)
+  Object.keys(realHeaders).forEach((key) => {
+    xhr.setRequestHeader(key, realHeaders[key])
   })
   if (timeout > 0) {
     xhr.timeout = timeout
