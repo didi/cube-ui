@@ -1,24 +1,24 @@
-## InfinityScroll 组件
+## InfinityScroll
 
 > New in 1.11.0+
 
 Infinity scroll component, generally is applied to a large number of list data's rendering (recommended when the data length exceeds 500).
 
-### 注意事项
+### Precautions
 
-You need to know about three concepts about `cube-infinity-scroll`，`tombstone` 、`fetch` and `render`。
+You need to know about three concepts about `cube-infinite-scroll`, `tombstone`, `fetch` and `render`.
 
 - tombstone
 
-  Regarded as a placeholder node or css skeleton node, the component has a built-in `tombstone` style, but you can create a customized `tombstone` style with `slot`.
+  Regarded as a placeholder node or CSS skeleton node, the component has a built-in `tombstone` style, but you can create a customized `tombstone` style with `slot`.
 
 - fetch
 
-  `cube-infinity-scroll` component dispatches a `fetch` event at the appropriate time to notify the user to load new data. The first argument to the function is `count` , which is the amount of data needed. You only need to call the `setItems` method of the component instance after getting the data, and the data will be loaded. __Note that your data type must be Array__. However, the amount of data passed in by the the user may not equal `count`, fortunately the component is smart enough to always dispatch the `fetch` event until the total amount of data you loaded is not less than `count` and will store rest data and wait for the next render. If you want to stop the infinity scroll, you can call the instance's `setItems` method and pass in `false`.
+  The `fetch` function is passed to the `cube-infinity-scroll` component by props. The component will call the `fetch` function at the appropriate time. The first argument of the function is `count`, which is the amount of data needed. the function must return a Promise with data (__the data type must be an Array or a falsy value). Since the amount of data passed in by the user may not equal `count`, fortunately the component is smart enough to always call `fetch` function until the total amount of data you load is not less than `count`, and will store more of your rest data, then wait for the next render. If you want to end infinite scroll, you only need return a Promise with a falsy value.
 
 - render
 
-  You must implement your own `render` function and pass it to the `cube-infinity-scroll` component by props. The first argument to the function is the list item to be rendered, the second argument is the reusable list item dom element on the page, so this parameter may not exist when there is no reusable item dom element. Inside the `render` function, you can use the first argument to render the dom node of the list item, __you must return the element node__. This component can get this element node and add it to the page.
+  You must implement your own `render` function and pass it to the `cube-infinity-scroll` component by props. The first argument to the function is the list item to be rendered, the second argument is the reusable list item DOM element on the page, so this parameter may not exist when there is no reusable item DOM element. Inside the `render` function, you can use the first argument to render the DOM node of the list item, __you must return the element node__. This component can get this element node and add it to the page.
 
 ### Example
 
@@ -26,36 +26,34 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
 
 - Basic Usage
 
-  The `cube-infinity-scroll` component has a built-in `tombstone` style, which dispatches a `fetch` event to notify the user to load data, and loads the data by the component's `saveItems` method, and must provide a slot named `render`. This slot can be used inside the `render` function. Inside the `render` function you can clone the element node of the render slot, populate the node with the loaded item data and return the element node.
+  The `cube-infinity-scroll` component has a built-in `tombstone` style, which call `fetch` function to notify the user to load data, and must provide a slot named `render`. This slot can be used inside the `render` function. Inside the `render` function you can clone the element node of the render slot, populate the node with the loaded item data and return the element node.
 
   ```html
-  <template>
-    <cube-infinity-scroll
-      ref="infinityScroll"
-      @fetch="fetchData"
-      :render="render">
-      <!-- dom to be cloned as render template -->
-      <div slot="render" class="render-template" ref="render">
-        <div class="bubble">
+    <template>
+      <cube-infinity-scroll
+        :fetch="fetch"
+        :render="render">
+        <!-- DOM to be cloned as render template -->
+        <div slot="render" class="render-template" ref="render">
+          <div class="bubble">
+          </div>
         </div>
-      </div>
-    </cube-infinity-scroll>
-  </template>
+      </cube-infinity-scroll>
+    </template>
   ```
 
   ```js
     export default {
       methods: {
-        fetchData (count) {
+        fetch (count) {
           // Load no less than 30 amount of data. If more data is loaded than the component needs, it will be automatically loaded and wait for the next render.
           count = Math.max(30, count)
-          const infinityScroll = this.$refs.infinityScroll
           let items = []
           for (let i = 0; i < count; i++) {
             items[i] = { text: i }
           }
-          // The component must be notified to load the data, note that items must be an Array
-          infinityScroll.setItems(items)
+          // return a Promise, note that items must be an Array
+          return Promise.resolve(items)
         },
         render (item, div) {
           div = div || this.$refs.render.cloneNode(true)
@@ -67,46 +65,45 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     }
   ```
 
-  > If the component scrolls too fast, "White Screen" problem will occur because the browser will optimize when using the css3 transition. However, the component accepts `options` as props, which is an object. You can set its first-level property `useTransition` to `false`, and then use javascript to perform the animation, so the fluency of the animation depends on the performance of the phone.
+  > If the component scrolls too fast, "White Screen" problem will occur because the browser will optimize when using the CSS3 transition. However, the component accepts `options` as props, which is an object. You can set its first-level property `useTransition` to `false`, and then use javascript to perform the animation, so the fluency of the animation depends on the performance of the phone.
 
 - Customized Tombstone Slot
 
   In fact, the user often customize the different `tombstone` styles according to the list items to be rendered, so the `cube-infinity-scroll` component also supports the use of `slot`, as follows:
 
   ```html
-  <template>
-    <cube-infinity-scroll
-      ref="infinityScroll"
-      @fetch="fetchData"
-      :render="render">
-      <!-- dom to be cloned as render template -->
-      <div slot="render" class="render-template" ref="render">
-        <div class="bubble">
+    <template>
+      <cube-infinity-scroll
+        :fetch="fetch"
+        :render="render">
+        <!-- DOM to be cloned as render template -->
+        <div slot="render" class="render-template" ref="render">
+          <div class="bubble">
+          </div>
         </div>
-      </div>
-      <!-- dom to be cloned as tombstone -->
-      <div slot="tombstone" class="tombstone-template">
-        <img width="48" height="48" src="unknown.jpg">
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
+        <!-- DOM to be cloned as tombstone -->
+        <div slot="tombstone" class="tombstone-template">
+          <img width="48" height="48" src="unknown.jpg">
+          <div>
+            <p></p>
+            <p></p>
+            <p></p>
+          </div>
         </div>
-      </div>
-    </cube-infinity-scroll>
-  </template>
+      </cube-infinity-scroll>
+    </template>
   ```
 
-- Stop scrolling
+- Stop Scroll
 
   Infinity scroll is not really infinite. If you reach certain conditions, you may need to stop it, and the component also constains this ability. The sample code is as follows:
 
   ```js
     export default {
       methods: {
-        fetchData (count) {
-          // stop scrolling
-          infinityScroll.setItems(false)
+        fetch (count) {
+          // stop scroll
+          return Promise.resolve(false)
         }
       }
     }
@@ -117,17 +114,7 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
 | Attribute | Description | Type | Needed | Default |
 | - | - | - | - | - |
 | render | render the element node of the list item through the first argument, and returns the element node | Function | yes | - |
+| fetch | called when the component needs to render the list item | count: the amount of data needed | Function | yes | - |
 | options | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: false,<br>  click: true<br>} |
 
-### Events
-
-| Event Name | Description | Parameters | Type |
-| - | - | - | - |
-| fetch | Dispatched when the component needs to render the list item | count: the amount of data needed | Number |
-
-### Instance methods
-
-| Method Name | Description | Parameters | Type |
-| - | - | - | - |
-| saveItems | load items data | items: items data | Array / false |
 
