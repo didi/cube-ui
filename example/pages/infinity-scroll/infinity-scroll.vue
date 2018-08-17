@@ -3,8 +3,7 @@
     <div slot="content">
       <div class="infinity-scroll-container">
         <cube-infinity-scroll
-          ref="infinityScroll"
-          @fetch="fetchData"
+          :fetch="fetch"
           :render="render">
           <!-- dom to be cloned as render template -->
           <div slot="render" class="render-template" ref="render">
@@ -46,20 +45,17 @@
       this.pageNum = 0
     },
     methods: {
-      fetchData (count) {
+      fetch (count) {
         // Fetch at least 30 or count more objects for display.
         count = Math.max(30, count)
-        const infinityScroll = this.$refs.infinityScroll
         if (this.pageNum++ > 20) {
-          infinityScroll.setItems(false)
+          return Promise.resolve(false)
         } else {
           let items = []
           for (let i = 0; i < count; i++) {
             items[i] = getItem(this.nextItem++)
           }
-          Promise.all(items).then((res) => {
-            infinityScroll.setItems(res)
-          })
+          return Promise.all(items)
         }
       },
       render (item, div) {
