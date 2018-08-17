@@ -17,10 +17,10 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import scroll from '../../common/mixins/scroll'
+  import { warn } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-infinity-scroll'
-
-  const EVENT_FETCH = 'fetch'
+  const WARNING = 'InfinityScroll requires a Promise polyfill in this browser.'
 
   const DEFAULT_OPTIONS = {
     observeDOM: false,
@@ -33,6 +33,10 @@
     mixins: [scroll],
     props: {
       render: {
+        type: Function,
+        required: true
+      },
+      fetch: {
         type: Function,
         required: true
       }
@@ -51,11 +55,6 @@
     beforeDestroy() {
       this.destroy()
     },
-    data () {
-      return {
-        items: []
-      }
-    },
     methods: {
       _createInfinityScroll () {
         let options = Object.assign({}, DEFAULT_OPTIONS, this.options, {
@@ -65,20 +64,19 @@
               return this.$refs.tombstone.cloneNode(true)
             },
             fetch: (amount) => {
-              return new Promise((resolve, reject) => {
-                const unwatch = this.$watch('items', (newItems) => {
-                  resolve(newItems)
-                  unwatch()
+              if (typeof window.Promise !== 'undefined') {
+                return new window.Promise((resolve, reject) => {
+                  this.fetch(amount).then((res) => {
+                    resolve(res)
+                  })
                 })
-                this.$emit(EVENT_FETCH, amount)
-              })
+              } else {
+                warn(WARNING)
+              }
             }
           }
         })
         this.infinityScroll = new BScroll(this.$refs.wrapper, options)
-      },
-      setItems (items) {
-        this.items = items
       },
       disable () {
         this.infinityScroll && this.infinityScroll.disable()
