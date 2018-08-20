@@ -34,6 +34,10 @@
       model: {
         required: true
       },
+      modelKey: {
+        type: String,
+        default: ''
+      },
       rules: {
         type: Object,
         default() {
@@ -95,15 +99,18 @@
       value(newVal) {
         this.valid = newVal
       },
-      model(newVal) {
-        if (this.isDisabled) {
-          return
-        }
-        if (!this.dirty) {
-          this.dirty = true
-        }
+      model: {
+        handler(newVal) {
+          if (this.isDisabled) {
+            return
+          }
+          if (!this.dirty) {
+            this.dirty = true
+          }
 
-        this.validate()
+          this.validate()
+        },
+        deep: true
       },
       isDisabled(newVal) {
         if (!newVal && this.trigger && !this.validated) {
@@ -129,7 +136,8 @@
         }
         this._validateCount++
         const validateCount = this._validateCount
-        const val = this.model
+        const modelKey = this.modelKey
+        const val = modelKey ? this.model[modelKey] : this.model
 
         const configRules = this.rules
         const type = configRules.type
