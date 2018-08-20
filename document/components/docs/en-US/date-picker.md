@@ -247,7 +247,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | confirmTxt | the text of the confirm button | String | - | '确定' | - |
 | swipeTime | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | - | 2500 | - |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false | - |
-| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true | - |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 | - |
 
 * `format` sub configuration
 
