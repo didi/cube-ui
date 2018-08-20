@@ -1,6 +1,6 @@
 <template>
   <transition name="cube-image-preview-fade">
-    <cube-popup type="image-preview" :center="false" v-show="isVisible">
+    <cube-popup type="image-preview" :z-index="zIndex" :center="false" v-show="isVisible">
       <div class="cube-image-preview-container">
         <div class="cube-image-preview-header">
           <slot name="header" :current="currentPageIndex"></slot>
