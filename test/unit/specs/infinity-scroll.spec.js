@@ -25,14 +25,11 @@ describe('InfinityScroll', () => {
     vm.enable()
     vm.destroy()
   })
-  it('should call "setItems" api of InfinityScroll instance in fetchData function', (done) => {
+  it('should call return a Promise in fetch function', () => {
     vm = createInfinityScroll()
-    setTimeout(() => {
-      expect(vm.items.length).to.equal(3)
-      done()
-    }, 100)
+    expect(vm.$parent.fetch()).to.be.an.instanceof(window.Promise)
   })
-  it('should call "setItems" api of InfinityScroll instance and pass false when you wanna stop infinity scroll', (done) => {
+  it('should stop infinity scroll when Promise resolves a falsy value', (done) => {
     vm = createInfinityScroll(true)
     setTimeout(() => {
       expect(vm.infinityScroll.infiniteScroller.hasMore).to.equal(false)
@@ -44,22 +41,17 @@ describe('InfinityScroll', () => {
     return createVue({
       template: `
         <cube-infinity-scroll
-          ref="infinityScroll"
-          @fetch="fetchData"
+          :fetch="fetch"
           :render="render">
           <div slot="render" class="render-template" ref="render"></div>
         </cube-infinity-scroll>
       `,
-      data: {
-        nextItem: 0
-      },
       methods: {
         render (item, div) {
-          div = div || this.$refs.render.cloneNode(true)
+          div = div || (this.$refs.render && this.$refs.render.cloneNode(true)) || document.createElement('div')
           return div
         },
-        fetchData (count) {
-          const infinityScroll = this.$refs.infinityScroll
+        fetch (count) {
           if (!stopScroll) {
             const items = [{
               text: '文本1'
@@ -68,10 +60,10 @@ describe('InfinityScroll', () => {
             }, {
               text: '文本3'
             }]
-            infinityScroll.setItems(items)
+            return window.Promise.resolve(items)
           } else {
-            // stop scrolling
-            infinityScroll.setItems(false)
+            // stop scroll
+            return window.Promise.resolve(false)
           }
         }
       }
