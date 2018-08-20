@@ -114,10 +114,10 @@
 
 ### Props 配置
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| 参数 | 说明 | 类型 | 是否必传 | 默认值 |
 | - | - | - | - | - |
 | render | 通过组件传入的 item 数据项来渲染列表项的元素节点，并且返回该元素节点 | Function | 必传 | - |
-| fetch | 当组件需要渲染列表项的时候调用 | count: 所需要的数据量 | Function | 必传 | - |
+| fetch | 当组件需要渲染列表项的时候调用 | Function | 必传 | - |
 | options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: false,<br>  click: true<br>} |
 
 

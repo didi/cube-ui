@@ -114,7 +114,7 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
 | Attribute | Description | Type | Needed | Default |
 | - | - | - | - | - |
 | render | render the element node of the list item through the first argument, and returns the element node | Function | yes | - |
-| fetch | called when the component needs to render the list item | count: the amount of data needed | Function | yes | - |
+| fetch | called when the component needs to render the list item | Function | yes | - |
 | options | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: false,<br>  click: true<br>} |
 
 
