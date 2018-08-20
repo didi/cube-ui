@@ -158,7 +158,10 @@ describe('Validator', () => {
       const validatingHandler = sinon.spy()
       const validatedHandler = sinon.spy()
       vm = createValidator({
-        model: '',
+        model: {
+          value: ''
+        },
+        modelKey: 'value',
         rules: {
           required: true,
           asyncRule: () => {
