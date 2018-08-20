@@ -68,6 +68,8 @@
                 return new window.Promise((resolve, reject) => {
                   this.fetch(amount).then((res) => {
                     resolve(res)
+                  }).catch((e) => {
+                    reject(e)
                   })
                 })
               } else {
