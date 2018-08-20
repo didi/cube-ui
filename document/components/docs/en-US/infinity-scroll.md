@@ -26,7 +26,7 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
 
 - Basic Usage
 
-  The `cube-infinity-scroll` component has a built-in `tombstone` style, which call `fetch` function to notify the user to load data, and must provide a slot named `render`. This slot can be used inside the `render` function. Inside the `render` function you can clone the element node of the render slot, populate the node with the loaded item data and return the element node.
+  The `cube-infinity-scroll` component has a built-in `tombstone` style, which call `fetch` function to notify the user to load data, and must provide a slot named `render`. This slot can be used inside the `render` function. Inside the `render` function you can clone the element node of the render slot, populate the node with the loaded item data and return the element node. Since the asynchronous mechanism of Vue updating DOM is contrary to the mechanism of InfinityScroll synchronously rendering DOM, the element node of the `render` slot is only used for rendering. If you need to do any event binding on the element node, you need to perform it inside the `render` function by yourself.
 
   ```html
     <template>

@@ -27,7 +27,7 @@
 
 - 基本使用
 
-  `cube-infinity-scroll` 组件内置了默认的 `tombstone` 样式，调用 `fetch` 函数获取数据，同时必须提供名为 `render` 的插槽。此插槽可以用于 `render` 函数内部，只需要在 `render` 函数内部克隆 render 插槽的元素节点，拿到装载的 item 数据填充该节点并返回。
+  `cube-infinity-scroll` 组件内置了默认的 `tombstone` 样式，调用 `fetch` 函数获取数据，同时必须提供名为 `render` 的插槽。此插槽可以用于 `render` 函数内部，只需要在 `render` 函数内部克隆 render 插槽的元素节点，拿到装载的 item 数据填充该节点并返回。由于 Vue 更新 DOM 的异步机制与 InfinityScroll 同步渲染 DOM 的机制相悖，所以 `render` 插槽的元素节点只是用来渲染，如果需要对元素节点做任何事件绑定，需要在 `render` 函数内部自己去实现。
 
   ```html
     <template>
