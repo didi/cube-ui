@@ -1,12 +1,12 @@
 <template>
   <div class="cube-radio" :class="_containerClass" :data-pos="position">
     <label class="cube-radio-wrap" :class="_wrapClass">
-      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
+      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="computedOption.value">
       <span class="cube-radio-ui cubeic-round-border">
         <i></i>
       </span>
       <slot>
-        <span class="cube-radio-label">{{option.label || option}}</span>
+        <span class="cube-radio-label">{{computedOption.label}}</span>
       </slot>
     </label>
   </div>
@@ -43,18 +43,28 @@ export default {
       this.radioValue = newV
     },
     radioValue(newV) {
-      if (typeof value === 'number') {
+      if (typeof this.value === 'number') {
         newV = Number(newV)
       }
       this.$emit(EVENT_INPUT, newV)
     }
   },
   computed: {
-    _containerClass() {
+    computedOption() {
       const option = this.option
+      if (typeof option === 'string') {
+        return {
+          value: option,
+          label: option
+        }
+      }
+      return option
+    },
+    _containerClass() {
+      const option = this.computedOption
       return {
         'cube-radio-hollow': this.hollowStyle,
-        'cube-radio_selected': this.radioValue === (option.value || option),
+        'cube-radio_selected': this.radioValue === option.value,
         'cube-radio_disabled': option.disabled,
         'border-right-1px': this.$parent.horizontal
       }
