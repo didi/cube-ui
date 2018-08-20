@@ -78,17 +78,14 @@ export default function createAPIComponent(Vue, Component, events = [], single =
     create(config, renderFn, single) {
       const ownerInstance = this
       const isInVueInstance = !!ownerInstance.$on
-      const renderData = parseRenderData(config, events)
-
-      cancelWatchProps()
-      processProps()
-      processEvents()
-      process$()
 
       if (typeof renderFn !== 'function' && single === undefined) {
         single = renderFn
         renderFn = null
       }
+
+      cancelWatchProps()
+
       // to get Vue options
       // store router i18n ...
       const options = {
@@ -96,7 +93,16 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       }
       if (isInVueInstance) {
         options.parent = ownerInstance
+        if (!ownerInstance.__createAPI_watchers) {
+          ownerInstance.__createAPI_watchers = []
+        }
       }
+
+      const renderData = parseRenderData(config, events)
+
+      processProps()
+      processEvents()
+      process$()
 
       const eventBeforeDestroy = 'hook:beforeDestroy'
 
@@ -142,15 +148,17 @@ export default function createAPIComponent(Vue, Component, events = [], single =
             }
           })
           if (isInVueInstance) {
-            ownerInstance.__createAPI_watcher = ownerInstance.$watch(function () {
-              const props = {}
-              watchKeys.forEach((key, i) => {
-                props[key] = ownerInstance[watchPropKeys[i]]
+            ownerInstance.__createAPI_watchers.push(
+              ownerInstance.$watch(function () {
+                const props = {}
+                watchKeys.forEach((key, i) => {
+                  props[key] = ownerInstance[watchPropKeys[i]]
+                })
+                return props
+              }, function (newProps) {
+                component && component.$updateProps(newProps)
               })
-              return props
-            }, function (newProps) {
-              component && component.$updateProps(newProps)
-            })
+            )
           }
         }
       }
@@ -181,9 +189,11 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       }
 
       function cancelWatchProps() {
-        if (ownerInstance.__createAPI_watcher) {
-          ownerInstance.__createAPI_watcher()
-          ownerInstance.__createAPI_watcher = null
+        if (ownerInstance.__createAPI_watchers) {
+          ownerInstance.__createAPI_watchers.forEach((watcher) => {
+            watcher()
+          })
+          ownerInstance.__createAPI_watchers = null
         }
       }
     }
