@@ -69,10 +69,12 @@
                   this.fetch(amount).then((res) => {
                     resolve(res)
                   }).catch((e) => {
+                    /* istanbul ignore next */
                     reject(e)
                   })
                 })
               } else {
+                /* istanbul ignore next */
                 warn(WARNING)
               }
             }
