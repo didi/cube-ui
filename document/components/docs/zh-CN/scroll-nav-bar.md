@@ -108,7 +108,7 @@
 | - | - | - | - | - |
 | direction | 方向，默认横向，horizontal | String | horizontal/vertical | horizontal |
 | labels | 所有的 key 值集合 | Array | - | [] |
-| txts | 显示所有文案集合，和 labels 一一对应 | Array | - | 默认等于 labes |
+| txts | 显示所有文案集合，和 labels 一一对应，每项可以是 HTML 字符串 | Array | - | 默认等于 labes |
 | current | 当前 active 的 key 值 | String/Number | - | '' |
 
 ### 插槽
