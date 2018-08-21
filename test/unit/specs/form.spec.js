@@ -328,39 +328,35 @@ describe('Form.vue', () => {
           .to.be.false
         // mock focusout
         vm.fields[0].focusOutHandler()
-        vm.$nextTick(() => {
-          // invalid now
+        // invalid now
+        expect(vm.pending)
+          .to.be.false
+        expect(vm.dirty)
+          .to.be.false
+        expect(vm.invalid)
+          .to.be.true
+        // mock focusin again
+        vm.fields[0].focusInHandler()
+        vm.model.inputValue = 'input value'
+        setTimeout(() => {
+          // no trigger validate, in pending state
+          expect(vm.$el.className)
+            .to.include('cube-form_pending')
           expect(vm.pending)
-            .to.be.false
+            .to.be.true
           expect(vm.dirty)
             .to.be.false
-          expect(vm.invalid)
+          expect(vm.valid)
+            .to.be.undefined
+          // mock focusout
+          vm.fields[0].focusOutHandler()
+          expect(vm.pending)
+            .to.be.false
+          expect(vm.valid)
             .to.be.true
-          // mock focusin again
-          vm.fields[0].focusInHandler()
-          vm.model.inputValue = 'input value'
-          setTimeout(() => {
-            // no trigger validate, in pending state
-            expect(vm.$el.className)
-              .to.include('cube-form_pending')
-            expect(vm.pending)
-              .to.be.true
-            expect(vm.dirty)
-              .to.be.false
-            expect(vm.valid)
-              .to.be.undefined
-            // mock focusout
-            vm.fields[0].focusOutHandler()
-            vm.$nextTick(() => {
-              expect(vm.pending)
-                .to.be.false
-              expect(vm.dirty)
-                .to.be.true
-              expect(vm.valid)
-                .to.be.true
-              done()
-            })
-          })
+          expect(vm.dirty)
+            .to.be.true
+          done()
         })
       })
     })
