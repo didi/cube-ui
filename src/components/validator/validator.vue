@@ -117,6 +117,9 @@
         },
         sync: true
       },
+      rules() {
+        this.validate()
+      },
       isDisabled(newVal) {
         if (!newVal && this.trigger && !this.validated) {
           this.validate()
