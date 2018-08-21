@@ -152,7 +152,7 @@
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | label | 必须，面板的唯一标示的值 | String/Number | - | - |
-| title | 面板标题内容 | String/Number | - | 默认等于 label |
+| title | 面板标题内容，可以是 HTML 字符串 | String/Number | - | 默认等于 label |
 
 ### 插槽
 

@@ -152,7 +152,7 @@ ScrollNav component. You can use it to sticky your navigation bar and content.
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | label | required, the key of panel | String/Number | - | - |
-| title | the title of panel | String/Number | - | default equal to `label` Prop |
+| title | the title of panel, can be a HTML string value | String/Number | - | default equal to `label` Prop |
 
 ### Slot
 
