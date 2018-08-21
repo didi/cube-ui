@@ -110,7 +110,7 @@ Scroll navigation bar component, like DiDi business navigation.
 | - | - | - | - | - |
 | direction | direction, default horizontal | String | horizontal/vertical | horizontal |
 | labels | the collection if all the item's keys | Array | - | [] |
-| txts | the text of showcases, it's order is correspondence with `labels` | Array | - | default equals to `labels` Prop |
+| txts | the text of showcases, it's order is correspondence with `labels`, the item can be a HTML string value | Array | - | default equals to `labels` Prop |
 | current | the key of the active item | String/Number | - | '' |
 
 ### Slot
