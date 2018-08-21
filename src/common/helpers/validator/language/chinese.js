@@ -31,7 +31,7 @@ export default {
   },
   len: {
     string: /* istanbul ignore next */ (config) => `请输入 ${config} 位字符`,
-    number: /* istanbul ignore next */ (config) => `需等于 ${config}`,
+    number: /* istanbul ignore next */ (config) => `长度应等于 ${config}`,
     array: /* istanbul ignore next */ (config) => `请选择 ${config} 项`,
     date: /* istanbul ignore next */ (config) => `请选择 ${toLocaleDateString(config, 'zh')}`,
     email: /* istanbul ignore next */ (config) => `请输入 ${config} 位字符`,
