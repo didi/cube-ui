@@ -251,7 +251,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Props configuration
 
-| Attribute | Description | Type | Accepted Values | Default |
+| Attribute | Description | Type | Default | Accepted Values |
 | - | - | - | - | - |
 | data | the cascading data used to init option items | Array | [] | - |
 | selectedIndex | the index of the selected item, corresponding content will be displayed when picker shows | Array | [] | [1] |
@@ -264,6 +264,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | alias | configure the alias of `value` and `text`, used as same as the alias of `Picker` component | Object | {} | { value: 'id', text: 'name'} |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | 100 | - |
 
 * `data` sub configuration
 

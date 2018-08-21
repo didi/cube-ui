@@ -163,6 +163,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | cancelBtn | 取消按钮参数配置 | Object/String | - | { text: '取消', active: false, href: 'javascript:;' } |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
+| zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | - | 100 |
 
 * `confirmBtn` 子配置项
 

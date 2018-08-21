@@ -166,6 +166,7 @@ __Notice:__ All the components above used create-api, so you should read [create
 | center | whether to be in center in horizontal and vertical direction | Boolean | true/false | true |
 | position<sup>1.9.6</sup> | content position, if set position then `center` will be ignored | String | top/right/bottom/left/center | '' |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 |
 
 ### Events
 
