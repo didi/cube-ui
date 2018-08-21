@@ -84,8 +84,6 @@ export default function createAPIComponent(Vue, Component, events = [], single =
         renderFn = null
       }
 
-      cancelWatchProps()
-
       // to get Vue options
       // store router i18n ...
       const options = {
@@ -106,19 +104,21 @@ export default function createAPIComponent(Vue, Component, events = [], single =
 
       const eventBeforeDestroy = 'hook:beforeDestroy'
 
-      const component = api.open(renderData, renderFn, options)
+      let component = api.open(renderData, renderFn, options)
       let oldOwnerInstance = component.__cube__parent
       if (oldOwnerInstance !== ownerInstance) {
         if (oldOwnerInstance) {
+          cancelWatchProps(oldOwnerInstance)
           oldOwnerInstance.$off(eventBeforeDestroy, oldOwnerInstance.__cube_destroy_handler)
           oldOwnerInstance.__cube_destroy_handler = null
         }
         oldOwnerInstance = component.__cube__parent = ownerInstance
         const beforeDestroy = function () {
-          cancelWatchProps()
+          cancelWatchProps(ownerInstance)
           if (oldOwnerInstance === ownerInstance) {
             component.remove()
             oldOwnerInstance = component.__cube__parent = null
+            component = null
           }
           ownerInstance.$off(eventBeforeDestroy, beforeDestroy)
         }
@@ -148,17 +148,16 @@ export default function createAPIComponent(Vue, Component, events = [], single =
             }
           })
           if (isInVueInstance) {
-            ownerInstance.__createAPI_watchers.push(
-              ownerInstance.$watch(function () {
-                const props = {}
-                watchKeys.forEach((key, i) => {
-                  props[key] = ownerInstance[watchPropKeys[i]]
-                })
-                return props
-              }, function (newProps) {
-                component && component.$updateProps(newProps)
+            const cancelWatcher = ownerInstance.$watch(function () {
+              const props = {}
+              watchKeys.forEach((key, i) => {
+                props[key] = ownerInstance[watchPropKeys[i]]
               })
-            )
+              return props
+            }, function (newProps) {
+              component && component.$updateProps(newProps)
+            })
+            ownerInstance.__createAPI_watchers.push(cancelWatcher)
           }
         }
       }
@@ -188,7 +187,7 @@ export default function createAPIComponent(Vue, Component, events = [], single =
         })
       }
 
-      function cancelWatchProps() {
+      function cancelWatchProps(ownerInstance) {
         if (ownerInstance.__createAPI_watchers) {
           ownerInstance.__createAPI_watchers.forEach((watcher) => {
             watcher()
