@@ -81,13 +81,18 @@
       return {
         scrollEvents: ['scroll', 'scroll-end'],
         scrollY: 0,
-        labels: [],
-        barTxts: [],
+        panels: [],
         active: this.current,
         pageStickyOffset: 0
       }
     },
     computed: {
+      labels() {
+        return this.panels.map((panel) => panel.label)
+      },
+      barTxts() {
+        return this.panels.map((panel) => panel.title)
+      },
       barDirection() {
         return this.side ? DIRECTION_V : DIRECTION_H
       }
@@ -104,7 +109,6 @@
     },
     created() {
       this.navBar = null
-      this.panels = []
       this.stickyCurrent = this.current
     },
     mounted() {
@@ -189,14 +193,10 @@
       },
       addPanel(panel) {
         this.panels.push(panel)
-        this.labels.push(panel.label)
-        this.barTxts.push(panel.title)
       },
       removePanel(panel) {
         const i = this.panels.indexOf(panel)
         this.panels.splice(i, 1)
-        this.labels.splice(i, 1)
-        this.barTxts.splice(i, 1)
       }
     },
     components: {
