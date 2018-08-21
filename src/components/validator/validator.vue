@@ -104,15 +104,18 @@
       value(newVal) {
         this.valid = newVal
       },
-      targetModel() {
-        if (this.isDisabled) {
-          return
-        }
-        if (!this.dirty) {
-          this.dirty = true
-        }
+      targetModel: {
+        handler() {
+          if (this.isDisabled) {
+            return
+          }
+          if (!this.dirty) {
+            this.dirty = true
+          }
 
-        this.validate()
+          this.validate()
+        },
+        sync: true
       },
       isDisabled(newVal) {
         if (!newVal && this.trigger && !this.validated) {
