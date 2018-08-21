@@ -163,6 +163,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | cancelBtn | cancel button configuration | Object/String | - | { text: '取消', active: false, href: 'javascript:;' } |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 |
 
 * `confirmBtn` sub configuration
 

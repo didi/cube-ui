@@ -146,6 +146,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | pickerStyle | Picker style | Boolean | true/false | false |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 |
 
 * `data` sub configuration
 
