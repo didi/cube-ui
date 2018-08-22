@@ -107,7 +107,7 @@ export default function createAPIComponent(Vue, Component, events = [], single =
       let component = api.open(renderData, renderFn, options)
       let oldOwnerInstance = component.__cube__parent
       if (oldOwnerInstance !== ownerInstance) {
-        if (oldOwnerInstance) {
+        if (oldOwnerInstance && oldOwnerInstance.$on) {
           cancelWatchProps(oldOwnerInstance)
           oldOwnerInstance.$off(eventBeforeDestroy, oldOwnerInstance.__cube_destroy_handler)
           oldOwnerInstance.__cube_destroy_handler = null
