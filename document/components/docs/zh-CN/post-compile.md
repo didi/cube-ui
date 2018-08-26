@@ -34,7 +34,7 @@ _关于 [pkg.module](https://github.com/rollup/rollup/wiki/pkg.module)_
 
 ### webpack 配置使用
 
-后编译的场景是极有可能产生嵌套的情况，而且对于每个依赖包而言应该自己管理自身需要后编译的依赖；为了解决这个问题，可以使用 [webpack-post-compile-plugin](https://www.npmjs.com/package/webpack-post-compile-plugin)，只需要在应用或者 NPM 包自身的 package.json 中通过 compileDependencies 来指定自身需要后编译依赖的包名。
+后编译的场景是极有可能产生嵌套的情况，而且对于每个依赖包而言应该自己管理自身需要后编译的依赖；为了解决这个问题，可以使用 [webpack-post-compile-plugin](https://www.npmjs.com/package/webpack-post-compile-plugin)，你只需要在你的 NPM 包自身的 package.json 中声明 `postCompile: true` 或者你的应用的 package.json 中通过 compileDependencies 来指定自身需要后编译依赖的包名。
 
 一个应用示例配置：
 
@@ -64,7 +64,18 @@ module.exports = {
 }
 ```
 
-在应用的 package.json 中增加 compileDependencies：
+如果你能控制你应用的所有的依赖包，直接在每个依赖包的 package.json 中设置 `postCompile: true` 即可：
+
+```js
+{
+  "name": "your-one-pkg",
+  // ...
+  "postCompile": true
+  // ...
+}
+```
+
+或者你也可以在应用的 package.json 中增加 compileDependencies：
 
 ```json
 // package.json
