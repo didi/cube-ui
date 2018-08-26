@@ -323,6 +323,7 @@
     position: relative
     min-height: 1px
     height: 100%
+    overflow: hidden
 
   .cube-slide-group
     position: relative
