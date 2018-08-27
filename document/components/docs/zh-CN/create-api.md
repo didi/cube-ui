@@ -2,7 +2,7 @@
 
 该模块默认暴露出一个 `createAPI` 函数，可以实现以 API 的形式调用自定义组件。并且既可以在 Vue 实例上下文中调用，也可以[在普通 js 文件中调用](https://didi.github.io/cube-ui/#/zh-CN/docs/create-api#cube-%E5%A6%82%E4%BD%95%E5%9C%A8%E6%99%AE%E9%80%9Ajs%E6%96%87%E4%BB%B6%E4%B8%AD%E6%88%96%E8%80%85%E5%85%A8%E5%B1%80%E8%B0%83%E7%94%A8-anchor)。
 
-__注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定义组件都需要通过 `Vue.use` 注册才可以。
+__注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定义组件（cube-ui 内置的组件）都需要通过 `Vue.use` 注册才可以。
 
 ### createAPI(Vue, Component, [events, single])
 
@@ -195,7 +195,15 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
 一般当你在 Vue 实例中，你可以直接通过 `this.$createHello(config, renderFn)` 调用该组件。而如果在普通 JS 中`this`不是 Vue 实例，这时就可以通过组件本身的 `$create` 来进行实例化了，比如：
 
 ```js
-import Hello from './hello.vue'
+import Vue from 'vue'
+import Hello from './Hello.vue'
+
+import {
+  createAPI
+} from 'cube-ui'
+
+// 创建 this.$createHello and $Hello.create API
+createAPI(Vue, Hello, ['click'], true)
 
 Hello.$create(config, renderFn)
 ```
@@ -203,7 +211,11 @@ Hello.$create(config, renderFn)
 或者内置的组件，例如 Dialog：
 
 ```js
+import Vue from 'vue'
 import { Dialog } from 'cube-ui'
+
+Vue.use(Dialog)
+
 Dialog.$create({
   ...
 })

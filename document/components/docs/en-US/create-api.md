@@ -3,7 +3,7 @@
 This module exports a function called `createAPI` with which you can invoke the custom component which has been instantiated in api form. And It could be called both in Vue instance context and [general js file](https://didi.github.io/cube-ui/#/en-US/docs/create-api#cube-HowtouseingeneralJSfilesoruseitinglobal-anchor).
 
 
-__Notice:__ All componnets which used `createAPI` must be registered by `Vue.use`.
+__Notice:__ All cube-ui componnets which used `createAPI` must be registered by `Vue.use`.
 
 ### createAPI(Vue, Component, [events, single])
 
@@ -192,7 +192,15 @@ __Notice:__ All componnets which used `createAPI` must be registered by `Vue.use
 In vue component, you could call by `this.$createHello(config, renderFn)` because the `this` is just a Vue instance. But in general JS files, you need to use `Hello.$create`. As shown below:
 
 ```js
-import Hello from './hello.vue'
+import Vue from 'vue'
+import Hello from './Hello.vue'
+
+import {
+  createAPI
+} from 'cube-ui'
+
+// 创建 this.$createHello and $Hello.create API
+createAPI(Vue, Hello, ['click'], true)
 
 Hello.$create(config, renderFn)
 ```
@@ -200,7 +208,11 @@ Hello.$create(config, renderFn)
 Or components in cube-ui, like Dialog:
 
 ```js
+import Vue from 'vue'
 import { Dialog } from 'cube-ui'
+
+Vue.use(Dialog)
+
 Dialog.$create({
   ...
 })
