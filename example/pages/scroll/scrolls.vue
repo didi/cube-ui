@@ -16,7 +16,7 @@
               <cube-scroll
                 ref="scroll2"
                 :scroll-events="['scroll', 'scroll-end']"
-                :options="options2">
+                nest-mode="free">
                 <ul class="cube-scroll-list">
                   <li
                     class="cube-scroll-item border-bottom-1px"
@@ -75,10 +75,7 @@ export default {
   data() {
     return {
       items1: _data1,
-      items2: _data2,
-      options2: {
-        bounce: false
-      }
+      items2: _data2
     }
   },
   components: {
