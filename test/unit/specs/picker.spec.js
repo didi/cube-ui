@@ -209,8 +209,8 @@ describe('Picker', () => {
       setTimeout(() => {
         vm.scrollTo(0, 2)
         vm.confirm()
-        expect(vm.pickerSelectedIndex[0]).to.equal(2)
-        expect(vm.pickerSelectedVal[0]).to.equal(data2[2].value)
+        expect(vm._indexes[0]).to.equal(2)
+        expect(vm._values[0]).to.equal(data2[2].value)
         done()
       })
     }, 150)
@@ -240,8 +240,8 @@ describe('Picker', () => {
     vm.show()
     setTimeout(() => {
       vm.confirm()
-      expect(vm.pickerSelectedIndex[0]).to.equal(1)
-      expect(vm.pickerSelectedVal[0]).to.equal(data1[1].value)
+      expect(vm._indexes[0]).to.equal(1)
+      expect(vm._values[0]).to.equal(data1[1].value)
       done()
     }, 150)
   })
@@ -256,8 +256,8 @@ describe('Picker', () => {
       vm.setData([data2], [2])
       setTimeout(() => {
         vm.confirm()
-        expect(vm.pickerSelectedIndex[0]).to.equal(2)
-        expect(vm.pickerSelectedVal[0]).to.equal(data2[2].value)
+        expect(vm._indexes[0]).to.equal(2)
+        expect(vm._values[0]).to.equal(data2[2].value)
         done()
       }, 150)
     }, 150)
