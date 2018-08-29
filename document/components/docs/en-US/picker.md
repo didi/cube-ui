@@ -1,205 +1,179 @@
 ## Picker
 
-`Picker` component supports multi-column selectors and linkage data.
+`Picker` could use to implementing single or multi-column picker.
 
-__Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
+__Notice:__ Cause this component used create-api, so you should have basically knowledge of [create-api](#/en-US/docs/create-api) first.
 
 ### Example
 
-- Basic usage
+  As for Picker, the most important thing is how to define the options. The property `data` is used to define options. It's a two-dimensional array, the first dimensional means which columns the picker has, while the second dimensional represent the options of each column.
+
+#### 1\) Single-column Picker
+
+  firstly, there is an example of Single-column Picker:
 
   ```html
   <cube-button @click="showPicker">Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
+  const column1 = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
+
   export default {
-    mounted () {
-      this.picker = this.$createPicker({
-        title: 'Picker',
-        data: [col1Data],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
     methods: {
-      showPicker () {
+      showPicker() {
+        if (!this.picker) {
+          this.picker = this.$createPicker({
+            title: 'Picker',
+            data: [column1],
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
         this.picker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
 
-- Multi-column Picker
+#### 2\) Multi-column Picker
 
-  `data` receives an array, whose length determines the columns of `picker`.
+  You can genarate Multi-column Picker by input the data of several columns. For example, here is a three-colunms picker:
 
   ```html
   <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
+  const column1 = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
-    { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }, { text: '辅助', value: '辅助' },
-    { text: '打野', value: '打野' }, { text: '逃生', value: '逃生' }, { text: '先手', value: '先手' }]
-  const col3Data =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
-    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
-    { text: '金箍棒', value: '金箍棒' }]
+  const column2 = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
+    { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }]
+  const column3 =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
+    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }]
+
   export default {
-    mounted () {
-      this.mutiPicker = this.$createPicker({
-        title: 'Multi-column Picker',
-        data: [col1Data, col2Data, col3Data],
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
     methods: {
       showMutiPicker() {
+        if (!this.mutiPicker) {
+          this.mutiPicker = this.$createPicker({
+            title: 'Multi-column Picker',
+            data: [column1, column2, column3],
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
         this.mutiPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
 
-- Alias
+#### 3\) Alias for the sub properties of option
 
-  You can configure the `alias` of `value` and `text`, such as, use `id` to represent `value`, `name` to represent `text`.
+  Sometimes, you may want to use alias to config the value and text of options, instead of `value` and `text`. Think about this, when the name origin data is `id` and `name`, you could use `id` 和 `name` to define value and text directly by using property `alias` to config the alias of `value` as `id`, `text` as `name`.
 
   ```html
   <cube-button @click="showAliasPicker">Use Alias</cube-button>
   ```
   ```js
   export default {
-    mounted () {
-      this.aliasPicker = this.$createPicker({
-        title: 'Use Alias',
-        data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
-        alias: {
-          value: 'id',
-          text: 'name'
-        },
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
-        }
-      })
-    },
     methods: {
       showAliasPicker() {
-        this.aliasPicker.show()
-      }
-    }
-  }
-  ```
-
-- Instance method `setData`
-
-  Instance method `setData` accepts two parameters, both of whom are arrays. The first is data that the roller displays and the second is indexs of selected values.
-
-  ```html
-  <cube-button @click="showSetDataPicker">Use SetData</cube-button>
-  ```
-  ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
-    { text: '幽鬼', value: '幽鬼' }]
-  const col2Data = [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
-    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }, { text: '辉耀', value: '辉耀' },
-    { text: '金箍棒', value: '金箍棒' }]
-  const col3Data = [{ text: '输出', value: '输出'}, { text: '控制', value: '控制' },
-    { text: '核心', value: '核心' }, { text: '爆发', value: '爆发'}, { text: '辅助', value: '辅助' }]
-  export default {
-    mounted () {
-      this.setDataPicker = this.$createPicker({
-        title: 'Use SetData',
-        onSelect: (selectedVal, selectedIndex, selectedText) => {
-          this.$createDialog({
-            type: 'warn',
-            content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/>
-              - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            icon: 'cubeic-alert'
-          }).show()
-        },
-        onCancel: () => {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Picker canceled',
-            time: 1000
-          }).show()
+        if (!this.aliasPicker) {
+          this.aliasPicker = this.$createPicker({
+            title: 'Use Alias',
+            data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+            alias: {
+              value: 'id',
+              text: 'name'
+            },
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
         }
-      })
-    },
-    methods: {
-      showSetDataPicker () {
-        this.setDataPicker.setData([col1Data, col2Data, col3Data], [1, 2, 3])
-        this.setDataPicker.show()
+        this.aliasPicker.show()
+      },
+      selectHandle(selectedVal, selectedIndex, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
       }
     }
   }
   ```
 
-- Subtitle
+#### 4\) Method `$updateProps`
 
-  You could configure subtitle by the property `subtitle`.
+  When you need to change some properties of Picker, you could use the method `$updateProps` to input the new properties.
 
   ```html
-  <cube-button @click="showSubtitlePicker">Use subtitle</cube-button>
+  <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
   ```
   ```js
-  const col1Data = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
+  const column1 = [{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },
     { text: '幽鬼', value: '幽鬼' }]
+  const column2 = [{ text: '输出', value: '输出' }, { text: '控制', value: '控制' },
+    { text: '核心', value: '核心'}, { text: '爆发', value: '爆发' }]
+  const column3 =  [{ text: '梅肯', value: '梅肯'}, { text: '秘法鞋', value: '秘法鞋' },
+    { text: '假腿', value: '假腿' }, { text: '飞鞋', value: '飞鞋' }]
+
   export default {
-    mounted () {
-      this.subtitlePicker = this.$createPicker({
-        title: 'Picker',
-        subtitle: 'subtitle',
-        data: [col1Data],
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
-    },
     methods: {
-      showSubtitlePicker () {
-        this.subtitlePicker.show()
+      showUpdatePropsPicker() {
+        if (!this.updatePropsPicker) {
+          this.updatePropsPicker = this.$createPicker({
+            title: 'Use $updateProps',
+            data: [column1],
+            selectedIndex: [0],
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+        this.updatePropsPicker.show()
+        setTimeout(() => {
+          this.updatePropsPicker.$updateProps({
+            title: 'Updated',
+            data: [column1, column2, column3],
+            selectedIndex: [1, 2, 3]
+          })
+        }, 1000)
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.$createDialog({
