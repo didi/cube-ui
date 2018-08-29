@@ -3,7 +3,7 @@ import SegmentPicker from '@/modules/segment-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
 import { provinceList, cityList, areaList } from 'example/data/area'
-import { data1, data2, expressData } from 'example/data/picker'
+import { column1, column2, expressData } from 'example/data/picker'
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -101,7 +101,7 @@ describe('SegmentPicker', () => {
         data: [expressData],
         selectedIndex: [1]
       }, {
-        data: [data1],
+        data: [column1],
         selectedIndex: [0]
       }]
     }, {
@@ -184,7 +184,7 @@ describe('SegmentPicker', () => {
         selectedIndex: [1]
       }, {
         title: 'Dota',
-        data: [data1],
+        data: [column1],
         selectedIndex: [0]
       }]
     })
@@ -192,7 +192,7 @@ describe('SegmentPicker', () => {
     vm.$updateProps({
       data: [{
         title: 'Dota',
-        data: [data1, data2],
+        data: [column1, column2],
         selectedIndex: [1, 1]
       }, {
         title: '快递',

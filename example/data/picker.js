@@ -1,4 +1,4 @@
-const data1 = [
+const column1 = [
   {
     text: '剧毒',
     value: '剧毒'
@@ -59,7 +59,7 @@ const data1 = [
   }
 ]
 
-const data2 = [
+const column2 = [
   {
     text: '输出',
     value: '输出'
@@ -92,7 +92,7 @@ const data2 = [
   }
 ]
 
-const data3 = [
+const column3 = [
   {
     text: '梅肯',
     value: '梅肯'
@@ -134,8 +134,8 @@ const expressData = [
 ]
 
 export {
-  data1,
-  data2,
-  data3,
+  column1,
+  column2,
+  column3,
   expressData
 }
