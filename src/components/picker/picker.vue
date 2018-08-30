@@ -73,9 +73,6 @@
     created() {
       this._values = []
       this._indexes = this.selectedIndex
-
-      const diff = this.finalData.length - this._indexes.length
-      diff > 0 && this._indexes.fill(0, diff)
     },
     methods: {
       confirm() {
