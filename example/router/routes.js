@@ -29,7 +29,8 @@ import ScrollConfig from '../pages/scroll/config.vue'
 import ScrollJd from '../pages/scroll/jd.vue'
 import ScrollHorizontal from '../pages/scroll/horizontal.vue'
 import ScrollToutiao from '../pages/scroll/toutiao.vue'
-import Scrolls from '../pages/scroll/scrolls.vue'
+import VScrolls from '../pages/scroll/vertical-scrolls.vue'
+import HScrolls from '../pages/scroll/horizontal-scrolls.vue'
 import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
@@ -216,8 +217,12 @@ const routes = [
         component: ScrollToutiao
       },
       {
-        path: 'scrolls',
-        component: Scrolls
+        path: 'v-scrolls',
+        component: VScrolls
+      },
+      {
+        path: 'h-scrolls',
+        component: HScrolls
       }
     ]
   },

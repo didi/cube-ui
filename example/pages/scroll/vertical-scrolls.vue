@@ -2,37 +2,30 @@
   <cube-page type="scroll-view" title="Scroll" class="option-demo">
     <div slot="content" class="scroll-wrapper">
       <div class="demo">
-        <div class="scroll-list-outer-wrap">
+        <cube-scroll
+          ref="scroll1"
+          class="scroll-list-outer-wrap">
+          <ul class="cube-scroll-list">
+            <li class="cube-scroll-item border-bottom-1px"
+              v-for="(item, index) in items1"
+              :key="index">{{item}}</li>
+          </ul>
           <cube-scroll
-            ref="scroll1"
-            :scroll-events="['scroll', 'scroll-end']">
+            ref="scroll2"
+            class="scroll-list-inner-wrap">
             <ul class="cube-scroll-list">
-              <li
-                class="cube-scroll-item border-bottom-1px"
-                v-for="(item, index) in items1"
-                :key="index">{{item}}</li>
-            </ul>
-            <div class="scroll-list-inner-wrap">
-              <cube-scroll
-                ref="scroll2"
-                :scroll-events="['scroll', 'scroll-end']"
-                nest-mode="free">
-                <ul class="cube-scroll-list">
-                  <li
-                    class="cube-scroll-item border-bottom-1px"
-                    v-for="(item, index) in items2"
-                    :key="index">{{item}}</li>
-                </ul>
-              </cube-scroll>
-            </div>
-            <ul class="cube-scroll-list">
-              <li
-                class="cube-scroll-item border-bottom-1px"
-                v-for="(item, index) in items1"
+              <li class="cube-scroll-item border-bottom-1px"
+                v-for="(item, index) in items2"
                 :key="index">{{item}}</li>
             </ul>
           </cube-scroll>
-        </div>
+          <ul class="cube-scroll-list">
+            <li
+              class="cube-scroll-item border-bottom-1px"
+              v-for="(item, index) in items1"
+              :key="index">{{item}}</li>
+          </ul>
+        </cube-scroll>
       </div>
     </div>
   </cube-page>
