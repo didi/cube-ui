@@ -13,9 +13,9 @@ So for the Scroll component, The length of `.cube-scroll-content`, the scroll-co
 
 ### Example
 
-Five sample code to quickly understand how to use the Scroll component.
+Seven sample code to quickly understand how to use the Scroll component.
 
-- **Basic usage - Default**
+- **1. Basic usage - Default**
 
   By setting the data property to an array, you can generate an elegantly scrolling list. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/default.vue).
 
@@ -36,9 +36,9 @@ Five sample code to quickly understand how to use the Scroll component.
 
   > **Note**: As the scrolling principle above, it is necessary to provide a fixed height to the scroll container, and scroll only when the height of the scroll content is greater than the height of the container.
 
-  In the prop `options`, you are able to control the scroll bar seen or not via `scrollbar`, and configure the initial position by `startX/startY`.
+  In the prop `options`, you are able to control the scrollbar seen or not via `scrollbar`, and configure the initial position by `startX/startY`.
 
-  Scroll component provide a `scrollTo()` method that allows you to manually control the list scroll position.
+  Scroll component provides a `scrollTo()` method that allows you to manually control the list scroll position.
 
   ```javascript
   scrollTo() {
@@ -53,36 +53,41 @@ Five sample code to quickly understand how to use the Scroll component.
 
   In fact, this is a very useful method, such as when we want to achieve "click different anchor, list scroll to the corresponding position to show different content", you can use the `scrollTo ()` method.
 
-- **Scrolling horizontally - Horizontal**
+- **2. Scrolling horizontally - Horizontal**
 
-  Scroll component support horizontal scrolling by specifying `direction = 'horizental'`. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)
+  Scroll component supports horizontal scrolling. All you need to do is specifying `direction = 'horizontal'` and giving some styles. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)
 
   ```html
-  <div class="horizontal-scroll-list-wrap">
-    <cube-scroll
-      ref="scroll"
-      direction="horizontal">
-      <ul class="list-wrapper">
-        <li v-for="item in items" class="list-item">{{ item }}</li>
-      </ul>
-    </cube-scroll>
-  </div>
+  <cube-scroll
+    ref="scroll"
+    :data="items"
+    direction="horizontal"
+    class="horizontal-scroll-list-wrap">
+    <ul class="list-wrapper">
+      <li v-for="item in items" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
   ```
 
   ```stylus
-  .cube-scroll-content
-    display: inline-block
+  .horizontal-scroll-list-wrap
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    border-radius: 5px
+    .cube-scroll-content
+      display: inline-block
     .list-wrapper
       padding: 0 10px
       line-height: 60px
       white-space: nowrap
-      .list-item
-        display: inline-block
+    .list-item
+      display: inline-block
   ```
 
   > **Note**：As the scrolling principle above, the CSS style setting here is required, and scrolling is possible only when the scrolling content is wider than the container width.
 
-- **Custom content - Customized**
+  Here giving a brief explanation of the style settings. `list-item` items with `display: inline-block` lead to all `list-item` elements showing on one line. `list-wrapper` adds `white-space: nowrap` hope `list-item` also showing on one line when reaching the outer element boundary. And the most important is setting `cube-scroll-content` with `display: inline-block`， which make the width of `cube-scroll-content` bigger enough so that `cube-scroll-content` can wrap descendants elements. Styles with the same properties are floating elements and absolutely positioned elements. When no specific width is set, the width is the minimum width of the wrapped descendant element.
+
+- **3. Custom content - Customized**
 
   The Scroll component supports the customization of list content through default slot. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/config.vue).
 
@@ -98,7 +103,7 @@ Five sample code to quickly understand how to use the Scroll component.
   </div>
   ```
 
-  Scroll components also support **pull-down refresh** and **pull-up load** capabilities. By default, there is no pulldown refresh/pullup load. You can enable corresponding functions by `pullDownRefresh` and `pullUpLoad`. After opening, when pulling down, the Scroll component will show the default pulldown animation and dispatch pulldown events. You can monitor the `pull-down` event to update the data. Similarly, after the pull-up load is enabled, the data can be updated by the `pull-up` event.
+  Scroll components also support **pull-down refresh** and **pull-up load** capabilities. By default, there is no pulldown refresh/pull-up load. You can enable corresponding functions by `pullDownRefresh` and `pullUpLoad`. After opening, when pulling down, the Scroll component will show the default pulldown animation and dispatch pulldown events. You can monitor the `pull-down` event to update the data. Similarly, after the pull-up load is enabled, the data can be updated by the `pull-up` event.
 
   `pullDownRefresh`'s related configurations include: drop threshold (threshold), rebound position (stop), update successful copy (txt) and copy display time (stopTime). See the [Props configuration](#/en-US/docs/scroll#cube-Propsconfiguration-anchor) for all the configuration items and meanings of the `pullDownRefresh` and `pullUpLoad` objects.
 
@@ -144,9 +149,9 @@ Five sample code to quickly understand how to use the Scroll component.
   }
   ```
 
-  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. When the data is updated, the Scroll component will invoke `forceUpate()` method internally.
+  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. When the data is updated, the Scroll component will invoke `forceUpdate()` method internally.
 
-- **Custom pull-down refresh animation - Fake JD App**
+- **4. Custom pull-down refresh animation - Fake JD App**
 
   If you don't like the built-in pull-down refresh and pull-up loading animations, you can also use the scope slots for custom animations. The variables exposed by [the scoped slots](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots) of the Scroll component are perfect to meet the needs of custom pull-down/pull-up animations in most scenarios. The following example imitates the pull-down refresh animation of Jingdong App's homepage. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue).
 
@@ -232,12 +237,12 @@ Five sample code to quickly understand how to use the Scroll component.
   | - | - | - | - |
   | 1. Untrigger pull-down refresh | true | - | Show pattern guide user continues to  pull down |
   | 2. Trigger pull-down refresh | false | true | Asynchronous request data，show loading |
-  | 3. Request data success | false | false | invoke `forceUpdate()`, show success copy |
-  | 4. A pull-down refresh complete | true | - | after invoke `forceUpdate()`, delay stopTime to step 4 |
+  | 3. Request data success | false | false | invoke `forceUpdate(true)`, show success copy |
+  | 4. A pull-down refresh complete | true | - | after invoke `forceUpdate(true)`, delay stopTime to step 4 |
 
-- **Advanced usage - Fake TouTiao App**
+- **5. Advanced usage - Fake TouTiao App**
 
-Scroll components can meet the scrolling needs of most mobile applications. In this example, using two Scroll components, one  vertical and one horizontal, to imitates the Toutiao App's home page. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue).
+Scroll components can meet the scrolling needs of most mobile applications. In this example, using two Scroll components, one vertical and one horizontal, to imitates the Toutiao App's home page. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue).
 
 ```html
   <div class="nav-scroll-list-wrap">
@@ -295,6 +300,56 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   > **Note:** In this example, the `pullDownRefresh` configuration item does not have a `stop` value, but it is still able to bounce back to the correct location after the pulldown. The reason is that when the Scroll component is initialized, the pulldown height will be used as the `stop` default value when `beforePullDown === false && isPullingDown === true`.
 
+  **6. Vertical nested scrolls - Vertical Scrolls**
+
+  The `Scroll` component also supports nested scenes (currently only supports two levels of nesting). It's worth celebrating that you don't need to do any work, just use the `Scroll` component as usual. The `Scroll` component will determine if there is a nesting situation and handle nested scrolling issues. By default, nested `Scroll` has the same scrolling behavior as the browser's native nested scene. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue).
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-outer-wrap">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+  **7. Horizontal nested scrolls - Horizontal Scrolls**
+
+  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling.
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -306,6 +361,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 | listenScroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
+| nestMod | the mode of nested scroll | String | 'native', 'free' | 'native' |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
 
@@ -319,10 +375,10 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| threshold | the threshold of  distance that pulling down for  refreshing | Number | - | 90 |
+| threshold | the threshold of distance that pulling down for refreshing | Number | - | 90 |
 | stop | the position where rebounding stays | Number | - | Scroll component will calculate the height of pulldown element as default `stop` value |
-| stopTime | the time that keep showing the text of refreshing success | Number | - | 600 |
-| txt | the text shown when refreshing successfully | String | - | 'Refresh success' |
+| stopTime | the time that keeps showing the text of refreshing success | Number | - | 600 |
+| txt | the text is shown when refreshing successfully | String | - | 'Refresh success' |
 
 - `pullUpLoad` sub configuration
 
@@ -356,5 +412,6 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | Method Name | Description | Parameters |
 | - | - | - |
 | scrollTo | Scroll to specific position. | x: horizontal position<br> y: vertical position<br> time: transition time<br> ease: easing function |
+| forceUpdate | Mark the end of pull-up or pull-down, and force recalculation of scrollable distance | dirty: whether there is data updating, when "true" indicate data updated so recalculate scrollable distance, when false no data update and no need to recalculate |
 | disable | Disable scroll. | - |
 | enable | Enable scroll. It's enabled by default | - |

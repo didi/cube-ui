@@ -14,9 +14,9 @@
 
 ### 示例
 
-5 个示例代码快速了解如何使用 Scroll 组件。
+7 个示例代码快速了解如何使用 Scroll 组件。
 
-- **基本使用 - Default**
+- **1. 基本使用 - Default**
 
   通过设置 `data` 属性为一个数组，即可生成能够在容器内优雅滚动的列表。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/default.vue)。
 
@@ -54,36 +54,41 @@
 
   实际上这是一个非常有用的方法，如当我们想要实现“点击不同锚点，列表滚动到相应位置展现不同内容”时，可以使用`scrollTo()`方法。
 
-- **横向滚动 - Horizontal**
+- **2. 横向滚动 - Horizontal**
 
-  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`即可。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
+  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`，同时需要添加相应样式如下。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
 
   ```html
-  <div class="horizontal-scroll-list-wrap">
-    <cube-scroll
-      ref="scroll"
-      direction="horizontal">
-      <ul class="list-wrapper">
-        <li v-for="item in items" class="list-item">{{ item }}</li>
-      </ul>
-    </cube-scroll>
-  </div>
+  <cube-scroll
+    ref="scroll"
+    :data="items"
+    direction="horizontal"
+    class="horizontal-scroll-list-wrap">
+    <ul class="list-wrapper">
+      <li v-for="item in items" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
   ```
 
   ```stylus
-  .cube-scroll-content
-    display: inline-block
+  .horizontal-scroll-list-wrap
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    border-radius: 5px
+    .cube-scroll-content
+      display: inline-block
     .list-wrapper
       padding: 0 10px
       line-height: 60px
       white-space: nowrap
-      .list-item
-        display: inline-block
+    .list-item
+      display: inline-block
   ```
 
-  > **注意**：由上面的滚动原理可知，这里的 CSS 样式设置是必须的，同时只有在滚动内容的宽度大于容器宽度时才可滚动。
+  > **注意**：由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。
 
-- **自定义内容和上拉刷新下拉加载 - Customized**
+  这里对样式的设定做简要的解释，为`list-item`元素添加`display: inline-block`是希望元素能够不换行，单行显示。`list-wrapper`添加`white-space: nowrap`是希望遇到父元素边界，依然不换行。另外，关键是`cube-scroll-content`元素添加`display: inline-block`样式，此时`cube-scroll-content`元素的宽度为能够包裹子孙元素的最小宽度，即为连续内联`list-item`元素的宽度之和子元素的最大宽度。具有同样性质的样式还有，浮动元素和绝对定位元素，在不设置具体宽度时，其宽度为包裹子孙元素的最小宽度。
+
+- **3. 自定义内容和上拉刷新下拉加载 - Customized**
 
   `Scroll`组件支持通过插槽自定义列表内容和样式。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/config.vue)。
 
@@ -147,7 +152,7 @@
 
   > **注意**：如果请求结果没有数据更新，则必须调用 Scroll 组件的`forceUpdate()`方法结束此次下拉刷新，这样 Scroll 组件才会开始监听下一次下拉刷新操作。当有数据更新时，Scroll 组件内部会自行调用`forceUpate()`方法
 
-- **自定义下拉刷新动画 - 仿京东 App 首页**
+- **4. 自定义下拉刷新动画 - 仿京东 App 首页**
 
   如果你不喜欢内置的下拉刷新和上拉加载动画，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。Scroll 组件的作用域插槽暴露出的变量非常完善，可以满足绝大多数场景下自定义下拉/上拉动画的需求。下面的例子模仿了京东 App 首页的下拉刷新动画。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue)。
 
@@ -234,10 +239,10 @@
   | - | - | - | - |
   | 1. 未触发下拉刷新 | true | - | 展示继续下拉引导图案 |
   | 2. 触发下拉刷新 | false | true | 异步请求数据，显示 loading |
-  | 3. 获取数据成功 | false | false | 调用 `forceUpdate()`, 显示成功文案 |
-  | 4. 下拉刷新完成 | true | - | 当调用 `forceUpdate()`后，延迟 stopTime 时间进入步骤 4 |
+  | 3. 获取数据成功 | false | false | 调用 `forceUpdate(true)`, 显示成功文案 |
+  | 4. 下拉刷新完成 | true | - | 当调用 `forceUpdate(true)`后，延迟 stopTime 时间进入步骤 4 |
 
-- **高级使用 - 仿头条 App 首页**
+- **5. 高级使用 - 仿头条 App 首页**
 
   Scroll 组件能够满足绝大多数移动端应用的滚动需求。本例中通过横向和纵向的两个 Scroll 组件快速实现了模仿头条 App 首页的滚动体验。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue)。
 
@@ -297,6 +302,56 @@
 
   > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
 
+- **6. 嵌套纵向滚动 - Vertical Scrolls**
+
+  `Scroll`组件还支持嵌套的场景(目前只支持两层嵌套)。值得庆祝的是，对于你不需要做任何工作，只需要像平时使用`Scroll`组件一样即可。`Scroll`组件会自行判断是否有嵌套情况，同时处理嵌套滚动问题。默认情况下，嵌套`Scroll`与浏览器原生嵌套场景的滚动行为相同。下面是`Scroll`组件实现纵向嵌套滚动的例子。完整的示例代码在这里[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-inner-wrap">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+- **7. 嵌套横向滚动 - Horizontal Scrolls**
+
+  你还可以实现横向的嵌套滚动。这里同时设置`nestMode`为`free`，与`native`模式不同的是，`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。而`native`模式下，只在开始滚动时判断是否到达边界，与浏览器原生的嵌套滚动保持一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -308,6 +363,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
+| nestMode | 嵌套滚动模式，区别见示例 7 | String | 'native', 'free' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 
@@ -357,5 +413,12 @@
 | 方法名 | 说明 | 参数 |
 | - | - | - |
 | scrollTo | 滚动到指定位置 | x: 横向位置<br> y: 纵向位置<br> time: 过渡动画时间<br> ease: 动画曲线 |
+| forceUpdate | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: 是否有数据更新，true 表示有数据更新重新计算可滚动距离，false 表示没有数据更新，无需重新计算|
 | disable | 禁用滚动 | - |
 | enable | 启用滚动，默认是开启滚动的。 | - |
+
+### 内部属性
+
+| 属性名 | 说明 |
+| - | - |
+| scroll | 可以通过该属性获得内部实现滚动核心的 BScoll 实例，从而获得更多 BScoll 的底层能力，如监听`touchEnd`事件，获得滚动中的中间状态等，具体可查看[ better-scroll 文档](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/) |
