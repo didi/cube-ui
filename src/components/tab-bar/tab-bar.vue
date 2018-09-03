@@ -95,7 +95,7 @@
           offset = `${offset}px`
         }
         if (slider) {
-          if (this.useTransition) slider.style[TRANSITION] = `all 0.2s linear`
+          if (this.useTransition) slider.style[TRANSITION] = `${TRANSFORM} 0.2s linear`
           slider.style[TRANSFORM] = `translateX(${offset}) translateZ(0)`
         }
       },

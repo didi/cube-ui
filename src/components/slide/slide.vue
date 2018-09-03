@@ -206,9 +206,10 @@
 
         this.slide = new BScroll(this.$refs.slide, options)
 
+        this.slide.on('scrollEnd', this._onScrollEnd)
+
         this.slide.goToPage(this.currentPageIndex, 0, 0)
 
-        this.slide.on('scrollEnd', this._onScrollEnd)
         /* dispatch scroll position constantly */
         if (this.options.listenScroll && this.options.probeType === 3) {
           this.slide.on('scroll', this._onScroll)
@@ -322,6 +323,7 @@
     position: relative
     min-height: 1px
     height: 100%
+    overflow: hidden
 
   .cube-slide-group
     position: relative

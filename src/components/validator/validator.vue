@@ -34,6 +34,10 @@
       model: {
         required: true
       },
+      modelKey: {
+        type: String,
+        default: ''
+      },
       rules: {
         type: Object,
         default() {
@@ -67,6 +71,11 @@
       }
     },
     computed: {
+      targetModel() {
+        const modelKey = this.modelKey
+        const model = this.model
+        return modelKey ? model[modelKey] : model
+      },
       invalid() {
         const valid = this.valid
         return valid === undefined ? undefined : !valid
@@ -95,14 +104,20 @@
       value(newVal) {
         this.valid = newVal
       },
-      model(newVal) {
-        if (this.isDisabled) {
-          return
-        }
-        if (!this.dirty) {
-          this.dirty = true
-        }
+      targetModel: {
+        handler() {
+          if (this.isDisabled) {
+            return
+          }
+          if (!this.dirty) {
+            this.dirty = true
+          }
 
+          this.validate()
+        },
+        sync: true
+      },
+      rules() {
         this.validate()
       },
       isDisabled(newVal) {
@@ -129,7 +144,7 @@
         }
         this._validateCount++
         const validateCount = this._validateCount
-        const val = this.model
+        const val = this.targetModel
 
         const configRules = this.rules
         const type = configRules.type
@@ -189,6 +204,7 @@
         const result = {}
         let sync = true
         this.validating = true
+        const model = this.targetModel
         parallel(allTasks, (results) => {
           if (this._validateCount !== validateCount) {
             return
@@ -199,7 +215,7 @@
                       ? typeof this.messages[key] === 'function'
                         ? this.messages[key](ret, valid)
                         : this.messages[key]
-                      : findMessage(key, configRules[key], configRules.type, this.model)
+                      : findMessage(key, configRules[key], configRules.type, model)
             if (isValid && !valid) {
               isValid = false
               this.msg = msg

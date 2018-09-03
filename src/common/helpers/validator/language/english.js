@@ -31,7 +31,7 @@ export default {
   },
   len: {
     string: /* istanbul ignore next */ (config) => `Please input ${config} characters.`,
-    number: /* istanbul ignore next */ (config) => `The number should equal ${config}`,
+    number: /* istanbul ignore next */ (config) => `The length should equal ${config}`,
     array: /* istanbul ignore next */ (config) => `Please select ${config} items`,
     date: /* istanbul ignore next */ (config) => `Please select ${toLocaleDateString(config, 'en')}`,
     email: /* istanbul ignore next */ (config) => `Please input ${config} characters.`,

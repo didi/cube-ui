@@ -6,16 +6,10 @@
 
 - Basic usage
 
-  `cube-slide` element is the entire slide component while `cube-slide-item` element is the page of each slide and it's slot is the content of the page.
+  Considering of the usual scenes of `cube-slide`, each carousel page is a link, so the easiest way to use it is to pass an Array which consists of image and link by the `data` props. We will render it as a carousel of a set of hyperlinked images by default.
 
   ```html
-  <cube-slide @change="changePage">
-    <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
-      <a :href="item.url">
-        <img :src="item.image">
-      </a>
-    </cube-slide-item>
-  </cube-slide>
+  <cube-slide :data="items"/>
   ```
   ```javascript
   export default {
@@ -34,10 +28,46 @@
           }
         ]
       }
+    }
+  }
+  ```
+- Custom Content
+
+  Of course, we also support custom content, using the default slot and `cube-slide-item` component to customize the structure of each carousel page. Among them, the `cube-slide` element is the entire carousel component, and the `cube-slide-item` element is the page of each carousel, whose slot is the content of the page.
+
+  ```html
+  <cube-slide ref="slide" :data="items" @change="changePage">
+    <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
+      <a :href="item.url">
+        <img :src="item.image">
+      </a>
+    </cube-slide-item>
+  </cube-slide>
+  ```
+
+  ```javascript
+  export default {
+    data() {
+      return {
+        items: [
+          {
+            url: 'http://www.didichuxing.com/',
+            image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide01.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide02.png'
+          },
+          {
+            url: 'http://www.didichuxing.com/',
+            image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
+          }
+        ]
+      }
     },
     methods: {
       changePage(current) {
-        console.log('The index of current slide is ' + current)
+        console.log('当前轮播图序号为:' + current)
       },
       clickHandler(item, index) {
         console.log(item, index)
@@ -45,6 +75,8 @@
     }
   }
   ```
+
+  Although you will use the `data` to generate the default content after using the custom content, it is still recommended that you pass the data by the `data` props, so our component can automatically perform data monitoring and re-rendering inside. Otherwise, you may need to call the `refresh` method to re-render by yourself, such as `this.$refs.slide.refresh()`.
 
 - Initial Index
 
@@ -56,10 +88,9 @@
 
 - Loop play
 
-  Loop play is turned on by default. You can cnfigure that with `loop` attribute.
+  Loop play is turned on by default. You can configure that with `loop` attribute.
 
   ```html
-  <cube-slide></cube-slide>
   <cube-slide :loop="false"></cube-slide>
   ```
 
@@ -68,7 +99,6 @@
   Automatic play is turned on by default. You can configure that with `auto-play` attribute.
 
   ```html
-  <cube-slide></cube-slide>
   <cube-slide :auto-play="false"></cube-slide>
   ```
 
@@ -103,50 +133,6 @@
   ```html
   <cube-slide :allow-vertical="true"></cube-slide>
   ```
-
-- refresh method
-
-  When Slide Items updated or Slide props updated, you can call `refresh` method to update Slide view.
-
-  ```html
-  <cube-slide ref="slide">
-    <cube-slide-item v-for="(item, index) in items" :key="index">
-      <a :href="item.url">
-        <img :src="item.image">
-      </a>
-    </cube-slide-item>
-  </cube-slide>
-  ```
-  ```js
-  const item3 = {
-    url: 'http://www.didichuxing.com/',
-    image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png'
-  }
-  export default {
-    data() {
-      return {
-        items: [
-          {
-            url: 'http://www.didichuxing.com/',
-            image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide01.png'
-          },
-          {
-            url: 'http://www.didichuxing.com/',
-            image: '//webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide02.png'
-          }
-        ]
-      }
-    },
-    mounted() {
-      setTimeout(() => {
-        this.items.push(item3)
-        this.$refs.slide.refresh()
-      }, 2000)
-    }
-  }
-  ```
-
-  Added an new slide item 2 seconds later and called `refresh`.
 
 - Modify dots style
 

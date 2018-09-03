@@ -120,7 +120,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Props configuration
 
-| Attribute | Description | Type | Accepted Values | Default |
+| Attribute | Description | Type | Default | Accepted Values |
 | - | - | - | - | - |
 | data | define the component name and properties of each node picker | Array | [] | - |
 | title | title | String | '' | - |
@@ -132,6 +132,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | swipeTime<sup>1.8.1</sup> | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | 100 | - |
 
 * `data` sub configuration
 

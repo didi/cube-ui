@@ -415,3 +415,6 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | forceUpdate | Mark the end of pull-up or pull-down, and force recalculation of scrollable distance | dirty: whether there is data updating, when "true" indicate data updated so recalculate scrollable distance, when false no data update and no need to recalculate |
 | disable | Disable scroll. | - |
 | enable | Enable scroll. It's enabled by default | - |
+| forceUpdate | If a pulldown/pullup refresh has no data update, you should call `forceUpdate()` method to force update pullUp/pullDown state | - |
+| resetPullUpTxt | Reset pull up txt when pull up state changed from no data to data updated | - |
+| refresh | Refresh, computed height and called BetterScroll instance's refresh | - |

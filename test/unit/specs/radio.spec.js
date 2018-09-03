@@ -88,6 +88,10 @@ describe('Radio.vue', () => {
         selected: 3,
         options: [
           {
+            label: 'Option0',
+            value: 0
+          },
+          {
             label: 'Option1',
             value: 1
           },
@@ -106,7 +110,7 @@ describe('Radio.vue', () => {
     vm.$el.querySelector('.cube-radio-input').click()
     setTimeout(() => {
       expect(vm.$parent.selected)
-        .to.equal(1)
+        .to.equal(0)
       done()
     })
   })

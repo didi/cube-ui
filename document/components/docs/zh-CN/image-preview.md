@@ -90,6 +90,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | initial-index | 初始索引 | Number | - | 0 |
 | loop | 是否可循环 | Boolean | true/false | true |
 | speed | 轮播速度，单位 ms | Number | - | 400 |
+| zIndex<sup>1.10.11</sup> | 样式 z-index 的值 | Number | - | 100 |
 
 ### 插槽
 

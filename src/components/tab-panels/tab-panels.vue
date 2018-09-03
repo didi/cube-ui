@@ -20,6 +20,7 @@
   const TRANSFORM = prefixStyle('transform')
 
   const COMPONENT_NAME = 'cube-tab-panels'
+  const INDEX_OUT_OF_BOUNDARY = -1
 
   export default {
     name: COMPONENT_NAME,
@@ -43,6 +44,10 @@
     methods: {
       _move(label) {
         const curIndex = findIndex(this.panels, panel => panel.label === label)
+        /* istanbul ignore if */
+        if (curIndex === INDEX_OUT_OF_BOUNDARY) {
+          return
+        }
         const panelsGroup = this.$refs.panelsGroup
         const distance = -(curIndex * 100)
         panelsGroup.style[TRANSFORM] = `translateX(${distance}%)`
