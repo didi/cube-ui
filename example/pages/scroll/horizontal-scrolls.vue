@@ -13,6 +13,7 @@
               <cube-scroll
                 ref="scroll"
                 :data="items2"
+                nestMode="free"
                 direction="horizontal">
                 <ul class="list-wrapper">
                   <li v-for="item in items2" class="list-item">{{ item }}</li>

@@ -84,7 +84,7 @@
       display: inline-block
   ```
 
-  > **注意**：由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。
+  > **注意**：1. 由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。2. 有时候我们希望横向滚动使用`Scroll`组件来模拟，纵向保留浏览器原生滚动，或者相反的情况。这时你需要传递 better-scroll 配置项 [eventPassthrough](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html#eventpassthrough)。
 
   这里对样式的设定做简要的解释，为`list-item`元素添加`display: inline-block`是希望元素能够不换行，单行显示。`list-wrapper`添加`white-space: nowrap`是希望遇到父元素边界，依然不换行。另外，关键是`cube-scroll-content`元素添加`display: inline-block`样式，此时`cube-scroll-content`元素的宽度为能够包裹子孙元素的最小宽度，即为连续内联`list-item`元素的宽度之和子元素的最大宽度。具有同样性质的样式还有，浮动元素和绝对定位元素，在不设置具体宽度时，其宽度为包裹子孙元素的最小宽度。
 
@@ -150,7 +150,7 @@
   }
   ```
 
-  > **注意**：如果请求结果没有数据更新，则必须调用 Scroll 组件的`forceUpdate()`方法结束此次下拉刷新，这样 Scroll 组件才会开始监听下一次下拉刷新操作。当有数据更新时，Scroll 组件内部会自行调用`forceUpate()`方法
+  > **注意**：如果请求结果没有数据更新，则必须调用 Scroll 组件的`forceUpdate()`方法结束此次下拉刷新，这样 Scroll 组件才会开始监听下一次下拉刷新操作。在上例中数据更新时，没有调用`forceUpdate()`方法，原因为：**如果你向`Scroll`组件传递了`data`属性，那么当`Scroll`组件监听到`data`有更新时会自行调用`forceUpate(true)`方法**，因此推荐传递`data`属性。
 
 - **4. 自定义下拉刷新动画 - 仿京东 App 首页**
 
@@ -239,8 +239,8 @@
   | - | - | - | - |
   | 1. 未触发下拉刷新 | true | - | 展示继续下拉引导图案 |
   | 2. 触发下拉刷新 | false | true | 异步请求数据，显示 loading |
-  | 3. 获取数据成功 | false | false | 调用 `forceUpdate(true)`, 显示成功文案 |
-  | 4. 下拉刷新完成 | true | - | 当调用 `forceUpdate(true)`后，延迟 stopTime 时间进入步骤 4 |
+  | 3. 获取数据成功 | false | false | 调用 `forceUpdate(true)`, 显示成功文案, 延迟 stopTime 时间进入步骤 4  |
+  | 4. 下拉刷新完成 | true | - | - |
 
 - **5. 高级使用 - 仿头条 App 首页**
 
@@ -352,6 +352,56 @@
   </cube-scroll>
   ```
 
+- **8. 嵌套横向滚动 - Horizontal Scrolls**
+
+  有时候我们需要在 `Scroll` 组件中包含 teatarea 输入框。然而由于我们在使用 `Scroll` 时禁用了浏览器 'touch' 事件的默认行为，因此我们无法在 textarea 输入框中使用浏览器的原生滚动。
+
+  现在我们希望通过这个例子，介绍两种解决这个问题的方法。核心都是利用了 `Scroll` 支持嵌套的能力，我们将内部的输入框用 `Scroll` 进行包装，通过 `Scroll` 去模拟滚动行为。但是有一个要求是，输入框内容区域必须是高度自适应，即高度随内容增加或减少。
+
+  1）利用 div 标签模拟 textarea，实现内容区域高度自适应。
+
+  2）利用 textarea 配合 js，实现高度自适应。
+
+  最后，我们还需要一些额外的工作保证输入过程中，光标能始终在视线内，保持与原生输入框的行为一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+  ```html
+  <cube-scroll 
+    ref="scrollOuter"
+    :options="optionsOuter"
+    class="scroll-outer">
+    ...
+    <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+      <cube-scroll
+        ref="divWrapScroll"
+        :options="options">
+        <div ref="editablediv" contenteditable="true" class="editable-div"
+          @focus="onFocusDiv"
+          @blur="onBlurDiv"
+          @input="onInputDiv">
+        </div>
+      </cube-scroll>
+      <span class="editable-div-indicator">{{divValueCount}}</span>
+    </div>
+    <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+      <cube-scroll
+        ref="nativeWrapScroll"
+        :options="options">
+        <textarea
+          ref="textarea"
+          v-model="textareaValue"
+          @input="onInputNative"
+          @focus="onFocusNative"
+          @blur="onBlurNative"
+          :placeholder="placeholder"
+          class="cube-textarea">
+        </textarea>
+      </cube-scroll>
+      <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+    </div>
+    ...
+  </cube-scroll>
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -363,7 +413,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
-| nestMode | 嵌套滚动模式，区别见示例 7 | String | 'native', 'free' | 'native' |
+| nestMode | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 
@@ -413,9 +463,11 @@
 | 方法名 | 说明 | 参数 |
 | - | - | - |
 | scrollTo | 滚动到指定位置 | x: 横向位置<br> y: 纵向位置<br> time: 过渡动画时间<br> ease: 动画曲线 |
-| forceUpdate | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: 是否有数据更新，true 表示有数据更新重新计算可滚动距离，false 表示没有数据更新，无需重新计算|
+| forceUpdate | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: 是否有数据更新，默认为 false。true 表示有数据更新重新计算可滚动距离，上拉文案显示`pullUpLoad.text.more`值，false 表示没有数据更新，无需重新计算, 上拉文案显示`pullUpLoad.text.nomore`值 |
 | disable | 禁用滚动 | - |
 | enable | 启用滚动，默认是开启滚动的。 | - |
+| resetPullUpTxt | 当从无更多切换到有更多时，重置上拉文本内容 | - |
+| refresh | 刷新，重新计算高度且刷新 BetterScroll 实例 | - |
 
 ### 内部属性
 

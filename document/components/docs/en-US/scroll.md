@@ -83,7 +83,7 @@ Seven sample code to quickly understand how to use the Scroll component.
       display: inline-block
   ```
 
-  > **Note**：As the scrolling principle above, the CSS style setting here is required, and scrolling is possible only when the scrolling content is wider than the container width.
+  > **Note**：1. As the scrolling principle above, the CSS style setting here is required, and scrolling is possible only when the scrolling content is wider than the container width. 2. Sometimes we want to use the `Scroll` component to simulate the horizontal scroll, vertically retaining the browser's native scrolling, or vice versa. At this point you need to pass the better-scroll configuration item [eventPassthrough](http://ustbhuangyi.github.io/better-scroll/doc/en/options.html#eventpassthrough)
 
   Here giving a brief explanation of the style settings. `list-item` items with `display: inline-block` lead to all `list-item` elements showing on one line. `list-wrapper` adds `white-space: nowrap` hope `list-item` also showing on one line when reaching the outer element boundary. And the most important is setting `cube-scroll-content` with `display: inline-block`， which make the width of `cube-scroll-content` bigger enough so that `cube-scroll-content` can wrap descendants elements. Styles with the same properties are floating elements and absolutely positioned elements. When no specific width is set, the width is the minimum width of the wrapped descendant element.
 
@@ -149,7 +149,7 @@ Seven sample code to quickly understand how to use the Scroll component.
   }
   ```
 
-  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. When the data is updated, the Scroll component will invoke `forceUpdate()` method internally.
+  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. In the above example, when the data is updated, we did not invoke the `forceUpdate()` method. The reason is: ** If you pass the `data` attribute to the `Scroll` component, then when the `Scroll` component listens to the `data` update, the `forceUpate(true)` method will be called automatically. ** so it is recommended to pass the `data` attribute.
 
 - **4. Custom pull-down refresh animation - Fake JD App**
 
@@ -237,8 +237,8 @@ Seven sample code to quickly understand how to use the Scroll component.
   | - | - | - | - |
   | 1. Untrigger pull-down refresh | true | - | Show pattern guide user continues to  pull down |
   | 2. Trigger pull-down refresh | false | true | Asynchronous request data，show loading |
-  | 3. Request data success | false | false | invoke `forceUpdate(true)`, show success copy |
-  | 4. A pull-down refresh complete | true | - | after invoke `forceUpdate(true)`, delay stopTime to step 4 |
+  | 3. Request data success | false | false | invoke `forceUpdate(true)`, show success copy. And delay 'stopTime' into step 4 |
+  | 4. A pull-down refresh complete | true | - | - |
 
 - **5. Advanced usage - Fake TouTiao App**
 
@@ -324,7 +324,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   **7. Horizontal nested scrolls - Horizontal Scrolls**
 
-  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling.
+  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)
 
   ```html
   <cube-scroll
@@ -350,6 +350,56 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
   </cube-scroll>
   ```
 
+  **8. 嵌套横向滚动 - Horizontal Scrolls**
+
+    Sometimes we need to include the teatarea input box in the `Scroll` component. However, since we disabled the default behavior of the browser 'touch' event when using `Scroll`, we were unable to use the browser's native scrolling in the textarea input box.
+
+    Now through this example, we hope to introduce two ways to solve this problem. The core is to take advantage of `Scroll` to support nesting. We wrap the internal input box with `Scroll` and simulate the scrolling behavior with `Scroll`. But there is a requirement that the input box content area must be highly adaptive, ie the height increases or decreases with the content.
+
+    1）using div to simulate textarea to achieve high content area adaptation。
+
+    2）using js and textarea to achieve high content area adaptation。
+
+    Finally, we need some extra work to ensure that the cursor is always in line of sight and consistent with the behavior of the native input box during the input process. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+    ```html
+    <cube-scroll
+      ref="scrollOuter"
+      :options="optionsOuter"
+      class="scroll-outer">
+      ...
+      <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+        <cube-scroll
+          ref="divWrapScroll"
+          :options="options">
+          <div ref="editablediv" contenteditable="true" class="editable-div"
+            @focus="onFocusDiv"
+            @blur="onBlurDiv"
+            @input="onInputDiv">
+          </div>
+        </cube-scroll>
+        <span class="editable-div-indicator">{{divValueCount}}</span>
+      </div>
+      <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+        <cube-scroll
+          ref="nativeWrapScroll"
+          :options="options">
+          <textarea
+            ref="textarea"
+            v-model="textareaValue"
+            @input="onInputNative"
+            @focus="onFocusNative"
+            @blur="onBlurNative"
+            :placeholder="placeholder"
+            class="cube-textarea">
+          </textarea>
+        </cube-scroll>
+        <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+      </div>
+      ...
+    </cube-scroll>
+    ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -361,7 +411,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 | listenScroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
-| nestMod | the mode of nested scroll | String | 'native', 'free' | 'native' |
+| nestMode | Nested scroll mode, the default is `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on.  | String | 'native', 'free' | 'native' |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
 
@@ -415,6 +465,5 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | forceUpdate | Mark the end of pull-up or pull-down, and force recalculation of scrollable distance | dirty: whether there is data updating, when "true" indicate data updated so recalculate scrollable distance, when false no data update and no need to recalculate |
 | disable | Disable scroll. | - |
 | enable | Enable scroll. It's enabled by default | - |
-| forceUpdate | If a pulldown/pullup refresh has no data update, you should call `forceUpdate()` method to force update pullUp/pullDown state | - |
 | resetPullUpTxt | Reset pull up txt when pull up state changed from no data to data updated | - |
 | refresh | Refresh, computed height and called BetterScroll instance's refresh | - |
