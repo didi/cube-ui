@@ -167,6 +167,25 @@ function processComponentName(Component, { prefix = '', firstUpperCase = false }
   return camelizeName
 }
 
+function isUndef (o) {
+  return o === undefined
+}
+
+function parsePath (obj, path = '') {
+  const segments = path.split('.')
+  let result = obj
+  for (let i = 0; i < segments.length; i++) {
+    const key = segments[i]
+    if (isUndef(result[key])) {
+      result = ''
+      break
+    } else {
+      result = result[key]
+    }
+  }
+  return result
+}
+
 export {
   findIndex,
   deepAssign,
@@ -176,5 +195,7 @@ export {
   parallel,
   cb2PromiseWithResolve,
   debounce,
-  processComponentName
+  processComponentName,
+  parsePath,
+  isUndef
 }

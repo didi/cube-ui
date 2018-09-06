@@ -12,8 +12,8 @@
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
-            <span class="cube-picker-cancel" @click="cancel">{{cancelTxt}}</span>
-            <span class="cube-picker-confirm" @click="confirm">{{confirmTxt}}</span>
+            <span class="cube-picker-cancel" @click="cancel">{{_cancelTxt}}</span>
+            <span class="cube-picker-confirm" @click="confirm">{{_confirmTxt}}</span>
             <div class="cube-picker-title-group">
               <h1 class="cube-picker-title" v-html="title"></h1>
               <h2 v-if="subtitle" class="cube-picker-subtitle" v-html="subtitle"></h2>
@@ -48,6 +48,7 @@
   import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-picker'
 
@@ -58,7 +59,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
     props: {
       pending: {
         type: Boolean,

@@ -40,6 +40,7 @@
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-dialog'
   const EVENT_CONFIRM = 'confirm'
@@ -48,29 +49,30 @@
 
   const defHref = 'javascript:;'
   const defConfirmBtn = {
-    text: '确定',
+    type: 'ok',
     active: true,
     disabled: false,
     href: defHref
   }
   const defCancelBtn = {
-    text: '取消',
+    type: 'cancel',
     active: false,
     disabled: false,
     href: defHref
   }
-  const parseBtn = (btn, defBtn) => {
+  const parseBtn = function (btn, defBtn) {
     if (typeof btn === 'string') {
       btn = {
         text: btn
       }
     }
-    return Object.assign({}, defBtn, btn)
+    const text = defBtn && this.$t(defBtn.type)
+    return Object.assign({}, defBtn, { text })
   }
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin],
+    mixins: [visibilityMixin, popupMixin, localeMixin],
     props: {
       type: {
         type: String,
@@ -116,10 +118,10 @@
     },
     computed: {
       _confirmBtn() {
-        return parseBtn(this.confirmBtn, defConfirmBtn)
+        return parseBtn.call(this, this.confirmBtn, defConfirmBtn)
       },
       _cancelBtn() {
-        return parseBtn(this.cancelBtn, defCancelBtn)
+        return parseBtn.call(this, this.cancelBtn, defCancelBtn)
       },
       isConfirm() {
         return this.type === 'confirm'

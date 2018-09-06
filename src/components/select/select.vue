@@ -1,13 +1,15 @@
 <template>
   <div class="cube-select" :class="{ 'cube-select_active': active, 'cube-select_disabled': disabled }" @click="showPicker">
     <span v-if="selectedText" class="cube-select-text">{{ selectedText }}</span>
-    <span v-else class="cube-select-placeholder">{{ placeholder }}</span>
+    <span v-else class="cube-select-placeholder">{{ _placeholder }}</span>
     <i class="cube-select-icon"></i>
   </div>
 </template>
 
 <script>
   import { findIndex } from '../../common/helpers/util'
+  import localeMixin from '../../common/mixins/locale'
+
   const COMPONENT_NAME = 'cube-select'
 
   const EVENT_CHANGE = 'change'
@@ -17,6 +19,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [ localeMixin ],
     data() {
       return {
         active: false
@@ -33,7 +36,7 @@
       value: null,
       placeholder: {
         type: String,
-        default: '请选择'
+        default: ''
       },
       autoPop: {
         type: Boolean,
@@ -45,15 +48,15 @@
       },
       title: {
         type: String,
-        default: '请选择'
+        default: ''
       },
       cancelTxt: {
         type: String,
-        default: '取消'
+        default: ''
       },
       confirmTxt: {
         type: String,
-        default: '确定'
+        default: ''
       }
     },
     computed: {
@@ -82,16 +85,28 @@
       },
       selectedText() {
         return this.valueIndex !== -1 ? this.adaptOptions[0][this.valueIndex].text : ''
+      },
+      _placeholder () {
+        return this.placeholder || this.$t('selectText')
+      },
+      _title () {
+        return this.title || this.$t('selectText')
+      },
+      _cancelTxt () {
+        return this.cancelTxt || this.$t('cancel')
+      },
+      _confirmTxt () {
+        return this.confirmTxt || this.$t('ok')
       }
     },
     created() {
       this.picker = this.$createPicker({
         $props: {
-          title: 'title',
+          title: '_title',
           data: 'adaptOptions',
           selectedIndex: 'selectedIndex',
-          cancelTxt: 'cancelTxt',
-          confirmTxt: 'confirmTxt'
+          cancelTxt: '_cancelTxt',
+          confirmTxt: '_confirmTxt'
         },
         $events: {
           select: 'selectHandler',

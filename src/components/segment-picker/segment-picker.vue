@@ -10,8 +10,8 @@
       :is="item.is || 'cube-picker'"
       :title="item.title || title"
       :subtitle="item.subtitle || subtitle"
-      :confirm-txt="item.confirmTxt || (index === data.length - 1 ? confirmTxt : nextTxt)"
-      :cancel-txt="item.cancelTxt || (index === 0 ? cancelTxt : prevTxt)"
+      :confirm-txt="item.confirmTxt || (index === data.length - 1 ? _confirmTxt : _nextTxt)"
+      :cancel-txt="item.cancelTxt || (index === 0 ? _cancelTxt : _prevTxt)"
       :swipe-time="item.swipeTime || swipeTime"
       :z-index="item.zIndex || zIndex"
       :mask-closable="maskClosable"
@@ -27,6 +27,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-segment-picker'
   const EVENT_NEXT = 'next'
@@ -37,7 +38,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
     props: {
       data: {
         type: Array,
@@ -47,11 +48,11 @@
       },
       nextTxt: {
         type: String,
-        default: '下一步'
+        default: ''
       },
       prevTxt: {
         type: String,
-        default: '上一步'
+        default: ''
       }
     },
     data() {
@@ -71,6 +72,12 @@
             return item
           }
         }
+      },
+      _nextTxt () {
+        return this.nextTxt || this.$t('next')
+      },
+      _prevTxt () {
+        return this.prevTxt || this.$t('prev')
       }
     },
     watch: {
