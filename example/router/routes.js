@@ -31,6 +31,7 @@ import ScrollHorizontal from '../pages/scroll/horizontal.vue'
 import ScrollToutiao from '../pages/scroll/toutiao.vue'
 import VScrolls from '../pages/scroll/vertical-scrolls.vue'
 import HScrolls from '../pages/scroll/horizontal-scrolls.vue'
+import TextareaInScroll from '../pages/scroll/textarea.vue'
 import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
@@ -223,6 +224,10 @@ const routes = [
       {
         path: 'h-scrolls',
         component: HScrolls
+      },
+      {
+        path: 'textarea',
+        component: TextareaInScroll
       }
     ]
   },
