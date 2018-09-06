@@ -367,7 +367,7 @@
             if (reachBoundary) {
               innerScroll.resetPosition()
               innerScroll.disable()
-
+              // Prevent outer scroll have a bouncing step when enabled in 'free' nestMode.
               outerScroll.pointX = innerScroll.pointX
               outerScroll.pointY = innerScroll.pointY
               outerScroll.enable()
