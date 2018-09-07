@@ -15,11 +15,10 @@ describe('Locale', () => {
     }
   })
   it('use', () => {
-    Vue.use(Locale)
     expect(Locale.installed)
       .to.be.true
   })
-  it('should render correct zh-CN language by default and support changing language', () => {
+  it('should render correct zh-CN language by default and support changing language', (done) => {
     vm = instantiateComponent(Vue, ActionSheet)
     expect(vm._cancelTxt)
       .to.equal('取消')
@@ -27,6 +26,7 @@ describe('Locale', () => {
     vm.$nextTick(() => {
       expect(vm._cancelTxt)
       .to.equal('Cancel')
+      done()
     })
   })
 })
