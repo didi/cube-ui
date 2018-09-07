@@ -161,6 +161,7 @@ function processComponentName(Component, { prefix = '', firstUpperCase = false }
   const name = Component.name
   const pureName = name.replace(/^cube-/i, '')
   let camelizeName = `${camelize(`${prefix}${pureName}`)}`
+   /* istanbul ignore if */
   if (firstUpperCase) {
     camelizeName = camelizeName.charAt(0).toUpperCase() + camelizeName.slice(1)
   }
@@ -176,6 +177,7 @@ function parsePath (obj, path = '') {
   let result = obj
   for (let i = 0; i < segments.length; i++) {
     const key = segments[i]
+     /* istanbul ignore if */
     if (isUndef(result[key])) {
       result = ''
       break
