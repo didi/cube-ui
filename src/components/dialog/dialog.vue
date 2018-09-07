@@ -49,13 +49,13 @@
 
   const defHref = 'javascript:;'
   const defConfirmBtn = {
-    type: 'ok',
+    textType: 'ok',
     active: true,
     disabled: false,
     href: defHref
   }
   const defCancelBtn = {
-    type: 'cancel',
+    textType: 'cancel',
     active: false,
     disabled: false,
     href: defHref
@@ -66,8 +66,8 @@
         text: btn
       }
     }
-    const text = defBtn && this.$t(defBtn.type)
-    return Object.assign({}, defBtn, { text })
+    const text = defBtn && this.$t(defBtn.textType)
+    return Object.assign({}, defBtn, { text }, btn)
   }
 
   export default {

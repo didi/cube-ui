@@ -1,27 +1,28 @@
-import Vue from 'vue'
 import defaultMessages from './lang/zh-CN'
 
+let Vue
+let proto
+
 const DEFAULT_LANG = 'zh-CN'
-const prototype = Vue.prototype
 
 const locale = {
   name: 'locale',
-  install () {
+  install (_Vue) {
     if (locale.installed) return
-    Vue.util.defineReactive(prototype, '$cubeLang', DEFAULT_LANG)
-    prototype['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
+    Vue = _Vue
+    proto = Vue.prototype
+    Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
+    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
     locale.installed = true
   },
   use (lang, messages) {
-    prototype['$cubeLang'] = lang
-    const cubeMessages = prototype['$cubeMessages']
+    proto['$cubeLang'] = lang
+    const cubeMessages = proto['$cubeMessages']
     // if messages have never been stored in vue.prototye
     if (!(lang in cubeMessages)) {
       cubeMessages[[lang]] = messages
     }
   }
 }
-// auto install due to cube-ui support importing module on demand
-locale.install()
 
 export default locale
