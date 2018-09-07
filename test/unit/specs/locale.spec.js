@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue2'
 import ActionSheet from '@/modules/action-sheet'
 import Locale from '@/modules/locale'
 import enUSMessages from '@/modules/locale/lang/en-US'
@@ -6,6 +6,14 @@ import instantiateComponent from '@/common/helpers/instantiate-component'
 
 describe('Locale', () => {
   let vm
+  afterEach(() => {
+    // reset language
+    Locale.use('zh-CN')
+    if (vm) {
+      vm.$parent.destroy()
+      vm = null
+    }
+  })
   it('use', () => {
     Vue.use(Locale)
     expect(Locale.installed)
