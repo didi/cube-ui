@@ -7,7 +7,7 @@ The ube-ui component uses Chinese internally by default. If you want to use anot
   import Vue from 'vue'
   import CubeUI from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US' // Built-in in Cube-ui
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US' // Built-in in Cube-ui
   import jaJPMessages from '../some/path/lang/ja-JP' // Import Japanese language by yourself
 
   Vue.use(CubeUI)
@@ -23,7 +23,7 @@ Or, import by module
   import Vue from 'vue'
   import { ActionSheet } from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US'
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US'
 
   Vue.use(Locale)
   Locale.use('en-US', enUSMessages)
@@ -38,7 +38,7 @@ Cube-ui will watch the current language type, so it automatically renders once l
   import Vue from 'vue'
   import { ActionSheet } from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US'
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US'
 
   // Chinese translation by default
   Vue.use(Locale)

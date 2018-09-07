@@ -7,7 +7,7 @@ cube-ui 组件内部默认使用中文，若希望使用其他语言，则需要
   import Vue from 'vue'
   import CubeUI from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US' // cube-ui 内置
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US' // cube-ui 内置
   import jaJPMessages from '../some/path/lang/ja-JP' // 自己引入日语语言包
 
   Vue.use(CubeUI)
@@ -23,7 +23,7 @@ cube-ui 组件内部默认使用中文，若希望使用其他语言，则需要
   import Vue from 'vue'
   import { ActionSheet } from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US'
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US'
 
   Vue.use(Locale)
   Locale.use('en-US', enUSMessages)
@@ -38,7 +38,7 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
   import Vue from 'vue'
   import { ActionSheet } from 'cube-ui'
   import Locale from 'cube-ui/lib/locale'
-  import enUSMessages from 'cube-ui/lib/locale/lang/en-US'
+  import enUSMessages from 'cube-ui/src/modules/lang/en-US'
 
   // 默认加载中文语言包
   Vue.use(Locale)
