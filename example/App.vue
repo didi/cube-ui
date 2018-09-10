@@ -3,14 +3,12 @@
     <header class="cube-bar">
       <h1>cube-ui</h1>
     </header>
-    <section class="cube-content" ref="mfct">
-      <cube-index-list :data="components" class="cube-list">
+    <section class="cube-content">
+      <cube-index-list :data="components" class="component-list">
         <cube-index-list-group v-for="(group, index) in components" :key="index" :group="group">
           <cube-index-list-item v-for="(component, index) in group.items" :key="index" :item="component">
-            <div class="cube-item border-bottom-1px" >
-              <router-link class="link" :to="component.path">{{component.text}}<i
-                class="cubeic-arrow"></i>
-              </router-link>
+            <div class="component-item border-bottom-1px" >
+              <router-link class="link" :to="component.path">{{component.text}}<i class="cubeic-arrow"></i></router-link>
             </div>
           </cube-index-list-item>
         </cube-index-list-group>
@@ -230,38 +228,33 @@
     bottom: 0
     overflow: scroll
     -webkit-overflow-scrolling: touch
-    .cube-list
-      padding-left: 10px
-      z-index: 1
-      .cube-index-list-group
-        .cube-index-list-anchor
-          font-size: 16px
-        ul
-          .cube-item
-            height: 40px
-            line-height: 40px
-            padding-left: 16px
-            .link
-              display: block
-              position: relative
-              width: 100%
-              color: #333
-              text-decoration: none
-              outline: 0
-              .cubeic-arrow
-                position: absolute
-                right: 0
-                padding: 0 5px
-                color: #ccc
-      .cube-index-list-nav
-          margin-right: 0px
-          padding: 8px 5px
-          border-radius: 3px 0 0 3px
-          background: #f7f7f7
-          box-shadow: 0 0 5px #80808047
-          >ul
-            >li
-              padding: 8px 0
-      .cube-index-list-fixed
-        font-size: 16px
+  .component-list
+    padding-left: 10px
+    z-index: 1
+    .cube-index-list-anchor
+      font-size: 16px
+    .cube-index-list-nav
+      margin-right: 0px
+      padding: 8px 5px
+      border-radius: 3px 0 0 3px
+      background: #f7f7f7
+      box-shadow: 0 0 5px #80808047
+    .cube-index-list-nav-item
+      padding: 8px 0
+  .component-item
+    height: 40px
+    line-height: 40px
+    padding-left: 16px
+    .link
+      display: block
+      position: relative
+      width: 100%
+      color: #333
+      text-decoration: none
+      outline: 0
+    .cubeic-arrow
+      position: absolute
+      right: 0
+      padding: 0 5px
+      color: #ccc
 </style>
