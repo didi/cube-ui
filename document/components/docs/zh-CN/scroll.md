@@ -352,7 +352,7 @@
   </cube-scroll>
   ```
 
-- **8. 嵌套横向滚动 - Horizontal Scrolls**
+<!-- - **8. Scroll 中嵌套 textarea - Textarea**
 
   有时候我们需要在 `Scroll` 组件中包含 teatarea 输入框。然而由于我们在使用 `Scroll` 时禁用了浏览器 'touch' 事件的默认行为，因此我们无法在 textarea 输入框中使用浏览器的原生滚动。
 
@@ -400,7 +400,7 @@
     </div>
     ...
   </cube-scroll>
-  ```
+  ``` -->
 
 ### Props 配置
 

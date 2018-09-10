@@ -324,7 +324,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   **7. Horizontal nested scrolls - Horizontal Scrolls**
 
-  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)
+  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue).
 
   ```html
   <cube-scroll
@@ -350,15 +350,15 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
   </cube-scroll>
   ```
 
-  **8. 嵌套横向滚动 - Horizontal Scrolls**
+  <!-- **8. Textarea within scroll - Textarea**
 
     Sometimes we need to include the teatarea input box in the `Scroll` component. However, since we disabled the default behavior of the browser 'touch' event when using `Scroll`, we were unable to use the browser's native scrolling in the textarea input box.
 
     Now through this example, we hope to introduce two ways to solve this problem. The core is to take advantage of `Scroll` to support nesting. We wrap the internal input box with `Scroll` and simulate the scrolling behavior with `Scroll`. But there is a requirement that the input box content area must be highly adaptive, ie the height increases or decreases with the content.
 
-    1）using div to simulate textarea to achieve high content area adaptation。
+    1）using div to simulate textarea to achieve content area's height adaptation.
 
-    2）using js and textarea to achieve high content area adaptation。
+    2）using js and textarea to achieve content area's height adaptation.
 
     Finally, we need some extra work to ensure that the cursor is always in line of sight and consistent with the behavior of the native input box during the input process. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
 
@@ -398,7 +398,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
       </div>
       ...
     </cube-scroll>
-    ```
+    ``` -->
 
 ### Props configuration
 
