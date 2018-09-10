@@ -1,5 +1,8 @@
 <template>
-  <div class="cube-index-list">
+  <cube-sticky ref="sticky"
+    :pos="scrollY"
+    @change="indexChange"
+    class="cube-index-list">
     <cube-scroll
       ref="scroll"
       :scroll-events="scrollEvents"
@@ -48,23 +51,17 @@
         </li>
       </ul>
     </div>
-    <div ref="fixed"
-      v-show="fixedTitle"
-      v-html="fixedTitle"
-      class="cube-index-list-fixed cube-index-list-anchor">
-    </div>
-  </div>
+  </cube-sticky>
 </template>
 
 <script type="text/ecmascript-6">
   import {
     getData,
-    getRect,
-    prefixStyle,
     getMatchedTarget
   } from '../../common/helpers/dom'
   import { inBrowser } from '../../common/helpers/env'
 
+  import CubeSticky from '../sticky/sticky.vue'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
   import scrollMixin from '../../common/mixins/scroll'
@@ -77,7 +74,6 @@
   const EVENT_PULLING_DOWN = 'pulling-down'
 
   const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
-  const transformStyleKey = prefixStyle('transform')
 
   export default {
     name: COMPONENT_NAME,
@@ -120,17 +116,10 @@
       return {
         scrollEvents: ['scroll'],
         currentIndex: 0,
-        scrollY: -1,
-        diff: -1,
-        titleHeight: 0
+        scrollY: -1
       }
     },
     computed: {
-      fixedTitle() {
-        this.title && !this.titleHeight && this._caculateTitleHeight()
-
-        return this.scrollY <= -this.titleHeight && this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
-      },
       shortcutList() {
         return this.data.map((group) => {
           return group ? group.shortcut || group.name.substr(0, 1) : ''
@@ -143,17 +132,16 @@
         }, this.options)
       }
     },
-    created() {
-      this.groupList = []
-      this.listHeight = []
-      this.touch = {}
-      this.subTitleHeight = 0
+    watch: {
+      data() {
+        this.$refs.sticky.refresh()
+      },
+      title() {
+        this.$refs.sticky.refresh()
+      }
     },
-    mounted() {
-      this.$nextTick(() => {
-        this.title && this._caculateTitleHeight()
-        this._calculateHeight()
-      })
+    created() {
+      this.touch = {}
     },
     methods: {
       /* TODO: remove refresh next minor version */
@@ -164,7 +152,10 @@
         this.$emit(EVENT_SELECT, item)
       },
       scroll(pos) {
-        this.scrollY = pos.y
+        this.scrollY = -pos.y
+      },
+      indexChange(currentKey, currentIndex) {
+        this.currentIndex = currentIndex >= 0 ? currentIndex : 0
       },
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
@@ -196,79 +187,16 @@
       onPullingDown() {
         this.$emit(EVENT_PULLING_DOWN)
       },
-      _caculateTitleHeight() {
-        this.titleHeight = this.$refs.title ? getRect(this.$refs.title).height : 0
-      },
-      _calculateHeight() {
-        this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
-        const subTitleEl = this.$el.getElementsByClassName('cube-index-list-anchor')[0]
-        this.subTitleHeight = subTitleEl ? getRect(subTitleEl).height : 0
-        this.listHeight = []
-
-        if (!this.groupList) {
-          return
-        }
-
-        let height = this.titleHeight
-        this.listHeight.push(height)
-        for (let i = 0; i < this.groupList.length; i++) {
-          let item = this.groupList[i]
-          height += item.clientHeight
-          this.listHeight.push(height)
-        }
-      },
       _scrollTo(index) {
-        if (index < 0) {
-          index = 0
-        } else if (index > this.listHeight.length - 2) {
-          index = this.listHeight.length - 2
-        }
-        this.$refs.scroll.scrollToElement(this.groupList[index], this.speed)
-        this.scrollY = this.$refs.scroll.scroll.y
-      }
-    },
-    watch: {
-      data() {
-        this.$nextTick(() => {
-          this._calculateHeight()
-        })
-      },
-      title(newVal) {
-        this.$nextTick(() => {
-          this._caculateTitleHeight()
-          this._calculateHeight()
-        })
-      },
-      diff(newVal) {
-        let fixedTop = (newVal > 0 && newVal < this.subTitleHeight) ? newVal - this.subTitleHeight : 0
-        if (this.fixedTop === fixedTop) {
-          return
-        }
-        this.fixedTop = fixedTop
-        this.$refs.fixed.style[transformStyleKey] = `translate3d(0,${fixedTop}px,0)`
-      },
-      scrollY(newY) {
-        const listHeight = this.listHeight
-        // top
-        if (newY > -this.titleHeight) {
-          this.currentIndex = 0
-          return
-        }
-        // midd
-        for (let i = 0; i < listHeight.length - 1; i++) {
-          let height1 = listHeight[i]
-          let height2 = listHeight[i + 1]
-          if (-newY >= height1 && -newY < height2) {
-            this.currentIndex = i
-            this.diff = height2 + newY
-            return
-          }
-        }
-        // bottom
-        this.currentIndex = listHeight.length - 2
+        const maxScrollY = this.$refs.scroll.scroll.maxScrollY
+        const positionY = Math.max(-this.$refs.sticky.positions[index], maxScrollY)
+        this.$refs.scroll.scrollTo(0, positionY, this.speed)
+
+        this.scrollY = -this.$refs.scroll.scroll.y
       }
     },
     components: {
+      CubeSticky,
       CubeScroll,
       CubeIndexListGroup
     }
@@ -304,12 +232,6 @@
     font-size: $fontsize-medium
     color: $index-list-anchor-color
     background: $index-list-anchor-bgc
-  .cube-index-list-fixed
-    z-index: 1
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
   .cube-index-list-nav
     position: absolute
     z-index: 30
