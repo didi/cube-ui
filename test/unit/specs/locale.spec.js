@@ -1,7 +1,7 @@
 import Vue from 'vue2'
 import ActionSheet from '@/modules/action-sheet'
 import Locale from '@/modules/locale'
-import enUSMessages from '@/modules/locale/lang/en-US'
+import enUSMessages from '@/locale/lang/en-US'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 
 describe('Locale', () => {
