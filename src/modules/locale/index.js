@@ -1,4 +1,4 @@
-import defaultMessages from './lang/zh-CN'
+import defaultMessages from '../../locale/lang/zh-CN'
 
 let Vue
 let proto

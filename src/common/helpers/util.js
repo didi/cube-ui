@@ -39,10 +39,17 @@ function createAddAPI(baseObj) {
   }
 }
 
+function judgeTypeFnCreator (type) {
+  const toString = Object.prototype.toString
+  return function isType (o) {
+    return toString.call(o) === `[object ${type}]`
+  }
+}
+
 function toLocaleDateString(timestamp, locale) {
   const date = new Date(timestamp)
 
-  if (locale === 'zh') {
+  if (locale === 'zh-CN') {
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
   } else {
     return date.toDateString()
@@ -168,10 +175,6 @@ function processComponentName(Component, { prefix = '', firstUpperCase = false }
   return camelizeName
 }
 
-function isUndef (o) {
-  return o === undefined
-}
-
 function parsePath (obj, path = '') {
   const segments = path.split('.')
   let result = obj
@@ -188,6 +191,12 @@ function parsePath (obj, path = '') {
   return result
 }
 
+const isFunc = judgeTypeFnCreator('Function')
+const isUndef = judgeTypeFnCreator('Undefined')
+const isArray = judgeTypeFnCreator('Array')
+const isString = judgeTypeFnCreator('String')
+const isObject = judgeTypeFnCreator('Object')
+
 export {
   findIndex,
   deepAssign,
@@ -199,5 +208,9 @@ export {
   debounce,
   processComponentName,
   parsePath,
-  isUndef
+  isUndef,
+  isFunc,
+  isArray,
+  isString,
+  isObject
 }
