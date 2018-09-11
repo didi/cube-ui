@@ -322,31 +322,31 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       url: 'Please input a valid web site.'
     },
     min: {
-      string: (config) => `Please input at least ${config} characters.`,
-      number: (config) => `The number could not smaller than ${config}.`,
-      array: (config) => `Please select at least ${config} items.`,
-      date: (config) => `Please select a date after ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input at least ${config} characters.`,
-      tel: (config) => `Please input at least ${config} characters.`,
-      url: (config) => `Please input at least ${config} characters.`
+      string: 'Please input at least {config} characters.',
+      number: 'The number could not smaller than {config}.',
+      array: 'Please select at least {config} items.',
+      date: 'Please select a date after {toLocaleDateString().}',
+      email: 'Please input at least {config} characters.',
+      tel: 'Please input at least {config} characters.',
+      url: 'Please input at least {config} characters.'
     },
     max: {
-      string: (config) => `Please input no more than ${config} characters.`,
-      number: (config) => `The number could not bigger than ${config}`,
-      array: (config) => `Please select no more than  ${config} items`,
-      date: (config) => `Please select a date before ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input no more than ${config} characters.`,
-      tel: (config) => `Please input no more than ${config} characters.`,
-      url: (config) => `Please input no more than ${config} characters.`
+      string: 'Please input no more than {config} characters.',
+      number: 'The number could not bigger than {config}',
+      array: 'Please select no more than  {config} items',
+      date: 'Please select a date before {toLocaleDateString().}',
+      email: 'Please input no more than {config} characters.',
+      tel: 'Please input no more than {config} characters.',
+      url: 'Please input no more than {config} characters.'
     },
     len: {
-      string: (config) => `Please input ${config} characters.`,
-      number: (config) => `The number should equal ${config}`,
-      array: (config) => `Please select ${config} items`,
-      date: (config) => `Please select ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input ${config} characters.`,
-      tel: (config) => `Please input ${config} characters.`,
-      url: (config) => `Please input ${config} characters.`
+      string: 'Please input {config} characters.',
+      number: 'The length should equal {config}',
+      array: 'Please select {config} items',
+      date: 'Please select {toLocaleDateString().}',
+      email: 'Please input {config} characters.',
+      tel: 'Please input {config} characters.',
+      url: 'Please input {config} characters.'
     },
     pattern: 'The input don"t match pattern.',
     custom: 'Invalid.',
@@ -359,7 +359,14 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   import { Validator } from 'cube-ui'
 
   Validator.addMessage('required', 'Please input this.')
+
+  // Override the message for min.string
+  Validator.addMessage('min', {
+    string: 'The characters you entered cannot be less than {config}.'
+  })
   ```
+
+  > **Note**: The `config` field in the message is replaced internally by the component according to the value of the rules you configured. It can not be changed to another string. `toLocaleDateString` is a built-in utility function that uses the date attribute value of the min|max|len attribute of rules which you passed as the parameter to get the corresponding message.
 
 ### addType
 
@@ -373,7 +380,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   })
   ```
 
-  - modify the build-in type
+  - Modify the build-in type
 
   ```js
   import { Validator } from 'cube-ui'

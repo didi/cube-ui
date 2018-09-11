@@ -330,31 +330,31 @@
       url: '请输入有效网址'
     },
     min: {
-      string: (config) => `至少输入 ${config} 位字符`,
-      number: (config) => `不得小于 ${config}`,
-      array: (config) => `请选择至少 ${config} 项`,
-      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')} 之后的时间`,
-      email: (config) => `至少输入 ${config} 位字符`,
-      tel: (config) => `至少输入 ${config} 位字符`,
-      url: (config) => `至少输入 ${config} 位字符`
+      string: '至少输入 {config} 位字符',
+      number: '不得小于 {config}',
+      array: '请选择至少 {config} 项',
+      date: '请选择 {toLocaleDateString()} 之后的时间',
+      email: '至少输入 {config} 位字符',
+      tel: '至少输入 {config} 位字符',
+      url: '至少输入 {config} 位字符'
     },
     max: {
-      string: (config) => `请勿超过 ${config} 位字符`,
-      number: (config) => `请勿大于 ${config}`,
-      array: (config) => `最多选择 ${config} 项`,
-      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')} 之前的时间`,
-      email: (config) => `请勿超过 ${config} 位字符`,
-      tel: (config) => `请勿超过 ${config} 位字符`,
-      url: (config) => `请勿超过 ${config} 位字符`
+      string: '请勿超过 {config} 位字符',
+      number: '请勿大于 {config}',
+      array: '最多选择 {config} 项',
+      date: '请选择 {toLocaleDateString()} 之前的时间',
+      email: '请勿超过 {config} 位字符',
+      tel: '请勿超过 {config} 位字符',
+      url: '请勿超过 {config} 位字符'
     },
     len: {
-      string: (config) => `请输入 ${config} 位字符`,
-      number: (config) => `需等于 ${config}`,
-      array: (config) => `请选择 ${config} 项`,
-      date: (config) => `请选择 ${toLocaleDateString(config, 'zh')}`,
-      email: (config) => `请输入 ${config} 位字符`,
-      tel: (config) => `请输入 ${config} 位字符`,
-      url: (config) => `请输入 ${config} 位字符`
+      string: '请输入 {config} 位字符',
+      number: '长度应等于 {config}',
+      array: '请选择 {config} 项',
+      date: '请选择 {toLocaleDateString()} 之前的时间',
+      email: '请输入 {config} 位字符',
+      tel: '请输入 {config} 位字符',
+      url: '请输入 {config} 位字符'
     },
     pattern: '格式错误',
     custom: '未通过校验',
@@ -367,8 +367,13 @@
   import { Validator } from 'cube-ui'
 
   Validator.addMessage('required', '必填')
-  ```
 
+  // 覆盖 min.string 的提示消息
+  Validator.addMessage('min', {
+    string: '您输入的字符串不能少于 {config} 位'
+  })
+  ```
+  > **注意**：提示消息里的 `config` 字段是组件内部根据你配置的 rules 的值做替换，不能改成其他字符串。`toLocaleDateString` 是内置的一个工具函数，是通过 rules 的 min|max|len 属性的 date 属性值作为入参，得到对应的提示消息。
 ### 添加类型
 
   - 添加新的类型
