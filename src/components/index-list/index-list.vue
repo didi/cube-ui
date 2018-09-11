@@ -160,8 +160,8 @@
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
       },
-      forceUpdate() {
-        this.$refs.scroll.forceUpdate()
+      forceUpdate(dirty) {
+        this.$refs.scroll.forceUpdate(dirty)
       },
       onShortcutTouchStart(e) {
         const target = getMatchedTarget(e, 'cube-index-list-nav-item')
