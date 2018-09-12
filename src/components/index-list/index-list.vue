@@ -9,6 +9,8 @@
       :options="scrollOptions"
       :data="data"
       @scroll="scroll"
+      @scroll-end="onScrollEnd"
+      @before-scroll-start="onBeforeScrollStart"
       @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">
       <div class="cube-index-list-content" ref="content">
@@ -114,7 +116,7 @@
     },
     data() {
       return {
-        scrollEvents: ['scroll'],
+        scrollEvents: ['scroll', 'scroll-end', 'before-scroll-start'],
         currentIndex: 0,
         scrollY: -1
       }
@@ -142,6 +144,7 @@
     },
     created() {
       this.touch = {}
+      this.stickyCurrent = 0
     },
     methods: {
       /* TODO: remove refresh next minor version */
@@ -151,10 +154,24 @@
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)
       },
+      onBeforeScrollStart() {
+        this.currentIndex = this.stickyCurrent
+      },
       scroll(pos) {
         this.scrollY = -pos.y
       },
+      onScrollEnd() {
+        this._jumping = false
+      },
       indexChange(currentKey, currentIndex) {
+        if (currentIndex < 0) {
+          return
+        }
+
+        this.stickyCurrent = currentIndex
+        if (this._jumping) {
+          return
+        }
         this.currentIndex = currentIndex >= 0 ? currentIndex : 0
       },
       titleClick() {
@@ -166,7 +183,7 @@
       onShortcutTouchStart(e) {
         const target = getMatchedTarget(e, 'cube-index-list-nav-item')
         if (!target) return
-        let anchorIndex = getData(target, 'index')
+        let anchorIndex = parseInt(getData(target, 'index'))
         let firstTouch = e.touches[0]
         this.touch.y1 = firstTouch.pageY
         this.touch.anchorIndex = anchorIndex
@@ -177,7 +194,7 @@
         let firstTouch = e.touches[0]
         this.touch.y2 = firstTouch.pageY
         let delta = (this.touch.y2 - this.touch.y1) / ANCHOR_HEIGHT | 0
-        let anchorIndex = parseInt(this.touch.anchorIndex) + delta
+        let anchorIndex = this.touch.anchorIndex + delta
 
         this._scrollTo(anchorIndex)
       },
@@ -188,10 +205,20 @@
         this.$emit(EVENT_PULLING_DOWN)
       },
       _scrollTo(index) {
-        const maxScrollY = this.$refs.scroll.scroll.maxScrollY
-        const positionY = Math.max(-this.$refs.sticky.positions[index], maxScrollY)
-        this.$refs.scroll.scrollTo(0, positionY, this.speed)
+        const positions = this.$refs.sticky.positions
+        if (index < 0) {
+          index = 0
+        } else if (index >= positions.length) {
+          index = positions.length - 1
+        }
 
+        this.currentIndex = this.stickyCurrent = index
+        this._jumping = true
+
+        const maxScrollY = this.$refs.scroll.scroll.maxScrollY
+        const positionY = Math.max(-positions[index], maxScrollY)
+        this.$refs.scroll.scrollTo(0, positionY, this.speed)
+        // no "scroll" event fire when "speed" equal 0, so here we assign "scrollY" manually
         this.scrollY = -this.$refs.scroll.scroll.y
       }
     },
