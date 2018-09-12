@@ -191,11 +191,13 @@ describe('IndexList', () => {
             pageY: 327
           }, 0)
           // scroll
-          const fixedEle = vm.$el.querySelector('.cube-index-list-fixed')
+          const fixedEle = vm.$el.querySelector('.cube-sticky-fixed .cube-index-list-anchor')
           expect(fixedEle.textContent.trim())
             .to.equal('B')
+
           const el = vm.$el.querySelector('.cube-index-list-content')
           vm.$refs.scroll.scroll.on('scrollEnd', () => {
+            const fixedEle = vm.$el.querySelector('.cube-sticky-fixed .cube-index-list-anchor')
             expect(fixedEle.textContent.trim())
               .to.equal('C')
             done()
@@ -257,10 +259,9 @@ describe('IndexList', () => {
           }
         ], 100)
         setTimeout(() => {
-          const fixedEl = vm.$el.querySelector('.cube-index-list-fixed')
+          const fixedEl = vm.$el.querySelector('.cube-sticky-fixed .cube-index-list-anchor')
           expect(fixedEl.textContent.trim())
             .to.equal('★热门城市')
-
           dispatchSwipe(bEl, [
             {
               pageX: 300,
@@ -272,6 +273,7 @@ describe('IndexList', () => {
             }
           ], 100)
           setTimeout(() => {
+            const fixedEl = vm.$el.querySelector('.cube-sticky-fixed .cube-index-list-anchor')
             expect(fixedEl.textContent.trim())
               .to.equal('Z')
             done()
