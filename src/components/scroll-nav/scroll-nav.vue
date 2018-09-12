@@ -7,6 +7,7 @@
         :options="options"
         :data="data"
         @scroll="scrollHandler"
+        @before-scroll-start="beforeScrollStartHandler"
         @scroll-end="scrollEndHandler">
         <slot name="prepend"></slot>
         <div class="cube-scroll-nav-main">
@@ -79,7 +80,7 @@
     },
     data() {
       return {
-        scrollEvents: ['scroll', 'scroll-end'],
+        scrollEvents: ['scroll', 'scroll-end', 'before-scroll-start'],
         scrollY: 0,
         panels: [],
         active: this.current,
@@ -182,11 +183,11 @@
         })
         this.$emit(EVENT_STICKY_CHANGE, current)
       },
+      beforeScrollStartHandler() {
+        this.active = this.stickyCurrent
+      },
       scrollHandler(pos) {
         this.scrollY = -pos.y
-        if (!this._jumping) {
-          this.active = this.stickyCurrent
-        }
       },
       scrollEndHandler() {
         this._jumping = false
