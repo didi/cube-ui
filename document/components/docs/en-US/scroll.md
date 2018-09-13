@@ -95,6 +95,7 @@ Seven sample code to quickly understand how to use the Scroll component.
   <div class="scroll-list-wrap">
     <cube-scroll
       ref="scroll"
+      :data="items"
       :options="options"
       @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">

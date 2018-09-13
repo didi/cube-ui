@@ -56,7 +56,7 @@
 
 - **2. 横向滚动 - Horizontal**
 
-  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`，同时需要添加相应样式如下。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
+  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`，同时需要添加相应样式如下。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
 
   ```html
   <cube-scroll
@@ -96,6 +96,7 @@
   <div class="scroll-list-wrap">
     <cube-scroll
       ref="scroll"
+      :data="items"
       :options="options"
       @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">
@@ -104,9 +105,9 @@
   </div>
   ```
 
-  Scroll 组件还支持下拉刷新和上拉加载的能力。默认无下拉刷新/上拉加载，可通过`options`传递配置项`pullDownRefresh`和`pullUpLoad`开启相应功能。开启后，下拉时，Scroll 组件会展示默认下拉动画以及派发`pulling-down`事件，你可以监听`pulling-down`事件更新数据。同理，开启上拉加载后，可通过`pulling-up`事件更新数据。
+  Scroll 组件还支持下拉刷新和上拉加载的能力。默认无下拉刷新/上拉加载，可通过`options`传递配置项`pullDownRefresh`和`pullUpLoad`开启相应功能。开启后，下拉时，Scroll 组件会展示默认下拉动画以及派发`pulling-down`事件，你可以监听`pulling-down`事件更新数据。同理，开启上拉加载后，可通过`pulling-up`事件更新数据。
 
-  `pullDownRefresh`的相关配置有：下拉阈值（threshold）, 回弹位置（stop）, 更新成功文案（txt）和文案显示时间（stopTime）。`pullDownRefresh`和`pullUpLoad`对象的所有配置项和含义见 [Props 配置](#/zh-CN/docs/scroll#cube-Props配置-anchor)
+  `pullDownRefresh`的相关配置有：下拉阈值（threshold）, 回弹位置（stop）, 更新成功文案（txt）和文案显示时间（stopTime）。`pullDownRefresh`和`pullUpLoad`对象的所有配置项和含义见 [Props 配置](#/zh-CN/docs/scroll#cube-Props配置-anchor)
 
   ```javascript
   ... // 省略非核心代码
@@ -154,7 +155,7 @@
 
 - **4. 自定义下拉刷新动画 - 仿京东 App 首页**
 
-  如果你不喜欢内置的下拉刷新和上拉加载动画，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。Scroll 组件的作用域插槽暴露出的变量非常完善，可以满足绝大多数场景下自定义下拉/上拉动画的需求。下面的例子模仿了京东 App 首页的下拉刷新动画。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue)。
+  如果你不喜欢内置的下拉刷新和上拉加载动画，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。Scroll 组件的作用域插槽暴露出的变量非常完善，可以满足绝大多数场景下自定义下拉/上拉动画的需求。下面的例子模仿了京东 App 首页的下拉刷新动画。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue)。
 
   ```html
   <cube-scroll
@@ -233,7 +234,7 @@
   }
   ```
   
-  通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
+  通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
 
   | 流程 | beforePulldown | isPullingDown | 备注 |
   | - | - | - | - |
@@ -242,9 +243,9 @@
   | 3. 获取数据成功 | false | false | 调用 `forceUpdate(true)`, 显示成功文案, 延迟 stopTime 时间进入步骤 4  |
   | 4. 下拉刷新完成 | true | - | - |
 
-- **5. 高级使用 - 仿头条 App 首页**
+- **5. 高级使用 - 仿头条 App 首页**
 
-  Scroll 组件能够满足绝大多数移动端应用的滚动需求。本例中通过横向和纵向的两个 Scroll 组件快速实现了模仿头条 App 首页的滚动体验。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue)。
+  Scroll 组件能够满足绝大多数移动端应用的滚动需求。本例中通过横向和纵向的两个 Scroll 组件快速实现了模仿头条 App 首页的滚动体验。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue)。
 
   ```html
   <div class="nav-scroll-list-wrap">
@@ -296,11 +297,11 @@
 
   和“仿京东 APP”示例不同的是，在下拉刷新的自定义动画中，使用了`pulldown`作用域插槽中的`pullDownStyle`和`bubbleY`更方便的实现下拉动画。
 
-  `pullDownStyle`用来控制下拉内容的位置，值为字符串`top: n px`（n 代表数值）。Scroll 组件是通过绝对定位的`top`值来控制下拉内容位置的。初始状态`top`值为负值，大小刚好为下拉内容的高度，因此下拉内容被隐藏到滚动区域上方，当下拉过程中，Scroll 组件会逐渐增大`top`值，实时更新下拉内容的位置。`top`最大值为0，即当下拉内容完全显示后`top`值不再增加。即 `pullY - height <= top <= 0`。（pullY 为下拉距离，height 为下拉内容高度）
+  `pullDownStyle`用来控制下拉内容的位置，值为字符串`top: n px`（n 代表数值）。Scroll 组件是通过绝对定位的`top`值来控制下拉内容位置的。初始状态`top`值为负值，大小刚好为下拉内容的高度，因此下拉内容被隐藏到滚动区域上方，当下拉过程中，Scroll 组件会逐渐增大`top`值，实时更新下拉内容的位置。`top`最大值为0，即当下拉内容完全显示后`top`值不再增加。即 `pullY - height <= top <= 0`。（pullY 为下拉距离，height 为下拉内容高度）
 
-  `bubbleY`用来辅助实现自定义动画。在默认动画中，`bubbleY`用来控制气泡尾巴长度；在头条例子中，用来控制箭头的`padding-top`值，间接控制箭头位置。`bubbleY`的最小值为 0，下拉过程中，当下拉距离大于下拉内容高度后，`bubbleY`开始增大。即`0 <= bubbleY <= pullY - height`。
+  `bubbleY`用来辅助实现自定义动画。在默认动画中，`bubbleY`用来控制气泡尾巴长度；在头条例子中，用来控制箭头的`padding-top`值，间接控制箭头位置。`bubbleY`的最小值为 0，下拉过程中，当下拉距离大于下拉内容高度后，`bubbleY`开始增大。即 `0 <= bubbleY <= pullY - height`。
 
-  > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
+  > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
 
 - **6. 嵌套纵向滚动 - Vertical Scrolls**
 
