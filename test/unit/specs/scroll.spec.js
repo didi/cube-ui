@@ -434,7 +434,7 @@ describe('Scroll', () => {
     vm.destroy()
   })
 
-  describe.only('Nest Scrolls', () => {
+  describe('Nest Scrolls', () => {
     it('should render scrolls correct', function () {
       vm = createNestScrolls()
 
