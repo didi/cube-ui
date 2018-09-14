@@ -150,7 +150,7 @@ Seven sample code to quickly understand how to use the Scroll component.
   }
   ```
 
-  > **Note**: If a pulldown refresh has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown refresh so that Scroll will restart listening for the next pulldown refresh operation. In the above example, when the data is updated, we did not invoke the `forceUpdate()` method. The reason is: ** If you pass the `data` attribute to the `Scroll` component, then when the `Scroll` component listens to the `data` update, the `forceUpate(true)` method will be called automatically. ** so it is recommended to pass the `data` attribute.
+  > **Note**: If a pulldown-refresh/pullup-loading has no data update, you must manually call the Scroll component's `forceUpdate()` method to end the pulldown-refresh/pullup-loading so that Scroll will restart listening for the next pulldown-refresh/pullup-loading operation. In the above example, when the data is updated, we did not invoke the `forceUpdate()` method. The reason is: ** If you pass the `data` attribute to the `Scroll` component, then when the `Scroll` component listens to the `data` update, the `forceUpate(true)` method will be called automatically. ** so it is recommended to pass the `data` attribute.
 
 - **4. Custom pull-down refresh animation - Fake JD App**
 
