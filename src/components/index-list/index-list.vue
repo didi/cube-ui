@@ -75,6 +75,7 @@
   const EVENT_PULLING_UP = 'pulling-up'
   const EVENT_PULLING_DOWN = 'pulling-down'
 
+  /* istanbul ignore next */
   const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
 
   export default {
@@ -165,14 +166,14 @@
       },
       indexChange(currentKey, currentIndex) {
         if (currentIndex < 0) {
-          return
+          currentIndex = 0
         }
 
         this.stickyCurrent = currentIndex
         if (this._jumping) {
           return
         }
-        this.currentIndex = currentIndex >= 0 ? currentIndex : 0
+        this.currentIndex = currentIndex
       },
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
@@ -182,6 +183,7 @@
       },
       onShortcutTouchStart(e) {
         const target = getMatchedTarget(e, 'cube-index-list-nav-item')
+        /* istanbul ignore if */
         if (!target) return
         let anchorIndex = parseInt(getData(target, 'index'))
         let firstTouch = e.touches[0]
