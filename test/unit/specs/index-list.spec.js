@@ -279,8 +279,7 @@ describe('IndexList', () => {
             done()
           }, 150)
         }, 150)
-
-        vm.scrollY = 0
+        vm.scrollY = 100
         setTimeout(() => {
           vm.scrollY = -10000
         }, 0)
