@@ -19,7 +19,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { parallel, cb2PromiseWithResolve, toLocaleDateString, isUndef, isFunc, isString, isArray, isObject } from '../../common/helpers/util'
+  import { parallel, cb2PromiseWithResolve, isUndef, isFunc, isString, isArray, isObject } from '../../common/helpers/util'
   import { rules } from '../../common/helpers/validator'
   import localeMixin from '../../common/mixins/locale'
   import template from '../../common/helpers/string-template'
@@ -285,7 +285,7 @@
           if (!target[type]) {
             type = isArray(val) ? 'array' : typeof val
           }
-          return typeof target[type] === 'function' ? target[type](config) : template(target[type], {config, toLocaleDateString}, lang)
+          return typeof target[type] === 'function' ? target[type](config) : template(target[type], config)
         }
       }
     }

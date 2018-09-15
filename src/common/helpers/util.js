@@ -46,16 +46,6 @@ function judgeTypeFnCreator (type) {
   }
 }
 
-function toLocaleDateString(timestamp, locale) {
-  const date = new Date(timestamp)
-
-  if (locale === 'zh-CN') {
-    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
-  } else {
-    return date.toDateString()
-  }
-}
-
 const typesReset = {
   _set(obj, key, value) {
     obj[key] = value
@@ -196,12 +186,12 @@ const isUndef = judgeTypeFnCreator('Undefined')
 const isArray = judgeTypeFnCreator('Array')
 const isString = judgeTypeFnCreator('String')
 const isObject = judgeTypeFnCreator('Object')
+const isNumber = judgeTypeFnCreator('Number')
 
 export {
   findIndex,
   deepAssign,
   createAddAPI,
-  toLocaleDateString,
   resetTypeValue,
   parallel,
   cb2PromiseWithResolve,
@@ -212,5 +202,6 @@ export {
   isFunc,
   isArray,
   isString,
-  isObject
+  isObject,
+  isNumber
 }

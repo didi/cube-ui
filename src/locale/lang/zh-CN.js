@@ -23,31 +23,31 @@ export default {
       url: '请输入有效网址'
     },
     min: {
-      string: '至少输入 {config} 位字符',
-      number: '不得小于 {config}',
-      array: '请选择至少 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之后的时间',
-      email: '至少输入 {config} 位字符',
-      tel: '至少输入 {config} 位字符',
-      url: '至少输入 {config} 位字符'
+      string: '至少输入 {{config}} 位字符',
+      number: '不得小于 {{config}}',
+      array: '请选择至少 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之后的时间',
+      email: '至少输入 {{config}} 位字符',
+      tel: '至少输入 {{config}} 位字符',
+      url: '至少输入 {{config}} 位字符'
     },
     max: {
-      string: '请勿超过 {config} 位字符',
-      number: '请勿大于 {config}',
-      array: '最多选择 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之前的时间',
-      email: '请勿超过 {config} 位字符',
-      tel: '请勿超过 {config} 位字符',
-      url: '请勿超过 {config} 位字符'
+      string: '请勿超过 {{config}} 位字符',
+      number: '请勿大于 {{config}}',
+      array: '最多选择 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之前的时间',
+      email: '请勿超过 {{config}} 位字符',
+      tel: '请勿超过 {{config}} 位字符',
+      url: '请勿超过 {{config}} 位字符'
     },
     len: {
-      string: '请输入 {config} 位字符',
-      number: '长度应等于 {config}',
-      array: '请选择 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之前的时间',
-      email: '请输入 {config} 位字符',
-      tel: '请输入 {config} 位字符',
-      url: '请输入 {config} 位字符'
+      string: '请输入 {{config}} 位字符',
+      number: '长度应等于 {{config}}',
+      array: '请选择 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之前的时间',
+      email: '请输入 {{config}} 位字符',
+      tel: '请输入 {{config}} 位字符',
+      url: '请输入 {{config}} 位字符'
     },
     pattern: '格式错误',
     custom: '未通过校验',
