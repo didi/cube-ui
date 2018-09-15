@@ -221,6 +221,30 @@ describe('Validator', () => {
       }, 50)
     })
 
+    it('should render correct contents when using helper function', (done) => {
+      Locale.use('en-US', enUSMessages)
+      Validator.addMessage('min', {
+        'number': 'The number could not smaller than {{config | tips("please try it later")}}.'
+      })
+      Validator.addHelper('tips', function(result, tips) {
+        return `${result}, ${tips}`
+      })
+      vm = createValidator({
+        model: 8,
+        rules: {
+          type: 'number',
+          min: 10
+        }
+      })
+      const el = vm.$el
+      const msgEl = el.querySelector('.cube-validator-msg-def')
+      setTimeout(() => {
+        expect(msgEl.textContent)
+          .to.equal('The number could not smaller than 10, please try it later.')
+        done()
+      }, 50)
+    })
+
     it('should render correct contents when using string-template', (done) => {
       Locale.use('en-US', enUSMessages)
       vm = createValidator({
@@ -246,7 +270,7 @@ describe('Validator', () => {
         })
         setTimeout(() => {
           expect(msgEl.textContent)
-            .to.equal('Please select a date after Sat Oct 10 2020.')
+            .to.equal('Please select a date after 2020-10-10.')
           done()
         }, 100)
       }, 50)
