@@ -330,31 +330,31 @@
       url: '请输入有效网址'
     },
     min: {
-      string: '至少输入 {config} 位字符',
-      number: '不得小于 {config}',
-      array: '请选择至少 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之后的时间',
-      email: '至少输入 {config} 位字符',
-      tel: '至少输入 {config} 位字符',
-      url: '至少输入 {config} 位字符'
+      string: '至少输入 {{config}} 位字符',
+      number: '不得小于 {{config}}',
+      array: '请选择至少 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之后的时间',
+      email: '至少输入 {{config}} 位字符',
+      tel: '至少输入 {{config}} 位字符',
+      url: '至少输入 {{config}} 位字符'
     },
     max: {
-      string: '请勿超过 {config} 位字符',
-      number: '请勿大于 {config}',
-      array: '最多选择 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之前的时间',
-      email: '请勿超过 {config} 位字符',
-      tel: '请勿超过 {config} 位字符',
-      url: '请勿超过 {config} 位字符'
+      string: '请勿超过 {{config}} 位字符',
+      number: '请勿大于 {{config}}',
+      array: '最多选择 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之前的时间',
+      email: '请勿超过 {{config}} 位字符',
+      tel: '请勿超过 {{config}} 位字符',
+      url: '请勿超过 {{config}} 位字符'
     },
     len: {
-      string: '请输入 {config} 位字符',
-      number: '长度应等于 {config}',
-      array: '请选择 {config} 项',
-      date: '请选择 {toLocaleDateString()} 之前的时间',
-      email: '请输入 {config} 位字符',
-      tel: '请输入 {config} 位字符',
-      url: '请输入 {config} 位字符'
+      string: '请输入 {{config}} 位字符',
+      number: '长度应等于 {{config}}',
+      array: '请选择 {{config}} 项',
+      date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日")}} 之前的时间',
+      email: '请输入 {{config}} 位字符',
+      tel: '请输入 {{config}} 位字符',
+      url: '请输入 {{config}} 位字符'
     },
     pattern: '格式错误',
     custom: '未通过校验',
@@ -368,12 +368,40 @@
 
   Validator.addMessage('required', '必填')
 
-  // 覆盖 min.string 的提示消息
+  // 覆盖 min.date 的提示消息
   Validator.addMessage('min', {
-    string: '您输入的字符串不能少于 {config} 位'
+    date: '请选择 {{config | toLocaleDateString("yyyy年MM月dd日") | tips("请重新输入")}} 之后的时间'
+  })
+  Validator.addHelper('tips', function(result, arg1) {
+    // 必须要返回提示消息
+    return `${result}, ${arg1}`
   })
   ```
-  > **注意**：提示消息里的 `config` 字段是组件内部根据你配置的 rules 的值做替换，不能改成其他字符串。`toLocaleDateString` 是内置的一个工具函数，是通过 rules 的 min|max|len 属性的 date 属性值作为入参，得到对应的提示消息。
+
+  如上，组件内部解析默认的消息是类似于 Vue filter 的机制。
+
+  - config
+
+  比如你配置的规则是：{type: 'date', min: '2018-10-10'}，那么对于 `min` 下面的 `date` 的消息模板中的 `config` 字段的值就是 '2018-10-10', 因为校验的是一个 `date` 类型，`min` 对应的字段可以是一个 `timestamp` (日期时间戳)或者类似于日期格式的字符串 `yyyy-MM-dd mm:ss` 或者 `yyyy/MM/dd mm:ss`。
+
+  - toLocaleDateString
+
+  内置的helper函数，第一个参数是你配置的 config 值，第二个参数是你期望的日期格式， 如上则为 `'yyyy年MM月dd日'`, 接受类似于 `yyyy-MM-dd mm:ss` 格式，你也可以通过如下的方式注册你自己的helper函数。
+
+  ```js
+  Validator.addHelper('fnName', (result, arg1) => {
+    // result -> 上一个helper函数返回的值或者 config 值，如上例则是'2018-10-10'
+    // arg1 -> 你在消息模板传入的字符串, 如上例则是'请重新输入'
+    let ret
+
+    // 实现自己的逻辑
+    ret = result + arg1
+
+    // 必须返回处理过后的消息
+    return ret
+  })
+  ```
+
 ### 添加类型
 
   - 添加新的类型

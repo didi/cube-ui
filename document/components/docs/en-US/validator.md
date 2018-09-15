@@ -310,7 +310,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   - Build-in default messages
 
   ```js
-  {
+  const messages = {
     required: 'Required.',
     type: {
       string: 'Please input characters.',
@@ -322,31 +322,31 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       url: 'Please input a valid web site.'
     },
     min: {
-      string: 'Please input at least {config} characters.',
-      number: 'The number could not smaller than {config}.',
-      array: 'Please select at least {config} items.',
-      date: 'Please select a date after {toLocaleDateString().}',
-      email: 'Please input at least {config} characters.',
-      tel: 'Please input at least {config} characters.',
-      url: 'Please input at least {config} characters.'
+      string: 'Please input at least {{config}} characters.',
+      number: 'The number could not smaller than {{config}}.',
+      array: 'Please select at least {{config}} items.',
+      date: 'Please select a date after {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input at least {{config}} characters.',
+      tel: 'Please input at least {{config}} characters.',
+      url: 'Please input at least {{config}} characters.'
     },
     max: {
-      string: 'Please input no more than {config} characters.',
-      number: 'The number could not bigger than {config}',
-      array: 'Please select no more than  {config} items',
-      date: 'Please select a date before {toLocaleDateString().}',
-      email: 'Please input no more than {config} characters.',
-      tel: 'Please input no more than {config} characters.',
-      url: 'Please input no more than {config} characters.'
+      string: 'Please input no more than {{config}} characters.',
+      number: 'The number could not bigger than {{config}}',
+      array: 'Please select no more than  {{config}} items',
+      date: 'Please select a date before {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input no more than {{config}} characters.',
+      tel: 'Please input no more than {{config}} characters.',
+      url: 'Please input no more than {{config}} characters.'
     },
     len: {
-      string: 'Please input {config} characters.',
-      number: 'The length should equal {config}',
-      array: 'Please select {config} items',
-      date: 'Please select {toLocaleDateString().}',
-      email: 'Please input {config} characters.',
-      tel: 'Please input {config} characters.',
-      url: 'Please input {config} characters.'
+      string: 'Please input {{config}} characters.',
+      number: 'The length should equal {{config}}',
+      array: 'Please select {{config}} items',
+      date: 'Please select {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input {{config}} characters.',
+      tel: 'Please input {{config}} characters.',
+      url: 'Please input {{config}} characters.'
     },
     pattern: 'The input don"t match pattern.',
     custom: 'Invalid.',
@@ -360,13 +360,35 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
 
   Validator.addMessage('required', 'Please input this.')
 
-  // Override the message for min.string
+  // Override the message for min.date
   Validator.addMessage('min', {
-    string: 'The characters you entered cannot be less than {config}.'
+    date: 'Please select a date after {{config | toLocaleDateString("yyyy-MM-dd") | tips("Please re-enter")}}.'
   })
   ```
 
-  > **Note**: The `config` field in the message is replaced internally by the component according to the value of the rules you configured. It can not be changed to another string. `toLocaleDateString` is a built-in utility function that uses the date attribute value of the min|max|len attribute of rules which you passed as the parameter to get the corresponding message.
+  As above, the default message parsed inside the component is similar to the Vue filter mechanism.
+
+  - config
+
+  For example, the rule you configured is: {type: 'date', min: '2018-10-10'}, then the value of the `config` field in above message template is '2018-10-10', because the checksum is a `date` type, the value of `min` can be a `timestamp` or a date-like string `yyyy-MM-dd mm:ss ` or `yyyy/MM/dd mm:ss`.
+
+  - toLocaleDateString
+
+  The built-in helper function, the first parameter is the config value you configured, the second parameter is the date format you want to initialize, as above is `'yyyy year MM month dd day'`, accepting something like `yyyy-MM-dd mm:ss` format, you can also register your own helper function as follows.
+
+  ```js
+  Validator.addHelper('fnName', (result, arg1) => {
+    // result -> The value returned by the previous helper function or the config value, as in the above example is '2018-10-10'
+    // arg1 -> The string you passed in the message template, as in the above example, 'Please re-enter'
+    let ret
+
+    // do your own job
+    ret = result + arg1
+
+    // you must return the processed message
+    return ret
+  })
+  ```
 
 ### addType
 
