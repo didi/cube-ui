@@ -390,6 +390,8 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   })
   ```
 
+  The tool functions registered through `Validator.addHelper` are actually mounted under the `Locale.helpers` namespace. You can also import the `Locale` module and register your own tool functions with `Locale.addHelper`, which point to the same address.
+
 ### addType
 
   - Add new type

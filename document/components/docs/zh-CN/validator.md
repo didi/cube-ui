@@ -361,6 +361,7 @@
     notWhitespace: '空白内容无效'
   }
   ```
+
   - 修改已有提示信息
 
   ```js
@@ -401,6 +402,8 @@
     return ret
   })
   ```
+
+  通过 Validator.addHelper 方法注册的工具函数实际上是在 Locale.helpers 的命名空间下，你也可以导入 Locale 模块并且通过 Locale.addHelper 注册工具函数，两者都是指向同一块内存地址。
 
 ### 添加类型
 
