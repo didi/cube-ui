@@ -18,6 +18,13 @@ describe('Locale', () => {
     expect(Locale.installed)
       .to.be.true
   })
+  it('should support adding helper function', () => {
+    Locale.addHelper('test', () => {
+      console.log('test')
+    })
+    expect(Locale.helpers.test).to.be.a('function')
+    delete Locale.helpers.test
+  })
   it('should render correct zh-CN language by default and support changing language', (done) => {
     vm = instantiateComponent(Vue, ActionSheet)
     expect(vm._cancelTxt)
