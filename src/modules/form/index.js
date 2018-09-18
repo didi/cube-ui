@@ -1,7 +1,7 @@
 import Form from '../../components/form/form.vue'
 import FormGroup from '../../components/form/form-group.vue'
 import FormItem from '../../components/form/form-item.vue'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 
 import Validator from '../../components/validator/validator.vue'
 import { addRule, addMessage, addType } from '../../common/helpers/validator'

@@ -1,5 +1,5 @@
 import Dialog from '../../components/dialog/dialog.vue'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 import addDialog from './api'
 
 Dialog.install = function (Vue) {

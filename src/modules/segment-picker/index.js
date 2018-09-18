@@ -4,7 +4,7 @@ import SegmentPicker from '../../components/segment-picker/segment-picker.vue'
 import addPicker from '../picker/api'
 import addCascadePicker from '../cascade-picker/api'
 import addSegmentPicker from './api'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 
 SegmentPicker.install = function (Vue) {
   Vue.component(Picker.name, Picker)

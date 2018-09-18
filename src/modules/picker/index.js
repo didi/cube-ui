@@ -1,6 +1,6 @@
 import Picker from '../../components/picker/picker.vue'
 import addPicker from './api'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 
 Picker.install = function (Vue) {
   Vue.component(Picker.name, Picker)

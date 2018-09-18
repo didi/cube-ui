@@ -4,7 +4,7 @@ import DatePicker from '../../components/date-picker/date-picker.vue'
 import addDatePicker from './api'
 import addCascadePicker from '../cascade-picker/api'
 import addPicker from '../picker/api'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 
 DatePicker.install = function (Vue) {
   Vue.component(Picker.name, Picker)

@@ -1,5 +1,5 @@
 import Validator from '../../components/validator/validator.vue'
-import Locale from '../locale'
+import Locale from '../../common/locale'
 import { addRule, addMessage, addType } from '../../common/helpers/validator'
 
 Validator.install = function (Vue) {
