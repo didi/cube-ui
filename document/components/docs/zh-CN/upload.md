@@ -193,6 +193,8 @@
 | max | 最大上传文件个数 | Number | 10 | - |
 | auto | 是否自动上传，即选择完文件后自动开始上传 | Boolean | true | - |
 | simultaneousUploads | 并发上传数 | Number | 1 | - |
+| multiple | 是否多选 | Boolean | true | - |
+| accept | input 的 accept 属性值 | String | image/* | - |
 | processFile | 处理原始文件函数 | Function | function (file, next) { next(file) } | - |
 
 * `action` 子配置项

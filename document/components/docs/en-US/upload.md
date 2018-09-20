@@ -182,10 +182,13 @@
 
 | Attribute | Description | Type | Accepted Values | Demo |
 | - | - | - | - | - |
+| v-model | file list | Array | [] | [{ name, size, url, status: 'success', progress: 1 }] |
 | action | upload action config | String/Object | '' | { target: '/upload' } |
 | max | max upload files number | Number | 10 | - |
 | auto | whether auto start upload | Boolean | true | - |
 | simultaneousUploads | the number of simultaneous uploads | Number | 1 | - |
+| multiple | multiple select | Boolean | true | - |
+| accept | input accept | String | image/* | - |
 | processFile | process the original file | Function | function (file, next) { next(file) } | - |
 
 * `action` sub configuration
