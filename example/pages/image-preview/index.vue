@@ -4,16 +4,19 @@
       <div class="view-wrapper">
         <cube-button-group>
           <cube-button @click="showImagePreview">Show ImagePreview</cube-button>
+          <cube-button @click="goTo('multi-images-preview')">Show MultiImagePreview</cube-button>
           <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube-button>
         </cube-button-group>
       </div>
+      <cube-view></cube-view>
     </div>
   </cube-page>
 </template>
 
 <script type="text/ecmascript-6">
-  import CubePage from '../components/cube-page.vue'
-  import CubeButtonGroup from '../components/cube-button-group.vue'
+  import CubePage from '../../components/cube-page.vue'
+  import CubeButtonGroup from '../../components/cube-button-group.vue'
+  import CubeView from 'example/components/cube-view.vue'
 
   export default {
     data() {
@@ -53,11 +56,15 @@
             slot: 'header'
           }, this.customIndex + 1)
         }).show()
+      },
+      goTo(subPath) {
+        this.$router.push('/image-preview/' + subPath)
       }
     },
     components: {
       CubePage,
-      CubeButtonGroup
+      CubeButtonGroup,
+      CubeView
     }
   }
 </script>
