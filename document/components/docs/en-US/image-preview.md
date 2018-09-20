@@ -8,11 +8,14 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Example
 
+The following demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/image-preview).
+
 - Default usage
 
   ```html
   <cube-button @click="showImagePreview">Show ImagePreview</cube-button>
   ```
+
   ```js
   export default {
     data() {
@@ -37,6 +40,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
     }
   }
   ```
+
   You can create a basic ImagePreview by setting `imgs` prop.
 
 - Custom usage
@@ -44,6 +48,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```html
   <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube
   ```
+
   ```js
   export default {
     data() {
@@ -87,6 +92,54 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
 
   You can set other props to config ImagePreview. And you can use render function to define slots content.
+
+- Multi images
+
+  ```html
+  <div class="imgs-container">
+    <img
+      :src="img"
+      v-for="(img, index) in imgs"
+      :key="img"
+      @click="handleImgsClick(index)">
+  </div>
+  ```
+
+  ```js
+  export default {
+    data() {
+      return {
+        initialIndex: 0,
+        imgs: [
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mpd5uj21hc0tyws2.jpg',
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0ncnnej21hc0zetxo.jpg',
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mqvu5j21hc0zkgzz.jpg'
+        ]
+      }
+    },
+    methods: {
+      handleImgsClick(index) {
+        this.initialIndex = index
+        const params = {
+          $props: {
+            imgs: this.imgs,
+            initialIndex: 'initialIndex', // name of reactive key in data
+            loop: false
+          },
+          $events: {
+            change: (i) => {
+              // You must update initialIndex
+              this.initialIndex = i
+            }
+          }
+        }
+        this.$createImagePreview({ ...params }).show()
+      }
+    }
+  }
+  ```
+
+  The image-preview component is instantiated in multi-images scenarios, and the displayed image is the image that is clicked each time.
 
 ### Props
 
