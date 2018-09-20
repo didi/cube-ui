@@ -57,7 +57,8 @@ import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 import ScrollNav from '../pages/scroll-nav/index.vue'
 import ScrollNavDefault from '../pages/scroll-nav/default.vue'
 import ScrollNavSide from '../pages/scroll-nav/side.vue'
-import ImagePreview from '../pages/image-preview.vue'
+import ImagePreviewIndex from '../pages/image-preview/index.vue'
+import MultiImagesPreview from '../pages/image-preview/multi-images-preview.vue'
 import TabBarIndex from '../pages/tab-bar/index.vue'
 import TabBar from '../pages/tab-bar/tab-bar.vue'
 import Tab from '../pages/tab-bar/tab-entry.vue'
@@ -188,7 +189,13 @@ const routes = [
   },
   {
     path: '/image-preview',
-    component: ImagePreview
+    component: ImagePreviewIndex,
+    children: [
+      {
+        path: 'multi-images-preview',
+        component: MultiImagesPreview
+      }
+    ]
   },
   {
     path: '/scroll',
