@@ -6,6 +6,7 @@
         <cube-button @click="showToastTime0">Toast - time 0</cube-button>
         <cube-button @click="showToastMask">Toast- with mask</cube-button>
         <cube-button @click="showToastType">Toast - type</cube-button>
+        <cube-button @click="showToastTxtOnly">Toast - txt only</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -48,6 +49,13 @@
         this.toast = this.$createToast({
           txt: 'Correct',
           type: 'correct'
+        })
+        this.toast.show()
+      },
+      showToastTxtOnly() {
+        this.toast = this.$createToast({
+          txt: 'Plain txt',
+          type: 'txt'
         })
         this.toast.show()
       }
