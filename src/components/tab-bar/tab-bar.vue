@@ -59,6 +59,19 @@
     },
     mounted () {
       this._updateSliderStyle()
+      window.addEventListener('resize', this._resizeHandler)
+    },
+    activated() {
+      /* istanbul ignore next */
+      window.addEventListener('resize', this._resizeHandler)
+    },
+    deactivated() {
+      /* istanbul ignore next */
+      this._cleanUp()
+    },
+    beforeDestroy () {
+      /* istanbul ignore next */
+      this._cleanUp()
     },
     methods: {
       addTab (tab) {
@@ -117,6 +130,16 @@
           if (i < index) offsetLeft += tab.$el.clientWidth
         })
         return offsetLeft
+      },
+      _resizeHandler () {
+        clearTimeout(this._resizeTimer)
+        this._resizeTimer = setTimeout(() => {
+          this._updateSliderStyle()
+        }, 60)
+      },
+      _cleanUp () {
+        clearTimeout(this._resizeTimer)
+        window.removeEventListener('resize', this._resizeHandler)
       }
     },
     watch: {
