@@ -206,6 +206,9 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
       })
     },
     methods: {
+      showAsyncPicker() {
+        this.asyncPicker.show()
+      },
       asyncChangeHandle(i, newIndex) {
         if (newIndex !== asyncSelectedIndex[i]) {
           asyncSelectedIndex[i] = newIndex
