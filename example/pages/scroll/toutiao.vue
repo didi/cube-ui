@@ -22,7 +22,7 @@
             @pulling-up="onPullingUp">
             <ul class="imgs-wrapper">
               <li v-for="(item, index) in content" :key="index" class="imgs-item">
-                <img :src="item.url">
+                <img :src="item.url" @load="onImgLoad">
               </li>
             </ul>
             <template slot="pulldown" slot-scope="props">
@@ -101,6 +101,9 @@ export default {
       setTimeout(() => {
         this.content = this.content.concat(imgs)
       }, 1000)
+    },
+    onImgLoad() {
+      this.$refs.contentScroll.refresh()
     }
   },
   mounted() {
