@@ -163,11 +163,7 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 20",
-    "not ie_mob <= 100",
-    "not ff <= 100",
-    "not and_ff <= 100",
-    "not Edge <= 100",
+    "not ie <= 8",
     "Android >= 4.0"
   ]
 }
