@@ -16,7 +16,7 @@
               class="cube-pulldown-wrapper"
               :style="pullDownStyle">
             <div class="pulldown-content">
-              <img src="http://om0jxp12h.bkt.clouddn.com/pulldow-img.jpg">
+              <img src="http://om0jxp12h.bkt.clouddn.com/pulldow-img.jpg" @load="onImgLoad">
               <span v-if="props.beforePullDown">{{ pullDownTip }}</span>
               <template v-else>
                 <span v-if="props.isPullingDown">正在更新...</span>
@@ -102,6 +102,9 @@ export default {
       this.triggerSurprise = false
       this.$refs.topHeader.style.opacity = 1
       // go to other page
+    },
+    onImgLoad() {
+      this.$refs.scroll.refresh()
     }
   }
 }
