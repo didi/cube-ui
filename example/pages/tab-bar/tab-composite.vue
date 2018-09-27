@@ -3,7 +3,7 @@
     <div slot="content">
       <cube-tab-bar v-model="selectedLabel"
                     show-slider
-                    :useTransition="disabled"
+                    :use-transition="disabled"
                     ref="tabNav"
                     :data="tabLabels">
       </cube-tab-bar>
