@@ -104,7 +104,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
     }
   }
   ```
-  At the same time, `cube-tab-bar` also supports other configurations, `show-slider` controls whether to turn on the effect of underscore, `inline` to determine whether the icon and label are in a line, `use-transition` controls whether the underscore use transition, as shown in the sample code.
+  At the same time, `cube-tab-bar` also supports other configurations, `showSlider` controls whether to turn on the effect of underscore, `inline` to determine whether the icon and label are in a line, `useTransition` controls whether the underscore use transition, as shown in the sample code.
 
 ### CubeTabBar & CubeTabPanels
 
@@ -159,9 +159,9 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
   | - | - | - | - | - |
   | value | Use v-model to select the corresponding tab when initializing. | String/Number | - | - |
   | data | For data rendered with `cube-tab-bar`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label` and `icon`.  If a custom slot is used, this value may not be passed | Array | [{label: 1, icon: 'cubeic-like'}, {label: 2, icon: 'cubeic-like'}] | [] |
-  | show-slider | Whether to turn on the underscore follow effect | Boolean | true/false | false |
+  | showSlider | Whether to turn on the underscore follow effect | Boolean | true/false | false |
   | inline | Whether text and icons are displayed on one line | Boolean | true/false | false |
-  | use-transition | Whether to use transition | Boolean | true/false | true |
+  | useTransition | Whether to use transition | Boolean | true/false | true |
 
 - CubeTab
 
@@ -204,7 +204,7 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
 - CubeTabBar
 
-  This method works when the instance's `show-slider` property is set to true.
+  This method works when the instance's `showSlider` property is set to true.
 
   | Method name | Description | Parameter Type |
   | - | - | - |
