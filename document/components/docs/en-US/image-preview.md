@@ -46,7 +46,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
 - Custom usage
 
   ```html
-  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube
+  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube-button>
   ```
 
   ```js
