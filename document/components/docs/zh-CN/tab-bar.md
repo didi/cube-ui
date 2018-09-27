@@ -68,7 +68,7 @@
   <template>
     <cube-tab-bar
       v-model="selectedLabelSlots"
-      showSlider
+      show-slider
       inline
       @click="clickHandler">
       <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
@@ -109,7 +109,7 @@
     }
   }
   ```
-  同时还支持一些配置项， `showSlider` 控制是否开启下划线跟随的效果，`inline` 来决定icon与label是否处于一行，`useTransition` 控制下划线是否使用transition过渡，如示例代码所示。
+  同时还支持一些配置项， `show-slider` 控制是否开启下划线跟随的效果，`inline` 来决定icon与label是否处于一行，`use-transition` 控制下划线是否使用transition过渡，如示例代码所示。
 
 ### CubeTabBar & CubeTabPanels
 
@@ -117,7 +117,7 @@
 
 ```html
 <template>
-  <cube-tab-bar v-model="selectedLabel" showSlider>
+  <cube-tab-bar v-model="selectedLabel" show-slider>
     <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
     </cube-tab>
   </cube-tab-bar>
@@ -162,9 +162,9 @@ export default {
   | - | - | - | - | - |
   | value | 使用 v-model，初始化时选中对应的 tab | String/Number | - | - |
   | data | 用于 `cube-tab-bar` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label` 和 `icon`，如果使用自定义插槽，可不传此值 | Array | [{label: 1, icon: 'cubeic-like'}， {label: 2, icon: 'cubeic-like'}] | [] |
-  | showSlider | 是否开启下划线跟随效果 | Boolean | true/false | false |
+  | show-slider | 是否开启下划线跟随效果 | Boolean | true/false | false |
   | inline | 文字与图标是否显示在一行 | Boolean | true/false | false |
-  | useTransition | 是否开启 transition 过渡 | Boolean | true/false | true |
+  | use-transition | 是否开启 transition 过渡 | Boolean | true/false | true |
 
 - CubeTab
 
@@ -207,7 +207,7 @@ export default {
 
 - CubeTabBar
 
-  当该实例的 `showSlider` 属性设置为true，该方法才有效。
+  当该实例的 `show-slider` 属性设置为true，该方法才有效。
 
   | 方法名 | 说明 | 参数类型 |
   | - | - | - |
