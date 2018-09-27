@@ -91,7 +91,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 - 自定义使用
 
   ```html
-  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube
+  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube-button>
   ```
 
   ```js
