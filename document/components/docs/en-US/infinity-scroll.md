@@ -8,15 +8,15 @@ Infinity scroll component, generally is applied to a large number of list data's
 
 You need to know about three concepts about `cube-infinite-scroll`, `tombstone`, `fetch` and `render`.
 
-- tombstone
+- **Tombstone**
 
   Regarded as a placeholder node or CSS skeleton node, the component has a built-in `tombstone` style, but you can create a customized `tombstone` style with `slot`.
 
-- fetch
+- **Fetch**
 
   The `fetch` function is passed to the `cube-infinity-scroll` component by props. The component will call the `fetch` function at the appropriate time. The first argument of the function is `count`, which is the amount of data needed. the function must return a Promise with data (__the data type must be an Array or a falsy value). Since the amount of data passed in by the user may not equal `count`, fortunately the component is smart enough to always call `fetch` function until the total amount of data you load is not less than `count`, and will store more of your rest data, then wait for the next render. If you want to end infinite scroll, you only need return a Promise with a falsy value.
 
-- render
+- **Render**
 
   You must implement your own `render` function and pass it to the `cube-infinity-scroll` component by props. The first argument to the function is the list item to be rendered, the second argument is the reusable list item DOM element on the page, so this parameter may not exist when there is no reusable item DOM element. Inside the `render` function, you can use the first argument to render the DOM node of the list item, __you must return the element node__. This component can get this element node and add it to the page.
 
@@ -46,7 +46,11 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
     export default {
       methods: {
         fetch (count) {
-          // Load no less than 30 amount of data. If more data is loaded than the component needs, it will be automatically loaded and wait for the next render.
+          /**
+           * Load no less than 30 amount of data.
+           * If more data is loaded than the component needs,
+           * it will be automatically loaded and wait for the next render.
+          **/
           count = Math.max(30, count)
           let items = []
           for (let i = 0; i < count; i++) {
@@ -58,6 +62,20 @@ Demo code is [here](https://github.com/didi/cube-ui/tree/master/example/pages/in
         render (item, div) {
           div = div || this.$refs.render.cloneNode(true)
           div.querySelector('.bubble').textContent = item.text
+
+          /**
+           * If you need to listen for events,
+           * be sure to use the onclick method instead of addEventListener.
+           * because the div may be the reusable DOM element in the page.
+           * if the event handler has been previously bound by addEventListener,
+           * the event handler bound by the next addEventListener to be pushed into the same array of event handlers.
+           * Multiple event handlers will be triggered
+           **/
+
+          div.onclick = function handler () {
+            // ...
+          }
+
           // return the element which is waiting for be added to the page
           return div
         }
