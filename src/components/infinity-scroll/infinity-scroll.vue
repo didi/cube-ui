@@ -57,11 +57,12 @@
     },
     methods: {
       _createInfinityScroll () {
+        const tombstone = this.$refs.tombstone
         let options = Object.assign({}, DEFAULT_OPTIONS, this.options, {
           infinity: {
             render: this.render,
             createTombstone: () => {
-              return this.$refs.tombstone.cloneNode(true)
+              return tombstone.cloneNode(true)
             },
             fetch: (amount) => {
               if (typeof window.Promise !== 'undefined') {
