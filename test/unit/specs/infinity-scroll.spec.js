@@ -15,19 +15,28 @@ describe('InfinityScroll', () => {
     expect(Vue.component(InfinityScroll.name))
       .to.be.a('function')
   })
-  it('should provide render function as props and must return a dom', () => {
+  it('should provide render function as props and must return a dom', (done) => {
     vm = createInfinityScroll()
-    expect(vm.$parent.render()).to.be.an.instanceof(window.HTMLElement)
+    setTimeout(() => {
+      expect(vm.$parent.render()).to.be.an.instanceof(window.HTMLElement)
+      done()
+    }, 100)
   })
-  it('should call correct method', () => {
+  it('should call correct method', (done) => {
     vm = createInfinityScroll()
-    vm.disable()
-    vm.enable()
-    vm.destroy()
+    setTimeout(() => {
+      vm.disable()
+      vm.enable()
+      vm.destroy()
+      done()
+    }, 100)
   })
-  it('should call return a Promise in fetch function', () => {
+  it('should call return a Promise in fetch function', (done) => {
     vm = createInfinityScroll()
-    expect(vm.$parent.fetch()).to.be.an.instanceof(window.Promise)
+    setTimeout(() => {
+      expect(vm.$parent.fetch()).to.be.an.instanceof(window.Promise)
+      done()
+    }, 100)
   })
   it('should stop infinity scroll when Promise resolves a falsy value', (done) => {
     vm = createInfinityScroll(true)
