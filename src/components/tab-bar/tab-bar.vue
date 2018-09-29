@@ -59,6 +59,19 @@
     },
     mounted () {
       this._updateSliderStyle()
+      window.addEventListener('resize', this._resizeHandler)
+    },
+    activated() {
+      /* istanbul ignore next */
+      window.addEventListener('resize', this._resizeHandler)
+    },
+    deactivated() {
+      /* istanbul ignore next */
+      this._cleanUp()
+    },
+    beforeDestroy () {
+      /* istanbul ignore next */
+      this._cleanUp()
     },
     methods: {
       addTab (tab) {
@@ -95,7 +108,7 @@
           offset = `${offset}px`
         }
         if (slider) {
-          if (this.useTransition) slider.style[TRANSITION] = `all 0.2s linear`
+          if (this.useTransition) slider.style[TRANSITION] = `${TRANSFORM} 0.2s linear`
           slider.style[TRANSFORM] = `translateX(${offset}) translateZ(0)`
         }
       },
@@ -117,6 +130,16 @@
           if (i < index) offsetLeft += tab.$el.clientWidth
         })
         return offsetLeft
+      },
+      _resizeHandler () {
+        clearTimeout(this._resizeTimer)
+        this._resizeTimer = setTimeout(() => {
+          this._updateSliderStyle()
+        }, 60)
+      },
+      _cleanUp () {
+        clearTimeout(this._resizeTimer)
+        window.removeEventListener('resize', this._resizeHandler)
       }
     },
     watch: {

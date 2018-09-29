@@ -64,7 +64,18 @@ module.exports = {
 }
 ```
 
-Add `compileDependencies：` to the application's package.json:
+And if you can control all the packages which you want to post compile, you can just add postCompile: true to the packages package.json:
+
+```js
+{
+  "name": "your-one-pkg",
+  // ...
+  "postCompile": true
+  // ...
+}
+```
+
+Or you can add compileDependencies to your application package.json:
 
 ```js
 // package.json
@@ -74,7 +85,6 @@ Add `compileDependencies：` to the application's package.json:
   // ...
 }
 ```
-
 
 If `A` package have a dependency on `C` which is needed to be post compiled, just add `compileDependencies` to `A`'s  package.json:
 

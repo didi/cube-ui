@@ -63,7 +63,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
   <template>
     <cube-tab-bar
       v-model="selectedLabelSlots"
-      showSlider
+      show-slider
       inline
       @click="clickHandler">
       <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
@@ -112,7 +112,7 @@ Usually, our requirement is to display different panel as tabs are switched, so 
 
 ```html
 <template>
-  <cube-tab-bar v-model="selectedLabel" showSlider>
+  <cube-tab-bar v-model="selectedLabel" show-slider>
     <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
       <i slot="icon" :icon="item.icon"></i>
       {{item.label}}

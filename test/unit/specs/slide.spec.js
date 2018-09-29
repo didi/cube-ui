@@ -257,4 +257,32 @@ describe('Slide.vue', () => {
       }, 600)
     })
   })
+
+  it('should not reset current when set refreshResetCurrent=false', function (done) {
+    vm = createVue({
+      template: `
+      <cube-slide style="width:300px;height:100px;"
+        :initial-index="initialIndex"
+        :auto-play="autoPlay"
+        :refreshResetCurrent="refreshResetCurrent">
+        <cube-slide-item v-for="(item,index) in items" :key="index" :item="item"></cube-slide-item>
+      </cube-slide>
+    `,
+      data: {
+        items,
+        initialIndex: 1,
+        autoPlay: false,
+        refreshResetCurrent: false
+      }
+    })
+
+    vm.$nextTick(() => {
+      vm.$parent.autoPlay = true
+      setTimeout(() => {
+        // stay 1 not 0
+        expect(vm.currentPageIndex).to.equal(1)
+        done()
+      }, 20)
+    })
+  })
 })

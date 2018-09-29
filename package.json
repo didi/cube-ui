@@ -1,6 +1,6 @@
 {
   "name": "cube-ui",
-  "version": "1.10.8",
+  "version": "1.10.15",
   "description": "A fantastic mobile ui lib implement by Vue",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -163,11 +163,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 20",
-    "not ie_mob <= 100",
-    "not ff <= 100",
-    "not and_ff <= 100",
-    "not Edge <= 100",
-    "Android >= 4.0"
+    "not ie <= 8",
+    "Android >= 4.0",
+    "iOS >= 8"
   ]
 }

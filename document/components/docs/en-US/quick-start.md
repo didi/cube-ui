@@ -1,8 +1,18 @@
 ## Quick start
 
-[Application Guide](https://github.com/cube-ui/cube-application-guide)
+- [Application Guide](https://github.com/cube-ui/cube-application-guide)
+- Have problems? See [QA](https://github.com/cube-ui/question-answer/issues)
 
 ### CLI
+
+
+#### vue-cli >= 3
+
+If you are using vue-cli@3, you can use [vue-cli-plugin-cube-ui](https://github.com/cube-ui/vue-cli-plugin-cube-ui) plugin. After you inited your project, just run `vue add cube-ui`. About options, see [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki).
+
+Then you can see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
+
+#### vue-cli < 3
 
 If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the <a href="#cube-Install-anchor" class="anchor">Install</a> steps and see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
 
@@ -16,7 +26,10 @@ If you are going to use cube-ui in an existing project, see the <a href="#cube-I
 
 ### Install
 
+> This section only used in the case of vue-cli < 3
+
 #### NPM
+
 ```shell
 $ npm install cube-ui --save
 ```

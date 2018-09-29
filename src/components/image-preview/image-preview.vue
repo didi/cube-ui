@@ -1,6 +1,6 @@
 <template>
   <transition name="cube-image-preview-fade">
-    <cube-popup type="image-preview" :center="false" v-show="isVisible">
+    <cube-popup type="image-preview" :z-index="zIndex" :center="false" v-show="isVisible">
       <div class="cube-image-preview-container">
         <div class="cube-image-preview-header">
           <slot name="header" :current="currentPageIndex"></slot>
@@ -222,9 +222,9 @@
         })
       },
       checkBoundary(scroll, pos) {
-        if (scroll.movingDirectionX) {
+        if (scroll.distX) {
           this._scrolling = true
-          const reached = scroll.movingDirectionX === -1 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
+          const reached = scroll.distX > 0 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
           if (reached) {
             this._hasEnableSlide = true
             this._slide(scroll)
@@ -233,7 +233,7 @@
               this._scroll(scroll)
             }
           }
-        } else if (scroll.movingDirectionY) {
+        } else if (scroll.distY) {
           this._scrolling = true
           this._scroll(scroll)
         }
@@ -306,6 +306,7 @@
   .cube-image-preview-item
     position: relative
     padding: 0 10px
+    width: 100%
     height: 100%
     .cube-scroll-wrapper
       display: flex

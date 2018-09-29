@@ -189,31 +189,6 @@ describe('DatePicker', () => {
     }, 100)
   })
 
-  it('$updateProps', function (done) {
-    const selectHandle = sinon.spy()
-
-    vm = createDatePicker({
-      min: new Date(2008, 7, 8),
-      max: new Date(2020, 9, 20)
-    }, {
-      select: selectHandle
-    })
-
-    vm.$updateProps({
-      value: new Date(2010, 9, 1)
-    })
-
-    vm.show()
-    setTimeout(() => {
-      const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
-      confirmBtn.click()
-      expect(selectHandle)
-        .to.be.calledWith(new Date(2010, 9, 1), [2010, 10, 1], ['2010', '10', '1'])
-
-      done()
-    }, 100)
-  })
-
   it('should add warn log when single is true', () => {
     const app = new Vue()
     const originWarn = console.warn
@@ -227,10 +202,75 @@ describe('DatePicker', () => {
     console.warn = originWarn
   })
 
+  testUpdateProps()
+
   function createDatePicker(props = {}, events = {}) {
     return instantiateComponent(Vue, DatePicker, {
       props: props,
       on: events
+    })
+  }
+
+  function testUpdateProps () {
+    const cases = [
+      {
+        props: {
+          value: new Date(2012, 9, 1)
+        },
+        expect: () => {
+          expectArrayEqual(vm.selectedIndex, [2, 9, 0])
+        }
+      },
+      {
+        props: {
+          min: new Date(2012, 3, 5)
+        },
+        expect: () => {
+          expect(vm.data[0].value).to.equal(2012)
+          expect(vm.data[0].children[0].value).to.equal(4)
+          expect(vm.data[0].children[0].children[0].value).to.equal(5)
+        }
+      },
+      {
+        props: {
+          min: new Date(2010, 3, 5)
+        },
+        expect: () => {
+          expect(vm.data[0].value).to.equal(2010)
+          expect(vm.data[0].children[0].value).to.equal(4)
+          expect(vm.data[0].children[0].children[0].value).to.equal(5)
+        }
+      },
+      {
+        props: {
+          max: new Date(2025, 9, 20)
+        },
+        expect: () => {
+          expect(vm.data.length).to.equal(16)
+          expect(vm.data[15].children.length).to.equal(10)
+          expect(vm.data[15].children[9].children.length).to.equal(20)
+        }
+      }
+    ]
+
+    cases.forEach((item) => {
+      it(`$updateProps: ${JSON.stringify(item.props)}`, function (done) {
+        vm = createDatePicker()
+
+        vm.$updateProps(item.props)
+
+        vm.$nextTick(() => {
+          item.expect()
+          done()
+        })
+      })
+    })
+  }
+
+  function expectArrayEqual(arr1, arr2) {
+    expect(arr1.length).to.equal(arr2.length)
+    arr1.forEach((item, index) => {
+      expect(item).to.equal(arr2[index])
     })
   }
 })

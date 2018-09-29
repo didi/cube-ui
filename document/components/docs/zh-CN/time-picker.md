@@ -229,6 +229,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | false |
 | maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true |
 | format<sup>1.10.0</sup> | select 事件参数 formatedTime 的格式 | String | 'YYYY/M/D hh:mm' |
+| zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | 100 |
 
 * `day` 子配置项
 

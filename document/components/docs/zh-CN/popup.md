@@ -143,6 +143,7 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
 | center | 是否水平垂直居中的 | Boolean | true/false | true |
 | position<sup>1.9.6</sup> | 内容展示位置，优先级比 center 高 | String | top/right/bottom/left/center | '' |
 | maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
+| zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | - | 100 |
 
 ### 事件
 

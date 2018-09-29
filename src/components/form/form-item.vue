@@ -11,6 +11,7 @@
         v-model="originValid"
         :disabled="validatorDisabled"
         :model="validatorModel"
+        :model-key="validatorModelKey"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
         @input="validatorChangeHandler"
@@ -59,12 +60,16 @@
       }
     },
     data() {
+      const validatorModelKey = 'value'
       const modelKey = this.field.modelKey
       const modelValue = modelKey ? this.form.model[modelKey] : null
       return {
         validatorDisabled: false,
+        validatorModelKey,
         modelValue: modelValue,
-        validatorModel: modelValue
+        validatorModel: {
+          [validatorModelKey]: modelValue
+        }
       }
     },
     computed: {
@@ -112,10 +117,13 @@
           this.modelValue = newModel
         }
       },
-      modelValue(newModel) {
-        // update form model
-        this.form.model[this.fieldValue.modelKey] = newModel
-        this.updateValidatorModel()
+      modelValue: {
+        handler(newModel) {
+          // update form model
+          this.form.model[this.fieldValue.modelKey] = newModel
+          this.updateValidatorModel()
+        },
+        sync: true
       },
       originValid(newVal) {
         this.lastOriginValid = newVal
@@ -144,22 +152,11 @@
         if ((!debounceTime && debounceTime !== 0) || debounceTime < 0 || this.fieldValue.trigger === 'blur') return
         this.getValidatorModel = debounce((modelValue) => {
           this.pending = false
-          this.validatorModel = modelValue
+          this.validatorModel[this.validatorModelKey] = modelValue
           this.form.updatePending()
-          this.asyncSameCheck()
+          this.validate()
           return modelValue
-        }, debounceTime, false, this.validatorModel)
-      },
-      asyncSameCheck() {
-        const validator = this.$refs.validator
-        const validatorModel = this.validatorModel
-        if (validator) {
-          // same value, Vue do not trigger watch handler
-          // so need to force validate
-          if (validatorModel === validator.model) {
-            validator && validator.validate()
-          }
-        }
+        }, debounceTime, false, this.validatorModel[this.validatorModelKey])
       },
       focusInHandler() {
         this.focused = true
@@ -167,7 +164,7 @@
       focusOutHandler() {
         this.focused = false
         this.updateValidatorModel()
-        this.asyncSameCheck()
+        this.validate()
       },
       initFocusEvents() {
         if (this.fieldValue.trigger === 'blur') {
@@ -176,7 +173,7 @@
           formItem.addEventListener(EVENT_FOCUSOUT, this.focusOutHandler, false)
           this.getValidatorModel = (modelValue) => {
             if (this.focused) {
-              return this.validatorModel
+              return this.validatorModel[this.validatorModelKey]
             } else {
               this.pending = false
               this.form.updatePending()
@@ -192,7 +189,7 @@
       },
       updateValidatorModel() {
         this.pending = true
-        this.validatorModel = this.getValidatorModel(this.modelValue)
+        this.validatorModel[this.validatorModelKey] = this.getValidatorModel(this.modelValue)
         if (this.pending) {
           this.form.setPending(this.pending)
           this.originValid = undefined
