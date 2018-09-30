@@ -16,7 +16,7 @@ describe('TabBar', () => {
   it('props', (done) => {
     vm = createVue({
       template: `
-      <cube-tab-bar v-model="selectedLabel" :data="tabs" showSlider>
+      <cube-tab-bar v-model="selectedLabel" :data="tabs" show-slider>
       </cube-tab-bar>
     `,
       data: {
@@ -112,7 +112,7 @@ describe('TabBar', () => {
 function createTabBar (options) {
   const vm = createVue({
     template: `
-      <cube-tab-bar v-model="selectedLabel" showSlider @click="clickHandler" @change="changeHandler">
+      <cube-tab-bar v-model="selectedLabel" show-slider @click="clickHandler" @change="changeHandler">
         <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="index" >
           <i slot="icon" :class="item.icon"></i>
           {{item.label}}

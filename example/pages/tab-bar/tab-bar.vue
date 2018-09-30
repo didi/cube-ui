@@ -14,7 +14,7 @@
       <div class="section">
         <cube-tab-bar
           v-model="selectedLabelSlots"
-          showSlider
+          show-slider
           @click="clickHandler"
           @change="changeHandler">
           <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
@@ -25,7 +25,7 @@
       <div class="section">
         <cube-tab-bar
           v-model="selectedLabelInline"
-          showSlider
+          show-slider
           inline
           @click="clickHandler"
           @change="changeHandler">
