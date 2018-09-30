@@ -33,8 +33,8 @@ var webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('[name]/index.js'),
-    library: 'cube',
-    libraryTarget: 'commonjs2'
+    library: ['cube', '[name]'],
+    libraryTarget: 'umd'
   },
   plugins: [
     // extract css into its own file
