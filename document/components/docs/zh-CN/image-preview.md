@@ -144,6 +144,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | loop | 是否可循环 | Boolean | true/false | true |
 | speed | 轮播速度，单位 ms | Number | - | 400 |
 | zIndex<sup>1.10.11</sup> | 样式 z-index 的值 | Number | - | 100 |
+| preventDefault<sup>1.10.16</sup> | 是否阻止默认行为，因底层使用 BetterScroll 实现 | Boolean | true/false | true |
 
 ### 插槽
 

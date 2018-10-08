@@ -150,6 +150,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
 | loop | whether to loop swipe | Boolean | true/false | true |
 | speed | speed of switching pages, ms | Number | - | 400 |
 | zIndex<sup>1.10.11</sup> | the value of the style z-index | Number | - | 100 |
+| preventDefault<sup>1.10.16</sup> | BetterScroll `preventDefault` option | Boolean | true/false | true |
 
 ### Slots
 
