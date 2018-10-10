@@ -414,7 +414,7 @@ describe('Swipe', () => {
   }
 
   function createSwipeContext(vm, index = 0) {
-    const swipeItemInstance = vm.$refs['swipeItem'][index]
+    const swipeItemInstance = vm.items[index]
     const swipeItem = swipeItemInstance.$el
     const btnGroup = swipeItem.querySelectorAll('.cube-swipe-btn')
     let btnWidth = 0
