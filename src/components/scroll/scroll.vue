@@ -70,6 +70,8 @@
   const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
   const EVENT_SCROLL_END = 'scroll-end'
 
+  const NEST_MODE_NATIVE = 'native'
+
   const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
 
   const DEFAULT_OPTIONS = {
@@ -84,6 +86,16 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [scrollMixin, deprecatedMixin],
+    provide() {
+      return {
+        parentScroll: this
+      }
+    },
+    inject: {
+      parentScroll: {
+        default: null
+      }
+    },
     props: {
       data: {
         type: Array,
@@ -124,6 +136,10 @@
       refreshDelay: {
         type: Number,
         default: 20
+      },
+      nestMode: {
+        type: String,
+        default: NEST_MODE_NATIVE
       }
     },
     data() {
@@ -172,6 +188,9 @@
           this.listenBeforeScroll && finalScrollEvents.push(EVENT_BEFORE_SCROLL_START)
         }
         return finalScrollEvents
+      },
+      needListenScroll() {
+        return this.finalScrollEvents.indexOf(EVENT_SCROLL) !== -1 || this.parentScroll
       }
     },
     watch: {
@@ -243,10 +262,12 @@
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
-          probeType: this.finalScrollEvents.indexOf(EVENT_SCROLL) !== -1 ? 3 : 1
+          probeType: this.needListenScroll ? 3 : 1
         }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
+
+        this.parentScroll && this._handleNestScroll()
 
         this._listenScrollEvents()
 
@@ -306,6 +327,73 @@
             this.$emit(event, ...args)
           })
         })
+      },
+      _handleNestScroll() {
+        // waiting scroll initial
+        this.$nextTick(() => {
+          const innerScroll = this.scroll
+          const outerScroll = this.parentScroll.scroll
+          const scrolls = [innerScroll, outerScroll]
+          scrolls.forEach((scroll, index, arr) => {
+            // scroll ended always enable them
+            scroll.on('touchEnd', () => {
+              outerScroll.enable()
+              innerScroll.enable()
+              // when inner scroll reaching boundary, we will disable inner scroll, so when 'touchend' event fire,
+              // the inner scroll will not reset initiated within '_end' method in better-scroll.
+              // then lead to inner and outer scrolls together when we touch and move on the outer scroll element,
+              // so here we reset inner scroll's 'initiated' manually.
+              innerScroll.initiated = false
+            })
+
+            scroll.on('beforeScrollStart', () => {
+              this.touchStartMoment = true
+              const anotherScroll = arr[(index + 1) % 2]
+              anotherScroll.stop()
+              anotherScroll.resetPosition()
+            })
+          })
+
+          innerScroll.on('scroll', (pos) => {
+            if (this.nestMode === NEST_MODE_NATIVE && !this.touchStartMoment) {
+              return
+            }
+
+            if (innerScroll.isInTransition) {
+              return
+            }
+
+            const reachBoundary = this._checkReachBoundary(pos)
+            if (reachBoundary) {
+              innerScroll.resetPosition()
+              innerScroll.disable()
+              // Prevent outer scroll have a bouncing step when enabled in 'free' nestMode.
+              outerScroll.pointX = innerScroll.pointX
+              outerScroll.pointY = innerScroll.pointY
+              outerScroll.enable()
+            } else {
+              outerScroll.disable()
+            }
+            this.touchStartMoment = false
+          })
+        })
+      },
+      _checkReachBoundary(pos) {
+        const distX = this.scroll.distX
+        const distY = this.scroll.distY
+        const reachBoundaryX = distX > 0 ? pos.x >= this.scroll.minScrollX : distX < 0 ? pos.x <= this.scroll.maxScrollX : false
+        const reachBoundaryY = distY > 0 ? pos.y >= this.scroll.minScrollY : distY < 0 ? pos.y <= this.scroll.maxScrollY : false
+        const freeScroll = this.scroll.freeScroll
+
+        let reachBoundary
+        if (freeScroll) {
+          reachBoundary = reachBoundaryX || reachBoundaryY
+        } else if (this.direction === DIRECTION_V) {
+          reachBoundary = reachBoundaryY
+        } else if (this.direction === DIRECTION_H) {
+          reachBoundary = reachBoundaryX
+        }
+        return reachBoundary
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
