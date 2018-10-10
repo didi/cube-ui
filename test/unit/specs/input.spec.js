@@ -105,6 +105,30 @@ describe('Input.vue', () => {
       })
     })
   })
+  it('should show clearable icon and work correctly', (done) => {
+    vm = createVue({
+      template: `
+        <cube-input v-model="value" :clearable="clearable" />
+      `,
+      data: {
+        value: 'xxx',
+        clearable: {
+          visible: true,
+          blurHidden: true
+        }
+      }
+    })
+
+    expect(vm.$el.querySelector('.cube-input-clear'))
+      .to.be.null
+    vm.$parent.clearable.blurHidden = false
+    vm.$nextTick(() => {
+      expect(vm.$el.querySelector('.cube-input-clear'))
+        .not.to.be.null
+      done()
+    })
+  })
+
   it('should trigger events', (done) => {
     const focusHandler = sinon.spy()
     const blurHandler = sinon.spy()
@@ -157,7 +181,10 @@ function createInput (value) {
     data: {
       disabled: false,
       readonly: false,
-      useClear: true,
+      useClear: {
+        visible: true,
+        blurHidden: false
+      },
       value: value && 'test'
     }
   })

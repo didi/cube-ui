@@ -24,9 +24,38 @@ Input component. You can use the `v-model` directive to create two-way data bind
   }
   ```
 
-- Multiple configurations
 
-  Support the native attributes of the input element. In addition you can use the `clearable` attribute to toggle the clear button, use `pwdEye` to toggle password eye button and password filed's visibility.
+- Clearable config
+
+  You can use the `clearable` attribute to toggle the clear button.
+
+  Before 1.11.0, the `clearable` value only can be a Boolean value.
+  
+  After 1.11.0 the `clearable` value can be a Boolean or an Object value.
+
+  ```html
+  <cube-input
+    v-model="value"
+    :clearable="clearable"
+  ></cube-input>
+  ```
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: '',
+        clearable: {
+          visible: true,
+          blurHidden: true
+        }
+      }
+    }
+  }
+  ```
+
+- Eye config
+
+  You can use `pwdEye` to toggle password eye button and password filed's visibility.
 
   ```html
   <cube-input
@@ -38,37 +67,31 @@ Input component. You can use the `v-model` directive to create two-way data bind
     :disabled="disabled"
     :autofocus="autofocus"
     :autocomplete="autocomplete"
-    :clearable="clearable"
     :eye="eye"
   ></cube-input>
   ```
-
   ```javascript
   export default {
     data() {
       return {
         value: '',
-        placeholder: 'please type here...',
+        placeholder: '请输入内容',
         type: 'password',
         readonly: true,
         maxlength: 100,
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false,
-        /*
-         * if set to false then the password eye is invisible
-         * if set to true then the password eye is visible
-           and the password content is visible
-         * if set to an object `{ open: false }` then the password eye is visible
-           but the password content is invisible, the `open` can be used to
-           control the password content's visibility
-         */
-        eye: true // the password eye is visible and the password content is visible or not
+        eye: {
+          open: true,
+          reverse: false
+        }
       }
     }
   }
   ```
+
+  As you can see, this component also support the native attributes of the Input element.
 
 ### Props configuration
 
@@ -82,7 +105,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | placeholder | placeholder of input | String | - | empty |
 | autofocus | autofocus status | Boolean | true/false | false |
 | autocomplete | autocomplete status | Boolean | true/false | false |
-| clearable | whether to show clear button | Boolean | true/false | false |
+| clearable | whether to show clear button, after 1.11.0 you can alse use object config like `{visible: true, blurHidden: true}`, the `visible` is used to control the visibility and the `blurHidden` is used to control whether hidden after blur.  | Boolean/Object<sup>1.11.0+</sup> | true/false | false |
 | eye | If set to false then the password eye is invisible, if true, equal to `{open: true, reverse: false}`, Object form mean using the password eye. The `open` control the password eye open or close, `reverse` control whether the password content visibility is reverse with the password eye open or not. | Boolean/Object | true/false/{open: `true/false`} | false |
 
 ### Slot

@@ -24,9 +24,39 @@
   }
   ```
 
-- 多项配置
+- 清空按钮
 
-  支持原生组件的大部分配置，另外可通过`clearable`切换清空按钮以及`eye`设置密码眼睛。
+  可通过`clearable`配置清空按钮。
+
+  在 1.11.0 版本之前 `clearable` 的值是布尔类型的，表示是否展示清除按钮；
+  
+  在 1.11.0 版本之后 `clearable` 可配置为布尔类型，还可以配置为对象。
+
+  ```html
+  <cube-input
+    v-model="value"
+    :clearable="clearable"
+  ></cube-input>
+  ```
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: '',
+        clearable: {
+          visible: true,
+          blurHidden: true
+        }
+      }
+    }
+  }
+  ```
+
+  `clearable` 配置的对象可以包含两个 key 值：`visible` 和 `blurHidden` 分别代表是否展示以及当 Input 元素离焦的时候是否隐藏。
+
+- 密码配置
+
+  可通过`eye`设置密码眼睛。
 
   ```html
   <cube-input
@@ -38,7 +68,6 @@
     :disabled="disabled"
     :autofocus="autofocus"
     :autocomplete="autocomplete"
-    :clearable="clearable"
     :eye="eye"
   ></cube-input>
   ```
@@ -54,17 +83,16 @@
         disabled: true,
         autofocus: true,
         autocomplete: true,
-        clearable: false,
-        /*
-         * 眼睛可见，且密码可见
-         * 如果为 false 则眼睛不可见，密码不可见
-         * 如果想要眼睛可见但是密码不可见，则配置为对象 { open: false }
-         */
-        eye: true
+        eye: {
+          open: true,
+          reverse: false
+        }
       }
     }
   }
   ```
+
+  如同上边展示的，除了上述配置，还支持原生 Input 元素的大部分配置。
 
 ### Props 配置
 
@@ -78,7 +106,7 @@
 | placeholder | 占位文本 | String | - | 空 |
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | autocomplete | 自动补全 | Boolean | true/false | false |
-| clearable | 是否使用清空按钮 | Boolean | true/false | false |
+| clearable | 是否使用清空按钮，1.11.0 后可配置为对象形式 `{visible: true, blurHidden: true}`，其中 `visible` 控制是否显示，`blurHidden` 控制离焦后是否隐藏 | Boolean/Object<sup>1.11.0+</sup> | true/false/{visible: true, blurHidden: true} | false |
 | eye | 默认 false，密码眼睛不可见；如果是 true ，则相当于配置为对象 `{ open: true, reverse: false }`。对象形式表示使用密码眼睛。其中 `open` 控制眼睛张开还是闭合。`reverse` 控制密码可见和眼睛开闭是否相反。 | Boolean/Object | true/false/{open: true/false, reverse: true/false} | false |
 
 ### 插槽
