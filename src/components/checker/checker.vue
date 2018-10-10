@@ -39,23 +39,27 @@
         }
       }
     },
-    watch: {
-      value (newValue) {
-        this.currentValue = newValue
-      },
-      currentValue (val) {
-        val =
-        this.$emit(EVENT_INPUT, val)
-      }
-    },
     data () {
       return {
         currentValue: this.value
       }
     },
+    computed: {
+      isRadio() {
+        return this.type === 'radio'
+      }
+    },
+    watch: {
+      value (newValue) {
+        this.currentValue = newValue
+      },
+      currentValue (val) {
+        this.$emit(EVENT_INPUT, val)
+      }
+    },
     methods: {
       check(option) {
-        if (this.type === 'radio') {
+        if (this.isRadio) {
           this.checkRadio(option)
         } else {
           this.checkCheckbox(option)
