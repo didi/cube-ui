@@ -7,6 +7,9 @@
         <cube-button @click="goTo('config')"><span class="scroll-example">3. Customized</span></cube-button>
         <cube-button @click="goTo('jd')"><span class="scroll-example">4. JD</span></cube-button>
         <cube-button @click="goTo('toutiao')"><span class="scroll-example">5. Toutiao</span></cube-button>
+        <cube-button @click="goTo('v-scrolls')"><span class="scroll-example">6. Vertical scrolls</span></cube-button>
+        <cube-button @click="goTo('h-scrolls')"><span class="scroll-example">7. Horizontal scrolls</span></cube-button>
+        <!-- <cube-button @click="goTo('textarea')"><span class="scroll-example">8. Textarea</span></cube-button> -->
       </cube-button-group>
       <cube-view></cube-view>
     </div>
