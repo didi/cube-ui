@@ -24,7 +24,7 @@ describe('Checker.vue', () => {
     // expect(vm.$el.querySelector('.checker').className)
       // .to.include('active')
   })
-  it('should change v-model value', (done) => {
+  it('should render radio contents', (done) => {
     vm = createChecker('radio')
     const p = vm.$parent
     const options = p.options
