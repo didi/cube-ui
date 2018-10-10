@@ -64,7 +64,7 @@ describe('Dialog', () => {
       })
       expect(vm.$el.querySelector('.cube-dialog-prompt').parentElement.className)
         .to.equal('cube-dialog-main')
-      expect(vm.$el.querySelector('.cube-input').placeholder)
+      expect(vm.$el.querySelector('.cube-input-field').placeholder)
         .to.equal('Please input')
       expect(vm.$el.querySelector('.cube-dialog-btns').getElementsByTagName('a').length)
         .to.equal(2)
