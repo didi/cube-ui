@@ -45,7 +45,17 @@ describe('Upload.vue', () => {
   it('should add files & upload', function (done) {
     this.timeout(1000)
 
-    vm = createFilesUpload()
+    vm = createFilesUpload(2, {}, {
+      target() {
+        return '/upload2'
+      },
+      checkSuccess(response, file, cb) {
+        setTimeout(() => {
+          /* eslint-disable standard/no-callback-literal */
+          cb(true)
+        })
+      }
+    })
     // check data
     expect(vm.files.length)
       .to.equal(2)
@@ -76,6 +86,8 @@ describe('Upload.vue', () => {
       // check data state
       expect(vm.files[0]._xhr)
         .not.to.be.null
+      expect(vm.files[0]._xhr.url)
+        .to.equal('/upload2')
       expect(vm.files[0].status)
         .to.equal('uploading')
       expect(vm.files[0].progress)
@@ -102,34 +114,37 @@ describe('Upload.vue', () => {
             .to.equal('0.67')
           // success
           vm.files[0]._xhr.triggerSuccess()
-          expect(vm.files[0].progress)
-            .to.equal(1)
-          expect(vm.files[0].status)
-            .to.equal('success')
-
+          // need to wait checkSuccess
           setTimeout(() => {
-            expect(allFiles[0].querySelector('.cube-upload-file-status').className)
-              .to.equal('cube-upload-file-status cubeic-right')
-
-            // next file
-            expect(vm.files[1]._xhr)
-              .not.to.be.null
-            expect(vm.files[1].status)
-              .to.equal('uploading')
-            expect(vm.files[1].progress)
-              .to.equal(0)
-            // error
-            vm.files[1]._xhr.triggerError()
-            expect(vm.files[1].progress)
+            expect(vm.files[0].progress)
               .to.equal(1)
-            expect(vm.files[1].status)
-              .to.equal('error')
+            expect(vm.files[0].status)
+              .to.equal('success')
 
             setTimeout(() => {
-              expect(allFiles[1].querySelector('.cube-upload-file-status').className)
-                .to.equal('cube-upload-file-status cubeic-warn')
+              expect(allFiles[0].querySelector('.cube-upload-file-status').className)
+                .to.equal('cube-upload-file-status cubeic-right')
 
-              done()
+              // next file
+              expect(vm.files[1]._xhr)
+                .not.to.be.null
+              expect(vm.files[1].status)
+                .to.equal('uploading')
+              expect(vm.files[1].progress)
+                .to.equal(0)
+              // error
+              vm.files[1]._xhr.triggerError()
+              expect(vm.files[1].progress)
+                .to.equal(1)
+              expect(vm.files[1].status)
+                .to.equal('error')
+
+              setTimeout(() => {
+                expect(allFiles[1].querySelector('.cube-upload-file-status').className)
+                  .to.equal('cube-upload-file-status cubeic-warn')
+
+                done()
+              })
             })
           })
         }, 100)
@@ -265,7 +280,7 @@ describe('Upload.vue', () => {
     return vm
   }
 
-  function createFilesUpload(max = 2, events = {}) {
+  function createFilesUpload(max = 2, events = {}, opts = {}) {
     const vm = createUpload({
       action: {
         target: '/upload',
@@ -275,7 +290,8 @@ describe('Upload.vue', () => {
         },
         headers: {
           'my-header': 'my-header'
-        }
+        },
+        ...opts
       },
       max
     }, events)
