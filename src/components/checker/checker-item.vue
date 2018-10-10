@@ -25,7 +25,14 @@
     },
     computed: {
       isActive() {
-        return this.$parent.currentValue.toString().indexOf(this.option.value) >= 0
+        const currentValue = this.$parent.currentValue
+        const value = this.option.value
+        return (
+          // for radio type
+          currentValue === value ||
+          // for checkbox type
+          currentValue.indexOf(value) >= 0
+        )
       }
     },
     methods: {
