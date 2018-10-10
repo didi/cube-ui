@@ -28,7 +28,7 @@ describe('Checker.vue', () => {
     vm = createChecker('radio')
     const p = vm.$parent
     const options = p.options
-    expect(p.checkerList[0])
+    expect(p.checkerList)
       .to.equal(1)
     vm.$nextTick(() => {
       const items = vm.$el.querySelectorAll('.cube-checker-item')
@@ -36,7 +36,7 @@ describe('Checker.vue', () => {
         .to.equal(options.length)
       items[0].click()
       vm.$nextTick(() => {
-        expect(p.checkerList[0])
+        expect(p.checkerList)
           .to.equal(0)
         done()
       })
@@ -75,7 +75,7 @@ function createChecker (type) {
       </cube-checker>
     `,
     data: {
-      checkerList: [1],
+      checkerList: type === 'radio' ? 1 : [1],
       options: [
         {
           value: 0,
