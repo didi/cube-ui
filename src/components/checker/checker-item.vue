@@ -30,7 +30,6 @@
     },
     methods: {
       clickHandler() {
-        console.log(this.option.value)
         this.$parent.check(this.option)
       }
     }
