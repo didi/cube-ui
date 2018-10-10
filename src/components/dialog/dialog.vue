@@ -20,13 +20,14 @@
           <div class="cube-dialog-content">
             <slot name="content">
               <div class="cube-dialog-content-def">
-                <p v-html="content"></p>
+                <p v-html="content" v-if="content"></p>
+                <cube-input v-bind="prompt" v-model="promptValue" v-if="isPrompt" />
               </div>
             </slot>
           </div>
-          <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm}">
+          <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm || isPrompt}">
             <slot name="btns">
-              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active, 'cube-dialog-btn_disabled': _cancelBtn.disabled}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
+              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active, 'cube-dialog-btn_disabled': _cancelBtn.disabled}" v-if="isConfirm || isPrompt" @click="cancel">{{_cancelBtn.text}}</a>
               <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active, 'cube-dialog-btn_disabled': _confirmBtn.disabled}" @click="confirm">{{_confirmBtn.text}}</a>
             </slot>
           </div>
@@ -38,6 +39,7 @@
 
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
+  import CubeInput from '../input/input.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
 
@@ -76,6 +78,15 @@
         type: String,
         default: 'alert'
       },
+      prompt: {
+        type: Object,
+        default() {
+          return {
+            value: '',
+            placeholder: ''
+          }
+        }
+      },
       icon: {
         type: String,
         default: ''
@@ -111,7 +122,8 @@
     },
     data() {
       return {
-        defHref
+        defHref,
+        promptValue: this.prompt.value
       }
     },
     computed: {
@@ -124,8 +136,18 @@
       isConfirm() {
         return this.type === 'confirm'
       },
+      isPrompt() {
+        return this.type === 'prompt'
+      },
       containerClass() {
         return `cube-dialog-${this.type}`
+      }
+    },
+    watch: {
+      'prompt.value': {
+        handler: function (newVal) {
+          this.promptValue = newVal
+        }
       }
     },
     methods: {
@@ -137,7 +159,7 @@
           return
         }
         this.hide()
-        this.$emit(EVENT_CONFIRM, e)
+        this.$emit(EVENT_CONFIRM, e, this.promptValue)
       },
       cancel(e) {
         if (this._cancelBtn.disabled) {
@@ -152,7 +174,8 @@
       }
     },
     components: {
-      CubePopup
+      CubePopup,
+      CubeInput
     }
   }
 </script>
@@ -214,7 +237,9 @@
     > p
       display: table
       margin: auto
-  .cube-dialog-confirm
+      + .cube-input
+        margin-top: 12px
+  .cube-dialog-confirm, .cube-dialog-prompt
     .cube-dialog-btns
       .cube-dialog-btn
         width: 50%
