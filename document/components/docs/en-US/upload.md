@@ -182,10 +182,13 @@
 
 | Attribute | Description | Type | Accepted Values | Demo |
 | - | - | - | - | - |
+| v-model | file list | Array | [] | [{ name, size, url, status: 'success', progress: 1 }] |
 | action | upload action config | String/Object | '' | { target: '/upload' } |
 | max | max upload files number | Number | 10 | - |
 | auto | whether auto start upload | Boolean | true | - |
 | simultaneousUploads | the number of simultaneous uploads | Number | 1 | - |
+| multiple | multiple select | Boolean | true | - |
+| accept | input accept | String | image/* | - |
 | processFile | process the original file | Function | function (file, next) { next(file) } | - |
 
 * `action` sub configuration
@@ -194,15 +197,15 @@ If `action` is a string, it will be transformed into `{ target: action }`.
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
-| target | the upload target URL for the multipart POST request | String | - |
+| target | the upload target URL for the multipart POST request, if this value is a function, then it will be called with the file object as parameter and the returned value as the URL | String/Function<sup>1.11.0+</sup> | - |
 | fileName | the name of the multipart POST parameter | String | 'file' |
 | prop | which property in file object will be uploaded | String | 'file' |
-| headers | extra headers to include in the multipart POST | Object | {} |
-| data | extra data to include in the multipart POST | Object | {} |
+| headers | extra headers to include in the multipart POST, if this value is a function, then it will be called with the file object as parameter and the returned value as headers | Object/Function<sup>1.11.0+</sup> | {} |
+| data | extra data to include in the multipart POST, if this value is a function, then it will be called with the file object as parameter and the returned value as data | Object/Function<sup>1.11.0+</sup> | {} |
 | withCredentials | Standard CORS requests would not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true | Boolean | false |
 | timeout | upload request timeout value | Number | 0 |
 | progressInterval | The time interval between progress reports (Unit: ms) | Number | 100 |
-| checkSuccess | Check the response should be successful, the parameter is `response` object. If return true then it will be treated as successful | Function | function (res) { return true } |
+| checkSuccess | Check the response should be successful, the parameters is `(response, file[, cb])` object. The `file` and optional `cb` parameters are avaliable after 1.11.0. If there are no `cb` then get this function as result `isSuccess`, otherwise the `cb(isSuccess)` parameter `isSuccess` as the result. If the result `isSuccess` is `true` then it will be treated as successful | Function | function (res) { return true } |
 
 * `processFile` sub configuration
 
