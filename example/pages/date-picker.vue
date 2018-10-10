@@ -26,7 +26,10 @@
             max: new Date(2020, 9, 20),
             value: new Date(),
             onSelect: this.selectHandle,
-            onCancel: this.cancelHandle
+            onCancel: this.cancelHandle,
+            onChange: () => {
+              console.log('change')
+            }
           })
         }
 
