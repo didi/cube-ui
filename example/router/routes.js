@@ -65,7 +65,7 @@ import Tab from '../pages/tab-bar/tab-entry.vue'
 import TabBasic from '../pages/tab-bar/tab-basic.vue'
 import TabComposite from '../pages/tab-bar/tab-composite.vue'
 import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
-import Checker from '../pages/checker/checker.vue'
+import Checker from '../pages/checker.vue'
 
 const routes = [
   {
