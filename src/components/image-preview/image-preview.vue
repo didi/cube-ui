@@ -76,6 +76,10 @@
       speed: {
         type: Number,
         default: 400
+      },
+      preventDefault: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -88,7 +92,8 @@
             right: true
           },
           useTransition: !isAndroid,
-          probeType: 3
+          probeType: 3,
+          preventDefault: this.preventDefault
         },
         scrollOptions: {
           observeDOM: false,
@@ -101,7 +106,8 @@
           bounce: false,
           click: false,
           dblclick: true,
-          bounceTime: 300
+          bounceTime: 300,
+          preventDefault: this.preventDefault
         }
       }
     },
@@ -222,7 +228,7 @@
         })
       },
       checkBoundary(scroll, pos) {
-        if (scroll.distX) {
+        if (scroll.distX && Math.abs(scroll.distX) > Math.abs(scroll.distY)) {
           this._scrolling = true
           const reached = scroll.distX > 0 ? pos.x >= scroll.minScrollX : pos.x <= scroll.maxScrollX
           if (reached) {
@@ -306,6 +312,7 @@
   .cube-image-preview-item
     position: relative
     padding: 0 10px
+    width: 100%
     height: 100%
     .cube-scroll-wrapper
       display: flex

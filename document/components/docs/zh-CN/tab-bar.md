@@ -68,7 +68,7 @@
   <template>
     <cube-tab-bar
       v-model="selectedLabelSlots"
-      showSlider
+      show-slider
       inline
       @click="clickHandler">
       <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
@@ -117,7 +117,7 @@
 
 ```html
 <template>
-  <cube-tab-bar v-model="selectedLabel" showSlider>
+  <cube-tab-bar v-model="selectedLabel" show-slider>
     <cube-tab v-for="(item, index) in tabs" :icon="item.icon" :label="item.label" :key="item.label">
     </cube-tab>
   </cube-tab-bar>

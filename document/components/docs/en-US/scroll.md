@@ -11,6 +11,9 @@ So for the Scroll component, The length of `.cube-scroll-content`, the scroll-co
 
 2）Scrolling horizontally: **The width of the content element must be greater than the container element.** Since the child element's width does not exceed the container element by default, the Scroll component's `.cube-scroll-content` element needs to be set to a width greater than the `.cube-scroll-wrapper`.
 
+> Note: If there is any situation where scrolling is not possible, you should first check if the height/width of the content element `.cube-scroll-content` is greater than the height/width of the container element `.cube-scroll-wrapper`. This is a prerequisite for content to scroll. **If there is  images in the content, the scrolling should be not normal. The reason is images may not be downloaded when the DOM element is rendered, so the height of the content element is less than expected. At this point you should manually call the Scroll component's `refresh()` method after the image has been loaded, such as calling in the onload event callback, which will recalculate the scroll distance.**
+
+
 ### Example
 
 Seven sample code to quickly understand how to use the Scroll component.

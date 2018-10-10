@@ -2,8 +2,8 @@
   <cube-page type="tab-composite-view" title="tab-composite">
     <div slot="content">
       <cube-tab-bar v-model="selectedLabel"
-                    showSlider
-                    :useTransition="disabled"
+                    show-slider
+                    :use-transition="disabled"
                     ref="tabNav"
                     :data="tabLabels">
       </cube-tab-bar>
