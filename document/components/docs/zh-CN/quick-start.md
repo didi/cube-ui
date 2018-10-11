@@ -122,7 +122,7 @@ cube-ui 搭配 webpack 2+ 支持[后编译](#/zh-CN/docs/post-compile)和普通�
           "transform": "cube-ui/lib/${member}",
           "kebabCase": true,
           "style": {
-            "ignore": ["create-api", "better-scroll"]
+            "ignore": ["create-api", "better-scroll", "locale"]
           }
         }
       },
