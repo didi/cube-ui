@@ -193,6 +193,8 @@
 | max | 最大上传文件个数 | Number | 10 | - |
 | auto | 是否自动上传，即选择完文件后自动开始上传 | Boolean | true | - |
 | simultaneousUploads | 并发上传数 | Number | 1 | - |
+| multiple | 是否多选 | Boolean | true | - |
+| accept | input 的 accept 属性值 | String | image/* | - |
 | processFile | 处理原始文件函数 | Function | function (file, next) { next(file) } | - |
 
 * `action` 子配置项
@@ -201,15 +203,15 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
-| target | 上传目标 URL | String | - |
+| target | 上传目标 URL，如果为函数，则传入当前文件对象调用得到目标 URL | String/Function<sup>1.11.0+</sup> | - |
 | fileName | 上传文件时文件的参数名 | String | 'file' |
 | prop | 上传的时候使用文件对象的 prop 属性所对应的值 | String | 'file' |
-| headers | 自定义请求头 | Object | {} |
-| data | 上传需要附加数据 | Object | {} |
+| headers | 自定义请求头，如果为函数，则传入当前文件对象调用得到 headers | Object/Function<sup>1.11.0+</sup> | {} |
+| data | 上传需要附加数据，如果为函数，则传入当前文件对象调用得到 data | Object/Function<sup>1.11.0+</sup> | {} |
 | withCredentials | 标准的 CORS 请求是不会带上 cookie 的，如果想要带的话需要设置 withCredentials 为 true | Boolean | false |
 | timeout | 请求超时时间 | Number | 0 | |
 | progressInterval | 进度回调间隔（单位：ms） | Number | 100 |
-| checkSuccess | 校验是否成功函数，参数为服务端响应数据，返回值为 true 则代表成功 | Function | function (res) { return true } |
+| checkSuccess | 校验是否成功函数，参数为`(服务端响应数据, 当前文件对象 [,cb 回调])`，注意第二个参数和第三个参数是 1.11.0 后新增的，而参数 `cb` 是可选的，异步场景可用，如果没有 `cb` 则取其返回值，如果结果值为 true 则代表成功 | Function | function (res, file) { return true } |
 
 * `processFile` 子配置项
 

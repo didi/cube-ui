@@ -16,7 +16,7 @@ So for the Scroll component, The length of `.cube-scroll-content`, the scroll-co
 
 ### Example
 
-Five sample code to quickly understand how to use the Scroll component.
+Seven sample code to quickly understand how to use the Scroll component.
 
 - **1. Basic usage - Default**
 
@@ -304,6 +304,106 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   > **Note:** In this example, the `pullDownRefresh` configuration item does not have a `stop` value, but it is still able to bounce back to the correct location after the pulldown. The reason is that when the Scroll component is initialized, the pulldown height will be used as the `stop` default value when `beforePullDown === false && isPullingDown === true`.
 
+  **6. Vertical nested scrolls - Vertical Scrolls**
+
+  The `Scroll` component also supports nested scenes (currently only supports two levels of nesting). It's worth celebrating that you don't need to do any work, just use the `Scroll` component as usual. The `Scroll` component will determine if there is a nesting situation and handle nested scrolling issues. By default, nested `Scroll` has the same scrolling behavior as the browser's native nested scene. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue).
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-outer-wrap">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+  **7. Horizontal nested scrolls - Horizontal Scrolls**
+
+  You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue).
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
+  <!-- **8. Textarea within scroll - Textarea**
+
+    Sometimes we need to include the teatarea input box in the `Scroll` component. However, since we disabled the default behavior of the browser 'touch' event when using `Scroll`, we were unable to use the browser's native scrolling in the textarea input box.
+
+    Now through this example, we hope to introduce two ways to solve this problem. The core is to take advantage of `Scroll` to support nesting. We wrap the internal input box with `Scroll` and simulate the scrolling behavior with `Scroll`. But there is a requirement that the input box content area must be highly adaptive, ie the height increases or decreases with the content.
+
+    1）using div to simulate textarea to achieve content area's height adaptation.
+
+    2）using js and textarea to achieve content area's height adaptation.
+
+    Finally, we need some extra work to ensure that the cursor is always in line of sight and consistent with the behavior of the native input box during the input process. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+    ```html
+    <cube-scroll
+      ref="scrollOuter"
+      :options="optionsOuter"
+      class="scroll-outer">
+      ...
+      <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+        <cube-scroll
+          ref="divWrapScroll"
+          :options="options">
+          <div ref="editablediv" contenteditable="true" class="editable-div"
+            @focus="onFocusDiv"
+            @blur="onBlurDiv"
+            @input="onInputDiv">
+          </div>
+        </cube-scroll>
+        <span class="editable-div-indicator">{{divValueCount}}</span>
+      </div>
+      <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+        <cube-scroll
+          ref="nativeWrapScroll"
+          :options="options">
+          <textarea
+            ref="textarea"
+            v-model="textareaValue"
+            @input="onInputNative"
+            @focus="onFocusNative"
+            @blur="onBlurNative"
+            :placeholder="placeholder"
+            class="cube-textarea">
+          </textarea>
+        </cube-scroll>
+        <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+      </div>
+      ...
+    </cube-scroll>
+    ``` -->
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -315,6 +415,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 | listenScroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
+| nestMode | Nested scroll mode, the default is `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on.  | String | 'native', 'free' | 'native' |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
 

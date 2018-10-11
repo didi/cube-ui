@@ -2,17 +2,12 @@
   <div class="cube-swipe">
     <slot>
       <transition-group name="cube-swipe" tag="ul">
-        <li v-for="(item,index) in data" :key="item.item.value">
+        <li v-for="(item, index) in data" :key="item.item.value">
           <cube-swipe-item
-              ref="swipeItem"
-              :btns="item.btns"
-              :item="item.item"
-              :index="index"
-              :auto-shrink="autoShrink"
-              @item-click="onItemClick"
-              @btn-click="onBtnClick"
-              @active="onItemActive">
-          </cube-swipe-item>
+            :btns="item.btns"
+            :item="item.item"
+            :index="index"
+            :auto-shrink="autoShrink" />
         </li>
       </transition-group>
     </slot>
@@ -28,6 +23,11 @@
 
   export default {
     name: COMPONENT_NAME,
+    provide() {
+      return {
+        swipe: this
+      }
+    },
     props: {
       data: {
         type: Array,
@@ -42,8 +42,16 @@
     },
     created() {
       this.activeIndex = -1
+      this.items = []
     },
     methods: {
+      addItem(item) {
+        this.items.push(item)
+      },
+      removeItem(item) {
+        const index = this.items.indexOf(item)
+        this.items.splice(index, 1)
+      },
       onItemClick(item, index) {
         this.$emit(EVENT_ITEM_CLICK, item, index)
       },
@@ -56,7 +64,7 @@
           return
         }
         if (this.activeIndex !== -1) {
-          const activeItem = this.$refs.swipeItem[this.activeIndex]
+          const activeItem = this.items[this.activeIndex]
           activeItem.shrink()
         }
         this.activeIndex = index

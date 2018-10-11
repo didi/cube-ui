@@ -6,10 +6,10 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 ### 示例
 
-- 类型设置
+- alert 类型
 
   ```html
-  <cube-button @click="showAlert">Dialog - type</cube-button>
+  <cube-button @click="showAlert">Dialog - alert</cube-button>
   ```
   ```js
   export default {
@@ -26,7 +26,38 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   }
   ```
 
-  `type` 可选的值为 `alert` (对应为提示框)、`confirm` (对应为确认框)。
+  `type` 可选的值为 `alert` (对应为提示框)、`confirm` (对应为确认框)、`prompt` （对应提示输入框）<sup>1.11.0</sup>。
+
+- 提示输入类型
+
+  ```html
+  <cube-button @click="showPrompt">Dialog - prompt</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showAlert() {
+        this.dialog = this.$createDialog({
+          type: 'prompt',
+          title: '我是标题',
+          prompt: {
+            value: '',
+            placeholder: '请输入'
+          },
+          onConfirm: (e, promptValue) => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: `Prompt value: ${promptValue || ''}`
+            }).show()
+          }
+        }).show()
+      }
+    }
+  }
+  ```
+
+  可通过在 confirm 的事件回调的第二个参数获得输入的值。`prompt` 的值为一个对象，内容会被当做 props 传入 [Input 组件](#/zh-CN/docs/input)。
 
 - 按钮设置
 
@@ -154,7 +185,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| type | 类型 | String | 提示框 alert / 确认框 confirm | alert |
+| type | 类型 | String | 提示框 alert / 确认框 confirm / 提示输入框 prompt<sup>1.11.0</sup> | alert |
 | icon | 图标的 class 名 | String | [参照 style 模块下的内置 icon 部分](#/zh-CN/docs/style) | '' |
 | title | 标题 | String | - | '' |
 | content | 正文 | String | - | '' |
@@ -164,6 +195,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | false |
 | zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | - | 100 |
+| prompt<sup>1.11.0</sup> | prompt 配置，可配置的都是 [Input 组件](#/zh-CN/docs/input) 的 prop | Object | - | {} |
 
 * `confirmBtn` 子配置项
 
@@ -192,11 +224,11 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 参数1 | 参数2 |
 | - | - | - | - |
-| confirm | 点击确认按钮后触发 | 事件对象 e |
-| cancel | 点击取消按钮后触发 | 事件对象 e |
-| close | 点击关闭按钮后触发 | 事件对象 e |
+| confirm | 点击确认按钮后触发 | 事件对象 e | 类型为 prompt 时，输入的值 promptValue |
+| cancel | 点击取消按钮后触发 | 事件对象 e | - |
+| close | 点击关闭按钮后触发 | 事件对象 e | - |
 
 ### 实例方法
 

@@ -80,6 +80,25 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
   `type` 字段决定了 Toast 的显示图标类型，具体对应关系，参见下方的 Props 配置。
 
+- 纯文本类型<sup>1.11.0</sup>
+
+  ```html
+  <cube-button @click="showToastTxtOnly">Toast - txt only</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showToastTxtOnly() {
+        this.toast = this.$createToast({
+          txt: 'Plain txt',
+          type: 'txt'
+        })
+        this.toast.show()
+      }
+    }
+  }
+  ```
+
 - 事件回调
 
   ```html
@@ -129,7 +148,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
-| type | 类型(对应不同的 icon) | String  | loading/correct/error/warn | loading |
+| type | 类型(对应不同的 icon) | String  | loading/correct/error/warn/txt<sup>1.11.0</sup> | loading |
 | mask | 遮罩 | Boolean | true/false | false |
 | txt | 提示信息 | String  | - | '' |
 | time | 显示时间 | Number  | - | 3000 |

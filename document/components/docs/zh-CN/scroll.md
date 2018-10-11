@@ -16,7 +16,7 @@
 
 ### 示例
 
-5 个示例代码快速了解如何使用 Scroll 组件。
+7 个示例代码快速了解如何使用 Scroll 组件。
 
 - **1. 基本使用 - Default**
 
@@ -305,6 +305,106 @@
 
   > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
 
+- **6. 嵌套纵向滚动 - Vertical Scrolls**
+
+  `Scroll`组件还支持嵌套的场景(目前只支持两层嵌套)。值得庆祝的是，对于你不需要做任何工作，只需要像平时使用`Scroll`组件一样即可。`Scroll`组件会自行判断是否有嵌套情况，同时处理嵌套滚动问题。默认情况下，嵌套`Scroll`与浏览器原生嵌套场景的滚动行为相同。下面是`Scroll`组件实现纵向嵌套滚动的例子。完整的示例代码在这里[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-inner-wrap">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+- **7. 嵌套横向滚动 - Horizontal Scrolls**
+
+  你还可以实现横向的嵌套滚动。这里同时设置`nestMode`为`free`，与`native`模式不同的是，`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。而`native`模式下，只在开始滚动时判断是否到达边界，与浏览器原生的嵌套滚动保持一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
+<!-- - **8. Scroll 中嵌套 textarea - Textarea**
+
+  有时候我们需要在 `Scroll` 组件中包含 teatarea 输入框。然而由于我们在使用 `Scroll` 时禁用了浏览器 'touch' 事件的默认行为，因此我们无法在 textarea 输入框中使用浏览器的原生滚动。
+
+  现在我们希望通过这个例子，介绍两种解决这个问题的方法。核心都是利用了 `Scroll` 支持嵌套的能力，我们将内部的输入框用 `Scroll` 进行包装，通过 `Scroll` 去模拟滚动行为。但是有一个要求是，输入框内容区域必须是高度自适应，即高度随内容增加或减少。
+
+  1）利用 div 标签模拟 textarea，实现内容区域高度自适应。
+
+  2）利用 textarea 配合 js，实现高度自适应。
+
+  最后，我们还需要一些额外的工作保证输入过程中，光标能始终在视线内，保持与原生输入框的行为一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+  ```html
+  <cube-scroll 
+    ref="scrollOuter"
+    :options="optionsOuter"
+    class="scroll-outer">
+    ...
+    <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+      <cube-scroll
+        ref="divWrapScroll"
+        :options="options">
+        <div ref="editablediv" contenteditable="true" class="editable-div"
+          @focus="onFocusDiv"
+          @blur="onBlurDiv"
+          @input="onInputDiv">
+        </div>
+      </cube-scroll>
+      <span class="editable-div-indicator">{{divValueCount}}</span>
+    </div>
+    <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+      <cube-scroll
+        ref="nativeWrapScroll"
+        :options="options">
+        <textarea
+          ref="textarea"
+          v-model="textareaValue"
+          @input="onInputNative"
+          @focus="onFocusNative"
+          @blur="onBlurNative"
+          :placeholder="placeholder"
+          class="cube-textarea">
+        </textarea>
+      </cube-scroll>
+      <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+    </div>
+    ...
+  </cube-scroll>
+  ``` -->
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -316,6 +416,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
+| nestMode | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 

@@ -10,8 +10,7 @@
                     ref="swipeItem"
                     :btns="data.btns"
                     :index="index"
-                    @btn-click="onBtnClick"
-                    @active="onItemActive">
+                    @btn-click="onBtnClick">
                   <div @click="onItemClick(data.item, index)" class="item-inner">
                     <div class="icon">
                       <img width="60" height="60" :src="data.item.imgurl">
@@ -41,9 +40,6 @@
         swipeData: customData
       }
     },
-    created() {
-      this.activeIndex = -1
-    },
     methods: {
       onItemClick(item) {
         console.log('click item:', item)
@@ -63,16 +59,6 @@
         } else {
           this.$refs.swipeItem[index].shrink()
         }
-      },
-      onItemActive(index) {
-        if (index === this.activeIndex) {
-          return
-        }
-        if (this.activeIndex !== -1) {
-          const activeItem = this.$refs.swipeItem[this.activeIndex]
-          activeItem.shrink()
-        }
-        this.activeIndex = index
       }
     },
     components: {
