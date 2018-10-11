@@ -278,7 +278,11 @@ Validator is used to validate form data and corresponding warning message.
   Beside the build-in rules, you could use the method `addRule` of Validator to add customized common rule, and `addMessage` method to add corresponding default warning message.
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
+
+  // need use Validator
+  Vue.use(Validator)
 
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
   Validator.addMessage('odd', 'Please input odd.')
@@ -356,7 +360,11 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   - Modify the build-in message
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
+
+  // need use Validator
+  Vue.use(Validator)
 
   Validator.addMessage('required', 'Please input this.')
 

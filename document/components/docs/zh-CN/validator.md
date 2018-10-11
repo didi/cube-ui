@@ -284,8 +284,10 @@
   除了已有的内置规则，你还可以使用 Validator 的 addRule 方法，添加自定义的公共规则，以及 addMessage 方法添加相应的默认提示信息。
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
-
+  // need use Validator
+  Vue.use(Validator)
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
   Validator.addMessage('odd', 'Please input odd.')
   ```
@@ -365,7 +367,11 @@
   - 修改已有提示信息
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
+
+  // need use Validator
+  Vue.use(Validator)
 
   Validator.addMessage('required', '必填')
 
