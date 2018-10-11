@@ -1,4 +1,5 @@
 import {
+  evalOpts,
   STATUS_SUCCESS,
   STATUS_UPLOADING,
   STATUS_ERROR
@@ -16,6 +17,8 @@ export default function ajaxUpload(file, options, changeHandler) {
     progressInterval = 100,
     checkSuccess = function () { return true }
   } = options
+
+  const realTarget = evalOpts(target, file)
 
   file.progress = 0
   file.status = STATUS_UPLOADING
@@ -50,8 +53,9 @@ export default function ajaxUpload(file, options, changeHandler) {
   }
 
   const formData = new window.FormData()
-  Object.keys(data).forEach((key) => {
-    formData.append(key, data[key])
+  const realData = evalOpts(data, file)
+  Object.keys(realData).forEach((key) => {
+    formData.append(key, realData[key])
   })
   formData.append(fileName, file[prop])
 
@@ -67,8 +71,15 @@ export default function ajaxUpload(file, options, changeHandler) {
     file.response = response
     file.responseHeaders = xhr.getAllResponseHeaders()
 
-    const isSuccess = checkSuccess(response)
-    setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
+    if (checkSuccess.length <= 2) {
+      const isSuccess = checkSuccess(response, file)
+      setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
+    } else {
+      // callback
+      checkSuccess(response, file, (isSuccess) => {
+        setStatus(isSuccess ? STATUS_SUCCESS : STATUS_ERROR)
+      })
+    }
   }
   xhr.onerror = function () {
     setStatus(STATUS_ERROR)
@@ -77,12 +88,13 @@ export default function ajaxUpload(file, options, changeHandler) {
     setStatus(STATUS_ERROR)
   }
 
-  xhr.open('POST', target, true)
+  xhr.open('POST', realTarget, true)
   if (withCredentials) {
     xhr.withCredentials = true
   }
-  Object.keys(headers).forEach((key) => {
-    xhr.setRequestHeader(key, headers[key])
+  const realHeaders = evalOpts(headers, file)
+  Object.keys(realHeaders).forEach((key) => {
+    xhr.setRequestHeader(key, realHeaders[key])
   })
   if (timeout > 0) {
     xhr.timeout = timeout

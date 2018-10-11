@@ -12,11 +12,13 @@
 
   2）横向滚动：**内容元素的宽度必须大于容器元素**。由于在默认情况下，子元素的宽度不会超过容器元素，所以需要给 Scroll 组件的 `.cube-scroll-content` 元素设置大于 `.cube-scroll-wrapper` 的宽度。
 
+  > 注意：任何时候如果出现无法滚动的情况，都应该首先查看内容元素`.cube-scroll-content`的元素高度/宽度是否大于容器元素`.cube-scroll-wrapper`的高度/宽度。这是内容能够滚动的前提条件。**如果内容存在图片的情况，可能会出现 DOM 元素渲染时图片还未下载，因此内容元素的高度小于预期，出现滚动不正常的情况。此时你应该在图片加载完成后，比如 onload 事件回调中，手动调用 Scroll 组件的 `refresh()` 方法，它会重新计算滚动距离。**
+
 ### 示例
 
-5 个示例代码快速了解如何使用 Scroll 组件。
+7 个示例代码快速了解如何使用 Scroll 组件。
 
-- **基本使用 - Default**
+- **1. 基本使用 - Default**
 
   通过设置 `data` 属性为一个数组，即可生成能够在容器内优雅滚动的列表。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/default.vue)。
 
@@ -54,36 +56,41 @@
 
   实际上这是一个非常有用的方法，如当我们想要实现“点击不同锚点，列表滚动到相应位置展现不同内容”时，可以使用`scrollTo()`方法。
 
-- **横向滚动 - Horizontal**
+- **2. 横向滚动 - Horizontal**
 
-  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`即可。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
+  Scroll 组件支持横向滚动，只需指定`direction="horizontal"`，同时需要添加相应样式如下。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal.vue)。
 
   ```html
-  <div class="horizontal-scroll-list-wrap">
-    <cube-scroll
-      ref="scroll"
-      direction="horizontal">
-      <ul class="list-wrapper">
-        <li v-for="item in items" class="list-item">{{ item }}</li>
-      </ul>
-    </cube-scroll>
-  </div>
+  <cube-scroll
+    ref="scroll"
+    :data="items"
+    direction="horizontal"
+    class="horizontal-scroll-list-wrap">
+    <ul class="list-wrapper">
+      <li v-for="item in items" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
   ```
 
   ```stylus
-  .cube-scroll-content
-    display: inline-block
+  .horizontal-scroll-list-wrap
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    border-radius: 5px
+    .cube-scroll-content
+      display: inline-block
     .list-wrapper
       padding: 0 10px
       line-height: 60px
       white-space: nowrap
-      .list-item
-        display: inline-block
+    .list-item
+      display: inline-block
   ```
 
-  > **注意**：由上面的滚动原理可知，这里的 CSS 样式设置是必须的，同时只有在滚动内容的宽度大于容器宽度时才可滚动。
+  > **注意**：1. 由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。2. 有时候我们希望横向滚动使用`Scroll`组件来模拟，纵向保留浏览器原生滚动，或者相反的情况。这时你需要传递 better-scroll 配置项 [eventPassthrough](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html#eventpassthrough)。
 
-- **自定义内容和上拉刷新下拉加载 - Customized**
+  这里对样式的设定做简要的解释，为`list-item`元素添加`display: inline-block`是希望元素能够不换行，单行显示。`list-wrapper`添加`white-space: nowrap`是希望遇到父元素边界，依然不换行。另外，关键是`cube-scroll-content`元素添加`display: inline-block`样式，此时`cube-scroll-content`元素的宽度为能够包裹子孙元素的最小宽度，即为连续内联`list-item`元素的宽度之和子元素的最大宽度。具有同样性质的样式还有，浮动元素和绝对定位元素，在不设置具体宽度时，其宽度为包裹子孙元素的最小宽度。
+
+- **3. 自定义内容和上拉刷新下拉加载 - Customized**
 
   `Scroll`组件支持通过插槽自定义列表内容和样式。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/config.vue)。
 
@@ -91,6 +98,7 @@
   <div class="scroll-list-wrap">
     <cube-scroll
       ref="scroll"
+      :data="items"
       :options="options"
       @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">
@@ -99,9 +107,9 @@
   </div>
   ```
 
-  Scroll 组件还支持下拉刷新和上拉加载的能力。默认无下拉刷新/上拉加载，可通过`options`传递配置项`pullDownRefresh`和`pullUpLoad`开启相应功能。开启后，下拉时，Scroll 组件会展示默认下拉动画以及派发`pulling-down`事件，你可以监听`pulling-down`事件更新数据。同理，开启上拉加载后，可通过`pulling-up`事件更新数据。
+  Scroll 组件还支持下拉刷新和上拉加载的能力。默认无下拉刷新/上拉加载，可通过`options`传递配置项`pullDownRefresh`和`pullUpLoad`开启相应功能。开启后，下拉时，Scroll 组件会展示默认下拉动画以及派发`pulling-down`事件，你可以监听`pulling-down`事件更新数据。同理，开启上拉加载后，可通过`pulling-up`事件更新数据。
 
-  `pullDownRefresh`的相关配置有：下拉阈值（threshold）, 回弹位置（stop）, 更新成功文案（txt）和文案显示时间（stopTime）。`pullDownRefresh`和`pullUpLoad`对象的所有配置项和含义见 [Props 配置](#/zh-CN/docs/scroll#cube-Props配置-anchor)
+  `pullDownRefresh`的相关配置有：下拉阈值（threshold）, 回弹位置（stop）, 更新成功文案（txt）和文案显示时间（stopTime）。`pullDownRefresh`和`pullUpLoad`对象的所有配置项和含义见 [Props 配置](#/zh-CN/docs/scroll#cube-Props配置-anchor)
 
   ```javascript
   ... // 省略非核心代码
@@ -145,11 +153,11 @@
   }
   ```
 
-  > **注意**：如果请求结果没有数据更新，则必须调用 Scroll 组件的`forceUpdate()`方法结束此次下拉刷新，这样 Scroll 组件才会开始监听下一次下拉刷新操作。当有数据更新时，Scroll 组件内部会自行调用`forceUpate()`方法
+  > **注意**：如果请求结果没有数据更新，则必须调用 Scroll 组件的`forceUpdate()`方法结束此次下拉刷新/上拉加载，这样 Scroll 组件才会开始监听下一次下拉刷新/上拉加载操作。在上例中数据更新时，没有调用`forceUpdate()`方法，原因为：**如果你向`Scroll`组件传递了`data`属性，那么当`Scroll`组件监听到`data`有更新时会自行调用`forceUpate(true)`方法**，因此推荐传递`data`属性。
 
-- **自定义下拉刷新动画 - 仿京东 App 首页**
+- **4. 自定义下拉刷新动画 - 仿京东 App 首页**
 
-  如果你不喜欢内置的下拉刷新和上拉加载动画，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。Scroll 组件的作用域插槽暴露出的变量非常完善，可以满足绝大多数场景下自定义下拉/上拉动画的需求。下面的例子模仿了京东 App 首页的下拉刷新动画。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue)。
+  如果你不喜欢内置的下拉刷新和上拉加载动画，还可以用[作用域插槽](https://cn.vuejs.org/v2/guide/components.html#作用域插槽)做自定义动画。Scroll 组件的作用域插槽暴露出的变量非常完善，可以满足绝大多数场景下自定义下拉/上拉动画的需求。下面的例子模仿了京东 App 首页的下拉刷新动画。完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/jd.vue)。
 
   ```html
   <cube-scroll
@@ -228,18 +236,18 @@
   }
   ```
   
-  通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
+  通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
 
   | 流程 | beforePulldown | isPullingDown | 备注 |
   | - | - | - | - |
   | 1. 未触发下拉刷新 | true | - | 展示继续下拉引导图案 |
   | 2. 触发下拉刷新 | false | true | 异步请求数据，显示 loading |
-  | 3. 获取数据成功 | false | false | 调用 `forceUpdate()`, 显示成功文案 |
-  | 4. 下拉刷新完成 | true | - | 当调用 `forceUpdate()`后，延迟 stopTime 时间进入步骤 4 |
+  | 3. 获取数据成功 | false | false | 调用 `forceUpdate(true)`, 显示成功文案, 延迟 stopTime 时间进入步骤 4  |
+  | 4. 下拉刷新完成 | true | - | - |
 
-- **高级使用 - 仿头条 App 首页**
+- **5. 高级使用 - 仿头条 App 首页**
 
-  Scroll 组件能够满足绝大多数移动端应用的滚动需求。本例中通过横向和纵向的两个 Scroll 组件快速实现了模仿头条 App 首页的滚动体验。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue)。
+  Scroll 组件能够满足绝大多数移动端应用的滚动需求。本例中通过横向和纵向的两个 Scroll 组件快速实现了模仿头条 App 首页的滚动体验。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/toutiao.vue)。
 
   ```html
   <div class="nav-scroll-list-wrap">
@@ -291,11 +299,111 @@
 
   和“仿京东 APP”示例不同的是，在下拉刷新的自定义动画中，使用了`pulldown`作用域插槽中的`pullDownStyle`和`bubbleY`更方便的实现下拉动画。
 
-  `pullDownStyle`用来控制下拉内容的位置，值为字符串`top: n px`（n 代表数值）。Scroll 组件是通过绝对定位的`top`值来控制下拉内容位置的。初始状态`top`值为负值，大小刚好为下拉内容的高度，因此下拉内容被隐藏到滚动区域上方，当下拉过程中，Scroll 组件会逐渐增大`top`值，实时更新下拉内容的位置。`top`最大值为0，即当下拉内容完全显示后`top`值不再增加。即 `pullY - height <= top <= 0`。（pullY 为下拉距离，height 为下拉内容高度）
+  `pullDownStyle`用来控制下拉内容的位置，值为字符串`top: n px`（n 代表数值）。Scroll 组件是通过绝对定位的`top`值来控制下拉内容位置的。初始状态`top`值为负值，大小刚好为下拉内容的高度，因此下拉内容被隐藏到滚动区域上方，当下拉过程中，Scroll 组件会逐渐增大`top`值，实时更新下拉内容的位置。`top`最大值为0，即当下拉内容完全显示后`top`值不再增加。即 `pullY - height <= top <= 0`。（pullY 为下拉距离，height 为下拉内容高度）
 
-  `bubbleY`用来辅助实现自定义动画。在默认动画中，`bubbleY`用来控制气泡尾巴长度；在头条例子中，用来控制箭头的`padding-top`值，间接控制箭头位置。`bubbleY`的最小值为 0，下拉过程中，当下拉距离大于下拉内容高度后，`bubbleY`开始增大。即`0 <= bubbleY <= pullY - height`。
+  `bubbleY`用来辅助实现自定义动画。在默认动画中，`bubbleY`用来控制气泡尾巴长度；在头条例子中，用来控制箭头的`padding-top`值，间接控制箭头位置。`bubbleY`的最小值为 0，下拉过程中，当下拉距离大于下拉内容高度后，`bubbleY`开始增大。即 `0 <= bubbleY <= pullY - height`。
 
-  > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
+  > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
+
+- **6. 嵌套纵向滚动 - Vertical Scrolls**
+
+  `Scroll`组件还支持嵌套的场景(目前只支持两层嵌套)。值得庆祝的是，对于你不需要做任何工作，只需要像平时使用`Scroll`组件一样即可。`Scroll`组件会自行判断是否有嵌套情况，同时处理嵌套滚动问题。默认情况下，嵌套`Scroll`与浏览器原生嵌套场景的滚动行为相同。下面是`Scroll`组件实现纵向嵌套滚动的例子。完整的示例代码在这里[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-inner-wrap">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+- **7. 嵌套横向滚动 - Horizontal Scrolls**
+
+  你还可以实现横向的嵌套滚动。这里同时设置`nestMode`为`free`，与`native`模式不同的是，`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。而`native`模式下，只在开始滚动时判断是否到达边界，与浏览器原生的嵌套滚动保持一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
+<!-- - **8. Scroll 中嵌套 textarea - Textarea**
+
+  有时候我们需要在 `Scroll` 组件中包含 teatarea 输入框。然而由于我们在使用 `Scroll` 时禁用了浏览器 'touch' 事件的默认行为，因此我们无法在 textarea 输入框中使用浏览器的原生滚动。
+
+  现在我们希望通过这个例子，介绍两种解决这个问题的方法。核心都是利用了 `Scroll` 支持嵌套的能力，我们将内部的输入框用 `Scroll` 进行包装，通过 `Scroll` 去模拟滚动行为。但是有一个要求是，输入框内容区域必须是高度自适应，即高度随内容增加或减少。
+
+  1）利用 div 标签模拟 textarea，实现内容区域高度自适应。
+
+  2）利用 textarea 配合 js，实现高度自适应。
+
+  最后，我们还需要一些额外的工作保证输入过程中，光标能始终在视线内，保持与原生输入框的行为一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+  ```html
+  <cube-scroll 
+    ref="scrollOuter"
+    :options="optionsOuter"
+    class="scroll-outer">
+    ...
+    <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+      <cube-scroll
+        ref="divWrapScroll"
+        :options="options">
+        <div ref="editablediv" contenteditable="true" class="editable-div"
+          @focus="onFocusDiv"
+          @blur="onBlurDiv"
+          @input="onInputDiv">
+        </div>
+      </cube-scroll>
+      <span class="editable-div-indicator">{{divValueCount}}</span>
+    </div>
+    <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+      <cube-scroll
+        ref="nativeWrapScroll"
+        :options="options">
+        <textarea
+          ref="textarea"
+          v-model="textareaValue"
+          @input="onInputNative"
+          @focus="onFocusNative"
+          @blur="onBlurNative"
+          :placeholder="placeholder"
+          class="cube-textarea">
+        </textarea>
+      </cube-scroll>
+      <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+    </div>
+    ...
+  </cube-scroll>
+  ``` -->
 
 ### Props 配置
 
@@ -308,6 +416,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
+| nestMode | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 
@@ -357,8 +466,14 @@
 | 方法名 | 说明 | 参数 |
 | - | - | - |
 | scrollTo | 滚动到指定位置 | x: 横向位置<br> y: 纵向位置<br> time: 过渡动画时间<br> ease: 动画曲线 |
+| forceUpdate | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: 是否有数据更新，默认为 false。true 表示有数据更新重新计算可滚动距离，上拉文案显示`pullUpLoad.text.more`值，false 表示没有数据更新，无需重新计算, 上拉文案显示`pullUpLoad.text.nomore`值 |
 | disable | 禁用滚动 | - |
-| enable | 启用滚动，默认是开启滚动的 | - |
-| forceUpdate | 强制更新状态，用于上拉或者下拉无数据的情况 | - |
+| enable | 启用滚动，默认是开启滚动的。 | - |
 | resetPullUpTxt | 当从无更多切换到有更多时，重置上拉文本内容 | - |
 | refresh | 刷新，重新计算高度且刷新 BetterScroll 实例 | - |
+
+### 内部属性
+
+| 属性名 | 说明 |
+| - | - |
+| scroll | 可以通过该属性获得内部实现滚动核心的 BScoll 实例，从而获得更多 BScoll 的底层能力，如监听`touchEnd`事件，获得滚动中的中间状态等，具体可查看[ better-scroll 文档](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/) |

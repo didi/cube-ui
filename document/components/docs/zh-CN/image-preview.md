@@ -8,11 +8,14 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 ### 示例
 
+如下示例相关代码在[这里](https://github.com/didi/cube-ui/tree/master/example/pages/image-preview)。
+
 - 默认使用
 
   ```html
   <cube-button @click="showImagePreview">Show ImagePreview</cube-button>
   ```
+
   ```js
   export default {
     data() {
@@ -34,13 +37,63 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     }
   }
   ```
+
   只需要提供 `imgs` 图片地址列表就可以了。
+
+- 多图场景
+
+  ```html
+  <div class="imgs-container">
+    <img
+      :src="img"
+      v-for="(img, index) in imgs"
+      :key="img"
+      @click="handleImgsClick(index)">
+  </div>
+  ```
+
+  ```js
+  export default {
+    data() {
+      return {
+        initialIndex: 0,
+        imgs: [
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mpd5uj21hc0tyws2.jpg',
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0ncnnej21hc0zetxo.jpg',
+          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mqvu5j21hc0zkgzz.jpg'
+        ]
+      }
+    },
+    methods: {
+      handleImgsClick(index) {
+        this.initialIndex = index
+        const params = {
+          $props: {
+            imgs: this.imgs,
+            initialIndex: 'initialIndex', // 响应式数据的key名
+            loop: false
+          },
+          $events: {
+            change: (i) => {
+              // 必须更新 initialIndex
+              this.initialIndex = i
+            }
+          }
+        }
+        this.$createImagePreview({ ...params }).show()
+      }
+    }
+  }
+  ```
+
+  大多数应用场景都是多图点击之后，实例化 image-preview 组件，展示的图片是每次被点击的图片。
 
 - 自定义使用
 
   ```html
-  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube
+  <cube-button @click="showCustomImagePreview">Show Custom ImagePreview</cube-button>
   ```
+
   ```js
   export default {
     data() {
@@ -91,6 +144,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | loop | 是否可循环 | Boolean | true/false | true |
 | speed | 轮播速度，单位 ms | Number | - | 400 |
 | zIndex<sup>1.10.11</sup> | 样式 z-index 的值 | Number | - | 100 |
+| preventDefault<sup>1.10.16</sup> | 是否阻止默认行为，因底层使用 BetterScroll 实现 | Boolean | true/false | true |
 
 ### 插槽
 

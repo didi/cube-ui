@@ -53,6 +53,23 @@ describe('Dialog', () => {
         .to.equal(2)
     })
 
+    it('should render correct contents - prompt', () => {
+      vm = createDialog({
+        type: 'prompt',
+        title: 'Prompt',
+        prompt: {
+          value: '',
+          placeholder: 'Please input'
+        }
+      })
+      expect(vm.$el.querySelector('.cube-dialog-prompt').parentElement.className)
+        .to.equal('cube-dialog-main')
+      expect(vm.$el.querySelector('.cube-input-field').placeholder)
+        .to.equal('Please input')
+      expect(vm.$el.querySelector('.cube-dialog-btns').getElementsByTagName('a').length)
+        .to.equal(2)
+    })
+
     it('should render correct contents - confirmBtn/cancelBtn', () => {
       const href = 'https://didichuxing.com/'
       vm = createDialog({

@@ -29,6 +29,9 @@ import ScrollConfig from '../pages/scroll/config.vue'
 import ScrollJd from '../pages/scroll/jd.vue'
 import ScrollHorizontal from '../pages/scroll/horizontal.vue'
 import ScrollToutiao from '../pages/scroll/toutiao.vue'
+import VScrolls from '../pages/scroll/vertical-scrolls.vue'
+import HScrolls from '../pages/scroll/horizontal-scrolls.vue'
+import TextareaInScroll from '../pages/scroll/textarea.vue'
 import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
@@ -57,13 +60,15 @@ import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 import ScrollNav from '../pages/scroll-nav/index.vue'
 import ScrollNavDefault from '../pages/scroll-nav/default.vue'
 import ScrollNavSide from '../pages/scroll-nav/side.vue'
-import ImagePreview from '../pages/image-preview.vue'
+import ImagePreviewIndex from '../pages/image-preview/index.vue'
+import MultiImagesPreview from '../pages/image-preview/multi-images-preview.vue'
 import TabBarIndex from '../pages/tab-bar/index.vue'
 import TabBar from '../pages/tab-bar/tab-bar.vue'
 import Tab from '../pages/tab-bar/tab-entry.vue'
 import TabBasic from '../pages/tab-bar/tab-basic.vue'
 import TabComposite from '../pages/tab-bar/tab-composite.vue'
 import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
+import Checker from '../pages/checker.vue'
 
 const routes = [
   {
@@ -77,6 +82,10 @@ const routes = [
   {
     path: '/checkbox-group',
     component: CheckboxGroup
+  },
+  {
+    path: '/checker',
+    component: Checker
   },
   {
     path: '/radio',
@@ -188,7 +197,13 @@ const routes = [
   },
   {
     path: '/image-preview',
-    component: ImagePreview
+    component: ImagePreviewIndex,
+    children: [
+      {
+        path: 'multi-images-preview',
+        component: MultiImagesPreview
+      }
+    ]
   },
   {
     path: '/scroll',
@@ -213,6 +228,18 @@ const routes = [
       {
         path: 'toutiao',
         component: ScrollToutiao
+      },
+      {
+        path: 'v-scrolls',
+        component: VScrolls
+      },
+      {
+        path: 'h-scrolls',
+        component: HScrolls
+      },
+      {
+        path: 'textarea',
+        component: TextareaInScroll
       }
     ]
   },

@@ -6,10 +6,10 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Example
 
-- Dialog type
+- Alert type
 
   ```html
-  <cube-button @click="showAlert">Dialog - type</cube-button>
+  <cube-button @click="showAlert">Dialog - alert</cube-button>
   ```
   ```js
   export default {
@@ -26,7 +26,38 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
-  `type` will be one of the following: `alert`, `confirm`.
+  `type` will be one of the following: `alert`, `confirm`, `prompt` <sup>1.11.0</sup>.
+
+- Prompt type
+
+  ```html
+  <cube-button @click="showPrompt">Dialog - prompt</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showAlert() {
+        this.dialog = this.$createDialog({
+          type: 'prompt',
+          title: '我是标题',
+          prompt: {
+            value: '',
+            placeholder: '请输入'
+          },
+          onConfirm: (e, promptValue) => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: `Prompt value: ${promptValue || ''}`
+            }).show()
+          }
+        }).show()
+      }
+    }
+  }
+  ```
+
+  You can get prompt input value in confirm event handler. And `prompt` value will be passed to [Input component](#/en-US/docs/input) as props.
 
 - Button configuration
 
@@ -154,7 +185,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| type | dialog type | String | alert / confirm | alert |
+| type | dialog type | String | alert / confirm / prompt<sup>1.11.0</sup> | alert |
 | icon | icon class name | String | [refer to built-in icons in style module](#/en-US/docs/style) | '' |
 | title | title | String | - | '' |
 | content | content | String | - | '' |
@@ -164,6 +195,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | false |
 | zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 |
+| prompt<sup>1.11.0</sup> | prompt config, all [Input component's](#/en-US/docs/input)props | Object | - | {} |
 
 * `confirmBtn` sub configuration
 
@@ -192,11 +224,11 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Events
 
-| Event Name | Description | Parameters |
+| Event Name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
-| confirm | triggers when the confirm button is clicked | e - event target |
-| cancel | triggers when the cancel button is clicked | e - event target |
-| close | triggers when the close button is clicked | e - event target |
+| confirm | triggers when the confirm button is clicked | e - event target | the prompt input value when `type` is `'prompt'`<sup>1.11.0</sup> |
+| cancel | triggers when the cancel button is clicked | e - event target | - |
+| close | triggers when the close button is clicked | e - event target | - |
 
 ### Instance methods
 

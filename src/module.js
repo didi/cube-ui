@@ -13,6 +13,7 @@ import TabPanels from './modules/tab-panels'
 // Form
 import Checkbox from './modules/checkbox'
 import CheckboxGroup from './modules/checkbox-group'
+import Checker from './modules/checker'
 import RadioGroup from './modules/radio-group'
 import Input from './modules/input'
 import Textarea from './modules/textarea'
@@ -60,6 +61,7 @@ const StickyEle = Sticky.Ele
 const ScrollNavPanel = ScrollNav.Panel
 const Tab = TabBar.Tab
 const TabPanel = TabPanels.Panel
+const CheckerItem = Checker.Item
 
 export {
   // style
@@ -78,6 +80,8 @@ export {
   // form
   Checkbox,
   CheckboxGroup,
+  CheckerItem,
+  Checker,
   Radio,
   RadioGroup,
   Input,

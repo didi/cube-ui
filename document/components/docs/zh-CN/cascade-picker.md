@@ -206,6 +206,9 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
       })
     },
     methods: {
+      showAsyncPicker() {
+        this.asyncPicker.show()
+      },
       asyncChangeHandle(i, newIndex) {
         if (newIndex !== asyncSelectedIndex[i]) {
           asyncSelectedIndex[i] = newIndex

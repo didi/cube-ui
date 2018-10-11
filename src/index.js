@@ -13,6 +13,7 @@ import {
   // form
   Checkbox,
   CheckboxGroup,
+  Checker,
   Radio,
   RadioGroup,
   Input,
@@ -62,6 +63,7 @@ const components = [
   // form
   Checkbox,
   CheckboxGroup,
+  Checker,
   Radio,
   RadioGroup,
   Input,

@@ -205,8 +205,12 @@ describe('ImagePreview', () => {
               // move cb
             }, () => {
               // end cb
-              expect(itemScroll.enabled)
+              // in PhantomJS, enabled becomes false in the nextTick
+              // but becomes false in the same tick in safari
+              vm.$nextTick(() => {
+                expect(itemScroll.enabled)
                 .to.be.false
+              })
               expect(slideScroll.enabled)
                 .to.be.true
               setTimeout(() => {
