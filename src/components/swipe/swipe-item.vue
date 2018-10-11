@@ -6,7 +6,7 @@
        @touchend="onTouchEnd"
        class="cube-swipe-item">
     <slot>
-      <div @click="clickItem(item)" class="cube-swipe-item-inner border-bottom-1px">
+      <div @click="clickItem" class="cube-swipe-item-inner border-bottom-1px">
         <span>{{item.text}}</span>
       </div>
     </slot>
@@ -52,6 +52,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    inject: ['swipe'],
     props: {
       item: {
         type: Object,
@@ -74,9 +75,17 @@
         default: false
       }
     },
+    watch: {
+      btns() {
+        this.$nextTick(() => {
+          this.refresh()
+        })
+      }
+    },
     created() {
       this.x = 0
       this.state = STATE_SHRINK
+      this.swipe.addItem(this)
     },
     mounted() {
       this.scrollerStyle = this.$refs.swipeItem.style
@@ -218,10 +227,12 @@
       genBtnStyl(btn) {
         return `background: ${btn.color}`
       },
-      clickItem(item) {
-        this.$emit(EVENT_ITEM_CLICK, item, this.index)
+      clickItem() {
+        this.swipe.onItemClick(this.item, this.index)
+        this.$emit(EVENT_ITEM_CLICK, this.item, this.index)
       },
       clickBtn(btn) {
+        this.swipe.onBtnClick(btn, this.index)
         this.$emit(EVENT_BTN_CLICK, btn, this.index)
         if (this.autoShrink) {
           this.shrink()
@@ -236,6 +247,7 @@
         }
       },
       onTouchStart(e) {
+        this.swipe.onItemActive(this.index)
         this.$emit(EVENT_ACTIVE, this.index)
         this.stop()
         this.moved = false
@@ -329,12 +341,8 @@
         this._translate(this.x)
       }
     },
-    watch: {
-      btns() {
-        this.$nextTick(() => {
-          this.refresh()
-        })
-      }
+    beforeDestroy() {
+      this.swipe.removeItem(this)
     }
   }
 </script>

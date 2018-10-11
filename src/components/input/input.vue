@@ -72,7 +72,7 @@
       step: Number,
       tabindex: String,
       clearable: {
-        type: Boolean,
+        type: [Boolean, Object],
         default: false
       },
       eye: {
@@ -84,6 +84,10 @@
       return {
         inputValue: this.value,
         isFocus: false,
+        formatedClearable: {
+          visible: false,
+          blurHidden: true
+        },
         formatedEye: {
           open: false,
           reverse: false
@@ -99,7 +103,11 @@
         return type
       },
       _showClear() {
-        return this.clearable && this.inputValue && !this.readonly && !this.disabled
+        let visible = this.formatedClearable.visible && this.inputValue && !this.readonly && !this.disabled
+        if (this.formatedClearable.blurHidden && !this.isFocus) {
+          visible = false
+        }
+        return visible
       },
       _showPwdEye() {
         return this.type === 'password' && this.eye && !this.disabled
@@ -119,16 +127,31 @@
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
       },
+      clearable: {
+        handler() {
+          this.formatClearable()
+        },
+        deep: true,
+        immediate: true
+      },
       eye: {
         handler() {
           this.formateEye()
         },
+        deep: true,
         immediate: true
       }
     },
     methods: {
       changeHander(e) {
         this.$emit(EVENT_CHANGE, e)
+      },
+      formatClearable() {
+        if (typeof this.clearable === 'boolean') {
+          this.formatedClearable.visible = this.clearable
+        } else {
+          Object.assign(this.formatedClearable, this.clearable)
+        }
       },
       formateEye() {
         if (typeof this.eye === 'boolean') {
@@ -181,16 +204,15 @@
       color: $input-placeholder-color!important
       text-overflow: ellipsis
     + .cube-input-append
-      margin-left: -5px
+      .cube-input-clear, .cube-input-eye
+        &:first-child
+          margin-left: -5px
   .cube-input_active
     &::after
       border-color: $input-focus-border-color
   .cube-input-prepend, .cube-input-append
     display: flex
     align-items: center
-  .cube-input-prepend
-    + .cube-input-field
-      margin-left: -5px
   .cube-input-clear, .cube-input-eye
     width: 1em
     height: 1em

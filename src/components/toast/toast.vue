@@ -7,8 +7,8 @@
       v-show="isVisible"
       @mask-click="maskClick"
       >
-      <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
-      <cube-loading v-show="isLoading"></cube-loading>
+      <i v-if="!isLoading && iconClass.length" class="cube-toast-icon" :class="iconClass"></i>
+      <cube-loading v-if="isLoading"></cube-loading>
       <div v-show="txt" class="cube-toast-tip" v-html="txt"></div>
     </cube-popup>
   </transition>
@@ -55,9 +55,9 @@
     },
     computed: {
       iconClass() {
-        const iconClass = {}
+        const iconClass = []
         if (this.icon) {
-          iconClass[this.icon] = true
+          iconClass.push(this.icon)
         }
         const classMap = {
           correct: 'cubeic-right',
@@ -66,7 +66,7 @@
         }
         const icon = classMap[this.type]
         if (icon) {
-          iconClass[icon] = true
+          iconClass.push(icon)
         }
         return iconClass
       },
@@ -127,7 +127,9 @@
     max-width: 12em
     max-height: 40px
     overflow: hidden
-    margin-left: 8px
+  .cube-toast-icon, .cube-loading
+    ~ .cube-toast-tip
+      margin-left: 8px
 
   .cube-toast-fade-enter-active
     animation: toast-in .2s

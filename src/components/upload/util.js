@@ -51,3 +51,10 @@ function createURL(file) {
   }
   return ''
 }
+
+export function evalOpts(data, ...args) {
+  if (typeof data === 'function') {
+    return data.apply(this, args)
+  }
+  return data
+}

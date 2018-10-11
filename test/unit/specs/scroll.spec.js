@@ -434,10 +434,125 @@ describe('Scroll', () => {
     vm.destroy()
   })
 
-  function createScroll(props = {}, events = {}) {
+  describe('Nest Scrolls', () => {
+    it('should render scrolls correct', function () {
+      vm = createNestScrolls()
+
+      const innerScroll = vm.$parent.$refs.innerScroll
+
+      expect(innerScroll.parentScroll).to.be.a('object')
+    })
+
+    it('should disable outer scroll when touch the inner one and not reach boundary', function (done) {
+      let cnt = 0
+      vm = createNestScrolls({
+        innerProps: {
+          scrollEvents: ['scroll']
+        },
+        innerEvents: {
+          scroll: () => {
+            if (cnt === 1) { // we disable the outer scroll in first 'scroll' event
+              expect(vm.scroll.enabled).to.be.false
+              done()
+            }
+            cnt++
+          }
+        }
+      })
+
+      vm.$refs.wrapper.style.height = '500px'
+      vm.refresh()
+      const innerScroll = vm.$parent.$refs.innerScroll
+      innerScroll.$refs.wrapper.style.height = '200px'
+
+      setTimeout(() => { // waiting scroll init
+        const listItem = innerScroll.$el.querySelector('.cube-scroll-content li:nth-child(1)')
+        dispatchSwipe(listItem, [
+          {
+            pageX: 20, // using for touchstart
+            pageY: 200
+          },
+          {
+            pageX: 20, // using for fire first touchmove. we disabled outer scroll when this event fire.
+            pageY: 180
+          },
+          {
+            pageX: 20, // using for second touchmove, now we check whether outer scroll is disabled.
+            pageY: 160
+          }
+        ], 200)
+      }, 200)
+    })
+
+    it('should disable inner scroll when touch the inner one and reach boundary', function (done) {
+      vm = createNestScrolls({
+        outerProps: {
+          scrollEvents: ['scroll']
+        },
+        outerEvents: {
+          scroll: () => {
+            // the inner scroll was disabled in first 'scroll' event, so here we skip first 'scroll' event
+            expect(innerScroll.scroll.enabled).to.be.false
+            done()
+          }
+        }
+      })
+
+      vm.$refs.wrapper.style.height = '300px'
+      vm.refresh()
+      const innerScroll = vm.$parent.$refs.innerScroll
+      innerScroll.$refs.wrapper.style.height = '200px'
+
+      setTimeout(() => { // waiting scroll init
+        vm.scroll.aname = 'outer'
+        innerScroll.scroll.aname = 'inner'
+        const listItem = innerScroll.$el.querySelector('.cube-scroll-content li:nth-child(1)')
+        dispatchSwipe(listItem, [
+          {
+            pageX: 20, // using for touchstart
+            pageY: 100
+          },
+          {
+            pageX: 20, // using for fire first touchmove. we disabled outer scroll when this event fire, And since we assign outerScroll.pointY = innerScroll.pointY,
+            pageY: 120 // so this touchmove event will not trigger outerScroll's "scroll" event, due to "We need to move at least momentumLimitDistance pixels for the scrolling to initiate" (from better-scroll)
+          },
+          {
+            pageX: 20, // using for second touchmove, now we check if the inner scroll is disabled .
+            pageY: 140
+          }
+        ], 200)
+      }, 200)
+    })
+  })
+
+  function createScroll(props = {}, events = {}, renderFn) {
     return instantiateComponent(Vue, Scroll, {
       props: props,
       on: events
+    }, renderFn)
+  }
+
+  function createNestScrolls(options = {}) {
+    const { outerProps = {}, outerEvents = {}, innerProps = {}, innerEvents = {} } = options
+    return createScroll(outerProps, outerEvents, (h) => {
+      return h('div', [
+        h('ul', [
+          ...data.map(item => {
+            return h('li', item)
+          })
+        ]),
+        h(Scroll, {
+          ref: 'innerScroll',
+          class: 'inner-scroll',
+          props: {data, ...innerProps},
+          on: {...innerEvents}
+        }),
+        h('ul', [
+          ...data.map(item => {
+            return h('li', item)
+          })
+        ])
+      ])
     })
   }
 })

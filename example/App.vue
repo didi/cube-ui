@@ -67,6 +67,10 @@
                 text: 'CheckboxGroup'
               },
               {
+                path: '/checker',
+                text: 'Checker'
+              },
+              {
                 path: '/radio',
                 text: 'Radio'
               },

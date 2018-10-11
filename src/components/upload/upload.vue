@@ -3,7 +3,7 @@
     <slot>
       <div class="cube-upload-def clear-fix">
         <upload-file v-for="(file, i) in files" :file="file" :key="i" @click="fileClick"></upload-file>
-        <upload-btn v-show="isShowBtn"></upload-btn>
+        <upload-btn :multiple="multiple" :accept="accept" v-show="isShowBtn"></upload-btn>
       </div>
     </slot>
   </div>
@@ -12,6 +12,7 @@
   import UploadBtn from './btn.vue'
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'
+  import btnMixin from './btn-mixin'
   import {
     processFiles,
     newFile,
@@ -33,6 +34,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [btnMixin],
     props: {
       value: {
         type: Array,
