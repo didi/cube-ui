@@ -64,12 +64,8 @@ export default function ajaxUpload(file, options, changeHandler) {
       setStatus(STATUS_ERROR)
       return
     }
-    let response = xhr.responseText || xhr.response
-    try {
-      response = JSON.parse(response)
-    } catch (e) {}
-    file.response = response
-    file.responseHeaders = xhr.getAllResponseHeaders()
+    setResponse()
+    const response = file.response
 
     if (checkSuccess.length <= 2) {
       const isSuccess = checkSuccess(response, file)
@@ -82,9 +78,11 @@ export default function ajaxUpload(file, options, changeHandler) {
     }
   }
   xhr.onerror = function () {
+    setResponse()
     setStatus(STATUS_ERROR)
   }
   xhr.ontimeout = function () {
+    setResponse()
     setStatus(STATUS_ERROR)
   }
 
@@ -107,5 +105,13 @@ export default function ajaxUpload(file, options, changeHandler) {
     file.progress = 1
     file.status = status
     changeHandler && changeHandler(file)
+  }
+  function setResponse() {
+    let response = xhr.responseText || xhr.response
+    try {
+      response = JSON.parse(response)
+    } catch (e) {}
+    file.response = response
+    file.responseHeaders = xhr.getAllResponseHeaders()
   }
 }
