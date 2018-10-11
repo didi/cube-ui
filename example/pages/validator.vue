@@ -59,7 +59,6 @@
 
   // Add or rewrite the build-in rule, type and message.
   import { Validator } from '../../src/module'
-
   export default {
     data() {
       return {
@@ -128,11 +127,12 @@
       }
     },
     created() {
-      Validator.setLanguage('en')
       Validator.addRule('odd', (val, config, type) => {
         return Number(val) % 2 === 1
       })
-      Validator.addMessage('odd', 'Please input odd.')
+      Validator.addMessage('odd', (config) => {
+        return 'Please input odd.'
+      })
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
       })
