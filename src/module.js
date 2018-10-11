@@ -1,4 +1,6 @@
 import Style from './modules/style'
+// locale
+import Locale from './modules/locale'
 
 // Basic
 import Button from './modules/button'
@@ -64,6 +66,8 @@ const CheckerItem = Checker.Item
 export {
   // style
   Style,
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
