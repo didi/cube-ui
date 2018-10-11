@@ -1,11 +1,15 @@
 import Vue from 'vue2'
 import Validator from '@/modules/validator'
+import Locale from '@/modules/locale'
+import enUSMessages from '@/locale/lang/en-US'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 
 describe('Validator', () => {
   describe('Validator.vue', () => {
     let vm
     afterEach(() => {
+      // reset language
+      Locale.use('zh-CN')
       if (vm) {
         vm.$parent.destroy()
         vm = null
@@ -197,6 +201,78 @@ describe('Validator', () => {
         expect(validatedHandler)
           .to.be.calledOnce
         done()
+      }, 50)
+    })
+
+    it('should render correct contents when the language has changed to English', (done) => {
+      Locale.use('en-US', enUSMessages)
+      vm = createValidator({
+        model: '',
+        rules: {
+          required: true
+        }
+      })
+      const el = vm.$el
+      const msgEl = el.querySelector('.cube-validator-msg-def')
+      setTimeout(() => {
+        expect(msgEl.textContent)
+          .to.equal('Required.')
+        done()
+      }, 50)
+    })
+
+    it('should render correct contents when using helper function', (done) => {
+      Locale.use('en-US', enUSMessages)
+      Validator.addMessage('min', {
+        'number': 'The number could not smaller than {{config | tips("please try it later")}}.'
+      })
+      Validator.addHelper('tips', function(result, tips) {
+        return `${result}, ${tips}`
+      })
+      vm = createValidator({
+        model: 8,
+        rules: {
+          type: 'number',
+          min: 10
+        }
+      })
+      const el = vm.$el
+      const msgEl = el.querySelector('.cube-validator-msg-def')
+      setTimeout(() => {
+        expect(msgEl.textContent)
+          .to.equal('The number could not smaller than 10, please try it later.')
+        done()
+      }, 50)
+    })
+
+    it('should render correct contents when using string-template', (done) => {
+      Locale.use('en-US', enUSMessages)
+      vm = createValidator({
+        model: 'abc',
+        rules: {
+          required: true,
+          type: 'string',
+          min: 6
+        }
+      })
+      const el = vm.$el
+      const msgEl = el.querySelector('.cube-validator-msg-def')
+      setTimeout(() => {
+        expect(msgEl.textContent)
+          .to.equal('Please input at least 6 characters.')
+        vm.$updateProps({
+          model: '2018-10-10',
+          rules: {
+            required: true,
+            type: 'date',
+            min: '2020-10-10'
+          }
+        })
+        setTimeout(() => {
+          expect(msgEl.textContent)
+            .to.equal('Please select a date after 2020-10-10.')
+          done()
+        }, 100)
       }, 50)
     })
   })
@@ -521,6 +597,20 @@ describe('Validator', () => {
         .to.not.equal('')
     })
 
+    it('should support adding message when the seconde parameter is a function', () => {
+      Validator.addRule('even', (val, config, type) => !config || Number(val) % 2 === 0)
+      Validator.addMessage('even', () => { return '请输入偶数' })
+
+      vm = createValidator({
+        model: 1,
+        rules: {
+          even: true
+        }
+      })
+      expect(vm.$data.msg)
+        .to.equal('请输入偶数')
+    })
+
     it('should rewrite raw type', () => {
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
@@ -534,19 +624,6 @@ describe('Validator', () => {
       })
       expect(vm.$data.msg)
         .to.not.equal('')
-    })
-
-    it('should change the language of default message', () => {
-      Validator.setLanguage('en')
-
-      vm = createValidator({
-        model: '',
-        rules: {
-          required: true
-        }
-      })
-      expect(vm.$data.msg)
-        .to.equal('Required.')
     })
   })
 

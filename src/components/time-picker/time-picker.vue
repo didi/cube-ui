@@ -4,10 +4,10 @@
     v-model="isVisible"
     :data="cascadeData"
     :selected-index="selectedIndex"
-    :title="title"
+    :title="_title"
     :subtitle="subtitle"
-    :cancel-txt="cancelTxt"
-    :confirm-txt="confirmTxt"
+    :cancel-txt="_cancelTxt"
+    :confirm-txt="_confirmTxt"
     :swipe-time="swipeTime"
     :z-index="zIndex"
     :mask-closable="maskClosable"
@@ -30,6 +30,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
   import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
   import { warn } from '../../common/helpers/debug'
 
@@ -39,8 +40,7 @@
   const EVENT_CHANGE = 'change'
 
   const NOW = {
-    value: 'now',
-    defaultText: '现在'
+    value: 'now'
   }
 
   const INT_RULE = {
@@ -53,14 +53,14 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
     components: {
       CubeCascadePicker
     },
     props: {
       title: {
         type: String,
-        default: '选择时间'
+        default: ''
       },
       delay: {
         type: Number,
@@ -70,9 +70,7 @@
         type: Object,
         default() {
           return {
-            len: 3,
-            filter: ['今日'],
-            format: 'M月D日'
+            len: 3
           }
         }
       },
@@ -97,8 +95,19 @@
       }
     },
     computed: {
+      _title () {
+        return this.title || this.$t('selectTime')
+      },
+      _day () {
+        const defaultDay = {
+          filter: [this.$t('today')],
+          format: this.$t('formatDate')
+        }
+        return Object.assign({}, defaultDay, this.day)
+      },
       nowText() {
-        return (this.showNow && this.showNow.text) || NOW.defaultText
+        const defaultText = this.$t('now')
+        return (this.showNow && this.showNow.text) || defaultText
       },
       minuteStepRule() {
         const minuteStep = this.minuteStep
@@ -124,11 +133,11 @@
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
 
-        for (let i = 0; i < this.day.len; i++) {
+        for (let i = 0; i < this._day.len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
           days.push({
             value: timestamp,
-            text: (this.day.filter && this.day.filter[dayDiff + i]) || formatDate(new Date(timestamp), this.day.format)
+            text: (this._day.filter && this._day.filter[dayDiff + i]) || formatDate(new Date(timestamp), this._day.format)
           })
         }
         return days
@@ -138,7 +147,7 @@
         for (let i = 0; i < 24; i++) {
           hours.push({
             value: i,
-            text: i + '点',
+            text: `${i}${this.$t('hours')}`,
             children: this.minutes
           })
         }
@@ -162,7 +171,7 @@
         for (let i = 0; i < 60; i += this.minuteStepNumber) {
           minutes.push({
             value: i,
-            text: pad(i) + '分'
+            text: `${pad(i)}${this.$t('minutes')}`
           })
         }
         return minutes

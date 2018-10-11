@@ -1,6 +1,8 @@
 import {
   /* eslint-disable no-unused-vars */
   Style,
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
@@ -49,6 +51,8 @@ import {
 import { processComponentName } from './common/helpers/util'
 
 const components = [
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
