@@ -1,4 +1,7 @@
 import { createAddAPI } from '../util'
+
+const DATE_RE = /^(1|2)\d{3}[.\-/]\d{1,2}[.\-/]\d{1,2}$/
+
 const types = {
   string: (val) => {
     return typeof val === 'string'
@@ -10,7 +13,7 @@ const types = {
     return Array.isArray(val)
   },
   date: (val) => {
-    return !isNaN(Number(val))
+    return !isNaN(Number(val)) || DATE_RE.test(val)
   },
   email: (val) => {
     return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)+$/i.test(val)

@@ -8,7 +8,8 @@
         "quick-start": "QuickStart",
         "post-compile": "PostCompile",
         "theme": "Theme",
-        "singleton": "Singleton"
+        "singleton": "Singleton",
+        "internationalization": "Internationalization"
       }
     },
     "components": {
@@ -91,7 +92,8 @@
         "quick-start": "快速上手",
         "post-compile": "后编译",
         "theme": "主题",
-        "singleton": "单例模式"
+        "singleton": "单例模式",
+        "internationalization": "国际化"
       }
     },
     "components": {

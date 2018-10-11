@@ -5,8 +5,8 @@
     :selected-index="selectedIndex"
     :title="title"
     :subtitle="subtitle"
-    :cancel-txt="cancelTxt"
-    :confirm-txt="confirmTxt"
+    :cancel-txt="_cancelTxt"
+    :confirm-txt="_confirmTxt"
     :swipe-time="swipeTime"
     :z-index="zIndex"
     :mask-closable="maskClosable"
@@ -20,6 +20,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
   import { deepAssign, findIndex } from '../../common/helpers/util'
   import { computeNatureMaxDay, formatType } from '../../common/lang/date'
 
@@ -63,7 +64,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
     props: {
       min: {
         type: [Date, Array],
