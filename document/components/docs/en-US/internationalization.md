@@ -7,10 +7,9 @@ The cube-ui component uses Chinese internally by default. If you want to use ano
   // Full import
   import Vue from 'vue'
   import CubeUI from 'cube-ui'
-  import Locale from 'cube-ui/lib/locale'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US' // Built-in in cube-ui
   import jaJPMessages from '../some/path/lang/ja-JP' // Import Japanese language by yourself
-
+  const Locale = CubeUI.Locale
   Vue.use(CubeUI)
   Locale.use('en-US', enUSMessages)
   Locale.use('ja-JP', jaJPMessages)
@@ -23,8 +22,7 @@ Or, import by module
 
   // Only import ActionSheet
   import Vue from 'vue'
-  import { ActionSheet } from 'cube-ui'
-  import Locale from 'cube-ui/lib/locale'
+  import { ActionSheet, Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
   Vue.use(Locale)
@@ -38,8 +36,7 @@ Cube-ui will watch the current language type, so it automatically renders once l
 
   // Only import ActionSheet
   import Vue from 'vue'
-  import { ActionSheet } from 'cube-ui'
-  import Locale from 'cube-ui/lib/locale'
+  import { ActionSheet, Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
   // Chinese translation by default
