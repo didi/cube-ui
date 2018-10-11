@@ -443,7 +443,7 @@
 
 | 事件名 | 说明 | 参数1 | 参数2 |
 | - | - | - | - |
-| submit | 表单校验通过后触发此事件 | e - 事件对象 | model 值 |
+| submit | 表单校验通过后触发此事件，如果只有同步校验，则不会阻止默认行为，而如果包含了异步校验，则默认就会阻止默认行为 | e - 事件对象 | model 值 |
 | reset | 表单重置事件 | e - 事件对象 | - |
 | validate | 表单校验事件 | 参数结构如下：<br>{<br>validity,<br> valid,<br> invalid,<br> dirty,<br> firstInvalidFieldIndex<br>} | - |
 | valid | 表单校验成功触发 | validity 校验结果 | - |
