@@ -211,6 +211,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Radio,
+  Checker,
   Input,
   Textarea,
   Select,
@@ -241,7 +242,7 @@ import {
 You can also import [create-api](#/en-US/docs/create-api) and [better-scroll](#/en-US/docs/better-scroll) module:
 
 ```js
-import { createAPI, BetterScroll } from 'cube-ui'
+import { createAPI, BetterScroll, Locale } from 'cube-ui'
 ```
 
 #### Examples
