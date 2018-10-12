@@ -1,5 +1,7 @@
 ## Internationalization
 
+> New in 1.11.0+
+
 The cube-ui component uses Chinese internally by default. If you want to use another language, you need to set it in multiple languages. Take English as an example in main.js:
 
 ```js
