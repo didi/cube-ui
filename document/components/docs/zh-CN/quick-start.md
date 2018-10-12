@@ -212,6 +212,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Radio,
+  Checker,
   Input,
   Textarea,
   Select,
@@ -242,7 +243,7 @@ import {
 也可以引入[create-api](#/zh-CN/docs/create-api)和[better-scroll](#/zh-CN/docs/better-scroll)模块：
 
 ```js
-import { createAPI, BetterScroll } from 'cube-ui'
+import { createAPI, BetterScroll, Locale } from 'cube-ui'
 ```
 
 #### 示例
