@@ -235,7 +235,7 @@
     ...
   }
   ```
-  
+
   通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
 
   | 流程 | beforePulldown | isPullingDown | 备注 |
@@ -305,7 +305,7 @@
 
   > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
 
-- **6. 嵌套纵向滚动 - Vertical Scrolls**
+- **6. 嵌套纵向滚动 - Vertical Scrolls**<sup>1.11.0</sup>
 
   `Scroll`组件还支持嵌套的场景(目前只支持两层嵌套)。值得庆祝的是，对于你不需要做任何工作，只需要像平时使用`Scroll`组件一样即可。`Scroll`组件会自行判断是否有嵌套情况，同时处理嵌套滚动问题。默认情况下，嵌套`Scroll`与浏览器原生嵌套场景的滚动行为相同。下面是`Scroll`组件实现纵向嵌套滚动的例子。完整的示例代码在这里[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue)。
 
@@ -327,7 +327,7 @@
   </cube-scroll>
   ```
 
-- **7. 嵌套横向滚动 - Horizontal Scrolls**
+- **7. 嵌套横向滚动 - Horizontal Scrolls**<sup>1.11.0</sup>
 
   你还可以实现横向的嵌套滚动。这里同时设置`nestMode`为`free`，与`native`模式不同的是，`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。而`native`模式下，只在开始滚动时判断是否到达边界，与浏览器原生的嵌套滚动保持一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)。
 
@@ -368,7 +368,7 @@
   最后，我们还需要一些额外的工作保证输入过程中，光标能始终在视线内，保持与原生输入框的行为一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
 
   ```html
-  <cube-scroll 
+  <cube-scroll
     ref="scrollOuter"
     :options="optionsOuter"
     class="scroll-outer">
@@ -416,7 +416,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
-| nestMode | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
+| nestMode<sup>1.11.0</sup> | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 
