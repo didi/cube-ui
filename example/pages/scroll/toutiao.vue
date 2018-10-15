@@ -103,7 +103,8 @@ export default {
       }, 1000)
     },
     onImgLoad() {
-      this.$refs.contentScroll.refresh()
+      const contentScroll = this.$refs.contentScroll
+      contentScroll.scroll.beforePullDown && contentScroll.refresh()
     }
   },
   mounted() {
