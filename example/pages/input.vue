@@ -70,7 +70,7 @@
       clearable() {
         return {
           visible: this.useClear,
-          blurHiden: this.clearBlurHidden
+          blurHidden: this.clearBlurHidden
         }
       },
       eye() {
