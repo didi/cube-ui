@@ -355,11 +355,11 @@
           })
 
           innerScroll.on('scroll', (pos) => {
-            if (this.nestMode === NEST_MODE_NATIVE && !this.touchStartMoment) {
+            if (!innerScroll.initiated || innerScroll.isInTransition) {
               return
             }
 
-            if (innerScroll.isInTransition) {
+            if (this.nestMode === NEST_MODE_NATIVE && !this.touchStartMoment) {
               return
             }
 
