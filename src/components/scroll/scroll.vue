@@ -267,7 +267,7 @@
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        this.parentScroll && this._handleNestScroll()
+        this.parentScroll && this.nestMode !== 'none' && this._handleNestScroll()
 
         this._listenScrollEvents()
 
