@@ -12,7 +12,7 @@
 
   2）横向滚动：**内容元素的宽度必须大于容器元素**。由于在默认情况下，子元素的宽度不会超过容器元素，所以需要给 Scroll 组件的 `.cube-scroll-content` 元素设置大于 `.cube-scroll-wrapper` 的宽度。
 
-  > 注意：任何时候如果出现无法滚动的情况，都应该首先查看内容元素`.cube-scroll-content`的元素高度/宽度是否大于容器元素`.cube-scroll-wrapper`的高度/宽度。这是内容能够滚动的前提条件。**如果内容存在图片的情况，可能会出现 DOM 元素渲染时图片还未下载，因此内容元素的高度小于预期，出现滚动不正常的情况。此时你应该在图片加载完成后，比如 onload 事件回调中，手动调用 Scroll 组件的 `refresh()` 方法，它会重新计算滚动距离。**
+  > 注意：任何时候如果出现无法滚动的情况，都应该首先查看内容元素`.cube-scroll-content`的元素高度/宽度是否大于容器元素`.cube-scroll-wrapper`的高度/宽度。这是内容能够滚动的前提条件。**如果内容存在图片的情况，可能会出现 DOM 元素渲染时图片还未下载，因此内容元素的高度小于预期，出现滚动不正常的情况。此时你应该在图片加载完成后，比如 onload 事件回调中，手动调用 Scroll 组件的 `refresh()` 方法，它会重新计算滚动距离。** Scroll 相关常见问题可以查看 [Cube-UI/Question-Answer](https://github.com/cube-ui/question-answer/issues?utf8=✓&q=is%3Aissue+is%3Aopen+scroll).
 
 ### 示例
 
@@ -416,7 +416,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
-| nestMode<sup>1.11.0</sup> | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'native', 'free' | 'native' |
+| nestMode<sup>1.11.0</sup> | 嵌套滚动模式，默认是`native`模式，只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。极端情况下，你可以给内层 Scroll 指定 `none` 模式，禁止嵌套处理逻辑。| String | 'native', 'free', 'none' | 'native' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 
