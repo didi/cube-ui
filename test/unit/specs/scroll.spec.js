@@ -485,15 +485,20 @@ describe('Scroll', () => {
     })
 
     it('should disable inner scroll when touch the inner one and reach boundary', function (done) {
+      let cnt = 0
       vm = createNestScrolls({
         outerProps: {
           scrollEvents: ['scroll']
         },
         outerEvents: {
           scroll: () => {
-            // the inner scroll was disabled in first 'scroll' event, so here we skip first 'scroll' event
-            expect(innerScroll.scroll.enabled).to.be.false
-            done()
+            // there will be two 'scroll' event, one fired by dispatchEvent and one fired by resetPosition in _end() function.
+            // we only concern the first scroll event.
+            if (cnt === 0) {
+              cnt++
+              expect(innerScroll.scroll.enabled).to.be.false
+              done()
+            }
           }
         }
       })
