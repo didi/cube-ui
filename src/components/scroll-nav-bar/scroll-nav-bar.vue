@@ -2,6 +2,7 @@
   <div class="cube-scroll-nav-bar" :class="'cube-scroll-nav-bar_' + direction">
     <cube-scroll
       ref="scroll"
+      nestMode="none"
       :options="options"
       :direction="direction">
       <div class="cube-scroll-nav-bar-items" ref="items">
