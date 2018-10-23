@@ -10,6 +10,10 @@
       <cube-checkbox v-model="checked2" :option="{disabled: true}" :hollow-style="true">
         Disabled Checkbox
       </cube-checkbox>
+      <br><br>
+      <cube-checkbox class="with-click" v-model="checked2">
+        Agree <a href="javascript:;" @click.stop>《xxx》</a>
+      </cube-checkbox>
     </template>
   </cube-page>
 </template>
@@ -43,4 +47,9 @@
           margin: 10px 0
     .cube-checkbox
       background-color: #fff
+    .with-click
+      .cube-checkbox-label
+        a
+          position: relative
+          z-index: 1
 </style>
