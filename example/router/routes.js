@@ -69,6 +69,9 @@ import TabBasic from '../pages/tab-bar/tab-basic.vue'
 import TabComposite from '../pages/tab-bar/tab-composite.vue'
 import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
 import Checker from '../pages/checker.vue'
+import RecycleList from '../pages/recycle-list/index.vue'
+import RecycleListDefault from '../pages/recycle-list/recycle-list-default.vue'
+import RecycleListTombstone from '../pages/recycle-list/recycle-list-tombstone.vue'
 
 const routes = [
   {
@@ -378,6 +381,20 @@ const routes = [
             component: TabComposite
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/recycle-list',
+    component: RecycleList,
+    children: [
+      {
+        path: 'default',
+        component: RecycleListDefault
+      },
+      {
+        path: 'tombstone',
+        component: RecycleListTombstone
       }
     ]
   }
