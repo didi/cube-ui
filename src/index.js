@@ -44,6 +44,7 @@ import {
   Sticky,
   ScrollNav,
   ScrollNavBar,
+  RecycleList,
   // module
   BetterScroll,
   createAPI
@@ -93,7 +94,8 @@ const components = [
   Swipe,
   Sticky,
   ScrollNav,
-  ScrollNavBar
+  ScrollNavBar,
+  RecycleList
 ]
 
 function install(Vue) {
