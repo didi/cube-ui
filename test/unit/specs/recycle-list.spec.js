@@ -20,20 +20,21 @@ describe('RecycleList', () => {
     expect(vm.onFetch() instanceof window.Promise)
         .to.equal(true)
   })
-  it('render correct count data', () => {
+  it('render correct count data', (done) => {
     vm = createRecycleList()
     setTimeout(() => {
-      let length = vm.$el.querySelector('.cube-recycle-list-item').length
+      let length = vm.$el.querySelectorAll('.cube-recycle-list-item').length
       expect(length)
-        .to.equal(50)
-    }, 100)
+        .to.equal(51)
+      done()
+    }, 1500)
   })
 })
 
 function createRecycleList () {
   const vm = createVue({
     template: `
-    <cube-recycle-list class="list" :on-fetch="onFetch">
+    <cube-recycle-list class="list" :on-fetch="onFetch" :size="size">
       <template slot="item" slot-scope="props">
         <div :id="props.data.id" class="item">
           <div class="avatar" :style="{backgroundImage: 'url(' + (props.data.avatar || '') + ')'}"></div>
@@ -47,12 +48,17 @@ function createRecycleList () {
       </template>
     </cube-recycle-list>
     `,
+    data () {
+      return {
+        size: 50
+      }
+    },
     methods: {
       onFetch () {
         let items = []
         return new Promise((resolve) => {
           setTimeout(() => {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 50; i++) {
               items.push({
                 id: i,
                 avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/danpliego/128.jpg',
