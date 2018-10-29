@@ -386,15 +386,16 @@
         const reachBoundaryX = distX > 0 ? pos.x >= this.scroll.minScrollX : distX < 0 ? pos.x <= this.scroll.maxScrollX : false
         const reachBoundaryY = distY > 0 ? pos.y >= this.scroll.minScrollY : distY < 0 ? pos.y <= this.scroll.maxScrollY : false
         const freeScroll = this.scroll.freeScroll
-        const direction = this.scroll.options.scrollX ? DIRECTION_H : this.scroll.options.scrollY ? DIRECTION_V : ''
 
         let reachBoundary
         if (freeScroll) {
-          reachBoundary = reachBoundaryX || reachBoundaryY
-        } else if (direction === DIRECTION_V) {
-          reachBoundary = reachBoundaryY
-        } else if (direction === DIRECTION_H) {
+          return reachBoundaryX || reachBoundaryY
+        }
+
+        if (this.scroll.movingDirectionX) {
           reachBoundary = reachBoundaryX
+        } else if (this.scroll.movingDirectionY) {
+          reachBoundary = reachBoundaryY
         }
         return reachBoundary
       },
