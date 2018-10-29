@@ -1,6 +1,6 @@
 <template>
   <div class="cube-recycle-list">
-    <div ref="list" class="cube-recycle-list-items" :style="{height: heights + 'px'}">
+    <div class="cube-recycle-list-items" :style="{height: heights + 'px'}">
       <div v-for="item in visibleItems" class="cube-recycle-list-item" :style="{transform: 'translate3d(0,' + item.top + 'px,0)'}">
         <div v-if="showTombstone" :class="{'cube-recycle-list-transition': showTombstone}" :style="{opacity: +!item.loaded}">
           <slot name="tombstone">
@@ -141,6 +141,7 @@
       getItems() {
         this.loadings.push('pending')
         this.onFetch().then((res) => {
+          /* istanbul ignore if */
           if (!res) {
             this.noMore = true
           } else {
@@ -155,6 +156,7 @@
         let item
         for (let i = start; i < end; i++) {
           item = this.items[i]
+          /* istanbul ignore if */
           if (item && item.loaded) {
             continue
           }
@@ -248,6 +250,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .cube-recycle-list
+    height: 100%
+    width: 100%
     overflow-x: hidden
     overflow-y: auto
     .cube-recycle-list-items
