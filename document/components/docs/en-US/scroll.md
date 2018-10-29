@@ -306,7 +306,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   **6. Vertical nested scrolls - Vertical Scrolls**<sup>1.11.0</sup>
 
-  The `Scroll` component also supports nested scenes (currently only supports two levels of nesting). It's worth celebrating that you don't need to do any work, just use the `Scroll` component as usual. The `Scroll` component will determine if there is a nesting situation and handle nested scrolling issues. By default, nested `Scroll` has the same scrolling behavior as the browser's native nested scene. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue).
+  The `Scroll` component also supports nested scenes (currently only supports two levels of nesting). when there is scroll nest, you need to config the inner `scroll` component's `nestMode` prop，the options can be 'native' or 'free'. when set to 'native', nested `Scroll` has the same scrolling behavior as the browser's native nested scene. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue).
 
   ```html
   <cube-scroll
@@ -415,7 +415,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 | listenScroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
-| nestMode<sup>1.11.0</sup> | Nested scroll mode, the default is `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on. In extreme cases, you can specify the `none` mode for the inner Scroll to disable nested processing logic.  | String | 'native', 'free', 'none' | 'native' |
+| nestMode<sup>1.11.0</sup> | Nested scroll mode, the default is `none` mode that do no thing when there is scroll nest. In `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on. In extreme cases, you can specify the `none` mode for the inner Scroll to disable nested processing logic.  | String | 'none', 'native', 'free' | 'none' |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
 
