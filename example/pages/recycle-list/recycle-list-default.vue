@@ -75,9 +75,6 @@
     bottom: 0
     width: 100%
   .list
-    width: 375px
-    max-width: 100%
-    height: 100%
     margin: 0 auto
     padding: 0
     border: 1px solid #ddd

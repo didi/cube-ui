@@ -1,6 +1,7 @@
 import Vue from 'vue2'
 import RecycleList from '@/modules/recycle-list'
 import createVue from '../utils/create-vue'
+import { dispatchResize } from '../utils/event'
 
 describe('RecycleList', () => {
   let vm
@@ -21,36 +22,51 @@ describe('RecycleList', () => {
         .to.equal(true)
   })
   it('render correct count data', (done) => {
+    vm = createRecycleList(true)
+    setTimeout(() => {
+      const length = vm.items.length
+      expect(length)
+        .to.equal(50)
+      vm.$el.scrollTop = 1000
+      setTimeout(() => {
+        const length = vm.items.length
+        expect(length)
+          .to.equal(100)
+        done()
+      }, 500)
+    }, 500)
+  })
+  it('should call correct method', (done) => {
     vm = createRecycleList()
     setTimeout(() => {
-      let length = vm.$el.querySelectorAll('.cube-recycle-list-item').length
-      expect(length)
-        .to.equal(51)
+      vm.$el.scrollTop = 1000
+      dispatchResize()
       done()
-    }, 1500)
+    }, 500)
   })
 })
 
-function createRecycleList () {
+function createRecycleList (showTombstone) {
   const vm = createVue({
     template: `
-    <cube-recycle-list class="list" :on-fetch="onFetch" :size="size">
+    <div :style="{position: 'fixed', top: 0, left: 0, height: '500px', width: '100%'}">
+    <cube-recycle-list class="list" :on-fetch="onFetch" :size="size" :show-tombstone="showTombstone">
+      <template slot="tombstone" slot-scope="props">
+        <div class="tombstone">
+        </div>
+      </template>
       <template slot="item" slot-scope="props">
-        <div :id="props.data.id" class="item">
-          <div class="avatar" :style="{backgroundImage: 'url(' + (props.data.avatar || '') + ')'}"></div>
-          <div class="bubble">
-            <p>{{ props.data.msg }}</p>
-            <div class="meta">
-              <time class="posted-date">{{ props.data.time }}</time>
-            </div>
-          </div>
+        <div :id="props.data.id" class="item" :style="{height: '20px'}">
+        <p>{{props.data.msg}}</p>
         </div>
       </template>
     </cube-recycle-list>
+    </div>
     `,
     data () {
       return {
-        size: 50
+        size: 50,
+        showTombstone
       }
     },
     methods: {
@@ -67,7 +83,7 @@ function createRecycleList () {
               })
             }
             resolve(items)
-          }, 1000)
+          }, 100)
         })
       }
     }
