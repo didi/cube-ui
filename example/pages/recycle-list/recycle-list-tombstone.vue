@@ -2,7 +2,7 @@
   <cube-page type="recycle-list" title="RecycleList">
     <div slot="content">
       <div class="view-wrapper">
-        <cube-recycle-list class="list" :show-tombstone="showTombstone" :size="size" :on-fetch="onFetch">
+        <cube-recycle-list class="list" :infinite="infinite" :size="size" :on-fetch="onFetch">
           <template slot="tombstone" slot-scope="props">
             <div class="item tombstone">
               <div class="avatar"></div>
@@ -47,7 +47,7 @@
         initTime: new Date().getTime(),
         id: 0,
         size: 50,
-        showTombstone: true
+        infinite: true
       }
     },
     components: {

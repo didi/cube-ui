@@ -16,7 +16,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
 
   ```html
   <div class="view-wrapper">
-    <cube-recycle-list class="list" :size="size" :onFetch="onFetch" :offset="offset">
+    <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
       <template slot="item" slot-scope="{ data }">
         <div :id="data.id" class="item" @click="handleClick(data)">
           <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
@@ -89,7 +89,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
 
   ```html
   <div class="view-wrapper">
-    <cube-recycle-list class="list" :show-tombstone="showTombstone" :size="size" :on-fetch="onFetch">
+    <cube-recycle-list class="list" :infinite="infinite" :size="size" :on-fetch="onFetch">
       <!-- tombstone slot-scope is mandatory -->
       <template slot="tombstone" slot-scope="props">
         <div class="item tombstone">
@@ -121,13 +121,13 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
   </div>
   ```
 
-  `showTombstone` is used to enable the presentation of the `tombstone` style. When you enable this configuration, you must implement a personalized style through the `tombstone` scope slot. The `spinner` and `noMore` slots are supported to customize the display of views that load more and no more data. `spinner` slot is built-in in component.
+  `infinite` is used to enable infinite scroll mode. When you enable this configuration, you must implement a personalized style through the `tombstone` scope slot. The `spinner` and `noMore` slots are supported to customize the display of views that load more and no more data. `spinner` slot is built-in in component.
 
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| showTombstone | Controls whether the `tombstone` mode is enabled | Boolean | - | false |
+| infinite | Enable infinite scroll mode | Boolean | - | false |
 | size | Amount of data loaded at one time | Number | - | 20 |
 | offset | The distance to fetch more data at the bottom | Number | - | 200 |
 | onFetch | Fetch data | Function | 必传 | - |

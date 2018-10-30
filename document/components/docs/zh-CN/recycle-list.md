@@ -16,7 +16,7 @@
 
   ```html
   <div class="view-wrapper">
-    <cube-recycle-list class="list" :size="size" :onFetch="onFetch" :offset="offset">
+    <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
       <template slot="item" slot-scope="{ data }">
         <div :id="data.id" class="item" @click="handleClick(data)">
           <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
@@ -89,7 +89,7 @@
 
   ```html
   <div class="view-wrapper">
-    <cube-recycle-list class="list" :show-tombstone="showTombstone" :size="size" :on-fetch="onFetch">
+    <cube-recycle-list class="list" :infinite="infinite" :size="size" :on-fetch="onFetch">
       <!-- tombstone 的作用域插槽 slot-scope 必须声明 -->
       <template slot="tombstone" slot-scope="props">
         <div class="item tombstone">
@@ -121,13 +121,13 @@
   </div>
   ```
 
-  `showTombstone` 这个 props 是用来开启是否展现 `tombstone` 样式。当你开启这个配置的时候，必须通过 `tombstone` 作用域插槽实现个性化样式。支持 `spinner` 与 `noMore` 插槽来定制化显示加载更多以及无更多数据的视图展示。`spinner` 默认是一个 loading gif 图。
+  `infinite` 用来开启无限滚动模式。当你开启这个配置的时候，必须通过 `tombstone` 作用域插槽实现个性化样式。支持 `spinner` 与 `noMore` 插槽来定制化显示加载更多以及无更多数据的视图展示。`spinner` 默认是一个 loading gif 图。
 
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| showTombstone | 控制是否开启 `tombstone` 模式 | Boolean | - | false |
+| infinite | 是否无限滚动模式 | Boolean | - | false |
 | size | 一次加载的数据量 | Number | - | 20 |
 | offset | 底部拉取更多数据的距离 | Number | - | 200 |
 | onFetch | 获取更多数据 | Function | 必传 | - |
