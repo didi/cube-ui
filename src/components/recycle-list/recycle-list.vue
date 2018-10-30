@@ -2,11 +2,11 @@
   <div class="cube-recycle-list">
     <div class="cube-recycle-list-items" :style="{height: heights + 'px'}">
       <div v-for="item in visibleItems" class="cube-recycle-list-item" :style="{transform: 'translate3d(0,' + item.top + 'px,0)'}">
-        <div v-if="showTombstone" :class="{'cube-recycle-list-transition': showTombstone}" :style="{opacity: +!item.loaded}">
+        <div v-if="infinite" :class="{'cube-recycle-list-transition': infinite}" :style="{opacity: +!item.loaded}">
           <slot name="tombstone">
           </slot>
         </div>
-        <div :class="{'cube-recycle-list-transition': showTombstone}" :style="{opacity: item.loaded}">
+        <div :class="{'cube-recycle-list-transition': infinite}" :style="{opacity: item.loaded}">
           <slot name="item" :data="item.data"></slot>
         </div>
       </div>
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div v-show="!noMore && !showTombstone"
+    <div v-if="!infinite"
       class="cube-recycle-list-loading"
       :style="{visibility: loading ? 'visible' : 'hidden'}">
       <slot name="spinner">
@@ -33,7 +33,7 @@
       </slot>
     </div>
 
-    <div v-show="noMore && !loading"
+    <div v-show="noMore"
       class="cube-recycle-list-noMore">
       <slot name="noMore" />
     </div>
@@ -64,7 +64,7 @@
       }
     },
     props: {
-      showTombstone: {
+      infinite: {
         type: Boolean,
         default: false
       },
@@ -86,7 +86,7 @@
         return this.items.slice(Math.max(0, this.startIndex - this.size), Math.min(this.items.length, this.startIndex + this.size))
       },
       tombHeight() {
-        return this.showTombstone ? this.$refs.tomb && this.$refs.tomb.offsetHeight : 0
+        return this.infinite ? this.$refs.tomb && this.$refs.tomb.offsetHeight : 0
       },
       loading() {
         return this.loadings.length
@@ -130,7 +130,7 @@
         this.load()
       },
       load() {
-        if (this.showTombstone) {
+        if (this.infinite) {
           // increase capacity of items to display tombstone
           this.items.length += this.size
           this.loadItems()
@@ -144,6 +144,7 @@
           /* istanbul ignore if */
           if (!res) {
             this.noMore = true
+            this.loadings.pop()
           } else {
             this.list = this.list.concat(res)
           }
@@ -152,7 +153,7 @@
       loadItems(isResize) {
         let promiseTasks = []
         let start = 0
-        let end = this.showTombstone ? this.items.length : this.list.length
+        let end = this.infinite ? this.items.length : this.list.length
         let item
         for (let i = start; i < end; i++) {
           item = this.items[i]
@@ -254,37 +255,45 @@
     width: 100%
     overflow-x: hidden
     overflow-y: auto
-    .cube-recycle-list-items
-      position: relative
-      .cube-recycle-list-invisible
-        top: -1000px
-        visibility: hidden
-      .cube-recycle-list-item
-        width: 100%
-        position: absolute
-        .cube-recycle-list-tombstone
-          width: 100%
-          height: 40px
-          margin: 10px 0
-          background-color: #666
-        .cube-recycle-list-transition
-          position: absolute
-          opacity: 0
-          transition-property: opacity
-          transition-duration: 500ms
-    .cube-recycle-list-loading
-      overflow: hidden
-      .cube-recycle-list-loading-content
-        width: 100%
-        text-align: center
-        .spinner
-          margin: 10px auto
-          display: flex
-          justify-content center
-    .cube-recycle-list-noMore
-      overflow: hidden
+
+  .cube-recycle-list-items
+    position: relative
+
+  .cube-recycle-list-invisible
+    top: -1000px
+    visibility: hidden
+
+  .cube-recycle-list-item
+    width: 100%
+    position: absolute
+
+  .cube-recycle-list-tombstone
+    width: 100%
+    height: 40px
+    margin: 10px 0
+    background-color: #666
+
+  .cube-recycle-list-transition
+    position: absolute
+    opacity: 0
+    transition-property: opacity
+    transition-duration: 500ms
+
+  .cube-recycle-list-loading
+    overflow: hidden
+
+  .cube-recycle-list-loading-content
+    width: 100%
+    text-align: center
+    .spinner
       margin: 10px auto
-      height: 20px
-      text-align: center
+      display: flex
+      justify-content center
+
+  .cube-recycle-list-noMore
+    overflow: hidden
+    margin: 10px auto
+    height: 20px
+    text-align: center
 </style>
 
