@@ -46,11 +46,11 @@ describe('RecycleList', () => {
   })
 })
 
-function createRecycleList (showTombstone) {
+function createRecycleList (infinite) {
   const vm = createVue({
     template: `
     <div :style="{position: 'fixed', top: 0, left: 0, height: '500px', width: '100%'}">
-    <cube-recycle-list class="list" :on-fetch="onFetch" :size="size" :show-tombstone="showTombstone">
+    <cube-recycle-list class="list" :on-fetch="onFetch" :size="size" :infinite="infinite">
       <template slot="tombstone" slot-scope="props">
         <div class="tombstone">
         </div>
@@ -66,7 +66,7 @@ function createRecycleList (showTombstone) {
     data () {
       return {
         size: 50,
-        showTombstone
+        infinite
       }
     },
     methods: {

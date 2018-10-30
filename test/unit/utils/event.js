@@ -97,7 +97,7 @@ export function dispatchMoveAction(target, touches, stepDuration, moveCb, endCb)
 }
 
 export function dispatchResize() {
-  var e = document.createEvent("Event")
+  var e = document.createEvent('Event')
   e.initEvent('resize', true, true)
   window.dispatchEvent(e)
 }
