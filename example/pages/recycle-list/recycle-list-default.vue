@@ -4,7 +4,7 @@
       <div class="view-wrapper">
         <cube-recycle-list class="list" :size="size" :on-fetch="onFetch" :offset="offset">
           <template slot="item" slot-scope="{ data }">
-            <div :id="data.id" class="item" @click="handleClick({ data })">
+            <div :id="data.id" class="item" @click="handleClick(data)">
               <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
               <div class="bubble">
                 <p>{{ data.msg }}</p>
@@ -60,7 +60,7 @@
           }, 1000)
         })
       },
-      handleClick({ data }) {
+      handleClick(data) {
         console.log(data)
       }
     }

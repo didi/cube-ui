@@ -18,7 +18,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
   <div class="view-wrapper">
     <cube-recycle-list class="list" :size="size" :onFetch="onFetch" :offset="offset">
       <template slot="item" slot-scope="{ data }">
-        <div :id="data.id" class="item" @click="handleClick({ data })">
+        <div :id="data.id" class="item" @click="handleClick(data)">
           <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
           <div class="bubble">
             <p>{{ data.msg }}</p>
@@ -57,7 +57,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
           }, 1000)
         })
       },
-      handleClick({ data }) {
+      handleClick(data) {
         console.log('Item:' + data)
       }
     }
@@ -105,7 +105,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
         </div>
       </template>
       <template slot="item" slot-scope="{ data }">
-        <div :id="data.id" class="item" @click="handleClick({ data })">
+        <div :id="data.id" class="item" @click="handleClick(data)">
           <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
           <div class="bubble">
             <p>{{ data.msg }}</p>
