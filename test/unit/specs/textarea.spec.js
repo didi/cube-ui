@@ -108,9 +108,17 @@ describe('Textarea.vue', () => {
     expect(el.autofocus)
       .to.be.true
   })
+  it('should expand when autoExpand', (done) => {
+    vm = createTextarea('1234', true, true)
+    setTimeout(() => {
+      expect(vm.$el.className)
+        .to.include('cube-textarea_expanded')
+      done()
+    })
+  })
 })
 
-function createTextarea (value, indicator = true) {
+function createTextarea (value, indicator = true, autoExpand = false) {
   const vm = createVue({
     template: `
       <cube-textarea
@@ -118,6 +126,7 @@ function createTextarea (value, indicator = true) {
         :readonly="readonly"
         :indicator="indicator"
         :maxlength="maxlength"
+        :auto-expand="autoExpand"
         v-model="value"
       >
       </cube-textarea>
@@ -127,7 +136,8 @@ function createTextarea (value, indicator = true) {
       readonly: false,
       maxlength: 60,
       value: value && 'test',
-      indicator: indicator
+      indicator: indicator,
+      autoExpand: autoExpand
     }
   })
   return vm
