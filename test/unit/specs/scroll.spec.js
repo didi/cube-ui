@@ -549,7 +549,7 @@ describe('Scroll', () => {
         h(Scroll, {
           ref: 'innerScroll',
           class: 'inner-scroll',
-          props: {data, ...innerProps},
+          props: {data, nestMode: 'native', ...innerProps},
           on: {...innerEvents}
         }),
         h('ul', [

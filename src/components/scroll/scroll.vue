@@ -70,6 +70,7 @@
   const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
   const EVENT_SCROLL_END = 'scroll-end'
 
+  const NEST_MODE_NONE = 'none'
   const NEST_MODE_NATIVE = 'native'
 
   const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
@@ -139,7 +140,7 @@
       },
       nestMode: {
         type: String,
-        default: NEST_MODE_NATIVE
+        default: NEST_MODE_NONE
       }
     },
     data() {
@@ -267,7 +268,7 @@
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        this.parentScroll && this.nestMode !== 'none' && this._handleNestScroll()
+        this.parentScroll && this.nestMode !== NEST_MODE_NONE && this._handleNestScroll()
 
         this._listenScrollEvents()
 
@@ -355,6 +356,7 @@
           })
 
           innerScroll.on('scroll', (pos) => {
+            // if scroll event triggered not by touch event, such as by 'scrollTo' method
             if (!innerScroll.initiated || innerScroll.isInTransition) {
               return
             }
@@ -387,11 +389,13 @@
 
         let reachBoundary
         if (freeScroll) {
-          reachBoundary = reachBoundaryX || reachBoundaryY
-        } else if (this.direction === DIRECTION_V) {
-          reachBoundary = reachBoundaryY
-        } else if (this.direction === DIRECTION_H) {
+          return reachBoundaryX || reachBoundaryY
+        }
+
+        if (this.scroll.movingDirectionX) {
           reachBoundary = reachBoundaryX
+        } else if (this.scroll.movingDirectionY) {
+          reachBoundary = reachBoundaryY
         }
         return reachBoundary
       },

@@ -12,6 +12,7 @@
           </ul>
           <cube-scroll
             ref="scroll2"
+            nestMode="native"
             class="scroll-list-inner-wrap">
             <ul class="cube-scroll-list">
               <li class="cube-scroll-item border-bottom-1px"
