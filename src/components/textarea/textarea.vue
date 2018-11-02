@@ -28,7 +28,7 @@
     data() {
       return {
         textareaValue: this.value,
-        expanded: false,
+        expanded: this.autoExpand ? !!this.value : false,
         isFocus: false
       }
     },
@@ -61,6 +61,10 @@
       indicator: {
         type: [Boolean, Object],
         default: true
+      },
+      autoExpand: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
