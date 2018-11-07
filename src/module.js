@@ -45,6 +45,7 @@ import Swipe from './modules/swipe'
 import Sticky from './modules/sticky'
 import ScrollNav from './modules/scroll-nav'
 import ScrollNavBar from './modules/scroll-nav-bar'
+import RecycleList from './modules/recycle-list'
 
 // module
 import BetterScroll from './modules/better-scroll'
@@ -120,6 +121,7 @@ export {
   ScrollNavPanel,
   ScrollNav,
   ScrollNavBar,
+  RecycleList,
   // module
   BetterScroll,
   createAPI
