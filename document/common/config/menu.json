@@ -68,7 +68,8 @@
             "swipe": "Swipe",
             "sticky": "Sticky",
             "scroll-nav-bar": "ScrollNavBar",
-            "scroll-nav": "ScrollNav"
+            "scroll-nav": "ScrollNav",
+            "recycle-list": "RecycleList"
           }
         }
       }
@@ -152,7 +153,8 @@
             "swipe": "Swipe",
             "sticky": "Sticky",
             "scroll-nav-bar": "ScrollNavBar",
-            "scroll-nav": "ScrollNav"
+            "scroll-nav": "ScrollNav",
+            "recycle-list": "RecycleList"
           }
         }
       }
