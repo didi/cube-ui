@@ -125,7 +125,7 @@
     font-size: $fontsize-medium
     line-height: 1.429
     textarea::-webkit-input-placeholder
-      color: $textarea-placeholder-color !important
+      color: $textarea-placeholder-color
       text-overflow: ellipsis
     border-1px($textarea-border-color)
   .cube-textarea_expanded
