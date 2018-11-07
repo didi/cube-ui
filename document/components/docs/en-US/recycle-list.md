@@ -130,7 +130,7 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
 | infinite | Enable infinite scroll mode | Boolean | - | false |
 | size | Amount of data loaded at one time | Number | - | 20 |
 | offset | The distance to fetch more data at the bottom | Number | - | 200 |
-| onFetch | Fetch data | Function | 必传 | - |
+| onFetch | Fetch data | Function | - | - |
 
 The `onFetch` function must return a Promise, and the first argument to Promise's resolve function must be an array or `false`, so that the component can internally get the corresponding data to decide whether to load more or stop scrolling.
 
