@@ -304,7 +304,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 
   > **Note:** In this example, the `pullDownRefresh` configuration item does not have a `stop` value, but it is still able to bounce back to the correct location after the pulldown. The reason is that when the Scroll component is initialized, the pulldown height will be used as the `stop` default value when `beforePullDown === false && isPullingDown === true`.
 
-  **6. Vertical nested scrolls - Vertical Scrolls**<sup>1.11.0</sup>
+  **6. Vertical nested scrolls - Vertical Scrolls**<sup>1.12.0</sup>
 
   The `Scroll` component also supports nested scenes (currently only supports two levels of nesting). when there is scroll nest, you need to config the inner `scroll` component's `nestMode` prop，the options can be 'native' or 'free'. when set to 'native', nested `Scroll` has the same scrolling behavior as the browser's native nested scene. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue).
 
@@ -315,7 +315,8 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
     ...
     <cube-scroll
       ref="scroll2"
-      class="scroll-list-outer-wrap">
+      class="scroll-list-outer-wrap"
+      nest-mode="native">
       <ul class="cube-scroll-list">
         <li class="cube-scroll-item border-bottom-1px"
           v-for="(item, index) in items2"
@@ -326,7 +327,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
   </cube-scroll>
   ```
 
-  **7. Horizontal nested scrolls - Horizontal Scrolls**<sup>1.11.0</sup>
+  **7. Horizontal nested scrolls - Horizontal Scrolls**<sup>1.12.0</sup>
 
   You can also implement horizontal nested scrolling. In this example, we also set `nestMode` to `free`. Different from `native` mode, in `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scroll will be started. In the `native` mode, it is only when the scrolling starts to determine whether it reaches the boundary, which is consistent with the browser's native nested scrolling. The complete sample code is [here](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue).
 
@@ -415,7 +416,7 @@ Scroll components can meet the scrolling needs of most mobile applications. In t
 | listenScroll | whether to dispatch scroll event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | listenBeforeScroll | whether to dispatch  before-scroll-start event. `Deprecated`, please use the property `scroll-events` instead. | Boolean | true/false | false |
 | refreshDelay | the delay of scroll refresh after `data` updating | Number | - | 20 |
-| nestMode<sup>1.11.0</sup> | Nested scroll mode, the default is `none` mode that do no thing when there is scroll nest. In `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on. In extreme cases, you can specify the `none` mode for the inner Scroll to disable nested processing logic.  | String | 'none', 'native', 'free' | 'none' |
+| nestMode<sup>1.12.0</sup> | Nested scroll mode, the default is `none` mode that do no thing when there is scroll nest. In `native` mode, only to determine whether to reach the boundary and start the outer scroll when starting scrolling, consistent with the browser's native nested scrolling. In the `free` mode, as long as the boundary is triggered during the inner scrolling process, the outer scrolling is turned on. In extreme cases, you can specify the `none` mode for the inner Scroll to disable nested processing logic.  | String | 'none', 'native', 'free' | 'none' |
 
 In `options`, there are three frequently-used options, `scrollbar`、`pullDownRefresh`、`pullUpLoad`, which could set as `Boolean`(`false` to disable the feature, `true` to enable the feature and use default sub configuration), or `Object` to enable the feature and customize the sub configuration.
 
