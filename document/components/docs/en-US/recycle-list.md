@@ -1,5 +1,7 @@
 ## RecycleList
 
+> New in 1.12.0+
+
 A recyclable scrolling list that always keeps the number of DOMs at a very low range. Excellent performance in the rendering list of massive data.
 
 ### Precautions
