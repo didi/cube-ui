@@ -82,9 +82,9 @@
 
     完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/recycle-list/recycle-list-default.vue)。
 
-- **2. tombstone**
+- **2. Infinite**
 
-  然而，组件还支持第二种交互方式，以 `tombstone` 作为占位符，给用户一种可感知的页面元素，让交互变的更加友好、人性化。
+  然而，组件还支持第二种交互方式，无限滚动模式，以 `tombstone` 作为占位符，给用户一种可感知的页面元素，让交互变的更加友好、人性化。
   完整示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/recycle-list/recycle-list-tombstone.vue)。
 
   ```html
@@ -121,7 +121,7 @@
   </div>
   ```
 
-  `infinite` 用来开启无限滚动模式。当你开启这个配置的时候，必须通过 `tombstone` 作用域插槽实现个性化样式。支持 `spinner` 与 `noMore` 插槽来定制化显示加载更多以及无更多数据的视图展示。`spinner` 默认是一个 loading gif 图。
+  `infinite` 用来开启无限滚动模式。当你开启这个配置的时候，必须通过 `tombstone` 作用域插槽实现个性化样式。支持 `spinner` 与 `noMore` 插槽来定制化显示加载更多以及无更多数据的视图展示。`spinner` 默认是一个 loading 图。
 
 ### Props 配置
 

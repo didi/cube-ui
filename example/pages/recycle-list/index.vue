@@ -1,9 +1,9 @@
 <template>
-  <cube-page type="scroll-nav" title="ScrollNav">
+  <cube-page type="recycle-list" title="RecycleList">
     <div slot="content">
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
-        <cube-button @click="goTo('tombstone')">Tombstone</cube-button>
+        <cube-button @click="goTo('tombstone')">Infinite</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
     </div>

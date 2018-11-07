@@ -82,9 +82,9 @@ A recyclable scrolling list that always keeps the number of DOMs at a very low r
 
     The samples demo [Here](https://github.com/didi/cube-ui/blob/master/example/pages/recycle-list/recycle-list-default.vue).
 
-- **2. tombstone**
+- **2. Infinite**
 
-  However, the component also supports the second mode. with `tombstone` as a placeholder, which gives the user a perceptible page element, and makes the interaction more friendly and user-friendly.
+  However, the component also supports the second mode - infinite. With `tombstone` as a placeholder, which gives the user a perceptible page element, and makes the interaction more friendly and user-friendly.
   The samples demo [Here](https://github.com/didi/cube-ui/blob/master/example/pages/recycle-list/recycle-list-tombstone.vue).
 
   ```html
