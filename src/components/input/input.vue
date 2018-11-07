@@ -201,7 +201,7 @@
     border-radius: 2px
     outline: none
     &::-webkit-input-placeholder
-      color: $input-placeholder-color!important
+      color: $input-placeholder-color
       text-overflow: ellipsis
     + .cube-input-append
       .cube-input-clear, .cube-input-eye
