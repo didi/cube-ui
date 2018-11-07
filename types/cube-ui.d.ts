@@ -112,6 +112,8 @@ export class Sticky extends CubeUIComponent {}
 export class ScrollNavBar extends CubeUIComponent {}
 /** ScrollNav Component */
 export class ScrollNav extends CubeUIComponent {}
+/** RecycleList Component */
+export class RecycleList extends CubeUIComponent {}
 
 // Vue prototype $createXx
 declare module 'vue/types/vue' {
