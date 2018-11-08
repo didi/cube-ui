@@ -471,6 +471,6 @@ CubeForm is a schema-based form generator component.
 
 | Method name | Description | Parameters | Returned value |
 | - | - | - | - |
-| submit | submit form | - | - |
+| submit | submit form | skipValidate: default `false`, if skipValidate is `true` then will be trigged submit event without validating | - |
 | reset | reset form | - | - |
 | validate(cb) | validate form | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |

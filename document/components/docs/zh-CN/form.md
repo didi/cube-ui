@@ -471,6 +471,6 @@
 
 | 方法名 | 说明 | 参数 | 返回值 |
 | - | - | - | - |
-| submit | 提交表单 | - | - |
+| submit | 提交表单 | skipValidate, 默认 false，如果为 true 代表不校验 直接 submit | - |
 | reset | 重置表单 | - | - |
 | validate(cb) | 校验表单 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 的话返回值是 Promise 对象（只有 resolved 状态，值为 valid），否则 undefined |
