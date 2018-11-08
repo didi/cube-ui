@@ -57,7 +57,7 @@
 
 <script>
   import CubeLoading from '../loading/loading.vue'
-  import { warning } from '../../common/helpers/debug.js'
+  import { warn } from '../../common/helpers/debug.js'
   import { isUndef } from '../../common/helpers/util.js'
 
   const COMPONENT_NAME = 'cube-recycle-list'
@@ -138,7 +138,7 @@
       checkPromiseCompatibility () {
         /* istanbul ignore if */
         if (isUndef(window.Promise)) {
-          warning(PROMISE_ERROR)
+          warn(PROMISE_ERROR)
         }
       },
       init() {
