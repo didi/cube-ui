@@ -51,6 +51,9 @@
       removeItem(item) {
         const index = this.items.indexOf(item)
         this.items.splice(index, 1)
+        if (index <= this.activeIndex) {
+          this.activeIndex -= 1
+        }
       },
       onItemClick(item, index) {
         this.$emit(EVENT_ITEM_CLICK, item, index)
