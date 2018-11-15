@@ -57,7 +57,7 @@
               items.push(this.getItem(this.id++))
             }
             resolve(items)
-          }, 1000)
+          }, 500)
         })
       },
       handleClick(data) {
@@ -69,7 +69,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .view-wrapper
-    position: fixed
+    position: absolute
     top: 54px
     left: 0
     bottom: 0
