@@ -1,57 +1,59 @@
 <template>
   <div class="cube-recycle-list">
-    <div class="cube-recycle-list-items" :style="{height: heights + 'px'}">
+    <div class="cube-recycle-list-main">
+      <div class="cube-recycle-list-items" :style="{height: heights + 'px'}">
+        <div
+          v-for="item in visibleItems"
+          class="cube-recycle-list-item"
+          :style="{transform: 'translate(0,' + item.top + 'px)'}"
+        >
+          <div
+            v-if="infinite"
+            :class="{'cube-recycle-list-transition': infinite}"
+            :style="{opacity: +!item.loaded}"
+          >
+            <slot name="tombstone"></slot>
+          </div>
+          <div
+            :class="{'cube-recycle-list-transition': infinite}"
+            :style="{opacity: item.loaded}"
+          >
+            <slot name="item" :data="item.data"></slot>
+          </div>
+        </div>
+
+        <!-- preloads item for get its height, remove it after caculating height-->
+        <div class="cube-recycle-list-pool">
+          <div
+            class="cube-recycle-list-item cube-recycle-list-invisible"
+            v-if="!item.isTombstone && !item.height"
+            :ref="'preloads'+index"
+            v-for="(item, index) in items"
+          >
+            <slot name="item" :data="item.data"></slot>
+          </div>
+          <div ref="tomb" class="cube-recycle-list-item cube-recycle-list-invisible">
+            <slot name="tombstone"></slot>
+          </div>
+        </div>
+      </div>
       <div
-        v-for="item in visibleItems"
-        class="cube-recycle-list-item"
-        :style="{transform: 'translate3d(0,' + item.top + 'px,0)'}"
+        v-if="!infinite"
+        class="cube-recycle-list-loading"
+        :style="{visibility: loading ? 'visible' : 'hidden'}"
       >
-        <div
-          v-if="infinite"
-          :class="{'cube-recycle-list-transition': infinite}"
-          :style="{opacity: +!item.loaded}"
-        >
-          <slot name="tombstone"></slot>
-        </div>
-        <div
-          :class="{'cube-recycle-list-transition': infinite}"
-          :style="{opacity: item.loaded}"
-        >
-          <slot name="item" :data="item.data"></slot>
-        </div>
+        <slot name="spinner">
+          <div class="cube-recycle-list-loading-content">
+            <cube-loading class="spinner"></cube-loading>
+          </div>
+        </slot>
       </div>
 
-      <!-- preloads item for get its height, remove it after caculating height-->
-      <div class="cube-recycle-list-pool">
-        <div
-          class="cube-recycle-list-item cube-recycle-list-invisible"
-          v-if="!item.isTombstone && !item.height"
-          :ref="'preloads'+index"
-          v-for="(item, index) in items"
-        >
-          <slot name="item" :data="item.data"></slot>
-        </div>
-        <div ref="tomb" class="cube-recycle-list-item cube-recycle-list-invisible">
-          <slot name="tombstone"></slot>
-        </div>
+      <div v-show="noMore" class="cube-recycle-list-noMore">
+        <slot name="noMore" />
       </div>
     </div>
-
-    <div
-      v-if="!infinite"
-      class="cube-recycle-list-loading"
-      :style="{visibility: loading ? 'visible' : 'hidden'}"
-    >
-      <slot name="spinner">
-        <div class="cube-recycle-list-loading-content">
-          <cube-loading class="spinner"></cube-loading>
-        </div>
-      </slot>
-    </div>
-
-    <div v-show="noMore" class="cube-recycle-list-noMore">
-      <slot name="noMore" />
-    </div>
+    <div class="cube-recycle-list-fake"></div>
   </div>
 </template>
 
@@ -266,13 +268,17 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .cube-recycle-list
+    position: relative
     height: 100%
     overflow-x: hidden
     overflow-y: auto
     -webkit-overflow-scrolling: touch
 
-  .cube-recycle-list-items
-    position: relative
+  .cube-recycle-list-main
+    min-height: 100%
+
+  .cube-recycle-list-fake
+    height: 1px
 
   .cube-recycle-list-invisible
     top: -1000px
