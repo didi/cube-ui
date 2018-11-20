@@ -13,6 +13,12 @@
       label: {
         type: [String, Number],
         required: true
+      },
+      value: {
+        type: [String, Number],
+        default() {
+          return this.label
+        }
       }
     },
     mounted () {

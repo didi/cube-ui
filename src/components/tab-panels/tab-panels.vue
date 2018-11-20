@@ -5,7 +5,8 @@
         <cube-tab-panel
           v-for="(item, index) in data"
           :label="item.label"
-          :key="item.label">
+          :value="item.value"
+          :key="item.value || item.label">
           {{item.label}}
         </cube-tab-panel>
       </slot>
@@ -42,8 +43,8 @@
       this._move(this.value)
     },
     methods: {
-      _move(label) {
-        const curIndex = findIndex(this.panels, panel => panel.label === label)
+      _move(value) {
+        const curIndex = findIndex(this.panels, panel => panel.value === value)
         /* istanbul ignore if */
         if (curIndex === INDEX_OUT_OF_BOUNDARY) {
           return
