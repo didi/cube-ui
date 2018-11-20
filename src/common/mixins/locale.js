@@ -1,3 +1,4 @@
+import locale from '../locale'
 import { parsePath, isUndef } from '../helpers/util'
 import { warn } from '../helpers/debug'
 
@@ -17,5 +18,8 @@ export default {
         return parsePath(messages, path)
       }
     }
+  },
+  beforeCreate() {
+    locale.install(this.$root.constructor)
   }
 }
