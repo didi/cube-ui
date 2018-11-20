@@ -4,8 +4,9 @@
       <cube-tab
         v-for="(item, index) in data"
         :label="item.label"
+        :value="item.value"
         :icon="item.icon"
-        :key="item.label">
+        :key="item.value || item.label">
       </cube-tab>
     </slot>
     <div v-if="showSlider" ref="slider" class="cube-tab-bar-slider"></div>
@@ -54,6 +55,11 @@
         default: true
       }
     },
+    watch: {
+      value () {
+        this._updateSliderStyle()
+      }
+    },
     created () {
       this.tabs = []
     },
@@ -81,14 +87,14 @@
         const index = this.tabs.indexOf(tab)
         if (index > -1) this.tabs.splice(index, 1)
       },
-      trigger (label) {
+      trigger (value) {
         // emit click event as long as tab is clicked
-        this.$emit(EVENT_CLICK, label)
+        this.$emit(EVENT_CLICK, value)
         // only when value changed, emit change & input event
-        if (label !== this.value) {
+        if (value !== this.value) {
           const changedEvents = [EVENT_INPUT, EVENT_CHANGE]
           changedEvents.forEach((eventType) => {
-            this.$emit(eventType, label)
+            this.$emit(eventType, value)
           })
         }
       },
@@ -116,7 +122,7 @@
         let width = 0
         let index = 0
         if (this.tabs.length > 0) {
-          index = findIndex(this.tabs, (tab) => tab.label === this.value)
+          index = findIndex(this.tabs, (tab) => tab.value === this.value)
           width = this.tabs[index].$el.clientWidth
         }
         return {
@@ -140,11 +146,6 @@
       _cleanUp () {
         clearTimeout(this._resizeTimer)
         window.removeEventListener('resize', this._resizeHandler)
-      }
-    },
-    watch: {
-      value () {
-        this._updateSliderStyle()
       }
     }
   }
