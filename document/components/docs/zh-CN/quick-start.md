@@ -2,6 +2,7 @@
 
 - 新手教程项目：[cube-application-guide](https://github.com/cube-ui/cube-application-guide)
 - 遇到问题，先移步 [QA](https://github.com/cube-ui/question-answer/issues)
+- [视频教程](https://coding.imooc.com/class/74.html)
 
 ### 脚手架
 
