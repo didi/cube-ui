@@ -85,6 +85,10 @@
       format: {
         type: String,
         default: 'YYYY/M/D hh:mm'
+      },
+      max: {
+        type: [Date, Number],
+        default: null
       }
     },
     data() {
@@ -129,6 +133,23 @@
 
         return new Date(minTimeStamp)
       },
+      maxTime() {
+        let max = this.max
+        let maxTimeStamp
+        if (max) {
+          if (typeof max === 'number') {
+            max = new Date(max)
+          }
+          const minute = max.getMinutes()
+          const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
+          maxTimeStamp = +max - (minute - intMinute) * MINUTE_TIMESTAMP
+        } else {
+          maxTimeStamp = this.minTime + this._day.len * DAY_TIMESTAMP
+          maxTimeStamp = getZeroStamp(new Date(maxTimeStamp)) - 1
+        }
+
+        return new Date(maxTimeStamp)
+      },
       days() {
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
@@ -153,19 +174,6 @@
         }
         return hours
       },
-      partHours() {
-        const partHours = this.hours.slice(this.minTime.getHours())
-        partHours[0] = Object.assign({}, partHours[0], {children: this.partMinutes})
-
-        if (this.showNow) {
-          partHours.unshift({
-            value: NOW.value,
-            text: this.nowText,
-            children: []
-          })
-        }
-        return partHours
-      },
       minutes() {
         const minutes = []
         for (let i = 0; i < 60; i += this.minuteStepNumber) {
@@ -176,16 +184,48 @@
         }
         return minutes
       },
-      partMinutes() {
-        const begin = this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
-        return this.minutes.slice(begin)
-      },
       cascadeData() {
-        const data = this.days.slice()
-        data.forEach((item, index) => {
-          item.children = index ? this.hours : this.partHours
+        const days = this.days.slice()
+        days.forEach((day, index) => {
+          const isMinDay = index === 0
+          const isMaxDay = index === days.length - 1
+
+          if (!isMinDay && !isMaxDay) {
+            day.children = this.hours
+            return
+          }
+
+          const partHours = []
+          const minHour = isMinDay ? this.minTime.getHours() : 0
+          const maxHour = isMaxDay ? this.maxTime.getHours() : 23
+
+          for (let i = minHour; i <= maxHour; i++) {
+            const isMinHour = isMinDay && i === minHour
+            const isMaxHour = isMaxDay && i === maxHour
+
+            if (!isMinHour && !isMaxHour) {
+              partHours.push({
+                value: i,
+                text: `${i}${this.$t('hours')}`,
+                children: this.minutes
+              })
+              break
+            }
+
+            const start = isMinHour ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber) : 0
+            const end = Math.floor((isMaxHour ? this.maxTime.getMinutes() : 59) / this.minuteStepNumber)
+
+            const partMinutes = this.minute.slice(start, end)
+            partMinutes.push({
+              value: i,
+              text: `${i}${this.$t('hours')}`,
+              children: partMinutes
+            })
+          }
+
+          day.children = partHours
         })
-        return data
+        return days
       }
     },
     methods: {
