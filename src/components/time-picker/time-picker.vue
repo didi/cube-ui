@@ -134,6 +134,7 @@
         return new Date(minTimeStamp)
       },
       maxTime() {
+        // OPTIMIZE: max 小于 min 时，warn
         let max = this.max
         let maxTimeStamp
         if (max) {
@@ -153,8 +154,9 @@
       days() {
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
+        const len = this.max ? getDayDiff(this.maxTime, this.minTime) : this._day.len
 
-        for (let i = 0; i < this._day.len; i++) {
+        for (let i = 0; i < len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
           days.push({
             value: timestamp,
