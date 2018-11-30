@@ -6,6 +6,7 @@
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
         <cube-button @click="showFormatPicker">Config format</cube-button>
         <cube-button @click="showMinuteStepPicker">Config minute step</cube-button>
+        <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
@@ -68,6 +69,16 @@
           })
         }
         this.minuteStepPicker.show()
+      },
+      showMaxPicker() {
+        if (!this.maxPicker) {
+          this.maxPicker = this.$createTimePicker({
+            max: +new Date(2018, 11, 1),
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.maxPicker.show()
       },
       showSetTimePiker() {
         if (!this.setTimePiker) {
