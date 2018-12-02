@@ -3,10 +3,10 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showTimePicker">TimePicker</cube-button>
+        <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
         <cube-button @click="showFormatPicker">Config format</cube-button>
         <cube-button @click="showMinuteStepPicker">Config minute step</cube-button>
-        <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
@@ -73,7 +73,7 @@
       showMaxPicker() {
         if (!this.maxPicker) {
           this.maxPicker = this.$createTimePicker({
-            max: +new Date(2018, 11, 1),
+            max: +new Date() + ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
             onSelect: this.selectHandler,
             onCancel: this.cancelHandler
           })
