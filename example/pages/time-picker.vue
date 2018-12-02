@@ -73,6 +73,7 @@
       showMaxPicker() {
         if (!this.maxPicker) {
           this.maxPicker = this.$createTimePicker({
+            delay: 0,
             max: +new Date() + ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
             onSelect: this.selectHandler,
             onCancel: this.cancelHandler

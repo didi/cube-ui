@@ -290,7 +290,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| rule | 取整的规则 | String | floor/ceil/round | 'floor' |
+| rule | 取整的规则（仅用于设置最小可选时间的取整规则，对于最大时间，固定为 floor） | String | floor/ceil/round | 'floor' |
 | step | 分钟数的步长 | Number | - | 10 |
 
 ### 事件

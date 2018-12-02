@@ -154,7 +154,7 @@
       days() {
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
-        const len = this.max ? getDayDiff(this.maxTime, this.minTime) : this._day.len
+        const len = this.max ? getDayDiff(this.maxTime, this.minTime) + 1 : this._day.len
 
         for (let i = 0; i < len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
@@ -211,14 +211,14 @@
                 text: `${i}${this.$t('hours')}`,
                 children: this.minutes
               })
-              break
+              continue
             }
 
             const start = isMinHour ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber) : 0
-            const end = Math.floor((isMaxHour ? this.maxTime.getMinutes() : 59) / this.minuteStepNumber)
+            const end = Math.floor((isMaxHour ? this.maxTime.getMinutes() : 59) / this.minuteStepNumber) + 1
 
-            const partMinutes = this.minute.slice(start, end)
-            partMinutes.push({
+            const partMinutes = this.minutes.slice(start, end)
+            partHours.push({
               value: i,
               text: `${i}${this.$t('hours')}`,
               children: partMinutes
