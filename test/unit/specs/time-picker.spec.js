@@ -2,6 +2,7 @@ import Vue from 'vue2'
 import TimePicker from '@/modules/time-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
+import { getDayDiff } from '@/common/lang/date'
 
 describe('TimePicker', () => {
   let vm
@@ -235,6 +236,41 @@ describe('TimePicker', () => {
   })
 
   testMinuteStep()
+
+  testMax()
+
+  function testMax () {
+    const maxConfigs = [
+      ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      (2 * 60 + 20) * 60 * 1000,
+      (10) * 60 * 1000,
+      (1) * 60 * 1000
+    ]
+
+    maxConfigs.forEach((max) => {
+      it(`should init columns correct when max = now + ${max}`, function () {
+        const now = +new Date()
+        max += now
+        vm = createPicker({
+          showNow: false,
+          delay: 0,
+          max
+        })
+
+        const daysLength = vm.cascadeData.length
+        expect(daysLength)
+          .to.equal(getDayDiff(vm.maxTime, vm.minTime) + 1)
+
+        let maxHour = vm.cascadeData[daysLength - 1]
+        while (maxHour.children) {
+          maxHour = maxHour.children[maxHour.children.length - 1]
+        }
+
+        expect(maxHour.value)
+          .to.equal(Math.floor(new Date(max).getMinutes() / 10) * 10)
+      })
+    })
+  }
 
   function testMinuteStep() {
     const minuteStepConfigs = [

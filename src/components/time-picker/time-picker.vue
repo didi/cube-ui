@@ -123,31 +123,24 @@
       },
       minTime() {
         let minTimeStamp = +this.now + this.delay * MINUTE_TIMESTAMP
-
         // Handle the minTime selectable change caused by minute step.
         const minute = new Date(minTimeStamp).getMinutes()
-        const intMinute = this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber
-        if (intMinute >= 60) {
-          minTimeStamp += (60 - minute) * MINUTE_TIMESTAMP
-        }
+        const intMinute = Math.min(this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber, 60)
 
+        minTimeStamp += (intMinute - minute) * MINUTE_TIMESTAMP
         return new Date(minTimeStamp)
       },
       maxTime() {
-        // OPTIMIZE: max 小于 min 时，warn
-        let max = this.max
+        let max = this.max || getZeroStamp(new Date(this.minTime + this._day.len * DAY_TIMESTAMP)) - 1
         let maxTimeStamp
-        if (max) {
-          if (typeof max === 'number') {
-            max = new Date(max)
-          }
-          const minute = max.getMinutes()
-          const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
-          maxTimeStamp = +max - (minute - intMinute) * MINUTE_TIMESTAMP
-        } else {
-          maxTimeStamp = this.minTime + this._day.len * DAY_TIMESTAMP
-          maxTimeStamp = getZeroStamp(new Date(maxTimeStamp)) - 1
+
+        if (typeof max === 'number') {
+          max = new Date(max)
         }
+
+        const minute = max.getMinutes()
+        const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
+        maxTimeStamp = +max - (minute - intMinute) * MINUTE_TIMESTAMP
 
         return new Date(maxTimeStamp)
       },
@@ -188,6 +181,13 @@
       },
       cascadeData() {
         const days = this.days.slice()
+
+        // when maxTime is smaller than minTime by more than 1 minute, there is no option could be chosen.
+        if (this.maxTime - this.minTime <= -60000) {
+          warn('The max is smaller than the min optional time.', COMPONENT_NAME)
+          return []
+        }
+
         days.forEach((day, index) => {
           const isMinDay = index === 0
           const isMaxDay = index === days.length - 1
@@ -214,10 +214,10 @@
               continue
             }
 
-            const start = isMinHour ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber) : 0
-            const end = Math.floor((isMaxHour ? this.maxTime.getMinutes() : 59) / this.minuteStepNumber) + 1
+            const start = isMinHour ? this.minTime.getMinutes() / this.minuteStepNumber : 0
+            const end = isMaxHour ? this.maxTime.getMinutes() / this.minuteStepNumber : Math.floor(59 / this.minuteStepNumber)
 
-            const partMinutes = this.minutes.slice(start, end)
+            const partMinutes = this.minutes.slice(start, end + 1)
             partHours.push({
               value: i,
               text: `${i}${this.$t('hours')}`,
@@ -227,6 +227,15 @@
 
           day.children = partHours
         })
+
+        if (this.showNow) {
+          days[0].children.unshift({
+            value: NOW.value,
+            text: this.nowText,
+            children: []
+          })
+        }
+
         return days
       }
     },
