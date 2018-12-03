@@ -241,14 +241,16 @@ describe('TimePicker', () => {
 
   function testMax () {
     const maxConfigs = [
+      null,
       ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
       (2 * 60 + 20) * 60 * 1000,
       (10) * 60 * 1000,
-      (1) * 60 * 1000
+      (1) * 60 * 1000,
+      -(10) * 60 * 1000
     ]
 
     maxConfigs.forEach((max) => {
-      it(`should init columns correct when max = now + ${max}`, function () {
+      it.only(`should init columns correct when max = now + ${max}`, function () {
         const now = +new Date()
         max += now
         vm = createPicker({
@@ -258,6 +260,14 @@ describe('TimePicker', () => {
         })
 
         const daysLength = vm.cascadeData.length
+
+        // When the maxTime is smaller than minTime by more than a minute step. there is no option could be chosen.
+        if (max - now <= -(10) * 60 * 1000) {
+          expect(daysLength)
+            .to.equal(0)
+          return
+        }
+
         expect(daysLength)
           .to.equal(getDayDiff(vm.maxTime, vm.minTime) + 1)
 
@@ -267,7 +277,7 @@ describe('TimePicker', () => {
         }
 
         expect(maxHour.value)
-          .to.equal(Math.floor(new Date(max).getMinutes() / 10) * 10)
+          .to.equal(Math.floor((max ? new Date(max).getMinutes() : 59) / 10) * 10)
       })
     })
   }

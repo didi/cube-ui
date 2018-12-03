@@ -182,7 +182,7 @@
       cascadeData() {
         const days = this.days.slice()
 
-        // when maxTime is smaller than minTime by more than 1 minute, there is no option could be chosen.
+        // When the maxTime is smaller than minTime by more than a minute step. there is no option could be chosen.
         if (this.maxTime - this.minTime <= -60000) {
           warn('The max is smaller than the min optional time.', COMPONENT_NAME)
           return []

@@ -3,10 +3,10 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showTimePicker">TimePicker</cube-button>
-        <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
         <cube-button @click="showFormatPicker">Config format</cube-button>
         <cube-button @click="showMinuteStepPicker">Config minute step</cube-button>
+        <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
