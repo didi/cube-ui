@@ -250,7 +250,7 @@ describe('TimePicker', () => {
     ]
 
     maxConfigs.forEach((max) => {
-      it.only(`should init columns correct when max = now + ${max}`, function () {
+      it(`should init columns correct when max = now + ${max}`, function () {
         const now = +new Date()
         max += now
         vm = createPicker({
@@ -313,7 +313,7 @@ describe('TimePicker', () => {
         const step = (typeof item === 'number' ? item : (item && item.step)) || 10
         const rule = (item && item.rule) || 'floor'
 
-        expect(vm.partMinutes[0].value)
+        expect(vm.cascadeData[0].children[0].children[0].value)
           .to.equal(Math[rule](vm.minTime.getMinutes() / step) * step)
       })
     })
