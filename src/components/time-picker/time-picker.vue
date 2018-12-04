@@ -214,8 +214,9 @@
               continue
             }
 
-            const start = isMinHour ? this.minTime.getMinutes() / this.minuteStepNumber : 0
-            const end = isMaxHour ? this.maxTime.getMinutes() / this.minuteStepNumber : Math.floor(59 / this.minuteStepNumber)
+            // Math.round is use to avoid some weird float bug of multiplication and divisionluate in JavaScript. Because we have to ensure the arguments of Array.slice are int.
+            const start = isMinHour ? Math.round(this.minTime.getMinutes() / this.minuteStepNumber) : 0
+            const end = isMaxHour ? Math.round(this.maxTime.getMinutes() / this.minuteStepNumber) : Math.floor(59 / this.minuteStepNumber)
 
             const partMinutes = this.minutes.slice(start, end + 1)
             partHours.push({
