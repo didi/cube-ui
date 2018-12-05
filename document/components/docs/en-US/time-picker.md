@@ -129,6 +129,87 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
+- Min <sup>1.12.6</sup>
+
+  You could use the property `min` to set the min optional time. It could accept a date (Date type) or a timestamp (Number type).
+
+  ```html
+  <cube-button @click="showMinPicker">Config min</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showMinPicker() {
+        if (!this.minPicker) {
+          this.minPicker = this.$createTimePicker({
+            min: +new Date() - (2 * 60 + 20) * 60 * 1000,
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.minPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
+- Max <sup>1.12.6</sup>
+
+  You could use the property `max` to set the max optional time. It could accept a date (Date type) or a timestamp (Number type).
+
+  ```html
+  <cube-button @click="showMaxPicker">Config max</cube-button>
+  ```
+
+  ```js
+  export default {
+    methods: {
+      showMaxPicker() {
+        if (!this.maxPicker) {
+          this.maxPicker = this.$createTimePicker({
+            delay: 0,
+            max: +new Date() + ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.maxPicker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - Set time manually
 
   ```html
@@ -180,10 +261,12 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
-| delay | minutes that postponed backwards from now, which determines the minimal optional time| Number | 15 |
 | day | date configuration | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
 | showNow | whether to display now; configure the text of option now<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
 | minuteStep | step of the minute | Number | 10 |
+| delay | minutes that postponed backwards from now, which determines the minimal optional time (only effect without setting `min`)| Number | 15 |
+| min<sup>1.12.6</sup> | the min optional time | Date, Number | null |
+| max<sup>1.12.6</sup> | the max optional time | Date, Number | null |
 | title | title | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | subtitle | String | '' |
 | cancelTxt<sup>1.8.1</sup> | the text of the cancel button | String | '取消' |
@@ -198,7 +281,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
-| len | date column, postpone `len` days backwards from now | Number | 3 |
+| len | date column, postpone `len` days backwards from now (only effect without setting `max`) | Number | 3 |
 | filter | date column, map time to the text in filter | Array | ['今日'] |
 | format | format time | String | 'M月D日' |
 

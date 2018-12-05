@@ -85,6 +85,14 @@
       format: {
         type: String,
         default: 'YYYY/M/D hh:mm'
+      },
+      min: {
+        type: [Date, Number],
+        default: null
+      },
+      max: {
+        type: [Date, Number],
+        default: null
       }
     },
     data() {
@@ -118,22 +126,30 @@
         return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
-        let minTimeStamp = +this.now + this.delay * MINUTE_TIMESTAMP
+        let minTimeStamp = +this.min || +this.now + this.delay * MINUTE_TIMESTAMP
 
         // Handle the minTime selectable change caused by minute step.
         const minute = new Date(minTimeStamp).getMinutes()
-        const intMinute = this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber
-        if (intMinute >= 60) {
-          minTimeStamp += (60 - minute) * MINUTE_TIMESTAMP
-        }
+        const intMinute = Math.min(this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber, 60)
 
+        minTimeStamp += (intMinute - minute) * MINUTE_TIMESTAMP
         return new Date(minTimeStamp)
+      },
+      maxTime() {
+        let maxTimeStamp = +this.max || (getZeroStamp(new Date(+this.minTime + this._day.len * DAY_TIMESTAMP)) - 1)
+
+        const minute = new Date(maxTimeStamp).getMinutes()
+        const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
+        maxTimeStamp -= (minute - intMinute) * MINUTE_TIMESTAMP
+
+        return new Date(maxTimeStamp)
       },
       days() {
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
+        const len = this.max ? getDayDiff(this.maxTime, this.minTime) + 1 : this._day.len
 
-        for (let i = 0; i < this._day.len; i++) {
+        for (let i = 0; i < len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
           days.push({
             value: timestamp,
@@ -153,19 +169,6 @@
         }
         return hours
       },
-      partHours() {
-        const partHours = this.hours.slice(this.minTime.getHours())
-        partHours[0] = Object.assign({}, partHours[0], {children: this.partMinutes})
-
-        if (this.showNow) {
-          partHours.unshift({
-            value: NOW.value,
-            text: this.nowText,
-            children: []
-          })
-        }
-        return partHours
-      },
       minutes() {
         const minutes = []
         for (let i = 0; i < 60; i += this.minuteStepNumber) {
@@ -176,16 +179,65 @@
         }
         return minutes
       },
-      partMinutes() {
-        const begin = this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
-        return this.minutes.slice(begin)
-      },
       cascadeData() {
-        const data = this.days.slice()
-        data.forEach((item, index) => {
-          item.children = index ? this.hours : this.partHours
+        const days = this.days.slice()
+
+        // When the maxTime is smaller than minTime by more than a minute step, there is no option could be chosen.
+        if (this.maxTime - this.minTime <= -60000) {
+          warn('The max is smaller than the min optional time.', COMPONENT_NAME)
+          return []
+        }
+
+        days.forEach((day, index) => {
+          const isMinDay = index === 0
+          const isMaxDay = index === days.length - 1
+
+          if (!isMinDay && !isMaxDay) {
+            day.children = this.hours
+            return
+          }
+
+          const partHours = []
+          const minHour = isMinDay ? this.minTime.getHours() : 0
+          const maxHour = isMaxDay ? this.maxTime.getHours() : 23
+
+          for (let i = minHour; i <= maxHour; i++) {
+            const isMinHour = isMinDay && i === minHour
+            const isMaxHour = isMaxDay && i === maxHour
+
+            if (!isMinHour && !isMaxHour) {
+              partHours.push({
+                value: i,
+                text: `${i}${this.$t('hours')}`,
+                children: this.minutes
+              })
+              continue
+            }
+
+            // Math.round is use to avoid some weird float bug of multiplication and divisionluate in JavaScript. Because we have to ensure the arguments of Array.slice are int.
+            const start = isMinHour ? Math.round(this.minTime.getMinutes() / this.minuteStepNumber) : 0
+            const end = isMaxHour ? Math.round(this.maxTime.getMinutes() / this.minuteStepNumber) : Math.floor(59 / this.minuteStepNumber)
+
+            const partMinutes = this.minutes.slice(start, end + 1)
+            partHours.push({
+              value: i,
+              text: `${i}${this.$t('hours')}`,
+              children: partMinutes
+            })
+          }
+
+          day.children = partHours
         })
-        return data
+
+        if (this.showNow) {
+          days[0].children.unshift({
+            value: NOW.value,
+            text: this.nowText,
+            children: []
+          })
+        }
+
+        return days
       }
     },
     methods: {
