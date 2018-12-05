@@ -168,7 +168,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     }
   }
   ```
-- 最小可选时间
+- 最小可选时间 min <sup>1.12.6</sup>
 
   你可以通过 `min` 属性设置最小可选时间。它可以接受 Date 类型的日期时间，也可以 Number类型的时间戳。
 
@@ -208,7 +208,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   }
   ```
 
-- 最大可选时间
+- 最大可选时间 max <sup>1.12.6</sup>
 
   你可以通过 `max` 属性设置最大可选时间。它可以接受 Date 类型的日期时间，也可以 Number类型的时间戳。
 
@@ -250,6 +250,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   ```
 
 - 手动设置时间
+
   ```html
   <cube-button @click="showTimePicker">TimePicker - setTime(next hour)</cube-button>
   ```
@@ -297,12 +298,12 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
-| min<sup>1.12.6</sup> | 最小可选时间 | Date, Number | null |
-| max<sup>1.12.6</sup> | 最大可选时间 | Date, Number | null |
 | day | 日期配置 | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
 | showNow | 是否显示现在；以及现在选项的文案<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
 | minuteStep | 分钟数的步长。 当为 Object 时还可以配置取整规则，详见后续 `minuteStep` 子配置项说明<sup>1.10.5</sup> | Number, Object<sup>1.10.5</sup> | 10 |
 | delay | 将当前时间向后推算的分钟数，决定了最小可选时间（注：仅当未设置 `min` 时有效） | Number | 15 |
+| min<sup>1.12.6</sup> | 最小可选时间 | Date, Number | null |
+| max<sup>1.12.6</sup> | 最大可选时间 | Date, Number | null |
 | title | 标题 | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | 副标题 | String | '' |
 | cancelTxt<sup>1.8.1</sup> | 取消按钮文案 | String | '取消' |

@@ -129,7 +129,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
-- Min
+- Min <sup>1.12.6</sup>
 
   You could use the property `min` to set the min optional time. It could accept a date (Date type) or a timestamp (Number type).
 
@@ -169,7 +169,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
-- Max
+- Max <sup>1.12.6</sup>
 
   You could use the property `max` to set the max optional time. It could accept a date (Date type) or a timestamp (Number type).
 
@@ -261,12 +261,12 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Default |
 | - | - | - | - |
-| min<sup>1.12.6</sup> | the min optional time | Date, Number | null |
-| max<sup>1.12.6</sup> | the max optional time | Date, Number | null |
 | day | date configuration | Object | { len: 3, filter: ['今日'], format: 'M月D日' } |
 | showNow | whether to display now; configure the text of option now<sup>1.9.0</sup> | Boolean, Object<sup>1.9.0</sup> | true |
 | minuteStep | step of the minute | Number | 10 |
 | delay | minutes that postponed backwards from now, which determines the minimal optional time (only effect without setting `min`)| Number | 15 |
+| min<sup>1.12.6</sup> | the min optional time | Date, Number | null |
+| max<sup>1.12.6</sup> | the max optional time | Date, Number | null |
 | title | title | String | '选择时间' |
 | subtitle<sup>1.8.1</sup> | subtitle | String | '' |
 | cancelTxt<sup>1.8.1</sup> | the text of the cancel button | String | '取消' |
