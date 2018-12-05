@@ -237,7 +237,46 @@ describe('TimePicker', () => {
 
   testMinuteStep()
 
+  testMin()
+
   testMax()
+
+  function testMin () {
+    const minConfigs = [
+      null,
+      ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      -((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      (2 * 60 + 20) * 60 * 1000,
+      -(2 * 60 + 20) * 60 * 1000,
+      (10) * 60 * 1000,
+      -(10) * 60 * 1000
+    ]
+
+    minConfigs.forEach((min) => {
+      it(`should init columns correct when min = now + ${min}`, function () {
+        const now = +new Date()
+        min = min && now + min
+        vm = createPicker({
+          showNow: false,
+          delay: 0,
+          min
+        })
+
+        const daysLength = vm.cascadeData.length
+
+        expect(daysLength)
+          .to.equal(getDayDiff(vm.maxTime, vm.minTime) + 1)
+
+        let minHour = vm.cascadeData[0]
+        while (minHour.children) {
+          minHour = minHour.children[0]
+        }
+
+        expect(minHour.value)
+          .to.equal(Math.floor((new Date(min || now).getMinutes()) / 10) * 10)
+      })
+    })
+  }
 
   function testMax () {
     const maxConfigs = [
