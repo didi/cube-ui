@@ -86,6 +86,10 @@
         type: String,
         default: 'YYYY/M/D hh:mm'
       },
+      min: {
+        type: [Date, Number],
+        default: null
+      },
       max: {
         type: [Date, Number],
         default: null
@@ -122,7 +126,8 @@
         return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
-        let minTimeStamp = +this.now + this.delay * MINUTE_TIMESTAMP
+        let minTimeStamp = +this.min || +this.now + this.delay * MINUTE_TIMESTAMP
+
         // Handle the minTime selectable change caused by minute step.
         const minute = new Date(minTimeStamp).getMinutes()
         const intMinute = Math.min(this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber, 60)
@@ -131,16 +136,11 @@
         return new Date(minTimeStamp)
       },
       maxTime() {
-        let max = this.max || getZeroStamp(new Date(this.minTime + this._day.len * DAY_TIMESTAMP)) - 1
-        let maxTimeStamp
+        let maxTimeStamp = +this.max || (getZeroStamp(new Date(+this.minTime + this._day.len * DAY_TIMESTAMP)) - 1)
 
-        if (typeof max === 'number') {
-          max = new Date(max)
-        }
-
-        const minute = max.getMinutes()
+        const minute = new Date(maxTimeStamp).getMinutes()
         const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
-        maxTimeStamp = +max - (minute - intMinute) * MINUTE_TIMESTAMP
+        maxTimeStamp -= (minute - intMinute) * MINUTE_TIMESTAMP
 
         return new Date(maxTimeStamp)
       },
@@ -182,7 +182,7 @@
       cascadeData() {
         const days = this.days.slice()
 
-        // When the maxTime is smaller than minTime by more than a minute step. there is no option could be chosen.
+        // When the maxTime is smaller than minTime by more than a minute step, there is no option could be chosen.
         if (this.maxTime - this.minTime <= -60000) {
           warn('The max is smaller than the min optional time.', COMPONENT_NAME)
           return []
