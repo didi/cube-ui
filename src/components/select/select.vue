@@ -13,7 +13,7 @@
   const COMPONENT_NAME = 'cube-select'
 
   const EVENT_CHANGE = 'change'
-  const EVENT_INPUT = 'input' // only used for v-modal
+  const EVENT_INPUT = 'input' // only used for v-model
   const EVENT_PICKER_SHOW = 'picker-show'
   const EVENT_PICKER_HIDE = 'picker-hide'
 
