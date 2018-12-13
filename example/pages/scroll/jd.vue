@@ -1,7 +1,7 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="jd">
     <div slot="content" class="scroll-list-wrap">
-      <header ref="topHeader"><img src="http://om0jxp12h.bkt.clouddn.com/jd_header2.png"></header>
+      <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/_tEw0ofPJ9/jd_header2.png"></header>
       <cube-scroll
         ref="scroll"
         :data="[]"
@@ -9,14 +9,14 @@
         :options="options"
         @scroll="onScrollHandle"
         @pulling-down="onPullingDown">
-        <img src="http://om0jxp12h.bkt.clouddn.com/jd_content.JPG">
+        <img src="https://dpubstatic.udache.com/static/dpubimg/RWEjWgWJ4x/jd_content.JPG">
         <template slot="pulldown" slot-scope="props">
           <div
               v-if="props.pullDownRefresh"
               class="cube-pulldown-wrapper"
               :style="pullDownStyle">
             <div class="pulldown-content">
-              <img src="http://om0jxp12h.bkt.clouddn.com/pulldow-img.jpg" @load="onImgLoad">
+              <img src="https://dpubstatic.udache.com/static/dpubimg/7d895941-251f-471f-abc4-3eca25762465.jpg" @load="onImgLoad">
               <span v-if="props.beforePullDown">{{ pullDownTip }}</span>
               <template v-else>
                 <span v-if="props.isPullingDown">正在更新...</span>
@@ -26,12 +26,12 @@
           </div>
         </template>
       </cube-scroll>
-      <footer><img src="http://om0jxp12h.bkt.clouddn.com/jd_footer2.png"></footer>
+      <footer><img src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png"></footer>
       <transition name="surprise-page">
         <div v-if="triggerSurprise"
           @click="surpriseHandle"
           class="surprise-page">
-          <img src="http://om0jxp12h.bkt.clouddn.com/ad_fullpage2.jpg">
+          <img src="https://dpubstatic.udache.com/static/dpubimg/42DhMSHmIY/ad_fullpage2.jpg">
         </div>
       </transition>
     </div>
