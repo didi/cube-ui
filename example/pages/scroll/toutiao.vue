@@ -1,7 +1,7 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="toutiao">
     <template slot="content">
-      <header ref="topHeader"><img src="http://om0jxp12h.bkt.clouddn.com/toutiao_header2.png"></header>
+      <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/0K9-YvWB-Q/toutiao_header2.png"></header>
       <div class="nav-scroll-list-wrap">
         <cube-scroll ref="navScroll" direction="horizontal">
           <ul class="nav-wrapper">
@@ -47,7 +47,7 @@
           </cube-scroll>
         </div>
       </div>
-      <footer ref="footer"><img src="http://om0jxp12h.bkt.clouddn.com/toutiao_footer2.png"></footer>
+      <footer ref="footer"><img src="https://dpubstatic.udache.com/static/dpubimg/1KRE2YnAim/toutiao_footer2.png"></footer>
     </template>
   </cube-page>
 </template>
@@ -57,13 +57,13 @@ import CubePage from '../../components/cube-page.vue'
 
 const imgs = [
   {
-    url: 'http://om0jxp12h.bkt.clouddn.com/toutiao_12.JPG'
+    url: 'https://dpubstatic.udache.com/static/dpubimg/7EzIhoEvnG/toutiao_12.JPG'
   },
   {
-    url: 'http://om0jxp12h.bkt.clouddn.com/toutiao_21.JPG'
+    url: 'https://dpubstatic.udache.com/static/dpubimg/GR0Piaf5sz/toutiao_21.JPG'
   },
   {
-    url: 'http://om0jxp12h.bkt.clouddn.com/toutiao_31.JPG'
+    url: 'https://dpubstatic.udache.com/static/dpubimg/K1JqUN8HSA/toutiao_31.JPG'
   }
 ]
 
