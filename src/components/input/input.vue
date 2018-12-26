@@ -16,9 +16,10 @@
       @focus="handleFocus"
       @blur="handleBlur"
       @change="changeHander"
+      @input="$emit('input', $event.target.value)"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
-      <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
+      <div class="cube-input-clear" v-if="_showClear" @mousedown="handleClear" @click="handleClear">
         <i class="cubeic-wrong"></i>
       </div>
       <div class="cube-input-eye" v-if="_showPwdEye" @click="handlePwdEye">
@@ -82,7 +83,7 @@
     },
     data() {
       return {
-        inputValue: this.value,
+        inputValue: '',
         isFocus: false,
         formatedClearable: {
           visible: false,
@@ -170,7 +171,9 @@
       },
       handleClear(e) {
         this.inputValue = ''
-        this.$refs.input.focus()
+        setTimeout(() => {
+          this.$refs.input.focus()
+        }, 0)
       },
       handlePwdEye() {
         this.formatedEye.open = !this.formatedEye.open
@@ -200,6 +203,8 @@
     background-color: inherit
     border-radius: 2px
     outline: none
+    &::-ms-clear, ::-ms-reveal
+      display: none !important
     &::-webkit-input-placeholder
       color: $input-placeholder-color
       text-overflow: ellipsis
