@@ -16,7 +16,6 @@
       @focus="handleFocus"
       @blur="handleBlur"
       @change="changeHander"
-      @input="$emit('input', $event.target.value)"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
       <div class="cube-input-clear" v-if="_showClear" @mousedown="handleClear" @click="handleClear">
@@ -83,7 +82,7 @@
     },
     data() {
       return {
-        inputValue: '',
+        inputValue: this.value,
         isFocus: false,
         formatedClearable: {
           visible: false,
