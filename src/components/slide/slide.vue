@@ -208,7 +208,7 @@
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        this._goToPage(this.currentPageIndex)
+        this._goToPage(this.currentPageIndex, 0)
 
         /* dispatch scroll position constantly */
         if (this.options.listenScroll && this.options.probeType === 3) {
@@ -282,7 +282,7 @@
           this._refresh()
         }, 60)
       },
-      _goToPage(index, time = 0) {
+      _goToPage(index, time) {
         if (this.direction === DIRECTION_H) {
           this.slide && this.slide.goToPage(index, 0, time)
         } else if (this.direction === DIRECTION_V) {
