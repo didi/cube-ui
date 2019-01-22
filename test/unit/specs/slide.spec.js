@@ -285,4 +285,37 @@ describe('Slide.vue', () => {
       }, 20)
     })
   })
+
+  it('should change vertical pageIndex when direction is vertical', function (done) {
+    this.timeout(10000)
+    vm = createVue({
+      template: `
+      <cube-slide :threshold="threshold" direction="vertical" style="width:300px;height:100px;">
+        <cube-slide-item v-for="(item,index) in items" :key="index" :item="item"></cube-slide-item>
+      </cube-slide>
+    `,
+      data: {
+        items,
+        threshold: 0.1
+      }
+    })
+
+    vm.$nextTick(() => {
+      expect(vm.currentPageIndex).to.equal(0)
+      dispatchSwipe(vm.$el, [
+        {
+          pageX: 180,
+          pageY: 100
+        },
+        {
+          pageX: 180,
+          pageY: 20
+        }
+      ], 100)
+      setTimeout(() => {
+        expect(vm.currentPageIndex).to.equal(1)
+        done()
+      }, 2000)
+    })
+  })
 })
