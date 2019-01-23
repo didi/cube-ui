@@ -201,7 +201,9 @@
             threshold: this.threshold,
             speed: this.speed
           },
-          stopPropagation: this.stopPropagation
+          stopPropagation: this.stopPropagation,
+          // fix issue #397
+          disableMouse: false
         }, this.options)
 
         this.slide = new BScroll(this.$refs.slide, options)

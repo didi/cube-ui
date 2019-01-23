@@ -263,7 +263,9 @@
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
-          probeType: this.needListenScroll ? 3 : 1
+          probeType: this.needListenScroll ? 3 : 1,
+          // fix issue #397
+          disableMouse: false
         }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
