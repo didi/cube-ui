@@ -40,12 +40,12 @@ describe('Textarea.vue', () => {
   })
   it('should expand when focus, fold when blur', (done) => {
     vm = createTextarea(1)
-    vm.$el.querySelector('textarea').focus()
+    vm.focus()
     setTimeout(() => {
       expect(vm.$el.offsetHeight)
         .to.equal(80)
       vm.textareaValue = ''
-      vm.$el.querySelector('textarea').blur()
+      vm.blur()
       setTimeout(() => {
         expect(vm.$el.offsetHeight)
           .to.equal(40)
@@ -55,7 +55,7 @@ describe('Textarea.vue', () => {
   })
   it('should has remain when focus', (done) => {
     vm = createTextarea(1)
-    vm.$el.querySelector('textarea').focus()
+    vm.focus()
     setTimeout(() => {
       expect(vm.$el.querySelector('.cube-textarea-indicator').innerText)
         .to.equal('56')
