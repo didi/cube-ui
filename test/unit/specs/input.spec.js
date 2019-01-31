@@ -148,12 +148,12 @@ describe('Input.vue', () => {
       }
     })
     const input = vm.$el.querySelector('input')
-    input.focus()
+    vm.focus()
     setTimeout(() => {
       expect(focusHandler)
         .to.be.calledOnce
       input.value = 'new value'
-      input.blur()
+      vm.blur()
       const e = createEvent('', 'change')
       input.dispatchEvent(e)
       setTimeout(() => {
