@@ -124,10 +124,8 @@
         }
       }
     },
-    created () {
-      this.checkPromiseCompatibility()
-    },
     mounted() {
+      this.checkPromiseCompatibility()
       this.$el.addEventListener(EVENT_SCROLL, this._onScroll)
       window.addEventListener(EVENT_RESIZE, this._onResize)
       this.init()
