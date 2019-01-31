@@ -30,7 +30,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
   You can use the `clearable` attribute to toggle the clear button.
 
   Before 1.11.0, the `clearable` value only can be a Boolean value.
-  
+
   After 1.11.0 the `clearable` value can be a Boolean or an Object value.
 
   ```html
@@ -121,3 +121,10 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | - | - | - |
 | focus | This event is triggered after the input box is focused. If input is disabled, it will not be triggered | e - event |
 | blur | This event is triggered after the input box blur | e - event |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| focus<sup>1.12.10+</sup> | Focus element |
+| blur<sup>1.12.10+</sup> | Blur element |

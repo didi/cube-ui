@@ -110,3 +110,11 @@ Multi-line input box components. You can use the `v-model` directive to create t
 | - | - | - |
 | focus | This event is triggered after the textarea box is focused. If Textarea is disabled, it will not be triggered | e - event |
 | blur | This event is triggered after the textarea box blur | e - event |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| focus<sup>1.12.10+</sup> | Focus element |
+| blur<sup>1.12.10+</sup> | Blur element |
+
