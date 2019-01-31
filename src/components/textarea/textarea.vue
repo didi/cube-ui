@@ -1,6 +1,7 @@
 <template>
   <div class="cube-textarea-wrapper" :class="{'cube-textarea_expanded': expanded, 'cube-textarea_active': isFocus}">
     <textarea
+      ref="input"
       class="cube-textarea"
       v-model="textareaValue"
       v-bind="$props"
@@ -15,6 +16,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'
 
@@ -25,6 +27,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [inputMixin],
     data() {
       return {
         textareaValue: this.value,
