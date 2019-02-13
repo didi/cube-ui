@@ -134,7 +134,7 @@
 | offset | 底部拉取更多数据的距离 | Number | - | 200 |
 | onFetch | 获取更多数据 | Function | 必传 | - |
 
-`onFetch` 函数必须返回一个 Promise，同时 Promise 的 resolve 函数的第一个参数必须是数组或者 `false`，这样组件内部能拿到对应的数据来决定是否加载更多还是停止滚动。
+`onFetch` 函数必须返回一个 Promise，同时 Promise 的 resolve 函数的第一个参数必须是数组或者 `false`，如果是数组并且长度小于 size，那么组件会停止无限滚动，同理，如果是 `false`，也会停止。
 
 ### 插槽
 
