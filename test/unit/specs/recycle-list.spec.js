@@ -26,12 +26,23 @@ describe('RecycleList', () => {
     setTimeout(() => {
       const length = vm.items.length
       expect(length)
-        .to.equal(50)
+        .to.equal(10)
       vm.$el.scrollTop = 1000
       setTimeout(() => {
         const length = vm.items.length
         expect(length)
-          .to.equal(100)
+          .to.equal(15)
+        done()
+      }, 500)
+    }, 500)
+  })
+  it('should stop scroll', (done) => {
+    vm = createRecycleList(true)
+    setTimeout(() => {
+      vm.$el.scrollTop = 2000
+      setTimeout(() => {
+        expect(vm.stopFetch)
+          .to.equal(true)
         done()
       }, 500)
     }, 500)
@@ -65,25 +76,44 @@ function createRecycleList (infinite) {
     `,
     data () {
       return {
-        size: 50,
-        infinite
+        size: 10,
+        infinite,
+        pid: 0
       }
     },
     methods: {
       onFetch () {
         let items = []
+        this.pid += 1
+        const pid = this.pid
         return new Promise((resolve) => {
-          setTimeout(() => {
-            for (let i = 0; i < 50; i++) {
-              items.push({
-                id: i,
-                avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/danpliego/128.jpg',
-                msg: '123',
-                time: 'Thu Oct 25 2018 15:02:12 GMT+0800 (中国标准时间)'
-              })
-            }
-            resolve(items)
-          }, 100)
+          if (pid > 2) {
+            resolve(false)
+          } else if (pid === 2) {
+            setTimeout(() => {
+              for (let i = 0; i < 5; i++) {
+                items.push({
+                  id: i,
+                  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/danpliego/128.jpg',
+                  msg: '123',
+                  time: 'Thu Oct 25 2018 15:02:12 GMT+0800 (中国标准时间)'
+                })
+              }
+              resolve(items)
+            }, 100)
+          } else {
+            setTimeout(() => {
+              for (let i = 0; i < 10; i++) {
+                items.push({
+                  id: i,
+                  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/danpliego/128.jpg',
+                  msg: '123',
+                  time: 'Thu Oct 25 2018 15:02:12 GMT+0800 (中国标准时间)'
+                })
+              }
+              resolve(items)
+            }, 100)
+          }
         })
       }
     }
