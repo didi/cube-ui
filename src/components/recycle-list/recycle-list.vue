@@ -244,6 +244,7 @@
           pre = items[i - 1]
           current = items[i]
           // it is empty in array
+          /* istanbul ignore if */
           if (!items[i]) {
             heights += 0
           } else {
@@ -268,10 +269,8 @@
       },
       _onScroll() {
         // trigger load
-        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset) {
-          if (!this.stopFetch) {
-            this.load()
-          }
+        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset && !this.stopFetch) {
+          this.load()
         }
         this.updateStartIndex()
       },
