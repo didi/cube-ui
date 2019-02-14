@@ -72,7 +72,6 @@
     data() {
       return {
         items: [],
-        list: [],
         heights: 0,
         startIndex: 0,
         loadings: [],
@@ -109,6 +108,7 @@
       }
     },
     created () {
+      this.list = []
       this.promiseStack = []
     },
     mounted() {
