@@ -108,12 +108,14 @@
         return this.loadings.length
       }
     },
-    mounted() {
+    created () {
       this.promiseStack = []
+    },
+    mounted() {
       this.checkPromiseCompatibility()
       this.$el.addEventListener(EVENT_SCROLL, this._onScroll)
       window.addEventListener(EVENT_RESIZE, this._onResize)
-      this.init()
+      this.load()
     },
     beforeDestroy () {
       this.$el.removeEventListener(EVENT_SCROLL, this._onScroll)
@@ -125,9 +127,6 @@
         if (isUndef(window.Promise)) {
           warn(PROMISE_ERROR)
         }
-      },
-      init() {
-        this.load()
       },
       load() {
         if (this.infinite) {
@@ -154,7 +153,7 @@
             this.stopScroll(index)
           } else {
             this.setList(index, res)
-            this.tryLoadItems(index)
+            this.loadItemsByIndex(index)
             if (res.length < this.size) {
               this.stopScroll(index)
             }
@@ -184,10 +183,10 @@
         const list = this.list
         const baseIndex = index * this.size
         for (let i = 0; i < res.length; i++) {
-          this.$set(list, baseIndex + i, res[i])
+          list[baseIndex + i] = res[i]
         }
       },
-      tryLoadItems (index) {
+      loadItemsByIndex (index) {
         const size = this.size
         const start = index * size
         const end = (index + 1) * size
