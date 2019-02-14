@@ -44,7 +44,7 @@
       >
         <slot name="spinner">
           <div class="cube-recycle-list-loading-content">
-            <cube-loading class="spinner"></cube-loading>
+            <cube-loading class="cube-recycle-list-spinner"></cube-loading>
           </div>
         </slot>
       </div>
@@ -322,8 +322,8 @@
 
   .cube-recycle-list-loading-content
     text-align: center
-    .spinner
-      margin: 10px auto
-      display: flex
-      justify-content: center
+  .cube-recycle-list-spinner
+    margin: 10px auto
+    display: flex
+    justify-content: center
 </style>
