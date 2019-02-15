@@ -74,7 +74,8 @@
         items: [],
         heights: 0,
         startIndex: 0,
-        loadings: []
+        loadings: [],
+        noMore: false
       }
     },
     props: {
@@ -107,7 +108,6 @@
       }
     },
     created() {
-      this.noMore = false
       this.list = []
       this.promiseStack = []
     },
