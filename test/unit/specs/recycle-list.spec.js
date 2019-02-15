@@ -41,7 +41,7 @@ describe('RecycleList', () => {
     setTimeout(() => {
       vm.$el.scrollTop = 2000
       setTimeout(() => {
-        expect(vm.stopFetch)
+        expect(vm.noMore)
           .to.equal(true)
         done()
       }, 500)
