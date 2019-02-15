@@ -26,7 +26,7 @@
         <div class="cube-recycle-list-pool">
           <div
             class="cube-recycle-list-item cube-recycle-list-invisible"
-            v-if="!item.isTombstone && !item.height"
+            v-if="item && !item.isTombstone && !item.height"
             :ref="'preloads'+index"
             v-for="(item, index) in items"
           >
@@ -38,13 +38,13 @@
         </div>
       </div>
       <div
-        v-if="!infinite"
+        v-if="!infinite && !noMore"
         class="cube-recycle-list-loading"
         :style="{visibility: loading ? 'visible' : 'hidden'}"
       >
         <slot name="spinner">
           <div class="cube-recycle-list-loading-content">
-            <cube-loading class="spinner"></cube-loading>
+            <cube-loading class="cube-recycle-list-spinner"></cube-loading>
           </div>
         </slot>
       </div>
@@ -72,11 +72,9 @@
     data() {
       return {
         items: [],
-        list: [],
         heights: 0,
         startIndex: 0,
         loadings: [],
-        startOffset: 0,
         noMore: false
       }
     },
@@ -109,69 +107,94 @@
         return this.loadings.length
       }
     },
-    watch: {
-      list (newV) {
-        if (newV.length) {
-          this.loadings.pop()
-          if (!this.loading) {
-            this.loadItems()
-          }
-        }
-      },
-      items (newV) {
-        if (newV.length > this.list.length) {
-          this.getItems()
-        }
-      }
+    created() {
+      this.list = []
+      this.promiseStack = []
     },
     mounted() {
       this.checkPromiseCompatibility()
       this.$el.addEventListener(EVENT_SCROLL, this._onScroll)
       window.addEventListener(EVENT_RESIZE, this._onResize)
-      this.init()
+      this.load()
     },
-    beforeDestroy () {
+    beforeDestroy() {
       this.$el.removeEventListener(EVENT_SCROLL, this._onScroll)
       window.removeEventListener(EVENT_RESIZE, this._onResize)
     },
     methods: {
-      checkPromiseCompatibility () {
+      checkPromiseCompatibility() {
         /* istanbul ignore if */
         if (isUndef(window.Promise)) {
           warn(PROMISE_ERROR)
         }
       },
-      init() {
-        this.load()
-      },
       load() {
         if (this.infinite) {
+          const items = this.items
+          const start = items.length
           // increase capacity of items to display tombstone
-          this.items.length += this.size
-          this.loadItems()
+          items.length += this.size
+          const end = items.length
+          this.loadItems(start, end)
+          this.getItems()
         } else if (!this.loading) {
           this.getItems()
         }
       },
       getItems() {
+        const index = this.promiseStack.length
+        const promiseFetch = this.onFetch()
         this.loadings.push('pending')
-        this.onFetch().then((res) => {
+        this.promiseStack.push(promiseFetch)
+        promiseFetch.then((res) => {
+          this.loadings.pop()
           /* istanbul ignore if */
           if (!res) {
-            this.noMore = true
-            this.loadings.pop()
+            this.stopScroll(index)
           } else {
-            this.list = this.list.concat(res)
+            this.setList(index, res)
+            this.loadItemsByIndex(index)
+            if (res.length < this.size) {
+              this.stopScroll(index)
+            }
           }
         })
       },
-      loadItems(isResize) {
+      removeUnusedTombs(copy, index) {
+        let cursor
+        let size = this.size
+        let start = index * size
+        let end = (index + 1) * size
+        for (cursor = start; cursor < end; cursor++) {
+          if (copy[cursor] && copy[cursor].isTombstone) break
+        }
+        this.items = copy.slice(0, cursor)
+      },
+      stopScroll(index) {
+        this.noMore = true
+        this.removeUnusedTombs(this.items.slice(0), index)
+        this.updateItemTop()
+        this.updateStartIndex()
+      },
+      setList(index, res) {
+        const list = this.list
+        const baseIndex = index * this.size
+        for (let i = 0; i < res.length; i++) {
+          list[baseIndex + i] = res[i]
+        }
+      },
+      loadItemsByIndex(index) {
+        const size = this.size
+        const start = index * size
+        const end = (index + 1) * size
+        this.loadItems(start, end)
+      },
+      loadItems(start, end) {
+        const items = this.items
         let promiseTasks = []
-        let start = 0
-        let end = this.infinite ? this.items.length : this.list.length
         let item
         for (let i = start; i < end; i++) {
-          item = this.items[i]
+          item = items[i]
           /* istanbul ignore if */
           if (item && item.loaded) {
             continue
@@ -185,6 +208,7 @@
         // update items top and full list height
         window.Promise.all(promiseTasks).then(() => {
           this.updateItemTop()
+          this.updateStartIndex()
         })
       },
       setItem(index, data) {
@@ -202,60 +226,56 @@
         let dom = this.$refs['preloads' + index]
         if (dom && dom[0]) {
           cur.height = dom[0].offsetHeight
-        } else {
-          // tombstone
+        } else if (cur) {
           cur.height = this.tombHeight
         }
       },
       updateItemTop() {
+        let heights = 0
+        const items = this.items
+        let pre
+        let current
         // loop all items to update item top and list height
-        this.heights = 0
-        for (let i = 0; i < this.items.length; i++) {
-          let pre = this.items[i - 1]
-          this.items[i].top = pre ? pre.top + pre.height : 0
-          this.heights += this.items[i].height
+        for (let i = 0; i < items.length; i++) {
+          pre = items[i - 1]
+          current = items[i]
+          // it is empty in array
+          /* istanbul ignore if */
+          if (!items[i]) {
+            heights += 0
+          } else {
+            current.top = pre ? pre.top + pre.height : 0
+            heights += current.height
+          }
         }
-        // update scroll top when needed
-        if (this.startOffset) {
-          this.setScrollTop()
-        }
-        this.updateIndex()
+        this.heights = heights
       },
-      updateIndex() {
+      updateStartIndex() {
         // update visible items start index
         let top = this.$el.scrollTop
-        for (let i = 0; i < this.items.length; i++) {
-          if (this.items[i].top > top) {
+        let item
+        const items = this.items
+        for (let i = 0; i < items.length; i++) {
+          item = items[i]
+          if (!item || item.top > top) {
             this.startIndex = Math.max(0, i - 1)
             break
           }
         }
       },
-      getStartItemOffset() {
-        if (this.items[this.startIndex]) {
-          this.startOffset = this.items[this.startIndex].top - this.$el.scrollTop
-        }
-      },
-      setScrollTop() {
-        if (this.items[this.startIndex]) {
-          this.$el.scrollTop = this.items[this.startIndex].top - this.startOffset
-          // reset start item offset
-          this.startOffset = 0
-        }
-      },
       _onScroll() {
         // trigger load
-        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset) {
+        if (!this.noMore && this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset) {
           this.load()
         }
-        this.updateIndex()
+        this.updateStartIndex()
       },
       _onResize() {
-        this.getStartItemOffset()
-        this.items.forEach((item) => {
+        const items = this.items
+        items.forEach((item) => {
           item.loaded = false
         })
-        this.loadItems(true)
+        this.loadItems(0, items.length)
       }
     },
     components: {
@@ -298,15 +318,8 @@
 
   .cube-recycle-list-loading-content
     text-align: center
-    .spinner
-      margin: 10px auto
-      display: flex
-      justify-content: center
-
-  .cube-recycle-list-noMore
-    overflow: hidden
+  .cube-recycle-list-spinner
     margin: 10px auto
-    height: 20px
-    text-align: center
+    display: flex
+    justify-content: center
 </style>
-
