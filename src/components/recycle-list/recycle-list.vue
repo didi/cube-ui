@@ -38,7 +38,7 @@
         </div>
       </div>
       <div
-        v-if="!infinite"
+        v-if="!infinite && !stopFetch"
         class="cube-recycle-list-loading"
         :style="{visibility: loading ? 'visible' : 'hidden'}"
       >
@@ -108,6 +108,7 @@
       }
     },
     created () {
+      this.stopFetch = false
       this.list = []
       this.promiseStack = []
     },
