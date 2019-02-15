@@ -106,7 +106,7 @@
         return this.loadings.length
       }
     },
-    created () {
+    created() {
       this.noMore = false
       this.list = []
       this.promiseStack = []
@@ -117,12 +117,12 @@
       window.addEventListener(EVENT_RESIZE, this._onResize)
       this.load()
     },
-    beforeDestroy () {
+    beforeDestroy() {
       this.$el.removeEventListener(EVENT_SCROLL, this._onScroll)
       window.removeEventListener(EVENT_RESIZE, this._onResize)
     },
     methods: {
-      checkPromiseCompatibility () {
+      checkPromiseCompatibility() {
         /* istanbul ignore if */
         if (isUndef(window.Promise)) {
           warn(PROMISE_ERROR)
@@ -160,7 +160,7 @@
           }
         })
       },
-      removeUnusedTombs (copy, index) {
+      removeUnusedTombs(copy, index) {
         let cursor
         let size = this.size
         let start = index * size
@@ -170,23 +170,20 @@
         }
         this.items = copy.slice(0, cursor)
       },
-      stopScroll (index) {
-        if (!this.noMore) {
-          this.noMore = true
-        }
+      stopScroll(index) {
         this.noMore = true
         this.removeUnusedTombs(this.items.slice(0), index)
         this.updateItemTop()
         this.updateStartIndex()
       },
-      setList (index, res) {
+      setList(index, res) {
         const list = this.list
         const baseIndex = index * this.size
         for (let i = 0; i < res.length; i++) {
           list[baseIndex + i] = res[i]
         }
       },
-      loadItemsByIndex (index) {
+      loadItemsByIndex(index) {
         const size = this.size
         const start = index * size
         const end = (index + 1) * size
@@ -268,7 +265,7 @@
       },
       _onScroll() {
         // trigger load
-        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset && !this.noMore) {
+        if (!this.noMore && this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset) {
           this.load()
         }
         this.updateStartIndex()
