@@ -38,7 +38,7 @@
         </div>
       </div>
       <div
-        v-if="!infinite && !stopFetch"
+        v-if="!infinite && !noMore"
         class="cube-recycle-list-loading"
         :style="{visibility: loading ? 'visible' : 'hidden'}"
       >
@@ -74,8 +74,7 @@
         items: [],
         heights: 0,
         startIndex: 0,
-        loadings: [],
-        noMore: false
+        loadings: []
       }
     },
     props: {
@@ -108,7 +107,7 @@
       }
     },
     created () {
-      this.stopFetch = false
+      this.noMore = false
       this.list = []
       this.promiseStack = []
     },
@@ -172,8 +171,8 @@
         this.items = copy.slice(0, cursor)
       },
       stopScroll (index) {
-        if (!this.stopFetch) {
-          this.stopFetch = true
+        if (!this.noMore) {
+          this.noMore = true
         }
         this.noMore = true
         this.removeUnusedTombs(this.items.slice(0), index)
@@ -269,7 +268,7 @@
       },
       _onScroll() {
         // trigger load
-        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset && !this.stopFetch) {
+        if (this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset && !this.noMore) {
           this.load()
         }
         this.updateStartIndex()
