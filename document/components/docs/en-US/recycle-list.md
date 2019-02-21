@@ -144,3 +144,9 @@ The `onFetch` function must return a Promise, and the first argument to Promise'
 | item | Scope slot for each data item | data: An item in items |
 | spinner | Named slot for loading more | - |
 | noMore | Named slot for no more data | - |
+
+### Instance methods
+
+| Method name | Description |
+| - | - |
+| clean | To clean up all the contents |
