@@ -47,6 +47,18 @@ describe('RecycleList', () => {
       }, 500)
     }, 500)
   })
+  it('should clean all contents', (done) => {
+    vm = createRecycleList(true)
+    setTimeout(() => {
+      vm.$el.scrollTop = 300
+      setTimeout(() => {
+        vm.clean()
+        expect(vm.items.length)
+          .to.equal(10)
+        done()
+      }, 500)
+    }, 500)
+  })
   it('should call correct method', (done) => {
     vm = createRecycleList()
     setTimeout(() => {
