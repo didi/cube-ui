@@ -26,7 +26,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .cube-slide-item
-    float: left
     box-sizing: border-box
     height: 100%
     > a

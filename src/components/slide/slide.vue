@@ -182,6 +182,8 @@
         for (let i = 0; i < len; i++) {
           const child = this.children[i]
           child.style[target] = slideSize + 'px'
+          // adding float style here to prevent maxScrollX/Y caculating error in nested Slide
+          child.style.float = 'left'
           allSize += slideSize
         }
         if (this.loop && !isResize && len > 1) {
