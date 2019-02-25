@@ -52,10 +52,14 @@ describe('RecycleList', () => {
     setTimeout(() => {
       vm.$el.scrollTop = 300
       setTimeout(() => {
-        vm.clean()
-        expect(vm.items.length)
-          .to.equal(10)
-        done()
+        vm.reset()
+        expect(vm.list.length)
+          .to.equal(0)
+        setTimeout(() => {
+          expect(vm.list.length)
+            .to.equal(10)
+          done()
+        }, 200)
       }, 500)
     }, 500)
   })
