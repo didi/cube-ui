@@ -149,4 +149,4 @@ The `onFetch` function must return a Promise, and the first argument to Promise'
 
 | Method name | Description |
 | - | - |
-| clean | To clean up all the contents |
+| reset | To clean up all the contents |
