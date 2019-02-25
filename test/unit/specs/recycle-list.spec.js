@@ -50,16 +50,15 @@ describe('RecycleList', () => {
   it('should clean all contents', (done) => {
     vm = createRecycleList(true)
     setTimeout(() => {
-      vm.$el.scrollTop = 300
+      vm.$parent.reset()
+      vm.reset()
+
+      expect(vm.list.length)
+        .to.equal(0)
       setTimeout(() => {
-        vm.reset()
         expect(vm.list.length)
-          .to.equal(0)
-        setTimeout(() => {
-          expect(vm.list.length)
-            .to.equal(10)
-          done()
-        }, 200)
+          .to.equal(10)
+        done()
       }, 500)
     }, 500)
   })
@@ -98,6 +97,9 @@ function createRecycleList (infinite) {
       }
     },
     methods: {
+      reset () {
+        this.pid = 0
+      },
       onFetch () {
         let items = []
         this.pid += 1
