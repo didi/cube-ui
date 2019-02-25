@@ -263,7 +263,7 @@
           }
         }
       },
-      clean () {
+      reset () {
         const map = [
           {
             key: 'items',
