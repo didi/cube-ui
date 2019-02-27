@@ -47,6 +47,21 @@ describe('RecycleList', () => {
       }, 500)
     }, 500)
   })
+  it('should clean all contents', (done) => {
+    vm = createRecycleList(true)
+    setTimeout(() => {
+      vm.$parent.reset()
+      vm.reset()
+
+      expect(vm.list.length)
+        .to.equal(0)
+      setTimeout(() => {
+        expect(vm.list.length)
+          .to.equal(10)
+        done()
+      }, 500)
+    }, 500)
+  })
   it('should call correct method', (done) => {
     vm = createRecycleList()
     setTimeout(() => {
@@ -82,6 +97,9 @@ function createRecycleList (infinite) {
       }
     },
     methods: {
+      reset () {
+        this.pid = 0
+      },
       onFetch () {
         let items = []
         this.pid += 1

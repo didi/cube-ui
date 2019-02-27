@@ -263,6 +263,43 @@
           }
         }
       },
+      reset () {
+        const map = [
+          {
+            key: 'items',
+            value: []
+          },
+          {
+            key: 'heights',
+            value: 0
+          },
+          {
+            key: 'startIndex',
+            value: 0
+          },
+          {
+            key: 'loadings',
+            value: []
+          },
+          {
+            key: 'noMore',
+            value: false
+          },
+          {
+            key: 'list',
+            value: []
+          },
+          {
+            key: 'promiseStack',
+            value: []
+          }
+        ]
+        map.forEach(({ key, value }) => {
+          this[key] = value
+        })
+        this.$el.scrollTop = 0
+        this.load()
+      },
       _onScroll() {
         // trigger load
         if (!this.noMore && this.$el.scrollTop + this.$el.offsetHeight > this.heights - this.offset) {
