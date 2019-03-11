@@ -151,9 +151,7 @@
         }
         if ((!debounceTime && debounceTime !== 0) || debounceTime < 0 || this.fieldValue.trigger === 'blur') return
         this.getValidatorModel = debounce((modelValue) => {
-          this.pending = false
-          this.validatorModel[this.validatorModelKey] = modelValue
-          this.form.updatePending()
+          this.syncValidatorValue()
           this.validate()
           return modelValue
         }, debounceTime, false, this.validatorModel[this.validatorModelKey])
@@ -194,6 +192,11 @@
           this.form.setPending(this.pending)
           this.originValid = undefined
         }
+      },
+      syncValidatorValue() {
+        this.pending = false
+        this.validatorModel[this.validatorModelKey] = this.modelValue
+        this.form.updatePending()
       },
       validatorChangeHandler() {
         // disabled or true to true no update validity
