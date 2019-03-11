@@ -77,9 +77,9 @@ export class Form extends CubeUIComponent {}
 // popup
 /** Popup Component */
 export class Popup extends CubeUIComponent {
-  show()
-  hide()
-  remove()
+  show(): any
+  hide(): any
+  remove(): any
 }
 /** Toast Component */
 export class Toast extends Popup {}
@@ -101,8 +101,8 @@ export class ActionSheet extends Popup {}
 export class ImagePreview extends Popup {}
 /** Drawer Component */
 export class Drawer extends CubeUIComponent {
-  show()
-  hide()
+  show(): void
+  hide(): void
 }
 // scroll
 /** Scroll Component */
