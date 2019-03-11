@@ -124,6 +124,8 @@
         dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
+        // sync all fields value because trigger: blur
+        this.syncValidatorValues()
         if (this.skipValidate) {
           this.$emit(EVENT_SUBMIT, e, this.model)
           return
@@ -168,6 +170,11 @@
         this.setValidity()
         this.setValidating()
         this.setPending()
+      },
+      syncValidatorValues() {
+        this.fields.forEach((fieldComponent) => {
+          fieldComponent.syncValidatorValue()
+        })
       },
       validate(cb) {
         const promise = cb2PromiseWithResolve(cb)
