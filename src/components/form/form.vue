@@ -124,7 +124,7 @@
         dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
-        // sync all fields value because trigger: blur
+        // sync all fields value because of trigger: blur or debounce
         this.syncValidatorValues()
         if (this.skipValidate) {
           this.$emit(EVENT_SUBMIT, e, this.model)
