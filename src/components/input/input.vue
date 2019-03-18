@@ -11,7 +11,7 @@
       :type="_type"
       :disabled="disabled"
       :readonly="readonly"
-      :autocomplete="autocomplete"
+      :autocomplete="_autofocus"
       :autofocus="autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
@@ -55,10 +55,6 @@
         type: Boolean,
         default: false
       },
-      autocomplete: {
-        type: Boolean,
-        default: false
-      },
       name: String,
       id: String,
       form: String,
@@ -92,6 +88,9 @@
           return 'text'
         }
         return type
+      },
+      _autofocus() {
+        return this.autofocus ? 'autofocus' : ''
       },
       _showClear() {
         return this.clearable && this.inputValue && !this.readonly && !this.disabled
