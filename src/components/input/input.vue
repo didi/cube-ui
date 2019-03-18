@@ -12,7 +12,7 @@
       :disabled="disabled"
       :readonly="readonly"
       :autocomplete="autocomplete"
-      :autofocus="autofocus"
+      :autofocus="_autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
       @change="changeHander"
@@ -103,6 +103,9 @@
           return 'text'
         }
         return type
+      },
+      _autofocus() {
+        return this.autofocus ? 'autofocus' : ''
       },
       _showClear() {
         let visible = this.formatedClearable.visible && this.inputValue && !this.readonly && !this.disabled
