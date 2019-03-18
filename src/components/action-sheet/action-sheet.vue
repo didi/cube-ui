@@ -7,10 +7,9 @@
       :mask="true"
       :z-index="zIndex"
       v-show="isVisible"
-      @touchmove.prevent="noop"
-      @mask-click="cancel">
+      @mask-click="maskClick">
       <transition name="cube-action-sheet-move">
-        <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop="noop">
+        <div class="cube-action-sheet-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <h1 class="cube-action-sheet-title border-bottom-1px" v-show="pickerStyle || title">{{title}}</h1>
           <div class="cube-action-sheet-content">
             <ul class="cube-action-sheet-list">
@@ -27,7 +26,7 @@
             </ul>
           </div>
           <div class="cube-action-sheet-space"></div>
-          <div class="cube-action-sheet-cancel" @click="cancel"><span>取消</span></div>
+          <div class="cube-action-sheet-cancel" @click="cancel"><span>{{_cancelTxt}}</span></div>
         </div>
       </transition>
     </cube-popup>
@@ -36,7 +35,9 @@
 
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-action-sheet'
   const EVENT_SELECT = 'select'
@@ -44,7 +45,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin, localeMixin],
     props: {
       data: {
         type: Array,
@@ -58,18 +59,29 @@
       },
       title: {
         type: String,
-        default: ' '
+        default: ''
       },
       pickerStyle: {
         type: Boolean,
         default: false
       },
-      zIndex: {
-        type: Number
+      maskClosable: {
+        type: Boolean,
+        default: true
+      },
+      cancelTxt: {
+        type: String,
+        default: ''
+      }
+    },
+    computed: {
+      _cancelTxt () {
+        return this.cancelTxt || this.$t('cancel')
       }
     },
     methods: {
-      noop() {
+      maskClick() {
+        this.maskClosable && this.cancel()
       },
       cancel() {
         this.hide()
@@ -141,9 +153,9 @@
     &:last-of-type
       border-none()
     &[data-align="left"]
-      text-align left
+      text-align: left
     &[data-align="right"]
-      text-align right
+      text-align: right
 
   .cube-action-sheet-space
     height: 6px

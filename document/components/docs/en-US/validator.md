@@ -1,5 +1,7 @@
 ## Validator
 
+> New in 1.5.0+
+
 Validator is used to validate form data and corresponding warning message.
 
 ### Example
@@ -37,7 +39,7 @@ Validator is used to validate form data and corresponding warning message.
 
 - Add warning style to form component
 
-  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style. And we have added the red border for input and textarea by default.
+  If you want to add warning style to form component, you could put the form component into the Validator component. Because when the validation failed, the Validator component will get a CSS class `cube-validator_warn` so that you could select the descendant form element of class `cube-validator_warn` ro add warning style.
 
   ```html
   <cube-validator :model="text" :rules="rules" v-model="valid">
@@ -110,6 +112,68 @@ Validator is used to validate form data and corresponding warning message.
     color: orange
   ```
 
+- Async validate <sup>1.8.0+</sup>
+
+  If the rule function returned a function(**this function receives a `resolve` callback, if this function called with `true` then it will be treated as success, otherwise it will be treated as failure**) or a `Promise` object(**if `resolve` value is `true` then it will be treated as success, otherwise it will be treated as failure**), then it will be validate asynchronously. And when validating the `validating` event will be emited.
+
+  ```html
+  <div class="validator-item">
+    <p>Async validate: </p>
+    <cube-validator
+      v-model="valid"
+      :model="captcha"
+      :rules="rules"
+      :messages="messages"
+      :immediate="immediate"
+      @validating="validatingHandler"
+      @validated="validatedHandler">
+      <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+    </cube-validator>
+  </div>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        valid: undefined,
+        captcha: '',
+        rules: {
+          type: 'number',
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            })
+            **/
+          }
+        },
+        messages: {
+          captchaCheck: 'Please input "123456"'
+        }
+      }
+    },
+    methods: {
+      validatingHandler() {
+        console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
+      }
+    }
+  }
+  ```
+
+  The `captchaCheck` is an async rule.
+
 - Submit
 
   Although submit is not inside of Validator, it usually be relative with Validator. Therefore, we want to introduce our best practice about submit here. It focus on the handles of multi-validator and warn message no matter whether the form data has ever changed.
@@ -169,19 +233,28 @@ Validator is used to validate form data and corresponding warning message.
 | rules | the rules for validation, you can find the details of rules below | Object | - | {} |
 | messages | custom messages for the corresponding rule | Object | - | {} |
 | immediate | Immediate validate after loaded | Boolean | true/false | false |
+| disabled<sup>1.7.0+</sup> | disabled validate or not | Boolean | true/false | false |
 
 ### Slot
 
 | Name | Description | Scope Parameters |
 | - | - | - |
 | default | the relative form component or element | - |
-| message | warning message | dirty: if the data have ever changed <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+| message | warning message | dirty: if the data have ever changed <br> validating: whether is validating <br> validated: if the validator have ever validated <br> message: the message of the first failed rule <br> result: an object, which contains the resule and message of each rule, such as, { required: { valid: false, invalid: true, message: '必填' } } |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - |
+| validating | validating (only triggered when async validateing) | - |
+| validated | validated (only triggered when async validateing) | valid: 校验是否成功 |
+| msg-click | click error message ele | - |
 
 ### Instance methods
 
-| Method name | Description |
-| - | - |
-| validate | Validate |
+| Method name | Description | Parameters | Returned value |
+| - | - | - | - |
+| validate(cb) | Validate | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |
 
 ### Rule
 
@@ -205,7 +278,11 @@ Validator is used to validate form data and corresponding warning message.
   Beside the build-in rules, you could use the method `addRule` of Validator to add customized common rule, and `addMessage` method to add corresponding default warning message.
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
+
+  // need use Validator
+  Vue.use(Validator)
 
   Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
   Validator.addMessage('odd', 'Please input odd.')
@@ -237,7 +314,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   - Build-in default messages
 
   ```js
-  {
+  const messages = {
     required: 'Required.',
     type: {
       string: 'Please input characters.',
@@ -249,31 +326,31 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
       url: 'Please input a valid web site.'
     },
     min: {
-      string: (config) => `Please input at least ${config} characters.`,
-      number: (config) => `The number could not smaller than ${config}.`,
-      array: (config) => `Please select at least ${config} items.`,
-      date: (config) => `Please select a date after ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input at least ${config} characters.`,
-      tel: (config) => `Please input at least ${config} characters.`,
-      url: (config) => `Please input at least ${config} characters.`
+      string: 'Please input at least {{config}} characters.',
+      number: 'The number could not smaller than {{config}}.',
+      array: 'Please select at least {{config}} items.',
+      date: 'Please select a date after {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input at least {{config}} characters.',
+      tel: 'Please input at least {{config}} characters.',
+      url: 'Please input at least {{config}} characters.'
     },
     max: {
-      string: (config) => `Please input no more than ${config} characters.`,
-      number: (config) => `The number could not bigger than ${config}`,
-      array: (config) => `Please select no more than  ${config} items`,
-      date: (config) => `Please select a date before ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input no more than ${config} characters.`,
-      tel: (config) => `Please input no more than ${config} characters.`,
-      url: (config) => `Please input no more than ${config} characters.`
+      string: 'Please input no more than {{config}} characters.',
+      number: 'The number could not bigger than {{config}}',
+      array: 'Please select no more than  {{config}} items',
+      date: 'Please select a date before {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input no more than {{config}} characters.',
+      tel: 'Please input no more than {{config}} characters.',
+      url: 'Please input no more than {{config}} characters.'
     },
     len: {
-      string: (config) => `Please input ${config} characters.`,
-      number: (config) => `The number should equal ${config}`,
-      array: (config) => `Please select ${config} items`,
-      date: (config) => `Please select ${toLocaleDateString(config, 'en')}`,
-      email: (config) => `Please input ${config} characters.`,
-      tel: (config) => `Please input ${config} characters.`,
-      url: (config) => `Please input ${config} characters.`
+      string: 'Please input {{config}} characters.',
+      number: 'The length should equal {{config}}',
+      array: 'Please select {{config}} items',
+      date: 'Please select {{config | toLocaleDateString("yyyy-MM-dd")}}.',
+      email: 'Please input {{config}} characters.',
+      tel: 'Please input {{config}} characters.',
+      url: 'Please input {{config}} characters.'
     },
     pattern: 'The input don"t match pattern.',
     custom: 'Invalid.',
@@ -283,10 +360,45 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   - Modify the build-in message
 
   ```js
+  import Vue from 'vue'
   import { Validator } from 'cube-ui'
 
+  // need use Validator
+  Vue.use(Validator)
+
   Validator.addMessage('required', 'Please input this.')
+
+  // Override the message for min.date
+  Validator.addMessage('min', {
+    date: 'Please select a date after {{config | toLocaleDateString("yyyy-MM-dd") | tips("Please re-enter")}}.'
+  })
   ```
+
+  As above, the default message parsed inside the component is similar to the Vue filter mechanism.
+
+  - config
+
+  For example, the rule you configured is: {type: 'date', min: '2018-10-10'}, then the value of the `config` field in above message template is '2018-10-10', because the checksum is a `date` type, the value of `min` can be a `timestamp` or a date-like string `yyyy-MM-dd mm:ss ` or `yyyy/MM/dd mm:ss`.
+
+  - toLocaleDateString
+
+  The built-in helper function, the first parameter is the config value you configured, the second parameter is the date format you want to initialize, as above is `'yyyy year MM month dd day'`, accepting something like `yyyy-MM-dd mm:ss` format, you can also register your own helper function as follows.
+
+  ```js
+  Validator.addHelper('fnName', (result, arg1) => {
+    // result -> The value returned by the previous helper function or the config value, as in the above example is '2018-10-10'
+    // arg1 -> The string you passed in the message template, as in the above example, 'Please re-enter'
+    let ret
+
+    // do your own job
+    ret = result + arg1
+
+    // you must return the processed message
+    return ret
+  })
+  ```
+
+  The tool functions registered through `Validator.addHelper` are actually mounted under the `Locale.helpers` namespace. You can also import the `Locale` module and register your own tool functions with `Locale.addHelper`, which point to the same address.
 
 ### addType
 
@@ -300,7 +412,7 @@ At first, let's see the build-in default messages. You can use `addMessage` to m
   })
   ```
 
-  - modify the build-in type
+  - Modify the build-in type
 
   ```js
   import { Validator } from 'cube-ui'

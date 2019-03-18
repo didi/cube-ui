@@ -9,7 +9,7 @@
         placeholder="please type here..."
         :disabled="disabled"
         :readonly="readonly"
-        :clearable="useClear"
+        :clearable="clearable"
         :autocomplete="true"
         :eye="eye"
         v-model="value"
@@ -28,12 +28,16 @@
           <div class="group">
             <switch-option class="item" name="clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
+            <switch-option class="item" name="blur hiden" :value="clearBlurHidden"
+                            @update:value="updateBlurHidden" v-if="useClear"></switch-option>
           </div>
           <div class="group">
             <switch-option class="item" name="password" :value="isPwd"
                             @update:value="updatePwd"></switch-option>
             <switch-option class="item" name="show eye" :value="showEye"
                             @update:value="updateShowEye" v-if="isPwd"></switch-option>
+            <switch-option class="item" name="reverse" :value="reverse"
+                            @update:value="updateReverse" v-if="isPwd && showEye"></switch-option>
             <switch-option class="item" name="password visible" :value="pwdVisible"
                             @update:value="updatePwdVisible" v-if="isPwd && showEye"></switch-option>
           </div>
@@ -54,17 +58,26 @@
         value: '',
         disabled: false,
         useClear: true,
+        clearBlurHidden: true,
         readonly: false,
         isPwd: true,
         showEye: true,
-        pwdVisible: true
+        pwdVisible: true,
+        reverse: false
       }
     },
     computed: {
+      clearable() {
+        return {
+          visible: this.useClear,
+          blurHidden: this.clearBlurHidden
+        }
+      },
       eye() {
         if (this.isPwd && this.showEye) {
           return {
-            open: this.pwdVisible
+            open: this.reverse ? !this.pwdVisible : this.pwdVisible,
+            reverse: this.reverse
           }
         } else {
           return false
@@ -81,6 +94,9 @@
       updateUseClear(val) {
         this.useClear = val
       },
+      updateBlurHidden(val) {
+        this.clearBlurHidden = val
+      },
       updatePwd(val) {
         this.isPwd = val
         this.type = this.isPwd ? 'password' : 'text'
@@ -90,6 +106,9 @@
       },
       updatePwdVisible(val) {
         this.pwdVisible = val
+      },
+      updateReverse(val) {
+        this.reverse = val
       }
     },
     components: {

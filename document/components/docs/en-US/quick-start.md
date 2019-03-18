@@ -1,8 +1,18 @@
 ## Quick start
 
-[Application Guide](https://github.com/cube-ui/cube-application-guide)
+- [Application Guide](https://github.com/cube-ui/cube-application-guide)
+- Have problems? See [QA](https://github.com/cube-ui/question-answer/issues)
 
 ### CLI
+
+
+#### vue-cli >= 3
+
+If you are using vue-cli@3, you can use [vue-cli-plugin-cube-ui](https://github.com/cube-ui/vue-cli-plugin-cube-ui) plugin. After you inited your project, just run `vue add cube-ui`. About options, see [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki).
+
+Then you can see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
+
+#### vue-cli < 3
 
 If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the <a href="#cube-Install-anchor" class="anchor">Install</a> steps and see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
 
@@ -16,7 +26,10 @@ If you are going to use cube-ui in an existing project, see the <a href="#cube-I
 
 ### Install
 
+> This section only used in the case of vue-cli < 3
+
 #### NPM
+
 ```shell
 $ npm install cube-ui --save
 ```
@@ -29,8 +42,6 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
 
     ```json
     {
-      // webpack-post-compile-plugin depends on compileDependencies
-      "compileDependencies": ["cube-ui"],
       // webpack-transform-modules-plugin depends on transformModules
       "transformModules": {
         "cube-ui": {
@@ -39,12 +50,11 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         }
       },
       "devDependencies": {
-        "babel-plugin-transform-modules": "^0.1.0",
         // add stylus dependencies
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.1.2",
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-post-compile-plugin": "^0.4.1",
+        "webpack-transform-modules-plugin": "^0.3.5"
       }
     }
     ```
@@ -112,12 +122,12 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
           "transform": "cube-ui/lib/${member}",
           "kebabCase": true,
           "style": {
-            "ignore": ["create-api", "better-scroll"]
+            "ignore": ["create-api", "better-scroll", "locale"]
           }
         }
       },
       "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.3.1"
+        "webpack-transform-modules-plugin": "^0.3.5"
       }
     }
     ```
@@ -179,46 +189,60 @@ import {
 
 **Notice:** In this case, you also need to import [style module](#/en-US/docs/style).
 
-You can choose to register globally or partially:
+Then register globally:
 
 ```js
 // register globally
 Vue.use(Button)
-
-// or register partially
-// in certain somponents
-{
-  components: {
-    CubeButton: Button
-  }
-}
+// ...
 ```
-All the components that can be imported on demand are listed below:
+All the components and modules that can be imported on demand are listed below:
 
 ```js
 import {
+  // basic style
+  Style,
+  // basic
   Button,
-  Checkbox,
-  CheckboxGroup,
   Loading,
   Tip,
+  Toolbar,
+  // form
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  Checker,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  // popup
   Popup,
   Toast,
   Picker,
+  CascadePicker,
+  DatePicker,
   TimePicker,
+  SegmentPicker,
   Dialog,
   ActionSheet,
+  Drawer,
+  // scroll
   Scroll,
   Slide,
-  IndexList
-  // ... more
+  IndexList,
+  Swipe
 } from 'cube-ui'
 ```
 
 You can also import [create-api](#/en-US/docs/create-api) and [better-scroll](#/en-US/docs/better-scroll) module:
 
 ```js
-import { createAPI, BetterScroll } from 'cube-ui'
+import { createAPI, BetterScroll, Locale } from 'cube-ui'
 ```
 
 #### Examples

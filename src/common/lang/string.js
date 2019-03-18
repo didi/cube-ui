@@ -5,3 +5,8 @@ export function camelize (str) {
     return c ? c.toUpperCase() : ''
   })
 }
+
+export function kebab (str) {
+  str = String(str)
+  return str.replace(/([A-Z])/g, '-$1').toLowerCase()
+}

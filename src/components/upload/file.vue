@@ -1,6 +1,9 @@
 <template>
   <div class="cube-upload-file" @click="clickHandler">
-    <slot>
+    <slot
+      :img-style="fileStyle"
+      :progress="fileProgress"
+    >
       <div class="cube-upload-file-def" :style="fileStyle">
         <i class="cubeic-wrong" @click.stop="removeFile"></i>
         <div class="cube-upload-file-state" :class="fileStatusCls">

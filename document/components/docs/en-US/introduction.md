@@ -25,23 +25,40 @@ cube-ui is an elegant mobile component library based on Vue.js.
 #### Basic
 
 - [Button](#/en-US/docs/button)
-- [Checkbox](#/en-US/docs/checkbox)
-- [CheckboxGroup](#/en-US/docs/checkbox-group)
-- [Radio](#/en-CN/docs/radio)
-- [Input](#/en-CN/docs/input)
 - [Loading](#/en-US/docs/loading)
 - [Tip](#/en-US/docs/tip)
+- [Toolbar](#/en-US/docs/toolbar)
+- [TabBar](#/en-US/docs/tab-bar)
+
+#### Form
+
+- [Checkbox](#/en-US/docs/checkbox)
+- [CheckboxGroup](#/en-US/docs/checkbox-group)
+- [Radio](#/en-US/docs/radio)
+- [Input](#/en-US/docs/input)
+- [Textarea](#/en-US/docs/textarea)
+- [Select](#/en-US/docs/select)
+- [Switch](#/en-US/docs/switch)
+- [Rate](#/en-US/docs/rate)
+- [Validator](#/en-US/docs/validator)
+- [Upload](#/en-US/docs/upload)
+- [Form](#/en-US/docs/form)
 
 #### Layer
 
 - [Popup](#/en-US/docs/popup)
 - [Toast](#/en-US/docs/toast)
 - [Picker](#/en-US/docs/picker)
+- [CascadePicker](#/en-US/docs/cascade-picker)
+- [DatePicker](#/en-US/docs/date-picker)
 - [TimePicker](#/en-US/docs/time-picker)
+- [SegmentPicker](#/en-US/docs/segment-picker)
 - [Dialog](#/en-US/docs/dialog)
 - [ActionSheet](#/en-US/docs/action-sheet)
+- [Drawer](#/en-US/docs/drawer)
+- [ImagePreview](#/en-US/docs/image-preview)
 
-All the layer components can be invoked by components and API, let's take `Toast` as an example:
+Most of the layer components can be invoked by components and API, let's take `Toast` as an example:
 
 Component invoking:
 
@@ -98,12 +115,12 @@ Pay attention that the name of the API is `$create` + `${component name}`. For e
 - [Scroll](#/en-US/docs/scroll)
 - [Slide](#/en-US/docs/slide)
 - [IndexList](#/en-US/docs/index-list)
+- [Swipe](#/en-US/docs/swipe)
+- [Sticky](#/en-US/docs/sticky)
+- [ScrollNavBar](#/en-US/docs/scroll-nav-bar)
+- [ScrollNav](#/en-US/docs/scroll-nav)
 
-Scroll Components are all implemented based on [better-scroll](https://github.com/ustbhuangyi/better-scroll) and `Scroll` Component is the encapsulation of better-scroll.
-
-#### Advanced
-
-- [Upload](#/en-US/docs/upload)
+Most of the scroll components are all implemented based on [better-scroll](https://github.com/ustbhuangyi/better-scroll) and `Scroll` Component is the encapsulation of better-scroll.
 
 ### Modules
 

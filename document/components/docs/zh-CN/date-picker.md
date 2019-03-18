@@ -1,5 +1,7 @@
 ## DatePicker 组件
 
+> 1.7.0 新增
+
 日期选择器，可用于日期选择，选择粒度的灵活配置，如年月日、时分秒、年月日时分秒、年月等。
 
 __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
@@ -134,6 +136,53 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   }
   ```
 
+- 日期格式
+
+  你还可以通过 `format` 属性配置日期格式。
+
+  ```html
+  <cube-button @click="showFormatPicker">Use format</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createDatePicker({
+            title: 'Use format',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            format: {
+              year: 'YY年',
+              month: 'MM月',
+              date: '第 D 日'
+            },
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
+        this.formatPicker.show()
+      },
+      selectHandle(date, selectedVal, selectedText) {
+        this.$createDialog({
+          type: 'warn',
+          content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandle() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
+    }
+  }
+  ```
+
 - `$updateProps`
 
   通过`$updateProps`方法，可以修改用 createAPI 创建的组件实例的属性。比如 `DatePicker`中，我们可以修改 `value` 属性的值改变当前选择的日期。
@@ -191,11 +240,26 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
 | startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | 列数 | Number | - | 3 | 6 |
-| title | 标题 | String | - | '' | - |
-| cancelTxt | 取消按钮文案 | String | - | '取消' | - |
-| confirmTxt | 确定按钮文案 | String | - | '确定' | - |
+| format<sup>1.8.0+</sup> | 日期格式 | Object | - | { year: 'YYYY', month: 'M', date: 'D', hour: 'hh', minute: 'mm', second: 'ss' } | { year: 'YY年', month: 'MM月', date: '第 D 日' } |
+| title | 标题 | String | - | '' | '时间选择' |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | - | '' | - |
+| cancelTxt | 取消按钮文案 | String | - | '取消' | '返回' |
+| confirmTxt | 确定按钮文案 | String | - | '确定' | '选择' |
 | swipeTime | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | - | 2500 | - |
-| alias | 配置`value`和`text`的别名，用法同`Picker`组件 | Object | - | {} | { value: 'id', text: 'name'} |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false | - |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true | - |
+| zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | - | 100 | - |
+
+* `format` 子配置项
+
+| 参数 | 说明 | 类型 | 默认值 | 示例 |
+| - | - | - | - | - |
+| year | 年的格式，`YYYY` 代表完整年份，`YY` 仅年份后两位 | String | `YYYY` | `YY年` |
+| month | 月的格式，`M` 不补 0，`MM` 补 0 | String | `M` | `MM月` |
+| date | 日的格式，`D` 不补 0，`DD` 补 0 | String | `D` | `第 D 日` |
+| hour | 时的格式，`h` 不补 0，`hh` 补 0 | String | `hh` | `h点` |
+| minute | 分的格式，`m` 不补 0，`mm` 补 0 | String | `mm` | `mm分` |
+| second | 秒的格式，`s` 不补 0，`ss` 补 0 | String | `ss` | `ss秒` |
 
 ### 事件
 
@@ -209,5 +273,5 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 方法名 | 说明 |
 | - | - |
-| show | 显示选择器 |
-| hide | 隐藏选择器 |
+| show | 显示 |
+| hide | 隐藏 |

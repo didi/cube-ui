@@ -20,7 +20,7 @@
       </div>
       <div class="validator-item">
         <cube-validator ref="validator3" v-model="isValid[2]" :model="text3" :rules="rules3" :immediate="immediate">
-          <cube-input v-model="text3" placeholder="odd"></cube-input>
+          <cube-input v-model="text3" placeholder="validate odd"></cube-input>
         </cube-validator>
       </div>
       <div class="validator-item">
@@ -31,10 +31,23 @@
         </cube-checkbox-group>
         <cube-validator ref="validator4" v-model="isValid[3]" :model="checkList" :rules="rules4" :immediate="immediate"></cube-validator>
       </div>
-
       <div class="validator-item">
         <cube-rate v-model="rate"></cube-rate>
         <cube-validator ref="validator5" v-model="isValid[4]" :model="rate" :rules="rules5" :immediate="immediate"></cube-validator>
+      </div>
+      <div class="validator-item">
+        <p>Async validate: </p>
+        <cube-validator
+          ref="validator6"
+          v-model="isValid[5]"
+          :model="captcha"
+          :rules="rules6"
+          :messages="messages6"
+          :immediate="immediate"
+          @validating="validatingHandler"
+          @validated="validatedHandler">
+          <cube-input v-model="captcha" placeholder="Please input captcha"></cube-input>
+        </cube-validator>
       </div>
       <cube-button @click="submit">Submit</cube-button>
     </div>
@@ -45,14 +58,15 @@
   import CubePage from '../components/cube-page.vue'
 
   // Add or rewrite the build-in rule, type and message.
-  import { Validator } from '../../src/module'
+  import { Validator, Locale } from '../../src/module'
+  import enLang from '../../src/locale/lang/en-US'
 
   export default {
     data() {
       return {
         immediate: false,
         text1: '',
-        isValid: [true, true, true, true, true],
+        isValid: [undefined, undefined, undefined, undefined, undefined, undefined],
         rules1: {
           required: true,
           type: 'email',
@@ -88,29 +102,63 @@
         rules5: {
           min: 1,
           max: 4
+        },
+        captcha: '',
+        rules6: {
+          type: 'number',
+          required: true,
+          len: 6,
+          captchaCheck: (val) => {
+            return (resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            }
+            /** or return promise:
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(val === '123456')
+              }, 1000)
+            })
+            **/
+          }
+        },
+        messages6: {
+          captchaCheck: 'Please input "123456"'
         }
       }
     },
     created() {
-      Validator.setLanguage('en')
-      Validator.addRule('odd', (val, config, type) => !config || Number(val) % 2 === 1)
-      Validator.addMessage('odd', 'Please input odd.')
+      Locale.use('en-US', enLang)
+      Validator.addRule('odd', (val, config, type) => {
+        return Number(val) % 2 === 1
+      })
+      Validator.addMessage('odd', (config) => {
+        return 'Please input odd.'
+      })
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
       })
     },
     methods: {
+      validatingHandler() {
+        console.log('validating')
+      },
+      validatedHandler() {
+        console.log('validated')
+      },
       submit() {
-        Object.keys(this.$refs).forEach((key) => {
-          this.$refs[key].validate()
+        Promise.all(Object.keys(this.$refs).map((key) => {
+          return this.$refs[key].validate()
+        })).then(() => {
+          if (this.isValid.every(item => item)) {
+            this.$createToast({
+              type: 'correct',
+              txt: 'Submited',
+              time: 1000
+            }).show()
+          }
         })
-        if (this.isValid.every(item => item)) {
-          this.$createToast({
-            type: 'correct',
-            txt: 'Submited',
-            time: 1000
-          }).show()
-        }
       }
     },
     components: {

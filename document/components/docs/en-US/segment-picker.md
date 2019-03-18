@@ -1,5 +1,7 @@
 ## SegmentPicker
 
+> New in 1.7.0+
+
 SegmentPicker is used to achieve multi segment choose, for example, the choose of time period: September 1, 2010 - 2014 June 30th.
 
 __Notice:__ Cause this component used create-api, so you should read [create-api](#/en-US/docs/create-api) first.
@@ -67,7 +69,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   ```
   ```js
   import { provinceList, cityList, areaList } from 'example/data/area'
-  
+
   const cityData = provinceList
   cityData.forEach(province => {
     province.children = cityList[province.value]
@@ -118,14 +120,19 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 ### Props configuration
 
-| Attribute | Description | Type | Accepted Values | Default |
+| Attribute | Description | Type | Default | Accepted Values |
 | - | - | - | - | - |
 | data | define the component name and properties of each node picker | Array | [] | - |
 | title | title | String | '' | - |
+| subtitle<sup>1.8.1</sup> | subtitle | String | '' | - |
 | cancelTxt | the text of the cancel button | String | '取消' | - |
 | confirmTxt | the text of the confirm button | String | '确定' | - |
 | nextTxt | the text of the next button | String | '下一步' | - |
 | prevTxt | the text of the prev button | String | '下一步' | - |
+| swipeTime<sup>1.8.1</sup> | the duration of the momentum animation when user flicks the wheel of the picker, Unit: ms | Number | 2500 | - |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
+| maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true |
+| zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | 100 | - |
 
 * `data` sub configuration
 
@@ -144,10 +151,9 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | prev | triggers when clicking the prev button | the index of current picker, Number | - | - | - |
 | change | triggers when the roller scrolls | pickerIndex: Number, the index of current picker | index: Number, index of current scrolling roller | selectedIndex: Number, index of selected item in current column |
 
-
 ### Methods
 
 | Method name | Description |
 | - | - |
-| show | show picker |
-| hide | hide picker |
+| show | show |
+| hide | hide |

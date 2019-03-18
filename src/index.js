@@ -1,80 +1,134 @@
 import {
+  /* eslint-disable no-unused-vars */
   Style,
+  // locale
+  Locale,
+  // basic
   Button,
-  Scroll,
+  Loading,
+  Tip,
+  Toolbar,
+  TabBar,
+  TabPanels,
+  // form
+  Checkbox,
+  CheckboxGroup,
+  Checker,
+  Radio,
+  RadioGroup,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  // popup
   Popup,
+  Toast,
+  Picker,
+  CascadePicker,
+  DatePicker,
   TimePicker,
   SegmentPicker,
-  DatePicker,
-  Select,
   Dialog,
-  Tip,
-  Toast,
-  Input,
-  Validator,
-  Textarea,
-  Rate,
-  Form,
   ActionSheet,
-  CheckboxGroup,
-  RadioGroup,
-  Switch,
+  Drawer,
+  ImagePreview,
+  // scroll
+  Scroll,
   Slide,
   IndexList,
-  Upload,
   Swipe,
-  Drawer,
-  BScroll,
+  Sticky,
+  ScrollNav,
+  ScrollNavBar,
+  RecycleList,
+  // module
+  BetterScroll,
   createAPI
 } from './module'
+import { processComponentName } from './common/helpers/util'
+
+const components = [
+  // locale
+  Locale,
+  // basic
+  Button,
+  Loading,
+  Tip,
+  Toolbar,
+  TabBar,
+  TabPanels,
+  // form
+  Checkbox,
+  CheckboxGroup,
+  Checker,
+  Radio,
+  RadioGroup,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Rate,
+  Validator,
+  Upload,
+  Form,
+  // popup
+  Popup,
+  Toast,
+  Picker,
+  CascadePicker,
+  DatePicker,
+  TimePicker,
+  SegmentPicker,
+  Dialog,
+  ActionSheet,
+  Drawer,
+  ImagePreview,
+  // scroll
+  Scroll,
+  Slide,
+  IndexList,
+  Swipe,
+  Sticky,
+  ScrollNav,
+  ScrollNavBar,
+  RecycleList
+]
 
 function install(Vue) {
   if (install.installed) {
     return
   }
   install.installed = true
-  const components = [
-    Style,
-    Button,
-    TimePicker,
-    SegmentPicker,
-    DatePicker,
-    Select,
-    Dialog,
-    Tip,
-    Toast,
-    Input,
-    Validator,
-    Textarea,
-    Rate,
-    CheckboxGroup,
-    RadioGroup,
-    Switch,
-    Form,
-    Slide,
-    IndexList,
-    ActionSheet,
-    Scroll,
-    Popup,
-    Upload,
-    Swipe,
-    Drawer
-  ]
   components.forEach((Component) => {
+    // ignore radio
+    if (Component === Radio) {
+      return
+    }
     Component.install(Vue)
   })
 }
 
-const cube = {
+const Cube = {
   /* eslint-disable no-undef */
   version: __VERSION__,
   install,
-  BScroll,
+  BScroll: BetterScroll,
   createAPI
 }
+
+components.forEach((Component) => {
+  const name = processComponentName(Component, {
+    firstUpperCase: true
+  })
+  Cube[name] = Component
+})
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(install)
 }
 
-export default cube
+export default Cube

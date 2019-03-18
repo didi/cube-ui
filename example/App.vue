@@ -43,6 +43,14 @@
               {
                 path: '/tip',
                 text: 'Tip'
+              },
+              {
+                path: '/toolbar',
+                text: 'Toolbar'
+              },
+              {
+                path: '/tab-bar',
+                text: 'TabBar'
               }
             ]
           },
@@ -57,6 +65,10 @@
               {
                 path: '/checkbox-group',
                 text: 'CheckboxGroup'
+              },
+              {
+                path: '/checker',
+                text: 'Checker'
               },
               {
                 path: '/radio',
@@ -140,6 +152,10 @@
               {
                 path: '/drawer',
                 text: 'Drawer'
+              },
+              {
+                path: '/image-preview',
+                text: 'ImagePreview'
               }
             ]
           },
@@ -162,6 +178,22 @@
               {
                 path: '/swipe',
                 text: 'Swipe'
+              },
+              {
+                path: '/sticky',
+                text: 'Sticky'
+              },
+              {
+                path: '/scroll-nav-bar',
+                text: 'ScrollNavBar'
+              },
+              {
+                path: '/scroll-nav',
+                text: 'ScrollNav'
+              },
+              {
+                path: '/recycle-list',
+                text: 'RecycleList'
               }
             ]
           }

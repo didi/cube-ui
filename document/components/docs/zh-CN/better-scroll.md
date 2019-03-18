@@ -1,6 +1,6 @@
 ## better-scroll 模块
 
-该模块默认暴露出一个 `BScroll` 函数对象，这个对象直接从依赖库 [better-scroll](https://github.com/ustbhuangyi/better-scroll) 获得。
+该模块默认暴露出一个 `BetterScroll` 函数对象，这个对象直接从依赖库 [better-scroll](https://github.com/ustbhuangyi/better-scroll) 获得。
 
 ### 链接
 

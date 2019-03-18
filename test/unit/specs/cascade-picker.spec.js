@@ -22,9 +22,19 @@ describe('CascadePicker', () => {
 
   it('should render correct contents', function () {
     vm = createCascadePicker({
+      title: 'title',
+      subtitle: 'subtitle',
       data: cascadeData,
       selectedIndex: [1, 1, 3]
     })
+
+    const titleEl = vm.$el.querySelector('.cube-picker-title')
+    expect(titleEl.textContent.trim())
+      .to.equal('title')
+
+    const subtitleEl = vm.$el.querySelector('.cube-picker-subtitle')
+    expect(subtitleEl.textContent.trim())
+      .to.equal('subtitle')
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
     expect(wheels.length)
@@ -105,14 +115,14 @@ describe('CascadePicker', () => {
           .to.be.callCount(1)
 
         // select
-        const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+        const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
         confirmBtn.click()
         expect(selectHandle)
           .to.be.callCount(1)
 
         // cancel
         vm.show()
-        const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+        const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
         cancelBtn.click()
         expect(cancelHandle)
           .to.be.callCount(1)
@@ -148,6 +158,74 @@ describe('CascadePicker', () => {
     }, 100)
   })
 
+  it('should support async cascade', function (done) {
+    this.timeout(10000)
+
+    const data = [
+      { value: 1,
+        text: '1',
+        children: [{value: 11, text: '11'}]
+      }, {
+        value: 2,
+        text: '2'
+      }
+    ]
+
+    const selectedIndex = [0, 0]
+    const selectHandle = sinon.spy()
+
+    vm = createCascadePicker({
+      async: true,
+      data: data,
+      selectedIndex: selectedIndex.slice()
+    }, {
+      select: selectHandle,
+      change: (i, newIndex) => {
+        if (newIndex !== selectedIndex[i]) {
+          selectedIndex.splice(i, 1, newIndex)
+          if (i < 1) {
+            expect(selectHandle)
+              .to.be.callCount(0)
+            vm.$nextTick(() => {
+              const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+              confirmBtn.click()
+              expect(selectHandle)
+                .to.be.callCount(0)
+
+              setTimeout(() => {
+                data[1].children = [{value: 21, text: '21'}]
+                vm.setData(data, selectedIndex)
+                vm.$nextTick(() => {
+                  confirmBtn.click()
+                  expect(selectHandle)
+                    .to.be.callCount(1)
+
+                  done()
+                })
+              }, 500)
+            })
+          }
+        }
+      }
+    })
+    vm.show()
+    setTimeout(() => {
+      const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+      const firstWheelItems = wheels[0].querySelectorAll('li')
+
+      dispatchSwipe(firstWheelItems[1], [
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: firstWheelItems[1].offsetTop + 10
+        },
+        {
+          pageX: firstWheelItems[1].offsetLeft + 10,
+          pageY: 60
+        }
+      ], 100)
+    }, 150)
+  })
+
   it('$updateProps', function (done) {
     this.timeout(10000)
 
@@ -180,6 +258,7 @@ describe('CascadePicker', () => {
     console.warn = function (...args) {
       msgs.push(args.join('#'))
     }
+
     vm = app.$createCascadePicker({}, true)
     expect(msgs.length)
       .to.equal(1)

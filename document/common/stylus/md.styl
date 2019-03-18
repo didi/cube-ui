@@ -107,7 +107,7 @@
       .hljs-attr
         color: #fc9153
 pre
-  margin: .8em 0
+  margin: 1em 0
   font-size: 12px
 code
   font-family: monaco
@@ -125,3 +125,18 @@ a
   color:#3CA0E6
   &:hover
     color: #137DC6
+sup
+  position: absolute
+  margin: -10px 0 0 -4px
+  padding: 2px
+  transform: scale(0.6) translateZ(0)
+  border: 1px solid #ccc
+  border-radius: 4px
+table
+  i[class^="cubeic-"]
+    &::before
+      font-size: 20px
+    &::after
+      content: attr(class)
+      display: block
+      margin: -6px 0 8px 0

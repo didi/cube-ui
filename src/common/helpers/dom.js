@@ -65,6 +65,7 @@ let vendor = (() => {
 })()
 
 export function prefixStyle(style) {
+  /* istanbul ignore if */
   if (vendor === false) {
     return false
   }
@@ -88,4 +89,10 @@ export function getMatchedTarget(e, targetClassName) {
   }
 
   return el
+}
+
+export function dispatchEvent(ele, name, { type = 'Event', bubbles = true, cancelable = true } = {}) {
+  const e = document.createEvent(type)
+  e.initEvent(name, bubbles, cancelable)
+  ele.dispatchEvent(e)
 }

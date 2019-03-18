@@ -1,16 +1,23 @@
 <template>
   <transition name="cube-toast-fade">
-    <cube-popup type="toast" :z-index="zIndex" :mask="mask" v-show="isVisible">
-      <i v-show="!isLoading" class="cube-toast-icon" :class="iconClass"></i>
-      <cube-loading v-show="isLoading"></cube-loading>
-      <div v-show="txt" class="cube-toast-tip">{{txt}}</div>
+    <cube-popup
+      type="toast"
+      :z-index="zIndex"
+      :mask="mask"
+      v-show="isVisible"
+      @mask-click="maskClick"
+      >
+      <i v-if="!isLoading && iconClass.length" class="cube-toast-icon" :class="iconClass"></i>
+      <cube-loading v-if="isLoading"></cube-loading>
+      <div v-show="txt" class="cube-toast-tip" v-html="txt"></div>
     </cube-popup>
   </transition>
 </template>
 <script type="text/ecmascript-6">
   import CubeLoading from '../loading/loading.vue'
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
 
   const COMPONENT_NAME = 'cube-toast'
 
@@ -18,11 +25,15 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin],
     props: {
       type: {
         type: String,
         default: 'loading'
+      },
+      icon: {
+        type: String,
+        default: ''
       },
       mask: {
         type: Boolean,
@@ -36,6 +47,7 @@
         type: Number,
         default: 3000
       },
+      // By default, Toast has the bigest z-index among popoup-based components.
       zIndex: {
         type: Number,
         default: 900
@@ -43,7 +55,10 @@
     },
     computed: {
       iconClass() {
-        const iconClass = {}
+        const iconClass = []
+        if (this.icon) {
+          iconClass.push(this.icon)
+        }
         const classMap = {
           correct: 'cubeic-right',
           error: 'cubeic-wrong',
@@ -51,7 +66,7 @@
         }
         const icon = classMap[this.type]
         if (icon) {
-          iconClass[icon] = true
+          iconClass.push(icon)
         }
         return iconClass
       },
@@ -60,6 +75,9 @@
       }
     },
     methods: {
+      maskClick() {
+        this.maskClosable && this.hide()
+      },
       show() {
         this.isVisible = true
         this.clearTimer()
@@ -109,7 +127,9 @@
     max-width: 12em
     max-height: 40px
     overflow: hidden
-    margin-left: 8px
+  .cube-toast-icon, .cube-loading
+    ~ .cube-toast-tip
+      margin-left: 8px
 
   .cube-toast-fade-enter-active
     animation: toast-in .2s

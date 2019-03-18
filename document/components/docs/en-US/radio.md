@@ -1,5 +1,7 @@
 ## Radio
 
+> New in 1.4.0+
+
 Radio component. You could set the options and the position of the radio's icon.
 
 ### Example
@@ -31,19 +33,19 @@ Radio component. You could set the options and the position of the radio's icon.
   export default {
     data() {
       return {
-        selected2: '3',
+        selected2: 3,
         options2: [
           {
             label: 'Option1',
-            value: '1'
+            value: 1
           },
           {
             label: 'Option2',
-            value: '2'
+            value: 2
           },
           {
             label: 'Option3',
-            value: '3',
+            value: 3,
             disabled: true
           }
         ]
@@ -137,7 +139,7 @@ Radio component. You could set the options and the position of the radio's icon.
 | options | the array of radio options | Array | - | - |
 | position | icon position | String | left/right | left |
 | horizontal | whether use horizontal layout | Boolean | true/false | false |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
 * `options` sub configuration
 

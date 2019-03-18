@@ -10,7 +10,7 @@
   </transition>
 </template>
 <script type="text/ecmascript-6">
-  import apiMixin from '../../common/mixins/api'
+  import visibilityMixin from '../../common/mixins/visibility'
 
   const COMPONENT_NAME = 'cube-tip'
   const EVENT_CLICK = 'click'
@@ -18,7 +18,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin],
     props: {
       direction: {
         type: String,
@@ -182,11 +182,9 @@
 
   .cube-tip-zoom-enter-active
     animation: tip-in .4s
-    transform: translateZ(0)
 
   .cube-tip-zoom-leave-active
     animation: tip-out .2s
-    transform: translateZ(0)
 
   @keyframes tip-in
     0%

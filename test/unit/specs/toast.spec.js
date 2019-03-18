@@ -75,6 +75,29 @@ describe('Toast', () => {
         }, 330)
       })
     })
+    it('should render correct contents - with type txt', () => {
+      vm = instantiateComponent(Vue, Toast, {
+        props: {
+          type: 'txt',
+          time: 300,
+          txt: 'toast content'
+        }
+      })
+      vm.show()
+      expect(vm.$el.className)
+        .to.equal('cube-popup cube-toast')
+      expect(vm.$el.querySelector('.cube-toast-icon'))
+        .to.be.null
+      expect(vm.$el.querySelector('.cube-toast-tip').textContent)
+        .to.equal('toast content')
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          expect(vm.isVisible)
+            .to.be.false
+          resolve()
+        }, 330)
+      })
+    })
   })
 
   describe('Toast API', () => {
@@ -92,7 +115,10 @@ describe('Toast', () => {
             ins = this.$createToast({
               type: 'warn',
               txt: 'toast api content',
-              time: 100
+              time: 100,
+              $class: {
+                'my-toast': true
+              }
             })
             ins.show()
           }
@@ -104,6 +130,8 @@ describe('Toast', () => {
       expect(ins.$el.parentElement)
         .to.equal(document.body)
       setTimeout(() => {
+        expect(ins.$el.className)
+          .to.include('my-toast')
         expect(ins.$el.querySelector('.cube-toast-tip').textContent)
         .to.equal('toast api content')
         ins.remove()

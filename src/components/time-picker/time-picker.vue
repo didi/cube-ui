@@ -1,60 +1,67 @@
 <template>
-  <cube-picker
+  <cube-cascade-picker
     ref="picker"
-    :title="title"
-    :data="data"
+    v-model="isVisible"
+    :data="cascadeData"
     :selected-index="selectedIndex"
-    :z-index="zIndex"
+    :title="_title"
+    :subtitle="subtitle"
+    :cancel-txt="_cancelTxt"
+    :confirm-txt="_confirmTxt"
     :swipe-time="swipeTime"
+    :z-index="zIndex"
+    :mask-closable="maskClosable"
     @select="_pickerSelect"
     @cancel="_pickerCancel"
-    @change="_pickerChange"></cube-picker>
+    @change="_pickerChange">
+  </cube-cascade-picker>
 </template>
 
 <script type="text/ecmascript-6">
   import {
-    getZeroDate,
+    pad,
     formatDate,
+    getZeroStamp,
+    getDayDiff,
     DAY_TIMESTAMP,
     HOUR_TIMESTAMP,
     MINUTE_TIMESTAMP
   } from '../../common/lang/date'
-  import apiMixin from '../../common/mixins/api'
-  import CubePicker from '../picker/picker.vue'
-
-  const DAY_STEP = 1
-  const MAX_HOUR = 23
-  const MAX_MINUTE = 60
-  const HOUR_STEP = 1
-  const MINUTE_STEP = 10
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
+  import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
+  import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
+  import { warn } from '../../common/helpers/debug'
 
   const COMPONENT_NAME = 'cube-time-picker'
   const EVENT_SELECT = 'select'
   const EVENT_CANCEL = 'cancel'
   const EVENT_CHANGE = 'change'
 
-  function formatNum(num) {
-    return ('' + num).length > 1 ? num : ('0' + num)
+  const NOW = {
+    value: 'now'
   }
 
-  function roundMinute(minute, step) {
-    return Math.ceil(minute / step) * step
+  const INT_RULE = {
+    floor: 'floor',
+    ceil: 'ceil',
+    round: 'round'
   }
+
+  const DEFAULT_STEP = 10
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
+    components: {
+      CubeCascadePicker
+    },
     props: {
       title: {
         type: String,
-        default: '选择时间'
+        default: ''
       },
-      swipeTime: {
-        type: Number,
-        default: 2500
-      },
-      // delay is valid when less than (the minute left in today + 1440).
-      // So, it will be security when less than 1440.
       delay: {
         type: Number,
         default: 15
@@ -63,292 +70,248 @@
         type: Object,
         default() {
           return {
-            len: 3,
-            filter: ['今日'],
-            format: 'M月d日'
+            len: 3
           }
         }
       },
       showNow: {
-        type: Boolean,
+        type: [Boolean, Object],
         default: true
       },
       minuteStep: {
-        type: Number,
-        default: MINUTE_STEP
+        type: [Number, Object],
+        default: DEFAULT_STEP
       },
-      zIndex: {
-        type: Number
+      format: {
+        type: String,
+        default: 'YYYY/M/D hh:mm'
+      },
+      min: {
+        type: [Date, Number],
+        default: null
+      },
+      max: {
+        type: [Date, Number],
+        default: null
       }
     },
     data() {
       return {
-        selectedDayIndex: 0,
-        selectedHourIndex: 0,
-        selectedMinuteIndex: 0,
-        days: [],
-        hours: [],
-        minutes: [],
-        minTime: 0
+        now: new Date(),
+        selectedIndex: [0, 0, 0],
+        value: 0
       }
     },
     computed: {
-      data() {
-        return [this.days, this.hours, this.minutes]
+      _title () {
+        return this.title || this.$t('selectTime')
       },
-      selectedIndex() {
-        return [this.selectedDayIndex, this.selectedHourIndex, this.selectedMinuteIndex]
+      _day () {
+        const defaultDay = {
+          filter: [this.$t('today')],
+          format: this.$t('formatDate')
+        }
+        return Object.assign({}, defaultDay, this.day)
+      },
+      nowText() {
+        const defaultText = this.$t('now')
+        return (this.showNow && this.showNow.text) || defaultText
+      },
+      minuteStepRule() {
+        const minuteStep = this.minuteStep
+        return (typeof minuteStep === 'object' && Math[INT_RULE[minuteStep.rule]]) || Math[INT_RULE.floor]
+      },
+      minuteStepNumber() {
+        const minuteStep = this.minuteStep
+        return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
+      },
+      minTime() {
+        let minTimeStamp = +this.min || +this.now + this.delay * MINUTE_TIMESTAMP
+
+        // Handle the minTime selectable change caused by minute step.
+        const minute = new Date(minTimeStamp).getMinutes()
+        const intMinute = Math.min(this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber, 60)
+
+        minTimeStamp += (intMinute - minute) * MINUTE_TIMESTAMP
+        return new Date(minTimeStamp)
+      },
+      maxTime() {
+        let maxTimeStamp = +this.max || (getZeroStamp(new Date(+this.minTime + this._day.len * DAY_TIMESTAMP)) - 1)
+
+        const minute = new Date(maxTimeStamp).getMinutes()
+        const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
+        maxTimeStamp -= (minute - intMinute) * MINUTE_TIMESTAMP
+
+        return new Date(maxTimeStamp)
+      },
+      days() {
+        const days = []
+        const dayDiff = getDayDiff(this.minTime, this.now)
+        const len = this.max ? getDayDiff(this.maxTime, this.minTime) + 1 : this._day.len
+
+        for (let i = 0; i < len; i++) {
+          const timestamp = +this.minTime + i * DAY_TIMESTAMP
+          days.push({
+            value: timestamp,
+            text: (this._day.filter && this._day.filter[dayDiff + i]) || formatDate(new Date(timestamp), this._day.format)
+          })
+        }
+        return days
+      },
+      hours() {
+        const hours = []
+        for (let i = 0; i < 24; i++) {
+          hours.push({
+            value: i,
+            text: `${i}${this.$t('hours')}`,
+            children: this.minutes
+          })
+        }
+        return hours
+      },
+      minutes() {
+        const minutes = []
+        for (let i = 0; i < 60; i += this.minuteStepNumber) {
+          minutes.push({
+            value: i,
+            text: `${pad(i)}${this.$t('minutes')}`
+          })
+        }
+        return minutes
+      },
+      cascadeData() {
+        const days = this.days.slice()
+
+        // When the maxTime is smaller than minTime by more than a minute step, there is no option could be chosen.
+        if (this.maxTime - this.minTime <= -60000) {
+          warn('The max is smaller than the min optional time.', COMPONENT_NAME)
+          return []
+        }
+
+        days.forEach((day, index) => {
+          const isMinDay = index === 0
+          const isMaxDay = index === days.length - 1
+
+          if (!isMinDay && !isMaxDay) {
+            day.children = this.hours
+            return
+          }
+
+          const partHours = []
+          const minHour = isMinDay ? this.minTime.getHours() : 0
+          const maxHour = isMaxDay ? this.maxTime.getHours() : 23
+
+          for (let i = minHour; i <= maxHour; i++) {
+            const isMinHour = isMinDay && i === minHour
+            const isMaxHour = isMaxDay && i === maxHour
+
+            if (!isMinHour && !isMaxHour) {
+              partHours.push({
+                value: i,
+                text: `${i}${this.$t('hours')}`,
+                children: this.minutes
+              })
+              continue
+            }
+
+            // Math.round is use to avoid some weird float bug of multiplication and divisionluate in JavaScript. Because we have to ensure the arguments of Array.slice are int.
+            const start = isMinHour ? Math.round(this.minTime.getMinutes() / this.minuteStepNumber) : 0
+            const end = isMaxHour ? Math.round(this.maxTime.getMinutes() / this.minuteStepNumber) : Math.floor(59 / this.minuteStepNumber)
+
+            const partMinutes = this.minutes.slice(start, end + 1)
+            partHours.push({
+              value: i,
+              text: `${i}${this.$t('hours')}`,
+              children: partMinutes
+            })
+          }
+
+          day.children = partHours
+        })
+
+        if (this.showNow) {
+          days[0].children.unshift({
+            value: NOW.value,
+            text: this.nowText,
+            children: []
+          })
+        }
+
+        return days
       }
-    },
-    created() {
-      this.selectedTimeStamp = null
     },
     methods: {
       show() {
-        this.$refs.picker.show()
-        this._updateMinTime()
-        this._initDays()
-        this.today = this.days[0].value
-        // make sure picker render before call refillColumn
-        this.$nextTick(() => {
-          this.selectedDayIndex = this.$refs.picker.refillColumn(0, this.days)
-          this._handleHourAndMinute(true)
-          this._resetTime()
-        })
-      },
-      hide() {
-        this.$refs.picker.hide()
-      },
-      setTime(timeStamp) {
-        this.selectedTimeStamp = parseInt(timeStamp)
-      },
-      _resetTime() {
-        if (!this.selectedTimeStamp) {
+        if (this.isVisible) {
           return
         }
-        const now = new Date()
-        const currentTimestamp = now.getTime()
-        let resetToCurrent = false
-        if (this.selectedTimeStamp < currentTimestamp + this.delay * MINUTE_TIMESTAMP) {
-          resetToCurrent = true
-        }
-        const date = new Date(this.selectedTimeStamp)
-        this.$nextTick(() => {
-          this._updateMinTime()
-          const zeroTimestamp = +getZeroDate(this.minTime)
-          let dayDiff = resetToCurrent ? 0 : Math.floor((this.selectedTimeStamp - zeroTimestamp) / DAY_TIMESTAMP)
-          if (dayDiff < this.days.length) {
-            if (dayDiff !== this.selectedDayIndex) {
-              this.$refs.picker.scrollTo(0, dayDiff)
-              this._pickerChange(0, dayDiff)
-            }
-            this.$nextTick(() => {
-              let hourDiff = 0
-              if (!resetToCurrent) {
-                if (this.hours[0].value === 'now') {
-                  hourDiff = Math.floor((date.getHours() - this.hours[1].value) / HOUR_STEP) + 1
-                } else {
-                  hourDiff = Math.floor((date.getHours() - this.hours[0].value) / HOUR_STEP)
-                }
-              }
-              if (hourDiff !== this.selectedHourIndex) {
-                this.$refs.picker.scrollTo(1, hourDiff)
-                this._pickerChange(1, hourDiff)
-              }
-              if (!resetToCurrent) {
-                this.$nextTick(() => {
-                  let minuteDiff = 0
-                  if (this.minutes.length) {
-                    minuteDiff = Math.floor((date.getMinutes() - this.minutes[0].value) / this.minuteStep)
-                  }
-                  if (minuteDiff !== this.selectedMinuteIndex) {
-                    this.$refs.picker.scrollTo(2, minuteDiff)
-                    this._pickerChange(2, minuteDiff)
-                  }
-                })
-              }
-            })
-          }
-          this.selectedTimeStamp = null
-        })
-      },
-      _updateMinTime() {
-        this.minTime = new Date(+new Date() + this.delay * MINUTE_TIMESTAMP)
-      },
-      _initDays() {
-        const days = []
-        const dayConf = this.day
-        const zeroTimestamp = +getZeroDate(new Date())
+        this.isVisible = true
 
-        for (let i = 0; i < dayConf.len; i += DAY_STEP) {
-          const timestamp = zeroTimestamp + i * DAY_TIMESTAMP
+        this._updateNow()
+        this._updateSelectedIndex()
+      },
+      setTime(value) {
+        this.value = value
 
-          if (dayConf.filter && i < dayConf.filter.length) {
-            days.push({
-              value: timestamp,
-              text: dayConf.filter[i]
-            })
-          } else {
-            days.push({
-              value: timestamp,
-              text: formatDate(new Date(timestamp), dayConf.format)
-            })
-          }
-        }
-        this.days = days
+        this.isVisible && this._updateSelectedIndex()
       },
-      _initHours(begin) {
-        const hours = []
-        if (this.showNow && this.selectedDayIndex === 0) {
-          hours.push({
-            value: 'now',
-            text: '现在'
-          })
-        }
-        for (let i = begin; i <= MAX_HOUR; i += HOUR_STEP) {
-          hours.push({
-            value: i,
-            text: i + '点'
-          })
-        }
-        this.hours = hours
-      },
-      _initMinutes(begin) {
-        if (begin === false) {
-          this.minutes = []
+      _updateSelectedIndex() {
+        const value = this.value
+        const minTime = this.minTime
+
+        if (value <= +minTime) {
+          this.selectedIndex = [0, 0, 0]
         } else {
-          const minutes = []
-          const step = this.minuteStep
-          const max = 60 - step
-          begin = begin % 60
-          for (let i = begin; i <= max; i += step) {
-            minutes.push({
-              value: i,
-              text: formatNum(i) + '分'
-            })
+          // calculate dayIndex
+          const valueDate = new Date(value)
+          const dayIndex = getDayDiff(valueDate, minTime)
+
+          if (dayIndex >= this.days.length) {
+            warn('Use "setTime" to set a time exceeded to the option range do not actually work.', COMPONENT_NAME)
+            return
           }
-          this.minutes = minutes
+
+          // calculate hourIndex
+          const hour = valueDate.getHours()
+          const beginHour = dayIndex === 0
+                            ? this.showNow ? this.minTime.getHours() - 1 : this.minTime.getHours()
+                            : 0
+          const hourIndex = hour - beginHour
+
+          // calculate minuteIndex
+          const minute = this.minuteStepRule(valueDate.getMinutes() / this.minuteStepNumber)
+          const beginMinute = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
+                              ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
+                              : 0
+          const minuteIndex = minute - beginMinute
+
+          this.selectedIndex = [dayIndex, hourIndex, minuteIndex]
         }
       },
-      _handleHourAndMinute(inited) {
-        let beginHour = 0
-        let beginMinute = 0
-        let moreThanOne = false
-
-        if (this.today + DAY_TIMESTAMP < this.minTime) {
-          moreThanOne = true
-          if (this.showNow && this.selectedDayIndex === 0) {
-            beginHour = 24
-          }
+      _updateNow() {
+        this.now = new Date()
+      },
+      _pickerChange(i, newIndex) {
+        this.$emit(EVENT_CHANGE, i, newIndex)
+      },
+      _pickerSelect(selectedVal, selectedIndex, selectedText) {
+        let timestamp
+        let text
+        if (selectedVal[1] === NOW.value) {
+          timestamp = +new Date()
+          text = this.nowText
         } else {
-          beginHour = this.minTime.getHours()
-          if (this.minTime.getMinutes() > MAX_MINUTE - this.minuteStep) {
-            beginHour += 1
-            if (beginHour === 24) {
-              moreThanOne = true
-            }
-          }
+          timestamp = getZeroStamp(new Date(selectedVal[0])) + selectedVal[1] * HOUR_TIMESTAMP + selectedVal[2] * MINUTE_TIMESTAMP
+          text = selectedText[0] + ' ' + selectedText[1] + ':' + selectedText[2]
         }
 
-        // smaller than min time
-        if (this.days[this.selectedDayIndex].value < this.minTime) {
-          if (!this.showNow && moreThanOne && inited) {
-            beginHour = 0
-            this.days.shift()
-            this.selectedDayIndex = this.$refs.picker.refillColumn(0, this.days)
-          }
-
-          this._initHours(beginHour)
-          this.selectedHourIndex = this.$refs.picker.refillColumn(1, this.hours)
-
-          let distHour = this.hours[this.selectedHourIndex].value
-          if (distHour === beginHour) {
-            beginMinute = roundMinute(this.minTime.getMinutes() + 1, this.minuteStep)
-          }
-          // today now
-          if (this.selectedDayIndex === 0 && this.selectedHourIndex === 0 && this.showNow) {
-            beginMinute = false
-          }
-          this._initMinutes(beginMinute)
-          this.selectedMinuteIndex = this.$refs.picker.refillColumn(2, this.minutes)
-        } else {
-          if (!this.showNow && moreThanOne && inited) {
-            this.days.shift()
-            this.selectedDayIndex = this.$refs.picker.refillColumn(0, this.days)
-          }
-          beginHour = 0
-          this._initHours(beginHour)
-          this._initMinutes(beginMinute)
-          const refillRet = this.$refs.picker.refill([this.days, this.hours, this.minutes])
-          this.selectedHourIndex = refillRet[1]
-          this.selectedMinuteIndex = refillRet[2]
-        }
-      },
-      _handleMinute() {
-        if (this.days[this.selectedDayIndex].value - +this.minTime < 0) {
-          let beginMinute = 0
-          let beginHour = this.minTime.getHours()
-          if (this.hours[this.selectedHourIndex].value === beginHour) {
-            beginMinute = roundMinute(this.minTime.getMinutes() + 1, this.minuteStep)
-          }
-          // today now
-          if (this.selectedDayIndex === 0 && this.selectedHourIndex === 0 && this.showNow) {
-            beginMinute = false
-          }
-          this._initMinutes(beginMinute)
-          this.selectedMinuteIndex = this.$refs.picker.refillColumn(2, this.minutes)
-        }
-      },
-      _getSelect() {
-        let selectedTime
-        let selectedText
-        if (this.selectedDayIndex === 0 && this.selectedHourIndex === 0 && this.showNow) {
-          selectedTime = +new Date()
-          selectedText = this.hours[0].text
-        } else {
-          selectedTime = this.days[this.selectedDayIndex].value +
-            this.hours[this.selectedHourIndex].value * HOUR_TIMESTAMP +
-            this.minutes[this.selectedMinuteIndex].value * MINUTE_TIMESTAMP
-          selectedText = this.days[this.selectedDayIndex].text + ' ' +
-            this.hours[this.selectedHourIndex].text + ':' +
-            this.minutes[this.selectedMinuteIndex].text
-        }
-
-        return {
-          selectedTime,
-          selectedText
-        }
-      },
-      _pickerSelect(selectedVal, selectedIndex) {
-        this.selectedDayIndex = selectedIndex[0]
-        this.selectedHourIndex = selectedIndex[1]
-        this.selectedMinuteIndex = selectedIndex[2]
-
-        let {selectedTime, selectedText} = this._getSelect()
-        this.$emit(EVENT_SELECT, selectedTime, selectedText)
+        this.value = timestamp
+        const formatedTime = formatDate(new Date(timestamp), this.format)
+        this.$emit(EVENT_SELECT, timestamp, text, formatedTime)
       },
       _pickerCancel() {
         this.$emit(EVENT_CANCEL)
-      },
-      _pickerChange(index, selectedIndex) {
-        this._updateMinTime()
-
-        if (index === 0) {
-          this.selectedDayIndex = selectedIndex
-          this._handleHourAndMinute(false)
-        } else if (index === 1) {
-          this.selectedHourIndex = selectedIndex
-          this._handleMinute()
-        } else {
-          this.selectedMinuteIndex = selectedIndex
-        }
-
-        let {selectedTime, selectedText} = this._getSelect()
-        this.$emit(EVENT_CHANGE, selectedTime, selectedText)
       }
-    },
-    components: {
-      CubePicker
     }
   }
 </script>

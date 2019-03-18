@@ -3,7 +3,7 @@ import SegmentPicker from '@/modules/segment-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
 import { provinceList, cityList, areaList } from 'example/data/area'
-import { data1, data2, expressData } from 'example/data/picker'
+import { column1, column2, expressData } from 'example/data/picker'
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -61,8 +61,8 @@ describe('SegmentPicker', () => {
     expect(wheels.length)
       .to.equal(7)
 
-    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="cancel"]')
-    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="confirm"]')
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-cancel')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-confirm')
 
     expect(cancelBtns[0].textContent.trim())
       .to.equal('Cancel')
@@ -101,7 +101,7 @@ describe('SegmentPicker', () => {
         data: [expressData],
         selectedIndex: [1]
       }, {
-        data: [data1],
+        data: [column1],
         selectedIndex: [0]
       }]
     }, {
@@ -113,8 +113,8 @@ describe('SegmentPicker', () => {
     })
 
     const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
-    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="cancel"]')
-    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-choose [data-action="confirm"]')
+    const cancelBtns = vm.$el.querySelectorAll('.cube-picker-cancel')
+    const confirmBtns = vm.$el.querySelectorAll('.cube-picker-confirm')
 
     // change
     vm.show()
@@ -184,7 +184,7 @@ describe('SegmentPicker', () => {
         selectedIndex: [1]
       }, {
         title: 'Dota',
-        data: [data1],
+        data: [column1],
         selectedIndex: [0]
       }]
     })
@@ -192,7 +192,7 @@ describe('SegmentPicker', () => {
     vm.$updateProps({
       data: [{
         title: 'Dota',
-        data: [data1, data2],
+        data: [column1, column2],
         selectedIndex: [1, 1]
       }, {
         title: '快递',
@@ -202,7 +202,7 @@ describe('SegmentPicker', () => {
     })
 
     vm.$nextTick(() => {
-      const titles = vm.$el.querySelectorAll('.cube-picker-choose > h1')
+      const titles = vm.$el.querySelectorAll('.cube-picker-title')
       expect(titles[0].textContent.trim())
         .to.equal('Dota')
 

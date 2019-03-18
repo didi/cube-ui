@@ -1,21 +1,25 @@
 <template>
   <div class="cube-select" :class="{ 'cube-select_active': active, 'cube-select_disabled': disabled }" @click="showPicker">
     <span v-if="selectedText" class="cube-select-text">{{ selectedText }}</span>
-    <span v-else class="cube-select-placeholder">{{ placeholder }}</span>
+    <span v-else class="cube-select-placeholder">{{ _placeholder }}</span>
     <i class="cube-select-icon"></i>
   </div>
 </template>
 
 <script>
+  import { findIndex } from '../../common/helpers/util'
+  import localeMixin from '../../common/mixins/locale'
+
   const COMPONENT_NAME = 'cube-select'
 
   const EVENT_CHANGE = 'change'
-  const EVENT_INPUT = 'input' // only used for v-modal
+  const EVENT_INPUT = 'input' // only used for v-model
   const EVENT_PICKER_SHOW = 'picker-show'
   const EVENT_PICKER_HIDE = 'picker-hide'
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [ localeMixin ],
     data() {
       return {
         active: false
@@ -32,7 +36,7 @@
       value: null,
       placeholder: {
         type: String,
-        default: '请选择'
+        default: ''
       },
       autoPop: {
         type: Boolean,
@@ -44,15 +48,15 @@
       },
       title: {
         type: String,
-        default: '请选择'
+        default: ''
       },
       cancelTxt: {
         type: String,
-        default: '取消'
+        default: ''
       },
       confirmTxt: {
         type: String,
-        default: '确定'
+        default: ''
       }
     },
     computed: {
@@ -67,28 +71,47 @@
           return item
         })]
       },
-      findIndex() {
-        const findIndex = this.adaptOptions[0].findIndex((item) => {
-          return item.value === this.value
+      valueIndex() {
+        const val = this.value
+        const index = findIndex(this.adaptOptions[0], (item) => {
+          return item.value === val
         })
-        this.picker && this.picker.setData(this.adaptOptions, findIndex !== -1 ? [findIndex] : [0])
+        this.picker && this.picker.setData(this.adaptOptions, index !== -1 ? [index] : [0])
 
-        return findIndex
+        return index
+      },
+      selectedIndex() {
+        return this.valueIndex !== -1 ? [this.valueIndex] : [0]
       },
       selectedText() {
-        return this.findIndex !== -1 ? this.adaptOptions[0][this.findIndex].text : ''
+        return this.valueIndex !== -1 ? this.adaptOptions[0][this.valueIndex].text : ''
+      },
+      _placeholder () {
+        return this.placeholder || this.$t('selectText')
+      },
+      _title () {
+        return this.title || this.$t('selectText')
+      },
+      _cancelTxt () {
+        return this.cancelTxt || this.$t('cancel')
+      },
+      _confirmTxt () {
+        return this.confirmTxt || this.$t('ok')
       }
     },
     created() {
       this.picker = this.$createPicker({
-        title: this.title,
-        data: this.adaptOptions,
-        selectedIndex: this.findIndex !== -1 ? [this.findIndex] : [0],
-        cancelTxt: this.cancelTxt,
-        confirmTxt: this.confirmTxt,
-        onSelect: this.hided,
-        onValueChange: this.changeHandle,
-        onCancel: this.hided
+        $props: {
+          title: '_title',
+          data: 'adaptOptions',
+          selectedIndex: 'selectedIndex',
+          cancelTxt: '_cancelTxt',
+          confirmTxt: '_confirmTxt'
+        },
+        $events: {
+          select: 'selectHandler',
+          cancel: this.hided
+        }
       })
       this.autoPop && this.showPicker()
     },
@@ -105,7 +128,8 @@
         this.active = false
         this.$emit(EVENT_PICKER_HIDE)
       },
-      changeHandle(selectedVal, selectedIndex, selectedText) {
+      selectHandler(selectedVal, selectedIndex, selectedText) {
+        this.hided()
         if (selectedVal[0] !== this.value) {
           this.$emit(EVENT_INPUT, selectedVal[0])
           this.$emit(EVENT_CHANGE, selectedVal[0], selectedIndex[0], selectedText[0])

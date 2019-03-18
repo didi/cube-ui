@@ -1,6 +1,13 @@
 <template>
   <transition name="cube-dialog-fade">
-    <cube-popup type="dialog" :z-index="zIndex" :mask="true" :center="true" v-show="isVisible">
+    <cube-popup
+      type="dialog"
+      :z-index="zIndex"
+      :mask="true"
+      :center="true"
+      v-show="isVisible"
+      @mask-click="maskClick"
+      >
       <div class="cube-dialog-main">
         <span class="cube-dialog-close" v-show="showClose" @click="close"><i class="cubeic-close"></i></span>
         <div :class="containerClass">
@@ -13,13 +20,14 @@
           <div class="cube-dialog-content">
             <slot name="content">
               <div class="cube-dialog-content-def">
-                <p v-html="content"></p>
+                <p v-html="content" v-if="content"></p>
+                <cube-input v-bind="prompt" v-model="promptValue" v-if="isPrompt" />
               </div>
             </slot>
           </div>
-          <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm}">
+          <div class="cube-dialog-btns" :class="{'border-right-1px': isConfirm || isPrompt}">
             <slot name="btns">
-              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active, 'cube-dialog-btn_disabled': _cancelBtn.disabled}" v-if="isConfirm" @click="cancel">{{_cancelBtn.text}}</a>
+              <a :href="_cancelBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _cancelBtn.active, 'cube-dialog-btn_disabled': _cancelBtn.disabled}" v-if="isConfirm || isPrompt" @click="cancel">{{_cancelBtn.text}}</a>
               <a :href="_confirmBtn.href" class="cube-dialog-btn border-top-1px" :class="{'cube-dialog-btn_highlight': _confirmBtn.active, 'cube-dialog-btn_disabled': _confirmBtn.disabled}" @click="confirm">{{_confirmBtn.text}}</a>
             </slot>
           </div>
@@ -31,7 +39,10 @@
 
 <script type="text/ecmascript-6">
   import CubePopup from '../popup/popup.vue'
-  import apiMixin from '../../common/mixins/api'
+  import CubeInput from '../input/input.vue'
+  import visibilityMixin from '../../common/mixins/visibility'
+  import popupMixin from '../../common/mixins/popup'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-dialog'
   const EVENT_CONFIRM = 'confirm'
@@ -40,33 +51,43 @@
 
   const defHref = 'javascript:;'
   const defConfirmBtn = {
-    text: '确定',
+    textType: 'ok',
     active: true,
     disabled: false,
     href: defHref
   }
   const defCancelBtn = {
-    text: '取消',
+    textType: 'cancel',
     active: false,
     disabled: false,
     href: defHref
   }
-  const parseBtn = (btn, defBtn) => {
+  const parseBtn = function (btn, defBtn) {
     if (typeof btn === 'string') {
       btn = {
         text: btn
       }
     }
-    return Object.assign({}, defBtn, btn)
+    const text = defBtn && this.$t(defBtn.textType)
+    return Object.assign({}, defBtn, { text }, btn)
   }
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
+    mixins: [visibilityMixin, popupMixin, localeMixin],
     props: {
       type: {
         type: String,
         default: 'alert'
+      },
+      prompt: {
+        type: Object,
+        default() {
+          return {
+            value: '',
+            placeholder: ''
+          }
+        }
       },
       icon: {
         type: String,
@@ -99,37 +120,48 @@
             ...defCancelBtn
           }
         }
-      },
-      zIndex: {
-        type: Number
       }
     },
     data() {
       return {
-        defHref
+        defHref,
+        promptValue: this.prompt.value
       }
     },
     computed: {
       _confirmBtn() {
-        return parseBtn(this.confirmBtn, defConfirmBtn)
+        return parseBtn.call(this, this.confirmBtn, defConfirmBtn)
       },
       _cancelBtn() {
-        return parseBtn(this.cancelBtn, defCancelBtn)
+        return parseBtn.call(this, this.cancelBtn, defCancelBtn)
       },
       isConfirm() {
         return this.type === 'confirm'
+      },
+      isPrompt() {
+        return this.type === 'prompt'
       },
       containerClass() {
         return `cube-dialog-${this.type}`
       }
     },
+    watch: {
+      'prompt.value': {
+        handler: function (newVal) {
+          this.promptValue = newVal
+        }
+      }
+    },
     methods: {
+      maskClick(e) {
+        this.maskClosable && this.cancel(e)
+      },
       confirm(e) {
         if (this._confirmBtn.disabled) {
           return
         }
         this.hide()
-        this.$emit(EVENT_CONFIRM, e)
+        this.$emit(EVENT_CONFIRM, e, this.promptValue)
       },
       cancel(e) {
         if (this._cancelBtn.disabled) {
@@ -144,7 +176,8 @@
       }
     },
     components: {
-      CubePopup
+      CubePopup,
+      CubeInput
     }
   }
 </script>
@@ -174,6 +207,7 @@
       width: 30px
       height: 30px
       padding: 10px
+      box-sizing: content-box
       border-radius: 50%
       background-color: $dialog-icon-bgc
     +
@@ -205,7 +239,9 @@
     > p
       display: table
       margin: auto
-  .cube-dialog-confirm
+      + .cube-input
+        margin-top: 12px
+  .cube-dialog-confirm, .cube-dialog-prompt
     .cube-dialog-btns
       .cube-dialog-btn
         width: 50%

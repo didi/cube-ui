@@ -2,9 +2,13 @@
   <cube-page type="time-picker-view" title="TimePicker（时间选择器）">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="selectTime">TimePicker</cube-button>
-        <cube-button @click="selectTimeDay">TimePicker - day options</cube-button>
-        <cube-button @click="selectTimeSetTime">TimePicker - setTime(next hour)</cube-button>
+        <cube-button @click="showTimePicker">TimePicker</cube-button>
+        <cube-button @click="showConfigDayPicker">Config day options</cube-button>
+        <cube-button @click="showFormatPicker">Config format</cube-button>
+        <cube-button @click="showMinuteStepPicker">Config minute step</cube-button>
+        <cube-button @click="showMinPicker">Config min</cube-button>
+        <cube-button @click="showMaxPicker">Config max</cube-button>
+        <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
     </div>
   </cube-page>
@@ -14,93 +18,107 @@
   import CubePage from '../components/cube-page.vue'
   import CubeButtonGroup from '../components/cube-button-group.vue'
   export default {
-    methods: {
-      selectTime() {
-        this.timePicker = this.$createTimePicker({
-          showNow: true,
-          minuteStep: 5,
-          delay: 15,
-          onSelect: (selectedTime, selectedText) => {
-            this.$createDialog({
-              type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
-              icon: 'cubeic-alert'
-            }).show()
-          },
-          onCancel: () => {
-            this.$createToast({
-              type: 'correct',
-              txt: 'Picker canceled',
-              time: 1000
-            }).show()
-          }
-        })
-        this.timePicker.show()
-      },
-      selectTimeDay() {
-        this.timePicker = this.$createTimePicker({
-          showNow: true,
-          minuteStep: 10,
-          delay: 10,
-          day: {
-            len: 5,
-            filter: ['今天', '明天'],
-            format: 'M月d日'
-          },
-          onSelect: (selectedTime, selectedText) => {
-            this.$createDialog({
-              type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
-              icon: 'cubeic-alert'
-            }).show()
-          },
-          onCancel: () => {
-            this.$createToast({
-              type: 'correct',
-              txt: 'Picker canceled',
-              time: 1000
-            }).show()
-          }
-        })
-        this.timePicker.show()
-      },
-      selectTimeSetTime() {
-        const time = new Date().valueOf() + 1 * 60 * 60 * 1000
-        this.timePicker = this.$createTimePicker({
-          showNow: true,
-          minuteStep: 10,
-          delay: 15,
-          day: {
-            len: 5,
-            filter: ['今天', '明天', '后天'],
-            format: 'M月d日'
-          },
-          onSelect: (selectedTime, selectedText) => {
-            this.$createDialog({
-              type: 'warn',
-              title: `选中的时间戳是 ${selectedTime}`,
-              content: `选中的内容是 ${selectedText}`,
-              icon: 'cubeic-alert'
-            }).show()
-          },
-          onCancel: () => {
-            this.$createToast({
-              type: 'correct',
-              txt: 'Picker canceled',
-              time: 1000
-            }).show()
-          }
-        })
-
-        this.timePicker.setTime(time)
-        this.timePicker.show()
-      }
-    },
     components: {
       CubePage,
       CubeButtonGroup
+    },
+    methods: {
+      showTimePicker() {
+        if (!this.timePicker) {
+          this.timePicker = this.$createTimePicker({
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.timePicker.show()
+      },
+      showConfigDayPicker() {
+        if (!this.configDayPicker) {
+          this.configDayPicker = this.$createTimePicker({
+            minuteStep: 5,
+            delay: 10,
+            day: {
+              len: 5,
+              filter: ['今天', '明天'],
+              format: 'M月D日'
+            },
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.configDayPicker.show()
+      },
+      showFormatPicker() {
+        if (!this.formatPicker) {
+          this.formatPicker = this.$createTimePicker({
+            format: 'hh:mm',
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.formatPicker.show()
+      },
+      showMinuteStepPicker() {
+        if (!this.minuteStepPicker) {
+          this.minuteStepPicker = this.$createTimePicker({
+            minuteStep: {
+              rule: 'ceil',
+              step: 15
+            },
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.minuteStepPicker.show()
+      },
+      showMinPicker() {
+        if (!this.minPicker) {
+          this.minPicker = this.$createTimePicker({
+            min: +new Date() - (2 * 60 + 20) * 60 * 1000,
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.minPicker.show()
+      },
+      showMaxPicker() {
+        if (!this.maxPicker) {
+          this.maxPicker = this.$createTimePicker({
+            delay: 0,
+            max: +new Date() + ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+        this.maxPicker.show()
+      },
+      showSetTimePiker() {
+        if (!this.setTimePiker) {
+          this.setTimePiker = this.$createTimePicker({
+            onSelect: this.selectHandler,
+            onCancel: this.cancelHandler
+          })
+        }
+
+        const time = new Date().valueOf() + 1 * 60 * 60 * 1000 * 24
+        this.setTimePiker.setTime(time)
+        this.setTimePiker.show()
+      },
+      selectHandler(selectedTime, selectedText, formatedTime) {
+        this.$createDialog({
+          type: 'warn',
+          title: `selected time: ${selectedTime}`,
+          content: `selected text: ${selectedText}<br>format time: ${formatedTime}`,
+          icon: 'cubeic-alert'
+        }).show()
+      },
+      cancelHandler() {
+        this.$createToast({
+          type: 'correct',
+          txt: 'Picker canceled',
+          time: 1000
+        }).show()
+      }
     }
   }
 </script>

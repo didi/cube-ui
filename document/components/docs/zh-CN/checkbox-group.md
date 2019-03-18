@@ -63,7 +63,9 @@
 | options | 选项数组 | Array | - | - |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
 | shape | 图标形状 | String | circle/square | circle |
-| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
+| hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
+| min<sup>1.11.0</sup> | 最小选择个数 | Number | - | 0 |
+| max<sup>1.11.0</sup> | 最大选择个数 | Number | - | Infinite |
 
 * `options` 子配置项
 

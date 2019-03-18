@@ -30,11 +30,11 @@ const rules = {
   },
   len: (val, len, type) => {
     type = type || (typeof val)
-    if (type === 'number' || type === 'date') {
-      return Number(val) === len
-    } else {
-      return val.length === len
+    let target = val
+    if (target.length === undefined) {
+      target = type === 'object' ? Object.keys(target) : String(target)
     }
+    return target.length === len
   },
   notWhitespace: (val, config, type) => {
     return !/^\s+$/.test(val)

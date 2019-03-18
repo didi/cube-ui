@@ -1,5 +1,7 @@
 ## Drawer
 
+> New in 1.7.0+
+
 Drawer, this component is used to select item in many items, it used full-page panels to interaction normally.
 
 __Notice:__ Drawer component's container element should be be a relative or absolute position element.
@@ -148,7 +150,8 @@ __Notice:__ Drawer component's container element should be be a relative or abso
 | - | - | - | - | - |
 | title | title | String | - | '' |
 | data | data source | Array | - | [] |
-| selected-index | initial selected index | Array | - | [] |
+| selectedIndex | initial selected index | Array | - | [] |
+| visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false |
 
 - `data` sub configuration
 
@@ -197,6 +200,6 @@ __Notice:__ Drawer component's container element should be be a relative or abso
 
 | Method name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
 | - | - | - | - | - |
+| refill | refill data, change one Panel's data source | the Panel index | the data source | default selected index (Optional, recommended do not specify a value) |
 | show | show | - | - | - |
 | hide | hide | - | - | - |
-| refill | refill data, change one Panel's data source | the Panel index | the data source | default selected index (Optional, recommended do not specify a value) |

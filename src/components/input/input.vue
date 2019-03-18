@@ -15,6 +15,7 @@
       :autofocus="autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
+      @change="changeHander"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
       <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
@@ -29,13 +30,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-input'
   const EVENT_INPUT = 'input'
+  const EVENT_CHANGE = 'change'
   const EVENT_BLUR = 'blur'
   const EVENT_FOCUS = 'focus'
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [inputMixin],
     props: {
       value: [String, Number],
       type: {
@@ -55,6 +59,10 @@
         type: Boolean,
         default: false
       },
+      autocomplete: {
+        type: [Boolean, String],
+        default: false
+      },
       name: String,
       id: String,
       form: String,
@@ -66,7 +74,7 @@
       step: Number,
       tabindex: String,
       clearable: {
-        type: Boolean,
+        type: [Boolean, Object],
         default: false
       },
       eye: {
@@ -78,13 +86,20 @@
       return {
         inputValue: this.value,
         isFocus: false,
-        pwdVisible: false
+        formatedClearable: {
+          visible: false,
+          blurHidden: true
+        },
+        formatedEye: {
+          open: false,
+          reverse: false
+        }
       }
     },
     computed: {
       _type() {
         const type = this.type
-        if (type === 'password' && this.pwdVisible) {
+        if (type === 'password' && this.eye && this.pwdVisible) {
           return 'text'
         }
         return type
@@ -93,13 +108,21 @@
         return this.autofocus ? 'autofocus' : ''
       },
       _showClear() {
-        return this.clearable && this.inputValue && !this.readonly && !this.disabled
+        let visible = this.formatedClearable.visible && this.inputValue && !this.readonly && !this.disabled
+        if (this.formatedClearable.blurHidden && !this.isFocus) {
+          visible = false
+        }
+        return visible
       },
       _showPwdEye() {
         return this.type === 'password' && this.eye && !this.disabled
       },
+      pwdVisible() {
+        const eye = this.formatedEye
+        return eye.reverse ? !eye.open : eye.open
+      },
       eyeClass() {
-        return this.pwdVisible ? 'cubeic-eye-invisible' : 'cubeic-eye-visible'
+        return this.formatedEye.open ? 'cubeic-eye-visible' : 'cubeic-eye-invisible'
       }
     },
     watch: {
@@ -109,19 +132,37 @@
       inputValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
       },
-      eye() {
-        this._computedPwdVisible()
+      clearable: {
+        handler() {
+          this.formatClearable()
+        },
+        deep: true,
+        immediate: true
+      },
+      eye: {
+        handler() {
+          this.formateEye()
+        },
+        deep: true,
+        immediate: true
       }
     },
-    created() {
-      this._computedPwdVisible()
-    },
     methods: {
-      _computedPwdVisible() {
-        if (typeof this.eye === 'boolean') {
-          this.pwdVisible = this.eye
+      changeHander(e) {
+        this.$emit(EVENT_CHANGE, e)
+      },
+      formatClearable() {
+        if (typeof this.clearable === 'boolean') {
+          this.formatedClearable.visible = this.clearable
         } else {
-          this.pwdVisible = this.eye.open
+          Object.assign(this.formatedClearable, this.clearable)
+        }
+      },
+      formateEye() {
+        if (typeof this.eye === 'boolean') {
+          this.formatedEye.open = this.eye
+        } else {
+          Object.assign(this.formatedEye, this.eye)
         }
       },
       handleFocus(e) {
@@ -137,7 +178,7 @@
         this.$refs.input.focus()
       },
       handlePwdEye() {
-        this.pwdVisible = !this.pwdVisible
+        this.formatedEye.open = !this.formatedEye.open
       }
     }
   }
@@ -154,6 +195,7 @@
     background-color: $input-bgc
     border-1px($input-border-color)
   .cube-input-field
+    display: block
     flex: 1
     width: 100%
     padding: 10px
@@ -164,23 +206,24 @@
     border-radius: 2px
     outline: none
     &::-webkit-input-placeholder
-      color: $input-placeholder-color!important
+      color: $input-placeholder-color
       text-overflow: ellipsis
     + .cube-input-append
-      margin-left: -5px
+      .cube-input-clear, .cube-input-eye
+        &:first-child
+          margin-left: -5px
   .cube-input_active
     &::after
       border-color: $input-focus-border-color
   .cube-input-prepend, .cube-input-append
     display: flex
-  .cube-input-prepend
-    + .cube-input-field
-      margin-left: -5px
+    align-items: center
   .cube-input-clear, .cube-input-eye
     width: 1em
     height: 1em
     line-height: 1
     padding: 10px
+    box-sizing: content-box
     color: $input-clear-icon-color
     > i
       display: inline-block

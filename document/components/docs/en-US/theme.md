@@ -59,6 +59,10 @@ $btn-outline-primary-bdc := $color-orange
 $btn-outline-primary-active-bgc := $color-orange-opacity
 $btn-outline-primary-active-bdc := $color-dark-orange
 
+// toolbar
+$toolbar-bgc := $color-light-grey-sss
+$toolbar-active-bgc := $color-active-grey
+
 // checkbox
 $checkbox-color := $color-grey
 $checkbox-icon-color := $color-light-grey-s
@@ -120,6 +124,7 @@ $index-list-nav-active-color := $color-orange
 // picker
 $picker-bgc := $color-white
 $picker-title-color := $color-dark-grey
+$picker-subtitle-color := $color-light-grey
 $picker-confirm-btn-color := $color-orange
 $picker-confirm-btn-active-color := $color-light-orange
 $picker-cancel-btn-color := $color-light-grey
@@ -194,7 +199,7 @@ $select-disabled-bgc := $color-light-grey-opacity
 $select-border-color := $color-light-grey-s
 $select-border-active-color := $color-orange
 $select-icon-color := $color-light-grey
-$select-placeholder-color := $color-light-grey
+$select-placeholder-color := $color-light-grey-s
 
 // swipe
 $swipe-btn-color := $color-white
@@ -213,6 +218,19 @@ $drawer-title-bdc := $color-light-grey-ss
 $drawer-title-bgc := $color-white
 $drawer-panel-bgc := $color-white
 $drawer-item-active-bgc := $color-light-grey-opacity
+
+// scroll-nav
+$scroll-nav-bgc := $color-white
+$scroll-nav-color := $color-grey
+$scroll-nav-active-color := $color-orange
+
+// image-preview
+$image-preview-counter-color := $color-white
+
+// tab-bar & tab-panel
+$tab-color := $color-grey
+$tab-active-color := $color-dark-orange
+$tab-slider-bgc := $color-dark-orange
 ```
 
 ### webpack config

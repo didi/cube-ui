@@ -4,7 +4,11 @@
       <div ref="listWrapper" class="cube-scroll-list-wrapper">
         <slot>
           <ul class="cube-scroll-list">
-            <li @click="clickItem(item)" class="cube-scroll-item border-bottom-1px" v-for="item in data">{{item}}</li>
+            <li
+              class="cube-scroll-item border-bottom-1px"
+              v-for="(item, index) in data"
+              :key="index"
+              @click="clickItem(item)">{{item}}</li>
           </ul>
         </slot>
       </div>
@@ -19,25 +23,27 @@
         </div>
       </slot>
     </div>
-    <slot
+    <div v-if="pullDownRefresh" class="cube-pulldown" ref="pulldown">
+      <slot
         name="pulldown"
         :pullDownRefresh="pullDownRefresh"
         :pullDownStyle="pullDownStyle"
         :beforePullDown="beforePullDown"
         :isPullingDown="isPullingDown"
         :bubbleY="bubbleY">
-      <div class="cube-pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
-        <div class="before-trigger" v-if="beforePullDown">
-          <bubble :y="bubbleY"></bubble>
-        </div>
-        <div class="after-trigger" v-else>
-          <div v-if="isPullingDown" class="loading">
-            <loading></loading>
+        <div class="cube-pulldown-wrapper" :style="pullDownStyle">
+          <div class="before-trigger" v-show="beforePullDown">
+            <bubble :y="bubbleY" class="bubble"></bubble>
           </div>
-          <div v-else><span>{{ refreshTxt }}</span></div>
+          <div class="after-trigger" v-show="!beforePullDown">
+            <div v-show="isPullingDown" class="loading">
+              <loading></loading>
+            </div>
+            <div v-show="!isPullingDown" class="cube-pulldown-loaded"><span>{{ refreshTxt }}</span></div>
+          </div>
         </div>
-      </div>
-    </slot>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -45,19 +51,29 @@
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
+  import scrollMixin from '../../common/mixins/scroll'
+  import deprecatedMixin from '../../common/mixins/deprecated'
   import { getRect } from '../../common/helpers/dom'
+  import { camelize } from '../../common/lang/string'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
   const DEFAULT_REFRESH_TXT = 'Refresh success'
-  const PULL_DOWN_ELEMENT_INITIAL_HEIGHT = -50
+  const DEFAULT_STOP_TIME = 600
 
-  const EVENT_SCROLL = 'scroll'
-  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
   const EVENT_CLICK = 'click'
   const EVENT_PULLING_DOWN = 'pulling-down'
   const EVENT_PULLING_UP = 'pulling-up'
+
+  const EVENT_SCROLL = 'scroll'
+  const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
+  const EVENT_SCROLL_END = 'scroll-end'
+
+  const NEST_MODE_NONE = 'none'
+  const NEST_MODE_NATIVE = 'native'
+
+  const SCROLL_EVENTS = [EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END]
 
   const DEFAULT_OPTIONS = {
     observeDOM: true,
@@ -70,6 +86,17 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin, deprecatedMixin],
+    provide() {
+      return {
+        parentScroll: this
+      }
+    },
+    inject: {
+      parentScroll: {
+        default: null
+      }
+    },
     props: {
       data: {
         type: Array,
@@ -77,19 +104,31 @@
           return []
         }
       },
-      options: {
-        type: Object,
+      scrollEvents: {
+        type: Array,
         default() {
-          return {}
+          return []
+        },
+        validator(arr) {
+          return arr.every((item) => {
+            return SCROLL_EVENTS.indexOf(item) !== -1
+          })
         }
       },
+      // TODO: plan to remove at 1.10.0
       listenScroll: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'scroll-events'
+        }
       },
       listenBeforeScroll: {
         type: Boolean,
-        default: false
+        default: undefined,
+        deprecated: {
+          replacedBy: 'scroll-events'
+        }
       },
       direction: {
         type: String,
@@ -98,6 +137,10 @@
       refreshDelay: {
         type: Number,
         default: 20
+      },
+      nestMode: {
+        type: String,
+        default: NEST_MODE_NONE
       }
     },
     data() {
@@ -107,12 +150,21 @@
         isPullUpLoad: false,
         pullUpDirty: true,
         bubbleY: 0,
-        pullDownStyle: ''
+        pullDownStyle: '',
+        pullDownStop: 40,
+        pullDownHeight: 60
       }
     },
     computed: {
       pullDownRefresh() {
-        return this.options.pullDownRefresh
+        let pullDownRefresh = this.options.pullDownRefresh
+        if (!pullDownRefresh) {
+          return pullDownRefresh
+        }
+        if (pullDownRefresh === true) {
+          pullDownRefresh = {}
+        }
+        return Object.assign({stop: this.pullDownStop}, pullDownRefresh)
       },
       pullUpLoad() {
         return this.options.pullUpLoad
@@ -128,6 +180,18 @@
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
         return (pullDownRefresh && pullDownRefresh.txt) || DEFAULT_REFRESH_TXT
+      },
+      finalScrollEvents() {
+        const finalScrollEvents = this.scrollEvents.slice()
+
+        if (!finalScrollEvents.length) {
+          this.listenScroll && finalScrollEvents.push(EVENT_SCROLL)
+          this.listenBeforeScroll && finalScrollEvents.push(EVENT_BEFORE_SCROLL_START)
+        }
+        return finalScrollEvents
+      },
+      needListenScroll() {
+        return this.finalScrollEvents.indexOf(EVENT_SCROLL) !== -1 || this.parentScroll
       }
     },
     watch: {
@@ -198,24 +262,18 @@
 
         let options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
-          scrollX: this.direction === DIRECTION_H
+          scrollX: this.direction === DIRECTION_H,
+          probeType: this.needListenScroll ? 3 : 1
         }, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        if (this.listenScroll) {
-          this.scroll.on('scroll', (pos) => {
-            this.$emit(EVENT_SCROLL, pos)
-          })
-        }
+        this.parentScroll && this.nestMode !== NEST_MODE_NONE && this._handleNestScroll()
 
-        if (this.listenBeforeScroll) {
-          this.scroll.on('beforeScrollStart', () => {
-            this.$emit(EVENT_BEFORE_SCROLL_START)
-          })
-        }
+        this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
+          this._getPullDownEleHeight()
           this._onPullDownRefresh()
         }
 
@@ -249,7 +307,7 @@
       forceUpdate(dirty = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          this._reboundPullDown().then(() => {
+          this._reboundPullDown(() => {
             this._afterPullDown(dirty)
           })
         } else if (this.pullUpLoad && this.isPullUpLoad) {
@@ -260,6 +318,86 @@
         } else {
           dirty && this.refresh()
         }
+      },
+      resetPullUpTxt() {
+        this.pullUpDirty = true
+      },
+      _listenScrollEvents() {
+        this.finalScrollEvents.forEach((event) => {
+          this.scroll.on(camelize(event), (...args) => {
+            this.$emit(event, ...args)
+          })
+        })
+      },
+      _handleNestScroll() {
+        // waiting scroll initial
+        this.$nextTick(() => {
+          const innerScroll = this.scroll
+          const outerScroll = this.parentScroll.scroll
+          const scrolls = [innerScroll, outerScroll]
+          scrolls.forEach((scroll, index, arr) => {
+            // scroll ended always enable them
+            scroll.on('touchEnd', () => {
+              outerScroll.enable()
+              innerScroll.enable()
+              // when inner scroll reaching boundary, we will disable inner scroll, so when 'touchend' event fire,
+              // the inner scroll will not reset initiated within '_end' method in better-scroll.
+              // then lead to inner and outer scrolls together when we touch and move on the outer scroll element,
+              // so here we reset inner scroll's 'initiated' manually.
+              innerScroll.initiated = false
+            })
+
+            scroll.on('beforeScrollStart', () => {
+              this.touchStartMoment = true
+              const anotherScroll = arr[(index + 1) % 2]
+              anotherScroll.stop()
+              anotherScroll.resetPosition()
+            })
+          })
+
+          innerScroll.on('scroll', (pos) => {
+            // if scroll event triggered not by touch event, such as by 'scrollTo' method
+            if (!innerScroll.initiated || innerScroll.isInTransition) {
+              return
+            }
+
+            if (this.nestMode === NEST_MODE_NATIVE && !this.touchStartMoment) {
+              return
+            }
+
+            const reachBoundary = this._checkReachBoundary(pos)
+            if (reachBoundary) {
+              innerScroll.resetPosition()
+              innerScroll.disable()
+              // Prevent outer scroll have a bouncing step when enabled in 'free' nestMode.
+              outerScroll.pointX = innerScroll.pointX
+              outerScroll.pointY = innerScroll.pointY
+              outerScroll.enable()
+            } else {
+              outerScroll.disable()
+            }
+            this.touchStartMoment = false
+          })
+        })
+      },
+      _checkReachBoundary(pos) {
+        const distX = this.scroll.distX
+        const distY = this.scroll.distY
+        const reachBoundaryX = distX > 0 ? pos.x >= this.scroll.minScrollX : distX < 0 ? pos.x <= this.scroll.maxScrollX : false
+        const reachBoundaryY = distY > 0 ? pos.y >= this.scroll.minScrollY : distY < 0 ? pos.y <= this.scroll.maxScrollY : false
+        const freeScroll = this.scroll.freeScroll
+
+        let reachBoundary
+        if (freeScroll) {
+          return reachBoundaryX || reachBoundaryY
+        }
+
+        if (this.scroll.movingDirectionX) {
+          reachBoundary = reachBoundaryX
+        } else if (this.scroll.movingDirectionY) {
+          reachBoundary = reachBoundaryY
+        }
+        return reachBoundary
       },
       _calculateMinHeight() {
         if (this.$refs.listWrapper) {
@@ -275,17 +413,20 @@
         this.scroll.off('scroll', this._pullDownScrollHandle)
       },
       _pullDownHandle() {
+        if (this.resetPullDownTimer) {
+          clearTimeout(this.resetPullDownTimer)
+        }
         this.beforePullDown = false
         this.isPullingDown = true
         this.$emit(EVENT_PULLING_DOWN)
       },
       _pullDownScrollHandle(pos) {
         if (this.beforePullDown) {
-          this.bubbleY = Math.max(0, pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT)
-          this.pullDownStyle = `top:${Math.min(pos.y + PULL_DOWN_ELEMENT_INITIAL_HEIGHT, 10)}px`
+          this.bubbleY = Math.max(0, pos.y - this.pullDownHeight)
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownHeight, 0)}px`
         } else {
           this.bubbleY = 0
-          this.pullDownStyle = `top:${Math.min(pos.y - 30, 10)}px`
+          this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
         }
       },
       _onPullUpLoad() {
@@ -298,22 +439,32 @@
         this.isPullUpLoad = true
         this.$emit(EVENT_PULLING_UP)
       },
-      _reboundPullDown() {
-        const {stopTime = 600} = this.pullDownRefresh
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            this.scroll.finishPullDown()
-            this.isPullingDown = false
-            resolve()
-          }, stopTime)
-        })
+      _reboundPullDown(next) {
+        const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
+        setTimeout(() => {
+          this.scroll.finishPullDown()
+          next()
+        }, stopTime)
       },
       _afterPullDown(dirty) {
-        setTimeout(() => {
-          this.pullDownStyle = `top:${PULL_DOWN_ELEMENT_INITIAL_HEIGHT}px`
+        this.resetPullDownTimer = setTimeout(() => {
+          this.pullDownStyle = `top: -${this.pullDownHeight}px`
           this.beforePullDown = true
           dirty && this.refresh()
         }, this.scroll.options.bounceTime)
+      },
+      _getPullDownEleHeight() {
+        const pulldown = this.$refs.pulldown.firstChild
+        this.pullDownHeight = getRect(pulldown).height
+
+        this.beforePullDown = false
+        this.isPullingDown = true
+        this.$nextTick(() => {
+          this.pullDownStop = getRect(pulldown).height
+
+          this.beforePullDown = true
+          this.isPullingDown = false
+        })
       }
     },
     components: {
@@ -331,6 +482,9 @@
     height: 100%
     overflow: hidden
 
+  .cube-scroll-list-wrapper
+    overflow: hidden
+
   .cube-pulldown-wrapper
     position: absolute
     width: 100%
@@ -339,8 +493,15 @@
     justify-content: center
     align-items: center
     transition: all
+    .before-trigger
+      height: 54px
+      line-height: 0
+      padding-top: 6px
     .after-trigger
-      margin-top: 5px
+      .loading
+        padding: 8px 0
+      .cube-pulldown-loaded
+        padding: 12px 0
 
   .cube-pullup-wrapper
     width: 100%

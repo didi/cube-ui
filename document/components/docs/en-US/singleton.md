@@ -1,6 +1,14 @@
 ## Singleton Pattern
 
-You need to take the singleton and multiton pattern of components into account when invoking the component by API. If the component is singleton, then there will be only one instance when instantiating it multiple times, and there is only one corresponding view layer; If the component is multiton, then a new instance will be created each time you instantiate it, and there are multiple corresponding view layers which don't affect each other.
+You need to take the singleton and multiton pattern of components into account when invoking the component by API.
+
+- After 1.11
+
+  If the component is singleton, then there will be only one instance when instantiating it multiple times **in same component**, and there is only one corresponding view layer; If the component is multiton, then a new instance will be created each time you instantiate it, and there are multiple corresponding view layers which don't affect each other.
+
+- Below 1.11
+
+  If the component is singleton, then there will be only one instance when instantiating it multiple times, and there is only one corresponding view layer; If the component is multiton, then a new instance will be created each time you instantiate it, and there are multiple corresponding view layers which don't affect each other.
 
 The components that are involved with api-invoking in cube-ui are all popups. Frequently used ones among them are listed below:
 

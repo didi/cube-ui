@@ -3,20 +3,32 @@ export default {
     title: {
       type: String
     },
+    subtitle: {
+      type: String
+    },
     cancelTxt: {
       type: String,
-      default: '取消'
+      default: ''
     },
     confirmTxt: {
       type: String,
-      default: '确定'
+      default: ''
     },
     swipeTime: {
       type: Number,
       default: 2500
     },
-    zIndex: {
-      type: Number
+    maskClosable: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    _cancelTxt () {
+      return this.cancelTxt || this.$t('cancel')
+    },
+    _confirmTxt () {
+      return this.confirmTxt || this.$t('ok')
     }
   }
 }

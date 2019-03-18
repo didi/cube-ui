@@ -1,8 +1,8 @@
 <template>
   <div class="cube-json-view">
     <h3>{{title}}</h3>
-    <pre>
-      <code ref="code" v-if="changed">{{data}}</code>
+    <pre v-if="changed">
+      <code ref="code">{{data}}</code>
     </pre>
   </div>
 </template>
@@ -38,7 +38,7 @@
           this.$nextTick(() => {
             this.changed = true
             this.$nextTick(() => {
-              hljs.highlightBlock(this.$refs.code)
+              this.$refs.code && hljs.highlightBlock(this.$refs.code)
             })
           })
         },
@@ -46,7 +46,7 @@
       }
     },
     mounted() {
-      hljs.highlightBlock(this.$refs.code)
+      this.$refs.code && hljs.highlightBlock(this.$refs.code)
     }
   }
 </script>

@@ -54,6 +54,23 @@
   </cube-checkbox>
   ```
 
+- With click
+
+  If you want to handle click event, you need to handle the style:
+
+  ```html
+  <cube-checkbox class="with-click" v-model="checked">
+    Agree <a href="javascript:;" @click.stop>《xxx》</a>
+  </cube-checkbox>
+  ```
+  ```styl
+  .with-click
+    .cube-checkbox-label
+      a
+        position: relative
+        z-index: 1
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -61,7 +78,7 @@
 | option | option value | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
 | shape | icon shape | String | circle/square | circle |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
 * `option` sub configuration
 

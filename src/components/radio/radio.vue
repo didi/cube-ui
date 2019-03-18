@@ -1,25 +1,30 @@
 <template>
   <div class="cube-radio" :class="_containerClass" :data-pos="position">
     <label class="cube-radio-wrap" :class="_wrapClass">
-      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
+      <input class="cube-radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="computedOption.value">
       <span class="cube-radio-ui cubeic-round-border">
         <i></i>
       </span>
       <slot>
-        <span class="cube-radio-label">{{option.label || option}}</span>
+        <span class="cube-radio-label">{{computedOption.label}}</span>
       </slot>
     </label>
   </div>
 </template>
 
-<script  type="text/ecmascript-6">
+<script type="text/ecmascript-6">
 const COMPONENT_NAME = 'cube-radio'
 const EVENT_INPUT = 'input'
 
 export default {
   name: COMPONENT_NAME,
+  inject: {
+    radioGroup: {
+      default: null
+    }
+  },
   props: {
-    value: String,
+    value: [String, Number],
     option: {
       type: [String, Object],
       required: true
@@ -38,20 +43,51 @@ export default {
       radioValue: this.value
     }
   },
+  created() {
+    const radioGroup = this.radioGroup
+    if (radioGroup) {
+      this.radioValue = radioGroup.radioValue
+      this._cancelWatchGroup = this.$watch(() => {
+        return radioGroup.radioValue
+      }, (newValue) => {
+        this.radioValue = newValue
+      })
+    }
+  },
+  beforeDestroy() {
+    this._cancelWatchGroup && this._cancelWatchGroup()
+    this._cancelWatchGroup = null
+  },
   watch: {
     value(newV) {
       this.radioValue = newV
     },
     radioValue(newV) {
+      if (typeof this.value === 'number') {
+        newV = Number(newV)
+      }
       this.$emit(EVENT_INPUT, newV)
+      if (this.radioGroup) {
+        this.radioGroup.radioValue = newV
+      }
     }
   },
   computed: {
-    _containerClass() {
+    computedOption() {
       const option = this.option
+      if (typeof option === 'string') {
+        return {
+          value: option,
+          label: option
+        }
+      }
+      return option
+    },
+    _containerClass() {
+      const option = this.computedOption
       return {
         'cube-radio-hollow': this.hollowStyle,
-        'cube-radio_selected': this.radioValue === (option.value || option),
+        'cube-radio_selected': this.radioValue === option.value,
         'cube-radio_disabled': option.disabled,
         'border-right-1px': this.$parent.horizontal
       }
@@ -107,7 +143,7 @@ export default {
     margin-right: $ui-width - 1em
     line-height: 1
     color: transparent
-    background-color: currentColor
+    background-color: transparent
     border-radius: 50%
     &::before, i
       transition: all .2s
@@ -132,7 +168,7 @@ export default {
         width: 50%
         height: 50%
         transform: translate(-50%, -50%) scale(.8)
-        background-color: currentColor
+        // background-color: transparent
         border-radius: 50%
   .cube-radio_selected
     .cube-radio-ui
@@ -141,7 +177,9 @@ export default {
         color: transparent
       i
         transform: scale(1)
-        color: $radio-selected-icon-color
+        // color: $radio-selected-icon-color
+        &::before
+          background-color: $radio-selected-icon-color
   .cube-radio_disabled
     .cube-radio-ui
       background-color: $radio-disabled-icon-bgc
@@ -157,8 +195,11 @@ export default {
           transform: translate(-50%, -50%) scale(1)
     &.cube-radio_selected
       .cube-radio-ui
-        &::before, i
+        &::before
           color: $radio-hollow-selected-icon-color
+        i
+          &::before
+            background-color: $radio-hollow-selected-icon-color
     &.cube-radio_disabled
       .cube-radio-ui
         &::before
@@ -166,6 +207,7 @@ export default {
       &.cube-radio_selected
         .cube-radio-ui
           i
-            color: $radio-hollow-disabled-icon-color
+            &::before
+              background-color: $radio-hollow-disabled-icon-color
 </style>
 

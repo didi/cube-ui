@@ -1,12 +1,7 @@
-import { camelize } from '../lang/string'
-import createAPIComponent from './create-api-component'
+import createAPIComponent from 'vue-create-api'
 
 export default function createAPI (Vue, Component, events, single) {
-  const api = createAPIComponent.apply(this, arguments)
-  const name = Component.name
-  const pureName = name.replace(/^cube-/i, '')
-  const createName = `$${camelize(`create-${pureName}`)}`
-  Vue.prototype[createName] = api.create
-  Component.$create = api.create
+  Vue.use(createAPIComponent, {componentPrefix: 'cube-'})
+  const api = Vue.createAPI(Component, events, single)
   return api
 }

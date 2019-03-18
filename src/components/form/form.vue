@@ -7,14 +7,13 @@
 </template>
 
 <script>
+  import { dispatchEvent } from '../../common/helpers/dom'
+  import { cb2PromiseWithResolve } from '../../common/helpers/util'
   import CubeFormGroup from './form-group.vue'
+  import LAYOUTS from './layouts'
+  import mixin from './mixin'
 
   const COMPONENT_NAME = 'cube-form'
-  const LAYOUTS = {
-    STANDARD: 'standard',
-    CLASSIC: 'classic',
-    FRESH: 'fresh'
-  }
   const EVENT_SUBMIT = 'submit'
   const EVENT_RESET = 'reset'
   const EVENT_VALIDATE = 'validate'
@@ -23,6 +22,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [mixin],
     props: {
       action: String,
       model: {
@@ -57,7 +57,6 @@
       return {
         validatedCount: 0,
         dirty: false,
-        valid: undefined,
         firstInvalidField: null,
         firstInvalidFieldIndex: -1
       }
@@ -73,19 +72,21 @@
         }
         return groups
       },
-      invalid() {
-        const valid = this.valid
-        return valid === undefined ? valid : !valid
+      layout() {
+        const options = this.options
+        const layout = (options && options.layout) || LAYOUTS.STANDARD
+        return layout
       },
       formClass() {
         const invalid = this.invalid
         const valid = this.valid
-        const options = this.options
-        const layout = (options && options.layout) || LAYOUTS.STANDARD
+        const layout = this.layout
         return {
           'cube-form_standard': layout === LAYOUTS.STANDARD,
           'cube-form_groups': this.groups.length > 1,
-          'cube-form_valid': valid === true,
+          'cube-form_validating': this.validating,
+          'cube-form_pending': this.pending,
+          'cube-form_valid': valid,
           'cube-form_invalid': invalid,
           'cube-form_classic': layout === LAYOUTS.CLASSIC,
           'cube-form_fresh': layout === LAYOUTS.FRESH
@@ -114,47 +115,99 @@
       }
     },
     methods: {
-      submit() {
-        this.$refs.form.submit()
+      submit(skipValidate = false) {
+        this.skipValidate = skipValidate
+        dispatchEvent(this.$refs.form, 'submit')
+        this.skipValidate = false
       },
       reset() {
-        this.$refs.form.reset()
+        dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
-        const submitResult = this._submit()
-        if (submitResult) {
-          this.$emit(EVENT_VALID, this.validity)
+        // sync all fields value because of trigger: blur or debounce
+        this.syncValidatorValues()
+        if (this.skipValidate) {
           this.$emit(EVENT_SUBMIT, e, this.model)
+          return
+        }
+        const submited = (submitResult) => {
+          if (submitResult) {
+            this.$emit(EVENT_VALID, this.validity)
+            this.$emit(EVENT_SUBMIT, e, this.model)
+          } else {
+            e.preventDefault()
+            this.$emit(EVENT_INVALID, this.validity)
+          }
+        }
+        if (this.valid === undefined) {
+          this._submit(submited)
+          if (this.validating || this.pending) {
+            // async validate
+            e.preventDefault()
+          }
         } else {
-          e.preventDefault()
-          this.$emit(EVENT_INVALID, this.validity)
+          submited(this.valid)
         }
       },
       resetHandler(e) {
         this._reset()
         this.$emit(EVENT_RESET, e)
       },
-      _submit() {
-        this.validate()
-        if (this.invalid) {
-          if (this.options.scrollToInvalidField && this.firstInvalidField) {
-            this.firstInvalidField.$el.scrollIntoView()
+      _submit(cb) {
+        this.validate(() => {
+          if (this.invalid) {
+            if (this.options.scrollToInvalidField && this.firstInvalidField) {
+              this.firstInvalidField.$el.scrollIntoView()
+            }
           }
-          return false
-        }
-        return true
+          cb && cb(this.valid)
+        })
       },
       _reset() {
         this.fields.forEach((fieldComponent) => {
           fieldComponent.reset()
         })
         this.setValidity()
+        this.setValidating()
+        this.setPending()
       },
-      validate() {
+      syncValidatorValues() {
         this.fields.forEach((fieldComponent) => {
-          fieldComponent.validate()
+          fieldComponent.syncValidatorValue()
         })
-        return this.valid
+      },
+      validate(cb) {
+        const promise = cb2PromiseWithResolve(cb)
+        if (promise) {
+          cb = promise.resolve
+        }
+        let doneCount = 0
+        const len = this.fields.length
+        this.originValid = undefined
+        this.fields.forEach((fieldComponent) => {
+          fieldComponent.validate(() => {
+            doneCount++
+            if (doneCount === len) {
+              // all done
+              cb && cb(this.valid)
+            }
+          })
+        })
+        return promise
+      },
+      updateValidating() {
+        const validating = this.fields.some((fieldComponent) => fieldComponent.validating)
+        this.setValidating(validating)
+      },
+      updatePending() {
+        const pending = this.fields.some((fieldComponent) => fieldComponent.pending)
+        this.setPending(pending)
+      },
+      setValidating(validating = false) {
+        this.validating = validating
+      },
+      setPending(pending = false) {
+        this.pending = pending
       },
       updateValidity(modelKey, valid, result, dirty) {
         const curResult = this.validity[modelKey]
@@ -215,7 +268,7 @@
         })
         this.validity = validity
         this.dirty = dirty
-        this.valid = valid
+        this.originValid = valid
         this.setFirstInvalid(firstInvalidFieldKey)
         this.validatedCount++
       },
@@ -296,8 +349,6 @@
           -webkit-text-stroke-width: 0.2px
           -moz-osx-font-smoothing: grayscale
     .cube-form-label
-      display: flex
-      align-items: center
       width: 100px
       padding-right: 10px
     .cube-checkbox-group, .cube-radio-group

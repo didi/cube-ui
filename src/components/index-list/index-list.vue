@@ -1,11 +1,13 @@
 <template>
   <div class="cube-index-list">
     <cube-scroll
-      ref="indexList"
-      :listen-scroll="listenScroll"
-      :options="options"
+      ref="scroll"
+      :scroll-events="scrollEvents"
+      :options="scrollOptions"
       :data="data"
-      @scroll="scroll">
+      @scroll="scroll"
+      @pulling-down="onPullingDown"
+      @pulling-up="onPullingUp">
       <div class="cube-index-list-content" ref="content">
         <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
           {{ title }}
@@ -17,6 +19,21 @@
           </slot>
         </ul>
       </div>
+      <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
+        <slot name="pullup"
+          :pullUpLoad="props.pullUpLoad"
+          :isPullUpLoad="props.isPullUpLoad">
+        </slot>
+      </template>
+      <template v-if="$slots.pulldown || $scopedSlots.pulldown" slot="pulldown" slot-scope="props">
+        <slot name="pulldown"
+          :pullDownRefresh="props.pullDownRefresh"
+          :pullDownStyle="props.pullDownStyle"
+          :beforePullDown="props.beforePullDown"
+          :isPullingDown="props.isPullingDown"
+          :bubbleY="props.bubbleY">
+        </slot>
+      </template>
     </cube-scroll>
     <div v-if="navbar" class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul class="cube-index-list-nav-list">
@@ -31,8 +48,10 @@
         </li>
       </ul>
     </div>
-    <div class="cube-index-list-fixed cube-index-list-anchor" ref="fixed" v-show="fixedTitle">
-      {{ fixedTitle }}
+    <div ref="fixed"
+      v-show="fixedTitle"
+      v-html="fixedTitle"
+      class="cube-index-list-fixed cube-index-list-anchor">
     </div>
   </div>
 </template>
@@ -48,16 +67,21 @@
 
   import CubeScroll from '../scroll/scroll.vue'
   import CubeIndexListGroup from './index-list-group.vue'
+  import scrollMixin from '../../common/mixins/scroll'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
   const EVENT_TITLE_CLICK = 'title-click'
+  const EVENT_PULLING_UP = 'pulling-up'
+  const EVENT_PULLING_DOWN = 'pulling-down'
 
   const ANCHOR_HEIGHT = inBrowser ? window.innerHeight <= 480 ? 17 : 18 : 18
   const transformStyleKey = prefixStyle('transform')
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       title: {
         type: String,
@@ -76,21 +100,50 @@
       navbar: {
         type: Boolean,
         default: true
+      },
+      pullDownRefresh: {
+        type: [Object, Boolean],
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
+      },
+      pullUpLoad: {
+        type: [Object, Boolean],
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
       }
     },
     data() {
       return {
+        scrollEvents: ['scroll'],
         currentIndex: 0,
         scrollY: -1,
         diff: -1,
-        options: {
-          probeType: 3
-        },
-        titleHeight: null
+        titleHeight: 0
+      }
+    },
+    computed: {
+      fixedTitle() {
+        this.title && !this.titleHeight && this._caculateTitleHeight()
+
+        return this.scrollY <= -this.titleHeight && this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
+      },
+      shortcutList() {
+        return this.data.map((group) => {
+          return group ? group.shortcut || group.name.substr(0, 1) : ''
+        })
+      },
+      scrollOptions() {
+        return Object.assign({}, {
+          pullDownRefresh: this.pullDownRefresh,
+          pullUpLoad: this.pullUpLoad
+        }, this.options)
       }
     },
     created() {
-      this.listenScroll = true
       this.groupList = []
       this.listHeight = []
       this.touch = {}
@@ -98,27 +151,14 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.titleHeight = this.title && this.$refs.title ? getRect(this.$refs.title).height : 0
+        this.title && this._caculateTitleHeight()
         this._calculateHeight()
       })
-    },
-    computed: {
-      fixedTitle() {
-        if (this.titleHeight === null || this.scrollY > -this.titleHeight) {
-          return ''
-        }
-        return this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
-      },
-      shortcutList() {
-        return this.data.map((group) => {
-          return group ? group.shortcut || group.name.substr(0, 1) : ''
-        })
-      }
     },
     methods: {
       /* TODO: remove refresh next minor version */
       refresh() {
-        this.$refs.indexList.refresh()
+        this.$refs.scroll.refresh()
       },
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)
@@ -128,6 +168,9 @@
       },
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
+      },
+      forceUpdate() {
+        this.$refs.scroll.forceUpdate()
       },
       onShortcutTouchStart(e) {
         const target = getMatchedTarget(e, 'cube-index-list-nav-item')
@@ -146,6 +189,15 @@
         let anchorIndex = parseInt(this.touch.anchorIndex) + delta
 
         this._scrollTo(anchorIndex)
+      },
+      onPullingUp() {
+        this.$emit(EVENT_PULLING_UP)
+      },
+      onPullingDown() {
+        this.$emit(EVENT_PULLING_DOWN)
+      },
+      _caculateTitleHeight() {
+        this.titleHeight = this.$refs.title ? getRect(this.$refs.title).height : 0
       },
       _calculateHeight() {
         this.groupList = this.$el.getElementsByClassName('cube-index-list-group')
@@ -171,8 +223,8 @@
         } else if (index > this.listHeight.length - 2) {
           index = this.listHeight.length - 2
         }
-        this.$refs.indexList.scrollToElement(this.groupList[index], this.speed)
-        this.scrollY = this.$refs.indexList.scroll.y
+        this.$refs.scroll.scrollToElement(this.groupList[index], this.speed)
+        this.scrollY = this.$refs.scroll.scroll.y
       }
     },
     watch: {
@@ -183,7 +235,7 @@
       },
       title(newVal) {
         this.$nextTick(() => {
-          this.titleHeight = newVal && this.$refs.title ? getRect(this.$refs.title).height : 0
+          this._caculateTitleHeight()
           this._calculateHeight()
         })
       },

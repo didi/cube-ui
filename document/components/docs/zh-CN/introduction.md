@@ -25,23 +25,40 @@ cube-ui 是基于 Vue.js 实现的精致移动端组件库。
 #### 基础
 
 - [Button 按钮](#/zh-CN/docs/button)
+- [Loading 加载中](#/zh-CN/docs/loading)
+- [Tip 提示](#/zh-CN/docs/tip)
+- [Toolbar 工具条](#/zh-CN/docs/toolbar)
+- [TabBar 选项卡](#/zh-CN/docs/tab-bar)
+
+#### 表单
+
 - [Checkbox 复选框](#/zh-CN/docs/checkbox)
 - [CheckboxGroup 复选框组](#/zh-CN/docs/checkbox-group)
 - [Radio 单选框](#/zh-CN/docs/radio)
 - [Input 输入框](#/zh-CN/docs/input)
-- [Loading 加载中](#/zh-CN/docs/loading)
-- [Tip 提示](#/zh-CN/docs/tip)
+- [Textarea](#/zh-CN/docs/textarea)
+- [Select 选择](#/zh-CN/docs/select)
+- [Switch 开关切换](#/zh-CN/docs/switch)
+- [Rate 评级](#/zh-CN/docs/rate)
+- [Validator 校验器](#/zh-CN/docs/validator)
+- [Upload 上传](#/zh-CN/docs/upload)
+- [Form 表单](#/zh-CN/docs/form)
 
 #### 弹层
 
 - [Popup](#/zh-CN/docs/popup)
 - [Toast 提醒](#/zh-CN/docs/toast)
 - [Picker 选择器](#/zh-CN/docs/picker)
+- [CascadePicker 级联选择器](#/zh-CN/docs/cascade-picker)
+- [DatePicker 日期选择器](#/zh-CN/docs/date-picker)
 - [TimePicker 时间选择器](#/zh-CN/docs/time-picker)
+- [SegmentPicker 段选择器](#/zh-CN/docs/segment-picker)
 - [Dialog 弹框](#/zh-CN/docs/dialog)
 - [ActionSheet 操作菜单](#/zh-CN/docs/action-sheet)
+- [Drawer 抽屉](#/zh-CN/docs/drawer)
+- [ImagePreview 图片预览](#/zh-CN/docs/image-preview)
 
-所有的弹层类组件可以通过组件调用和 API 调用，来看示例（`Toast` 为例）：
+绝大多数的弹层类组件可以通过组件调用和 API 调用，来看示例（`Toast` 为例）：
 
 组件调用：
 
@@ -99,12 +116,12 @@ API 调用：
 - [Scroll 滚动](#/zh-CN/docs/scroll)
 - [Slide 幻灯片](#/zh-CN/docs/slide)
 - [IndexList 索引列表](#/zh-CN/docs/index-list)
+- [Swipe 滑块](#/zh-CN/docs/swipe)
+- [Sticky 吸附](#/zh-CN/docs/sticky)
+- [ScrollNavBar 滚动导航条](#/zh-CN/docs/scroll-nav-bar)
+- [ScrollNav 滚动导航](#/zh-CN/docs/scroll-nav)
 
-滚动类组件都是基于 [better-scroll](https://github.com/ustbhuangyi/better-scroll) 实现，而 `Scroll` 组件就是对 better-scroll 的封装。
-
-#### 高级
-
-- [Upload 上传](#/zh-CN/docs/upload)
+滚动类组件一般都是基于 [better-scroll](https://github.com/ustbhuangyi/better-scroll) 实现，而 `Scroll` 组件就是对 better-scroll 的封装。
 
 ### 模块
 

@@ -1,5 +1,7 @@
 ## SegmentPicker 组件
 
+> 1.7.0 新增
+
 段选择器，用于实现多段的选择，比如选择时间段：2010年9月1日 - 2014年6月30日。
 
 __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请确保自己了解过 [create-api](#/zh-CN/docs/create-api)。
@@ -67,7 +69,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   ```
   ```js
   import { provinceList, cityList, areaList } from 'example/data/area'
-  
+
   const cityData = provinceList
   cityData.forEach(province => {
     province.children = cityList[province.value]
@@ -121,11 +123,16 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | 参数 | 说明 | 类型 | 默认值 | 示例 |
 | - | - | - | - | - |
 | data | 定义各个选择器的组件名和属性 | Array | [] | - |
-| title | 标题 | String | '' | - |
-| cancelTxt | 取消按钮文案 | String | '取消' | - |
-| confirmTxt | 确定按钮文案 | String | '确定' | - |
 | nextTxt | 下一步按钮文案 | String | '下一步' | - |
 | prevTxt | 上一步按钮文案 | String | '下一步' | - |
+| title | 标题 | String | '' | - |
+| subtitle<sup>1.8.1</sup> | 副标题 | String | '' | - |
+| cancelTxt | 取消按钮文案 | String | '取消' | - |
+| confirmTxt | 确定按钮文案 | String | '确定' | - |
+| swipeTime<sup>1.8.1</sup> | 快速滑动选择器滚轮时，惯性滚动动画的时长，单位：ms | Number | 2500 | - |
+| visible<sup>1.8.1</sup> | 显示状态，是否可见。`v-model`绑定值 | Boolean | true/false | false |
+| maskClosable<sup>1.9.6</sup> | 点击蒙层是否隐藏 | Boolean | true/false | true |
+| zIndex<sup>1.9.6</sup> | 样式 z-index 的值 | Number | 100 | - |
 
 * `data` 子配置项
 
@@ -149,5 +156,5 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 方法名 | 说明 |
 | - | - |
-| show | 显示选择器 |
-| hide | 隐藏选择器 |
+| show | 显示 |
+| hide | 隐藏 |

@@ -57,17 +57,26 @@ describe('Picker', () => {
 
   it('should render correct contents', function () {
     vm = createPicker({
-      title: '两列选择器',
+      title: 'title',
+      subtitle: 'subtitle',
       data: [data1, data2],
       cancelTxt: '关闭',
       confirmTxt: '好的'
     })
 
-    const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+    const titleEl = vm.$el.querySelector('.cube-picker-title')
+    expect(titleEl.textContent.trim())
+      .to.equal('title')
+
+    const subtitleEl = vm.$el.querySelector('.cube-picker-subtitle')
+    expect(subtitleEl.textContent.trim())
+      .to.equal('subtitle')
+
+    const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
     expect(cancelBtn.textContent.trim())
       .to.equal('关闭')
 
-    const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+    const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
     expect(confirmBtn.textContent.trim())
       .to.equal('好的')
 
@@ -105,6 +114,36 @@ describe('Picker', () => {
       .to.equal('B')
   })
 
+  it('should toggle by change v-model visible', function (done) {
+    this.timeout(1000)
+
+    const toggleHandler = sinon.spy()
+    vm = instantiateComponent(Vue, Picker, {
+      props: {
+        visible: true
+      },
+      on: {
+        toggle: toggleHandler
+      }
+    })
+
+    vm.$parent.updateRenderData({
+      props: {
+        visible: false
+      },
+      on: {
+        toggle: toggleHandler
+      }
+    })
+    vm.$parent.$forceUpdate()
+
+    setTimeout(() => {
+      expect(toggleHandler).to.be.callCount(2)
+
+      done()
+    }, 50)
+  })
+
   it('should trigger events', function () {
     this.timeout(10000)
 
@@ -136,14 +175,14 @@ describe('Picker', () => {
       setTimeout(() => {
         vm.show()
         setTimeout(() => {
-          const cancelBtn = vm.$el.querySelector('.cube-picker-choose [data-action="cancel"]')
+          const cancelBtn = vm.$el.querySelector('.cube-picker-cancel')
           cancelBtn.click()
           expect(cancelHandle)
             .to.be.callCount(1)
 
           vm.show()
           setTimeout(() => {
-            const confirmBtn = vm.$el.querySelector('.cube-picker-choose [data-action="confirm"]')
+            const confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
             confirmBtn.click()
             expect(selectHandle)
               .to.be.callCount(1)
@@ -170,8 +209,8 @@ describe('Picker', () => {
       setTimeout(() => {
         vm.scrollTo(0, 2)
         vm.confirm()
-        expect(vm.pickerSelectedIndex[0]).to.equal(2)
-        expect(vm.pickerSelectedVal[0]).to.equal(data2[2].value)
+        expect(vm._indexes[0]).to.equal(2)
+        expect(vm._values[0]).to.equal(data2[2].value)
         done()
       })
     }, 150)
@@ -201,8 +240,8 @@ describe('Picker', () => {
     vm.show()
     setTimeout(() => {
       vm.confirm()
-      expect(vm.pickerSelectedIndex[0]).to.equal(1)
-      expect(vm.pickerSelectedVal[0]).to.equal(data1[1].value)
+      expect(vm._indexes[0]).to.equal(1)
+      expect(vm._values[0]).to.equal(data1[1].value)
       done()
     }, 150)
   })
@@ -217,8 +256,8 @@ describe('Picker', () => {
       vm.setData([data2], [2])
       setTimeout(() => {
         vm.confirm()
-        expect(vm.pickerSelectedIndex[0]).to.equal(2)
-        expect(vm.pickerSelectedVal[0]).to.equal(data2[2].value)
+        expect(vm._indexes[0]).to.equal(2)
+        expect(vm._values[0]).to.equal(data2[2].value)
         done()
       }, 150)
     }, 150)

@@ -76,10 +76,11 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
-  btn-active($bg, $border = $bg)
+  btn-active($bg, $border = null)
     &.cube-btn_active, &:active
       background: $bg
-      border-1px($border)
+      if $border != null
+        border-1px($border)
 
   .cube-btn
     display: block
@@ -98,19 +99,13 @@
     border-radius: 2px
     box-sizing: border-box
     -webkit-tap-highlight-color: transparent
+    btn-active($btn-active-bgc)
     > i
       display: inline-block
       margin-right: 4px
       font-size: 100%
       transform: scale(1.13)
       transform-origin: right center
-    btn-active($btn-active-bgc, $btn-active-bdc)
-    &.cube-btn_disabled,
-    &.cube-btn_disabled.cube-btn_active,
-    &.cube-btn_disabled:active
-      color: $btn-disabled-color
-      background: $btn-disabled-bgc
-      border-1px($btn-disabled-bdc)
 
   .cube-btn-inline
     width: auto
@@ -125,14 +120,13 @@
   .cube-btn-primary
     color: $btn-primary-color
     background: $btn-primary-bgc
-    border-1px($btn-primary-bdc)
-    btn-active($btn-primary-active-bgc, $btn-primary-active-bdc)
+    btn-active($btn-primary-active-bgc)
 
   .cube-btn-light
     color: $btn-light-color
     background: $btn-light-bgc
     box-shadow: $box-shadow-content
-    btn-active($btn-light-active-bgc, $btn-light-active-bdc)
+    btn-active($btn-light-active-bgc)
 
   .cube-btn-outline
     color: $btn-outline-color
@@ -145,4 +139,10 @@
     background: $btn-outline-primary-bgc
     border-1px($btn-outline-primary-bdc)
     btn-active($btn-outline-primary-active-bgc, $btn-outline-primary-active-bdc)
+
+  .cube-btn_disabled
+    color: $btn-disabled-color
+    background: $btn-disabled-bgc
+    border-1px($btn-disabled-bdc)
+    btn-active($btn-disabled-bgc, $btn-disabled-bdc)
 </style>

@@ -1,5 +1,7 @@
 ## Radio 单选框组
 
+> 1.4.0 新增
+
 单选框组，可设置单选框组内容，样式等。
 
 ### 示例
@@ -31,19 +33,19 @@
   export default {
     data() {
       return {
-        selected2: '3',
+        selected2: 3,
         options2: [
           {
             label: 'Option1',
-            value: '1'
+            value: 1
           },
           {
             label: 'Option2',
-            value: '2'
+            value: 2
           },
           {
             label: 'Option3',
-            value: '3',
+            value: 3,
             disabled: true
           }
         ]
@@ -137,7 +139,7 @@
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
-| hollow-style | 是否是镂空样式的 | Boolean | true/false | false |
+| hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `options` 子配置项
 

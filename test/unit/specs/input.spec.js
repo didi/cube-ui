@@ -1,6 +1,7 @@
 import Vue from 'vue2'
 import Input from '@/modules/input'
 import createVue from '../utils/create-vue'
+import { createEvent } from '../utils/event'
 
 describe('Input.vue', () => {
   let vm
@@ -104,6 +105,66 @@ describe('Input.vue', () => {
       })
     })
   })
+  it('should show clearable icon and work correctly', (done) => {
+    vm = createVue({
+      template: `
+        <cube-input v-model="value" :clearable="clearable" />
+      `,
+      data: {
+        value: 'xxx',
+        clearable: {
+          visible: true,
+          blurHidden: true
+        }
+      }
+    })
+
+    expect(vm.$el.querySelector('.cube-input-clear'))
+      .to.be.null
+    vm.$parent.clearable.blurHidden = false
+    vm.$nextTick(() => {
+      expect(vm.$el.querySelector('.cube-input-clear'))
+        .not.to.be.null
+      done()
+    })
+  })
+
+  it('should trigger events', (done) => {
+    const focusHandler = sinon.spy()
+    const blurHandler = sinon.spy()
+    const changeHandler = sinon.spy()
+
+    vm = createVue({
+      template: `
+        <cube-input type="password" v-model="value" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" />
+      `,
+      data: {
+        value: 'value'
+      },
+      methods: {
+        focusHandler: focusHandler,
+        blurHandler: blurHandler,
+        changeHandler: changeHandler
+      }
+    })
+    const input = vm.$el.querySelector('input')
+    vm.focus()
+    setTimeout(() => {
+      expect(focusHandler)
+        .to.be.calledOnce
+      input.value = 'new value'
+      vm.blur()
+      const e = createEvent('', 'change')
+      input.dispatchEvent(e)
+      setTimeout(() => {
+        expect(blurHandler)
+          .to.be.calledOnce
+        expect(changeHandler)
+          .to.be.calledOnce
+        done()
+      })
+    })
+  })
 })
 
 function createInput (value) {
@@ -120,7 +181,10 @@ function createInput (value) {
     data: {
       disabled: false,
       readonly: false,
-      useClear: true,
+      useClear: {
+        visible: true,
+        blurHidden: false
+      },
       value: value && 'test'
     }
   })

@@ -79,6 +79,41 @@ describe('Radio.vue', () => {
       done()
     })
   })
+  it('v-model should be a number value', (done) => {
+    vm = createVue({
+      template: `
+        <cube-radio-group v-model="selected" :options="options"></cube-radio-group>
+      `,
+      data: {
+        selected: 3,
+        options: [
+          {
+            label: 'Option0',
+            value: 0
+          },
+          {
+            label: 'Option1',
+            value: 1
+          },
+          {
+            label: 'Option2',
+            value: 2
+          },
+          {
+            label: 'Option3',
+            value: 3,
+            disabled: true
+          }
+        ]
+      }
+    })
+    vm.$el.querySelector('.cube-radio-input').click()
+    setTimeout(() => {
+      expect(vm.$parent.selected)
+        .to.equal(0)
+      done()
+    })
+  })
 })
 
 function createRadioGroup (horizontal = false) {

@@ -2,8 +2,12 @@
   <div class="cube-slide" ref="slide">
     <div class="cube-slide-group" ref="slideGroup">
       <slot>
-        <cube-slide-item v-for="(item, index) in data" :key="index" @click.native="clickItem(item, index)"
-                         :item="item"></cube-slide-item>
+        <cube-slide-item
+          v-for="(item, index) in data"
+          :key="index"
+          @click.native="clickItem(item, index)"
+          :item="item">
+        </cube-slide-item>
       </slot>
     </div>
     <div class="cube-slide-dots" v-if="showDots">
@@ -17,15 +21,28 @@
 <script type="text/ecmascript-6">
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
+  import scrollMixin from '../../common/mixins/scroll'
+  import deprecatedMixin from '../../common/mixins/deprecated'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
   const EVENT_SELECT = 'click'
+  const EVENT_SCROLL_END = 'scroll-end'
+  const EVENT_SCROLL = 'scroll'
+
   const DIRECTION_H = 'horizontal'
   const DIRECTION_V = 'vertical'
 
+  const DEFAULT_OPTIONS = {
+    momentum: false,
+    click: true,
+    observeDOM: false,
+    bounce: false
+  }
+
   export default {
     name: COMPONENT_NAME,
+    mixins: [scrollMixin, deprecatedMixin],
     props: {
       data: {
         type: Array,
@@ -42,14 +59,6 @@
         type: Boolean,
         default: true
       },
-      autoPlay: {
-        type: Boolean,
-        default: true
-      },
-      interval: {
-        type: Number,
-        default: 4000
-      },
       threshold: {
         type: Number,
         default: 0.3
@@ -58,19 +67,38 @@
         type: Number,
         default: 400
       },
-      allowVertical: {
+      autoPlay: {
         type: Boolean,
-        default: false
+        default: true
       },
-      stopPropagation: {
+      interval: {
+        type: Number,
+        default: 4000
+      },
+      showDots: {
         type: Boolean,
-        default: false
+        default: true
       },
       direction: {
         type: String,
         default: DIRECTION_H
       },
-      showDots: {
+      // The props allowVertical, stopPropagation could be removed in next minor version.
+      allowVertical: {
+        type: Boolean,
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
+      },
+      stopPropagation: {
+        type: Boolean,
+        default: undefined,
+        deprecated: {
+          replacedBy: 'options'
+        }
+      },
+      refreshResetCurrent: {
         type: Boolean,
         default: true
       }
@@ -82,20 +110,26 @@
       }
     },
     created() {
-      const needRefreshProps = ['data', 'loop', 'autoPlay', 'threshold', 'speed', 'allowVertical']
+      this._dataWatchers = []
+      const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
-        this.$watch(key, () => {
+        this._dataWatchers.push(this.$watch(key, () => {
+          // To fix the render bug when add items since loop.
+          if (key === 'data') {
+            this._destroy()
+          }
+
           /* istanbul ignore next */
           this.$nextTick(() => {
             this.refresh()
           })
-        })
+        }))
       })
     },
     watch: {
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
-          this.slide && this.slide.goToPage(newIndex)
+          this._goToPage(newIndex)
         }
       }
     },
@@ -109,10 +143,10 @@
         if (this.slide === null) {
           return
         }
-        this.slide && this.slide.destroy()
+        this._destroy()
         clearTimeout(this._timer)
 
-        if (this.slide) {
+        if (this.slide && this.refreshResetCurrent) {
           this.currentPageIndex = 0
         }
         this._updateSlideDom()
@@ -127,6 +161,9 @@
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _destroy() {
+        this.slide && this.slide.destroy()
       },
       _refresh() {
         this._updateSlideDom(true)
@@ -154,26 +191,29 @@
       },
       _initSlide() {
         const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
-        this.slide = new BScroll(this.$refs.slide, {
+
+        const options = Object.assign({}, DEFAULT_OPTIONS, {
           scrollX: this.direction === DIRECTION_H,
           scrollY: this.direction === DIRECTION_V,
-          momentum: false,
-          bounce: false,
           eventPassthrough,
           snap: {
             loop: this.loop,
             threshold: this.threshold,
             speed: this.speed
           },
-          stopPropagation: this.stopPropagation,
-          click: true,
-          observeDOM: false
-        })
+          stopPropagation: this.stopPropagation
+        }, this.options)
 
-        this.slide.goToPage(this.currentPageIndex, 0, 0)
+        this.slide = new BScroll(this.$refs.slide, options)
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
+        this._goToPage(this.currentPageIndex, 0)
+
+        /* dispatch scroll position constantly */
+        if (this.options.listenScroll && this.options.probeType === 3) {
+          this.slide.on('scroll', this._onScroll)
+        }
         const slideEl = this.$refs.slide
         slideEl.removeEventListener('touchend', this._touchEndEvent, false)
         this._touchEndEvent = () => {
@@ -190,15 +230,21 @@
         })
       },
       _onScrollEnd() {
-        let pageIndex = this.slide.getCurrentPage().pageX
+        const { pageX, pageY } = this.slide.getCurrentPage()
+        let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
           this.currentPageIndex = pageIndex
-          this.$emit(EVENT_CHANGE, this.currentPageIndex)
+          this.$emit(EVENT_CHANGE, pageIndex)
         }
+
+        this.$emit(EVENT_SCROLL_END, pageIndex)
 
         if (this.autoPlay) {
           this._play()
         }
+      },
+      _onScroll(pos) {
+        this.$emit(EVENT_SCROLL, pos)
       },
       _initDots() {
         this.dots = new Array(this.children.length)
@@ -235,6 +281,13 @@
           }
           this._refresh()
         }, 60)
+      },
+      _goToPage(index, time) {
+        if (this.direction === DIRECTION_H) {
+          this.slide && this.slide.goToPage(index, 0, time)
+        } else if (this.direction === DIRECTION_V) {
+          this.slide && this.slide.goToPage(0, index, time)
+        }
       }
     },
     mounted() {
@@ -257,10 +310,13 @@
     },
     destroyed() {
       this._deactivated()
-      if (this.slide) {
-        this.slide.destroy()
-        this.slide = null
-      }
+      this._destroy()
+      this.slide = null
+
+      this._dataWatchers.forEach((cancalWatcher) => {
+        cancalWatcher()
+      })
+      this._dataWatchers = null
     },
     components: {
       CubeSlideItem
@@ -274,6 +330,7 @@
     position: relative
     min-height: 1px
     height: 100%
+    overflow: hidden
 
   .cube-slide-group
     position: relative

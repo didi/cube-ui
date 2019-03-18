@@ -65,7 +65,9 @@
 | options | array of checkbox options | Array | - | - |
 | horizontal | whether in horizontal order | Boolean | true/false | false |
 | shape | icon shape | String | circle/square | circle |
-| hollow-style | whether is hollow-out style | Boolean | true/false | false |
+| hollowStyle | whether is hollow-out style | Boolean | true/false | false |
+| min<sup>1.11.0</sup> | min selected items count | Number | - | 0 |
+| max<sup>1.11.0</sup> | max selected items count | Number | - | Infinite |
 
 * `options` sub configuration
 

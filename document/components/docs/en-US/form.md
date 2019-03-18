@@ -1,5 +1,9 @@
 ## Form
 
+> New in 1.7.0+
+>
+> 1.8.0+ supported trigger validating when blur and debounce. Supported async validate too because of Validator supported it.
+
 CubeForm is a schema-based form generator component.
 
 ### Example
@@ -12,7 +16,7 @@ CubeForm is a schema-based form generator component.
   <cube-form
     :model="model"
     :schema="schema"
-    :immediate-validate="true"
+    :immediate-validate="false"
     :options="options"
     @validate="validateHandler"
     @submit="submitHandler"
@@ -76,7 +80,9 @@ CubeForm is a schema-based form generator component.
                   },
                   rules: {
                     required: true
-                  }
+                  },
+                  // validating when blur
+                  trigger: 'blur'
                 },
                 {
                   type: 'radio-group',
@@ -114,7 +120,10 @@ CubeForm is a schema-based form generator component.
                   label: 'Textarea',
                   rules: {
                     required: true
-                  }
+                  },
+                  // debounce validate
+                  // if set to true, the default debounce time will be 200(ms)
+                  debounce: 100
                 }
               ]
             },
@@ -133,8 +142,36 @@ CubeForm is a schema-based form generator component.
                   type: 'upload',
                   modelKey: 'uploadValue',
                   label: 'Upload',
+                  events: {
+                    'file-removed': (...args) => {
+                      console.log('file removed', args)
+                    }
+                  },
                   rules: {
-                    required: true
+                    required: true,
+                    uploaded: (val, config) => {
+                      return Promise.all(val.map((file, i) => {
+                        return new Promise((resolve, reject) => {
+                          if (file.uploadedUrl) {
+                            return resolve()
+                          }
+                          // fake request
+                          setTimeout(() => {
+                            if (i % 2) {
+                              reject(new Error())
+                            } else {
+                              file.uploadedUrl = 'uploaded/url'
+                              resolve()
+                            }
+                          }, 1000)
+                        })
+                      })).then(() => {
+                        return true
+                      })
+                    }
+                  },
+                  messages: {
+                    uploaded: '上传失败'
                   }
                 }
               ]
@@ -154,7 +191,8 @@ CubeForm is a schema-based form generator component.
           ]
         },
         options: {
-          scrollToInvalidField: true
+          scrollToInvalidField: true,
+          layout: 'standard' // classic fresh
         }
       }
     },
@@ -315,7 +353,7 @@ CubeForm is a schema-based form generator component.
 | - | - | - | - | - |
 | model | The model/target JSON object | Object | - | {} |
 | schema | the schema object with fields | Object | - | {} |
-| immediate-validate | If true, we will run validation after load | Boolean | true/false | false |
+| immediateValidate | If true, we will run validation after load | Boolean | true/false | false |
 | action | Form action value | String | - | undefined |
 | options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
 
@@ -382,7 +420,10 @@ CubeForm is a schema-based form generator component.
   | modelKey | Name of property in the `form` model | String | - | - |
   | label | Label of field | String | - | - |
   | props | This value will be the `type` or `component` props | Object | - | - |
+  | events<sup>1.8.0+</sup> | This value will be the `type` or `component` custom events | Object | - | - |
   | rules | Validator rules, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | Object | - | - |
+  | trigger<sup>1.8.0+</sup> | If set to 'blur' then will be validate this filed when blur | String | blur/change | - |
+  | debounce<sup>1.8.0+</sup> | Debounce validating time(ms). If `trigger` is 'blur' then the debounce will be ignored | Number/Boolean | >= 0, if set to true the time will be 200(ms) | - |
   | messages | Validator messages, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
 #### FormGroup
@@ -402,7 +443,7 @@ CubeForm is a schema-based form generator component.
 
 | Event Name | Description | Parameters 1 | Parameters 2 |
 | - | - | - | - |
-| submit | Form submit, only trigged when the form's validation is ok | e - event | form model value |
+| submit | Form submit, only trigged when the form's validation is ok. If only have sync validators, this event will not be prevented by default. If have async validators, this event will be prevented by default. | e - event | form model value |
 | reset | Form reset | e - event | - |
 | validate | Form validated | Properties: <br>{<br>validity,<br> valid,<br> invalid,<br> dirty,<br> firstInvalidFieldIndex<br>} | - |
 | valid | Form valid | Validity result | - |
@@ -428,8 +469,8 @@ CubeForm is a schema-based form generator component.
 
 ### Instance methods
 
-| Method name | Description |
-| - | - |
-| submit | submit form |
-| reset | reset form |
-| validate | validate form |
+| Method name | Description | Parameters | Returned value |
+| - | - | - | - |
+| submit | submit form | skipValidate: default `false`, if skipValidate is `true` then will be trigged submit event without validating<sup>1.12.2+</sup> | - |
+| reset | reset form | - | - |
+| validate(cb) | validate form | cb: validated callback function, used to async validating cases normally. The arguments is the `valid` value | If supported Promise then the returned value will be Promise instance(Only have resolved state, the resolved value is `valid`), otherwise the returned value is `undefined` |

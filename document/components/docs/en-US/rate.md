@@ -1,6 +1,8 @@
 ## Rate
 
-  Rate component. You can customize the rating star numbers, and disable the interaction, you can also customize the style of star through the slot.
+> New in 1.5.0+
+
+Rate component. You can customize the rating star numbers, and disable the interaction, you can also customize the style of star through the slot.
 
 ### Example
 
@@ -82,7 +84,7 @@
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | v-model | bound rate value | Number | - | 0 |
-| max | max star number | Number | - | false |
+| max | max star number | Number | - | 5 |
 | disabled | disabled status | Boolean | true/false | false |
 | justify | auto justify container's width | Boolean | true/false | false |
 

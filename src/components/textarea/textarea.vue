@@ -1,6 +1,7 @@
 <template>
   <div class="cube-textarea-wrapper" :class="{'cube-textarea_expanded': expanded, 'cube-textarea_active': isFocus}">
     <textarea
+      ref="input"
       class="cube-textarea"
       v-model="textareaValue"
       v-bind="$props"
@@ -10,20 +11,27 @@
       @focus="handleFocus"
       @blur="handleBlur">
     </textarea>
-    <span v-show="expanded" class="cube-textarea-indicator">{{remain}}</span>
+    <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'
 
+  const DEFAULT_INDICATOR = {
+    negative: true,
+    remain: true
+  }
+
   export default {
     name: COMPONENT_NAME,
+    mixins: [inputMixin],
     data() {
       return {
         textareaValue: this.value,
-        expanded: false,
+        expanded: this.autoExpand ? !!this.value : false,
         isFocus: false
       }
     },
@@ -52,11 +60,33 @@
       maxlength: {
         type: Number,
         default: 60
+      },
+      indicator: {
+        type: [Boolean, Object],
+        default: true
+      },
+      autoExpand: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
+      indicatorConf() {
+        let indicator = this.indicator
+        if (typeof indicator === 'boolean') {
+          indicator = {}
+        }
+        return Object.assign({}, DEFAULT_INDICATOR, indicator)
+      },
+      count() {
+        return this.textareaValue.length
+      },
       remain() {
-        return this.maxlength - this.value.length
+        let diff = this.maxlength - this.count
+        if (!this.indicatorConf.negative && diff < 0) {
+          diff = 0
+        }
+        return diff
       }
     },
     watch: {
@@ -98,7 +128,7 @@
     font-size: $fontsize-medium
     line-height: 1.429
     textarea::-webkit-input-placeholder
-      color: $textarea-placeholder-color !important
+      color: $textarea-placeholder-color
       text-overflow: ellipsis
     border-1px($textarea-border-color)
   .cube-textarea_expanded
