@@ -1,10 +1,13 @@
 const column1 = [
   {
     text: '剧毒',
-    value: '剧毒'
-  }, {
+    value: '剧毒',
+    disabled: true
+  },
+  {
     text: '蚂蚁',
-    value: '蚂蚁'
+    value: '蚂蚁',
+    disabled: true
   },
   {
     text: '幽鬼',
@@ -16,18 +19,22 @@ const column1 = [
   },
   {
     text: '卡尔',
-    value: '卡尔'
+    value: '卡尔',
+    disabled: true
   },
   {
     text: '宙斯',
-    value: '宙斯'
+    value: '宙斯',
+    disabled: true
   },
   {
     text: '巫医',
-    value: '巫医'
+    value: '巫医',
+    disabled: true
   }, {
     text: '巫妖',
-    value: '巫妖'
+    value: '巫妖',
+    disabled: true
   },
   {
     text: '神谕者',
@@ -63,7 +70,8 @@ const column2 = [
   {
     text: '输出',
     value: '输出'
-  }, {
+  },
+  {
     text: '控制',
     value: '控制'
   },
@@ -96,7 +104,8 @@ const column3 = [
   {
     text: '梅肯',
     value: '梅肯'
-  }, {
+  },
+  {
     text: '秘法鞋',
     value: '秘法鞋'
   },
