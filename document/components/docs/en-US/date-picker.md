@@ -231,6 +231,34 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
   }
   ```
 
+- `columnOrder`
+
+   `columnOrder` can be used to change the display order in case where the order is not 'Year-Month-Day Hour-Minute-Second'. For example, we can set the `columnOrder` to `['month', 'date', 'year']` for the display order of 'Month-Date-Year'.
+
+	```html
+	<cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
+	```
+	```js
+	export default {
+	  methods: {
+	    showChangeOrderPicker() {
+         if (!this.changeOrderPicker) {
+           this.changeOrderPicker = this.$createDatePicker({
+             title: 'Date Picker',
+             min: new Date(2008, 7, 8),
+             max: new Date(2020, 9, 20),
+             value: new Date(),
+             columnOrder: ['month', 'date', 'year'],
+             onSelect: this.selectHandle,
+             onCancel: this.cancelHandle
+           })
+         }
+         this.changeOrderPicker.show()
+       }
+	  }
+	}
+	```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default | Example |
@@ -249,6 +277,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 | visible<sup>1.8.1</sup> | whether visible. Bind to `v-model` | Boolean | true/false | false | - |
 | maskClosable<sup>1.9.6</sup> | whether hide the component when clicked the mask layer | Boolean | true/false | true | - |
 | zIndex<sup>1.9.6</sup> | the value of the style z-index | Number | - | 100 | - |
+| columnOrder | display order | Array | - | ['year', 'month', 'date', 'hour', 'minute', 'second'] | - |
 
 * `format` sub configuration
 
