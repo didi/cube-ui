@@ -99,6 +99,12 @@
         default() {
           return this.min
         }
+      },
+      columnOrder: {
+        type: Array,
+        default() {
+          return ['year', 'month', 'date', 'hour', 'minute', 'second']
+        }
       }
     },
     computed: {
@@ -225,7 +231,8 @@
         for (let i = min; i <= max; i++) {
           const object = {
             text: formatType(type, format, i, 'i'),
-            value: i
+            value: i,
+            order: this.columnOrder.indexOf(type)
           }
 
           if (fatherIsMin && i === min) object.isMin = true
