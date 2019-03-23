@@ -233,7 +233,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 - `columnOrder`
 
-   `columnOrder` can be used to change the display order in case where the order is not 'Year-Month-Day Hour-Minute-Second'. For example, we can set the `columnOrder` to `['month', 'date', 'year']` for the display order of 'Month-Date-Year'.
+   `columnOrder` can be used to change the display order in case where the order is not 'Year-Month-Date Hour-Minute-Second'. For example, we can set the `columnOrder` to `['month', 'date', 'year']` for the display order of 'Month-Date-Year'.
 
 	```html
 	<cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
