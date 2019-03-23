@@ -82,7 +82,8 @@
             data.forEach((item) => {
               columnData.push({
                 value: item[this.valueKey],
-                text: item[this.textKey]
+                text: item[this.textKey],
+                order: item[this.orderKey]
               })
             })
             this.pickerData[i] = columnData
