@@ -183,6 +183,34 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
   }
   ```
 
+- `columnOrder` <sup>1.12.14</sup>
+
+  针对日期展示格式顺序不是 "年-月-日 小时-分钟-秒" 的场景，可以通过 `columnOrder` 来修改展示顺序。例如日期展示顺序为 “月-日-年”，可配置 `columnOrder` 值为 `['month', 'date', 'year']`
+
+  ```html
+  <cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
+  ```
+  ```js
+  export default {
+    methods: {
+      showChangeOrderPicker() {
+         if (!this.changeOrderPicker) {
+           this.changeOrderPicker = this.$createDatePicker({
+             title: 'Date Picker',
+             min: new Date(2008, 7, 8),
+             max: new Date(2020, 9, 20),
+             value: new Date(),
+             columnOrder: ['month', 'date', 'year'],
+             onSelect: this.selectHandle,
+             onCancel: this.cancelHandle
+           })
+         }
+         this.changeOrderPicker.show()
+       }
+    }
+  }
+  ```
+
 - `$updateProps`
 
   通过`$updateProps`方法，可以修改用 createAPI 创建的组件实例的属性。比如 `DatePicker`中，我们可以修改 `value` 属性的值改变当前选择的日期。
@@ -230,34 +258,6 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
     }
   }
   ```
-
-- `columnOrder`
-
-   针对日期展示格式顺序不是 "年-月-日 小时-分钟-秒" 的场景，可以通过 `columnOrder` 来修改展示顺序。例如日期展示顺序为 “月-日-年”，可配置 `columnOrder` 值为 `['month', 'date', 'year']`
-
-	```html
-	<cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
-	```
-	```js
-	export default {
-	  methods: {
-	    showChangeOrderPicker() {
-         if (!this.changeOrderPicker) {
-           this.changeOrderPicker = this.$createDatePicker({
-             title: 'Date Picker',
-             min: new Date(2008, 7, 8),
-             max: new Date(2020, 9, 20),
-             value: new Date(),
-             columnOrder: ['month', 'date', 'year'],
-             onSelect: this.selectHandle,
-             onCancel: this.cancelHandle
-           })
-         }
-         this.changeOrderPicker.show()
-       }
-	  }
-	}
-	```
 
 ### Props 配置
 
