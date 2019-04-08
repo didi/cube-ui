@@ -215,6 +215,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 | - | - | - | - | - |
 | text | picker每一列展示的文案 | String/Number | - | - |
 | value | picker每一列展示的每项文案对应的值 | String/Number/Boolean | - | - |
+| disabled | 禁止选中项 | Boolean | false | true/false |
 
 ### 事件
 
