@@ -284,9 +284,9 @@
       },
       _goToPage(index, time) {
         if (this.direction === DIRECTION_H) {
-          this.slide && this.slide.goToPage(index, 0, time)
+          this.slide && this.slide.goToPage(index, 0, time, false, true)
         } else if (this.direction === DIRECTION_V) {
-          this.slide && this.slide.goToPage(0, index, time)
+          this.slide && this.slide.goToPage(0, index, time, false, true)
         }
       }
     },

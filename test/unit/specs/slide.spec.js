@@ -132,7 +132,7 @@ describe('Slide.vue', () => {
         expect(scrollEndHandler).to.be.callCount(2)
         done()
       }, 600)
-    }, 2000)
+    }, 1800)
   })
 
   it('should trigger scroll-end but without change', function (done) {
@@ -172,7 +172,7 @@ describe('Slide.vue', () => {
         expect(changeHandler).to.be.callCount(0)
 
         done()
-      }, 2000)
+      }, 1800)
     }, 100)
   })
 

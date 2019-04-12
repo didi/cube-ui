@@ -162,25 +162,38 @@ describe('Scroll', () => {
     this.timeout(10000)
 
     const pullingUpHandle = sinon.spy()
-    vm = createScroll()
-
-    vm.$parent.updateRenderData({
-      props: {
-        data,
-        options: {
-          pullUpLoad: {
-            txt: {
-              more: 'more',
-              noMore: 'noMore'
-            }
+    vm = createScroll({
+      data,
+      options: {
+        pullUpLoad: {
+          txt: {
+            more: 'more',
+            noMore: 'noMore'
           }
         }
-      },
-      on: {
-        'pulling-up': pullingUpHandle
       }
+    }, {
+      'pulling-up': pullingUpHandle
     })
-    vm.$parent.$forceUpdate()
+
+    // vm.$parent.updateRenderData({
+    //   props: {
+    //     data,
+    //     options: {
+    //       pullUpLoad: {
+    //         txt: {
+    //           more: 'more',
+    //           noMore: 'noMore'
+    //         }
+    //       }
+    //     }
+    //   },
+    //   on: {
+    //     'pulling-up': pullingUpHandle
+    //   }
+    // })
+
+    // vm.$parent.$forceUpdate()
 
     vm.$refs.wrapper.style.height = '200px'
     vm.refresh()
@@ -190,7 +203,7 @@ describe('Scroll', () => {
       dispatchSwipe(listItem, [
         {
           pageX: 10,
-          pageY: 200
+          pageY: 100
         },
         {
           pageX: 10,

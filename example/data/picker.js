@@ -1,13 +1,11 @@
 const column1 = [
   {
     text: '剧毒',
-    value: '剧毒',
-    disabled: true
+    value: '剧毒'
   },
   {
     text: '蚂蚁',
-    value: '蚂蚁',
-    disabled: true
+    value: '蚂蚁'
   },
   {
     text: '幽鬼',
