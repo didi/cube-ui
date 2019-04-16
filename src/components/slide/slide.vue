@@ -206,9 +206,9 @@
 
         this.slide = new BScroll(this.$refs.slide, options)
 
-        this.slide.on('scrollEnd', this._onScrollEnd)
-
         this._goToPage(this.currentPageIndex, 0)
+
+        this.slide.on('scrollEnd', this._onScrollEnd)
 
         /* dispatch scroll position constantly */
         if (this.options.listenScroll && this.options.probeType === 3) {
@@ -230,6 +230,7 @@
         })
       },
       _onScrollEnd() {
+        console.log('_onScrollEnd')
         const { pageX, pageY } = this.slide.getCurrentPage()
         let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
@@ -284,9 +285,9 @@
       },
       _goToPage(index, time) {
         if (this.direction === DIRECTION_H) {
-          this.slide && this.slide.goToPage(index, 0, time, false, true)
+          this.slide && this.slide.goToPage(index, 0, time)
         } else if (this.direction === DIRECTION_V) {
-          this.slide && this.slide.goToPage(0, index, time, false, true)
+          this.slide && this.slide.goToPage(0, index, time)
         }
       }
     },
