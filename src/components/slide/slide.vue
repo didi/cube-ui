@@ -230,7 +230,6 @@
         })
       },
       _onScrollEnd() {
-        console.log('_onScrollEnd')
         const { pageX, pageY } = this.slide.getCurrentPage()
         let pageIndex = this.direction === DIRECTION_H ? pageX : pageY
         if (this.currentPageIndex !== pageIndex) {
