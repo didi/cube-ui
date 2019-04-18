@@ -18,7 +18,7 @@
       @change="changeHander"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
-      <div class="cube-input-clear" v-if="_showClear" @click="handleClear">
+      <div class="cube-input-clear" v-if="_showClear" @touchend="handleClear">
         <i class="cubeic-wrong"></i>
       </div>
       <div class="cube-input-eye" v-if="_showPwdEye" @click="handlePwdEye">
