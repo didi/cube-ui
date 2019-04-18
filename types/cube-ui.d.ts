@@ -54,6 +54,8 @@ export class TabPanels extends CubeUIComponent {}
 export class Checkbox extends CubeUIComponent {}
 /** Checkbox Group Component */
 export class CheckboxGroup extends CubeUIComponent {}
+/** Checker Component */
+export class Checker extends CubeUIComponent {}
 /** Radio Component */
 export class Radio extends CubeUIComponent {}
 /** Radio Group Component */
