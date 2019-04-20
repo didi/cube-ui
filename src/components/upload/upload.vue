@@ -144,13 +144,18 @@
           const file = this.files[i]
           const status = file.status
           if (status === STATUS_READY || (retry && status === STATUS_ERROR && file._retryId !== this.retryId)) {
-            ajaxUpload(file, options, (file) => {
-              if (status === STATUS_ERROR) {
-                file._retryId = this.retryId
-              }
-              this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
-              this.upload(retry)
-            })
+            ((index) => {
+              ajaxUpload(file, options, (file) => {
+                if (status === STATUS_ERROR) {
+                  file._retryId = this.retryId
+                }
+                this.$emit(file.status === STATUS_SUCCESS ? EVENT_SUCCESS : EVENT_ERROR, file)
+                this.upload(retry)
+                if (index === len - 1 && !this.auto) {
+                  this.paused = true
+                }
+              })
+            })(i)
             uploadingCount++
           } else if (status === STATUS_UPLOADING) {
             uploadingCount++
