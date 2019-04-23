@@ -87,3 +87,9 @@
 | label | the text of label | String |
 | value | the value of checkbox item | String/Number |
 | disabled | whether the checkbox item is disabled | Boolean |
+
+### Events
+
+| Event Name | Description | Parameter |
+| - | - | - |
+| input | triggers when the binding value changes | the updated value（ if you set value in the option and the checkbox is checked, the value is option.value; otherwise, the value is the v-model value of checkbox ）|
