@@ -131,11 +131,7 @@
         }
       },
       _getOffsetLeft (index) {
-        let offsetLeft = 0
-        this.tabs.forEach((tab, i) => {
-          if (i < index) offsetLeft += tab.$el.clientWidth
-        })
-        return offsetLeft
+        return this.tabs[index].$el.offsetLeft || 0
       },
       _resizeHandler () {
         clearTimeout(this._resizeTimer)
