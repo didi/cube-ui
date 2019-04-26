@@ -121,6 +121,8 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | - | - | - |
 | focus | This event is triggered after the input box is focused. If input is disabled, it will not be triggered | e - event |
 | blur | This event is triggered after the input box blur | e - event |
+| change | The event is triggered after the binding value is changed and the input box is blur | e - event |
+| input | The event is triggered when the binding value is changed | The updated value |
 
 ### Instance methods
 

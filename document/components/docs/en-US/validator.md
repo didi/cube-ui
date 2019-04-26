@@ -249,6 +249,7 @@ Validator is used to validate form data and corresponding warning message.
 | validating | validating (only triggered when async validateing) | - |
 | validated | validated (only triggered when async validateing) | valid: 校验是否成功 |
 | msg-click | click error message ele | - |
+| input | triggers when the binding value changes | the updated value |
 
 ### Instance methods
 

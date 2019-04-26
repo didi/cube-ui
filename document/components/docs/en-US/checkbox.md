@@ -75,7 +75,7 @@
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| option | option value | Boolean/String/Object | - | - |
+| option | option value（if the value of option is a string type, the label and value will be this string you just set for option.） | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
 | shape | icon shape | String | circle/square | circle |
 | hollowStyle | whether is hollow-out style | Boolean | true/false | false |

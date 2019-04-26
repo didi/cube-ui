@@ -73,7 +73,7 @@
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| option | 配置项 | Boolean/String/Object | - | - |
+| option | 配置项（如果 options 中的项为字符串，此时默认 label 和 value 的值都为该字符串的值） | Boolean/String/Object | - | - |
 | position | 位置 | String | left/right | left |
 | shape | 图标形状 | String | circle/square | circle |
 | hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
