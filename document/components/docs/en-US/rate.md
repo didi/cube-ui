@@ -102,6 +102,6 @@ Rate component. You can customize the rating star numbers, and disable the inter
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
+| Event Name | Description | Parameters |
 | - | - | - |
 | input | The event triggers when the finger is removed from the rate item (this event will be not triggered when the disabled attribute is set) | The value of the rate item that is currently removed from |
