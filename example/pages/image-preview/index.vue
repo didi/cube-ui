@@ -23,10 +23,10 @@
       return {
         customIndex: 1,
         imgs: [
-          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mpd5uj21hc0tyws2.jpg',
-          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0ncnnej21hc0zetxo.jpg',
-          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mqvu5j21hc0zkgzz.jpg',
-          'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0m3ufuj21hc0zkqbj.jpg'
+          'https://dpubstatic.udache.com/static/dpubimg/XsZT-Ium9K/686d7361ly1fpha0mpd5uj21hc0tyws2.jpg',
+          'https://dpubstatic.udache.com/static/dpubimg/jM0pARr01R/686d7361ly1fpha0ncnnej21hc0zetxo.jpg',
+          'https://dpubstatic.udache.com/static/dpubimg/uesDMLn8ho/686d7361ly1fpha0mqvu5j21hc0zkgzz.jpg',
+          'https://dpubstatic.udache.com/static/dpubimg/yGntxcSqhM/686d7361ly1fpha0m3ufuj21hc0zkqbj.jpg'
         ]
       }
     },
