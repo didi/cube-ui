@@ -29,6 +29,9 @@ import ScrollConfig from '../pages/scroll/config.vue'
 import ScrollJd from '../pages/scroll/jd.vue'
 import ScrollHorizontal from '../pages/scroll/horizontal.vue'
 import ScrollToutiao from '../pages/scroll/toutiao.vue'
+import VScrolls from '../pages/scroll/vertical-scrolls.vue'
+import HScrolls from '../pages/scroll/horizontal-scrolls.vue'
+import TextareaInScroll from '../pages/scroll/textarea.vue'
 import IndexList from '../pages/index-list/index.vue'
 import IndexListDefault from '../pages/index-list/default.vue'
 import IndexListCustom from '../pages/index-list/custom.vue'
@@ -66,6 +69,9 @@ import TabBasic from '../pages/tab-bar/tab-basic.vue'
 import TabComposite from '../pages/tab-bar/tab-composite.vue'
 import ScrollTab from '../pages/tab-bar/scroll-tab.vue'
 import Checker from '../pages/checker.vue'
+import RecycleList from '../pages/recycle-list/index.vue'
+import RecycleListDefault from '../pages/recycle-list/recycle-list-default.vue'
+import RecycleListTombstone from '../pages/recycle-list/recycle-list-tombstone.vue'
 
 const routes = [
   {
@@ -225,6 +231,18 @@ const routes = [
       {
         path: 'toutiao',
         component: ScrollToutiao
+      },
+      {
+        path: 'v-scrolls',
+        component: VScrolls
+      },
+      {
+        path: 'h-scrolls',
+        component: HScrolls
+      },
+      {
+        path: 'textarea',
+        component: TextareaInScroll
       }
     ]
   },
@@ -363,6 +381,20 @@ const routes = [
             component: TabComposite
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/recycle-list',
+    component: RecycleList,
+    children: [
+      {
+        path: 'default',
+        component: RecycleListDefault
+      },
+      {
+        path: 'tombstone',
+        component: RecycleListTombstone
       }
     ]
   }

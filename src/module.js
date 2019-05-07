@@ -1,4 +1,6 @@
 import Style from './modules/style'
+// locale
+import Locale from './modules/locale'
 
 // Basic
 import Button from './modules/button'
@@ -43,6 +45,7 @@ import Swipe from './modules/swipe'
 import Sticky from './modules/sticky'
 import ScrollNav from './modules/scroll-nav'
 import ScrollNavBar from './modules/scroll-nav-bar'
+import RecycleList from './modules/recycle-list'
 
 // module
 import BetterScroll from './modules/better-scroll'
@@ -64,6 +67,8 @@ const CheckerItem = Checker.Item
 export {
   // style
   Style,
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
@@ -116,6 +121,7 @@ export {
   ScrollNavPanel,
   ScrollNav,
   ScrollNavBar,
+  RecycleList,
   // module
   BetterScroll,
   createAPI

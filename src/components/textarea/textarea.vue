@@ -1,6 +1,7 @@
 <template>
   <div class="cube-textarea-wrapper" :class="{'cube-textarea_expanded': expanded, 'cube-textarea_active': isFocus}">
     <textarea
+      ref="input"
       class="cube-textarea"
       v-model="textareaValue"
       v-bind="$props"
@@ -15,6 +16,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'
 
@@ -25,10 +27,11 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [inputMixin],
     data() {
       return {
         textareaValue: this.value,
-        expanded: false,
+        expanded: this.autoExpand ? !!this.value : false,
         isFocus: false
       }
     },
@@ -61,6 +64,10 @@
       indicator: {
         type: [Boolean, Object],
         default: true
+      },
+      autoExpand: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -121,7 +128,7 @@
     font-size: $fontsize-medium
     line-height: 1.429
     textarea::-webkit-input-placeholder
-      color: $textarea-placeholder-color !important
+      color: $textarea-placeholder-color
       text-overflow: ellipsis
     border-1px($textarea-border-color)
   .cube-textarea_expanded

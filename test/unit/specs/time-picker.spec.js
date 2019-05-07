@@ -2,6 +2,7 @@ import Vue from 'vue2'
 import TimePicker from '@/modules/time-picker'
 import instantiateComponent from '@/common/helpers/instantiate-component'
 import { dispatchSwipe } from '../utils/event'
+import { getDayDiff } from '@/common/lang/date'
 
 describe('TimePicker', () => {
   let vm
@@ -236,6 +237,90 @@ describe('TimePicker', () => {
 
   testMinuteStep()
 
+  testMin()
+
+  testMax()
+
+  function testMin () {
+    const minConfigs = [
+      null,
+      ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      -((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      (2 * 60 + 20) * 60 * 1000,
+      -(2 * 60 + 20) * 60 * 1000,
+      (10) * 60 * 1000,
+      -(10) * 60 * 1000
+    ]
+
+    minConfigs.forEach((min) => {
+      it(`should init columns correct when min = now + ${min}`, function () {
+        const now = +new Date()
+        min = min && now + min
+        vm = createPicker({
+          showNow: false,
+          delay: 0,
+          min
+        })
+
+        const daysLength = vm.cascadeData.length
+
+        expect(daysLength)
+          .to.equal(getDayDiff(vm.maxTime, vm.minTime) + 1)
+
+        let minHour = vm.cascadeData[0]
+        while (minHour.children) {
+          minHour = minHour.children[0]
+        }
+
+        expect(minHour.value)
+          .to.equal(Math.floor((new Date(min || now).getMinutes()) / 10) * 10)
+      })
+    })
+  }
+
+  function testMax () {
+    const maxConfigs = [
+      null,
+      ((2 * 24 + 2) * 60 + 20) * 60 * 1000,
+      (2 * 60 + 20) * 60 * 1000,
+      (10) * 60 * 1000,
+      (1) * 60 * 1000,
+      -(10) * 60 * 1000
+    ]
+
+    maxConfigs.forEach((max) => {
+      it(`should init columns correct when max = now + ${max}`, function () {
+        const now = +new Date()
+        max += now
+        vm = createPicker({
+          showNow: false,
+          delay: 0,
+          max
+        })
+
+        const daysLength = vm.cascadeData.length
+
+        // When the maxTime is smaller than minTime by more than a minute step. there is no option could be chosen.
+        if (max - now <= -(10) * 60 * 1000) {
+          expect(daysLength)
+            .to.equal(0)
+          return
+        }
+
+        expect(daysLength)
+          .to.equal(getDayDiff(vm.maxTime, vm.minTime) + 1)
+
+        let maxHour = vm.cascadeData[daysLength - 1]
+        while (maxHour.children) {
+          maxHour = maxHour.children[maxHour.children.length - 1]
+        }
+
+        expect(maxHour.value)
+          .to.equal(Math.floor((max ? new Date(max).getMinutes() : 59) / 10) * 10)
+      })
+    })
+  }
+
   function testMinuteStep() {
     const minuteStepConfigs = [
       undefined,
@@ -267,7 +352,7 @@ describe('TimePicker', () => {
         const step = (typeof item === 'number' ? item : (item && item.step)) || 10
         const rule = (item && item.rule) || 'floor'
 
-        expect(vm.partMinutes[0].value)
+        expect(vm.cascadeData[0].children[0].children[0].value)
           .to.equal(Math[rule](vm.minTime.getMinutes() / step) * step)
       })
     })

@@ -14,7 +14,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
 
 - Basic usage
 
-  You can initialize `cube-tab-bar` by passing in the data structure of `tabs` as follows. You must use the `v-model` directive to select the corresponding tab. The value of the v-model argument must correspond to the label attribute of a tab in `cube-tab-bar`. The icon attribute is used as a class selector, which is generally used with icon-font class. It will dispatch `click` and `change` event at the proper time. The parameter is the label value corresponding to each selected tab.
+  You can initialize `cube-tab-bar` by passing in the data structure of `tabs` as follows. You must use the `v-model` directive to select the corresponding tab. The value of the v-model argument must correspond to the `label`(after 1.12.5, use `value`) attribute of a tab in `cube-tab-bar`. The icon attribute is used as a class selector, which is generally used with icon-font class. It will dispatch `click` and `change` event at the proper time. The parameter is the `label`(after 1.12.5, is `value`) value corresponding to each selected tab.
 
   ```html
   <template>
@@ -108,7 +108,7 @@ The following demo code is [here](https://github.com/didi/cube-ui/tree/master/ex
 
 ### CubeTabBar & CubeTabPanels
 
-Usually, our requirement is to display different panel as tabs are switched, so we need to use the `cube-tab-panels` component. `cube-tab-panels` must be nested with `cube-tab-panel`. The label values passed to `cube-tab` and `cube-tab-panel` must be the same, because it is necessary to create the relationship between tab with panel. They are linked by the same `v-model`.To see the effect, click on the `tab-basic` demo on the right.
+Usually, our requirement is to display different panel as tabs are switched, so we need to use the `cube-tab-panels` component. `cube-tab-panels` must be nested with `cube-tab-panel`. The `label`(after 1.12.5, use `value`) values passed to `cube-tab` and `cube-tab-panel` must be the same, because it is necessary to create the relationship between tab with panel. They are linked by the same `v-model`.To see the effect, click on the `tab-basic` demo on the right.
 
 ```html
 <template>
@@ -158,7 +158,7 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
   | Attribute | Description | Type | Demo | Default |
   | - | - | - | - | - |
   | value | Use v-model to select the corresponding tab when initializing. | String/Number | - | - |
-  | data | For data rendered with `cube-tab-bar`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label` and `icon`.  If a custom slot is used, this value may not be passed | Array | [{label: 1, icon: 'cubeic-like'}, {label: 2, icon: 'cubeic-like'}] | [] |
+  | data | For data rendered with `cube-tab-bar`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label`, `icon` and `value`<sup>1.12.5+</sup>.  If a custom slot is used, this value may not be passed | Array | [{label: 1, value: 1, icon: 'cubeic-like'}, {label: 2, value: 2, icon: 'cubeic-like'}] | [] |
   | showSlider | Whether to turn on the underscore follow effect | Boolean | true/false | false |
   | inline | Whether text and icons are displayed on one line | Boolean | true/false | false |
   | useTransition | Whether to use transition | Boolean | true/false | true |
@@ -167,20 +167,22 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
   | Attribute | Description | Type | Needed | Default |
   | - | - | - | - | - |
-  | label | Use it to determine which tab is clicked | String/Number | yes | - |
+  | label | Use it to determine which tab is clicked before 1.12.5, after 1.12.5 just use to display text by default | String/Number | yes | - |
+  | value | Use it to determine which tab is clicked<sup>1.12.5+</sup> | String/Number | no | `label` value |
 
 - CubeTabPanels
 
   | Attribute | Description | Type | Demo | Default |
   | - | - | - | - | - |
   | value | Use v-model to display the corresponding panels at initialization | String/Number | - | - |
-  | data | For data rendered with `cube-tab-panels`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label`.  If a custom slot is used, this value may not be passed | Array | [{label: 1}, {label: 2}] | [] |
+  | data | For data rendered with `cube-tab-panels`, when using the built-in default slot, this parameter must be passed. Each item of the array is an Object type, including `label` and `value`<sup>1.12.5+</sup>.  If a custom slot is used, this value may not be passed | Array | [{label: 1, value: 1}, {label: 2, value: 2}] | [] |
 
 - CubeTabPanel
 
   | Attribute | Description | Type | Needed | Default |
   | - | - | - | - | - |
   | label | determine that the panels is displayed | String/Number | yes | - |
+  | value | the key of panel, use it to determined selected value<sup>1.12.5+</sup> | String/Number | no | `label` value |
 
 ### Slot
 
@@ -197,8 +199,8 @@ In fact, `cube-tab-bar` can be combined with many other cube-ui's components (su
 
   | Event Name | Description | parameter |
   | - | - | - | - |
-  | click | Dispatched when the tab is clicked | The label value of the tab which is selected |
-  | change | Dispatched when tab changed | The label value of the tab which is selected |
+  | click | Dispatched when the tab is clicked | The `label`/`value`<sup>1.12.5+</sup> value of the tab which is selected |
+  | change | Dispatched when tab changed | The `label`/`value`<sup>1.12.5+</sup> value of the tab which is selected |
 
 ### Instance methods
 

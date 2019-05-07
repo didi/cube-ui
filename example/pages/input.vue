@@ -9,7 +9,7 @@
         placeholder="please type here..."
         :disabled="disabled"
         :readonly="readonly"
-        :clearable="useClear"
+        :clearable="clearable"
         :autocomplete="true"
         :eye="eye"
         v-model="value"
@@ -28,6 +28,8 @@
           <div class="group">
             <switch-option class="item" name="clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
+            <switch-option class="item" name="blur hiden" :value="clearBlurHidden"
+                            @update:value="updateBlurHidden" v-if="useClear"></switch-option>
           </div>
           <div class="group">
             <switch-option class="item" name="password" :value="isPwd"
@@ -56,6 +58,7 @@
         value: '',
         disabled: false,
         useClear: true,
+        clearBlurHidden: true,
         readonly: false,
         isPwd: true,
         showEye: true,
@@ -64,6 +67,12 @@
       }
     },
     computed: {
+      clearable() {
+        return {
+          visible: this.useClear,
+          blurHidden: this.clearBlurHidden
+        }
+      },
       eye() {
         if (this.isPwd && this.showEye) {
           return {
@@ -84,6 +93,9 @@
       },
       updateUseClear(val) {
         this.useClear = val
+      },
+      updateBlurHidden(val) {
+        this.clearBlurHidden = val
       },
       updatePwd(val) {
         this.isPwd = val

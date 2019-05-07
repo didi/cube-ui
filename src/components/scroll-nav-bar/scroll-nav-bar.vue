@@ -2,6 +2,7 @@
   <div class="cube-scroll-nav-bar" :class="'cube-scroll-nav-bar_' + direction">
     <cube-scroll
       ref="scroll"
+      nestMode="none"
       :options="options"
       :direction="direction">
       <div class="cube-scroll-nav-bar-items" ref="items">
@@ -155,6 +156,7 @@
       text-align: center
     .cube-scroll-content
       display: inline-block
+      vertical-align: top
     .cube-scroll-nav-bar-items
       white-space: nowrap
   .cube-scroll-nav-bar_vertical
@@ -167,6 +169,7 @@
     font-size: $fontsize-medium
   .cube-scroll-nav-bar-item
     display: inline-block
+    vertical-align: top
     padding: 20px 15px
   .cube-scroll-nav-bar-item_active
     color: $scroll-nav-active-color

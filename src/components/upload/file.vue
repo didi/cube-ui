@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-upload-file" @click="clickHandler">
+  <div class="cube-upload-file" :class="fileCls" @click="clickHandler">
     <slot
       :img-style="fileStyle"
       :progress="fileProgress"
@@ -33,6 +33,9 @@
       }
     },
     computed: {
+      fileCls() {
+        return `cube-upload-file_${this.file.status}`
+      },
       fileStatusCls() {
         const file = this.file
         const status = file.status

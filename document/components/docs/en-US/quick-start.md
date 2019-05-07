@@ -53,8 +53,8 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
         // add stylus dependencies
         "stylus": "^0.54.5",
         "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^0.4.1",
-        "webpack-transform-modules-plugin": "^0.3.5"
+        "webpack-post-compile-plugin": "^1.0.0",
+        "webpack-transform-modules-plugin": "^0.4.3"
       }
     }
     ```
@@ -122,12 +122,12 @@ Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post
           "transform": "cube-ui/lib/${member}",
           "kebabCase": true,
           "style": {
-            "ignore": ["create-api", "better-scroll"]
+            "ignore": ["create-api", "better-scroll", "locale"]
           }
         }
       },
       "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.3.5"
+        "webpack-transform-modules-plugin": "^0.4.3"
       }
     }
     ```
@@ -211,6 +211,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Radio,
+  Checker,
   Input,
   Textarea,
   Select,
@@ -241,7 +242,7 @@ import {
 You can also import [create-api](#/en-US/docs/create-api) and [better-scroll](#/en-US/docs/better-scroll) module:
 
 ```js
-import { createAPI, BetterScroll } from 'cube-ui'
+import { createAPI, BetterScroll, Locale } from 'cube-ui'
 ```
 
 #### Examples

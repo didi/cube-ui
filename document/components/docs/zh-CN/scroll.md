@@ -12,11 +12,11 @@
 
   2）横向滚动：**内容元素的宽度必须大于容器元素**。由于在默认情况下，子元素的宽度不会超过容器元素，所以需要给 Scroll 组件的 `.cube-scroll-content` 元素设置大于 `.cube-scroll-wrapper` 的宽度。
 
-  > 注意：任何时候如果出现无法滚动的情况，都应该首先查看内容元素`.cube-scroll-content`的元素高度/宽度是否大于容器元素`.cube-scroll-wrapper`的高度/宽度。这是内容能够滚动的前提条件。**如果内容存在图片的情况，可能会出现 DOM 元素渲染时图片还未下载，因此内容元素的高度小于预期，出现滚动不正常的情况。此时你应该在图片加载完成后，比如 onload 事件回调中，手动调用 Scroll 组件的 `refresh()` 方法，它会重新计算滚动距离。**
+  > 注意：任何时候如果出现无法滚动的情况，都应该首先查看内容元素`.cube-scroll-content`的元素高度/宽度是否大于容器元素`.cube-scroll-wrapper`的高度/宽度。这是内容能够滚动的前提条件。**如果内容存在图片的情况，可能会出现 DOM 元素渲染时图片还未下载，因此内容元素的高度小于预期，出现滚动不正常的情况。此时你应该在图片加载完成后，比如 onload 事件回调中，手动调用 Scroll 组件的 `refresh()` 方法，它会重新计算滚动距离。** Scroll 相关常见问题可以查看 [Cube-UI/Question-Answer](https://github.com/cube-ui/question-answer/issues?utf8=✓&q=is%3Aissue+is%3Aopen+scroll).
 
 ### 示例
 
-5 个示例代码快速了解如何使用 Scroll 组件。
+7 个示例代码快速了解如何使用 Scroll 组件。
 
 - **1. 基本使用 - Default**
 
@@ -235,7 +235,7 @@
     ...
   }
   ```
-  
+
   通过作用域插槽提供的作用域参数，如：`beforePulldown`和`isPullingDown`，你可以根据状态的变化来控制动画流程，其他作用域参数及其含义详见下面的[插槽](#/zh-CN/docs/scroll#cube-插槽-anchor)。在一个完整的下拉刷新过程中，`beforePullDown`和`isPullingDown`的状态变化如下：
 
   | 流程 | beforePulldown | isPullingDown | 备注 |
@@ -305,6 +305,107 @@
 
   > 在本例中，`pullDownRefresh`配置项没有传入`stop`值，但是下拉后依然能够回弹到正确位置，原因是 Scroll 组件初始化时会将 `beforePullDown === false && isPullingDown === true` 时下拉内容高度作为 `stop` 默认值。
 
+- **6. 嵌套纵向滚动 - Vertical Scrolls**<sup>1.12.0</sup>
+
+  `Scroll`组件还支持嵌套的场景(目前只支持两层嵌套)。当遇到嵌套场景时，你需要给内层`scroll`组件设置 Prop nestMode，可选值有 'native' 和 'free'。当设置为 'native' 时，嵌套`Scroll`与浏览器原生嵌套场景的滚动行为相同。下面是`Scroll`组件实现纵向嵌套滚动的例子。完整的示例代码在这里[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/vertical-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll1"
+    class="scroll-list-outer-wrap">
+    ...
+    <cube-scroll
+      ref="scroll2"
+      class="scroll-list-inner-wrap"
+      nest-mode="native">
+      <ul class="cube-scroll-list">
+        <li class="cube-scroll-item border-bottom-1px"
+          v-for="(item, index) in items2"
+          :key="index">{{item}}</li>
+      </ul>
+    </cube-scroll>
+    ...
+  </cube-scroll>
+  ```
+
+- **7. 嵌套横向滚动 - Horizontal Scrolls**<sup>1.12.0</sup>
+
+  你还可以实现横向的嵌套滚动。这里同时设置`nestMode`为`free`，与`native`模式不同的是，`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。而`native`模式下，只在开始滚动时判断是否到达边界，与浏览器原生的嵌套滚动保持一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/horizontal-scrolls.vue)。
+
+  ```html
+  <cube-scroll
+    ref="scroll"
+    :data="items1"
+    direction="horizontal"
+    class="outer-horizontal-scroll">
+    <ul class="list-wrapper">
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+      <li class="list-item inner-horizontal-scroll">
+        <cube-scroll
+          ref="scroll"
+          :data="items2"
+          direction="horizontal"
+          nest-mode="free">
+          <ul class="list-wrapper">
+            <li v-for="item in items2" class="list-item">{{ item }}</li>
+          </ul>
+        </cube-scroll>
+      </li>
+      <li v-for="item in items1" class="list-item">{{ item }}</li>
+    </ul>
+  </cube-scroll>
+  ```
+
+<!-- - **8. Scroll 中嵌套 textarea - Textarea**
+
+  有时候我们需要在 `Scroll` 组件中包含 teatarea 输入框。然而由于我们在使用 `Scroll` 时禁用了浏览器 'touch' 事件的默认行为，因此我们无法在 textarea 输入框中使用浏览器的原生滚动。
+
+  现在我们希望通过这个例子，介绍两种解决这个问题的方法。核心都是利用了 `Scroll` 支持嵌套的能力，我们将内部的输入框用 `Scroll` 进行包装，通过 `Scroll` 去模拟滚动行为。但是有一个要求是，输入框内容区域必须是高度自适应，即高度随内容增加或减少。
+
+  1）利用 div 标签模拟 textarea，实现内容区域高度自适应。
+
+  2）利用 textarea 配合 js，实现高度自适应。
+
+  最后，我们还需要一些额外的工作保证输入过程中，光标能始终在视线内，保持与原生输入框的行为一致。完整的示例代码在[这里](https://github.com/didi/cube-ui/blob/master/example/pages/scroll/textarea.vue)
+
+  ```html
+  <cube-scroll
+    ref="scrollOuter"
+    :options="optionsOuter"
+    class="scroll-outer">
+    ...
+    <div class="editable-div-wrapper" :class="{'editable-div_active': isFocusDiv}">
+      <cube-scroll
+        ref="divWrapScroll"
+        :options="options">
+        <div ref="editablediv" contenteditable="true" class="editable-div"
+          @focus="onFocusDiv"
+          @blur="onBlurDiv"
+          @input="onInputDiv">
+        </div>
+      </cube-scroll>
+      <span class="editable-div-indicator">{{divValueCount}}</span>
+    </div>
+    <div class="cube-textarea-wrapper" :class="{'cube-textarea_active': isFocusNative}">
+      <cube-scroll
+        ref="nativeWrapScroll"
+        :options="options">
+        <textarea
+          ref="textarea"
+          v-model="textareaValue"
+          @input="onInputNative"
+          @focus="onFocusNative"
+          @blur="onBlurNative"
+          :placeholder="placeholder"
+          class="cube-textarea">
+        </textarea>
+      </cube-scroll>
+      <span class="cube-textarea-indicator">{{textareaValueCount}}</span>
+    </div>
+    ...
+  </cube-scroll>
+  ``` -->
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
@@ -316,6 +417,7 @@
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | refreshDelay | data属性的数据更新后，scroll 的刷新延时 | Number | - | 20 |
+| nestMode<sup>1.12.0</sup> | 嵌套滚动模式，默认是`none`，即不做嵌套处理。`native`只在开始滚动时判断是否到达边界并开启外层滚动，与浏览器原生的嵌套滚动保持一致。`free`模式下，内层滚动过程中只要触发边界，便会开启外层滚动。| String | 'none', 'native', 'free' | 'none' |
 
 `options`中 better-scroll 的几个常用配置项，`scrollbar`、`pullDownRefresh`、`pullUpLoad`这三个配置即可设为 `Boolean`（`false` 关闭该功能，`true` 开启该功能，并使用默认子配置），也可设为`Object`，开启该功能并具体定制其子配置项。
 

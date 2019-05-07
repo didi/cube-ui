@@ -2,7 +2,8 @@
   <cube-page type="dialog-view" title="Dialog">
     <div slot="content">
       <cube-button-group>
-        <cube-button @click="showAlert">Dialog - type</cube-button>
+        <cube-button @click="showAlert">Dialog - alert</cube-button>
+        <cube-button @click="showPrompt">Dialog - prompt</cube-button>
         <cube-button @click="showBtn">Dialog - btn</cube-button>
         <cube-button @click="showClose">Dialog - show close</cube-button>
         <cube-button @click="showSlot">Dialog - slot</cube-button>
@@ -23,6 +24,23 @@
           title: '我是标题',
           content: '我是内容',
           icon: 'cubeic-alert'
+        })
+        this.dialog.show()
+      },
+      showPrompt() {
+        this.dialog = this.$createDialog({
+          type: 'prompt',
+          title: '我是标题',
+          prompt: {
+            placeholder: '请输入'
+          },
+          onConfirm: (e, promptValue) => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: `Prompt value: ${promptValue || ''}`
+            }).show()
+          }
         })
         this.dialog.show()
       },

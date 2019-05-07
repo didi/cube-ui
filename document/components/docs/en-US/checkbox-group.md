@@ -66,6 +66,8 @@
 | horizontal | whether in horizontal order | Boolean | true/false | false |
 | shape | icon shape | String | circle/square | circle |
 | hollowStyle | whether is hollow-out style | Boolean | true/false | false |
+| min<sup>1.11.0</sup> | min selected items count | Number | - | 0 |
+| max<sup>1.11.0</sup> | max selected items count | Number | - | Infinite |
 
 * `options` sub configuration
 
@@ -76,3 +78,11 @@
 | disabled | whether disabled | Boolean |
 
 Note: each `options` item can be an string value, now both the`label` and `value` values are the string value.
+
+### Events
+
+| Event Name | Description | Parameter |
+| - | - | - |
+| checked | triggers when an checkbox in the checkboxGroup is checked | the currently checked checkbox value |
+| cancel-checked | triggers when an checkbox in the checkboxGroup is unchecked | the currently unchecked checkbox value |
+| input | triggers when the binding value changes | a set of the values of selected checkboxs |

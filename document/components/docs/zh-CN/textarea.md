@@ -84,6 +84,7 @@
 | placeholder | 占位文本 | String | - | 空 |
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | indicator<sup>1.10.0</sup> | 计数标识配置 | Boolean/Object | true/false/{} | true |
+| autoExpand<sup>1.12.0</sup> | 如果为 true 且默认有内容的话，会默认展开 | Boolean | true/false | false |
 
 - indicator 子配置项
 
@@ -100,3 +101,11 @@
 | - | - | - |
 | focus | 输入框聚焦后触发此事件，如果禁用状态，则不触发 | e - 事件对象 |
 | blur | 输入框失焦后触发此事件 | e - 事件对象 |
+| input | 绑定值变化时触发 | 更新后的绑定值 |
+
+### 实例方法
+
+| 方法名 | 说明 |
+| - | - |
+| focus<sup>1.12.10+</sup> | 获得焦点 |
+| blur<sup>1.12.10+</sup> | 离焦 |

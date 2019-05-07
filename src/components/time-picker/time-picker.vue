@@ -4,10 +4,10 @@
     v-model="isVisible"
     :data="cascadeData"
     :selected-index="selectedIndex"
-    :title="title"
+    :title="_title"
     :subtitle="subtitle"
-    :cancel-txt="cancelTxt"
-    :confirm-txt="confirmTxt"
+    :cancel-txt="_cancelTxt"
+    :confirm-txt="_confirmTxt"
     :swipe-time="swipeTime"
     :z-index="zIndex"
     :mask-closable="maskClosable"
@@ -30,6 +30,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
   import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
   import { warn } from '../../common/helpers/debug'
 
@@ -39,8 +40,7 @@
   const EVENT_CHANGE = 'change'
 
   const NOW = {
-    value: 'now',
-    defaultText: '现在'
+    value: 'now'
   }
 
   const INT_RULE = {
@@ -53,14 +53,14 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
     components: {
       CubeCascadePicker
     },
     props: {
       title: {
         type: String,
-        default: '选择时间'
+        default: ''
       },
       delay: {
         type: Number,
@@ -70,9 +70,7 @@
         type: Object,
         default() {
           return {
-            len: 3,
-            filter: ['今日'],
-            format: 'M月D日'
+            len: 3
           }
         }
       },
@@ -87,6 +85,14 @@
       format: {
         type: String,
         default: 'YYYY/M/D hh:mm'
+      },
+      min: {
+        type: [Date, Number],
+        default: null
+      },
+      max: {
+        type: [Date, Number],
+        default: null
       }
     },
     data() {
@@ -97,8 +103,19 @@
       }
     },
     computed: {
+      _title () {
+        return this.title || this.$t('selectTime')
+      },
+      _day () {
+        const defaultDay = {
+          filter: [this.$t('today')],
+          format: this.$t('formatDate')
+        }
+        return Object.assign({}, defaultDay, this.day)
+      },
       nowText() {
-        return (this.showNow && this.showNow.text) || NOW.defaultText
+        const defaultText = this.$t('now')
+        return (this.showNow && this.showNow.text) || defaultText
       },
       minuteStepRule() {
         const minuteStep = this.minuteStep
@@ -109,26 +126,34 @@
         return typeof minuteStep === 'number' ? minuteStep : (minuteStep.step || DEFAULT_STEP)
       },
       minTime() {
-        let minTimeStamp = +this.now + this.delay * MINUTE_TIMESTAMP
+        let minTimeStamp = +this.min || +this.now + this.delay * MINUTE_TIMESTAMP
 
         // Handle the minTime selectable change caused by minute step.
         const minute = new Date(minTimeStamp).getMinutes()
-        const intMinute = this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber
-        if (intMinute >= 60) {
-          minTimeStamp += (60 - minute) * MINUTE_TIMESTAMP
-        }
+        const intMinute = Math.min(this.minuteStepRule(minute / this.minuteStepNumber) * this.minuteStepNumber, 60)
 
+        minTimeStamp += (intMinute - minute) * MINUTE_TIMESTAMP
         return new Date(minTimeStamp)
+      },
+      maxTime() {
+        let maxTimeStamp = +this.max || (getZeroStamp(new Date(+this.minTime + this._day.len * DAY_TIMESTAMP)) - 1)
+
+        const minute = new Date(maxTimeStamp).getMinutes()
+        const intMinute = Math.floor(minute / this.minuteStepNumber) * this.minuteStepNumber
+        maxTimeStamp -= (minute - intMinute) * MINUTE_TIMESTAMP
+
+        return new Date(maxTimeStamp)
       },
       days() {
         const days = []
         const dayDiff = getDayDiff(this.minTime, this.now)
+        const len = this.max ? getDayDiff(this.maxTime, this.minTime) + 1 : this._day.len
 
-        for (let i = 0; i < this.day.len; i++) {
+        for (let i = 0; i < len; i++) {
           const timestamp = +this.minTime + i * DAY_TIMESTAMP
           days.push({
             value: timestamp,
-            text: (this.day.filter && this.day.filter[dayDiff + i]) || formatDate(new Date(timestamp), this.day.format)
+            text: (this._day.filter && this._day.filter[dayDiff + i]) || formatDate(new Date(timestamp), this._day.format)
           })
         }
         return days
@@ -138,45 +163,81 @@
         for (let i = 0; i < 24; i++) {
           hours.push({
             value: i,
-            text: i + '点',
+            text: `${i}${this.$t('hours')}`,
             children: this.minutes
           })
         }
         return hours
-      },
-      partHours() {
-        const partHours = this.hours.slice(this.minTime.getHours())
-        partHours[0] = Object.assign({}, partHours[0], {children: this.partMinutes})
-
-        if (this.showNow) {
-          partHours.unshift({
-            value: NOW.value,
-            text: this.nowText,
-            children: []
-          })
-        }
-        return partHours
       },
       minutes() {
         const minutes = []
         for (let i = 0; i < 60; i += this.minuteStepNumber) {
           minutes.push({
             value: i,
-            text: pad(i) + '分'
+            text: `${pad(i)}${this.$t('minutes')}`
           })
         }
         return minutes
       },
-      partMinutes() {
-        const begin = this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
-        return this.minutes.slice(begin)
-      },
       cascadeData() {
-        const data = this.days.slice()
-        data.forEach((item, index) => {
-          item.children = index ? this.hours : this.partHours
+        const days = this.days.slice()
+
+        // When the maxTime is smaller than minTime by more than a minute step, there is no option could be chosen.
+        if (this.maxTime - this.minTime <= -60000) {
+          warn('The max is smaller than the min optional time.', COMPONENT_NAME)
+          return []
+        }
+
+        days.forEach((day, index) => {
+          const isMinDay = index === 0
+          const isMaxDay = index === days.length - 1
+
+          if (!isMinDay && !isMaxDay) {
+            day.children = this.hours
+            return
+          }
+
+          const partHours = []
+          const minHour = isMinDay ? this.minTime.getHours() : 0
+          const maxHour = isMaxDay ? this.maxTime.getHours() : 23
+
+          for (let i = minHour; i <= maxHour; i++) {
+            const isMinHour = isMinDay && i === minHour
+            const isMaxHour = isMaxDay && i === maxHour
+
+            if (!isMinHour && !isMaxHour) {
+              partHours.push({
+                value: i,
+                text: `${i}${this.$t('hours')}`,
+                children: this.minutes
+              })
+              continue
+            }
+
+            // Math.round is use to avoid some weird float bug of multiplication and divisionluate in JavaScript. Because we have to ensure the arguments of Array.slice are int.
+            const start = isMinHour ? Math.round(this.minTime.getMinutes() / this.minuteStepNumber) : 0
+            const end = isMaxHour ? Math.round(this.maxTime.getMinutes() / this.minuteStepNumber) : Math.floor(59 / this.minuteStepNumber)
+
+            const partMinutes = this.minutes.slice(start, end + 1)
+            partHours.push({
+              value: i,
+              text: `${i}${this.$t('hours')}`,
+              children: partMinutes
+            })
+          }
+
+          day.children = partHours
         })
-        return data
+
+        if (this.showNow) {
+          days[0].children.unshift({
+            value: NOW.value,
+            text: this.nowText,
+            children: []
+          })
+        }
+
+        return days
       }
     },
     methods: {

@@ -12,8 +12,8 @@
       <transition name="cube-picker-move">
         <div class="cube-picker-panel cube-safe-area-pb" v-show="isVisible" @click.stop>
           <div class="cube-picker-choose border-bottom-1px">
-            <span class="cube-picker-cancel" @click="cancel">{{cancelTxt}}</span>
-            <span class="cube-picker-confirm" @click="confirm">{{confirmTxt}}</span>
+            <span class="cube-picker-cancel" @click="cancel">{{_cancelTxt}}</span>
+            <span class="cube-picker-confirm" @click="confirm">{{_confirmTxt}}</span>
             <div class="cube-picker-title-group">
               <h1 class="cube-picker-title" v-html="title"></h1>
               <h2 v-if="subtitle" class="cube-picker-subtitle" v-html="subtitle"></h2>
@@ -24,7 +24,7 @@
             <i class="border-bottom-1px"></i>
             <i class="border-top-1px"></i>
             <div class="cube-picker-wheel-wrapper" ref="wheelWrapper">
-              <div v-for="(data,index) in finalData" :key="index">
+              <div v-for="(data,index) in finalData" :key="index" :style="{ order: _getFlexOrder(data)}">
                 <!-- The class name of the ul and li need be configured to BetterScroll. -->
                 <ul class="cube-picker-wheel-scroll">
                   <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index" v-html="item[textKey]">
@@ -48,6 +48,7 @@
   import popupMixin from '../../common/mixins/popup'
   import basicPickerMixin from '../../common/mixins/basic-picker'
   import pickerMixin from '../../common/mixins/picker'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-picker'
 
@@ -58,7 +59,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin],
+    mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
     props: {
       pending: {
         type: Boolean,
@@ -254,6 +255,12 @@
         return !this.pending && this.wheels.every((wheel) => {
           return !wheel.isInTransition
         })
+      },
+      _getFlexOrder(data) {
+        if (data[0]) {
+          return data[0][this.orderKey]
+        }
+        return 0
       }
     },
     beforeDestroy() {

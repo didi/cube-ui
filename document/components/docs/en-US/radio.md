@@ -166,3 +166,9 @@ Note: Each item of `options` can be an string, Which means both the `label` and 
 | label | the text of label | String |
 | value | the value of radio item | String/Number |
 | disabled | whether the radio item is disabled | Boolean |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - |
+| input | triggers when the binding value changes | the value of the chosen radio |

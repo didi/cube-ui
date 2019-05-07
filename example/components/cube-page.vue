@@ -74,8 +74,9 @@
         color: #fc9153
     >.wrapper
       height: calc(100% - 44px)
-      overflow: auto
-      -webkit-overflow-scrolling: touch
+      overflow-x: hidden
+      overflow-y: auto
+      // -webkit-overflow-scrolling: touch
       .desc
         padding: 10px
         margin: 10px 0

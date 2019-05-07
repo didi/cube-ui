@@ -96,6 +96,7 @@
           preventDefault: this.preventDefault
         },
         scrollOptions: {
+          HWCompositing: isAndroid,
           observeDOM: false,
           zoom: true,
           bindToWrapper: true,

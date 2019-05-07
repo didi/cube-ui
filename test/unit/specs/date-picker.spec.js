@@ -117,6 +117,19 @@ describe('DatePicker', () => {
       .to.equal('第 9 日')
   })
 
+  it('should render correct contents when configured columnOrder', function () {
+    vm = createDatePicker({
+      min: new Date(2008, 7, 8),
+      max: new Date(2020, 9, 20),
+      columnOrder: ['month', 'date', 'year']
+    })
+
+    const wheels = vm.$el.querySelectorAll('.cube-picker-wheel-wrapper > div')
+    expect(wheels[0].style.webkitOrder || wheels[0].style.order).to.equal('2')
+    expect(wheels[1].style.webkitOrder || wheels[1].style.order).to.equal('0')
+    expect(wheels[2].style.webkitOrder || wheels[2].style.order).to.equal('1')
+  })
+
   it('should trigger events', function (done) {
     this.timeout(10000)
 

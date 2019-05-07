@@ -64,6 +64,8 @@
 | horizontal | 是否水平排列 | Boolean | true/false | false |
 | shape | 图标形状 | String | circle/square | circle |
 | hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
+| min<sup>1.11.0</sup> | 最小选择个数 | Number | - | 0 |
+| max<sup>1.11.0</sup> | 最大选择个数 | Number | - | Infinite |
 
 * `options` 子配置项
 
@@ -74,3 +76,11 @@
 | disabled | 复选框是否被禁用 | Boolean |
 
 注：如果 `options` 中的项为字符串也是可以的，此时默认 `label` 和 `value` 的值都为该字符串的值。
+
+### 事件
+
+| 事件名 | 说明 | 参数 |
+| - | - | - |
+| checked | 勾选复选框组中的某一项时触发 | 当前勾选的复选框值 |
+| cancel-checked | 取消勾选复选框组中的某一项时触发 | 当前取消勾选的复选框值 |
+| input | 当绑定值变化时触发 | 当前选中的复选框值的集合 |

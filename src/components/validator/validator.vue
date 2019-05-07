@@ -19,8 +19,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { parallel, cb2PromiseWithResolve } from '../../common/helpers/util'
-  import { rules, findMessage } from '../../common/helpers/validator'
+  import { parallel, cb2PromiseWithResolve, isUndef, isFunc, isString, isArray, isObject } from '../../common/helpers/util'
+  import { rules } from '../../common/helpers/validator'
+  import localeMixin from '../../common/mixins/locale'
+  import template from '../../common/helpers/string-template'
 
   const COMPONENT_NAME = 'cube-validator'
   const EVENT_INPUT = 'input'
@@ -30,6 +32,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [localeMixin],
     props: {
       model: {
         required: true
@@ -78,7 +81,7 @@
       },
       invalid() {
         const valid = this.valid
-        return valid === undefined ? undefined : !valid
+        return isUndef(valid) ? undefined : !valid
       },
       isDisabled() {
         const disabled = this.disabled
@@ -160,7 +163,7 @@
           for (const key in configRules) {
             const ruleValue = configRules[key]
             let ret
-            if (typeof ruleValue === 'function') {
+            if (isFunc(ruleValue)) {
               ret = ruleValue(val, configRules[key], type)
             } else {
               ret = !rules[key] || rules[key](val, configRules[key], type)
@@ -180,10 +183,9 @@
                   ret: err
                 })
               }
-              const resultType = typeof ret
-              if (resultType === 'object' && ret !== null && typeof ret.then === 'function') {
+              if (isObject(ret) && isFunc(ret.then)) {
                 ret.then(resolve).catch(reject)
-              } else if (resultType === 'function') {
+              } else if (isFunc(ret)) {
                 ret(resolve, reject)
               } else {
                 next({
@@ -212,10 +214,10 @@
           this.validating = false
           results.forEach(({ key, valid, ret }) => {
             const msg = this.messages[key]
-                      ? typeof this.messages[key] === 'function'
+                      ? isFunc(this.messages[key])
                         ? this.messages[key](ret, valid)
                         : this.messages[key]
-                      : findMessage(key, configRules[key], configRules.type, model)
+                      : this.findMessage(key, configRules[key], configRules.type, model)
             if (isValid && !valid) {
               isValid = false
               this.msg = msg
@@ -266,6 +268,25 @@
       },
       msgClickHandler() {
         this.$emit(EVENT_MSG_CLICK)
+      },
+      findMessage (key, config, type, val) {
+        const messages = this.$cubeMessages
+        const lang = this.$cubeLang
+        const NAMESPACE = 'validator'
+        const target = messages[lang][NAMESPACE][key]
+        if (!target) {
+          return ''
+        }
+        if (isString(target)) {
+          return target
+        } else if (isFunc(target)) {
+          return target(config)
+        } else {
+          if (!target[type]) {
+            type = isArray(val) ? 'array' : typeof val
+          }
+          return typeof target[type] === 'function' ? target[type](config) : template(target[type], config)
+        }
       }
     }
   }
