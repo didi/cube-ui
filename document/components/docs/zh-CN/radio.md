@@ -167,7 +167,7 @@
 | value | 单选框的值 | String/Number |
 | disabled | 单选框是否被禁用 | Boolean |
 
-### Event
+### 事件
 
 | 事件名 | 说明 | 参数 |
 | - | - | - |

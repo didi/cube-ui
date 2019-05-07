@@ -104,7 +104,7 @@ Multi-line input box components. You can use the `v-model` directive to create t
   | remain | whether show the remaining count, if this value is `false` means show the textarea value length | Boolean | true/false | true |
   | negative | avaliable when `remain` is true, this value control whether allow remaining number is negative | Boolean | true/false | true |
 
-### Event
+### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |

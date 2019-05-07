@@ -167,7 +167,7 @@ Note: Each item of `options` can be an string, Which means both the `label` and 
 | value | the value of radio item | String/Number |
 | disabled | whether the radio item is disabled | Boolean |
 
-### Event
+### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |

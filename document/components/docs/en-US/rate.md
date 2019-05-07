@@ -100,7 +100,7 @@ Rate component. You can customize the rating star numbers, and disable the inter
 | - | - | - |
 | default | custom star element | - |
 
-### 事件
+### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |
