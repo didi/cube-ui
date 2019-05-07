@@ -48,17 +48,21 @@ describe('Checker.vue', () => {
     const p = vm.$parent
     const options = p.options
     expect(p.checkerList.join(''))
-      .to.equal('1')
+      .to.equal('14')
     vm.$nextTick(() => {
       const items = vm.$el.querySelectorAll('.cube-checker-item')
+      const disabledItems = vm.$el.querySelectorAll('.cube-checker-item_disabled')
       expect(items.length)
         .to.equal(options.length)
+      expect(disabledItems[0])
+        .to.equal(items[4])
       items[1].click()
       items[2].click()
       items[3].click()
+      items[4].click()
       vm.$nextTick(() => {
         expect(p.checkerList.join(''))
-          .to.equal('23')
+          .to.equal('423')
         done()
       })
     })
@@ -75,7 +79,7 @@ function createChecker (type) {
       </cube-checker>
     `,
     data: {
-      checkerList: type === 'radio' ? 1 : [1],
+      checkerList: type === 'radio' ? 1 : [1, 4],
       options: [
         {
           value: 0,
@@ -92,6 +96,11 @@ function createChecker (type) {
         {
           value: 3,
           text: 'DDDDD'
+        },
+        {
+          value: 4,
+          text: 'EEEEE',
+          disabled: true
         }
       ],
       type: type,
