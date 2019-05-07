@@ -48,6 +48,14 @@
       <p>checker value : {{defaultCheckerList}}  (min: 1 max: 2)</p>
       <br><br>
 
+      <p>set disabled</p>
+      <br>
+      <cube-checker
+        v-model="disabledCheckerList"
+        :options="disabledCheckerOptions"/>
+      <br>
+      <p>checker value : {{disabledCheckerList}}</p>
+      <br><br>
 
     </template>
   </cube-page>
@@ -89,7 +97,24 @@
             text: 'green'
           }
         ],
-        defaultCheckerList: [3]
+        defaultCheckerList: [3],
+        disabledCheckerOptions: [
+          {
+            value: 1,
+            text: 'first',
+            disabled: true
+          },
+          {
+            value: 2,
+            text: 'second',
+            disabled: true
+          },
+          {
+            value: 3,
+            text: 'third'
+          }
+        ],
+        disabledCheckerList: [2]
       }
     },
     components: {
