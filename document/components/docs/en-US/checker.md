@@ -152,7 +152,7 @@ Checker is more flexible selection component, you can alse customize the layout.
   ```
 
 
-  - disabled state <sup>1.12.14</sup>
+- disabled state <sup>1.12.19</sup>
 
   use `disabled`  to set disabled state
 
