@@ -1,7 +1,7 @@
 <template>
   <li
     class="cube-checker-item"
-    :class="{'cube-checker-item_active': isActive}"
+    :class="{'cube-checker-item_active': isActive, 'cube-checker-item_disabled': isDisabled}"
     @click="clickHandler"
   >
     <slot>
@@ -29,10 +29,16 @@
         const currentValue = this.$parent.currentValue
         const value = this.option.value
         return isRadio ? currentValue === value : currentValue.indexOf(value) >= 0
+      },
+      isDisabled() {
+        return this.option.disabled
       }
     },
     methods: {
       clickHandler() {
+        if (this.isDisabled) {
+          return
+        }
         this.$parent.check(this.option)
       }
     }
@@ -55,5 +61,9 @@
     color: $checker-item-active-color
     background: $checker-item-active-bgc
     border-1px($checker-item-active-bdc, 4px)
-
+    &.cube-checker-item_disabled
+      background: $checker-item-disabled-bgc
+      border-1px($checker-item-disabled-bdc, 4px)
+  .cube-checker-item_disabled
+    color: $checker-item-disabled-color
 </style>
