@@ -28,24 +28,15 @@ $action-sheet-picker-cancel-active-color := $color-light-grey-s
 // button
 $btn-color := $color-white
 $btn-bgc := $color-regular-blue
-$btn-bdc := $color-regular-blue
 $btn-active-bgc := $color-blue
-$btn-active-bdc := $color-blue
-$btn-disabled-color := $color-white
-$btn-disabled-bgc := $color-light-grey-s
-$btn-disabled-bdc := $color-light-grey-s
 /// primary
 $btn-primary-color := $color-white
 $btn-primary-bgc := $color-orange
-$btn-primary-bdc := $color-orange
 $btn-primary-active-bgc := $color-dark-orange
-$btn-primary-active-bdc := $color-dark-orange
 /// light
 $btn-light-color := $color-grey
 $btn-light-bgc := $color-light-grey-sss
-$btn-light-bdc := $color-light-grey-sss
 $btn-light-active-bgc := $color-active-grey
-$btn-light-active-bdc := $color-active-grey
 /// outline
 $btn-outline-color := $color-grey
 $btn-outline-bgc := transparent
@@ -58,6 +49,10 @@ $btn-outline-primary-bgc := transparent
 $btn-outline-primary-bdc := $color-orange
 $btn-outline-primary-active-bgc := $color-orange-opacity
 $btn-outline-primary-active-bdc := $color-dark-orange
+/// disabled
+$btn-disabled-color := $color-white
+$btn-disabled-bgc := $color-light-grey-s
+$btn-disabled-bdc := $color-light-grey-s
 
 // toolbar
 $toolbar-bgc := $color-light-grey-sss
@@ -92,6 +87,17 @@ $radio-disabled-icon-bgc := $color-light-grey-ss
 // radio hollow
 $radio-hollow-selected-icon-color := $color-orange
 $radio-hollow-disabled-icon-color := $color-light-grey-ss
+
+//checker
+$checker-item-color := $color-grey
+$checker-item-bdc := $color-light-grey-sss
+$checker-item-bgc := $color-white
+$checker-item-active-color := $color-orange
+$checker-item-active-bdc := $color-orange
+$checker-item-active-bgc := $color-light-orange-opacity
+$checker-item-disabled-color := $color-light-grey-s
+$checker-item-disabled-bdc := $color-light-grey-s
+$checker-item-disabled-bgc := $color-light-grey-ss
 
 // dialog
 $dialog-color := $color-grey
