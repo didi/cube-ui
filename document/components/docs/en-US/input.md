@@ -115,7 +115,7 @@ Input component. You can use the `v-model` directive to create two-way data bind
 | prepend | prepend content |
 | append | append content |
 
-### Event
+### Events
 
 | Event Name | Description | Parameters |
 | - | - | - |
