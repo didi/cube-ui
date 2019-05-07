@@ -37,6 +37,8 @@ export class BScroll {}
 export function createAPI (vue: typeof Vue, Component: CubeUIComponent, events?: string[], single?: boolean) : object
 
 // basic
+/** Style Module */
+export class Style {}
 /** Button Component */
 export class Button extends CubeUIComponent {}
 /** Loading Component */
