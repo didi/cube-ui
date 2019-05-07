@@ -92,6 +92,11 @@ function createChecker (type) {
         {
           value: 3,
           text: 'DDDDD'
+        },
+        {
+          value: 4,
+          text: 'EEEEE',
+          disabled: true
         }
       ],
       type: type,
