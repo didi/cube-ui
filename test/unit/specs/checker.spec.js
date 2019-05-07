@@ -51,8 +51,11 @@ describe('Checker.vue', () => {
       .to.equal('14')
     vm.$nextTick(() => {
       const items = vm.$el.querySelectorAll('.cube-checker-item')
+      const disabledItems = vm.$el.querySelectorAll('.cube-checker-item_disabled')
       expect(items.length)
         .to.equal(options.length)
+      expect(disabledItems.length)
+        .to.equal(1)
       items[1].click()
       items[2].click()
       items[3].click()

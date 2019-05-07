@@ -152,7 +152,7 @@ Checker 是更加灵活的选择组件，可以自定义需要的布局样式。
   }
   ```
 
-  - 不可点击状态
+  - 不可点击状态<sup>1.12.19</sup>
 
   `disabled` 设置禁用状态。
 
@@ -205,7 +205,7 @@ Checker 是更加灵活的选择组件，可以自定义需要的布局样式。
 | - | - | - |
 | value | 选项的值 | String/Number |
 | text | 选项的文本 | String |
-| disabled | 选项是否被禁用 | Boolean |
+| disabled<sup>1.12.19</sup> | 选项是否被禁用 | Boolean |
 
 ### CubeCheckerItem Props 配置
 

@@ -152,9 +152,9 @@ Checker is more flexible selection component, you can alse customize the layout.
   ```
 
 
-  - disabled state
+  - disabled state <sup>1.12.14</sup>
 
-  `disabled` set disabled state。
+  use `disabled`  to set disabled state
 
 
   ```html
@@ -204,7 +204,7 @@ Checker is more flexible selection component, you can alse customize the layout.
 | - | - | - |
 | value | the value of checker item | String/Number |
 | text | the text of checker item | String |
-| disabled | the text of disabled state | Boolean |
+| disabled<sup>1.12.19</sup> | disabled state of checker item | Boolean |
 
 ### CubeCheckerItem Props configuration
 
