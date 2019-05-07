@@ -75,7 +75,7 @@
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
-| option | option value | Boolean/String/Object | - | - |
+| option | option value（if the value of option is a string type, the label and value will be this string you just set for option.） | Boolean/String/Object | - | - |
 | position | icon position | String | left/right | left |
 | shape | icon shape | String | circle/square | circle |
 | hollowStyle | whether is hollow-out style | Boolean | true/false | false |
@@ -87,3 +87,9 @@
 | label | the text of label | String |
 | value | the value of checkbox item | String/Number |
 | disabled | whether the checkbox item is disabled | Boolean |
+
+### Events
+
+| Event Name | Description | Parameter |
+| - | - | - |
+| input | triggers when the binding value changes | the updated value（ if you set value in the option and the checkbox is checked, the value is option.value; otherwise, the value is the v-model value of checkbox ）|

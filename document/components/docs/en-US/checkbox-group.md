@@ -78,3 +78,11 @@
 | disabled | whether disabled | Boolean |
 
 Note: each `options` item can be an string value, now both the`label` and `value` values are the string value.
+
+### Events
+
+| Event Name | Description | Parameter |
+| - | - | - |
+| checked | triggers when an checkbox in the checkboxGroup is checked | the currently checked checkbox value |
+| cancel-checked | triggers when an checkbox in the checkboxGroup is unchecked | the currently unchecked checkbox value |
+| input | triggers when the binding value changes | a set of the values of selected checkboxs |

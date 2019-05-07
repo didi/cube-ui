@@ -94,6 +94,7 @@ If an option is not an object, such as 2014，we will transform it to { value: 2
 
 | Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
 | - | - | - | - | - |
+| input | when the selected value changed by select | the selected value | - | - |
 | change | when the selected value changed by select | the selected value | the selected index | the selected text |
 | picker-show | when Picker show | - | - | - |
 | picker-hide | when Picker hide | - | - | - |
