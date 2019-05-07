@@ -166,3 +166,9 @@
 | label | 单选框显示文字 | String |
 | value | 单选框的值 | String/Number |
 | disabled | 单选框是否被禁用 | Boolean |
+
+### 事件
+
+| 事件名 | 说明 | 参数 |
+| - | - | - |
+| input | 绑定值变化时触发 | 选中的单选框value值 |
