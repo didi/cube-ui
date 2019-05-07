@@ -20,6 +20,11 @@
 
   export default {
     name: COMPONENT_NAME,
+    provide() {
+      return {
+        radioGroup: this
+      }
+    },
     props: {
       value: [String, Number],
       options: {

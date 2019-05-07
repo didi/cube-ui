@@ -6,6 +6,6 @@ Sticky.install = function (Vue) {
   Vue.component(StickyEle.name, StickyEle)
 }
 
-Sticky.Ele = Sticky
+Sticky.Ele = StickyEle
 
 export default Sticky

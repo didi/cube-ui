@@ -52,11 +52,28 @@
   </cube-checkbox>
   ```
 
+- 处理点击事件
+
+  如果你需要处理点击事件，你需要修改下样式：
+
+  ```html
+  <cube-checkbox class="with-click" v-model="checked">
+    Agree <a href="javascript:;" @click.stop>《xxx》</a>
+  </cube-checkbox>
+  ```
+  ```styl
+  .with-click
+    .cube-checkbox-label
+      a
+        position: relative
+        z-index: 1
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
-| option | 配置项 | Boolean/String/Object | - | - |
+| option | 配置项（如果 options 中的项为字符串，此时默认 label 和 value 的值都为该字符串的值） | Boolean/String/Object | - | - |
 | position | 位置 | String | left/right | left |
 | shape | 图标形状 | String | circle/square | circle |
 | hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
@@ -68,3 +85,9 @@
 | label | 复选框显示文字 | String |
 | value | 复选框的值 | String/Number |
 | disabled | 复选框是否被禁用 | Boolean |
+
+### 事件
+
+| 事件名 | 说明 | 参数 |
+| - | - | - |
+| input | 当绑定值变化时触发 | 更新后的复选框的值（若option中设置了value，且勾选复选框时，该值为option.value；否则，该值为复选框的v-model值）|

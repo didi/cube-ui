@@ -58,7 +58,8 @@
   import CubePage from '../components/cube-page.vue'
 
   // Add or rewrite the build-in rule, type and message.
-  import { Validator } from '../../src/module'
+  import { Validator, Locale } from '../../src/module'
+  import enLang from '../../src/locale/lang/en-US'
 
   export default {
     data() {
@@ -128,11 +129,13 @@
       }
     },
     created() {
-      Validator.setLanguage('en')
+      Locale.use('en-US', enLang)
       Validator.addRule('odd', (val, config, type) => {
         return Number(val) % 2 === 1
       })
-      Validator.addMessage('odd', 'Please input odd.')
+      Validator.addMessage('odd', (config) => {
+        return 'Please input odd.'
+      })
       Validator.addType('email', (val) => {
         return typeof val === 'string' && /^[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)$/i.test(val)
       })

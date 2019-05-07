@@ -190,6 +190,10 @@
               {
                 path: '/scroll-nav',
                 text: 'ScrollNav'
+              },
+              {
+                path: '/recycle-list',
+                text: 'RecycleList'
               }
             ]
           }

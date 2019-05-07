@@ -3,6 +3,7 @@
     <div slot="content">
       <cube-button-group>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
+        <cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
         <cube-button @click="showTimePicker">Time Picker</cube-button>
         <cube-button @click="showDateTimePicker">Date Time Picker</cube-button>
         <cube-button @click="showFormatPicker">Use format</cube-button>
@@ -103,6 +104,21 @@
             value: new Date(2010, 9, 1)
           })
         }, 1000)
+      },
+      showChangeOrderPicker() {
+        if (!this.changeOrderPicker) {
+          this.changeOrderPicker = this.$createDatePicker({
+            title: 'Date Picker',
+            min: new Date(2008, 7, 8),
+            max: new Date(2020, 9, 20),
+            value: new Date(),
+            columnOrder: ['date', 'month', 'year'],
+            onSelect: this.selectHandle,
+            onCancel: this.cancelHandle
+          })
+        }
+
+        this.changeOrderPicker.show()
       },
       selectHandle(date, selectedVal, selectedText) {
         this.$createDialog({

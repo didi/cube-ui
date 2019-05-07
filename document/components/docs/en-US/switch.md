@@ -39,3 +39,9 @@ Switch usually used to switch the state of on/off.
 | - | - | - | - | - |
 | v-model | the state of on/off, two-way data binding | Boolean | true/false | false |
 | disabled | whether disabled | Boolean | true/false | false |
+
+### Events
+
+| Event Name | Description | Parameters |
+| - | - | - |
+| input | triggers when the binding value changes | the updated value |

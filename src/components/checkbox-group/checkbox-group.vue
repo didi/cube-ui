@@ -46,6 +46,14 @@
         default() {
           return []
         }
+      },
+      min: {
+        type: Number,
+        default: 0
+      },
+      max: {
+        type: Number,
+        default: Infinity
       }
     },
     data () {
@@ -70,13 +78,17 @@
       }
     },
     mounted () {
-      this.$on(EVENT_CHECKED, function (value) {
-        this._value.push(value)
+      this.$on(EVENT_CHECKED, (value) => {
+        if (this._value.length < this.max) {
+          this._value.push(value)
+        }
         this.$emit(EVENT_INPUT, this._value)
       })
-      this.$on(EVENT_CANCLE_CHECKED, function (value) {
-        let index = this._value.indexOf(value)
-        this._value.splice(index, 1)
+      this.$on(EVENT_CANCLE_CHECKED, (value) => {
+        if (this._value.length > this.min) {
+          const index = this._value.indexOf(value)
+          this._value.splice(index, 1)
+        }
         this.$emit(EVENT_INPUT, this._value)
       })
     },

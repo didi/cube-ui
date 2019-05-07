@@ -115,13 +115,21 @@
       }
     },
     methods: {
-      submit() {
+      submit(skipValidate = false) {
+        this.skipValidate = skipValidate
         dispatchEvent(this.$refs.form, 'submit')
+        this.skipValidate = false
       },
       reset() {
         dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
+        // sync all fields value because of trigger: blur or debounce
+        this.syncValidatorValues()
+        if (this.skipValidate) {
+          this.$emit(EVENT_SUBMIT, e, this.model)
+          return
+        }
         const submited = (submitResult) => {
           if (submitResult) {
             this.$emit(EVENT_VALID, this.validity)
@@ -162,6 +170,11 @@
         this.setValidity()
         this.setValidating()
         this.setPending()
+      },
+      syncValidatorValues() {
+        this.fields.forEach((fieldComponent) => {
+          fieldComponent.syncValidatorValue()
+        })
       },
       validate(cb) {
         const promise = cb2PromiseWithResolve(cb)

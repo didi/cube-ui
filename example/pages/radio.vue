@@ -7,13 +7,12 @@
       <p>selected value: {{selected2}}</p>
       <cube-radio-group v-model="selected3" :options="options3" :horizontal="true" />
       <p>selected value: {{selected3}}</p>
-      <cube-radio-group>
+      <cube-radio-group v-model="selected4">
         <cube-radio
           v-for="(option, index) in options4"
           :key="index"
-          :option="option"
-          v-model="selected4">
-          <img :src="option.src" />
+          :option="option">
+          <img :src="option.src">
         </cube-radio>
       </cube-radio-group>
       <p>selected img: {{selected4}}</p>

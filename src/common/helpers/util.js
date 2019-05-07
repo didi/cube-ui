@@ -39,13 +39,10 @@ function createAddAPI(baseObj) {
   }
 }
 
-function toLocaleDateString(timestamp, locale) {
-  const date = new Date(timestamp)
-
-  if (locale === 'zh') {
-    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
-  } else {
-    return date.toDateString()
+function judgeTypeFnCreator (type) {
+  const toString = Object.prototype.toString
+  return function isType (o) {
+    return toString.call(o) === `[object ${type}]`
   }
 }
 
@@ -161,20 +158,50 @@ function processComponentName(Component, { prefix = '', firstUpperCase = false }
   const name = Component.name
   const pureName = name.replace(/^cube-/i, '')
   let camelizeName = `${camelize(`${prefix}${pureName}`)}`
+   /* istanbul ignore if */
   if (firstUpperCase) {
     camelizeName = camelizeName.charAt(0).toUpperCase() + camelizeName.slice(1)
   }
   return camelizeName
 }
 
+function parsePath (obj, path = '') {
+  const segments = path.split('.')
+  let result = obj
+  for (let i = 0; i < segments.length; i++) {
+    const key = segments[i]
+     /* istanbul ignore if */
+    if (isUndef(result[key])) {
+      result = ''
+      break
+    } else {
+      result = result[key]
+    }
+  }
+  return result
+}
+
+const isFunc = judgeTypeFnCreator('Function')
+const isUndef = judgeTypeFnCreator('Undefined')
+const isArray = judgeTypeFnCreator('Array')
+const isString = judgeTypeFnCreator('String')
+const isObject = judgeTypeFnCreator('Object')
+const isNumber = judgeTypeFnCreator('Number')
+
 export {
   findIndex,
   deepAssign,
   createAddAPI,
-  toLocaleDateString,
   resetTypeValue,
   parallel,
   cb2PromiseWithResolve,
   debounce,
-  processComponentName
+  processComponentName,
+  parsePath,
+  isUndef,
+  isFunc,
+  isArray,
+  isString,
+  isObject,
+  isNumber
 }

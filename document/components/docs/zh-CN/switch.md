@@ -39,3 +39,9 @@
 | - | - | - | - | - |
 | v-model | 开关状态，双向数据绑定 | Boolean | true/false | false |
 | disabled | 是否禁用 | Boolean | true/false | false |
+
+### 事件
+
+| 事件名 | 说明 | 参数 |
+| - | - | - |
+| input | 绑定值变化时触发 | 更新后的绑定值 |

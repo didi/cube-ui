@@ -21,6 +21,12 @@
         type: [String, Number],
         required: true
       },
+      value: {
+        type: [String, Number],
+        default() {
+          return this.label
+        }
+      },
       icon: {
         type: String,
         default: ''
@@ -34,12 +40,12 @@
     },
     computed: {
       isActive () {
-        return this.$parent.value === this.label
+        return this.$parent.value === this.value
       }
     },
     methods: {
       handleClick (item) {
-        this.$parent.trigger(this.label)
+        this.$parent.trigger(this.value)
       }
     }
   }

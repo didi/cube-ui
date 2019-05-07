@@ -443,7 +443,7 @@
 
 | 事件名 | 说明 | 参数1 | 参数2 |
 | - | - | - | - |
-| submit | 表单校验通过后触发此事件 | e - 事件对象 | model 值 |
+| submit | 表单校验通过后触发此事件，如果只有同步校验，则不会阻止默认行为，而如果包含了异步校验，则默认就会阻止默认行为 | e - 事件对象 | model 值 |
 | reset | 表单重置事件 | e - 事件对象 | - |
 | validate | 表单校验事件 | 参数结构如下：<br>{<br>validity,<br> valid,<br> invalid,<br> dirty,<br> firstInvalidFieldIndex<br>} | - |
 | valid | 表单校验成功触发 | validity 校验结果 | - |
@@ -471,6 +471,6 @@
 
 | 方法名 | 说明 | 参数 | 返回值 |
 | - | - | - | - |
-| submit | 提交表单 | - | - |
+| submit | 提交表单 | skipValidate, 默认 false，如果为 true 代表不校验 直接 submit<sup>1.12.2+</sup> | - |
 | reset | 重置表单 | - | - |
 | validate(cb) | 校验表单 | cb: 校验完成后回调函数，主要用于异步校验场景，调用参数为 valid 的值 | 如果支持 Promise 的话返回值是 Promise 对象（只有 resolved 状态，值为 valid），否则 undefined |

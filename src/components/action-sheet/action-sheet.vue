@@ -26,7 +26,7 @@
             </ul>
           </div>
           <div class="cube-action-sheet-space"></div>
-          <div class="cube-action-sheet-cancel" @click="cancel"><span>{{cancelTxt}}</span></div>
+          <div class="cube-action-sheet-cancel" @click="cancel"><span>{{_cancelTxt}}</span></div>
         </div>
       </transition>
     </cube-popup>
@@ -37,6 +37,7 @@
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
+  import localeMixin from '../../common/mixins/locale'
 
   const COMPONENT_NAME = 'cube-action-sheet'
   const EVENT_SELECT = 'select'
@@ -44,7 +45,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [visibilityMixin, popupMixin],
+    mixins: [visibilityMixin, popupMixin, localeMixin],
     props: {
       data: {
         type: Array,
@@ -70,7 +71,12 @@
       },
       cancelTxt: {
         type: String,
-        default: '取消'
+        default: ''
+      }
+    },
+    computed: {
+      _cancelTxt () {
+        return this.cancelTxt || this.$t('cancel')
       }
     },
     methods: {

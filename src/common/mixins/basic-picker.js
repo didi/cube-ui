@@ -1,6 +1,7 @@
 const DEFAULT_KEYS = {
   value: 'value',
-  text: 'text'
+  text: 'text',
+  order: 'order'
 }
 
 export default {
@@ -30,6 +31,9 @@ export default {
     },
     textKey() {
       return this.alias.text || DEFAULT_KEYS.text
+    },
+    orderKey() {
+      return DEFAULT_KEYS.order
     },
     merge() {
       return [this.data, this.selectedIndex]

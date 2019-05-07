@@ -1,6 +1,8 @@
 import {
   /* eslint-disable no-unused-vars */
   Style,
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
@@ -42,6 +44,7 @@ import {
   Sticky,
   ScrollNav,
   ScrollNavBar,
+  RecycleList,
   // module
   BetterScroll,
   createAPI
@@ -49,6 +52,8 @@ import {
 import { processComponentName } from './common/helpers/util'
 
 const components = [
+  // locale
+  Locale,
   // basic
   Button,
   Loading,
@@ -89,7 +94,8 @@ const components = [
   Swipe,
   Sticky,
   ScrollNav,
-  ScrollNavBar
+  ScrollNavBar,
+  RecycleList
 ]
 
 function install(Vue) {

@@ -129,7 +129,7 @@
     watch: {
       initialIndex(newIndex) {
         if (newIndex !== this.currentPageIndex) {
-          this.slide && this.slide.goToPage(newIndex)
+          this._goToPage(newIndex)
         }
       }
     },
@@ -208,7 +208,7 @@
 
         this.slide.on('scrollEnd', this._onScrollEnd)
 
-        this.slide.goToPage(this.currentPageIndex, 0, 0)
+        this._goToPage(this.currentPageIndex, 0)
 
         /* dispatch scroll position constantly */
         if (this.options.listenScroll && this.options.probeType === 3) {
@@ -281,6 +281,13 @@
           }
           this._refresh()
         }, 60)
+      },
+      _goToPage(index, time) {
+        if (this.direction === DIRECTION_H) {
+          this.slide && this.slide.goToPage(index, 0, time)
+        } else if (this.direction === DIRECTION_V) {
+          this.slide && this.slide.goToPage(0, index, time)
+        }
       }
     },
     mounted() {

@@ -7,20 +7,13 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import btnMixin from './btn-mixin'
+
   const COMPONENT_NAME = 'cube-upload-btn'
 
   export default {
     name: COMPONENT_NAME,
-    props: {
-      multiple: {
-        type: Boolean,
-        default: true
-      },
-      accept: {
-        type: String,
-        default: 'image/*'
-      }
-    },
+    mixins: [btnMixin],
     methods: {
       changeHandler(e) {
         const fileEle = e.currentTarget

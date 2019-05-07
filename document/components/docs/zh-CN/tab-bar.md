@@ -14,7 +14,7 @@
 
 - 默认样式
 
-  传入如下 `tabs` 的数据结构便能初始化 `cube-tab-bar`，必须使用 `v-model` 指令来选中对应的 tab， v-model 的参数的值必须与某一项 tab 的 label 属性对应，icon 属性是用做于 class 选择器，一般是用字体图标样式，`cube-tab-bar` 在不同的时机派发 `click` 与 `change` 事件，参数则是每次选中的 tab 对应的 label 值。
+  传入如下 `tabs` 的数据结构便能初始化 `cube-tab-bar`，必须使用 `v-model` 指令来选中对应的 tab， v-model 的参数的值必须与某一项 tab 的 label 属性对应（1.12.5 版本后是和 value 属性对应），icon 属性是用做于 class 选择器，一般是用字体图标样式，`cube-tab-bar` 在不同的时机派发 `click` 与 `change` 事件，参数则是每次选中的 tab 对应的 label 值（1.12.5 版本后是 value 值）。
 
   ```html
   <template>
@@ -113,7 +113,7 @@
 
 ### CubeTabBar & CubeTabPanels
 
-往往我们的需求是随着 tab 的切换显示不同的容器，这个时候需要搭配 `cube-tab-panels` 组件。`cube-tab-panels` 必须嵌套 `cube-tab-panel`，传入 `cube-tab` 与 `cube-tab-panel` 的label值必须一致，因为需要建立一个 tab 对应一个 panel 的关系。他们通过相同的 `v-model` 联动。查看效果可点击右边的 `tab-basic` 示例。
+往往我们的需求是随着 tab 的切换显示不同的容器，这个时候需要搭配 `cube-tab-panels` 组件。`cube-tab-panels` 必须嵌套 `cube-tab-panel`，传入 `cube-tab` 与 `cube-tab-panel` 的label值必须一致（1.12.5 版本后和 value 值一致），因为需要建立一个 tab 对应一个 panel 的关系。他们通过相同的 `v-model` 联动。查看效果可点击右边的 `tab-basic` 示例。
 
 ```html
 <template>
@@ -161,7 +161,7 @@ export default {
   | 参数 | 说明 | 类型 | 示例 | 默认值 |
   | - | - | - | - | - |
   | value | 使用 v-model，初始化时选中对应的 tab | String/Number | - | - |
-  | data | 用于 `cube-tab-bar` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label` 和 `icon`，如果使用自定义插槽，可不传此值 | Array | [{label: 1, icon: 'cubeic-like'}， {label: 2, icon: 'cubeic-like'}] | [] |
+  | data | 用于 `cube-tab-bar` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`、`icon` 和 `value`（默认值等于 `label`）<sup>1.12.5+</sup>，如果使用自定义插槽，可不传此值 | Array | [{label: 1, value: 1, icon: 'cubeic-like'}， {label: 2, value: 2, icon: 'cubeic-like'}] | [] |
   | showSlider | 是否开启下划线跟随效果 | Boolean | true/false | false |
   | inline | 文字与图标是否显示在一行 | Boolean | true/false | false |
   | useTransition | 是否开启 transition 过渡 | Boolean | true/false | true |
@@ -170,20 +170,22 @@ export default {
 
   | 参数 | 说明 | 类型 | 是否必传 | 默认值 |
   | - | - | - | - | - |
-  | label | 用于判断哪个 tab 点击从而高亮 | String/Number | 是 | - |
+  | label | 1.12.5 版本前作为哪个 tab 的值作为选中值，1.12.5 版本后主要用作展示 | String/Number | 是 | - |
+  | value | 用于判断哪个 tab 的值作为选中值<sup>1.12.5+</sup> | String/Number | 否 | `label` 的值 |
 
 - CubeTabPanels
 
   | 参数 | 说明 | 类型 | 示例 | 默认值 |
   | - | - | - | - | - |
   | value | 使用 v-model，初始化时显示对应的 panels | String/Number | - | - |
-  | data | 用于 `cube-tab-panels` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label`，如果使用自定义插槽，可不传此值 | Array | [{label: 1}， {label: 2}] | [] |
+  | data | 用于 `cube-tab-panels` 渲染的数据，当需要使用内置的默认插槽，此参数必传，数组的每一项是一个 Object 类型，包括 `label` 和 `value`<sup>1.12.5+</sup>，如果使用自定义插槽，可不传此值 | Array | [{label: 1, value: 1}, {label: 2, value: 2}] | [] |
 
 - CubeTabPanel
 
   | 参数 | 说明 | 类型 | 是否必传 | 默认值 |
   | - | - | - | - | - |
   | label | 用于显示 panel | String/Number | 是 | - |
+  | value | panel 的 key 值，决定了选中的值<sup>1.12.5+</sup> | String/Number | 是 | `value` 的值 |
 
 ### 插槽
 
@@ -200,8 +202,8 @@ export default {
 
   | 事件名 | 说明 | 参数1 |
   | - | - | - | - |
-  | click | 当 tab 被点击时派发 | 点中的tab的label值 |
-  | change | 当点击不同的 tab 时派发 | 点中的tab的label值 |
+  | click | 当 tab 被点击时派发 | 点中的tab的label/value<sup>1.12.5+</sup>值 |
+  | change | 当点击不同的 tab 时派发 | 点中的tab的label/value<sup>1.12.5+</sup>值 |
 
 ### 实例方法
 
