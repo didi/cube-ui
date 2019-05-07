@@ -1,26 +1,26 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
-import { CubeUIComponent } from './component'
+import { CubeUIComponent } from './component';
 
 /**
  * CubeUI 组件
  * CubeUI component common definition
  */
-export type Component = CubeUIComponent
+export type Component = CubeUIComponent;
 
 /**
  * 版本
  *
  * The version of cube-ui
  */
-export const version: string
+export const version: string;
 
 /**
  * 需通过 `Vue.use(Cube)` 来安装
  *
  * Call `Vue.use(Cube)` to install
  */
-export function install (vue: typeof Vue): void
+export function install(vue: typeof Vue): void;
 
 /**
  * BetterScroll, https://github.com/ustbhuangyi/better-scroll
@@ -34,7 +34,12 @@ export class BScroll {}
  * You use it to create your own API component
  * more details: https://didi.github.io/cube-ui/#/en-US/docs/create-api
  */
-export function createAPI (vue: typeof Vue, Component: CubeUIComponent, events?: string[], single?: boolean) : object
+export function createAPI(
+  vue: typeof Vue,
+  Component: CubeUIComponent,
+  events?: string[],
+  single?: boolean
+): object;
 
 // basic
 /** Button Component */
@@ -79,9 +84,9 @@ export class Form extends CubeUIComponent {}
 // popup
 /** Popup Component */
 export class Popup extends CubeUIComponent {
-  show(): any
-  hide(): any
-  remove(): any
+  show(): any;
+  hide(): any;
+  remove(): any;
 }
 /** Toast Component */
 export class Toast extends Popup {}
@@ -103,8 +108,8 @@ export class ActionSheet extends Popup {}
 export class ImagePreview extends Popup {}
 /** Drawer Component */
 export class Drawer extends CubeUIComponent {
-  show(): void
-  hide(): void
+  show(): void;
+  hide(): void;
 }
 // scroll
 /** Scroll Component */
@@ -123,27 +128,29 @@ export class ScrollNavBar extends CubeUIComponent {}
 export class ScrollNav extends CubeUIComponent {}
 /** RecycleList Component */
 export class RecycleList extends CubeUIComponent {}
+/** Style Component */
+export class Style extends CubeUIComponent {}
 
 // Vue prototype $createXx
 declare module 'vue/types/vue' {
   interface Vue {
     /** create Toast instance */
-    $createToast(options: object): Toast
+    $createToast(options: object): Toast;
     /** create Picker instance */
-    $createPicker(options: object): Picker
+    $createPicker(options: object): Picker;
     /** create CascadePicker instance */
-    $createCascadePicker(options: object): CascadePicker
+    $createCascadePicker(options: object): CascadePicker;
     /** create DatePicker instance */
-    $createDatePicker(options: object): DatePicker
+    $createDatePicker(options: object): DatePicker;
     /** create TimePicker instance */
-    $createTimePicker(options: object): TimePicker
+    $createTimePicker(options: object): TimePicker;
     /** create SegmentPicker instance */
-    $createSegmentPicker(options: object): SegmentPicker
+    $createSegmentPicker(options: object): SegmentPicker;
     /** create Dialog instance */
-    $createDialog(options: object): Dialog
+    $createDialog(options: object): Dialog;
     /** create ActionSheet instance */
-    $createActionSheet(options: object): ActionSheet
+    $createActionSheet(options: object): ActionSheet;
     /** create ImagePreview instance */
-    $createImagePreview(options: object): ImagePreview
+    $createImagePreview(options: object): ImagePreview;
   }
 }
