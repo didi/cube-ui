@@ -152,6 +152,43 @@ Checker is more flexible selection component, you can alse customize the layout.
   ```
 
 
+  - disabled state
+
+  `disabled` set disabled state。
+
+
+  ```html
+  <cube-checker
+    v-model="checkerList"
+    :options="options"/>
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        checkerList: [2],
+        option: [
+          {
+            value: 1,
+            text: 'first',
+            disabled: true
+          },
+          {
+            value: 2,
+            text: 'second',
+            disabled: true
+          },
+          {
+            value: 3,
+            text: 'third'
+          }
+        ]
+      }
+    }
+  }
+  ```
+
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
@@ -167,6 +204,7 @@ Checker is more flexible selection component, you can alse customize the layout.
 | - | - | - |
 | value | the value of checker item | String/Number |
 | text | the text of checker item | String |
+| disabled | the text of disabled state | Boolean |
 
 ### CubeCheckerItem Props configuration
 
