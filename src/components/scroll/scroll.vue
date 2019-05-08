@@ -12,16 +12,18 @@
           </ul>
         </slot>
       </div>
-      <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
-        <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-          <div class="before-trigger" v-if="!isPullUpLoad">
-            <span>{{ pullUpTxt }}</span>
+      <div v-if="pullUpLoad" class="cube-pullup" ref="pullup">
+        <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
+          <div class="cube-pullup-wrapper" v-if="pullUpLoad">
+            <div class="before-trigger" v-if="!isPullUpLoad">
+              <span>{{ pullUpTxt }}</span>
+            </div>
+            <div class="after-trigger" v-else>
+              <loading></loading>
+            </div>
           </div>
-          <div class="after-trigger" v-else>
-            <loading></loading>
-          </div>
-        </div>
-      </slot>
+        </slot>
+      </div>
     </div>
     <div v-if="pullDownRefresh" class="cube-pulldown" ref="pulldown">
       <slot
@@ -152,7 +154,8 @@
         bubbleY: 0,
         pullDownStyle: '',
         pullDownStop: 40,
-        pullDownHeight: 60
+        pullDownHeight: 60,
+        pullUpHeight: 0
       }
     },
     computed: {
@@ -206,14 +209,14 @@
             this.scroll.openPullDown(newVal)
             if (!oldVal) {
               this._onPullDownRefresh()
-              this._calculateMinHeight()
+              this._pullDownRefreshChangeHandler()
             }
           }
 
           if (!newVal && oldVal) {
             this.scroll.closePullDown()
             this._offPullDownRefresh()
-            this._calculateMinHeight()
+            this._pullDownRefreshChangeHandler()
           }
         },
         deep: true
@@ -224,14 +227,14 @@
             this.scroll.openPullUp(newVal)
             if (!oldVal) {
               this._onPullUpLoad()
-              this._calculateMinHeight()
+              this._pullUpLoadChangeHandler(true)
             }
           }
 
           if (!newVal && oldVal) {
             this.scroll.closePullUp()
             this._offPullUpLoad()
-            this._calculateMinHeight()
+            this._pullUpLoadChangeHandler()
           }
         },
         deep: true
@@ -273,12 +276,13 @@
         this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
-          this._getPullDownEleHeight()
           this._onPullDownRefresh()
+          this._pullDownRefreshChangeHandler()
         }
 
         if (this.pullUpLoad) {
           this._onPullUpLoad()
+          this._pullUpLoadChangeHandler()
         }
       },
       disable() {
@@ -406,9 +410,22 @@
         return reachBoundary
       },
       _calculateMinHeight() {
-        if (this.$refs.listWrapper) {
-          this.$refs.listWrapper.style.minHeight = this.pullDownRefresh || this.pullUpLoad ? `${getRect(this.$refs.wrapper).height + 1}px` : 0
+        const { wrapper, listWrapper } = this.$refs
+        const pullUpLoad = this.pullUpLoad
+        const pullDownRefresh = this.pullDownRefresh
+        let minHeight = 0
+
+        if (pullDownRefresh || pullUpLoad) {
+          const wrapperHeight = getRect(wrapper).height
+          minHeight = wrapperHeight + 1
+          if (pullUpLoad && pullUpLoad.visible) {
+            // minHeight = wrapperHeight + 1 - pullUpHeight, then pullUpLoad text is visible
+            // when content's height is not larger than wrapper height
+            minHeight -= this.pullUpHeight
+          }
         }
+
+        listWrapper.style.minHeight = `${minHeight}px`
       },
       _onPullDownRefresh() {
         this.scroll.on('pullingDown', this._pullDownHandle)
@@ -417,6 +434,12 @@
       _offPullDownRefresh() {
         this.scroll.off('pullingDown', this._pullDownHandle)
         this.scroll.off('scroll', this._pullDownScrollHandle)
+      },
+      _pullDownRefreshChangeHandler() {
+        this.$nextTick(() => {
+          this._getPullDownEleHeight()
+          this._calculateMinHeight()
+        })
       },
       _pullDownHandle() {
         if (this.resetPullDownTimer) {
@@ -434,6 +457,12 @@
           this.bubbleY = 0
           this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
         }
+      },
+      _pullUpLoadChangeHandler(open) {
+        this.$nextTick(() => {
+          this._getPullUpEleHeight()
+          this._calculateMinHeight()
+        })
       },
       _onPullUpLoad() {
         this.scroll.on('pullingUp', this._pullUpHandle)
@@ -460,7 +489,11 @@
         }, this.scroll.options.bounceTime)
       },
       _getPullDownEleHeight() {
-        const pulldown = this.$refs.pulldown.firstChild
+        let pulldown = this.$refs.pulldown
+        if (!pulldown) {
+          return
+        }
+        pulldown = pulldown.firstChild
         this.pullDownHeight = getRect(pulldown).height
 
         this.beforePullDown = false
@@ -471,6 +504,14 @@
           this.beforePullDown = true
           this.isPullingDown = false
         })
+      },
+      _getPullUpEleHeight() {
+        const pullup = this.$refs.pullup
+        if (!pullup) {
+          this.pullUpHeight = 0
+          return
+        }
+        this.pullUpHeight = getRect(pullup).height
       }
     },
     components: {
