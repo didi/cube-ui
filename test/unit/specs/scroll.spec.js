@@ -207,7 +207,7 @@ describe('Scroll', () => {
 
         setTimeout(() => {
           expect(vm.isPullUpLoad).to.be.false
-          expect(vm.pullUpDirty).to.be.false
+          expect(vm.pullUpNoMore).to.be.true
 
           const pullUpTxtElm = vm.$el.querySelector('.cube-pullup-wrapper span')
           expect(pullUpTxtElm.textContent).to.equal('noMore')
