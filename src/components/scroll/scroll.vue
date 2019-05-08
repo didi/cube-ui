@@ -150,7 +150,7 @@
         beforePullDown: true,
         isPullingDown: false,
         isPullUpLoad: false,
-        pullUpDirty: true,
+        pullUpNoMore: false,
         bubbleY: 0,
         pullDownStyle: '',
         pullDownStop: 40,
@@ -178,7 +178,7 @@
         const moreTxt = (txt && txt.more) || ''
         const noMoreTxt = (txt && txt.noMore) || ''
 
-        return this.pullUpDirty ? moreTxt : noMoreTxt
+        return this.pullUpNoMore ? noMoreTxt : moreTxt
       },
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
@@ -308,7 +308,7 @@
       clickItem(item) {
         this.$emit(EVENT_CLICK, item)
       },
-      forceUpdate(dirty = false) {
+      forceUpdate(dirty = false, nomore = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
           this._reboundPullDown(() => {
@@ -317,14 +317,14 @@
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
-          this.pullUpDirty = dirty
+          this.pullUpNoMore = !dirty || nomore
           dirty && this.refresh()
         } else {
           dirty && this.refresh()
         }
       },
       resetPullUpTxt() {
-        this.pullUpDirty = true
+        this.pullUpNoMore = false
       },
       _listenScrollEvents() {
         this.finalScrollEvents.forEach((event) => {
