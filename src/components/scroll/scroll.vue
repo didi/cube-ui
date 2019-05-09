@@ -12,18 +12,16 @@
           </ul>
         </slot>
       </div>
-      <div v-if="pullUpLoad" class="cube-pullup" ref="pullup">
-        <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
-          <div class="cube-pullup-wrapper" v-if="pullUpLoad">
-            <div class="before-trigger" v-if="!isPullUpLoad">
-              <span>{{ pullUpTxt }}</span>
-            </div>
-            <div class="after-trigger" v-else>
-              <loading></loading>
-            </div>
+      <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
+        <div class="cube-pullup-wrapper" v-if="pullUpLoad">
+          <div class="before-trigger" v-if="!isPullUpLoad">
+            <span>{{ pullUpTxt }}</span>
           </div>
-        </slot>
-      </div>
+          <div class="after-trigger" v-else>
+            <loading></loading>
+          </div>
+        </div>
+      </slot>
     </div>
     <div v-if="pullDownRefresh" class="cube-pulldown" ref="pulldown">
       <slot
@@ -227,7 +225,7 @@
             this.scroll.openPullUp(newVal)
             if (!oldVal) {
               this._onPullUpLoad()
-              this._pullUpLoadChangeHandler(true)
+              this._pullUpLoadChangeHandler()
             }
           }
 
@@ -458,7 +456,7 @@
           this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
         }
       },
-      _pullUpLoadChangeHandler(open) {
+      _pullUpLoadChangeHandler() {
         this.$nextTick(() => {
           this._getPullUpEleHeight()
           this._calculateMinHeight()
@@ -506,7 +504,8 @@
         })
       },
       _getPullUpEleHeight() {
-        const pullup = this.$refs.pullup
+        const listWrapper = this.$refs.listWrapper
+        const pullup = listWrapper.nextElementSibling
         if (!pullup) {
           this.pullUpHeight = 0
           return
