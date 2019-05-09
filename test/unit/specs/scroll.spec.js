@@ -172,7 +172,8 @@ describe('Scroll', () => {
             txt: {
               more: 'more',
               noMore: 'noMore'
-            }
+            },
+            visible: true
           }
         }
       },
@@ -203,7 +204,7 @@ describe('Scroll', () => {
           .to.be.callCount(1)
 
         // test: forceUpdate
-        vm.forceUpdate()
+        vm.forceUpdate(true, true)
 
         setTimeout(() => {
           expect(vm.isPullUpLoad).to.be.false
