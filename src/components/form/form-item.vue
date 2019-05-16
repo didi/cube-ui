@@ -98,7 +98,6 @@
         return this.form.model[this.fieldValue.modelKey]
       },
       componentName() {
-        debugger
         const fieldValue = this.fieldValue
         const component = fieldValue.component
         if (component) {
