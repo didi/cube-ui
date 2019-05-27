@@ -441,7 +441,7 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | - | - | - | - | - |
 | threshold | the threshold of  distance that pulling up for  loading | Number | - | 0 |
 | txt | the text shown when pulling up loading | Object | - | { more: '', noMore: '' } |
-| visible<sup>1.13.0</sup> | 内容不满一屏时，txt 文案是否可见 | Boolean | true/false | false |
+| visible<sup>1.13.0</sup> | txt visible or not when content is not more enough | Boolean | true/false | false |
 
 > When pullUpLoad is enabled and the content height is smaller than the container, by default, the copy `pullUpLoad.txt` needs to be pulled up to be seen. If you want to see the prompt copy without pulling up, you can set `pullUpLoad.visible` to `true`。
 
