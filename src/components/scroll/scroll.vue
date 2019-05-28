@@ -148,11 +148,12 @@
         beforePullDown: true,
         isPullingDown: false,
         isPullUpLoad: false,
-        pullUpDirty: true,
+        pullUpNoMore: false,
         bubbleY: 0,
         pullDownStyle: '',
         pullDownStop: 40,
-        pullDownHeight: 60
+        pullDownHeight: 60,
+        pullUpHeight: 0
       }
     },
     computed: {
@@ -175,7 +176,7 @@
         const moreTxt = (txt && txt.more) || ''
         const noMoreTxt = (txt && txt.noMore) || ''
 
-        return this.pullUpDirty ? moreTxt : noMoreTxt
+        return this.pullUpNoMore ? noMoreTxt : moreTxt
       },
       refreshTxt() {
         const pullDownRefresh = this.pullDownRefresh
@@ -206,14 +207,14 @@
             this.scroll.openPullDown(newVal)
             if (!oldVal) {
               this._onPullDownRefresh()
-              this._calculateMinHeight()
+              this._pullDownRefreshChangeHandler()
             }
           }
 
           if (!newVal && oldVal) {
             this.scroll.closePullDown()
             this._offPullDownRefresh()
-            this._calculateMinHeight()
+            this._pullDownRefreshChangeHandler()
           }
         },
         deep: true
@@ -224,14 +225,14 @@
             this.scroll.openPullUp(newVal)
             if (!oldVal) {
               this._onPullUpLoad()
-              this._calculateMinHeight()
+              this._pullUpLoadChangeHandler()
             }
           }
 
           if (!newVal && oldVal) {
             this.scroll.closePullUp()
             this._offPullUpLoad()
-            this._calculateMinHeight()
+            this._pullUpLoadChangeHandler()
           }
         },
         deep: true
@@ -273,12 +274,13 @@
         this._listenScrollEvents()
 
         if (this.pullDownRefresh) {
-          this._getPullDownEleHeight()
           this._onPullDownRefresh()
+          this._pullDownRefreshChangeHandler()
         }
 
         if (this.pullUpLoad) {
           this._onPullUpLoad()
+          this._pullUpLoadChangeHandler()
         }
       },
       disable() {
@@ -304,7 +306,7 @@
       clickItem(item) {
         this.$emit(EVENT_CLICK, item)
       },
-      forceUpdate(dirty = false) {
+      forceUpdate(dirty = false, nomore = false) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
           this._reboundPullDown(() => {
@@ -313,14 +315,14 @@
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
-          this.pullUpDirty = dirty
+          this.pullUpNoMore = !dirty || nomore
           dirty && this.refresh()
         } else {
           dirty && this.refresh()
         }
       },
       resetPullUpTxt() {
-        this.pullUpDirty = true
+        this.pullUpNoMore = false
       },
       _listenScrollEvents() {
         this.finalScrollEvents.forEach((event) => {
@@ -406,9 +408,22 @@
         return reachBoundary
       },
       _calculateMinHeight() {
-        if (this.$refs.listWrapper) {
-          this.$refs.listWrapper.style.minHeight = this.pullDownRefresh || this.pullUpLoad ? `${getRect(this.$refs.wrapper).height + 1}px` : 0
+        const { wrapper, listWrapper } = this.$refs
+        const pullUpLoad = this.pullUpLoad
+        const pullDownRefresh = this.pullDownRefresh
+        let minHeight = 0
+
+        if (pullDownRefresh || pullUpLoad) {
+          const wrapperHeight = getRect(wrapper).height
+          minHeight = wrapperHeight + 1
+          if (pullUpLoad && pullUpLoad.visible) {
+            // minHeight = wrapperHeight + 1 - pullUpHeight, then pullUpLoad text is visible
+            // when content's height is not larger than wrapper height
+            minHeight -= this.pullUpHeight
+          }
         }
+
+        listWrapper.style.minHeight = `${minHeight}px`
       },
       _onPullDownRefresh() {
         this.scroll.on('pullingDown', this._pullDownHandle)
@@ -417,6 +432,12 @@
       _offPullDownRefresh() {
         this.scroll.off('pullingDown', this._pullDownHandle)
         this.scroll.off('scroll', this._pullDownScrollHandle)
+      },
+      _pullDownRefreshChangeHandler() {
+        this.$nextTick(() => {
+          this._getPullDownEleHeight()
+          this._calculateMinHeight()
+        })
       },
       _pullDownHandle() {
         if (this.resetPullDownTimer) {
@@ -434,6 +455,12 @@
           this.bubbleY = 0
           this.pullDownStyle = `top:${Math.min(pos.y - this.pullDownStop, 0)}px`
         }
+      },
+      _pullUpLoadChangeHandler() {
+        this.$nextTick(() => {
+          this._getPullUpEleHeight()
+          this._calculateMinHeight()
+        })
       },
       _onPullUpLoad() {
         this.scroll.on('pullingUp', this._pullUpHandle)
@@ -460,7 +487,11 @@
         }, this.scroll.options.bounceTime)
       },
       _getPullDownEleHeight() {
-        const pulldown = this.$refs.pulldown.firstChild
+        let pulldown = this.$refs.pulldown
+        if (!pulldown) {
+          return
+        }
+        pulldown = pulldown.firstChild
         this.pullDownHeight = getRect(pulldown).height
 
         this.beforePullDown = false
@@ -471,6 +502,15 @@
           this.beforePullDown = true
           this.isPullingDown = false
         })
+      },
+      _getPullUpEleHeight() {
+        const listWrapper = this.$refs.listWrapper
+        const pullup = listWrapper.nextElementSibling
+        if (!pullup) {
+          this.pullUpHeight = 0
+          return
+        }
+        this.pullUpHeight = getRect(pullup).height
       }
     },
     components: {
