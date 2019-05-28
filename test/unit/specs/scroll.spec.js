@@ -172,7 +172,8 @@ describe('Scroll', () => {
             txt: {
               more: 'more',
               noMore: 'noMore'
-            }
+            },
+            visible: true
           }
         }
       },
@@ -203,11 +204,11 @@ describe('Scroll', () => {
           .to.be.callCount(1)
 
         // test: forceUpdate
-        vm.forceUpdate()
+        vm.forceUpdate(true, true)
 
         setTimeout(() => {
           expect(vm.isPullUpLoad).to.be.false
-          expect(vm.pullUpDirty).to.be.false
+          expect(vm.pullUpNoMore).to.be.true
 
           const pullUpTxtElm = vm.$el.querySelector('.cube-pullup-wrapper span')
           expect(pullUpTxtElm.textContent).to.equal('noMore')
