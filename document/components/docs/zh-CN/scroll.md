@@ -442,7 +442,7 @@
 | - | - | - | - | - |
 | threshold | 上拉刷新动作的上拉距离阈值 | Number | - | 0 |
 | txt | 上拉加载的相关文案 | Object | - | { more: '', noMore: '' } |
-| visible<sup>1.13.0</sup> | 内容不满一屏时，txt 文案是否可见 | Boolean | true/false | false |
+| visible<sup>1.12.21</sup> | 内容不满一屏时，txt 文案是否可见 | Boolean | true/false | false |
 
 > 当开启 pullUpLoad，且内容较少，内容高度小于容器时，默认情况下，`pullUpLoad.txt` 配置的文案如“上滑加载更多”，需要上拉后才能看到。如果希望无需上拉即可看到提示文案，可以设置 `pullUpLoad.visible` 为 `true`。
 
@@ -470,7 +470,7 @@
 | 方法名 | 说明 | 参数 |
 | - | - | - |
 | scrollTo(x, y, time, ease) | 滚动到指定位置 | x: number, 横向位置<br> y: number, 纵向位置<br> time: number, 过渡动画时间 (ms)<br> ease: EasingFn, 缓动曲线 |
-| forceUpdate(dirty, nomore) | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: boolean, 标识有数据更新，默认为 false。<br>nomore: boolean, pullUpLoad 中标识没有更多数据，默认为 false。当 nomore 为 true 时，上拉加载展示 `pullUpLoad.txt.nomore` 值，但当 dirty 为 false 时，nomore 无效。|
+| forceUpdate(dirty, nomore<sup>1.12.21</sup>) | 标记上拉下拉结束，强制重新计算可滚动距离 | dirty: boolean, 标识有数据更新，默认为 false。<br>nomore: boolean, pullUpLoad 中标识没有更多数据，默认为 false。1.12.21版本后支持 nomore 参数，当 nomore 为 true 时，上拉加载展示 `pullUpLoad.txt.nomore` 值，但当 dirty 为 false 时，nomore 无效。|
 | disable() | 禁用滚动 | - |
 | enable() | 启用滚动，默认是开启滚动的。 | - |
 | resetPullUpTxt() | 当从无更多切换到有更多时，重置上拉文本内容 | - |

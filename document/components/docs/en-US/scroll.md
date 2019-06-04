@@ -441,7 +441,7 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | - | - | - | - | - |
 | threshold | the threshold of  distance that pulling up for  loading | Number | - | 0 |
 | txt | the text shown when pulling up loading | Object | - | { more: '', noMore: '' } |
-| visible<sup>1.13.0</sup> | txt visible or not when content is not more enough | Boolean | true/false | false |
+| visible<sup>1.12.21</sup> | txt visible or not when content is not more enough | Boolean | true/false | false |
 
 > When pullUpLoad is enabled and the content height is smaller than the container, by default, the copy `pullUpLoad.txt` needs to be pulled up to be seen. If you want to see the prompt copy without pulling up, you can set `pullUpLoad.visible` to `true`。
 
@@ -470,7 +470,7 @@ In `options`, there are three frequently-used options, `scrollbar`、`pullDownRe
 | Method Name | Description | Parameters |
 | - | - | - |
 | scrollTo(x, y, time, ease) | Scroll to specific position. | x: number, horizontal position<br> y: number, vertical position<br> time: number, transition time(ms)<br> ease: easingFn, easing function |
-| forceUpdate(dirty, nomore) | Mark pull-up or pull-down end, force recalculation of scrollable distance | dirty: boolean, default to false, if true express has data update。<br>nomore: boolean, default to false, if true represent has no more data. When params nomore is true, when pullup shows the value of `pullUpLoad.txt.nomore`, but when dirty is false, nomore is invalid.|
+| forceUpdate(dirty, nomore<sup>1.12.21</sup>) | Mark pull-up or pull-down end, force recalculation of scrollable distance | dirty: boolean, default to false, if true express has data update。<br>nomore<sup>1.12.21</sup>: boolean, default to false, if true represent has no more data. When params nomore is true, when pullup shows the value of `pullUpLoad.txt.nomore`, but when dirty is false, nomore is invalid.|
 | disable() | Disable scroll. | - |
 | enable() | Enable scroll. It's enabled by default | - |
 | resetPullUpTxt() | Reset pull up txt when pull up state changed from no data to data updated | - |
