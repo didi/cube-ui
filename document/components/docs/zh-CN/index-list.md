@@ -179,7 +179,7 @@
 
   - 下拉刷新
 
-  可以通过 `pullDownRefresh` 属性开启下拉刷新功能，具体配置同 Scroll 组件的 `options.pullDownRefresh`。
+  可以通过 `pullDownRefresh` 属性开启下拉刷新功能，具体配置同 Scroll 组件的 `options.pullDownRefresh`
 
   ```html
   <cube-index-list
