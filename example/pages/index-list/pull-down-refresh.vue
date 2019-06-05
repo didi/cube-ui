@@ -50,7 +50,7 @@
           // Update data.
           this.data[1].items.push(...cityData[1].items)
           // Call forceUpdate after finishing data load.
-          this.$refs.indexList.forceUpdate()
+          this.$refs.indexList.forceUpdate(true)
         }, 1000)
       }
     }
