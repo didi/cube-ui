@@ -9,7 +9,7 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 - 基本用法
 
   ```html
-  <cube-button @click="showActionSheet">操作列表</cube-button>
+  <cube-button @click="showDefault">操作列表</cube-button>
   ```
   ```js
   export default {

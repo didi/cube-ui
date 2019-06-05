@@ -9,7 +9,7 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 - Basic usage
 
   ```html
-  <cube-button @click="showActionSheet">action sheet</cube-button>
+  <cube-button @click="showDefault">action sheet</cube-button>
   ```
   ```js
   export default {
