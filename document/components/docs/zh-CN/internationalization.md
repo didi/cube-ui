@@ -4,7 +4,7 @@
 
 cube-ui 内部所有非可配置的文案，都是中文的形式，所以如果你的应用是需要做对应的国际化文案翻译，那么 cube-ui  `1.11.0` 这个版本是提供了给 cube-ui 组件的文案翻译的能力，甚至这种能力也能延伸至你的应用。
 
-## 组件内部的国际化
+## cube-ui 组件的国际化
 
 cube-ui 默认是用的中文语言包，并且已经注册了。cube-ui 内部也内置了对应的英文语言包，但是你需要如下的逻辑来注册语言包，同时切换至对应的语言。
 
@@ -113,7 +113,7 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
   }
 ```
 
-## 应用内的组件化
+## 程序应用的国际化<sup>1.12.23+</sup>
 
 如上面所述，cube-ui 给自己的组件提供了国际化的能力，但是这种能力也能延伸至你的应用，分两步进行：
 
@@ -123,8 +123,12 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
 
   ```js
     // default.js
+
     export default {
       "application_key": "这是我应用的翻译",
+      "country": {
+        "province": "北京"
+      }
 
       /* cube-ui 的默认配置*/
       "cancel": "Cancel",
@@ -146,40 +150,49 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
 
 2. **在组件内部通过 mixins 注入翻译的能力**
 
-  这个时候，你会发现 `Vue.prototype` 上面有个 `$cubeLang` 与 `$cubeMessages` 属性。前者是当前语言，这个是响应式的属性。后者是语言包内容。可以通过 Vue 提供的 `mixin` 的能力注入到你所有的组件实例当中。
-
-  先编写一个 mixin 文件：
+  然后借助于 `Vue` 提供的 mixin 能力。cube-ui 提供了语言包 `key=>value` 的转换函数 `$t`，你只需要在组件的 `mixins` 属性注入它，之后就可以在模版使用。示例如下：
 
   ```js
-    // localeMixin.js
+  // dialog.vue
+
+  import { Locale } from 'cube-ui'
+  <script>
     export default {
-      methods: {
-        $t (key) {
-          const lang = this.$cubeLang
-          const messages = this.$cubeMessages[lang]
-          return this.$cubeMessages[lang][key] || ''
-        }
-      }
+      //...
+      mixins: [Locale.LocaleMixin] // 注入 mixin，拥有 $t 的能力
     }
+  </script>
   ```
 
-  后注入到对应的组件实例。
-
-  ```js
-    // dialog.vue
-    import LocaleMixin from 'localeMixin.js'
-
-    exports default {
-      mixins: [LocaleMixin]
-    }
-  ```
-
-  这样就可以在 template 引用 `$t()` 方法了
+  接着，只需要在模版使用它就行：
 
   ```html
-    <template>
-      <div>{{$t('application_key')}}</div>
-    </template>
+  <template>
+    <div>
+      {{$t('application_key')}}
+    </div>
+  </template>
   ```
 
-  最后 `{{$t('application_key')}}` 就会被替换成 `"这是我应用的翻译"` 文本了。
+  最后，`{{$t('application_key')}}` 就被渲染成 `"这是我应用的翻译"`。考虑到你的语言包可能是多层级嵌套，`$t` 还接受一个以 `"."` 为分隔符的字符串，来获取深层次的属性，例如：
+
+  ```js
+  // 你的语言包结构形式
+  export default {
+    a: {
+      b: {
+        c: "嵌套的 c"
+      }
+    }
+  }
+  ```
+
+  那么你在 `template` 的使用就很简单。
+
+  ```html
+  <template>
+    <div>
+      {{$t('a.b.c')}}
+    </div>
+  </template>
+  ```
