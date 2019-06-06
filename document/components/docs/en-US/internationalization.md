@@ -119,12 +119,15 @@ As mentioned above, cube-ui provides international capabilities for its own comp
 
 1. Import language packs
 
-  1. Import the language pack First, you must import the language pack, which should be the full set containing the cube-ui default language pack. For example, your language pack configuration might look like this:
+  you must import the language pack, which should be the full set containing the `cube-ui` default language pack. For example, your language pack configuration might look like this:
 
   ```js
     // default.js
     export default {
       "application_key": "this is application text",
+      "country": {
+        "province": "Beijing"
+      }
 
       /* defaults of cube-ui*/
       "cancel": "Cancel",
@@ -146,35 +149,21 @@ As mentioned above, cube-ui provides international capabilities for its own comp
 
 2. Ability to inject translations through mixins inside components
 
-  At this time, you will find a `$cubeLang` and `$cubeMessages` attribute on `Vue.prototype`. The former is the current language, and this is a responsive attribute. The latter is the language pack content. You can inject all of your component instances with the ability of `mixin` provided by Vue.
-
-  Write a `mixin` file first:
+  Then use the `mixin` capability provided by `Vue`. cube-ui provides the conversion function `$t` for the language package `key=>value`. You only need to inject it into the component's `mixins` property, and then you can use it in the template. An example is as follows:
 
   ```js
-    // localeMixin.js
+  // dialog.vue
+
+  import { Locale } from 'cube-ui'
+  <script>
     export default {
-      methods: {
-        $t (key) {
-          const lang = this.$cubeLang
-          const messages = this.$cubeMessages[lang]
-          return this.$cubeMessages[lang][key] || ''
-        }
-      }
+      //...
+      mixins: [Locale.LocaleMixin] // Inject mixin, have the ability to $t
     }
+  </script>
   ```
 
-  Then injecting into the corresponding component instance:
-
-  ```js
-    // dialog.vue
-    import LocaleMixin from 'localeMixin.js'
-
-    exports default {
-      mixins: [LocaleMixin]
-    }
-  ```
-
-  This way you can reference the `$t()` method in the template.
+  Then you can reference the `$t()` method in the template.
 
   ```html
     <template>
@@ -182,4 +171,25 @@ As mentioned above, cube-ui provides international capabilities for its own comp
     </template>
   ```
 
-  This way `{{$t('application_key')}}` will be replaced with `"this is application text"`.
+  Finally, `{{$t('application_key')}}` is rendered as `"this is application text"`. Considering that your language pack may be multi-level nested, `$t` also accepts a string with a separator of `"."` to get deep-level properties, such as:
+
+  ```js
+  // your language packs structure
+  export default {
+    a: {
+      b: {
+        c: "nested c"
+      }
+    }
+  }
+  ```
+
+  It is easy to use it in `template`。
+
+  ```html
+  <template>
+    <div>
+      {{$t('a.b.c')}}
+    </div>
+  </template>
+  ```
