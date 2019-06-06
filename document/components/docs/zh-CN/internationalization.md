@@ -2,65 +2,59 @@
 
 > 1.11.0 新增
 
-cube-ui 组件内部默认使用中文，若希望使用其他语言，则需要进行多语言设置。以英文为例，在 main.js 中：
+cube-ui 内部所有非可配置的文案，都是中文的形式，所以如果你的应用是需要做对应的国际化文案翻译，那么 cube-ui  `1.11.0` 这个版本是提供了给 cube-ui 组件的文案翻译的能力，甚至这种能力也能延伸至你的应用。
+
+## 组件内部的国际化
+
+cube-ui 默认是用的中文语言包，并且已经注册了。cube-ui 内部也内置了对应的英文语言包，但是你需要如下的逻辑来注册语言包，同时切换至对应的语言。
 
 ```js
-
-  // 完整引入 cube-ui
   import Vue from 'vue'
-  import CubeUI from 'cube-ui'
-  import enUSMessages from 'cube-ui/src/locale/lang/en-US' // cube-ui 内置
-  import jaJPMessages from '../some/path/lang/ja-JP' // 自己引入日语语言包
-  const Locale = CubeUI.Locale
-  Vue.use(CubeUI)
-  Locale.use('en-US', enUSMessages)
-  Locale.use('ja-JP', jaJPMessages)
-
-```
-
-或者按需引入
-
-```js
-
-  // 按需引入 ActionSheet
-  import Vue from 'vue'
-  import { ActionSheet, Locale } from 'cube-ui'
+  import { Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
   Vue.use(Locale)
+  // 切换至英语，并且缓存当前语言包
   Locale.use('en-US', enUSMessages)
-
 ```
 
 cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案，同时缓存加载过的文案，在做组件语言切换的时候，如果语言包已经安装，cube-ui 直接取缓存的文案。类似伪代码如下：
 
 ```js
-
-  // 按需引入 ActionSheet
   import Vue from 'vue'
-  import { ActionSheet, Locale } from 'cube-ui'
+  import { Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
   // 默认加载中文语言包
   Vue.use(Locale)
 
-  // 点击切换英文语言包
+  // 切换至英语，并且需要导入英语语言包
   one.click(() =>{
     Locale.use('en-US', enUSMessages)
   })
 
-  // 再次切换回中文语言包
   another.click(() => {
-    // 直接从缓存取
+    // 从缓存取之前的语言包
     Locale.use('zh-CN')
   })
-
 ```
 
-默认的中文语言包如下
+但是可能你有其他国家的翻译需求，比如日语、韩语，那么你需要自己提供语言包，并且切换至对应语言。代码如下：
 
 ```js
+  import Vue from 'vue'
+  import { Locale } from 'cube-ui'
+  import jPMessages from '/somewhere/ja-JP.js' // 自己的语言包
 
+  Vue.use(Locale)
+
+  // 切换至日语，并且需要导入日语语言包
+  Locale.use('ja-JP', jPMessages)
+```
+
+你导入的语言包的配置项形式应该与下面相仿，默认的中文语言包如下：
+
+```js
   export default {
     cancel: '取消',
     confirm: '确认',
@@ -117,5 +111,75 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
       notWhitespace: '空白内容无效'
     }
   }
-
 ```
+
+## 应用内的组件化
+
+如上面所述，cube-ui 给自己的组件提供了国际化的能力，但是这种能力也能延伸至你的应用，分两步进行：
+
+1. **导入语言包**
+
+  首先，得导入语言包，这个语言包应该是包含 cube-ui 默认语言包的全集。比如你的语言包配置可能如下：
+
+  ```js
+    // default.js
+    export default {
+      "application_key": "这是我应用的翻译",
+
+      /* cube-ui 的默认配置*/
+      "cancel": "Cancel",
+      // ...忽略中间部分的配置，
+      "validator": {/* */}
+    }
+  ```
+
+  接着在你应用的入口文件导入这个语言包。
+
+  ```js
+    import Vue from 'vue'
+    import { Locale } from 'cube-ui'
+    import defaultMessages from 'default.js' // 自己的语言包
+
+    Vue.use(Locale)
+    Locale.use('zh-CN', defaultMessages)
+  ```
+
+2. **在组件内部通过 mixins 注入翻译的能力**
+
+  这个时候，你会发现 `Vue.prototype` 上面有个 `$cubeLang` 与 `$cubeMessages` 属性。前者是当前语言，这个是响应式的属性。后者是语言包内容。可以通过 Vue 提供的 `mixin` 的能力注入到你所有的组件实例当中。
+
+  先编写一个 mixin 文件：
+
+  ```js
+    // localeMixin.js
+    export default {
+      methods: {
+        $t (key) {
+          const lang = this.$cubeLang
+          const messages = this.$cubeMessages[lang]
+          return this.$cubeMessages[lang][key] || ''
+        }
+      }
+    }
+  ```
+
+  后注入到对应的组件实例。
+
+  ```js
+    // dialog.vue
+    import LocaleMixin from 'localeMixin.js'
+
+    exports default {
+      mixins: [LocaleMixin]
+    }
+  ```
+
+  这样就可以在 template 引用 `$t()` 方法了
+
+  ```html
+    <template>
+      <div>{{$t('application_key')}}</div>
+    </template>
+  ```
+
+  最后 `{{$t('application_key')}}` 就会被替换成 `"这是我应用的翻译"` 文本了。
