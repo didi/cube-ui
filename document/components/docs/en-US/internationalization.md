@@ -2,65 +2,59 @@
 
 > New in 1.11.0+
 
-The cube-ui component uses Chinese internally by default. If you want to use another language, you need to set it in multiple languages. Take English as an example in main.js:
+All non-configurable copy files inside `cube-ui` are in Chinese, so if your application needs to do the corresponding international translation, then `1.11.0` is available for cube-ui provide ability to translate a component's copywriting, even this ability can be extended to your application.
+
+## Internationalization within components
+
+Cube-ui is the Chinese language pack used by default and is already registered. The corresponding English language pack is also built into the cube-ui, but you need the following logic to register the language pack and switch to the corresponding language.
 
 ```js
-
-  // Full import
   import Vue from 'vue'
-  import CubeUI from 'cube-ui'
-  import enUSMessages from 'cube-ui/src/locale/lang/en-US' // Built-in in cube-ui
-  import jaJPMessages from '../some/path/lang/ja-JP' // Import Japanese language by yourself
-  const Locale = CubeUI.Locale
-  Vue.use(CubeUI)
-  Locale.use('en-US', enUSMessages)
-  Locale.use('ja-JP', jaJPMessages)
-
-```
-
-Or, import by module
-
-```js
-
-  // Only import ActionSheet
-  import Vue from 'vue'
-  import { ActionSheet, Locale } from 'cube-ui'
+  import { Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
   Vue.use(Locale)
+  // Switch to English and cache the current language pack
   Locale.use('en-US', enUSMessages)
-
 ```
 
-Cube-ui will watch the current language type, so it automatically renders once language type has changed, and caches the loaded translation. When the language type is switched and the language translation is already installed, cube-ui directly takes the cached copy. Similar pseudo code is as follows:
+Cube-ui will listen to the current language type, so it automatically renders the corresponding copy of the component, and caches the loaded copy. When the component language is switched, if the language pack is already installed, cube-ui directly takes the cached copy. Similar pseudo code is as follows:
 
 ```js
-
-  // Only import ActionSheet
   import Vue from 'vue'
-  import { ActionSheet, Locale } from 'cube-ui'
+  import { Locale } from 'cube-ui'
   import enUSMessages from 'cube-ui/src/locale/lang/en-US'
 
-  // Chinese translation by default
+  // Load Chinese language pack by default
   Vue.use(Locale)
 
-  // Click to switch English language translation
+  // Switch to English and need to import the English language pack
   one.click(() =>{
     Locale.use('en-US', enUSMessages)
   })
 
-  // Switch back to default
   another.click(() => {
-    // Take the translation from the cache
+    // load Chinese from cache
     Locale.use('zh-CN')
   })
-
 ```
 
-The default messages is as follows
+But maybe you have translation needs in other countries, such as Japanese and Korean, then you need to provide the language pack yourself and switch to the corresponding language. code show as below:
 
 ```js
+  import Vue from 'vue'
+  import { Locale } from 'cube-ui'
+  import jPMessages from '/somewhere/ja-JP.js' // Your own language
 
+  Vue.use(Locale)
+
+  // Switch to Japanese and need to import Japanese language packs
+  Locale.use('ja-JP', jPMessages)
+```
+
+The configuration item format of the language pack you import should be similar to the following. The default Chinese language pack is as follows:
+
+```js
   export default {
     cancel: '取消',
     confirm: '确认',
@@ -117,5 +111,75 @@ The default messages is as follows
       notWhitespace: '空白内容无效'
     }
   }
-
 ```
+
+## Internationalization of applications
+
+As mentioned above, cube-ui provides international capabilities for its own components, but this capability can be extended to your application in two steps:
+
+1. Import language packs
+
+  1. Import the language pack First, you must import the language pack, which should be the full set containing the cube-ui default language pack. For example, your language pack configuration might look like this:
+
+  ```js
+    // default.js
+    export default {
+      "application_key": "this is application text",
+
+      /* defaults of cube-ui*/
+      "cancel": "Cancel",
+      // ...ignore
+      "validator": {/* */}
+    }
+  ```
+
+  Then import the language pack in your app's entry file.
+
+  ```js
+    import Vue from 'vue'
+    import { Locale } from 'cube-ui'
+    import defaultMessages from 'default.js' // your own language
+
+    Vue.use(Locale)
+    Locale.use('zh-CN', defaultMessages)
+  ```
+
+2. Ability to inject translations through mixins inside components
+
+  At this time, you will find a `$cubeLang` and `$cubeMessages` attribute on `Vue.prototype`. The former is the current language, and this is a responsive attribute. The latter is the language pack content. You can inject all of your component instances with the ability of `mixin` provided by Vue.
+
+  Write a `mixin` file first:
+
+  ```js
+    // localeMixin.js
+    export default {
+      methods: {
+        $t (key) {
+          const lang = this.$cubeLang
+          const messages = this.$cubeMessages[lang]
+          return this.$cubeMessages[lang][key] || ''
+        }
+      }
+    }
+  ```
+
+  Then injecting into the corresponding component instance:
+
+  ```js
+    // dialog.vue
+    import LocaleMixin from 'localeMixin.js'
+
+    exports default {
+      mixins: [LocaleMixin]
+    }
+  ```
+
+  This way you can reference the `$t()` method in the template.
+
+  ```html
+    <template>
+      <div>{{$t('application_key')}}</div>
+    </template>
+  ```
+
+  This way `{{$t('application_key')}}` will be replaced with `"this is application text"`.
