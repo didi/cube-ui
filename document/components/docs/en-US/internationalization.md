@@ -113,7 +113,7 @@ The configuration item format of the language pack you import should be similar 
   }
 ```
 
-## Internationalization of applications
+## Internationalization of applications<sup>1.12.23+</sup>
 
 As mentioned above, cube-ui provides international capabilities for its own components, but this capability can be extended to your application in two steps:
 
