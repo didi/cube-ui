@@ -158,7 +158,7 @@ As mentioned above, cube-ui provides international capabilities for its own comp
   <script>
     export default {
       //...
-      mixins: [Locale.LocaleMixin] // Inject mixin, have the ability to $t
+      mixins: [Locale.localeMixin] // Inject mixin, have the ability to $t. After v1.12.23
     }
   </script>
   ```

@@ -159,7 +159,7 @@ cube-ui 会监听当前的语言类型，因此自动渲染组件对应的文案
   <script>
     export default {
       //...
-      mixins: [Locale.LocaleMixin] // 注入 mixin，拥有 $t 的能力
+      mixins: [Locale.localeMixin] // 注入 mixin，拥有 $t 的能力，1.12.23 版本新加
     }
   </script>
   ```
