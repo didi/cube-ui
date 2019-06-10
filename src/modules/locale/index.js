@@ -1,6 +1,6 @@
 import Locale from '../../common/locale'
-import LocaleMixin from '../../common/mixins/locale'
+import localeMixin from '../../common/mixins/locale'
 
-Locale.LocaleMixin = LocaleMixin
+Locale.localeMixin = localeMixin
 
 export default Locale
