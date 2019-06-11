@@ -139,7 +139,7 @@
         this.active = label
         // waiting touchend
         // so the inner scroll won't affect the touchend logic
-        this.$nextTick(() => {
+        setTimeout(() => {
           this.jumpTo(label)
         })
       },
