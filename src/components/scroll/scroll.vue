@@ -307,16 +307,16 @@
         this.$emit(EVENT_CLICK, item)
       },
       async forceUpdate(dirty = false, nomore = false) {
-        if (this.isUpdating) {
+        if (this.isPullDownUpdating) {
           return
         }
 
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          this.isUpdating = true
-          await this._reboundPullDown()
-          await this._resetPullDown(dirty)
-          this.isUpdating = false
+          this.isPullDownUpdating = true
+          await this._waitFinishPullDown()
+          await this._waitResetPullDown(dirty)
+          this.isPullDownUpdating = false
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
@@ -476,7 +476,7 @@
         this.isPullUpLoad = true
         this.$emit(EVENT_PULLING_UP)
       },
-      _reboundPullDown(next) {
+      _waitFinishPullDown(next) {
         const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
         return new Promise(resolve => {
           setTimeout(() => {
@@ -485,7 +485,7 @@
           }, stopTime)
         })
       },
-      _resetPullDown(dirty) {
+      _waitResetPullDown(dirty) {
         return new Promise(resolve => {
           this.resetPullDownTimer = setTimeout(() => {
             this.pullDownStyle = `top: -${this.pullDownHeight}px`
