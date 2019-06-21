@@ -169,8 +169,8 @@
       titleClick() {
         this.$emit(EVENT_TITLE_CLICK, this.title)
       },
-      forceUpdate(dirty) {
-        this.$refs.scroll.forceUpdate(dirty)
+      forceUpdate(dirty = false, nomore = false) {
+        this.$refs.scroll.forceUpdate(dirty, nomore)
         dirty && this.$nextTick(() => {
           this._calculateHeight()
         })
