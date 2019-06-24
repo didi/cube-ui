@@ -306,20 +306,24 @@
       clickItem(item) {
         this.$emit(EVENT_CLICK, item)
       },
-      forceUpdate(dirty = false, nomore = false) {
+      async forceUpdate(dirty = false, nomore = false) {
+        if (this.isPullDownUpdating) {
+          return
+        }
+
         if (this.pullDownRefresh && this.isPullingDown) {
           this.isPullingDown = false
-          this._reboundPullDown(() => {
-            this._afterPullDown(dirty)
-          })
+          this.isPullDownUpdating = true
+          await this._waitFinishPullDown()
+          await this._waitResetPullDown(dirty)
+          this.isPullDownUpdating = false
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
           this.pullUpNoMore = !dirty || nomore
-          dirty && this.refresh()
-        } else {
-          dirty && this.refresh()
         }
+
+        dirty && this.refresh()
       },
       resetPullUpTxt() {
         this.pullUpNoMore = false
@@ -472,19 +476,23 @@
         this.isPullUpLoad = true
         this.$emit(EVENT_PULLING_UP)
       },
-      _reboundPullDown(next) {
+      _waitFinishPullDown(next) {
         const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
-        setTimeout(() => {
-          this.scroll.finishPullDown()
-          next()
-        }, stopTime)
+        return new Promise(resolve => {
+          setTimeout(() => {
+            this.scroll.finishPullDown()
+            resolve()
+          }, stopTime)
+        })
       },
-      _afterPullDown(dirty) {
-        this.resetPullDownTimer = setTimeout(() => {
-          this.pullDownStyle = `top: -${this.pullDownHeight}px`
-          this.beforePullDown = true
-          dirty && this.refresh()
-        }, this.scroll.options.bounceTime)
+      _waitResetPullDown(dirty) {
+        return new Promise(resolve => {
+          this.resetPullDownTimer = setTimeout(() => {
+            this.pullDownStyle = `top: -${this.pullDownHeight}px`
+            this.beforePullDown = true
+            resolve()
+          }, this.scroll.options.bounceTime)
+        })
       },
       _getPullDownEleHeight() {
         let pulldown = this.$refs.pulldown
