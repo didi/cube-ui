@@ -2,6 +2,7 @@
 
 - [Application Guide](https://github.com/cube-ui/cube-application-guide)
 - Have problems? See [QA](https://github.com/cube-ui/question-answer/issues)
+- In nuxt application, see [demo repo](https://github.com/cube-ui/cube-nuxt-demo)
 
 ### CLI
 
