@@ -33,7 +33,6 @@
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-input'
   const EVENT_INPUT = 'input'
-  const EVENT_CHANGE = 'change'
   const EVENT_BLUR = 'blur'
   const EVENT_FOCUS = 'focus'
 
@@ -145,9 +144,6 @@
       }
     },
     methods: {
-      changeHander(e) {
-        this.$emit(EVENT_CHANGE, e)
-      },
       formatClearable() {
         if (typeof this.clearable === 'boolean') {
           this.formatedClearable.visible = this.clearable
