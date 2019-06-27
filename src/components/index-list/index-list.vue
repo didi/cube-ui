@@ -9,8 +9,8 @@
       @pulling-down="onPullingDown"
       @pulling-up="onPullingUp">
       <div class="cube-index-list-content" ref="content">
-        <h1 class="cube-index-list-title" v-if="title" ref="title" @click="titleClick">
-          {{ title }}
+        <h1 class="cube-index-list-title" v-if="hasTitle" ref="title" @click="titleClick">
+          <slot name="title">{{ title }}</slot>
         </h1>
         <ul>
           <slot>
@@ -126,8 +126,11 @@
       }
     },
     computed: {
+      hasTitle() {
+        return this.title || this.$slots.title
+      },
       fixedTitle() {
-        this.title && !this.titleHeight && this._caculateTitleHeight()
+        this.hasTitle && !this.titleHeight && this._caculateTitleHeight()
 
         return this.scrollY <= -this.titleHeight && this.data[this.currentIndex] ? this.data[this.currentIndex].name : ''
       },
@@ -151,13 +154,14 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.title && this._caculateTitleHeight()
-        this._calculateHeight()
+        this.refresh()
       })
     },
     methods: {
       /* TODO: remove refresh next minor version */
       refresh() {
+        this._caculateTitleHeight()
+        this._calculateHeight()
         this.$refs.scroll.refresh()
       },
       selectItem(item) {
@@ -238,8 +242,7 @@
       },
       title(newVal) {
         this.$nextTick(() => {
-          this._caculateTitleHeight()
-          this._calculateHeight()
+          this.refresh()
         })
       },
       diff(newVal) {
