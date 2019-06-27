@@ -9,7 +9,9 @@
       :maxlength="maxlength"
       :disabled="disabled"
       @focus="handleFocus"
-      @blur="handleBlur">
+      @blur="handleBlur"
+      @change="changeHander"
+    >
     </textarea>
     <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
   </div>
