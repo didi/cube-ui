@@ -250,6 +250,7 @@ Each item of `items` array must be an object that must contains the `name` attri
 
 | Name | Description | Scope Parameters |
 | - | - | - |
+| title<sup>1.12.25+</sup> | title slot | - |
 | pulldown<sup>1.9.4+</sup> | located above the list and shown when pulling down refreshing | the detail is the same as Scroll component's pulldown slot scope parameters |
 | pullup<sup>1.9.4+</sup> | located below the list and shown when pulling up loading | the detail is the same as Scroll component's pullup slot scope parameters |
 
