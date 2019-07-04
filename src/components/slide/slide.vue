@@ -337,6 +337,7 @@
     height: 100%
     overflow: hidden
     white-space: nowrap
+    transition-property: transform
 
   .cube-slide-dots
     position: absolute
