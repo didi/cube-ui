@@ -162,7 +162,7 @@
       refresh() {
         this._caculateTitleHeight()
         this._calculateHeight()
-        this.$refs.scroll.refresh()
+        this.$refs.scroll && this.$refs.scroll.refresh()
       },
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)
