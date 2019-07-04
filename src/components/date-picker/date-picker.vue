@@ -69,13 +69,13 @@
       min: {
         type: [Date, Array],
         default() {
-          return new Date(2010, 1, 1)
+          return new Date(2010, 0, 1)
         }
       },
       max: {
         type: [Date, Array],
         default() {
-          return new Date(2020, 12, 31)
+          return new Date(2020, 11, 31)
         }
       },
       startColumn: {
