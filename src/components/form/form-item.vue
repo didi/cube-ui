@@ -152,7 +152,7 @@
         if ((!debounceTime && debounceTime !== 0) || debounceTime < 0 || this.fieldValue.trigger === 'blur') return
         this.getValidatorModel = debounce((modelValue) => {
           this.syncValidatorValue()
-          this.validate()
+          // this.validate()
           return modelValue
         }, debounceTime, false, this.validatorModel[this.validatorModelKey])
       },
@@ -162,7 +162,7 @@
       focusOutHandler() {
         this.focused = false
         this.updateValidatorModel()
-        this.validate()
+        // this.validate()
       },
       initFocusEvents() {
         if (this.fieldValue.trigger === 'blur') {
@@ -246,6 +246,8 @@
           const defValue = getResetValueByType(fieldValue.type)
           this.validatorDisabled = true
           resetTypeValue(this, 'modelValue', defValue)
+          // need to sync validator value too, because of trigger blur or debounce
+          this.syncValidatorValue()
           this.$refs.validator && this.$refs.validator.reset()
           this.$nextTick(() => {
             this.validatorDisabled = false
