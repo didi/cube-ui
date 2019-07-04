@@ -19,7 +19,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { parallel, cb2PromiseWithResolve, isUndef, isFunc, isString, isArray, isObject } from '../../common/helpers/util'
+  import { parallel, cb2PromiseWithResolve, isUndef, isFunc, isString, isArray } from '../../common/helpers/util'
   import { rules } from '../../common/helpers/validator'
   import localeMixin from '../../common/mixins/locale'
   import template from '../../common/helpers/string-template'
@@ -183,7 +183,7 @@
                   ret: err
                 })
               }
-              if (isObject(ret) && isFunc(ret.then)) {
+              if (typeof ret === 'object' && isFunc(ret.then)) {
                 ret.then(resolve).catch(reject)
               } else if (isFunc(ret)) {
                 ret(resolve, reject)
