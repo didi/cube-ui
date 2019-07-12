@@ -61,6 +61,7 @@
       txts: {
         type: Array,
         default() {
+          this._defaultTxts = true
           /* istanbul ignore next */
           return this.labels
         }
@@ -76,6 +77,11 @@
       }
     },
     watch: {
+      labels(newLabels) {
+        if (this._defaultTxts) {
+          this.txts = newLabels
+        }
+      },
       current(newVal) {
         this.active = newVal
       },
