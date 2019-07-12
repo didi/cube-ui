@@ -8,7 +8,7 @@
       <div class="cube-scroll-nav-bar-items" ref="items">
         <div
           class="cube-scroll-nav-bar-item"
-          v-for="(txt, index) in txts"
+          v-for="(txt, index) in usedTxts"
           :key="index"
           :class="{'cube-scroll-nav-bar-item_active': active === labels[index]}"
           @click="clickHandler(labels[index])">
@@ -73,13 +73,14 @@
     },
     data() {
       return {
-        active: this.current
+        active: this.current,
+        usedTxts: this.txts
       }
     },
     watch: {
       labels(newLabels) {
         if (this._defaultTxts) {
-          this.txts = newLabels
+          this.usedTxts = newLabels
         }
       },
       current(newVal) {
