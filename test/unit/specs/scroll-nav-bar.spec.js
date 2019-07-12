@@ -54,7 +54,17 @@ describe('ScrollNavBar', () => {
         setTimeout(() => {
           expect(vm.$el.querySelector('.cube-scroll-nav-bar-item_active').textContent.trim())
             .equal('专车')
-          done()
+          vm.$updateProps({
+            current: '2',
+            labels: labels.concat(['1', '2'])
+          })
+          setTimeout(() => {
+            expect(vm.$el.querySelectorAll('.cube-scroll-nav-bar-item').length)
+              .to.equal(12)
+            expect(vm.$el.querySelector('.cube-scroll-nav-bar-item_active').textContent.trim())
+              .equal('2')
+            done()
+          })
         })
       })
     }, 50)
