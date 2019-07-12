@@ -125,6 +125,9 @@
       })
     },
     methods: {
+      scrollTo() {
+        this.$refs.scroll && this.$refs.scroll.scrollTo.apply(this.$refs.scroll, arguments)
+      },
       refresh() {
         this.navBar && this.navBar.refresh()
         this.$refs.sticky.refresh()
