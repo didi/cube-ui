@@ -83,6 +83,9 @@
           this.usedTxts = newLabels
         }
       },
+      txts(newTxts) {
+        this.usedTxts = newTxts
+      },
       current(newVal) {
         this.active = newVal
       },
