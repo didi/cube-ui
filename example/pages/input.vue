@@ -26,6 +26,10 @@
                             @update:value="updateReadonly"></switch-option>
           </div>
           <div class="group">
+            <switch-option class="item" name="maxlength:10" :value="maxlength10"
+                            @update:value="updateMaxLength"></switch-option>
+          </div>
+          <div class="group">
             <switch-option class="item" name="clearable" :value="useClear"
                             @update:value="updateUseClear"></switch-option>
             <switch-option class="item" name="blur hiden" :value="clearBlurHidden"
@@ -58,6 +62,7 @@
         value: '',
         disabled: false,
         useClear: true,
+        maxlength10: false,
         clearBlurHidden: true,
         readonly: false,
         isPwd: true,
@@ -84,6 +89,16 @@
         }
       }
     },
+    watch: {
+      value(newV) {
+        if (this.maxlength10 && newV.length > 10) {
+          newV = newV.slice(0, 10)
+          this.$nextTick(() => {
+            this.value = newV
+          })
+        }
+      }
+    },
     methods: {
       updateDisabled(val) {
         this.disabled = val
@@ -96,6 +111,9 @@
       },
       updateBlurHidden(val) {
         this.clearBlurHidden = val
+      },
+      updateMaxLength(val) {
+        this.maxlength10 = val
       },
       updatePwd(val) {
         this.isPwd = val
