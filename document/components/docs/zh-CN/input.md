@@ -24,6 +24,36 @@
   }
   ```
 
+- 控制最大长度
+
+  通过 watch 组件的 value 值的长度可实现手工控制值长度。
+
+  ```html
+  <cube-input v-model="value"></cube-input>
+  ```
+
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    watch: {
+      value(newV) {
+        if (newV.length > 10) {
+          newV = newV.slice(0, 10)
+          this.$nextTick(() => {
+            this.value = newV
+          })
+        }
+      }
+    }
+  }
+  ```
+
+  上述代码就是控制输入内容长度不得超过10位。
+
 - 清空按钮
 
   可通过`clearable`配置清空按钮。
