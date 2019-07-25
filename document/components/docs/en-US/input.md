@@ -24,6 +24,33 @@ Input component. You can use the `v-model` directive to create two-way data bind
   }
   ```
 
+- Control max length
+
+  You can control the value's max length like this:
+
+  ```html
+  <cube-input v-model="value"></cube-input>
+  ```
+
+  ```javascript
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    watch: {
+      value(newV) {
+        if (newV.length > 10) {
+          newV = newV.slice(0, 10)
+          this.$nextTick(() => {
+            this.value = newV
+          })
+        }
+      }
+    }
+  }
+  ```
 
 - Clearable config
 
