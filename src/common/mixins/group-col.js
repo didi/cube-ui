@@ -9,7 +9,6 @@ export default {
     }
   },
   watch: {
-    // Merge the watch handlers of data and selectedIndex into one.
     colNum: {
       immediate: true,
       handler (newValue) {
