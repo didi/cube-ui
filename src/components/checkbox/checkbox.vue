@@ -55,7 +55,7 @@
     data () {
       const parent = this.$parent
       const isInGroup = parent.$data._checkboxGroup
-      const isInHorizontalGroup = isInGroup && parent.$props.horizontal
+      const isInHorizontalGroup = isInGroup && (parent.$props.horizontal || parent.$props.colNum > 1)
       return {
         isInGroup,
         isInHorizontalGroup

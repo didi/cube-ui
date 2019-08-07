@@ -12,6 +12,12 @@
         <cube-checkbox :option="{value: '3', disabled: true}"><i>Disabled Checkbox</i></cube-checkbox>
         <cube-checkbox :option="{value: '4', disabled: true}"><i>Disabled & Checked Checkbox</i></cube-checkbox>
       </cube-checkbox-group>
+      <br>
+      <cube-input placeholder="输入列数" v-model="colNum">
+        <div slot="prepend" style="paddingLeft: 10px"> 列数:</div>
+      </cube-input>
+      <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="Math.floor(colNum)" />
+      <br>
     </template>
   </cube-page>
 </template>
@@ -36,7 +42,10 @@
             value: '4',
             disabled: true
           }
-        ]
+        ],
+        colOptions: ['1', '2', '3', '4', '5', '6', '7', '8'],
+        colNum: 3,
+        colCheckList: []
       }
     },
     components: {
