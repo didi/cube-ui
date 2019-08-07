@@ -58,12 +58,30 @@
 
   Use `cube-checkbox`, [cube-checkbox doc](#/en-US/docs/checkbox).
 
+- Set column number<sup>1.12.28</sup>
+
+  You can use `colNum` to control the display columns
+  ```html
+    <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="3" />
+  ```
+  ```js
+  export default {
+    data() {
+      return {
+        colCheckList: [],
+        colOptions: ['1', '2', '3', '4', '5', '6', '7', '8']
+      }
+    }
+  }
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | options | array of checkbox options | Array | - | - |
 | horizontal | whether in horizontal order | Boolean | true/false | false |
+| colNum<sup>1.12.28</sup> | column number | Number | - | 1 |
 | shape | icon shape | String | circle/square | circle |
 | hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 | min<sup>1.11.0</sup> | min selected items count | Number | - | 0 |

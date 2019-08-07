@@ -132,12 +132,68 @@ Radio component. You could set the options and the position of the radio's icon.
   }
   ```
 
+
+- Set column number<sup>1.12.28</sup>
+
+  You can use `colNum` to control the display columns
+  ```html
+  <cube-radio-group v-model="selected5" :options="options5" :col-num="colNum" />
+  ```
+
+  ```js
+  export default {
+    data() {
+      return {
+        selected5: '2',
+        options5: [
+          {
+            label: '1',
+            value: '1'
+          },
+          {
+            label: '2',
+            value: '2'
+          },
+          {
+            label: '3',
+            value: '3',
+            disabled: true
+          },
+          {
+            label: '4',
+            value: '4'
+          },
+          {
+            label: '5',
+            value: '5'
+          },
+          {
+            label: '6',
+            value: '6',
+            disabled: true
+          },
+          {
+            label: '7',
+            value: '7'
+          },
+          {
+            label: '8',
+            value: '8'
+          }
+        ],
+        colNum: 3
+      }
+    }
+  }
+  ```
+
 ### Props configuration
 
 | Attribute | Description | Type | Accepted Values | Default |
 | - | - | - | - | - |
 | options | the array of radio options | Array | - | - |
 | position | icon position | String | left/right | left |
+| colNum<sup>1.12.28</sup> | column number | Number | - | 1 |
 | horizontal | whether use horizontal layout | Boolean | true/false | false |
 | hollowStyle | whether is hollow-out style | Boolean | true/false | false |
 
