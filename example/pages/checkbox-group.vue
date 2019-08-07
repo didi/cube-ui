@@ -13,8 +13,8 @@
         <cube-checkbox :option="{value: '4', disabled: true}"><i>Disabled & Checked Checkbox</i></cube-checkbox>
       </cube-checkbox-group>
       <br>
-      <cube-input placeholder="输入列数" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> 列数:</div>
+      <cube-input placeholder="Input column number" v-model="colNum">
+        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
       </cube-input>
       <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="Math.floor(colNum)" />
       <br>

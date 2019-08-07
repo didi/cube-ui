@@ -17,8 +17,8 @@
       </cube-radio-group>
       <p>selected img: {{selected4}}</p>
       <hr>
-      <cube-input placeholder="输入列数" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> 列数:</div>
+      <cube-input placeholder="Input column number" v-model="colNum">
+        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
       </cube-input>
       <cube-radio-group v-model="selected5" :options="options5" :col-num="Math.floor(colNum)" />
     </template>
