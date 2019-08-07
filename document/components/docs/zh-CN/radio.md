@@ -4,10 +4,6 @@
 
 单选框组，可设置单选框组内容，样式等。
 
-> 1.12.28 新增
-
-列数可配置
-
 ### 示例
 
 - 基本用法
@@ -136,8 +132,8 @@
   }
   ```
 
-- 自定义列数
-  
+- 自定义列数<sup>1.12.28</sup>
+
   可通过设计 `colNum` 控制一行中有几列，colNum 小于1时，按1处理
   ```html
   <cube-radio-group v-model="selected5" :options="options5" :col-num="colNum" />
@@ -147,7 +143,7 @@
   export default {
     data() {
       return {
-        selected5: '2',
+        selected5: '6',
         options5: [
           {
             label: '1',
@@ -169,6 +165,19 @@
           {
             label: '5',
             value: '5'
+          },
+          {
+            label: '6',
+            value: '6',
+            disabled: true
+          },
+          {
+            label: '7',
+            value: '7'
+          },
+          {
+            label: '8',
+            value: '8'
           }
         ],
         colNum: 3
@@ -184,7 +193,7 @@
 | options | 选项数组 | Array | - | - |
 | position | 图标位置 | String | left/right | left |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
-| colNum | 一行有几列 | Number | - | 1 |
+| colNum<sup>1.12.28</sup> | 一行有几列 | Number | - | 1 |
 | hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
 
 * `options` 子配置项
