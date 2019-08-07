@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-checkbox-group" ref="group" :class="groupClass" :data-horz="horizontal">
+  <div class="cube-checkbox-group" ref="group" :class="groupClass" :data-horz="horizontal" :data-col="colNum > 1">
     <slot>
       <cube-checkbox
         v-for="(option, index) in options"
@@ -7,20 +7,22 @@
         :option="option"
         :shape="shape"
         :position="position"
-        :hollow-style="hollowStyle" />
+        :hollow-style="hollowStyle"
+      />
     </slot>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import CubeCheckbox from '../checkbox/checkbox.vue'
-  const COMPONENT_NAME = 'cube-checkbox-group'
+  import groupCol from '../../common/mixins/group-col'
 
+  const COMPONENT_NAME = 'cube-checkbox-group'
   const EVENT_INPUT = 'input'
   const EVENT_CHECKED = 'checked'
   const EVENT_CANCLE_CHECKED = 'cancel-checked'
-
   export default {
     name: COMPONENT_NAME,
+    mixins: [groupCol],
     props: {
       value: {
         type: Array
@@ -64,7 +66,7 @@
     },
     computed: {
       groupClass() {
-        if (!this.horizontal) {
+        if (!this.horizontal || this.colNum > 1) {
           return 'border-top-1px border-bottom-1px'
         }
       }
@@ -109,7 +111,8 @@
       &:last-child
         .cube-checkbox-wrap
           border-none()
-  .cube-checkbox-group[data-horz="true"]
+  .cube-checkbox-group[data-horz="true"],
+  .cube-checkbox-group[data-col="true"]
     display: flex
     padding-left: 0
     border-1px($checkbox-group-horizontal-bdc, 2px)
@@ -119,7 +122,7 @@
       text-align: center
       padding-left: 10px
       padding-right: 10px
-      &:after
+      &::after
         border-color: $checkbox-group-horizontal-bdc
       &:last-child
         border-none()
@@ -132,4 +135,11 @@
           margin-right: 0
     .cube-checkbox-wrap
       justify-content: center
+.cube-checkbox-group[data-col="true"]
+    flex-wrap: wrap
+    .cube-checkbox
+      flex: 0 0 auto
+      box-sizing: border-box
+      &::after
+        display: none
 </style>

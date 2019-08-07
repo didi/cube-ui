@@ -93,7 +93,8 @@ export default {
       }
     },
     _wrapClass() {
-      if (!this.$parent.horizontal) {
+      let parent = this.$parent
+      if (!(parent.horizontal || parent.$props.colNum > 1)) {
         return 'border-bottom-1px'
       }
     }
