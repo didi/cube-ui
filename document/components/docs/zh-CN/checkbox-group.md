@@ -1,5 +1,9 @@
 ## CheckboxGroup 复选框组
 
+> 1.12.28 新增
+
+列数可配置
+
 复选框组就是一组复选框，主要用来选择一组可选项；有垂直和水平两种样式。
 
 ### 示例
@@ -56,12 +60,20 @@
 
   可通过默认插槽插入 `cube-checkbox` 实现自定义每项的结构样子，关于 `cube-checkbox`，请参考其[文档](#/zh-CN/docs/checkbox)。
 
+- 自定义列数
+  
+  可通过设计 `colNum` 控制一行中有几列，colNum 小于1时，按1处理
+  ```html
+    <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="3" />
+  ```
+
 ### Props 配置
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | - | - | - | - | - |
 | options | 选项数组 | Array | - | - |
 | horizontal | 是否水平排列 | Boolean | true/false | false |
+| colNum | 一行有几列 | Number | - | 1 |
 | shape | 图标形状 | String | circle/square | circle |
 | hollowStyle | 是否是镂空样式的 | Boolean | true/false | false |
 | min<sup>1.11.0</sup> | 最小选择个数 | Number | - | 0 |
