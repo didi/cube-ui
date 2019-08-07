@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-radio-group" :class="_groupClass" :data-horz="horizontal">
+  <div class="cube-radio-group" ref="group" :class="_groupClass" :data-horz="horizontal" :data-col="colNum > 1">
     <slot>
       <cube-radio
         v-for="(option, index) in options"
@@ -14,12 +14,14 @@
 </template>
 <script type="text/ecmascript-6">
   import CubeRadio from './radio.vue'
+  import groupCol from '../../common/mixins/group-col'
   const COMPONENT_NAME = 'cube-radio-group'
 
   const EVENT_INPUT = 'input'
 
   export default {
     name: COMPONENT_NAME,
+    mixins: [groupCol],
     provide() {
       return {
         radioGroup: this
@@ -83,7 +85,8 @@
       &:last-child
         .cube-radio-wrap
           border-none()
-  .cube-radio-group[data-horz="true"]
+  .cube-radio-group[data-horz="true"],
+  .cube-radio-group[data-col="true"]
     display: flex
     padding-left: 0
     border-1px($radio-group-horizontal-bdc, 2px)
@@ -93,7 +96,7 @@
       text-align: center
       padding-left: 10px
       padding-right: 10px
-      &:after
+      &::after
         border-color: $radio-group-horizontal-bdc
       &:last-child
         border-none()
@@ -108,4 +111,11 @@
           margin-right: 0
     .cube-radio-wrap
       justify-content: center
+  .cube-radio-group[data-col="true"]
+    flex-wrap: wrap
+    .cube-radio
+      flex: 0 0 auto
+      box-sizing: border-box
+      &::after
+        display: none
 </style>
