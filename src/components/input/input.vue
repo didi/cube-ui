@@ -191,6 +191,7 @@
     display: block
     flex: 1
     width: 100%
+    min-width: 0
     padding: 10px
     box-sizing: border-box
     color: $input-color
