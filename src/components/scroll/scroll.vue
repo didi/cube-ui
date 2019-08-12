@@ -315,8 +315,8 @@
           this.isPullingDown = false
           this.isPullDownUpdating = true
           await this._waitFinishPullDown()
-          await this._waitResetPullDown(dirty)
           this.isPullDownUpdating = false
+          await this._waitResetPullDown(dirty)
         } else if (this.pullUpLoad && this.isPullUpLoad) {
           this.isPullUpLoad = false
           this.scroll.finishPullUp()
