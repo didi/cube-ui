@@ -62,6 +62,15 @@
       }
     },
     computed: {
+      fieldsModel() {
+        const model = {}
+        this.fields.forEach((fieldComponent) => {
+          if (!fieldComponent.isBtnField) {
+            model[fieldComponent.fieldValue.modelKey] = fieldComponent.modelValue
+          }
+        })
+        return model
+      },
       groups() {
         const schema = this.schema
         const groups = schema.groups || []
@@ -127,13 +136,13 @@
         // sync all fields value because of trigger: blur or debounce
         this.syncValidatorValues()
         if (this.skipValidate) {
-          this.$emit(EVENT_SUBMIT, e, this.model)
+          this.$emit(EVENT_SUBMIT, e, this.model, this.fieldsModel)
           return
         }
         const submited = (submitResult) => {
           if (submitResult) {
             this.$emit(EVENT_VALID, this.validity)
-            this.$emit(EVENT_SUBMIT, e, this.model)
+            this.$emit(EVENT_SUBMIT, e, this.model, this.fieldsModel)
           } else {
             e.preventDefault()
             this.$emit(EVENT_INVALID, this.validity)
