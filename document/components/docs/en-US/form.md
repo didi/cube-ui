@@ -441,13 +441,13 @@ CubeForm is a schema-based form generator component.
 
 ### Events
 
-| Event Name | Description | Parameters 1 | Parameters 2 |
-| - | - | - | - |
-| submit | Form submit, only trigged when the form's validation is ok. If only have sync validators, this event will not be prevented by default. If have async validators, this event will be prevented by default. | e - event | form model value |
-| reset | Form reset | e - event | - |
-| validate | Form validated | Properties: <br>{<br>validity,<br> valid,<br> invalid,<br> dirty,<br> firstInvalidFieldIndex<br>} | - |
-| valid | Form valid | Validity result | - |
-| invalid | Form invalid | Validity result | - |
+| Event Name | Description | Parameters 1 | Parameters 2 | Parameters 3 |
+| - | - | - | - | - |
+| submit | Form submit, only trigged when the form's validation is ok. If only have sync validators, this event will not be prevented by default. If have async validators, this event will be prevented by default. | e - event | form model value | form model value with only fields `modelKey`<sup>1.12.30+</sup> |
+| reset | Form reset | e - event | - | - |
+| validate | Form validated | Properties: <br>{<br>validity,<br> valid,<br> invalid,<br> dirty,<br> firstInvalidFieldIndex<br>} | - | - |
+| valid | Form valid | Validity result | - | - |
+| invalid | Form invalid | Validity result | - | - |
 
 - `validate` event parameters
 
