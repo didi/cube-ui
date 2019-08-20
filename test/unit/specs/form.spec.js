@@ -510,6 +510,98 @@ describe('Form.vue', () => {
     })
   })
 
+  it('should get fields model when submit - dynamic cases', (done) => {
+    const submitHandler = sinon.spy()
+
+    let args = null
+    vm = createForm({
+      action: '/',
+      model: {
+        inputValue: '1',
+        inputValue2: ''
+      },
+      schema: {
+        fields: [
+          {
+            type: 'input',
+            modelKey: 'inputValue',
+            label: 'Input',
+            props: {
+              placeholder: 'Please input'
+            },
+            rules: {
+              required: true
+            }
+          },
+          {
+            type: 'submit',
+            label: 'Submit'
+          }
+        ]
+      }
+    }, {
+      submit: function (e) {
+        e.preventDefault()
+        args = arguments
+        submitHandler.apply(this, args)
+      }
+    })
+    setTimeout(() => {
+      // submit
+      vm.$el.querySelector('.cube-btn').click()
+      expect(submitHandler)
+        .to.be.calledOnce
+      expect(args[1].inputValue)
+        .to.equal('1')
+      expect(args[1].inputValue2)
+        .to.equal('')
+      expect(args[2].inputValue2)
+        .to.be.undefined
+      // dynamic add field
+      vm.schema.fields = [
+        {
+          type: 'input',
+          modelKey: 'inputValue',
+          label: 'Input',
+          props: {
+            placeholder: 'Please input'
+          },
+          rules: {
+            required: true
+          }
+        },
+        {
+          type: 'input',
+          modelKey: 'inputValue2',
+          label: 'Input2',
+          rules: {
+            required: true
+          }
+        },
+        {
+          type: 'submit',
+          label: 'Submit'
+        }
+      ]
+      setTimeout(() => {
+        vm.model.inputValue2 = '2'
+        setTimeout(() => {
+          // submit again
+          vm.$el.querySelector('.cube-btn').click()
+          expect(submitHandler)
+            .to.be.calledTwice
+          expect(args[1].inputValue)
+            .to.equal('1')
+          expect(args[1].inputValue2)
+            .to.equal('2')
+          expect(args[2].inputValue2)
+            .to.equal('2')
+          done()
+        })
+      })
+    })
+  })
+
   function createForm(props = {}, events = {}) {
     return createVue({
       template: '<cube-form v-bind="props" v-on="events" />',
