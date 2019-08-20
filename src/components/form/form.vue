@@ -124,7 +124,6 @@
         dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
-        debugger
         // sync all fields value because of trigger: blur or debounce
         this.syncValidatorValues()
         if (this.skipValidate) {
