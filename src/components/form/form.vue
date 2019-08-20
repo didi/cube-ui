@@ -124,6 +124,7 @@
         dispatchEvent(this.$refs.form, 'reset')
       },
       submitHandler(e) {
+        debugger
         // sync all fields value because of trigger: blur or debounce
         this.syncValidatorValues()
         if (this.skipValidate) {
@@ -288,6 +289,7 @@
       },
       addField(fieldComponent) {
         this.fields.push(fieldComponent)
+        this.setValidity(fieldComponent.fieldValue.modelKey)
       },
       destroyField(fieldComponent) {
         const i = this.fields.indexOf(fieldComponent)
