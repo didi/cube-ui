@@ -1,6 +1,6 @@
 <template>
   <footer class="s-footer">
-    <a href="https://github.com/didi">© 2012-2018 DiDiChuxing. All Rights Reserved.</a>
+    <a href="https://github.com/didi">© 2012-2019 DiDiChuxing. All Rights Reserved.</a>
   </footer>
 </template>
 
