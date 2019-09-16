@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-segment-picker">
+  <div class="cube-segment-picker" v-show="isVisible">
     <!-- Direct props will recover the property from v-bind Object expect 'is'. -->
     <!-- To ensure the priority of v-bind Object which is from user configure, we check the property of item in every prop. -->
     <component
@@ -93,13 +93,15 @@
         if (this.isVisible || !this.data.length) {
           return
         }
+        this.isVisible = true
         this.currentPicker.show()
       },
       hide() {
         if (!this.isVisible || !this.data.length) {
           return
         }
-        this.$refs.currentPicker.hide()
+        this.isVisible = false
+        this.currentPicker.hide()
       },
       _select(...args) {
         this.selectedVal[this.current] = args[0]
@@ -111,6 +113,7 @@
           this.current++
           this.currentPicker.show()
         } else {
+          this.isVisible = false
           this.$emit(EVENT_SELECT, this.selectedVal, this.selectedIndex, this.selectedText)
           this.current = 0
         }
@@ -121,6 +124,7 @@
           this.current--
           this.currentPicker.show()
         } else {
+          this.isVisible = false
           this.$emit(EVENT_CANCEL)
         }
       },
