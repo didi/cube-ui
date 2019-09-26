@@ -128,7 +128,7 @@ Checker is more flexible selection component, you can alse customize the layout.
     data() {
       return {
         checkerList: [3],
-        option: [
+        options: [
           {
             value: 1,
             text: 'red'
@@ -167,7 +167,7 @@ Checker is more flexible selection component, you can alse customize the layout.
     data() {
       return {
         checkerList: [2],
-        option: [
+        options: [
           {
             value: 1,
             text: 'first',
@@ -187,7 +187,6 @@ Checker is more flexible selection component, you can alse customize the layout.
     }
   }
   ```
-
 
 ### Props configuration
 
@@ -218,3 +217,4 @@ Checker is more flexible selection component, you can alse customize the layout.
 | - | - | - |
 | value | the value of checker item | String/Number |
 | text | the text of checker item | String |
+| disabled<sup>1.12.19</sup> | disabled state of checker item | Boolean |
