@@ -77,9 +77,15 @@
         type: Number,
         default: 400
       },
+      longTapSave: {
+        type: Boolean,
+        default: false
+      },
       preventDefault: {
         type: Boolean,
-        default: true
+        default() {
+          return !this.longTapSave
+        }
       }
     },
     data() {
@@ -91,6 +97,7 @@
             left: true,
             right: true
           },
+          click: !this.longTapSave,
           useTransition: !isAndroid,
           probeType: 3,
           preventDefault: this.preventDefault
