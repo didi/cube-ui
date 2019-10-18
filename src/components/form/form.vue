@@ -144,6 +144,10 @@
             this.$emit(EVENT_VALID, this.validity)
             this.$emit(EVENT_SUBMIT, e, this.model, this.fieldsModel)
           } else {
+            // scrollToInvalidField
+            if (this.options.scrollToInvalidField && this.firstInvalidField) {
+              this.firstInvalidField.$el.scrollIntoView()
+            }
             e.preventDefault()
             this.$emit(EVENT_INVALID, this.validity)
           }
@@ -164,11 +168,6 @@
       },
       _submit(cb) {
         this.validate(() => {
-          if (this.invalid) {
-            if (this.options.scrollToInvalidField && this.firstInvalidField) {
-              this.firstInvalidField.$el.scrollIntoView()
-            }
-          }
           cb && cb(this.valid)
         })
       },
