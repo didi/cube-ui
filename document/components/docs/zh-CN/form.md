@@ -426,6 +426,13 @@
   | debounce<sup>1.8.0+</sup> | 控制校验节奏，值为时间，单位 ms。如果 trigger 设置为 blur 则此项配置不生效 | Number/Boolean | >= 0，如果设置为 true，那么时间就是 200(ms) | - |
   | messages | 字段的校验消息，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
+- `options` 子配置项
+
+  | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+  | - | - | - | - | - |
+  | scrollToInvalidField | 是否默认滚动到第一个无效字段位置 | Boolean | true/false | false |
+  | layout | 表单何种布局方式 | String | standard/classic/fresh | standard |
+
 #### CubeFormGroup
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
