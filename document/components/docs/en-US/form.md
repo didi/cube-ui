@@ -426,6 +426,13 @@ CubeForm is a schema-based form generator component.
   | debounce<sup>1.8.0+</sup> | Debounce validating time(ms). If `trigger` is 'blur' then the debounce will be ignored | Number/Boolean | >= 0, if set to true the time will be 200(ms) | - |
   | messages | Validator messages, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
 
+- `options` sub configuration
+
+  | Attribute | Description | Type | Accepted Values | Default |
+  | - | - | - | - | - |
+  | scrollToInvalidField | Whether to scroll to the first invalid fileld by default | Boolean | true/false | false |
+  | layout | Form layout style | String | standard/classic/fresh | standard |
+
 #### FormGroup
 
 | Attribute | Description | Type | Accepted Values | Default |
