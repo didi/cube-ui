@@ -133,7 +133,7 @@ describe('Toast', () => {
         expect(ins.$el.className)
           .to.include('my-toast')
         expect(ins.$el.querySelector('.cube-toast-tip').textContent)
-        .to.equal('toast api content')
+          .to.equal('toast api content')
         ins.remove()
         expect(ins.$el.parentElement)
           .to.be.null

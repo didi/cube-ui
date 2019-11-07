@@ -274,15 +274,17 @@
           // calculate hourIndex
           const hour = valueDate.getHours()
           const beginHour = dayIndex === 0
-                            ? this.showNow ? this.minTime.getHours() - 1 : this.minTime.getHours()
-                            : 0
+            ? this.showNow
+              ? this.minTime.getHours() - 1
+              : this.minTime.getHours()
+            : 0
           const hourIndex = hour - beginHour
 
           // calculate minuteIndex
           const minute = this.minuteStepRule(valueDate.getMinutes() / this.minuteStepNumber)
           const beginMinute = !dayIndex && (this.showNow ? hourIndex === 1 : !hourIndex)
-                              ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
-                              : 0
+            ? this.minuteStepRule(this.minTime.getMinutes() / this.minuteStepNumber)
+            : 0
           const minuteIndex = minute - beginMinute
 
           this.selectedIndex = [dayIndex, hourIndex, minuteIndex]

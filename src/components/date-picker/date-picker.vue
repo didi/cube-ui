@@ -133,18 +133,18 @@
       },
       minArray() {
         return this.min instanceof Date
-                ? dateToArray(this.min).slice(this.startIndex, this.startIndex + this.columnCount)
-                : this.min
+          ? dateToArray(this.min).slice(this.startIndex, this.startIndex + this.columnCount)
+          : this.min
       },
       maxArray() {
         return this.max instanceof Date
-                ? dateToArray(this.max).slice(this.startIndex, this.startIndex + this.columnCount)
-                : this.max
+          ? dateToArray(this.max).slice(this.startIndex, this.startIndex + this.columnCount)
+          : this.max
       },
       valueArray() {
         return this.value instanceof Date
-                ? dateToArray(this.value).slice(this.startIndex, this.startIndex + this.columnCount)
-                : this.value
+          ? dateToArray(this.value).slice(this.startIndex, this.startIndex + this.columnCount)
+          : this.value
       },
       data() {
         const data = []

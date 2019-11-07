@@ -214,10 +214,10 @@
           this.validating = false
           results.forEach(({ key, valid, ret }) => {
             const msg = this.messages[key]
-                      ? isFunc(this.messages[key])
-                        ? this.messages[key](ret, valid)
-                        : this.messages[key]
-                      : this.findMessage(key, configRules[key], configRules.type, model)
+              ? isFunc(this.messages[key])
+                ? this.messages[key](ret, valid)
+                : this.messages[key]
+              : this.findMessage(key, configRules[key], configRules.type, model)
             if (isValid && !valid) {
               isValid = false
               this.msg = msg

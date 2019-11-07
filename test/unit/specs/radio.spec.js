@@ -153,9 +153,13 @@ function createRadioGroup(horizontal = false) {
 function createUserDefaltSlotRadioGroup(vModelGroup = true) {
   const vm = createVue({
     template: `
-      <cube-radio-group ${
-        vModelGroup ? `v-model="selected"` : ''
-      } :options="options" class="my-radio" position="right" :horizontal="true">
+      <cube-radio-group
+        ${vModelGroup ? `v-model="selected"` : ''}
+        :options="options"
+        class="my-radio"
+        position="right"
+        :horizontal="true"
+      >
         <cube-radio
           v-for="(option, idx) in options"
           :key="idx"

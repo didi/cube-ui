@@ -19,7 +19,7 @@ describe('RecycleList', () => {
   it('requires onFetch function to return a Promise', () => {
     vm = createRecycleList()
     expect(vm.onFetch() instanceof window.Promise)
-        .to.equal(true)
+      .to.equal(true)
   })
   it('render correct count data', (done) => {
     vm = createRecycleList(true)

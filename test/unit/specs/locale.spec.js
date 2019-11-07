@@ -32,7 +32,7 @@ describe('Locale', () => {
     Locale.use('en-US', enUSMessages)
     vm.$nextTick(() => {
       expect(vm._cancelTxt)
-      .to.equal('Cancel')
+        .to.equal('Cancel')
       done()
     })
   })

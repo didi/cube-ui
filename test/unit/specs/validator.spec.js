@@ -46,7 +46,7 @@ describe('Validator', () => {
       const msgEl = el.querySelector('.cube-validator-msg-def')
       setTimeout(() => {
         expect(el.className)
-            .to.include('cube-validator_invalid')
+          .to.include('cube-validator_invalid')
         expect(msgEl.textContent)
           .to.equal('必填')
         expect(vm.result.asyncRule.valid)

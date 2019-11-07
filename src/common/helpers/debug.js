@@ -1,5 +1,5 @@
 export const warn = function (msg, componentName) {
-   /* istanbul ignore if */
+  /* istanbul ignore if */
   if (process.env.NODE_ENV !== 'production') {
     const component = componentName ? `<${componentName}> ` : ''
     console.error(`[Cube warn]: ${component}${msg}`)
