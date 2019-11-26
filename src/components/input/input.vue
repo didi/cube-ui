@@ -72,6 +72,7 @@
       max: Number,
       step: Number,
       tabindex: String,
+      pattern: String,
       clearable: {
         type: [Boolean, Object],
         default: false
