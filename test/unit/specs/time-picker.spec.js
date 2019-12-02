@@ -235,6 +235,36 @@ describe('TimePicker', () => {
     console.warn = originWarn
   })
 
+  it('should show the value last choose when time-picker is opened again', function (done) {
+    const selectHandle = sinon.spy()
+    vm = createPicker({
+    }, {
+      select: selectHandle
+    })
+    new Promise((resolve) => {
+      vm.show()
+      vm.selectedIndex = [0, 1, 0]
+      setTimeout(() => {
+        let confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+        confirmBtn.click()
+        let value = selectHandle.lastCall.args[0]
+        setTimeout(() => {
+          resolve(value)
+        })
+      }, 100)
+    }).then((firstValue) => {
+      vm.show()
+      setTimeout(() => {
+        let confirmBtn = vm.$el.querySelector('.cube-picker-confirm')
+        confirmBtn.click()
+        let value = selectHandle.lastCall.args[0]
+        expect(firstValue)
+          .to.be.equal(value)
+        done()
+      }, 100)
+    })
+  })
+
   testMinuteStep()
 
   testMin()
