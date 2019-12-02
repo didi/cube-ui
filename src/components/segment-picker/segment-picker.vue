@@ -1,5 +1,5 @@
 <template>
-  <div class="cube-segment-picker" v-show="isVisible">
+  <div class="cube-segment-picker">
     <!-- Direct props will recover the property from v-bind Object expect 'is'. -->
     <!-- To ensure the priority of v-bind Object which is from user configure, we check the property of item in every prop. -->
     <component

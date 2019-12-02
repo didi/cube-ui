@@ -258,8 +258,8 @@
       _updateSelectedIndex() {
         const value = this.value
         const minTime = this.minTime
-
-        if (value <= +minTime) {
+        // fix the value last choose was changed when time-picker is opened again
+        if (value < Math.floor(minTime / MINUTE_TIMESTAMP) * MINUTE_TIMESTAMP) {
           this.selectedIndex = [0, 0, 0]
         } else {
           // calculate dayIndex
