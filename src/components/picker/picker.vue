@@ -27,7 +27,7 @@
               <div v-for="(data,index) in finalData" :key="index" :style="{ order: _getFlexOrder(data)}">
                 <!-- The class name of the ul and li need be configured to BetterScroll. -->
                 <ul class="cube-picker-wheel-scroll">
-                  <li v-for="(item,index) in data" class="cube-picker-wheel-item" :key="index" v-html="item[textKey]">
+                  <li v-for="(item,index) in data" :class="{'cube-picker-wheel-disabled-item':item.disabled}" class="cube-picker-wheel-item" :key="index" v-html="item[textKey]">
                   </li>
                 </ul>
               </div>
@@ -229,7 +229,8 @@
             wheel: {
               selectedIndex: this._indexes[i] || 0,
               wheelWrapperClass: 'cube-picker-wheel-scroll',
-              wheelItemClass: 'cube-picker-wheel-item'
+              wheelItemClass: 'cube-picker-wheel-item',
+              wheelDisabledItemClass: 'cube-picker-wheel-disabled-item'
             },
             swipeTime: this.swipeTime,
             observeDOM: false
@@ -383,6 +384,9 @@
     overflow: hidden
     white-space: nowrap
     color: $picker-item-color
+
+  .cube-picker-wheel-disabled-item
+    opacity: .2;
 
   .cube-picker-footer
     height: 20px

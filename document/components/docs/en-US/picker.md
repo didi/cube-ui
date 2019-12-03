@@ -215,6 +215,7 @@ __Notice:__ Cause this component used create-api, so you should have basically k
 | - | - | - | - | - |
 | text | the text displayed in each column of picker | String/Number | - | - |
 | value | corresponding value of the text displayed in each column of picker | String/Number/Boolean | - | - |
+| disabled | disabled to pick | Boolean | false | true/false |
 
 ### Events
 

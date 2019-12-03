@@ -206,9 +206,9 @@
 
         this.slide = new BScroll(this.$refs.slide, options)
 
-        this.slide.on('scrollEnd', this._onScrollEnd)
-
         this._goToPage(this.currentPageIndex, 0)
+
+        this.slide.on('scrollEnd', this._onScrollEnd)
 
         /* dispatch scroll position constantly */
         if (this.options.listenScroll && this.options.probeType === 3) {
