@@ -43,6 +43,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import localeMixin from '../../common/mixins/locale'
+  import { assign } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-dialog'
   const EVENT_CONFIRM = 'confirm'
@@ -69,7 +70,7 @@
       }
     }
     const text = defBtn && this.$t(defBtn.textType)
-    return Object.assign({}, defBtn, { text }, btn)
+    return assign({}, defBtn, { text }, btn)
   }
 
   export default {
@@ -108,17 +109,13 @@
       confirmBtn: {
         type: [Object, String],
         default() {
-          return {
-            ...defConfirmBtn
-          }
+          return assign({}, defConfirmBtn)
         }
       },
       cancelBtn: {
         type: [Object, String],
         default() {
-          return {
-            ...defCancelBtn
-          }
+          return assign({}, defCancelBtn)
         }
       }
     },

@@ -1,6 +1,7 @@
-import { deepAssign } from '../util'
+import { deepAssign, toArray } from '../util'
 
-function addMessage (...args) {
+function addMessage () {
+  const args = toArray(arguments)
   const NAMESPACE = 'validator'
   const vueProto = this._base.prototype
   const lang = vueProto.$cubeLang

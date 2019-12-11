@@ -31,6 +31,8 @@
 
 <script type="text/ecmascript-6">
   import inputMixin from '../../common/mixins/input'
+  import { assign } from '../../common/helpers/util'
+
   const COMPONENT_NAME = 'cube-input'
   const EVENT_INPUT = 'input'
   const EVENT_BLUR = 'blur'
@@ -149,14 +151,14 @@
         if (typeof this.clearable === 'boolean') {
           this.formatedClearable.visible = this.clearable
         } else {
-          Object.assign(this.formatedClearable, this.clearable)
+          assign(this.formatedClearable, this.clearable)
         }
       },
       formateEye() {
         if (typeof this.eye === 'boolean') {
           this.formatedEye.open = this.eye
         } else {
-          Object.assign(this.formatedEye, this.eye)
+          assign(this.formatedEye, this.eye)
         }
       },
       handleFocus(e) {

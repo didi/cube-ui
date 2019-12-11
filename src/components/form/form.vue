@@ -8,7 +8,7 @@
 
 <script>
   import { dispatchEvent } from '../../common/helpers/dom'
-  import { cb2PromiseWithResolve } from '../../common/helpers/util'
+  import { cb2PromiseWithResolve, assign } from '../../common/helpers/util'
   import CubeFormGroup from './form-group.vue'
   import LAYOUTS from './layouts'
   import mixin from './mixin'
@@ -231,7 +231,7 @@
       setValidity(key, val) {
         let validity = {}
         if (key) {
-          Object.assign(validity, this.validity)
+          assign(validity, this.validity)
           if (val === undefined) {
             delete validity[key]
           } else {

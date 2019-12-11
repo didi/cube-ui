@@ -69,6 +69,7 @@
   import CubeIndexListGroup from './index-list-group.vue'
   import scrollMixin from '../../common/mixins/scroll'
   import deprecatedMixin from '../../common/mixins/deprecated'
+  import { assign } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-index-list'
   const EVENT_SELECT = 'select'
@@ -140,7 +141,7 @@
         })
       },
       scrollOptions() {
-        return Object.assign({}, {
+        return assign({}, {
           pullDownRefresh: this.pullDownRefresh,
           pullUpLoad: this.pullUpLoad
         }, this.options)

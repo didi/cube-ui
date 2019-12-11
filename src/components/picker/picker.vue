@@ -159,7 +159,7 @@
         }
       },
       setData(data, selectedIndex) {
-        this._indexes = selectedIndex ? [...selectedIndex] : []
+        this._indexes = selectedIndex ? [].concat(selectedIndex) : []
         this.finalData = data.slice()
         if (this.isVisible) {
           this.$nextTick(() => {

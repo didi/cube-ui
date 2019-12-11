@@ -18,6 +18,32 @@ function findIndex(ary, fn) {
   return index
 }
 
+function assign(target) {
+  const sources = toArray(arguments, 1)
+  sources.forEach(source => {
+    if (!source) {
+      return
+    }
+    let value
+    Object.keys(source).forEach(key => {
+      value = source[key]
+      target[key] = value
+    })
+  })
+
+  return target
+}
+
+function toArray (list, start) {
+  start = start || 0
+  let i = list.length - start
+  let ret = new Array(i)
+  while (i--) {
+    ret[i] = list[i + start]
+  }
+  return ret
+}
+
 function deepAssign(to, from) {
   for (let key in from) {
     if (!to[key] || typeof to[key] !== 'object') {
@@ -29,7 +55,8 @@ function deepAssign(to, from) {
 }
 
 function createAddAPI(baseObj) {
-  return function add(...args) {
+  return function add() {
+    const args = toArray(arguments)
     if (typeof args[0] === 'string') {
       args[0] = {
         [args[0]]: args[1]
@@ -127,7 +154,8 @@ function debounce(func, wait, immediate, initValue) {
     }
   }
 
-  const debounced = function (...args) {
+  const debounced = function () {
+    const args = toArray(arguments)
     if (timeout) {
       clearTimeout(timeout)
     }
@@ -191,6 +219,7 @@ const isNumber = judgeTypeFnCreator('Number')
 export {
   findIndex,
   deepAssign,
+  assign,
   createAddAPI,
   resetTypeValue,
   parallel,
@@ -203,5 +232,6 @@ export {
   isArray,
   isString,
   isObject,
-  isNumber
+  isNumber,
+  toArray
 }

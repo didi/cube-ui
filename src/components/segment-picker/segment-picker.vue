@@ -28,6 +28,7 @@
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import localeMixin from '../../common/mixins/locale'
+  import { toArray } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-segment-picker'
   const EVENT_NEXT = 'next'
@@ -103,13 +104,15 @@
         this.isVisible = false
         this.currentPicker.hide()
       },
-      _select(...args) {
+      _select() {
+        const args = toArray(arguments)
         this.selectedVal[this.current] = args[0]
         this.selectedIndex[this.current] = args[1]
         this.selectedText[this.current] = args[2]
 
         if (this.current < this.data.length - 1) {
-          this.$emit(EVENT_NEXT, this.current, ...args)
+          const _args = [EVENT_NEXT, this.current].concat(args)
+          this.$emit.apply(this, _args)
           this.current++
           this.currentPicker.show()
         } else {
@@ -118,9 +121,11 @@
           this.current = 0
         }
       },
-      _cancel(...args) {
+      _cancel() {
+        const args = toArray(arguments)
         if (this.current > 0) {
-          this.$emit(EVENT_PREV, this.current, ...args)
+          const _args = [EVENT_PREV, this.current].concat(args)
+          this.$emit.apply(this, _args)
           this.current--
           this.currentPicker.show()
         } else {
@@ -128,8 +133,10 @@
           this.$emit(EVENT_CANCEL)
         }
       },
-      _change(...args) {
-        this.$emit(EVENT_CHANGE, this.current, ...args)
+      _change() {
+        const args = toArray(arguments)
+        const _args = [EVENT_CHANGE, this.current].concat(args)
+        this.$emit.apply(this, _args)
       }
     }
   }

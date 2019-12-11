@@ -33,6 +33,7 @@
   import localeMixin from '../../common/mixins/locale'
   import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
   import { warn } from '../../common/helpers/debug'
+  import { assign } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-time-picker'
   const EVENT_SELECT = 'select'
@@ -111,7 +112,7 @@
           filter: [this.$t('today')],
           format: this.$t('formatDate')
         }
-        return Object.assign({}, defaultDay, this.day)
+        return assign({}, defaultDay, this.day)
       },
       nowText() {
         const defaultText = this.$t('now')

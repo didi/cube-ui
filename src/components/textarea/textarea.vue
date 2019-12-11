@@ -19,6 +19,7 @@
 
 <script type="text/ecmascript-6">
   import inputMixin from '../../common/mixins/input'
+  import { assign } from '../../common/helpers/util'
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'
 
@@ -78,7 +79,7 @@
         if (typeof indicator === 'boolean') {
           indicator = {}
         }
-        return Object.assign({}, DEFAULT_INDICATOR, indicator)
+        return assign({}, DEFAULT_INDICATOR, indicator)
       },
       count() {
         return this.textareaValue.length

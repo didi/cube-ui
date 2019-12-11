@@ -58,7 +58,7 @@
         index: -1,
         selectedVal: [],
         selectedText: [],
-        selected: [...this.selectedIndex],
+        selected: [].concat(this.selectedIndex),
         slideStyle: {
           [transform]: 'translate3d(0, 0, 0)'
         }
@@ -66,7 +66,7 @@
     },
     watch: {
       selectedIndex(newVal) {
-        this.selected = [...newVal]
+        this.selected = [].concat(newVal)
       },
       index(newIndex, oldIndex) {
         this.showPanel()

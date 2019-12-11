@@ -21,7 +21,7 @@
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
   import localeMixin from '../../common/mixins/locale'
-  import { deepAssign, findIndex } from '../../common/helpers/util'
+  import { deepAssign, findIndex, assign } from '../../common/helpers/util'
   import { computeNatureMaxDay, formatType } from '../../common/lang/date'
 
   const COMPONENT_NAME = 'cube-date-picker'
@@ -109,7 +109,7 @@
     },
     computed: {
       formatConfig() {
-        const formatConfig = Object.assign({}, DEFAULT_FORMAT)
+        const formatConfig = assign({}, DEFAULT_FORMAT)
         deepAssign(formatConfig, this.format)
 
         return formatConfig
@@ -216,7 +216,7 @@
         // Month need to subtract 1.
         args[1]--
 
-        return new Date(...args)
+        return new Date(args[0], args[1], args[2], args[3], args[4], args[5])
       },
       _range(type, min, max, fatherIsMin, fatherIsMax, year = 0) {
         if (!this._rangeCache) {

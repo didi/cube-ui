@@ -23,6 +23,7 @@
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
   import deprecatedMixin from '../../common/mixins/deprecated'
+  import { assign } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-slide'
   const EVENT_CHANGE = 'change'
@@ -191,8 +192,7 @@
       },
       _initSlide() {
         const eventPassthrough = this.direction === DIRECTION_H && this.allowVertical ? DIRECTION_V : ''
-
-        const options = Object.assign({}, DEFAULT_OPTIONS, {
+        const options = assign({}, DEFAULT_OPTIONS, {
           scrollX: this.direction === DIRECTION_H,
           scrollY: this.direction === DIRECTION_V,
           eventPassthrough,

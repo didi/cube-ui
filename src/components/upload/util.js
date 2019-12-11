@@ -1,4 +1,5 @@
 import { inBrowser } from '../../common/helpers/env'
+import { toArray } from '../../common/helpers/util'
 
 export const URL = inBrowser ? window.URL || window.webkitURL || window.mozURL : null
 
@@ -52,7 +53,8 @@ function createURL(file) {
   return ''
 }
 
-export function evalOpts(data, ...args) {
+export function evalOpts(data) {
+  const args = toArray(arguments, 1)
   if (typeof data === 'function') {
     return data.apply(this, args)
   }

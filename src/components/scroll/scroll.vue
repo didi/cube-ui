@@ -55,6 +55,7 @@
   import deprecatedMixin from '../../common/mixins/deprecated'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
+  import { assign, toArray } from '../../common/helpers/util'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -165,7 +166,7 @@
         if (pullDownRefresh === true) {
           pullDownRefresh = {}
         }
-        return Object.assign({stop: this.pullDownStop}, pullDownRefresh)
+        return assign({stop: this.pullDownStop}, pullDownRefresh)
       },
       pullUpLoad() {
         return this.options.pullUpLoad
@@ -261,7 +262,7 @@
         }
         this._calculateMinHeight()
 
-        let options = Object.assign({}, DEFAULT_OPTIONS, {
+        let options = assign({}, DEFAULT_OPTIONS, {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
           probeType: this.needListenScroll ? 3 : 1
@@ -329,9 +330,11 @@
         this.pullUpNoMore = false
       },
       _listenScrollEvents() {
+        const vm = this
         this.finalScrollEvents.forEach((event) => {
-          this.scroll.on(camelize(event), (...args) => {
-            this.$emit(event, ...args)
+          this.scroll.on(camelize(event), function () {
+            const _args = [event].concat(toArray(arguments))
+            vm.$emit.apply(vm, _args)
           })
         })
       },
