@@ -21,7 +21,23 @@
           <!-- 关注 -->
           <cube-slide-item>
             <cube-scroll :data="followersData" :options="scrollOptions">
+              <p class="test-title">测试 苹果7 光标是否显示</p>
+                <div class="input-item"><span>输入框：</span><input type="text" name="" id=""></div>
+                <div class="input-item"><span>cube-ui输入框：</span><cube-input v-model="value" ></cube-input></div>
               <ul class="list-wrapper">
+                <li v-for="(item, index) in followersData" class="list-item" :key="index">
+                  <div class="top">
+                    <img :src="item.avatar" class="avatar">
+                    <span class="time">{{resolveTitle(item)}}</span>
+                  </div>
+                  <div class="middle is-bold line-height">{{item.question}}</div>
+                  <div>{{resolveQuestionFollowers(item)}}</div>
+                </li>
+              </ul>
+              <p class="test-title">测试 苹果7 在scroll中超出第一屏光标是否显示(垂直方向的第一屏)</p>
+                <div class="input-item"><span>输入框：</span><input type="text" name="" id=""></div>
+                <div class="input-item"><span>cube-ui输入框：</span><cube-input v-model="value" ></cube-input></div>
+                 <ul class="list-wrapper">
                 <li v-for="(item, index) in followersData" class="list-item" :key="index">
                   <div class="top">
                     <img :src="item.avatar" class="avatar">
@@ -36,6 +52,9 @@
           <!-- 推荐 -->
           <cube-slide-item>
             <cube-scroll :data="recommendData" :options="scrollOptions">
+              <p class="test-title">测试 苹果7 光标是否显示</p>
+                <div class="input-item"><span>输入框：</span><input type="text" name="" id=""></div>
+                <div class="input-item"><span>cube-ui输入框：</span><cube-input v-model="value" ></cube-input></div>
               <ul class="list-wrapper">
                 <li v-for="(item, index) in recommendData" class="list-item" :key="index">
                   <div class="top is-black is-bold line-height">
@@ -49,6 +68,9 @@
           </cube-slide-item>
           <cube-slide-item>
             <cube-scroll :data="hotData" :options="scrollOptions">
+              <p class="test-title">测试 苹果7 光标是否显示</p>
+                <div class="input-item"><span>输入框：</span><input type="text" name="" id=""></div>
+                <div class="input-item"><span>cube-ui输入框：</span><cube-input v-model="value" ></cube-input></div>
               <ul class="list-wrapper">
                 <li v-for="(item, index) in hotData" class="list-item" :key="index">
                   <div class="hot-title">
@@ -75,8 +97,9 @@
   export default {
     data () {
       return {
-        selectedLabel: '推荐',
+        selectedLabel: '关注',
         disabled: false,
+        value: '',
         tabLabels: [{
           label: '关注'
         }, {
@@ -200,4 +223,19 @@
             color: white
         .hot-content
           margin-top: 15px
+.input-item
+  display: flex
+  padding: 5px 10px
+  span
+    display: flex
+    align-items center
+  input 
+    flex: 1
+    height: 30px
+  .cube-input
+    flex: 1
+    height: 30px
+.test-title
+  padding: 5px 10px
+  white-space: normal
 </style>
