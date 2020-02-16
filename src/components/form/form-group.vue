@@ -5,7 +5,7 @@
       <slot>
         <cube-form-item
           v-for="(field, index) in fields"
-          :key="index"
+          :key="field.key || index"
           :field="field"
         />
       </slot>

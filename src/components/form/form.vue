@@ -1,7 +1,11 @@
 <template>
   <form ref="form" class="cube-form" :class="formClass" :action="action" @submit="submitHandler" @reset="resetHandler">
     <slot>
-      <cube-form-group v-for="(group, index) in groups" :fields="group.fields" :legend="group.legend" :key="index" />
+      <cube-form-group
+        v-for="(group, index) in groups"
+        :fields="group.fields"
+        :legend="group.legend"
+        :key="group.key || index" />
     </slot>
   </form>
 </template>
@@ -296,12 +300,14 @@
       },
       addField(fieldComponent) {
         this.fields.push(fieldComponent)
-        this.setValidity(fieldComponent.fieldValue.modelKey)
+        const modelKey = fieldComponent.fieldValue.modelKey
+        modelKey && this.setValidity(modelKey)
       },
       destroyField(fieldComponent) {
         const i = this.fields.indexOf(fieldComponent)
         this.fields.splice(i, 1)
-        this.setValidity(fieldComponent.fieldValue.modelKey)
+        const modelKey = fieldComponent.fieldValue.modelKey
+        modelKey && this.setValidity(modelKey)
       }
     },
     beforeDestroy() {
