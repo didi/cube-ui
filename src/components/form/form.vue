@@ -55,6 +55,10 @@
       immediateValidate: {
         type: Boolean,
         default: false
+      },
+      submitAlwaysValidate: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -84,6 +88,15 @@
           })
         }
         return groups
+      },
+      fieldsData() {
+        return this.groups.reduce((fields, group) => {
+          group.fields.reduce((fields, field) => {
+            fields.push(field)
+            return fields
+          }, fields)
+          return fields
+        }, [])
       },
       layout() {
         const options = this.options
@@ -156,7 +169,7 @@
             this.$emit(EVENT_INVALID, this.validity)
           }
         }
-        if (this.valid === undefined) {
+        if (this.submitAlwaysValidate || this.valid === undefined) {
           this._submit(submited)
           if (this.validating || this.pending) {
             // async validate
@@ -299,7 +312,8 @@
         })
       },
       addField(fieldComponent) {
-        this.fields.push(fieldComponent)
+        const i = this.fieldsData.indexOf(fieldComponent.field)
+        this.fields.splice(i, 0, fieldComponent)
         const modelKey = fieldComponent.fieldValue.modelKey
         modelKey && this.setValidity(modelKey)
       },
