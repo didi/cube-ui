@@ -356,6 +356,7 @@
 | immediateValidate | 初始化时是否立即校验 | Boolean | true/false | false |
 | action | 表单 Form action 的值 | String | - | undefined |
 | options | 配置项 | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
+| submitAlwaysValidate<sup>1.12.36+</sup> | 提交表单时是否总校验所有字段 | Boolean | true/false | false |
 
 - `schema` 子配置项
 
@@ -425,6 +426,7 @@
   | trigger<sup>1.8.0+</sup> | 如果设置为 'blur' 那么则会在离焦后校验 | String | blur/change | - |
   | debounce<sup>1.8.0+</sup> | 控制校验节奏，值为时间，单位 ms。如果 trigger 设置为 blur 则此项配置不生效 | Number/Boolean | >= 0，如果设置为 true，那么时间就是 200(ms) | - |
   | messages | 字段的校验消息，参见 <a href="#/zh-CN/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
+  | key<sup>1.12.36+</sup> | 字段的唯一key，尤其适用在 schema 更新的场景中 | String | - | - |
 
 - `options` 子配置项
 

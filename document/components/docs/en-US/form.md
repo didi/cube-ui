@@ -356,6 +356,7 @@ CubeForm is a schema-based form generator component.
 | immediateValidate | If true, we will run validation after load | Boolean | true/false | false |
 | action | Form action value | String | - | undefined |
 | options | Options for CubeForm | Object | - | {<br>scrollToInvalidField: false,<br> layout: 'standard' // or: classic|fresh <br>} |
+| submitAlwaysValidate<sup>1.12.36+</sup> | If true, we will always validate all fields when submit | Boolean | true/false | false |
 
 - `schema` sub configuration
 
@@ -425,6 +426,7 @@ CubeForm is a schema-based form generator component.
   | trigger<sup>1.8.0+</sup> | If set to 'blur' then will be validate this filed when blur | String | blur/change | - |
   | debounce<sup>1.8.0+</sup> | Debounce validating time(ms). If `trigger` is 'blur' then the debounce will be ignored | Number/Boolean | >= 0, if set to true the time will be 200(ms) | - |
   | messages | Validator messages, see <a href="#/en-US/docs/validator#cube-Props-anchor">Validator</a> | String | - | - |
+  | key<sup>1.12.36+</sup> | field union key | String | - | - |
 
 - `options` sub configuration
 
