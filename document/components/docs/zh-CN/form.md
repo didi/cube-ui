@@ -345,6 +345,183 @@
 
   可以通过 `component` 指定实现了 `v-model` 的自定义组件，例如示例中的 `PCA` 组件；也可以通过使用插槽自定义结构行为，比如示例中的日期选择。
 
+  - 自定义问卷场景
+
+  你可以利用 Form 组件的特性轻松实现类似问卷这种场景表单，组件示例源代码：https://github.com/didi/cube-ui/tree/dev/example/components/questionnaire
+
+  ```html
+  <demo-questionnaire
+    :tip="tip"
+    :questions="questions"
+    :submit="submit"
+    @submit="submitHandler"
+  />
+  ```
+  ```js
+  // source
+  // https://github.com/didi/cube-ui/tree/dev/example/components/questionnaire/questionnaire.vue
+  import DemoQuestionnaire from 'example/components/questionnaire/questionnaire.vue'
+  export default {
+    data() {
+      return {
+        tip: '请配合如实填写问卷，确保xxxx相关文案',
+        questions: [
+          {
+            type: 'switch',
+            model: 'switch',
+            title: '询问是否？'
+            // required: true
+          },
+          {
+            type: 'input',
+            model: 'input',
+            title: '输入',
+            options: {
+              placeholder: '请输入'
+            },
+            on: 'switch',
+            required: true
+          },
+          {
+            type: 'date',
+            model: 'date',
+            title: '日期',
+            options: {
+              // min: '2020-01-01',
+              // max: '2020-02-18'
+            },
+            required: true
+          },
+          {
+            type: 'time',
+            model: 'time',
+            title: '时间',
+            options: {
+              min: '01:00',
+              max: '23:59'
+            },
+            required: true
+          },
+          {
+            type: 'select',
+            model: 'select',
+            title: '选择',
+            options: [
+              'option1',
+              'option2',
+              'option3'
+            ],
+            required: true
+          },
+          {
+            type: 'radio',
+            model: 'radio',
+            title: '单选',
+            options: [
+              '单选1',
+              '单选2',
+              '单选3'
+            ],
+            required: true
+          },
+          {
+            type: 'checkbox',
+            model: 'checkbox',
+            title: '多选',
+            options: [
+              '多选1',
+              '多选2',
+              '多选3'
+            ],
+            required: true
+          },
+          {
+            type: 'textarea',
+            model: 'textarea',
+            title: '多行文本',
+            on: {
+              model: 'checkbox',
+              options: ['多选1', '多选3']
+            },
+            required: true
+          },
+          {
+            type: 'checkbox',
+            row: true,
+            model: 'checkbox2',
+            title: '多选-横',
+            options: [
+              '多选-横1',
+              '多选-横2',
+              '多选-横3'
+            ],
+            required: true
+          },
+          {
+            type: 'tel',
+            model: 'tel',
+            title: '手机号',
+            options: {
+              placeholder: '请输入手机号'
+            },
+            required: true
+          },
+          {
+            type: 'rate',
+            model: 'rate',
+            title: '级别',
+            options: {
+              max: 10
+            },
+            required: true
+          },
+          {
+            type: 'city',
+            model: 'city',
+            title: '城市',
+            required: true
+          },
+          {
+            type: 'upload',
+            model: 'upload',
+            title: '上传',
+            options: {
+              action: '//jsonplaceholder.typicode.com/photos/',
+              max: 2
+            },
+            required: true
+          },
+          {
+            type: 'agreement',
+            model: 'agreement',
+            options: {
+              text: '请同意',
+              link: {
+                text: '《xx协议》',
+                href: 'https://github.com/didi/cube-ui'
+              },
+              desc: '说明：本人承诺xx xxxxx xxx xx。'
+            },
+            required: true,
+            errMsg: '请同意协议'
+          }
+        ],
+        submit: {
+          text: 'Submit'
+        }
+      }
+    },
+    components: {
+      DemoQuestionnaire
+    },
+    methods: {
+      submitHandler(model) {
+        console.log('submit', model)
+      }
+    }
+  }
+  ```
+
 ### Props 配置
 
 #### CubeForm
