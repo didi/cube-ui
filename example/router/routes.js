@@ -15,6 +15,7 @@ import FormDefault from '../pages/form/default.vue'
 import FormCustom from '../pages/form/custom.vue'
 import FormClassic from '../pages/form/classic.vue'
 import FormFresh from '../pages/form/fresh.vue'
+import Questionnaire from '../pages/form/questionnaire.vue'
 import Picker from '../pages/picker.vue'
 import CascadePicker from '../pages/cascade-picker.vue'
 import SegmentPicker from '../pages/segment-picker.vue'
@@ -125,6 +126,10 @@ const routes = [
       {
         path: 'fresh',
         component: FormFresh
+      },
+      {
+        path: 'questionnaire',
+        component: Questionnaire
       }
     ]
   },
