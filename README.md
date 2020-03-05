@@ -57,11 +57,6 @@ Vue.use(ActionSheet)
 
 For more information, please refer to [Quick Start](https://didi.github.io/cube-ui/#/en-US/docs/quick-start)
 
-### ToDo
-
-- More components
-
-- Support theme
 
 ### Development
 
@@ -77,3 +72,11 @@ npm run doc-dev
 ### Changelog
 
 Detailed changes for each release are documented in the [release notes](https://github.com/didi/cube-ui/releases).
+
+### DiDi Open Sources
+
+- [Mpx](https://github.com/didi/mpx): An enhanced miniprogram framework with data reactivity and deep optimizition.
+- [Chameleon](https://github.com/didi/chameleon) /kəˈmiːlɪən/: Unify all platforms(Web/Weex/Mini program) with MVVM. Focus on Write Once Run AnyWhere.
+- [Chameleon](https://github.com/didi/chameleon) /kəˈmiːlɪən/: Unify all platforms(Web/Weex/Mini program) with MVVM. Focus on Write Once Run AnyWhere.
+- [More](https://github.com/didi/)
+
