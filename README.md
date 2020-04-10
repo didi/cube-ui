@@ -57,11 +57,6 @@ Vue.use(ActionSheet)
 
 For more information, please refer to [Quick Start](https://didi.github.io/cube-ui/#/en-US/docs/quick-start)
 
-### ToDo
-
-- More components
-
-- Support theme
 
 ### Development
 
@@ -77,3 +72,12 @@ npm run doc-dev
 ### Changelog
 
 Detailed changes for each release are documented in the [release notes](https://github.com/didi/cube-ui/releases).
+
+### DiDi Open Sources
+
+- [Mpx](https://github.com/didi/mpx): An enhanced miniprogram framework with data reactivity and deep optimizition.
+- [Chameleon](https://github.com/didi/chameleon)/kəˈmiːlɪən/: Unify all platforms(Web/Weex/Mini program) with MVVM. Focus on Write Once Run AnyWhere.
+- [mand-mobile](https://github.com/didi/mand-mobile): A mobile UI toolkit, based on Vue.js 2, designed for financial scenarios.
+- [DoraemonKit](https://github.com/didi/DoraemonKit)/'dɔ:ra:'emɔn/: A full-featured App (iOS & Android) development assistant. You deserve it.
+- [Booster](https://github.com/didi/booster): An easy-to-use, lightweight, powerful and extensible quality optimization toolkit designed specially for mobile applications.
+- [More repos](https://github.com/didi/)
