@@ -146,6 +146,7 @@
 | side | 是否是侧边样式 | Boolean | true/false | false |
 | current | 当前导航 active 项的 key 值 | String/Number | - | '' |
 | speed | 点击导航切换到指定位置的速度 | Number | - | 300 |
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {} |
 
 #### CubeScrollNavPanel
 
