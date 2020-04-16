@@ -232,7 +232,9 @@
               wheelItemClass: 'cube-picker-wheel-item'
             },
             swipeTime: this.swipeTime,
-            observeDOM: false
+            observeDOM: false,
+            // fix issue #397
+            disableMouse: false
           })
           wheel.on('scrollEnd', () => {
             this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
