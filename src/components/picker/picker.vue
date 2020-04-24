@@ -74,6 +74,7 @@
     created() {
       this._values = []
       this._indexes = this.selectedIndex
+      this._setBounce()
     },
     methods: {
       confirm() {
@@ -232,7 +233,8 @@
               wheelItemClass: 'cube-picker-wheel-item'
             },
             swipeTime: this.swipeTime,
-            observeDOM: false
+            observeDOM: false,
+            bounce: this._bounce
           })
           wheel.on('scrollEnd', () => {
             this.$emit(EVENT_CHANGE, i, wheel.getSelectedIndex())
@@ -261,6 +263,23 @@
           return data[0][this.orderKey]
         }
         return 0
+      },
+      // fix the scrolling problem of setting bounce to BScroll options in IOS13.4 webview #978
+      _setBounce() {
+        this._bounce = true
+        const UA = window.navigator.userAgent
+        const isIOS = /iphone|ipad|ipod|ios/i.test(UA)
+        if (isIOS) {
+          const version = UA.match(/os\s+[\d_]+/i)[0].replace(/os\s/i, '').split('_')
+          if (
+            version[0] &&
+            version[1] &&
+            +version[0] >= 13 &&
+            +version[1] >= 4
+          ) {
+            this._bounce = false
+          }
+        }
       }
     },
     beforeDestroy() {
