@@ -186,7 +186,10 @@
       },
       refillColumn(index, data) {
         const wheelWrapper = this.$refs.wheelWrapper
-        let scroll = wheelWrapper.children[index].querySelector('.cube-picker-wheel-scroll')
+        let scroll
+        if (wheelWrapper.children[index]) {
+          scroll = wheelWrapper.children[index].querySelector('.cube-picker-wheel-scroll')
+        }
         let wheel = this.wheels ? this.wheels[index] : false
         let dist = 0
         if (scroll && wheel) {
