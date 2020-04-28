@@ -55,6 +55,7 @@
   import deprecatedMixin from '../../common/mixins/deprecated'
   import { getRect } from '../../common/helpers/dom'
   import { camelize } from '../../common/lang/string'
+  import { USE_TRANSITION } from '../../common/bscroll/constants'
 
   const COMPONENT_NAME = 'cube-scroll'
   const DIRECTION_H = 'horizontal'
@@ -260,12 +261,13 @@
           return
         }
         this._calculateMinHeight()
-
-        let options = Object.assign({}, DEFAULT_OPTIONS, {
+        let dynamicOptions = {
           scrollY: this.direction === DIRECTION_V,
           scrollX: this.direction === DIRECTION_H,
-          probeType: this.needListenScroll ? 3 : 1
-        }, this.options)
+          probeType: this.needListenScroll ? 3 : 1,
+          useTransition: USE_TRANSITION
+        }
+        let options = Object.assign({}, DEFAULT_OPTIONS, dynamicOptions, this.options)
 
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
