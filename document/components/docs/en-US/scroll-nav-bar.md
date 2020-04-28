@@ -112,7 +112,7 @@ Scroll navigation bar component, like DiDi business navigation.
 | labels | the collection if all the item's keys | Array | - | [] |
 | txts | the text of showcases, it's order is correspondence with `labels`, the item can be a HTML string value | Array | - | default equals to `labels` Prop |
 | current | the key of the active item | String/Number | - | '' |
-| options | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html) | Object | - | {} |
+| options | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html) | Object | - | {}<br>`Notice`: After `1.12.37`, as [BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) `iOS13.4` issue [#978](https://github.com/ustbhuangyi/better-scroll/issues/978), we set `useTransition` to `fasle` by default |
 
 ### Slot
 
