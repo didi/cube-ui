@@ -181,6 +181,20 @@ function parsePath (obj, path = '') {
   return result
 }
 
+function getIOSVersion(ua) {
+  const regex = /os (\d\d?_\d(_\d)?)/
+  const matches = regex.exec(ua)
+  if (!matches) return null
+  const parts = matches[1].split('_').map(function(item) {
+    return parseInt(item, 10)
+  })
+  return {
+    major: parts[0],
+    minor: parts[1],
+    patch: parts[2] || 0
+  }
+}
+
 const isFunc = judgeTypeFnCreator('Function')
 const isUndef = judgeTypeFnCreator('Undefined')
 const isArray = judgeTypeFnCreator('Array')
@@ -203,5 +217,6 @@ export {
   isArray,
   isString,
   isObject,
-  isNumber
+  isNumber,
+  getIOSVersion
 }

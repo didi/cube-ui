@@ -185,7 +185,7 @@
 | autoPlay | 是否自动播放 | Boolean | true/false | true |
 | interval | 播放间隔 | Number | - | 4000 |
 | direction | 轮播方向 | String | horizontal/vertical | horizontal |
-| options<sup>1.9.0</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
+| options<sup>1.9.0</sup> | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} <br>`注意`：从`1.12.37`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978) |
 | threshold | 切换页面的滑动阈值 | Number | (0, 1) | 0.3 |
 | speed | 切换页面的速度 | Number | - | 400 |
 | allowVertical | 是否允许竖向滚动。`即将废弃`，推荐使用 `options` 属性 | Boolean | true/false | false |
