@@ -412,7 +412,7 @@
 | - | - | - | - | - |
 | data | 用于列表渲染的数据 | Array | - | [] |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
-| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} |
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} <br>`注意`：从`1.12.37`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978)|
 | scrollEvents<sup>1.9.0</sup> | 配置需要派发的 scroll 事件 | Array | 可包含子项：'scroll', 'before-scroll-start', 'scroll-end' | [] |
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
