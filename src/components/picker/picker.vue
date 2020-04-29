@@ -95,7 +95,7 @@
         }
 
         for (let i = 0; i < length; i++) {
-          let index = this.wheels[i].getSelectedIndex()
+          let index = this._getSelectIndex(this.wheels[i])
           this._indexes[i] = index
 
           let value = null
@@ -236,21 +236,7 @@
             useTransition: USE_TRANSITION
           })
           wheel.on('scrollEnd', () => {
-            let selectedIndex
-            if (USE_TRANSITION) {
-              selectedIndex = wheel.getSelectedIndex()
-            } else {
-              // fixed BScroll not calculating selectedIndex when setting useTransition to false
-              const y = wheel.y
-              if (y > wheel.minScrollY) {
-                selectedIndex = 0
-              } else if (y < wheel.maxScrollY) {
-                selectedIndex = wheel.items.length - 1
-              } else {
-                selectedIndex = Math.round(Math.abs(y / wheel.itemHeight))
-              }
-            }
-            this.$emit(EVENT_CHANGE, i, selectedIndex)
+            this.$emit(EVENT_CHANGE, i, this._getSelectIndex(wheel))
           })
         } else {
           this.wheels[i].refresh()
@@ -276,6 +262,23 @@
           return data[0][this.orderKey]
         }
         return 0
+      },
+      // fixed BScroll not calculating selectedIndex when setting useTransition to false
+      _getSelectIndex(wheel) {
+        const y = wheel.y
+        let selectedIndex
+        if (USE_TRANSITION) {
+          selectedIndex = wheel.getSelectedIndex()
+        } else {
+          if (y > wheel.minScrollY) {
+            selectedIndex = 0
+          } else if (y < wheel.maxScrollY) {
+            selectedIndex = wheel.items.length - 1
+          } else {
+            selectedIndex = Math.round(Math.abs(y / wheel.itemHeight))
+          }
+        }
+        return selectedIndex
       }
     },
     beforeDestroy() {
