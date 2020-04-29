@@ -110,7 +110,7 @@
 | labels | 所有的 key 值集合 | Array | - | [] |
 | txts | 显示所有文案集合，和 labels 一一对应，每项可以是 HTML 字符串 | Array | - | 默认等于 labes |
 | current | 当前 active 的 key 值 | String/Number | - | '' |
-| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {}  <br>`注意`：从`1.12.37`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978)|
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {}  <br>`注意`：从`1.12.38`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978)|
 
 ### 插槽
 

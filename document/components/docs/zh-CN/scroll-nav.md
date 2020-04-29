@@ -146,7 +146,7 @@
 | side | 是否是侧边样式 | Boolean | true/false | false |
 | current | 当前导航 active 项的 key 值 | String/Number | - | '' |
 | speed | 点击导航切换到指定位置的速度 | Number | - | 300 |
-| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {} <br>`注意`：从`1.12.37`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978) |
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {} <br>`注意`：从`1.12.38`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978) |
 
 #### CubeScrollNavPanel
 

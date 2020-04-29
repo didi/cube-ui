@@ -231,7 +231,7 @@
 | data | data to be displayed | Array | [] |
 | navbar | whether need navbar | Boolean | true |
 | speed | when click the navigator, the transition time of scrolling to the specific anchor (unit: ms). | number | 0 |
-| options<sup>1.9.8+</sup> | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html) | Object | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>}<br>`Notice`: After `1.12.37`, as [BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) `iOS13.4` issue [#978](https://github.com/ustbhuangyi/better-scroll/issues/978), we set `useTransition` to `fasle` by default |
+| options<sup>1.9.8+</sup> | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/en/options.html) | Object | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>}<br>`Notice`: After `1.12.38`, as [BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) `iOS13.4` issue [#978](https://github.com/ustbhuangyi/better-scroll/issues/978), we set `useTransition` to `fasle` by default |
 | pullUpLoad<sup>1.8.0+</sup> | pull-up-load, the detail config is same as the `options.pullUpLoad` of Scroll. `Deprecated`, please use the property `options` instead. | Boolean/Object | false |
 | pullDownRefresh<sup>1.8.0+</sup> | pull-down-refresh, the detail config is same as the `options.pullDownRefresh` of Scroll. `Deprecated`, please use the property `options` instead. | Boolean/Object | false |
 
