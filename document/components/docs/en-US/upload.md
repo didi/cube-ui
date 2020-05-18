@@ -220,7 +220,7 @@ A function with two parameters: `(file, next)`, the `file` is the original file 
 | file-removed | triggers when a file is removed | the file object |
 | file-success | triggers when a file is uploaded successfully | the file object |
 | file-error | triggers when a file is failed to upload | the file object |
-| file-click | triggers when a file is clicked | the file object |
+| file-click | triggers when a file is clicked | the file object. After 1.12.39, added file `index` param |
 | input | triggers when the binding value(file list) changes | the updated value(file list) |
 
 ### Instance methods
