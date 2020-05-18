@@ -2,7 +2,7 @@
   <div class="cube-upload">
     <slot>
       <div class="cube-upload-def clear-fix">
-        <upload-file v-for="(file, i) in files" :file="file" :key="i" @click="fileClick"></upload-file>
+        <upload-file v-for="(file, i) in files" :file="file" :key="i" @click="fileClick(file, i)"></upload-file>
         <upload-btn :multiple="multiple" :accept="accept" v-show="isShowBtn"></upload-btn>
       </div>
     </slot>
@@ -129,8 +129,8 @@
         this.files.splice(index, 1)
         this.upload()
       },
-      fileClick(file) {
-        this.$emit(EVENT_CLICK, file)
+      fileClick(file, index) {
+        this.$emit(EVENT_CLICK, file, index)
       },
       upload(retry) {
         const options = this.actionOptions
