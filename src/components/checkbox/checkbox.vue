@@ -92,9 +92,11 @@
         set (newValue) {
           const value = this.computedOption.value
           const emitValue = value && newValue ? value : newValue
-          const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCLE_CHECKED
           this.$emit(EVENT_INPUT, emitValue)
           if (this.isInGroup) {
+            // fix a bug when checkboxgroup set the min props
+            newValue = !this.checkValue
+            const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCLE_CHECKED
             this.$parent.$emit(parentEmitEvent, value || newValue)
           }
         }
