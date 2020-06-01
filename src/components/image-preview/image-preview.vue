@@ -49,6 +49,7 @@
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import { isAndroid } from '../../common/helpers/env'
+  import { USE_TRANSITION } from '../../common/bscroll/constants'
 
   const COMPONENT_NAME = 'cube-image-preview'
   const EVENT_CHANGE = 'change'
@@ -91,11 +92,12 @@
             left: true,
             right: true
           },
-          useTransition: !isAndroid,
+          useTransition: isAndroid ? false : USE_TRANSITION,
           probeType: 3,
           preventDefault: this.preventDefault
         },
         scrollOptions: {
+          useTransition: USE_TRANSITION,
           HWCompositing: isAndroid,
           observeDOM: false,
           zoom: true,

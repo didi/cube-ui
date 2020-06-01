@@ -7,7 +7,7 @@ function getUseTransition() {
     const version = getIOSVersion(ua)
     if (!version) return useTransition
 
-    if (version.major >= 13 && version.minor >= 4) {
+    if (version.major >= 13 && version.minor >= 3) {
       useTransition = false
     }
   }
