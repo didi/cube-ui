@@ -57,6 +57,7 @@ import Sticky from '../pages/sticky/index.vue'
 import StickyScroll from '../pages/sticky/scroll.vue'
 import StickyNative from '../pages/sticky/native.vue'
 import StickyWechat from '../pages/sticky/wechat.vue'
+import StickyComplex from '../pages/sticky/complex.vue'
 import ScrollNavBar from '../pages/scroll-nav-bar.vue'
 import ScrollNav from '../pages/scroll-nav/index.vue'
 import ScrollNavDefault from '../pages/scroll-nav/default.vue'
@@ -342,6 +343,10 @@ const routes = [
       {
         path: 'wechat',
         component: StickyWechat
+      },
+      {
+        path: 'complex',
+        component: StickyComplex
       }
     ]
   },
