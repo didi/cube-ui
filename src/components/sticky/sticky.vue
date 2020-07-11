@@ -15,7 +15,9 @@
 <script type="text/ecmascript-6">
   import {
     getRect,
-    prefixStyle
+    prefixStyle,
+    addClass,
+    removeClass
   } from '../../common/helpers/dom'
 
   const COMPONENT_NAME = 'cube-sticky'
@@ -101,6 +103,13 @@
             } else {
               this.fixedEleHeight = 0
             }
+          }
+          const onClass = 'cube-sticky-ele-on'
+          if (oldEle) {
+            removeClass(oldEle.$el, onClass)
+          }
+          if (newEle) {
+            addClass(newEle.$el, onClass)
           }
         })
 
