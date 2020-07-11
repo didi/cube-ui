@@ -75,7 +75,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   .cube-scroll-list-wrapper
     .cube-tab-bar
       flex-wrap: wrap
