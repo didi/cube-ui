@@ -158,15 +158,17 @@ export default {
       // 必须触发 scroll 事件 所以第三个参数的时间 不是 0
       this.$refs.scroll.scrollTo(0, -keyPos, 1)
       this.$nextTick(() => {
-        // 等待 UI 高度变化 让其能够达到触发 pullup 条件
-        // hack maxScrollY 此时不能 refresh 因为需要hack sticky 状态
-        // 不让其 reset position
-        this.$refs.scroll.scroll.maxScrollY = -keyPos
-        if (!this.tabPullUpMap[newTab].enable) {
+        if (this.tabPullUpMap[newTab].enable && !this[`items${newTab}`].length) {
+          // 数据还是空的 主动触发
+          // 其他场景 不主动触发
+          // 等待 UI 高度变化 让其能够达到触发 pullup 条件
+          // hack maxScrollY 此时不能 refresh 因为需要 hack sticky 状态
+          // 不让其 reset position
+          this.$refs.scroll.scroll.movingDirectionY = 1
+          this.$refs.scroll.scroll.maxScrollY = -keyPos
+        } else {
           // 当不能加载更多的时候 切换就不会更新数据了 所以这里手工刷新
-          setTimeout(() => {
-            this.$refs.scroll.refresh()
-          }, 20)
+          this.$refs.scroll.refresh()
         }
       })
     }
@@ -174,12 +176,18 @@ export default {
   methods: {
     onPullingUp() {
       // 这里分别模拟不同 tab 下的请求
+      const currentTab = this.currentTab
       setTimeout(() => {
-        const targetItems = `items${this.currentTab}`
+        if (currentTab !== this.currentTab) {
+          // 已经在其他tab了
+          this.$refs.scroll.forceUpdate()
+          return
+        }
+        const targetItems = `items${currentTab}`
         const items = this[targetItems] = this[targetItems].concat(_data)
-        if (items.length >= this.currentTab * 20) {
+        if (items.length >= currentTab * 20) {
           // 某个 tab 没有更多了
-          this.tabPullUpMap[this.currentTab].enable = false
+          this.tabPullUpMap[currentTab].enable = false
         }
       }, 300)
     },
