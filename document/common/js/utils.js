@@ -32,7 +32,7 @@ export function getCurrentLang() {
   return defaultLang
 }
 
-const baseUrl = process.env.NODE_ENV === 'production' ? `${window.location.href.replace(/#.*$/, '')}example/` : `http://${window.location.hostname}:8081/#/`
+const baseUrl = process.env.NODE_ENV === 'production' ? `${window.location.href.replace(/#.*$/, '')}example/#/` : `http://${window.location.hostname}:8081/#/`
 
 const eventHub = new Vue()
 
