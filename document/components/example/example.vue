@@ -6,6 +6,8 @@
       <div class="example-desc">
         <a :href="baseUrl" class="online-link">Online Example</a>
         <img src="./example-QR.png">
+        On Gitee
+        <img src="./example-QR2.png">
       </div>
     </div>
   </div>
