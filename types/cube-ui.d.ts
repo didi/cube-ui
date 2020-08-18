@@ -91,29 +91,49 @@ export class Popup extends CubeUIComponent {
   show(): any
   hide(): any
   remove(): any
+  static $create(options: object): Popup
 }
 /** Toast Component */
-export class Toast extends Popup {}
+export class Toast extends Popup {
+  static $create(options: object): Toast
+}
 /** Picker Component */
-export class Picker extends Popup {}
+export class Picker extends Popup {
+  static $create(options: object): Picker
+}
 /** Cascade Picker Component */
-export class CascadePicker extends Popup {}
+export class CascadePicker extends Popup {
+  static $create(options: object): CascadePicker
+}
 /** Date Picker Component */
-export class DatePicker extends Popup {}
+export class DatePicker extends Popup {
+  static $create(options: object): DatePicker
+}
 /** Time Picker Component */
-export class TimePicker extends Popup {}
+export class TimePicker extends Popup {
+  static $create(options: object): TimePicker
+}
 /** Segment Picker Component */
-export class SegmentPicker extends Popup {}
+export class SegmentPicker extends Popup {
+  static $create(options: object): SegmentPicker
+}
 /** Dialog Component */
-export class Dialog extends Popup {}
+export class Dialog extends Popup {
+  static $create(options: object): Dialog
+}
 /** Action Sheet Component */
-export class ActionSheet extends Popup {}
+export class ActionSheet extends Popup {
+  static $create(options: object): ActionSheet
+}
 /** ImagePreview Component */
-export class ImagePreview extends Popup {}
+export class ImagePreview extends Popup {
+  static $create(options: object): ImagePreview
+}
 /** Drawer Component */
 export class Drawer extends CubeUIComponent {
   show(): void
   hide(): void
+  static $create(options: object): Drawer
 }
 // scroll
 /** Scroll Component */
