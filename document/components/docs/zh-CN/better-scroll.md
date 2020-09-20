@@ -6,6 +6,6 @@
 
 关于 better-scroll 详细的文档以及示例，请参考：
 
-- [官方文档](https://ustbhuangyi.github.io/better-scroll/#/zh)
+- [官方文档](https://better-scroll.github.io/docs-v1/)
 
-- [官方示例](https://ustbhuangyi.github.io/better-scroll/#/examples/zh)
+- [官方示例](https://better-scroll.github.io/docs-v1/#/examples/zh)

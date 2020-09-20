@@ -187,7 +187,7 @@
 | autoPlay | whether to play  automatically | Boolean | true/false | true |
 | interval | interval of play | Number | - | 4000 |
 | direction | slide direction | String | horizontal/vertical | horizontal |
-| options<sup>1.9.0</sup> | the options of better-scroll, you could find details at [BS Document](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
+| options<sup>1.9.0</sup> | the options of better-scroll, you could find details at [BS Document](https://better-scroll.github.io/docs-v1/doc/zh-hans/options.html) | Object | - | {<br>  momentum: false,<br>  click: true,<br>  observeDOM: false<br>} |
 | threshold | sliding threshold of switching pages | Number | (0, 1) | 0.3 |
 | speed | speed of switching pages | Number | - | 400 |
 | allowVertical | whether to allow vertical scrolling. `Deprecated`, please use the property `options` instead. | Boolean | true/false | false |

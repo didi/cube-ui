@@ -6,6 +6,6 @@ This module exports a default function called `BetterScroll`,  for more informat
 
 About better-scroll:
 
-- [Home](https://ustbhuangyi.github.io/better-scroll/#/)
+- [Home](https://better-scroll.github.io/docs-v1/#/)
 
-- [Example](https://ustbhuangyi.github.io/better-scroll/#/examples/en)
+- [Example](https://better-scroll.github.io/docs-v1/#/examples/en)

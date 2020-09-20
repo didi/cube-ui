@@ -86,7 +86,7 @@
       display: inline-block
   ```
 
-  > **注意**：1. 由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。2. 有时候我们希望横向滚动使用`Scroll`组件来模拟，纵向保留浏览器原生滚动，或者相反的情况。这时你需要传递 better-scroll 配置项 [eventPassthrough](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html#eventpassthrough)。
+  > **注意**：1. 由上面的滚动原理可知，这里的 CSS 样式设置是必须的，只有在滚动内容的宽度大于容器宽度时才可滚动。2. 有时候我们希望横向滚动使用`Scroll`组件来模拟，纵向保留浏览器原生滚动，或者相反的情况。这时你需要传递 better-scroll 配置项 [eventPassthrough](https://better-scroll.github.io/docs-v1/doc/zh-hans/options.html#eventpassthrough)。
 
   这里对样式的设定做简要的解释，为`list-item`元素添加`display: inline-block`是希望元素能够不换行，单行显示。`list-wrapper`添加`white-space: nowrap`是希望遇到父元素边界，依然不换行。另外，关键是`cube-scroll-content`元素添加`display: inline-block`样式，此时`cube-scroll-content`元素的宽度为能够包裹子孙元素的最小宽度，即为连续内联`list-item`元素的宽度之和子元素的最大宽度。具有同样性质的样式还有，浮动元素和绝对定位元素，在不设置具体宽度时，其宽度为包裹子孙元素的最小宽度。
 
@@ -412,7 +412,7 @@
 | - | - | - | - | - |
 | data | 用于列表渲染的数据 | Array | - | [] |
 | direction | 滚动方向 | String | 'vertical', 'horizontal' | 'vertical' |
-| options | better-scroll 配置项，具体请参考[BS 官方文档](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} <br>`注意`：从`1.12.38`版本开始，因修复[BS](https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978)|
+| options | better-scroll 配置项，具体请参考[BS 官方文档](https://better-scroll.github.io/docs-v1/doc/zh-hans/options.html) | Object | - | {<br>  observeDOM: true,<br>  click: true,<br>  probeType: 1,<br>  scrollbar: false,<br>  pullDownRefresh: false,<br>  pullUpLoad: false<br>} <br>`注意`：从`1.12.38`版本开始，因修复[BS](https://better-scroll.github.io/docs-v1/doc/zh-hans/options.html)在`iOS13.4`版本的滚动问题，`useTransition`在iOS版本>=13.4时默认为`fasle`<br>具体请参考[#978](https://github.com/ustbhuangyi/better-scroll/issues/978)|
 | scrollEvents<sup>1.9.0</sup> | 配置需要派发的 scroll 事件 | Array | 可包含子项：'scroll', 'before-scroll-start', 'scroll-end' | [] |
 | listenScroll | 是否派发 scroll 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
 | listenBeforeScroll | 是否派发 before-scroll-start 事件。`即将废弃`，推荐使用 `scroll-events` 属性 | Boolean | true/false | false |
@@ -481,4 +481,4 @@
 
 | 属性名 | 说明 |
 | - | - |
-| scroll | 可以通过该属性获得内部实现滚动核心的 BScoll 实例，从而获得更多 BScoll 的底层能力，如监听`touchEnd`事件，获得滚动中的中间状态等，具体可查看[ better-scroll 文档](http://ustbhuangyi.github.io/better-scroll/doc/zh-hans/) |
+| scroll | 可以通过该属性获得内部实现滚动核心的 BScoll 实例，从而获得更多 BScoll 的底层能力，如监听`touchEnd`事件，获得滚动中的中间状态等，具体可查看[ better-scroll 文档](https://better-scroll.github.io/docs-v1/doc/zh-hans/) |
