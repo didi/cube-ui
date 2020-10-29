@@ -9,7 +9,8 @@
         :options="options"
         @scroll="onScrollHandle"
         @pulling-down="onPullingDown">
-        <img src="https://dpubstatic.udache.com/static/dpubimg/RWEjWgWJ4x/jd_content.JPG">
+        <img src="https://dpubstatic.udache.com/static/dpubimg/RWEjWgWJ4x/jd_content.JPG" @load="onImgLoad">
+        <img class="ghostly-img" src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png" @load="onImgLoad">
         <template slot="pulldown" slot-scope="props">
           <div
               v-if="props.pullDownRefresh"
@@ -40,6 +41,8 @@
 
 <script type="text/ecmascript-6">
 import CubePage from '../../components/cube-page.vue'
+
+let imagesCount = 3
 
 export default {
   data() {
@@ -104,7 +107,9 @@ export default {
       // go to other page
     },
     onImgLoad() {
-      this.$refs.scroll.refresh()
+      if (--imagesCount === 0) {
+        this.$refs.scroll.refresh()
+      }
     }
   }
 }
@@ -136,6 +141,8 @@ export default {
     img
       width: 100%
       // height: 50px
+    .ghostly-img
+      opacity 0
     .cube-pulldown-wrapper
       transform: translateY(-100%)
       line-height: 0
