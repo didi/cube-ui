@@ -17,27 +17,27 @@
 <script type="text/ecmascript-6">
   import CubePage from '../../components/cube-page.vue'
 
-  export default{
+  export default {
     data() {
       return {
         items: [
           {
             url: 'http://www.didichuxing.com/',
-            image: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3978382133,2176310874&fm=27&gp=0.jpg'
+            image: 'https://dpubstatic.udache.com/static/dpubimg/C9lKs8y0E6/IMG_4014.jpg'
           }, {
             url: 'http://www.didichuxing.com/',
-            image: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3780304411,1076045325&fm=15&gp=0.jpg'
+            image: 'https://dpubstatic.udache.com/static/dpubimg/hD6agmm2ov/IMG_4012.jpg'
           },
           {
             url: 'http://www.didichuxing.com/',
-            image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=56274798,4163877688&fm=27&gp=0.jpg'
+            image: 'https://dpubstatic.udache.com/static/dpubimg/twV-VvZOA9/IMG_4011.jpg'
           }, {
             url: 'http://www.didichuxing.com/',
-            image: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3124201171,3290669243&fm=15&gp=0.jpg'
+            image: 'https://dpubstatic.udache.com/static/dpubimg/eR_MahwRUT/IMG_4010.jpg'
           },
           {
             url: 'http://www.didichuxing.com/',
-            image: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1309802367,1770965841&fm=27&gp=0.jpg'
+            image: 'https://dpubstatic.udache.com/static/dpubimg/R3tKHhdZuK/IMG_4009.jpg'
           }
         ],
         loop: true
@@ -55,8 +55,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.slide-view
   .slide-container-v
-    height: 380px
+    height: 265px
     margin-bottom: 15px
     transform: translateZ(0px)
     border-radius: 2px
@@ -69,4 +70,7 @@
         background: none
         &.active
           color: #fc9153
+  .cube-slide-item > a > img
+    width: 100%
+    height: auto
 </style>
