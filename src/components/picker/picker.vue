@@ -68,7 +68,9 @@
     },
     data() {
       return {
-        finalData: this.data.slice()
+        finalData: this.data.slice(),
+        timer: null,
+        saveSelectedIndex: 0
       }
     },
     created() {
@@ -231,12 +233,36 @@
               wheelWrapperClass: 'cube-picker-wheel-scroll',
               wheelItemClass: 'cube-picker-wheel-item'
             },
+            probeType: 2,
             swipeTime: this.swipeTime,
             observeDOM: false,
-            useTransition: USE_TRANSITION
+            useTransition: USE_TRANSITION,
+            deceleration: 0.015,
+            swipeBounceTime: 200,
+            bounceTime: 300
           })
           wheel.on('scrollEnd', () => {
             this.$emit(EVENT_CHANGE, i, this._getSelectIndex(wheel))
+            window.navigator.vibrate(20)
+          })
+          wheel.on('scroll', () => {
+            if (this.timer) {
+              clearTimeout(this.timer)
+            }
+            this.timer = setTimeout(() => {
+              const oldSelectedIndex = this.saveSelectedIndex
+              const y = wheel.y
+              if (y > wheel.minScrollY) {
+                this.saveSelectedIndex = 0
+              } else if (y < wheel.maxScrollY) {
+                this.saveSelectedIndex = wheel.items.length - 1
+              } else {
+                this.saveSelectedIndex = Math.round(Math.abs(y / wheel.itemHeight))
+              }
+              if (oldSelectedIndex !== this.saveSelectedIndex) {
+                window.navigator.vibrate(20)
+              }
+            }, 5)
           })
         } else {
           this.wheels[i].refresh()
