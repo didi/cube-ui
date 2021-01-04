@@ -229,12 +229,21 @@
           day.children = partHours
         })
 
-        if (this.showNow) {
-          days[0].children.unshift({
-            value: NOW.value,
-            text: this.nowText,
-            children: []
-          })
+        const dayDiff = getDayDiff(this.minTime, this.now)
+
+        if (this.showNow && dayDiff <= 0) {
+          const index = Math.abs(dayDiff)
+          const daysData = days[index]
+          //  Make sure 'now' is between the 'min' and 'max'
+          if (daysData) {
+            // Because daysData.children is a reference to this.hours, avoid destroying this.hourse by using spread operator '...'
+            daysData.children = [...daysData.children]
+            daysData.children.unshift({
+              value: NOW.value,
+              text: this.nowText,
+              children: []
+            })
+          }
         }
 
         return days
