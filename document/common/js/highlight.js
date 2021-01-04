@@ -1,4 +1,4 @@
-import hljs from 'highlight.js/lib/highlight'
+import hljs from 'highlight.js/lib/core'
 
 import shell from 'highlight.js/lib/languages/shell'
 import css from 'highlight.js/lib/languages/css'
