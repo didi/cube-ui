@@ -1,10 +1,13 @@
 name: 🔂 Surge PR Preview
 
-on: pull_request_target
+on:
+  pull_request_target:
+    types: [labeled]
 
 jobs:
   preview:
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'SurgePreview')
     steps:
       - uses: actions/checkout@v2
         with:
