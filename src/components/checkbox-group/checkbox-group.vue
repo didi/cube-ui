@@ -31,6 +31,10 @@
         type: Boolean,
         default: false
       },
+      colNum:{
+        type: Number,
+        default: 1
+      },
       shape: {
         type: String,
         default: 'circle'
