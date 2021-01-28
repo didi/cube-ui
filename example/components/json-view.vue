@@ -8,7 +8,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import hljs from 'highlight.js/lib/highlight'	
+  import hljs from 'highlight.js/lib/highlight'
   import json from 'highlight.js/lib/languages/json'
   import 'highlight.js/styles/solarized-dark.css'
   hljs.registerLanguage('json', json)
