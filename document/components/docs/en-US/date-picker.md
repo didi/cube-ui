@@ -263,8 +263,8 @@ __Notice:__ Cause this component used create-api, so you should read [create-api
 
 | Attribute | Description | Type | Accepted Values | Default | Example |
 | - | - | - | - | - | - |
-| min | the minimum value of optional range | Date, Array | - | new Date(2010, 1, 1) | new Date(2008, 7, 8) |
-| max | the maximum value of optional range | Date, Array | - | new Date(2020, 12, 31) | new Date(2020, 9, 20) |
+| min | the minimum value of optional range | Date, Array | - | new Date(2010, 0, 1) | new Date(2008, 7, 8) |
+| max | the maximum value of optional range | Date, Array | - | December 31 of next year based on current time [new Date().getFullYear() + 1, 12, 31, 23, 59, 59] | new Date(2020, 9, 20) |
 | value | current selected Date | Date, Array | - | the minimum value of optional range | new Date() |
 | startColumn | the start column | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | the count of column | Number | - | 3 | 6 |
