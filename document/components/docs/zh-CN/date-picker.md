@@ -263,8 +263,8 @@ __注：__ 由于此组件基于 create-api 实现，所以在使用之前，请
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 | 示例 |
 | - | - | - | - | - | - |
-| min | 可选范围的最小值 | Date, Array | - | new Date(2010, 1, 1) | new Date(2008, 7, 8) |
-| max | 可选范围的最大值 | Date, Array | - | new Date(2020, 12, 31) | new Date(2020, 9, 20) |
+| min | 可选范围的最小值 | Date, Array | - | new Date(2010, 0, 1) | new Date(2008, 7, 8) |
+| max | 可选范围的最大值 | Date, Array | - | 当前时间未来一年的12月31日，[new Date().getFullYear() + 1, 12, 31, 23, 59, 59] | new Date(2020, 9, 20) |
 | value | 当前选择的日期 | Date, Array | - | 可选范围的最小值 | new Date() |
 | startColumn | 起始列 | String | year/month/date/hour/minute/second| year | hour |
 | columnCount | 列数 | Number | - | 3 | 6 |

@@ -75,7 +75,7 @@
       max: {
         type: [Date, Array],
         default() {
-          return new Date(2020, 11, 31)
+          return [new Date().getFullYear() + 1, 12, 31, 23, 59, 59]
         }
       },
       startColumn: {
