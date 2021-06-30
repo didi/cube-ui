@@ -1,5 +1,4 @@
 import { BaseEventHandler } from './common'
-import { type } from 'os'
 
 /** IActionSheet type */
 export interface IActionSheetItem {

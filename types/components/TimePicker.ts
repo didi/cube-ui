@@ -1,4 +1,4 @@
-import { BaseEventHandler, SelectEventHandler, ChangeEventHandler} from './common'
+import { BaseEventHandler, ChangeEventHandler} from './common'
 
 /** ITimePicker type */
 export interface TimePickerProps {

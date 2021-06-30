@@ -1,5 +1,3 @@
-import { BaseEventHandler } from './common'
-
 /** IDialog type */
 export interface IDialogBtn {
   text?: string
