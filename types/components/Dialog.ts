@@ -16,7 +16,10 @@ export interface DialogProps {
   visible?: boolean
   maskClosable?: boolean
   zIndex?: number
-  prompt?: object
+  prompt?: {
+    value?: string|number
+    placeholder?: string
+  }
 }
 type DialogCloseEventHandler = (e: object) => void
 

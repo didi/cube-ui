@@ -2,11 +2,11 @@ import { BaseEventHandler, ChangeEventHandler} from './common'
 
 /** IDatePicker type */
 export interface DatePickerProps {
-  min?: Date|[]
-  max?: Date|[]
+  min?: Date|(number|string)[]
+  max?: Date|(number|string)[]
   value?: Date|[]
   startColumn?: string
-  columnCount?: string
+  columnCount?: number
   format?: {
     year?: string
     month?: string
