@@ -1,4 +1,4 @@
-import '../../types'
+import { Picker } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const root = new Vue()
@@ -35,7 +35,7 @@ function changeHandle(index: number, selectedIndex: number) {
   console.log('index', index, selectedIndex, selectedIndex)
 }
 
-let picker = root.$createPicker({
+let picker: Picker = root.$createPicker({
   title: 'Picker',
   subtitle: '英雄联盟',
   cancelTxt: 'cancel',

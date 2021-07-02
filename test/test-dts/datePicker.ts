@@ -1,9 +1,9 @@
-import '../../types'
+import { DatePicker } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const root = new Vue()
 
-let datePicker
+let datePicker: DatePicker
 function selectHandle(date: Date, selectedVal: [], selectedText: []) {
   console.log('date: ', date.getTime())
   root.$createDialog({
@@ -62,7 +62,6 @@ function showDatePicker() {
     })
   }, 1000)
 }
-showDatePicker()
 function showPropsDatePicker() {
   root.$createDatePicker({
     $props: {
@@ -86,4 +85,3 @@ function showPropsDatePicker() {
     }
   }).show()
 }
-showPropsDatePicker()

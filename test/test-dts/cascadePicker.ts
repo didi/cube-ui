@@ -1,4 +1,4 @@
-import '../../types'
+import { CascadePicker } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const root = new Vue()
@@ -51,8 +51,8 @@ function cancelHandle() {
     time: 1000
   }).show()
 }
-let cascadePicker
-function clickShow() {
+let cascadePicker: CascadePicker
+function showCascadePicker() {
   if (cascadePicker) {
     cascadePicker.show()
     return
@@ -72,7 +72,6 @@ function clickShow() {
     }
   }).show()
 }
-clickShow()
 
 function setPickerData() {
   console.log('准备设置数据')
@@ -81,9 +80,8 @@ function setPickerData() {
   console.log('数据设置完成')
 }
 
-setPickerData()
 
-function propsClickShow () {
+function showPropsCascadePicker () {
   root.$createCascadePicker({
     $props: {
       title: 'Cascade Picker',
@@ -100,4 +98,3 @@ function propsClickShow () {
     }
   }).show()
 }
-propsClickShow()

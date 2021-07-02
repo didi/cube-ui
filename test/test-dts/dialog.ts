@@ -1,7 +1,6 @@
-import '../../types'
+import { Dialog } from '../../types/cube-ui'
 import Vue from 'vue'
 
-console.log(Vue)
 const vm = new Vue()
 
 const cancleHandler = (e: object): void => {
@@ -13,7 +12,7 @@ const confirmHandler = (e, val = '') => {
 const closeHandler = (e) => {
   console.log('closeHandler', e)
 }
-const dialog = vm.$createDialog({
+const dialog: Dialog = vm.$createDialog({
   type: 'prompt',
   icon: 'cubeic-alert',
   title: 'dialog 标题',
@@ -62,7 +61,7 @@ const dialog = vm.$createDialog({
 dialog.show()
 dialog.hide()
 
-const dialogProps = vm.$createDialog({
+const dialogProps: Dialog = vm.$createDialog({
   $props: {
     type: 'confirm',
     icon: 'cubeic-alert',

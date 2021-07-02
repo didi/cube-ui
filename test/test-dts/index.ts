@@ -1,3 +1,4 @@
+import '../../types'
 import './popup'
 import './toast'
 import './picker'

@@ -1,4 +1,4 @@
-import '../../types'
+import { Toast } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const vm = new Vue()
@@ -6,7 +6,7 @@ const vm = new Vue()
 const timeoutHandler = () => {
   console.log('timeoutHandler')
 }
-const toast = vm.$createToast({
+const toast: Toast = vm.$createToast({
   visible: true,
   type: 'error',
   mask: true,
@@ -25,7 +25,7 @@ setTimeout(() => {
   toast.hide()
 }, 2000)
 
-const toastProps = vm.$createToast({
+const toastProps: Toast = vm.$createToast({
   $props: {
     visible: true,
     type: 'error',

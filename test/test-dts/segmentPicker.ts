@@ -1,4 +1,4 @@
-import '../../types'
+import { SegmentPicker } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const root = new Vue()
@@ -16,7 +16,7 @@ const dateSegmentData = [
     max: new Date(2030, 11, 31)
   }
 ]
-let segmentPicker
+let segmentPicker: SegmentPicker
 const selectHandler = (selectedDates: [], selectedVals: [], selectedTexts: Array<[]>) => {
   console.log('selectedDates: ', selectedDates)
   console.log('selectedVals: ', selectedVals)
@@ -30,11 +30,11 @@ const selectHandler = (selectedDates: [], selectedVals: [], selectedTexts: Array
 const nextHandler = (i: number, selectedDate: Date, selectedValue: number[], selectedText: string[]) => {
   console.log('nextHandler i', i)
 
-  if (!segmentPicker.value) return
+  if (!segmentPicker) return
   console.log(i, selectedDate, selectedValue, selectedText)
   dateSegmentData[1].min = selectedDate
   if (i === 0) {
-    segmentPicker.value.$updateProps({
+    segmentPicker.$updateProps({
       data: dateSegmentData
     })
   }
@@ -50,8 +50,8 @@ const cancelHandler = () => {
 }
 
 function showSegmentPicker() {
-  if (!segmentPicker.value) {
-    segmentPicker.value = root.$createSegmentPicker({
+  if (!segmentPicker) {
+    segmentPicker = root.$createSegmentPicker({
       data: dateSegmentData,
       nextTxt: '下一个',
       prevTxt: '上一个',
@@ -70,9 +70,8 @@ function showSegmentPicker() {
       onCancel: cancelHandler
     })
   }
-  segmentPicker.value.show()
+  segmentPicker.show()
 }
-showSegmentPicker()
 
 function propsClickShow () {
   root.$createSegmentPicker({
@@ -98,4 +97,3 @@ function propsClickShow () {
     }
   }).show()
 }
-propsClickShow ()

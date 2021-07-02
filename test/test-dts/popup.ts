@@ -1,15 +1,14 @@
-import '../../types'
+import { Popup } from '../../types/cube-ui'
 import Vue from 'vue'
 
-console.log(Vue)
 const vm = new Vue()
 
 const maskClickHandler = (e) => {
   console.log('maskClickHandler', e)
   if (!Popup) { return }
-  Popup.hide()
+  popup.hide()
 }
-const Popup = vm.$createPopup({
+const popup: Popup = vm.$createPopup({
   visible: true,
   type: 'prompt',
   mask: true,
@@ -21,10 +20,10 @@ const Popup = vm.$createPopup({
   onMaskClick: maskClickHandler
 }, false)
 
-Popup.show()
-Popup.hide()
+popup.show()
+popup.hide()
 
-const PopupProps = vm.$createPopup({
+const popupProps: Popup = vm.$createPopup({
   $props: {
     visible: true,
     type: 'alert',
@@ -40,5 +39,5 @@ const PopupProps = vm.$createPopup({
   }
 })
 
-PopupProps.show()
-PopupProps.hide()
+popupProps.show()
+popupProps.hide()

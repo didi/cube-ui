@@ -1,7 +1,6 @@
-import '../../types'
+import { ImagePreview } from '../../types/cube-ui'
 import Vue from 'vue'
 
-console.log(Vue)
 const root = new Vue()
 
 const imgs = [
@@ -10,8 +9,8 @@ const imgs = [
   'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0mqvu5j21hc0zkgzz.jpg',
   'https://wx1.sinaimg.cn/mw1024/686d7361ly1fpha0m3ufuj21hc0zkqbj.jpg'
 ]
-let imagePreview
-let customIndex = 3
+let imagePreview: ImagePreview
+let customIndex: number = 3
 function showImagePreview() {
   imagePreview = root.$createImagePreview({
     imgs: imgs,
@@ -36,7 +35,6 @@ function showImagePreview() {
   })
   imagePreview.show()
 }
-showImagePreview()
 
 function showPropsImagePreview() {
   imagePreview = root.$createImagePreview({
@@ -66,4 +64,3 @@ function showPropsImagePreview() {
   })
   imagePreview.show()
 }
-showPropsImagePreview()

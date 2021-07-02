@@ -1,9 +1,9 @@
-import '../../types'
+import { TimePicker } from '../../types/cube-ui'
 import Vue from 'vue'
 
 const root = new Vue()
 
-let timePicker
+let timePicker: TimePicker
 const selectHandler = (selectedTime: number, selectedText: string, formatedTime: string) => {
   console.log(selectedTime, selectedText, formatedTime)
   root.$createDialog({
@@ -26,8 +26,8 @@ const changeHandler = (index: number, selectedIndex: number) => {
 
 function showTimePicker() {
   const time = new Date().valueOf() + 1 * 60 * 60 * 1000
-  if (!timePicker.value) {
-    timePicker.value = root.$createTimePicker({
+  if (!timePicker) {
+    timePicker = root.$createTimePicker({
       day: {
         len: 5,
         filter: ['今天', '明天', '后天'],
@@ -52,22 +52,21 @@ function showTimePicker() {
       onChange: changeHandler
     })
   }
-  timePicker.value.show()
+  timePicker.show()
   setTimeout(() => {
-    if (!timePicker.value) {
+    if (!timePicker) {
       return
     }
-    timePicker.value.setTime(time)
-    timePicker.value.$updateProps({
+    timePicker.setTime(time)
+    timePicker.$updateProps({
       title: 'updated',
       cancelTxt: '取消'
     })
   }, 3000)
 }
-showTimePicker()
 
 function propsClickShow() {
-  timePicker.value = root.$createTimePicker({
+  timePicker = root.$createTimePicker({
     $props: {
       showNow: {
         text: 'now at'
@@ -90,4 +89,3 @@ function propsClickShow() {
     }
   }).show()
 }
-propsClickShow()
