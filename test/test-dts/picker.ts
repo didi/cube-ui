@@ -1,5 +1,6 @@
 import { Picker } from '../../types/cube-ui'
 import Vue from 'vue'
+import { describe } from './helper'
 
 const root = new Vue()
 
@@ -35,41 +36,46 @@ function changeHandle(index: number, selectedIndex: number) {
   console.log('index', index, selectedIndex, selectedIndex)
 }
 
-let picker: Picker = root.$createPicker({
-  title: 'Picker',
-  subtitle: '英雄联盟',
-  cancelTxt: 'cancel',
-  confirmTxt: 'ok',
-  swipeTime: 3000,
-  alias: { value: 'text', text: 'value' },
-  data: [column1],
-  selectedIndex: [1],
-  visible: true,
-  zIndex: 90,
-  maskClosable: true,
-  onSelect: selectHandle,
-  onCancel: cancelHandle,
-  onValueChange: valueChangeHandle,
-  onChange: changeHandle
-}).show()
-
-setTimeout(() => {
-  if (!picker) { return }
-  picker.$updateProps({
-    title: 'Updated',
-    data: [column1, column2, column3],
-    selectedIndex: [1, 2, 3]
-  })
-}, 1000)
-
-root.$createPicker({
-  $props: {
+describe('Picker', () => {
+  let picker: Picker = root.$createPicker({
     title: 'Picker',
-    data: [column1]
-  },
-  $events: {
-    select: selectHandle,
-    cancel: cancelHandle,
-    'value-change': valueChangeHandle
-  }
-}).show()
+    subtitle: '英雄联盟',
+    cancelTxt: 'cancel',
+    confirmTxt: 'ok',
+    swipeTime: 3000,
+    alias: { value: 'text', text: 'value' },
+    data: [column1],
+    selectedIndex: [1],
+    visible: true,
+    zIndex: 90,
+    maskClosable: true,
+    onSelect: selectHandle,
+    onCancel: cancelHandle,
+    onValueChange: valueChangeHandle,
+    onChange: changeHandle
+  }).show()
+  
+  setTimeout(() => {
+    if (!picker) { return }
+    picker.$updateProps({
+      title: 'Updated',
+      data: [column1, column2, column3],
+      selectedIndex: [1, 2, 3]
+    })
+  }, 1000)
+  
+})
+
+describe('Picker $props', () => {
+  root.$createPicker({
+    $props: {
+      title: 'Picker',
+      data: [column1]
+    },
+    $events: {
+      select: selectHandle,
+      cancel: cancelHandle,
+      'value-change': valueChangeHandle
+    }
+  }).show()
+})

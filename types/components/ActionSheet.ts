@@ -1,4 +1,4 @@
-import { BaseEventHandler } from './common'
+import { BaseEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** IActionSheet type */
 export interface IActionSheetItem {
@@ -17,12 +17,14 @@ export interface ActionSheetProps {
   zIndex?: number
 }
 type ActionSheetSelectEventHandler = (item: IActionSheetItem, index: number) => void
-export interface IActionSheet extends ActionSheetProps {
-  onCancel?: BaseEventHandler
-  onSelect?: ActionSheetSelectEventHandler
-  $props?: ActionSheetProps
-  $events?: {
-    cancel?: BaseEventHandler
-    select?: ActionSheetSelectEventHandler
-  }
+interface EventsProps {
+  cancel?: BaseEventHandler
+  select?: ActionSheetSelectEventHandler
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<ActionSheetProps>
+
+export interface IActionSheet extends ActionSheetProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

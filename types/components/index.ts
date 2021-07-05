@@ -1,7 +1,7 @@
 import { CreateElement, VNode } from 'vue'
 
 export type IRenderFn = (createElement: CreateElement) => VNode|VNode[]
-export interface CreateApiFn<O, V> {
+export interface CreateAPIFn<O, V> {
   (options: O, single?: boolean):V
   (options: O, renderFn?: IRenderFn,):V
   (options: O, renderFn: IRenderFn, single: boolean):V

@@ -1,4 +1,4 @@
-import { BaseEventHandler, SelectEventHandler, ChangeEventHandler} from './common'
+import { BaseEventHandler, SelectEventHandler, ChangeEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** ICascadePicker type */
 export interface CascadePickerProps {
@@ -18,16 +18,16 @@ export interface CascadePickerProps {
   maskClosable?: boolean
   zIndex?: number
 }
-export interface ICascadePicker extends CascadePickerProps {
-  onSelect?: SelectEventHandler
-  onCancel?: BaseEventHandler
-  onChange?: ChangeEventHandler
-  onMaskClick?: BaseEventHandler
-  $props?: CascadePickerProps
-  $events?: {
-    select?: SelectEventHandler
-    cancel?: BaseEventHandler
-    change?: ChangeEventHandler
-    'mask-click'?: BaseEventHandler
-  }
+interface EventsProps {
+  select?: SelectEventHandler
+  cancel?: BaseEventHandler
+  change?: ChangeEventHandler
+  'mask-click'?: BaseEventHandler
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<CascadePickerProps>
+
+export interface ICascadePicker extends CascadePickerProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

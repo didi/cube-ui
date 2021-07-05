@@ -1,3 +1,5 @@
+import { GetPropsAddString, GetTransformFnKeys } from './common'
+
 /** IToast type */
 export interface ToastProps {
   visible?: boolean
@@ -8,10 +10,12 @@ export interface ToastProps {
   maskClosable?: boolean
   zIndex?: number
 }
-export interface IToast extends ToastProps {
-  onTimeout?: Function
-  $props?: ToastProps
-  $events?: {
-    timeout?: Function
-  }
+interface EventsProps {
+  timeout?: Function
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<ToastProps>
+export interface IToast extends ToastProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

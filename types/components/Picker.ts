@@ -1,4 +1,4 @@
-import { BaseEventHandler, SelectEventHandler, ChangeEventHandler} from './common'
+import { BaseEventHandler, SelectEventHandler, ChangeEventHandler, GetPropsAddString, GetTransformFnKeys} from './common'
 /** IPicker type */
 export interface PickerProps {
   data?: any[]
@@ -16,16 +16,16 @@ export interface PickerProps {
   maskClosable?: boolean
   zIndex?: number
 }
-export interface IPicker extends PickerProps {
-  onSelect?: SelectEventHandler
-  onCancel?: BaseEventHandler
-  onChange?: ChangeEventHandler
-  onValueChange?: SelectEventHandler
-  $props?: PickerProps
-  $events?: {
-    select?: SelectEventHandler
-    cancel?: BaseEventHandler
-    change?: ChangeEventHandler
-    'value-change'?: SelectEventHandler
-  }
+interface EventsProps {
+  select?: SelectEventHandler
+  cancel?: BaseEventHandler
+  change?: ChangeEventHandler
+  'value-change'?: SelectEventHandler
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<PickerProps>
+
+export interface IPicker extends PickerProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

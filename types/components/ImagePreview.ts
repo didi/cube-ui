@@ -1,4 +1,4 @@
-import { BaseEventHandler } from './common'
+import { BaseEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** IImagePreview type */
 export interface ImagePreviewProps {
@@ -10,13 +10,14 @@ export interface ImagePreviewProps {
   zIndex?: number
   preventDefault?: boolean
 }
-export interface IImagePreview extends ImagePreviewProps {
-  onHide?: BaseEventHandler
-  onChange?: (index: number) => void
-  $props?: ImagePreviewProps
-  $events?: {
-    hide?: BaseEventHandler
-    change?: (index: number) => void
-  }
+interface EventsProps {
+  hide?: BaseEventHandler
+  change?: (index: number) => void
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<ImagePreviewProps>
 
+export interface IImagePreview extends ImagePreviewProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

@@ -1,5 +1,6 @@
 import { TimePicker } from '../../types/cube-ui'
 import Vue from 'vue'
+import { describe } from './helper'
 
 const root = new Vue()
 
@@ -24,7 +25,8 @@ const changeHandler = (index: number, selectedIndex: number) => {
   console.log('当前滚动列次序: ', index, '当前列选中项的索引: ', selectedIndex)
 }
 
-function showTimePicker() {
+describe('TimePicker', () => {
+  
   const time = new Date().valueOf() + 1 * 60 * 60 * 1000
   if (!timePicker) {
     timePicker = root.$createTimePicker({
@@ -63,9 +65,10 @@ function showTimePicker() {
       cancelTxt: '取消'
     })
   }, 3000)
-}
+  
+})
+describe('TimePicker $props', () => {
 
-function propsClickShow() {
   timePicker = root.$createTimePicker({
     $props: {
       showNow: {
@@ -88,4 +91,5 @@ function propsClickShow() {
       change: changeHandler
     }
   }).show()
-}
+  
+})

@@ -1,4 +1,4 @@
-import { BaseEventHandler, ChangeEventHandler} from './common'
+import { BaseEventHandler, ChangeEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** IDatePicker type */
 export interface DatePickerProps {
@@ -25,14 +25,15 @@ export interface DatePickerProps {
   zIndex?: number
   columnOrder?: string[]
 }
-export interface IDatePicker extends DatePickerProps {
-  onSelect?: (date: Date, selectedIndex: [], selectedText: []) => void
-  onCancel?: BaseEventHandler
-  onChange?: ChangeEventHandler
-  $props?: DatePickerProps
-  $events?: {
-    select?: (date: Date, selectedIndex: [], selectedText: []) => void
-    cancel?: BaseEventHandler
-    change?: ChangeEventHandler
-  }
+interface EventsProps {
+  select?: (date: Date, selectedIndex: [], selectedText: []) => void
+  cancel?: BaseEventHandler
+  change?: ChangeEventHandler
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<DatePickerProps>
+
+export interface IDatePicker extends DatePickerProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

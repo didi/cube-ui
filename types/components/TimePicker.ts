@@ -1,4 +1,4 @@
-import { BaseEventHandler, ChangeEventHandler} from './common'
+import { BaseEventHandler, ChangeEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** ITimePicker type */
 export interface TimePickerProps {
@@ -27,14 +27,14 @@ export interface TimePickerProps {
   format?: string
   zIndex?: number
 }
-export interface ITimePicker extends TimePickerProps {
-  onSelect?: (selectedTime: number, selectText: string, formatedTime: string) => void
-  onCancel?: BaseEventHandler
-  onChange?: ChangeEventHandler
-  $props?: TimePickerProps
-  $events?: {
-    select?: (selectedTime: number, selectText: string, formatedTime: string) => void
-    cancel?: BaseEventHandler
-    change?: ChangeEventHandler
-  }
+interface EventsProps {
+  select?: (selectedTime: number, selectText: string, formatedTime: string) => void
+  cancel?: BaseEventHandler
+  change?: ChangeEventHandler
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<TimePickerProps>
+export interface ITimePicker extends TimePickerProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

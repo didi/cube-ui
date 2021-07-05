@@ -1,3 +1,5 @@
+import { GetPropsAddString, GetTransformFnKeys } from './common'
+
 /** Popup type */
 export interface PopupProps {
   visible?: boolean
@@ -9,10 +11,13 @@ export interface PopupProps {
   maskClosable?: boolean
   zIndex?: number
 }
-export interface IPopup extends PopupProps {
-  onMaskClick?: Function
-  $props?: PopupProps
-  $events?: {
-    'mask-click'?: Function
-  }
+interface EventsProps {
+  'mask-click'?: Function
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<PopupProps>
+
+export interface IPopup extends PopupProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

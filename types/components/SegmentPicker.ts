@@ -1,4 +1,4 @@
-import { BaseEventHandler } from './common'
+import { BaseEventHandler, GetPropsAddString, GetTransformFnKeys } from './common'
 
 /** ISegmentPicker type */
 export interface SegmentPickerProps {
@@ -20,18 +20,17 @@ type SegmentPickerNextEventHandler = (index: number, selectedDate: Date, selecte
 type SegmentPickerChangeEventHandler = (pickerIndex: number, index: number, selectedIndex: number) => void
 
 type SegmentPickerSelectEventHandler = (selectedDates: [], selectedVals: [], selectedTexts: []) => void
-export interface ISegmentPicker extends SegmentPickerProps {
-  onSelect?: SegmentPickerSelectEventHandler
-  onCancel?: BaseEventHandler
-  onChange?: SegmentPickerChangeEventHandler
-  onNext?: SegmentPickerNextEventHandler
-  onPrev?: (pickerIndex: number) => void
-  $props?: SegmentPickerProps
-  $events?: {
-    select?: SegmentPickerSelectEventHandler
-    cancel?: BaseEventHandler
-    change?: SegmentPickerChangeEventHandler
-    next?: SegmentPickerNextEventHandler
-    prev?: (pickerIndex: number) => void
-  }
+interface EventsProps {
+  select?: SegmentPickerSelectEventHandler
+  cancel?: BaseEventHandler
+  change?: SegmentPickerChangeEventHandler
+  next?: SegmentPickerNextEventHandler
+  prev?: (pickerIndex: number) => void
+}
+type TransfromEventsProps = GetTransformFnKeys<EventsProps>
+type AddStringProps = GetPropsAddString<SegmentPickerProps>
+
+export interface ISegmentPicker extends SegmentPickerProps, TransfromEventsProps {
+  $props?: AddStringProps
+  $events?: EventsProps
 }

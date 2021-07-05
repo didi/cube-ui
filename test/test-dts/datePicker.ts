@@ -1,5 +1,6 @@
 import { DatePicker } from '../../types/cube-ui'
 import Vue from 'vue'
+import { describe } from './helper'
 
 const root = new Vue()
 
@@ -19,7 +20,8 @@ function cancelHandle() {
     time: 1000
   }).show()
 }
-function showDatePicker() {
+
+describe('DatePicker', () => {
   if (!datePicker) {
     datePicker = root.$createDatePicker({
       min: new Date(2008, 7, 8),
@@ -61,8 +63,8 @@ function showDatePicker() {
       value: new Date(2010, 9, 1)
     })
   }, 1000)
-}
-function showPropsDatePicker() {
+})
+describe('DatePicker $props', () => {
   root.$createDatePicker({
     $props: {
       title: 'Date Picker',
@@ -84,4 +86,4 @@ function showPropsDatePicker() {
       }
     }
   }).show()
-}
+})

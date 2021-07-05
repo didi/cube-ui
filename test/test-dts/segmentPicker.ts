@@ -1,5 +1,6 @@
 import { SegmentPicker } from '../../types/cube-ui'
 import Vue from 'vue'
+import { describe } from './helper'
 
 const root = new Vue()
 const dateSegmentData = [
@@ -49,7 +50,7 @@ const cancelHandler = () => {
   console.log('cancel')
 }
 
-function showSegmentPicker() {
+describe('SegmentPicker', () => {
   if (!segmentPicker) {
     segmentPicker = root.$createSegmentPicker({
       data: dateSegmentData,
@@ -71,9 +72,9 @@ function showSegmentPicker() {
     })
   }
   segmentPicker.show()
-}
+})
 
-function propsClickShow () {
+describe('SegmentPicker $props', () => {
   root.$createSegmentPicker({
     $props: {
       data: dateSegmentData,
@@ -96,4 +97,4 @@ function propsClickShow () {
       cancel: cancelHandler
     }
   }).show()
-}
+})

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { CubeUIComponent } from './component'
-import { IPopup, IToast, IPicker, ICascadePicker, IDatePicker, ITimePicker, ISegmentPicker, IDialog, IActionSheet, IImagePreview, CreateApiFn } from './components'
+import { IPopup, IToast, IPicker, ICascadePicker, IDatePicker, ITimePicker, ISegmentPicker, IDialog, IActionSheet, IImagePreview, CreateAPIFn } from './components'
 /**
  * CubeUI 组件
  * CubeUI component common definition
@@ -169,24 +169,24 @@ export class RecycleList extends CubeUIComponent {}
 declare module 'vue/types/vue' {
   interface Vue {
     /** create Popup instance */
-    $createPopup: CreateApiFn<IPopup, Popup>
+    $createPopup: CreateAPIFn<IPopup, Popup>
     /** create Toast instance */
-    $createToast: CreateApiFn<IToast, Toast>
+    $createToast: CreateAPIFn<IToast, Toast>
     /** create Picker instance */
-    $createPicker: CreateApiFn<IPicker, Picker>
+    $createPicker: CreateAPIFn<IPicker, Picker>
     /** create CascadePicker instance */
-    $createCascadePicker: CreateApiFn<ICascadePicker, CascadePicker>
+    $createCascadePicker: CreateAPIFn<ICascadePicker, CascadePicker>
     /** create DatePicker instance */
-    $createDatePicker: CreateApiFn<IDatePicker, DatePicker>
+    $createDatePicker: CreateAPIFn<IDatePicker, DatePicker>
     /** create TimePicker instance */
-    $createTimePicker: CreateApiFn<ITimePicker, TimePicker>
+    $createTimePicker: CreateAPIFn<ITimePicker, TimePicker>
     /** create SegmentPicker instance */
-    $createSegmentPicker: CreateApiFn<ISegmentPicker, SegmentPicker>
+    $createSegmentPicker: CreateAPIFn<ISegmentPicker, SegmentPicker>
     /** create Dialog instance */
-    $createDialog: CreateApiFn<IDialog, Dialog>
+    $createDialog: CreateAPIFn<IDialog, Dialog>
     /** create ActionSheet instance */
-    $createActionSheet: CreateApiFn<IActionSheet, ActionSheet> 
+    $createActionSheet: CreateAPIFn<IActionSheet, ActionSheet> 
     /** create ImagePreview instance */
-    $createImagePreview: CreateApiFn<IImagePreview, ImagePreview>
+    $createImagePreview: CreateAPIFn<IImagePreview, ImagePreview>
   }
 }
