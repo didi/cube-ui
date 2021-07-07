@@ -17,15 +17,15 @@ export interface PickerProps {
   zIndex?: number
 }
 interface EventsProps {
-  select?: SelectEventHandler
-  cancel?: BaseEventHandler
-  change?: ChangeEventHandler
-  'value-change'?: SelectEventHandler
+  select: SelectEventHandler
+  cancel: BaseEventHandler
+  change: ChangeEventHandler
+  'value-change': SelectEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<PickerProps>
 
 export interface IPicker extends PickerProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

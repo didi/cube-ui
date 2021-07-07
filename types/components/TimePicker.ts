@@ -28,13 +28,13 @@ export interface TimePickerProps {
   zIndex?: number
 }
 interface EventsProps {
-  select?: (selectedTime: number, selectText: string, formatedTime: string) => void
-  cancel?: BaseEventHandler
-  change?: ChangeEventHandler
+  select: (selectedTime: number, selectText: string, formatedTime: string) => void
+  cancel: BaseEventHandler
+  change: ChangeEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<TimePickerProps>
 export interface ITimePicker extends TimePickerProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

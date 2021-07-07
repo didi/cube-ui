@@ -27,14 +27,14 @@ type DialogCloseEventHandler = (e: object) => void
 
 type DialogConfirmEventHandler = (e: object, promptValue: string) => void
 interface EventsProps {
-  cancel?: DialogCloseEventHandler
-  confirm?: DialogConfirmEventHandler
-  close?: DialogCloseEventHandler
+  cancel: DialogCloseEventHandler
+  confirm: DialogConfirmEventHandler
+  close: DialogCloseEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<DialogProps>
 
 export interface IDialog extends DialogProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

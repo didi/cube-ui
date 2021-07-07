@@ -19,15 +19,15 @@ export interface CascadePickerProps {
   zIndex?: number
 }
 interface EventsProps {
-  select?: SelectEventHandler
-  cancel?: BaseEventHandler
-  change?: ChangeEventHandler
-  'mask-click'?: BaseEventHandler
+  select: SelectEventHandler
+  cancel: BaseEventHandler
+  change: ChangeEventHandler
+  'mask-click': BaseEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<CascadePickerProps>
 
 export interface ICascadePicker extends CascadePickerProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

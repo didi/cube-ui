@@ -21,16 +21,16 @@ type SegmentPickerChangeEventHandler = (pickerIndex: number, index: number, sele
 
 type SegmentPickerSelectEventHandler = (selectedDates: [], selectedVals: [], selectedTexts: []) => void
 interface EventsProps {
-  select?: SegmentPickerSelectEventHandler
-  cancel?: BaseEventHandler
-  change?: SegmentPickerChangeEventHandler
-  next?: SegmentPickerNextEventHandler
-  prev?: (pickerIndex: number) => void
+  select: SegmentPickerSelectEventHandler
+  cancel: BaseEventHandler
+  change: SegmentPickerChangeEventHandler
+  next: SegmentPickerNextEventHandler
+  prev: (pickerIndex: number) => void
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<SegmentPickerProps>
 
 export interface ISegmentPicker extends SegmentPickerProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

@@ -11,11 +11,11 @@ export interface ToastProps {
   zIndex?: number
 }
 interface EventsProps {
-  timeout?: Function
+  timeout: Function
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<ToastProps>
 export interface IToast extends ToastProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

@@ -11,13 +11,13 @@ export interface ImagePreviewProps {
   preventDefault?: boolean
 }
 interface EventsProps {
-  hide?: BaseEventHandler
-  change?: (index: number) => void
+  hide: BaseEventHandler
+  change: (index: number) => void
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<ImagePreviewProps>
 
 export interface IImagePreview extends ImagePreviewProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

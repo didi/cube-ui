@@ -12,12 +12,12 @@ export interface PopupProps {
   zIndex?: number
 }
 interface EventsProps {
-  'mask-click'?: Function
+  'mask-click': Function
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<PopupProps>
 
 export interface IPopup extends PopupProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

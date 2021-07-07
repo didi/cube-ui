@@ -18,13 +18,13 @@ export interface ActionSheetProps {
 }
 type ActionSheetSelectEventHandler = (item: IActionSheetItem, index: number) => void
 interface EventsProps {
-  cancel?: BaseEventHandler
-  select?: ActionSheetSelectEventHandler
+  cancel: BaseEventHandler
+  select: ActionSheetSelectEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<ActionSheetProps>
 
 export interface IActionSheet extends ActionSheetProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }

@@ -26,14 +26,14 @@ export interface DatePickerProps {
   columnOrder?: string[]
 }
 interface EventsProps {
-  select?: (date: Date, selectedIndex: [], selectedText: []) => void
-  cancel?: BaseEventHandler
-  change?: ChangeEventHandler
+  select: (date: Date, selectedIndex: [], selectedText: []) => void
+  cancel: BaseEventHandler
+  change: ChangeEventHandler
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<DatePickerProps>
 
 export interface IDatePicker extends DatePickerProps, TransfromEventsProps {
   $props?: AddStringProps
-  $events?: EventsProps
+  $events?: Partial<EventsProps>
 }
