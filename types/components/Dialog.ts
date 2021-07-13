@@ -23,9 +23,9 @@ export interface DialogProps {
     placeholder?: string
   }
 }
-type DialogCloseEventHandler = (e: object) => void
+type DialogCloseEventHandler = (e: MouseEvent) => void
 
-type DialogConfirmEventHandler = (e: object, promptValue: string) => void
+type DialogConfirmEventHandler = (e: MouseEvent, promptValue: string) => void
 interface EventsProps {
   cancel: DialogCloseEventHandler
   confirm: DialogConfirmEventHandler

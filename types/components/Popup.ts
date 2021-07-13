@@ -12,7 +12,7 @@ export interface PopupProps {
   zIndex?: number
 }
 interface EventsProps {
-  'mask-click': Function
+  'mask-click': (e: MouseEvent) => void
 }
 type TransfromEventsProps = GetTransformFnKeys<EventsProps>
 type AddStringProps = GetPropsAddString<PopupProps>

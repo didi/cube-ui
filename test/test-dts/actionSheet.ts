@@ -23,9 +23,9 @@ const data = [
   }
 ]
 let actionSheet: ActionSheet
-const selectHandler = (item: any, index: number) => {
+const selectHandler = (item: any) => {
   root.$createToast({
-    txt: `Clicked ${item.content}, ${index}`,
+    txt: `Clicked ${item.content}`,
     type: 'correct',
     time: 1000
   }).show()

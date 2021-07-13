@@ -5,7 +5,7 @@ import { describe } from './helper'
 const vm = new Vue()
 
 describe('Popup $props', () => {
-  const maskClickHandler = (e: object) => {
+  const maskClickHandler = (e: MouseEvent) => {
     console.log('maskClickHandler', e)
     if (!popup) { return }
     popup.hide()
@@ -37,7 +37,7 @@ describe('Popup $props', () => {
       maskClosable: true
     },
     $events: {
-      'mask-click': (e: object) => {
+      'mask-click': (e: MouseEvent) => {
         console.log('maskClickHandler', e)
       }
     }

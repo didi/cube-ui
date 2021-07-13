@@ -3,13 +3,13 @@ import Vue from 'vue'
 import { describe } from './helper'
 const vm = new Vue()
 
-const cancleHandler = (e: object): void => {
+const cancleHandler = (e: MouseEvent): void => {
     console.log('cancleHandler', e)
 }
-const confirmHandler = (e: object, val = '') => {
+const confirmHandler = (e: MouseEvent, val = '') => {
   console.log('confirmHandler', e, 'value: ', val)
 }
-const closeHandler = (e: object) => {
+const closeHandler = (e: MouseEvent) => {
   console.log('closeHandler', e)
 }
 
