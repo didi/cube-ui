@@ -267,3 +267,17 @@ import { createAPI, BetterScroll, Locale } from 'cube-ui'
   }
 </script>
 ```
+### TypeScript Development Tooling
+
+We will start to provide better support for TypeScript in v1.12.39.
+
+> If you use [Visual Studio Code](https://code.visualstudio.com/) + [Vetur](https://github.com/vuejs/vetur) for development
+
+#### TypeScript
+  TypeScript version >= [4.1](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html)
+#### Visual Studio Code
+
+  Visual Studio Code version >= [1.52.0](https://github.com/vuejs/vetur/releases/tag/v0.30.3)
+
+#### Vetur
+  Vetur version >= [0.30.3](https://github.com/microsoft/vscode/releases/tag/1.52.0)
