@@ -16,7 +16,7 @@ export default {
     },
     swipeTime: {
       type: Number,
-      default: 2500
+      default: 500
     },
     maskClosable: {
       type: Boolean,
