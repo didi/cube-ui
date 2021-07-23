@@ -18,3 +18,9 @@ export type TransformFnKeys<T> = {
 }
 
 export type GetTransformFnKeys<T> = TransformFnKeys<Pick<T, GetFunctionNames<T>>>
+
+export interface IRadioOptionData {
+  label?: string
+  value?: string | number
+  disabled?: boolean
+}

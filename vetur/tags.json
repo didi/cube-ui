@@ -1,0 +1,178 @@
+{
+  "cube-button": {
+    "attributes": ["type", "active", "disabled", "icon", "light", "inline", "outline", "primary"],
+    "defaults": [],
+    "description": "cube-button"
+  },
+  "cube-loading": {
+    "attributes": ["size"],
+    "defaults": [],
+    "subtags": [],
+    "description": "cube-loading"
+  },
+  "cube-tip": {
+    "attributes": ["direction", "offsetTop", "offsetBottom", "offsetLeft", "offsetRight", "visible", "close"],
+    "defaults": [],
+    "subtags": [],
+    "description": "cube-tip"
+  },
+  "cube-toolbar": {
+    "attributes": ["actions", "more-actions", "more-click"],
+    "defaults": [],
+    "description": "cube-toolbar"
+  },
+  "cube-tab-bar": {
+    "attributes": ["value", "data", "show-slider", "inline", "use-transition"],
+    "defaults": [],
+    "description": "cube-tab-bar"
+  },
+  "cube-checkbox": {
+    "attributes": ["option", "position", "shape", "hollow-style", "label", "value", "disabled"],
+    "defaults": [],
+    "description": "cube-checkbox"
+  },
+  "cube-checkbox-group": {
+    "attributes": ["value", "options", "horizontal", "colNum", "shape", "hollow-style", "min", "max", "checked", "cancel-checked", "input"],
+    "defaults": ["data"],
+    "description": "cube-checkbox-group"
+  },
+  "cube-radio": {
+    "attributes": ["value", "option", "position", "hollow-style"],
+    "defaults": [],
+    "description": "cube-radio"
+  },
+  "cube-radio-group": {
+    "attributes": ["value", "options", "position", "horizontal", "colNum", "hollow-style"],
+    "defaults": ["options"],
+    "description": "cube-radio-group"
+  },
+  "cube-checker": {
+    "attributes": ["value", "options", "type", "min", "max"],
+    "defaults": ["options"],
+    "description": "cube-checker"
+  },
+  "cube-input": {
+    "attributes": ["value", "type", "disabled", "readonly", "maxlength", "placeholder", "autofocus", "autocomplete", "clearable", "eye"],
+    "defaults": ["type"],
+    "description": "cube-input"
+  },
+  "cube-textarea": {
+    "attributes": ["value", "disabled", "readonly", "maxlength", "placeholder", "autofocus", "indicator", "auto-expand"],
+    "defaults": [],
+    "description": "cube-textarea"
+  },
+  "cube-select": {
+    "attributes": ["value", "options", "placeholder", "auto-pop", "disabled", "title", "cancelTxt", "confirmTxt", "picker-show", "picker-hide"],
+    "defaults": [],
+    "description": "cube-select"
+  },
+  "cube-switch": {
+    "attributes": ["disabled", "value"],
+    "defaults": [],
+    "description": "cube-switch"
+  },
+  "cube-rate": {
+    "attributes": ["value", "max", "disabled", "justify"],
+    "defaults": ["justify"],
+    "description": "cube-rate"
+  },
+  "cube-validator": {
+    "attributes": ["model", "value", "rules", "messages", "immediate", "disabled", "validated", "validating", "msg-click", "input"],
+    "defaults": ["model"],
+    "description": "cube-validator"
+  },
+  "cube-upload": {
+    "attributes": ["value", "action", "max", "auto", "simultaneousUploads", "multiple", "action", "files-added", "file-submitted", "file-removed", "file-success", "file-error", "file-click"],
+    "defaults": ["title"],
+    "description": "cube-upload"
+  },
+  "cube-form": {
+    "attributes": ["model", "schema", "immediate-validate", "action", "options", "submit-always-validate", "submit", "reset", "validate", "valid", "invalid"],
+    "defaults": ["model"],
+    "subtags": ["cube-form-group"],
+    "description": "cube-form"
+  },
+  "cube-form-group": {
+    "attributes": ["legend", "fields"],
+    "defaults": ["legend"],
+    "subtags": ["cube-form-item"],
+    "description": "cube-form-group"
+  },
+  "cube-form-item": {
+    "attributes": ["field"],
+    "defaults": ["field"],
+    "subtags": [],
+    "description": "cube-formitem"
+  },
+  "cube-drawer": {
+    "attributes": ["title", "data", "selected-index", "visible", "cancel"],
+    "defaults": ["title"],
+    "subtags": ["cube-drawer-panel"],
+    "description": "cube-drawer"
+  },
+  "cube-drawer-panel": {
+    "attributes": ["data", "index"],
+    "defaults": ["data"],
+    "subtags": ["cube-drawer-item"],
+    "description": "cube-drawer-panel"
+  },
+  "cube-drawer-item": {
+    "attributes": ["data", "index"],
+    "defaults": ["data"],
+    "description": "cube-drawer-item"
+  },
+  "cube-scroll": {
+    "attributes": ["data", "direction", "options", "scroll-events", "listen-scroll", "listen-before-scroll", "refresh-delay", "nest-mode", "before-scroll-start", "scroll-end", "pulling-down", "pulling-up"],
+    "defaults": ["data"],
+    "description": "cube-scroll"
+  },
+  "cube-slide": {
+    "attributes": ["data", "initial-index", "loop", "show-dots", "auto-play", "interval", "direction", "options", "threshold", "speed", "allow-vertical", "stop-propagation", "refresh-reset-current", "scroll-end"],
+    "defaults": ["data"],
+    "subtags": ["cube-slide-item"],
+    "description": "cube-slide"
+  },
+  "cube-slide-item": {
+    "attributes": ["url", "image"],
+    "defaults": [],
+    "description": "cube-slide-item"
+  },
+  "cube-index-list": {
+    "attributes": ["title", "data", "navbar", "speed", "options", "pull-up-load", "pull-down-refresh", "title-click", "pulling-up", "pulling-down"],
+    "defaults": [],
+    "description": "cube-index-list"
+  },
+  "cube-swipe": {
+    "attributes": ["data", "auto-shrink", "item-click", "btn-click"],
+    "defaults": [],
+    "subtags": ["cube-swipe-item"],
+    "description": "cube-swipe"
+  },
+  "cube-swipe-item": {
+    "attributes": ["item", "btns", "index", "auto-shrink", "item-click", "btn-click", "active"],
+    "defaults": ["item"],
+    "description": "cube-swipe-item"
+  },
+  "cube-sticky": {
+    "attributes": ["pos", "check-top", "fixed-show-ani", "offset", "diff-change", "change"],
+    "defaults": [],
+    "subtags": ["cube-sticky-ele"],
+    "description": "cube-sticky"
+  },
+  "cube-scroll-nav-bar": {
+    "attributes": ["direction", "labels", "txts", "current", "options"],
+    "defaults": [],
+    "description": "cube-scroll-nav-bar"
+  },
+  "cube-scroll-nav": {
+    "attributes": ["data", "side", "current", "speed", "options", "sticky-change"],
+    "defaults": ["data"],
+    "subtags": ["cube-scroll-nav-panel"],
+    "description": "cube-scroll-nav"
+  },
+  "cube-recycle-list": {
+    "attributes": ["infinite", "size", "offset", "on-fetch"],
+    "defaults": [],
+    "description": "cube-recycle-list"
+  }
+}

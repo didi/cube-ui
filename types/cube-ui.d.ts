@@ -1,6 +1,48 @@
 import Vue from 'vue'
 import { CubeUIComponent } from './component'
-import { IPopup, IToast, IPicker, ICascadePicker, IDatePicker, ITimePicker, ISegmentPicker, IDialog, IActionSheet, IImagePreview, CreateAPIFn } from './components'
+import {
+  // basic
+  CubeButton,
+  CubeLoading,
+  CubeTip,
+  CubeToolbar,
+  CubeTabBar,
+  CubeTabPanels,
+  CubeCheckbox,
+  CubeCheckboxGroup,
+  CubeRadio,
+  CubeRadioGroup,
+  CubeChecker,
+  CubeInput,
+  CubeTextarea,
+  CubeSelect,
+  CubeSwitch,
+  CubeRate,
+  CubeValidator,
+  CubeUpload,
+  CubeForm,
+  CubeDrawer,
+  CubeScroll,
+  CubeSlide,
+  CubeIndexList,
+  CubeSwipe,
+  CubeSticky,
+  CubeScrollNavBar,
+  CubeScrollNav,
+  CubeRecycleList,
+  // create-API
+  IPopup,
+  IToast,
+  IPicker,
+  ICascadePicker,
+  IDatePicker,
+  ITimePicker,
+  ISegmentPicker,
+  IDialog,
+  IActionSheet,
+  IImagePreview,
+  CreateAPIFn
+} from './components'
 /**
  * CubeUI 组件
  * CubeUI component common definition
@@ -46,44 +88,58 @@ export class Style {}
 
 // basic
 /** Button Component */
-export class Button extends CubeUIComponent {}
+export class Button extends CubeButton {}
 /** Loading Component */
-export class Loading extends CubeUIComponent {}
+export class Loading extends CubeLoading {
+}
 /** Tip Component */
-export class Tip extends CubeUIComponent {}
+export class Tip extends CubeTip {}
 /** Toolbar Component */
-export class Toolbar extends CubeUIComponent {}
+export class Toolbar extends CubeToolbar {
+}
 /** TabBar Component */
-export class TabBar extends CubeUIComponent {}
+export class TabBar extends CubeTabBar {
+}
 /** TabPanels Component */
-export class TabPanels extends CubeUIComponent {}
+export class TabPanels extends CubeTabPanels {}
 // form
 /** Checkbox Component */
-export class Checkbox extends CubeUIComponent {}
+export class Checkbox extends CubeCheckbox {
+  ICheckbox: CubeCheckbox
+}
 /** Checkbox Group Component */
-export class CheckboxGroup extends CubeUIComponent {}
+export class CheckboxGroup extends CubeCheckboxGroup {
+  ICheckboxGroup: CubeCheckboxGroup
+}
 /** Checker Component */
-export class Checker extends CubeUIComponent {}
+export class Checker extends CubeChecker {
+  IChecker: CubeChecker
+}
 /** Radio Component */
-export class Radio extends CubeUIComponent {}
+export class Radio extends CubeRadio {
+  IRadio: CubeRadio
+}
 /** Radio Group Component */
-export class RadioGroup extends CubeUIComponent {}
+export class RadioGroup extends CubeRadioGroup {
+  IRadioGroup: CubeRadioGroup
+}
 /** Input Component */
-export class Input extends CubeUIComponent {}
+export class Input extends CubeInput {
+}
 /** Textarea Component */
-export class Textarea extends CubeUIComponent {}
+export class Textarea extends CubeTextarea {}
 /** Select Component */
-export class Select extends CubeUIComponent {}
+export class Select extends CubeSelect {}
 /** Switch Component */
-export class Switch extends CubeUIComponent {}
+export class Switch extends CubeSwitch {}
 /** Rate Component */
-export class Rate extends CubeUIComponent {}
+export class Rate extends CubeRate {}
 /** Validator Component */
-export class Validator extends CubeUIComponent {}
+export class Validator extends CubeValidator {}
 /** Upload Component */
-export class Upload extends CubeUIComponent {}
+export class Upload extends CubeUpload {}
 /** Form Component */
-export class Form extends CubeUIComponent {}
+export class Form extends CubeForm {}
 
 /** base CreatApi CubeUIComponent */
 export class CreateApiCubeUIComponent extends CubeUIComponent {
@@ -142,28 +198,24 @@ export class ImagePreview extends CreateApiCubeUIComponent {
   static $create(options: IImagePreview): ImagePreview
 }
 /** Drawer Component */
-export class Drawer extends CubeUIComponent {
-  show(): void
-  hide(): void
-  static $create(options: object): Drawer
-}
+export class Drawer extends CubeDrawer {}
 // scroll
 /** Scroll Component */
-export class Scroll extends CubeUIComponent {}
+export class Scroll extends CubeScroll {}
 /** Slide Component */
-export class Slide extends CubeUIComponent {}
+export class Slide extends CubeSlide {}
 /** Index List Component */
-export class IndexList extends CubeUIComponent {}
+export class IndexList extends CubeIndexList {}
 /** Swipe Component */
-export class Swipe extends CubeUIComponent {}
+export class Swipe extends CubeSwipe {}
 /** Sticky Component */
-export class Sticky extends CubeUIComponent {}
+export class Sticky extends CubeSticky {}
 /** ScrollNavBar Component */
-export class ScrollNavBar extends CubeUIComponent {}
+export class ScrollNavBar extends CubeScrollNavBar {}
 /** ScrollNav Component */
-export class ScrollNav extends CubeUIComponent {}
+export class ScrollNav extends CubeScrollNav {}
 /** RecycleList Component */
-export class RecycleList extends CubeUIComponent {}
+export class RecycleList extends CubeRecycleList {}
 
 // Vue prototype $createXx
 declare module 'vue/types/vue' {
