@@ -35,8 +35,13 @@
   "files": [
     "src",
     "lib",
-    "types"
+    "types",
+    "vetur"
   ],
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
