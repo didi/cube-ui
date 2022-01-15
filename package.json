@@ -136,7 +136,7 @@
     "postcss-loader": "^2.0.5",
     "rimraf": "^2.6.0",
     "scp2": "^0.5.0",
-    "shelljs": "^0.7.4",
+    "shelljs": "^0.8.5",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
