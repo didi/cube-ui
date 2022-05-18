@@ -125,7 +125,7 @@
     "lodash-es": "^4.17.8",
     "lolex": "^1.5.2",
     "markdown-it-anchor-cube": "^0.0.1",
-    "marked": "^0.3.6",
+    "marked": "^4.0.10",
     "mocha": "^3.2.0",
     "mockjs": "^1.0.1-beta3",
     "opn": "^4.0.2",
