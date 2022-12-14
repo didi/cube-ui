@@ -20,7 +20,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import singerData from '../../data/singer.json'
 
@@ -44,7 +44,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../../src/common/stylus/variable.styl"
 
   .view-wrapper

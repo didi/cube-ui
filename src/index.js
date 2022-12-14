@@ -114,7 +114,7 @@ function install(Vue) {
 
 const Cube = {
   /* eslint-disable no-undef */
-  version: __VERSION__,
+  version: '0.0.1',
   install,
   BScroll: BetterScroll,
   createAPI

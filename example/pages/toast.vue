@@ -12,7 +12,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import CubePage from '../components/cube-page.vue'
 

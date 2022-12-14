@@ -47,7 +47,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
 
   export default {
@@ -90,8 +90,8 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style lang="stylus" >
+
   .tab-bar-view
     .section
       margin-bottom: 10px

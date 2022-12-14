@@ -14,7 +14,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import visibilityMixin from '../../common/mixins/visibility'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeDrawerItem from './drawer-item.vue'
@@ -78,7 +78,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

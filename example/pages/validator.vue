@@ -54,7 +54,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../components/cube-page.vue'
 
   // Add or rewrite the build-in rule, type and message.
@@ -167,7 +167,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .validator-item
     box-sizing: border-box
     min-height: 70px

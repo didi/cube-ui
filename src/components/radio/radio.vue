@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
 const COMPONENT_NAME = 'cube-radio'
 const EVENT_INPUT = 'input'
 
@@ -110,7 +110,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   $ui-width = 1.42em

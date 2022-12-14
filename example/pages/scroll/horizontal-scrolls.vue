@@ -28,7 +28,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
 import CubePage from '../../components/cube-page.vue'
 
 const _data1 = [
@@ -60,8 +60,8 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-.inner-horizontal-scroll  
+<style lang="stylus" >
+.inner-horizontal-scroll
   vertical-align: top
   width: 200px
 .outer-horizontal-scroll

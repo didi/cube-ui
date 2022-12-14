@@ -41,7 +41,7 @@
     </cube-popup>
   </transition>
 </template>
-<script type="text/ecmascript-6">
+<script >
   import CubePopup from '../popup/popup.vue'
   import CubeSlide from '../slide/slide.vue'
   import CubeSlideItem from '../slide/slide-item.vue'
@@ -274,7 +274,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
 
   .cube-image-preview-fade-enter, .cube-image-preview-fade-leave-active

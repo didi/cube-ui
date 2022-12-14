@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import scrollMixin from '../../common/mixins/scroll'
   import CubeScroll from '../scroll/scroll.vue'
 
@@ -151,7 +151,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
 
   .cube-scroll-nav-bar

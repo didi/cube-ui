@@ -12,7 +12,7 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script >
   import CubeCheckbox from '../checkbox/checkbox.vue'
   import groupCol from '../../common/mixins/group-col'
 
@@ -99,7 +99,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

@@ -15,7 +15,7 @@
     </ul>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubeRateItem from './rate-item.vue'
   const COMPONENT_NAME = 'cube-rate'
   const EVENT_INPUT = 'input'
@@ -108,7 +108,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
 
   .cube-rate

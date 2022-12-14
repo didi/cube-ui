@@ -37,7 +37,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePopup from '../popup/popup.vue'
   import CubeInput from '../input/input.vue'
   import visibilityMixin from '../../common/mixins/visibility'
@@ -182,7 +182,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

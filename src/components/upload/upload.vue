@@ -8,7 +8,7 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script >
   import UploadBtn from './btn.vue'
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'
@@ -183,7 +183,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   .cube-upload
     position: relative

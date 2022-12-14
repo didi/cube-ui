@@ -14,7 +14,7 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script >
   import { STATUS_SUCCESS, STATUS_ERROR } from './util'
 
   const COMPONENT_NAME = 'cube-upload-file'
@@ -74,7 +74,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   .cube-upload-file

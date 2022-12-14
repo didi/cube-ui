@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import CubeButton from '../button/button'
-  import CubeCheckbox from '../checkbox/checkbox'
+  import CubeButton from '../button/button.vue'
+  import CubeCheckbox from '../checkbox/checkbox.vue'
 
   const COMPONENT_NAME = 'cube-toolbar-item'
 
@@ -37,7 +37,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

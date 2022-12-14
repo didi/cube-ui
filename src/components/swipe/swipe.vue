@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubeSwipeItem from './swipe-item.vue'
 
   const COMPONENT_NAME = 'cube-swipe'
@@ -79,7 +79,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .cube-swipe
     overflow: hidden
 

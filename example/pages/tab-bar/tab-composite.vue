@@ -67,7 +67,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import { FOLLOWERS_DATA, RECOMMEND_DATA, HOT_DATA } from '../../data/tab-bar'
   import { findIndex } from '../../../src/common/helpers/util'
@@ -133,7 +133,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   /* 覆盖样式 */
   .cube-page
     &.tab-composite-view

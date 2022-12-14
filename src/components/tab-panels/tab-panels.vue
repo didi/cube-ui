@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script >
   import TabPanel from './tab-panel.vue'
   import { findIndex } from '../../common/helpers/util'
   import { prefixStyle } from '../../common/helpers/dom'
@@ -69,7 +69,7 @@
     components: { TabPanel }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .cube-tab-panels
     position: relative
     overflow: hidden

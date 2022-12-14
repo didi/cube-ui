@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   const COMPONENT_NAME = 'select-option'
   export default {
     name: COMPONENT_NAME,
@@ -48,8 +48,8 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style scoped lang="stylus" >
+
 
   .select-option
     display: flex

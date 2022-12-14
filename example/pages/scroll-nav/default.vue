@@ -22,7 +22,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import goodsData from 'example/data/goods-list.json'
 
@@ -45,7 +45,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .scroll-nav-def
     background-color: #fff
     .view-wrapper

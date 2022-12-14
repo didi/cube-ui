@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
@@ -530,7 +530,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
 
   .cube-scroll-wrapper

@@ -18,7 +18,7 @@
   </cube-picker>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePicker from '../picker/picker.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'

@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
   import visibilityMixin from '../../common/mixins/visibility'
@@ -187,7 +187,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

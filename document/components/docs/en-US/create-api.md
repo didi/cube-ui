@@ -103,7 +103,7 @@ __Notice:__ All cube-ui componnets which used `createAPI` must be registered by 
     </div>
   </template>
 
-  <script type="text/ecmascript-6">
+  <script >
     export default {
       name: 'hello',
       props: {

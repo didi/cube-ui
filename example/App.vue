@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubeView from './components/cube-view.vue'
 
   export default {
@@ -206,7 +206,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   html, body, #app
     height: 100%
 

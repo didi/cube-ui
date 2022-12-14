@@ -5,7 +5,7 @@
     </div>
  </cube-popup>
 </template>
-<script type="text/ecmascript-6">
+<script >
   const COMPONENT_NAME = 'cube-extend-popup'
   export default {
     name: COMPONENT_NAME,
@@ -25,7 +25,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .cube-extend-popup
     .cube-extend-popup-content
       padding: 20px

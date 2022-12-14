@@ -6,7 +6,7 @@
   </li>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   const COMPONENT_NAME = 'cube-rate-item'
   export default {
     name: COMPONENT_NAME,
@@ -19,7 +19,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/mixin.styl"
 
   .cube-rate-item

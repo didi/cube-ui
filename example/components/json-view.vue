@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import hljs from 'highlight.js/lib/highlight'
   import json from 'highlight.js/lib/languages/json'
   import 'highlight.js/styles/solarized-dark.css'
@@ -51,8 +51,8 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style lang="stylus">
+
   .cube-json-view
     h3
       margin-top: 15px

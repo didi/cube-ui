@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
@@ -324,7 +324,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   .cube-slide
     position: relative

@@ -83,12 +83,12 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
-import Vue from 'vue'
+<script >
+import { nextTick } from 'vue'
 import CubePage from '../../components/cube-page.vue'
-import SwitchOption from '../../components/switch-option'
-import InputOption from '../../components/input-option'
-import SelectOption from '../../components/select-option'
+import SwitchOption from '../../components/switch-option.vue'
+import InputOption from '../../components/input-option.vue'
+import SelectOption from '../../components/select-option.vue'
 import goodsData from 'example/data/goods-list.json'
 
 let _foods = []
@@ -198,7 +198,7 @@ export default {
       this.customPullDown = val
     },
     rebuildScroll() {
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.$refs.scroll.destroy()
         this.$refs.scroll.initScroll()
       })
@@ -207,73 +207,73 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-.scroll-wrapper 
-  .cube-pulldown-wrapper 
-    .before-trigger 
+<style lang="stylus" >
+.scroll-wrapper
+  .cube-pulldown-wrapper
+    .before-trigger
       font-size: 30px
       line-height: 30px
       align-self: flex-end
-      span 
+      span
         display: inline-block
         transition: all 0.3s
         color: #666
-        &.rotate 
+        &.rotate
           transform: rotate(180deg)
     .after-trigger
       .refresh-text
         color: grey
 
-.scroll-list-wrap 
+.scroll-list-wrap
   height: 350px
   border: 1px solid rgba(0, 0, 0, 0.1)
   border-radius: 5px
   transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
   overflow: hidden
 
-.foods-wrapper 
-  .food-item 
+.foods-wrapper
+  .food-item
     display: flex
     padding: 18px
     border-bottom: 1px solid rgba(7, 17, 27, 0.1)
 
-    &:last-child 
+    &:last-child
       border-none()
       margin-bottom: 0
-    .icon 
+    .icon
       flex: 0 0 57px
       margin-right: 10px
 
-    .food-content 
+    .food-content
       flex: 1
-      .name 
+      .name
         margin: 2px 0 8px 0
         height: 14px
         line-height: 14px
         font-size: 14px
         color: rgb(7, 17, 27)
-      .description, .extra 
+      .description, .extra
         line-height: 10px
         font-size: 10px
         color: rgb(147, 153, 159)
-      .description 
+      .description
         line-height: 12px
         margin-bottom: 8px
-      .extra 
-        .count 
+      .extra
+        .count
           margin-right: 12px
-      .price 
+      .price
         font-weight: 700
         line-height: 24px
-        .now 
+        .now
           margin-right: 8px
           font-size: 14px
           color: rgb(240, 20, 20)
-        .old 
+        .old
           text-decoration: line-through
           font-size: 10px
           color: rgb(147, 153, 159)
-      .cartcontrol-wrapper 
+      .cartcontrol-wrapper
         position: absolute
         right: 0
         bottom: 12px

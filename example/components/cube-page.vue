@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   export default {
     props: {
       title: {
@@ -42,8 +42,8 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style lang="stylus">
+
 
   .cube-page
     position: absolute

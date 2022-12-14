@@ -4,11 +4,11 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   export default {}
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .page-move-enter, .page-move-leave-active
     transform: translate(100%, 0)
   .page-move-enter-active, .page-move-leave-active

@@ -39,7 +39,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
 import CubePage from '../../components/cube-page.vue'
 
 let imagesCount = 3
@@ -115,7 +115,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
 .jd
   .content
     margin: 0 !important
@@ -166,7 +166,7 @@ export default {
     left: 0
     z-index: 33
     line-height: 0
-    img 
+    img
       height: 100%
       width: 100%
   .surprise-page-enter, .surprise-page-leave-to

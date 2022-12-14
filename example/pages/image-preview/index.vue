@@ -13,7 +13,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import CubeButtonGroup from '../../components/cube-button-group.vue'
   import CubeView from 'example/components/cube-view.vue'
@@ -69,7 +69,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .view-wrapper
     position: fixed
     top: 54px

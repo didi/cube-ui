@@ -51,9 +51,9 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option'
+  import SwitchOption from '../components/switch-option.vue'
 
   export default {
     data() {

@@ -11,7 +11,7 @@
     </label>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script >
   const COMPONENT_NAME = 'cube-checkbox'
 
   const EVENT_INPUT = 'input'
@@ -126,7 +126,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

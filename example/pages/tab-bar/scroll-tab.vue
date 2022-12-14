@@ -20,7 +20,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import * as DATAS from '../../data/tab-bar'
 
@@ -68,7 +68,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
 .scroll-tab-view
   .cube-tab-bar
     flex-wrap: wrap

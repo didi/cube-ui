@@ -45,12 +45,12 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
-import Vue from 'vue'
+<script >
+import { nextTick } from 'vue'
 import CubePage from '../../components/cube-page.vue'
-import SwitchOption from '../../components/switch-option'
-import InputOption from '../../components/input-option'
-import SelectOption from '../../components/select-option'
+import SwitchOption from '../../components/switch-option.vue'
+import InputOption from '../../components/input-option.vue'
+import SelectOption from '../../components/select-option.vue'
 
 import { ease } from '../../data/ease'
 
@@ -149,7 +149,7 @@ export default {
       this.scrollToEasing = val
     },
     rebuildScroll() {
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.$refs.scroll.destroy()
         this.$refs.scroll.initScroll()
       })
@@ -164,7 +164,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
 .scroll-list-wrap {
   height: 350px;
   border: 1px solid rgba(0, 0, 0, 0.1);

@@ -28,11 +28,11 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../components/cube-page.vue'
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import SwitchOption from '../components/switch-option.vue'
-  import SelectOption from '../components/select-option'
+  import SelectOption from '../components/select-option.vue'
 
   export default {
     data() {
@@ -78,7 +78,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .rate-wrapper
     margin: 30px 0
     .rate-text

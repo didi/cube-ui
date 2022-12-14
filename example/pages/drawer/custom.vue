@@ -28,7 +28,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
   import { provinceList, cityList, areaList } from '../../data/area'
 
@@ -75,7 +75,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .view-wrapper
     position: fixed
     top: 54px

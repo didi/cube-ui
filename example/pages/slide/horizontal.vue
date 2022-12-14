@@ -61,10 +61,10 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import CubePage from '../../components/cube-page.vue'
-  import SwitchOption from '../../components/switch-option'
-  import InputOption from '../../components/input-option'
+  import SwitchOption from '../../components/switch-option.vue'
+  import InputOption from '../../components/input-option.vue'
 
   const item3 = {
     url: 'http://www.didichuxing.com/',
@@ -163,7 +163,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .slide-container
     height: 75px
     margin-bottom: 15px

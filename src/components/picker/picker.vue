@@ -41,7 +41,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
@@ -293,7 +293,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   @require "../../common/stylus/mixin.styl"
   @require "../../common/stylus/variable.styl"
 

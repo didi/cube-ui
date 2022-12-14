@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
   import scrollMixin from '../../common/mixins/scroll'
 
   import CubeSticky from '../sticky/sticky.vue'
@@ -211,7 +211,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
   .cube-scroll-nav
     position: relative
     height: 100%

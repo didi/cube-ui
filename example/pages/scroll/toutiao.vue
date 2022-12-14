@@ -52,7 +52,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script >
 import CubePage from '../../components/cube-page.vue'
 
 const imgs = [
@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" >
 .toutiao
   .content
     margin: 0 !important
@@ -121,7 +121,7 @@ export default {
     flex-flow: column
     >header
       line-height: 0
-      img 
+      img
         width: 100%
     footer
       line-height: 0
@@ -176,7 +176,7 @@ export default {
       overflow: hidden
       .imgs-wrapper
         .imgs-item
-          >img 
+          >img
             width: 100%
   .cube-pulldown-wrapper
     text-align: center
@@ -190,7 +190,7 @@ export default {
         transition: all 0.3s
         color: #666
         padding: 15px 0
-        &.rotate 
+        &.rotate
           transform: rotate(180deg)
     .after-trigger
       flex: 1

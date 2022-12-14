@@ -10,11 +10,12 @@ const DEFAULT_LANG = 'zh-CN'
 const locale = {
   name: 'locale',
   install (Vue) {
-    if (locale.installed) return
-    proto = Vue.prototype
-    Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
-    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
-    locale.installed = true
+    console.log(DEFAULT_LANG, defaultMessages)
+    // if (locale.installed) return
+    // proto = Vue.prototype
+    // Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
+    // proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
+    // locale.installed = true
   },
   use (lang, messages) {
     proto['$cubeLang'] = lang

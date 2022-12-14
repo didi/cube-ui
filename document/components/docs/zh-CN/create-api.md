@@ -102,7 +102,7 @@ __注：__ 所有通过 `createAPI` 实现的通过 API 的形式调用的自定
     </div>
   </template>
 
-  <script type="text/ecmascript-6">
+  <script >
     export default {
       name: 'hello',
       props: {
