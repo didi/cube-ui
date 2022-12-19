@@ -75,7 +75,8 @@
       value: {
         immediate: true,
         handler (newValue, oldValue) {
-          this._value = this.value.concat()
+          console.log(this.value)
+          // this._value = this.value.concat()
         }
       }
     },

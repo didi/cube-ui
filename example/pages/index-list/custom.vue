@@ -12,7 +12,7 @@
                 </div>
               </cube-index-list-item>
             </cube-index-list-group>
-            <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span>
+            <!-- <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span> -->
           </cube-index-list>
         </div>
       </div>

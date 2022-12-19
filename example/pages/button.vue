@@ -1,6 +1,6 @@
 <template>
   <cube-page type="button-view" title="Button">
-    <div slot="content">
+    <template v-slot:content>
       <form action="/">
         <cube-button-group>
           <cube-button>Button</cube-button>
@@ -30,13 +30,14 @@
           </cube-button-group>
         </div>
       </form>
-    </div>
+    </template>
   </cube-page>
 </template>
 
 <script >
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import CubePage from '../components/cube-page.vue'
+
   export default {
     data() {
       return {

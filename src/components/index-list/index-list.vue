@@ -19,7 +19,7 @@
           </slot>
         </ul>
       </div>
-      <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
+      <!-- <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
         <slot name="pullup"
           :pullUpLoad="props.pullUpLoad"
           :isPullUpLoad="props.isPullUpLoad">
@@ -33,7 +33,7 @@
           :isPullingDown="props.isPullingDown"
           :bubbleY="props.bubbleY">
         </slot>
-      </template>
+      </template> -->
     </cube-scroll>
     <div v-if="navbar" class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul class="cube-index-list-nav-list">
