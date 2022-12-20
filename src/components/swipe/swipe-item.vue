@@ -92,7 +92,7 @@
       this.$nextTick(() => {
         this.refresh()
       })
-      this.$on(EVENT_SCROLL, this._handleBtns)
+      // this.$on(EVENT_SCROLL, this._handleBtns)
     },
     methods: {
       _initCachedBtns() {

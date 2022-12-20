@@ -84,7 +84,8 @@
       checkValue: {
         get () {
           if (this.isInGroup) {
-            return this.$parent.value.indexOf(this.computedOption.value) > -1
+            return false
+            // return this.$parent.value.indexOf(this.computedOption.value) > -1
           } else {
             return Boolean(this.value)
           }

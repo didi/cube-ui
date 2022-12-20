@@ -36,8 +36,7 @@
 </script>
 
 <style scoped lang="stylus" >
-
-
+  @import "../../src/common/stylus/variable.styl"
   .switch-option
     display flex
     justify-content space-between

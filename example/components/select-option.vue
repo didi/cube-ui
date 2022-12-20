@@ -49,8 +49,7 @@
 </script>
 
 <style scoped lang="stylus" >
-
-
+  @import "../../src/common/stylus/variable.styl"
   .select-option
     display: flex
     height: 100%

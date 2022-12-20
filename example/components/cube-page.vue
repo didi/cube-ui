@@ -43,7 +43,7 @@
 </script>
 
 <style lang="stylus">
-
+  @import "../../src/common/stylus/variable.styl"
 
   .cube-page
     position: absolute

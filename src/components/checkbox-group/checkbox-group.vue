@@ -17,9 +17,9 @@
   import groupCol from '../../common/mixins/group-col'
 
   const COMPONENT_NAME = 'cube-checkbox-group'
-  const EVENT_INPUT = 'input'
-  const EVENT_CHECKED = 'checked'
-  const EVENT_CANCLE_CHECKED = 'cancel-checked'
+  // const EVENT_INPUT = 'input'
+  // const EVENT_CHECKED = 'checked'
+  // const EVENT_CANCLE_CHECKED = 'cancel-checked'
   export default {
     name: COMPONENT_NAME,
     mixins: [groupCol],
@@ -81,19 +81,19 @@
       }
     },
     mounted () {
-      this.$on(EVENT_CHECKED, (value) => {
-        if (this._value.length < this.max && this._value.indexOf(value) === -1) {
-          this._value.push(value)
-        }
-        this.$emit(EVENT_INPUT, this._value)
-      })
-      this.$on(EVENT_CANCLE_CHECKED, (value) => {
-        const index = this._value.indexOf(value)
-        if (this._value.length > this.min && index > -1) {
-          this._value.splice(index, 1)
-        }
-        this.$emit(EVENT_INPUT, this._value)
-      })
+      // this.$on(EVENT_CHECKED, (value) => {
+      //   if (this._value.length < this.max && this._value.indexOf(value) === -1) {
+      //     this._value.push(value)
+      //   }
+      //   this.$emit(EVENT_INPUT, this._value)
+      // })
+      // this.$on(EVENT_CANCLE_CHECKED, (value) => {
+      //   const index = this._value.indexOf(value)
+      //   if (this._value.length > this.min && index > -1) {
+      //     this._value.splice(index, 1)
+      //   }
+      //   this.$emit(EVENT_INPUT, this._value)
+      // })
     },
     components: {
       CubeCheckbox

@@ -52,7 +52,7 @@
 </script>
 
 <style lang="stylus">
-
+@import "../../src/common/stylus/variable.styl"
   .cube-json-view
     h3
       margin-top: 15px
