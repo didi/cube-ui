@@ -18,7 +18,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../../components/cube-page.vue'
   import cityData from '../../data/index-list.json'
 

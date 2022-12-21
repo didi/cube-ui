@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import CubeView from './components/cube-view.vue'
 
   export default {

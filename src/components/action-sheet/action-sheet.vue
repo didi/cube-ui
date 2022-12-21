@@ -33,7 +33,7 @@
   </transition>
 </template>
 
-<script >
+<script>
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'

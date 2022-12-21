@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'switch-option'
   export default {
     name: COMPONENT_NAME,

@@ -56,7 +56,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import {
     getData,
     getRect,

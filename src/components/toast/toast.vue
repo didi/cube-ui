@@ -13,7 +13,7 @@
     </cube-popup>
   </transition>
 </template>
-<script >
+<script>
   import CubeLoading from '../loading/loading.vue'
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'

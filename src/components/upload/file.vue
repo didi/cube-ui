@@ -14,7 +14,7 @@
     </slot>
   </div>
 </template>
-<script >
+<script>
   import { STATUS_SUCCESS, STATUS_ERROR } from './util'
 
   const COMPONENT_NAME = 'cube-upload-file'

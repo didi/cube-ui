@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'

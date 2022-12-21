@@ -31,7 +31,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../../components/cube-page.vue'
   import { customData } from '../../data/swipe'
   export default {

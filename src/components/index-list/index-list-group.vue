@@ -9,7 +9,7 @@
   </li>
 </template>
 
-<script >
+<script>
   import CubeIndexListItem from './index-list-item.vue'
 
   const COMPONENT_NAME = 'cube-index-list-group'

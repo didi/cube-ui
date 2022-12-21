@@ -9,7 +9,7 @@
     </div>
   </transition>
 </template>
-<script >
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
 
   const COMPONENT_NAME = 'cube-tip'

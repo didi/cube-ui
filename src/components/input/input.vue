@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-input'
   const EVENT_INPUT = 'input'

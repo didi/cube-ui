@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'cube-slide-item'
   export default {
     name: COMPONENT_NAME,

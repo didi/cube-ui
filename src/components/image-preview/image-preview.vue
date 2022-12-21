@@ -41,7 +41,7 @@
     </cube-popup>
   </transition>
 </template>
-<script >
+<script>
   import CubePopup from '../popup/popup.vue'
   import CubeSlide from '../slide/slide.vue'
   import CubeSlideItem from '../slide/slide-item.vue'

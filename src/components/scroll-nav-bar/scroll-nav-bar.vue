@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import scrollMixin from '../../common/mixins/scroll'
   import CubeScroll from '../scroll/scroll.vue'
 

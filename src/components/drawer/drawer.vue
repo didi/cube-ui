@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import { prefixStyle } from '../../common/helpers/dom'
   import CubeDrawerPanel from './drawer-panel.vue'
   import visibilityMixin from '../../common/mixins/visibility'

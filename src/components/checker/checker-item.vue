@@ -9,7 +9,7 @@
     </slot>
   </li>
 </template>
-<script >
+<script>
   const COMPONENT_NAME = 'cube-checker-item'
 
   export default {

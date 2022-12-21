@@ -8,7 +8,7 @@
     </slot>
   </ul>
 </template>
-<script >
+<script>
   import CubeCheckerItem from './checker-item.vue'
   const COMPONENT_NAME = 'cube-checker'
   const EVENT_INPUT = 'input'

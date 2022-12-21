@@ -96,7 +96,7 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
       </div>
    </cube-popup>
   </template>
-  <script >
+  <script>
     const COMPONENT_NAME = 'cube-extend-popup'
     export default {
       name: COMPONENT_NAME,

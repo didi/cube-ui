@@ -18,7 +18,7 @@
   </cube-picker>
 </template>
 
-<script >
+<script>
   import CubePicker from '../picker/picker.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'

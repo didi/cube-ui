@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import { parallel, cb2PromiseWithResolve, isUndef, isFunc, isString, isArray } from '../../common/helpers/util'
   import { rules } from '../../common/helpers/validator'
   import localeMixin from '../../common/mixins/locale'

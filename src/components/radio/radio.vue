@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script >
+<script>
 const COMPONENT_NAME = 'cube-radio'
 const EVENT_INPUT = 'input'
 

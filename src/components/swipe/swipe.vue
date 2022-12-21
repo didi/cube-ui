@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import CubeSwipeItem from './swipe-item.vue'
 
   const COMPONENT_NAME = 'cube-swipe'

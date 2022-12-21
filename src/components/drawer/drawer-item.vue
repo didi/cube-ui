@@ -10,7 +10,7 @@
   </li>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'cube-drawer-item'
 
   export default {

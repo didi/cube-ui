@@ -17,7 +17,7 @@
   </cube-cascade-picker>
 </template>
 
-<script >
+<script>
   import {
     pad,
     formatDate,

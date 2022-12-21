@@ -10,7 +10,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
 import CubePage from '../../components/cube-page.vue'
 import DemoQuestionnaire from '../../components/questionnaire/questionnaire.vue'
 export default {

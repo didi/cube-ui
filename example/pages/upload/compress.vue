@@ -14,7 +14,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../../components/cube-page.vue'
   import compress from '../../modules/image'
 

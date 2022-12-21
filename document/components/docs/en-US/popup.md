@@ -117,7 +117,7 @@ __Notice:__ All the components above used create-api, so you should read [create
       </div>
     </cube-popup>
   </template>
-  <script >
+  <script>
     const COMPONENT_NAME = 'cube-extend-popup'
     export default {
       name: COMPONENT_NAME,

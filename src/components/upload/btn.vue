@@ -6,7 +6,7 @@
     <input class="cube-upload-input" type="file" @change="changeHandler" :multiple="multiple" :accept="accept">
   </div>
 </template>
-<script >
+<script>
   import btnMixin from './btn-mixin'
 
   const COMPONENT_NAME = 'cube-upload-btn'

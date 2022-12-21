@@ -12,7 +12,7 @@
     </slot>
   </div>
 </template>
-<script >
+<script>
   import CubeCheckbox from '../checkbox/checkbox.vue'
   import groupCol from '../../common/mixins/group-col'
 

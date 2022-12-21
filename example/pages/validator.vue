@@ -54,7 +54,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../components/cube-page.vue'
 
   // Add or rewrite the build-in rule, type and message.

@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   const COMPONENT_NAME = 'cube-popup'

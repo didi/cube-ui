@@ -13,7 +13,7 @@
   </li>
 </template>
 
-<script >
+<script>
   import {
     addClass,
     removeClass

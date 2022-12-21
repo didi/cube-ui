@@ -67,7 +67,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../../components/cube-page.vue'
   import { FOLLOWERS_DATA, RECOMMEND_DATA, HOT_DATA } from '../../data/tab-bar'
   import { findIndex } from '../../../src/common/helpers/util'

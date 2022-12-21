@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
   const EVENT_INPUT = 'input'

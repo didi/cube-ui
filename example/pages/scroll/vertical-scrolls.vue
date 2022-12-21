@@ -32,7 +32,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 const _data1 = [

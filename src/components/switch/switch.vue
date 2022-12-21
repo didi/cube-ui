@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'cube-switch'
 
   const EVENT_INPUT = 'input'

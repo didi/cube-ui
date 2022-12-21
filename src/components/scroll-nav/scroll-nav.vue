@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import scrollMixin from '../../common/mixins/scroll'
 
   import CubeSticky from '../sticky/sticky.vue'

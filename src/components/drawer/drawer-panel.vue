@@ -14,7 +14,7 @@
   </transition>
 </template>
 
-<script >
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeDrawerItem from './drawer-item.vue'

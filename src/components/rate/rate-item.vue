@@ -6,7 +6,7 @@
   </li>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'cube-rate-item'
   export default {
     name: COMPONENT_NAME,

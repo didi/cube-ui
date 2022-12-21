@@ -11,7 +11,7 @@
     </slot>
   </div>
 </template>
-<script >
+<script>
   const COMPONENT_NAME = 'cube-tab'
 
   export default {

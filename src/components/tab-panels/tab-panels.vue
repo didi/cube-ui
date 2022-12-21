@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-<script >
+<script>
   import TabPanel from './tab-panel.vue'
   import { findIndex } from '../../common/helpers/util'
   import { prefixStyle } from '../../common/helpers/dom'

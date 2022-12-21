@@ -20,7 +20,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import DatePicker from 'example/components/date-picker.vue'

@@ -8,7 +8,7 @@
     </slot>
   </div>
 </template>
-<script >
+<script>
   import UploadBtn from './btn.vue'
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'

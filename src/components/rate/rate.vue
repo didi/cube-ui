@@ -15,7 +15,7 @@
     </ul>
 </template>
 
-<script >
+<script>
   import CubeRateItem from './rate-item.vue'
   const COMPONENT_NAME = 'cube-rate'
   const EVENT_INPUT = 'input'

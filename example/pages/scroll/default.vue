@@ -45,7 +45,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
 import { nextTick } from 'vue'
 import CubePage from '../../components/cube-page.vue'
 import SwitchOption from '../../components/switch-option.vue'

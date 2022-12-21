@@ -20,7 +20,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../../components/cube-page.vue'
   import * as DATAS from '../../data/tab-bar'
 

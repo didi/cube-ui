@@ -18,7 +18,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from 'example/components/cube-page.vue'
   import SwitchOption from 'example/components/switch-option.vue'
 

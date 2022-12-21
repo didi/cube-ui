@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script >
+<script>
   const COMPONENT_NAME = 'select-option'
   export default {
     name: COMPONENT_NAME,

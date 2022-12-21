@@ -11,7 +11,7 @@
     </label>
   </div>
 </template>
-<script >
+<script>
   const COMPONENT_NAME = 'cube-checkbox'
 
   const EVENT_INPUT = 'input'

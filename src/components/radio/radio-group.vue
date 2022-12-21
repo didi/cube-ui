@@ -12,7 +12,7 @@
     </slot>
   </div>
 </template>
-<script >
+<script>
   import CubeRadio from './radio.vue'
   import groupCol from '../../common/mixins/group-col'
   const COMPONENT_NAME = 'cube-radio-group'

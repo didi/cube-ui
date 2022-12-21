@@ -19,7 +19,7 @@
   </cube-page>
 </template>
 
-<script >
+<script>
   import CubePage from '../components/cube-page.vue'
   import CubeButtonGroup from '../components/cube-button-group.vue'
 

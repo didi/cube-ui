@@ -2,7 +2,7 @@
   <canvas ref="bubble" :width="width" :height="height" :style="style"></canvas>
 </template>
 
-<script >
+<script>
   export default {
     props: {
       y: {

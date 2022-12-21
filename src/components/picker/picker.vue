@@ -41,7 +41,7 @@
   </transition>
 </template>
 
-<script >
+<script>
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'

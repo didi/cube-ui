@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script >
+<script>
   import CubeStickyEle from '../sticky/sticky-ele.vue'
 
   const COMPONENT_NAME = 'cube-scroll-nav-panel'

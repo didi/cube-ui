@@ -5,7 +5,7 @@
     </span>
   </div>
 </template>
-<script >
+<script>
   const COMPONENT_NAME = 'cube-loading'
 
   export default {
