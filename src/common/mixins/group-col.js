@@ -1,5 +1,5 @@
 import { prefixStyle } from '../helpers/dom'
-const FLEXBASIS = prefixStyle('flexBasis')
+const FLEX_BASIS = prefixStyle('flexBasis')
 
 export default {
   props: {
@@ -16,7 +16,7 @@ export default {
         this.$nextTick(() => {
           let count = 100 / newValue + '%'
           Array.prototype.forEach.call(this.$refs.group.children, item => {
-            item.style[FLEXBASIS] = count
+            item.style[FLEX_BASIS] = count
           })
         })
       }

@@ -47,6 +47,7 @@
         default: 'button'
       }
     },
+    emits: ['click'],
     computed: {
       btnClass() {
         return {

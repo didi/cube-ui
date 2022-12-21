@@ -14,14 +14,14 @@
 <script>
   const COMPONENT_NAME = 'cube-checkbox'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_CHECKED = 'checked'
-  const EVENT_CANCLE_CHECKED = 'cancel-checked'
+  const EVENT_CANCEL_CHECKED = 'cancel-checked'
 
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: {
+      modelValue: {
         type: [Boolean, String]
       },
       label: {
@@ -54,7 +54,7 @@
     },
     data () {
       const parent = this.$parent
-      const isInGroup = parent.$data._checkboxGroup
+      const isInGroup = !!parent && parent.$data._checkboxGroup
       const isInHorizontalGroup = isInGroup && (parent.$props.horizontal || parent.$props.colNum > 1)
       return {
         isInGroup,
@@ -84,10 +84,9 @@
       checkValue: {
         get () {
           if (this.isInGroup) {
-            return false
-            // return this.$parent.value.indexOf(this.computedOption.value) > -1
+            return this.$parent.modelValue.indexOf(this.computedOption.value) > -1
           } else {
-            return Boolean(this.value)
+            return Boolean(this.modelValue)
           }
         },
         set (newValue) {
@@ -95,10 +94,10 @@
           const emitValue = value && newValue ? value : newValue
           this.$emit(EVENT_INPUT, emitValue)
           if (this.isInGroup) {
-            // fix a bug when checkboxgroup set the min props
+            // fix a bug when checkbox group set the min props
             newValue = !this.checkValue
-            const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCLE_CHECKED
-            this.$parent.$emit(parentEmitEvent, value || newValue)
+            const parentEmitEvent = newValue ? EVENT_CHECKED : EVENT_CANCEL_CHECKED
+            this.$parent.checkEvent(parentEmitEvent, value || newValue)
           }
         }
       },
