@@ -1,6 +1,6 @@
 <template>
   <cube-page type="toolbar" title="Toolbar" class="option-demo">
-    <div slot="content">
+    <template v-slot:content>
       <div class="options">
         <div class="option-list">
           <div class="group">
@@ -14,7 +14,7 @@
         :more-actions="more ? moreActions : undefined"
         @click="clickHandler">
       </cube-toolbar>
-    </div>
+    </template>
   </cube-page>
 </template>
 

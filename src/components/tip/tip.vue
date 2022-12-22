@@ -41,6 +41,7 @@
         default: 0
       }
     },
+    emits: [EVENT_CLICK, EVENT_CLOSE],
     mounted() {
       this.$nextTick(() => {
         let angleEleStyle = this.$refs.angle.style

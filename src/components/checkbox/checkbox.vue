@@ -52,6 +52,7 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT],
     data () {
       const parent = this.$parent
       const isInGroup = !!parent && parent.$data._checkboxGroup

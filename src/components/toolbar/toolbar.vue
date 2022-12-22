@@ -44,6 +44,7 @@
         type: Array
       }
     },
+    emits: [EVENT_CLICK, EVENT_MORE_CLICK],
     data() {
       return {
         showMore: false

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tab-bar-view" title="TabBar">
-    <div slot="content">
+    <template v-slot:content>
       <!-- default -->
       <div class="section">
         <cube-tab-bar
@@ -43,7 +43,7 @@
           </cube-tab>
         </cube-tab-bar>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

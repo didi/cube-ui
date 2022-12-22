@@ -58,6 +58,7 @@
         default: Infinity
       }
     },
+    emits: [EVENT_INPUT],
     data () {
       return {
         _value: [],

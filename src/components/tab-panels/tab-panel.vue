@@ -16,8 +16,8 @@
       },
       value: {
         type: [String, Number],
-        default() {
-          return this.label
+        default(props) {
+          return props.label
         }
       }
     },

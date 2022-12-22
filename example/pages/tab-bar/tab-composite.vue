@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tab-composite-view" title="tab-composite">
-    <div slot="content">
+    <template v-slot:content>
       <cube-tab-bar v-model="selectedLabel"
                     show-slider
                     :use-transition="disabled"
@@ -63,7 +63,7 @@
           </cube-slide-item>
         </cube-slide>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

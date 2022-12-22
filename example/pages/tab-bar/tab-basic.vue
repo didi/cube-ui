@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tabs-basic-view" title="tab-basic">
-    <div slot="content">
+    <template v-slot:content>
       <cube-tab-bar v-model="selectedLabel" show-slider>
         <cube-tab v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
       </cube-tab-bar>
@@ -13,7 +13,7 @@
           </ul>
         </cube-tab-panel>
       </cube-tab-panels>
-    </div>
+    </template>
   </cube-page>
 </template>
 

@@ -19,7 +19,7 @@
 
   const COMPONENT_NAME = 'cube-tab-bar'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_CHANGE = 'change'
   const EVENT_CLICK = 'click'
 
@@ -32,7 +32,7 @@
       CubeTab
     },
     props: {
-      value: {
+      modelValue: {
         type: [String, Number],
         required: true
       },
@@ -55,8 +55,9 @@
         default: true
       }
     },
+    emits: [EVENT_INPUT, EVENT_CHANGE, EVENT_CLICK],
     watch: {
-      value () {
+      modelValue () {
         this._updateSliderStyle()
       }
     },
@@ -91,7 +92,7 @@
         // emit click event as long as tab is clicked
         this.$emit(EVENT_CLICK, value)
         // only when value changed, emit change & input event
-        if (value !== this.value) {
+        if (value !== this.modelValue) {
           const changedEvents = [EVENT_INPUT, EVENT_CHANGE]
           changedEvents.forEach((eventType) => {
             this.$emit(eventType, value)
@@ -122,7 +123,7 @@
         let width = 0
         let index = 0
         if (this.tabs.length > 0) {
-          index = findIndex(this.tabs, (tab) => tab.value === this.value)
+          index = findIndex(this.tabs, (tab) => tab.modelValue === this.modelValue)
           width = this.tabs[index].$el.clientWidth
         }
         return {
