@@ -11,12 +11,12 @@
 <script>
   import CubeCheckerItem from './checker-item.vue'
   const COMPONENT_NAME = 'cube-checker'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: [String, Number, Array],
+      modelValue: [String, Number, Array],
       options: {
         type: Array,
         default() {
@@ -34,14 +34,15 @@
       },
       max: {
         type: Number,
-        default() {
-          return this.options.length
+        default(props) {
+          return props.options.length
         }
       }
     },
+    emits: [EVENT_INPUT],
     data () {
       return {
-        currentValue: this.value
+        currentValue: this.modelValue
       }
     },
     computed: {
@@ -50,7 +51,7 @@
       }
     },
     watch: {
-      value (newValue) {
+      modelValue (newValue) {
         this.currentValue = newValue
       },
       currentValue (val) {
