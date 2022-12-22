@@ -20,7 +20,7 @@
 
 <script>
 const COMPONENT_NAME = 'cube-radio'
-const EVENT_INPUT = 'input'
+const EVENT_INPUT = 'update:modelValue'
 
 export default {
   name: COMPONENT_NAME,
@@ -30,7 +30,7 @@ export default {
     }
   },
   props: {
-    value: [String, Number],
+    modelValue: [String, Number],
     option: {
       type: [String, Object],
       required: true
@@ -44,9 +44,10 @@ export default {
       default: false
     }
   },
+  emits: [EVENT_INPUT],
   data() {
     return {
-      radioValue: this.value
+      radioValue: this.modelValue
     }
   },
   created() {
@@ -68,11 +69,11 @@ export default {
     this._cancelWatchGroup = null
   },
   watch: {
-    value(newV) {
+    modelValue(newV) {
       this.radioValue = newV
     },
     radioValue(newV) {
-      if (typeof this.value === 'number') {
+      if (typeof this.modelValue === 'number') {
         newV = Number(newV)
       }
       this.$emit(EVENT_INPUT, newV)

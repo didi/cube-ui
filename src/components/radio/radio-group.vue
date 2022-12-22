@@ -17,7 +17,7 @@
   import groupCol from '../../common/mixins/group-col'
   const COMPONENT_NAME = 'cube-radio-group'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   export default {
     name: COMPONENT_NAME,
@@ -28,7 +28,7 @@
       }
     },
     props: {
-      value: [String, Number],
+      modelValue: [String, Number],
       options: {
         type: Array,
         default() {
@@ -48,13 +48,14 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT],
     data() {
       return {
-        radioValue: this.value
+        radioValue: this.modelValue
       }
     },
     watch: {
-      value(newV) {
+      modelValue(newV) {
         this.radioValue = newV
       },
       radioValue(newV) {

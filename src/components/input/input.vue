@@ -32,7 +32,7 @@
 <script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-input'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_BLUR = 'blur'
   const EVENT_FOCUS = 'focus'
 
@@ -40,7 +40,7 @@
     name: COMPONENT_NAME,
     mixins: [inputMixin],
     props: {
-      value: [String, Number],
+      modelValue: [String, Number],
       type: {
         type: String,
         default: 'text'
@@ -82,9 +82,10 @@
         default: false
       }
     },
+    emits: ['change', EVENT_INPUT, EVENT_BLUR, EVENT_FOCUS],
     data() {
       return {
-        inputValue: this.value,
+        inputValue: this.modelValue,
         isFocus: false,
         formatedClearable: {
           visible: false,
