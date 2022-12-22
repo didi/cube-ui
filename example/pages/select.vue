@@ -1,6 +1,6 @@
 <template>
   <cube-page type="button-view" title="Select">
-    <div slot="content">
+    <template v-slot:content>
       <cube-select
         v-model="value"
         :title="title"
@@ -15,7 +15,7 @@
       <cube-button-group>
         <cube-button @click="modify">modify</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="switch-view" title="Switch">
-    <template slot="content">
+    <template v-slot:content>
       <cube-switch v-model="values[0]">Switch</cube-switch>
       <p>switch value: {{values[0]}}</p>
       <cube-switch v-model="values[1]">Switch</cube-switch>

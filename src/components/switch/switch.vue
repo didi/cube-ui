@@ -9,12 +9,12 @@
 <script>
   const COMPONENT_NAME = 'cube-switch'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: {
+      modelValue: {
         type: Boolean,
         default: false
       },
@@ -23,13 +23,14 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT],
     data() {
       return {
-        checkboxValue: this.value
+        checkboxValue: this.modelValue
       }
     },
     watch: {
-      value (newVal) {
+      modelValue (newVal) {
         this.checkboxValue = newVal
       },
       checkboxValue (newVal) {

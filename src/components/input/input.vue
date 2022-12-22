@@ -15,7 +15,7 @@
       :autofocus="autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
-      @change="changeHander"
+      @change="changeHandler"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
       <div class="cube-input-clear" v-if="_showClear" @touchend="handleClear">

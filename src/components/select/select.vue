@@ -13,7 +13,7 @@
   const COMPONENT_NAME = 'cube-select'
 
   const EVENT_CHANGE = 'change'
-  const EVENT_INPUT = 'input' // only used for v-model
+  const EVENT_INPUT = 'update:modelValue' // only used for v-model
   const EVENT_PICKER_SHOW = 'picker-show'
   const EVENT_PICKER_HIDE = 'picker-hide'
 
@@ -33,7 +33,7 @@
           return []
         }
       },
-      value: null,
+      modelValue: null,
       placeholder: {
         type: String,
         default: ''
@@ -72,7 +72,7 @@
         })]
       },
       valueIndex() {
-        const val = this.value
+        const val = this.modelValue
         const index = findIndex(this.adaptOptions[0], (item) => {
           return item.value === val
         })
@@ -100,20 +100,20 @@
       }
     },
     created() {
-      this.picker = this.$createPicker({
-        $props: {
-          title: '_title',
-          data: 'adaptOptions',
-          selectedIndex: 'selectedIndex',
-          cancelTxt: '_cancelTxt',
-          confirmTxt: '_confirmTxt'
-        },
-        $events: {
-          select: 'selectHandler',
-          cancel: this.hided
-        }
-      })
-      this.autoPop && this.showPicker()
+      // this.picker = this.$createPicker({
+      //   $props: {
+      //     title: '_title',
+      //     data: 'adaptOptions',
+      //     selectedIndex: 'selectedIndex',
+      //     cancelTxt: '_cancelTxt',
+      //     confirmTxt: '_confirmTxt'
+      //   },
+      //   $events: {
+      //     select: 'selectHandler',
+      //     cancel: this.hided
+      //   }
+      // })
+      // this.autoPop && this.showPicker()
     },
     methods: {
       showPicker() {
@@ -130,7 +130,7 @@
       },
       selectHandler(selectedVal, selectedIndex, selectedText) {
         this.hided()
-        if (selectedVal[0] !== this.value) {
+        if (selectedVal[0] !== this.modelValue) {
           this.$emit(EVENT_INPUT, selectedVal[0])
           this.$emit(EVENT_CHANGE, selectedVal[0], selectedIndex[0], selectedText[0])
         }

@@ -10,7 +10,7 @@
       :disabled="disabled"
       @focus="handleFocus"
       @blur="handleBlur"
-      @change="changeHander"
+      @change="changeHandler"
     >
     </textarea>
     <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
@@ -20,7 +20,7 @@
 <script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   const DEFAULT_INDICATOR = {
     negative: true,
@@ -32,13 +32,13 @@
     mixins: [inputMixin],
     data() {
       return {
-        textareaValue: this.value,
-        expanded: this.autoExpand ? !!this.value : false,
+        textareaValue: this.modelValue,
+        expanded: this.autoExpand ? !!this.modelValue : false,
         isFocus: false
       }
     },
     props: {
-      value: {
+      modelValue: {
         type: String,
         default: ''
       },
@@ -72,6 +72,7 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT, 'focus', 'blur', 'change'],
     computed: {
       indicatorConf() {
         let indicator = this.indicator
