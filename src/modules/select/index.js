@@ -3,11 +3,11 @@ import Select from '../../components/select/select.vue'
 import addPicker from '../picker/api'
 import Locale from '../../common/locale'
 
-Select.install = function (Vue) {
-  Vue.component(Picker.name, Picker)
-  Vue.component(Select.name, Select)
-  Locale.install(Vue)
-  addPicker(Vue, Picker)
+Select.install = function (app) {
+  app.component(Picker.name, Picker)
+  app.component(Select.name, Select)
+  Locale.install(app)
+  addPicker(app, Picker)
 }
 
 Select.Picker = Picker

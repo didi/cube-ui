@@ -3,11 +3,11 @@ import Locale from '../../common/locale'
 import Input from '../../components/input/input.vue'
 import addDialog from './api'
 
-Dialog.install = function (Vue) {
-  Vue.component(Input.name, Input)
-  Vue.component(Dialog.name, Dialog)
-  Locale.install(Vue)
-  addDialog(Vue, Dialog)
+Dialog.install = function (app) {
+  app.component(Input.name, Input)
+  app.component(Dialog.name, Dialog)
+  Locale.install(app)
+  addDialog(app, Dialog)
 }
 
 Dialog.Input = Input

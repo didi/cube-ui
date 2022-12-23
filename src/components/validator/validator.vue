@@ -25,7 +25,7 @@
   import template from '../../common/helpers/string-template'
 
   const COMPONENT_NAME = 'cube-validator'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_VALIDATING = 'validating'
   const EVENT_VALIDATED = 'validated'
   const EVENT_MSG_CLICK = 'msg-click'
@@ -34,7 +34,7 @@
     name: COMPONENT_NAME,
     mixins: [localeMixin],
     props: {
-      model: {
+      modelValue: {
         required: true
       },
       modelKey: {
@@ -65,7 +65,7 @@
     },
     data() {
       return {
-        valid: this.value,
+        valid: this.modelValue,
         validated: false,
         msg: '',
         dirty: false,

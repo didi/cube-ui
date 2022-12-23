@@ -29,16 +29,16 @@
       }
     },
     mounted() {
-      const self = this
-      this.picker = this.$createPicker({
-        title: `Choose ${this.name}`,
-        data: [this.options],
-        cancelTxt: 'cancel',
-        confirmTxt: 'confirm',
-        onValueChange(selectedVal) {
-          self.selected = selectedVal[0]
-        }
-      })
+      // const self = this
+      // this.picker = this.$createPicker({
+      //   title: `Choose ${this.name}`,
+      //   data: [this.options],
+      //   cancelTxt: 'cancel',
+      //   confirmTxt: 'confirm',
+      //   onValueChange(selectedVal) {
+      //     self.selected = selectedVal[0]
+      //   }
+      // })
     },
     methods: {
       showPicker() {

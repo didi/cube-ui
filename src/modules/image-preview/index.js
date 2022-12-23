@@ -1,9 +1,9 @@
 import ImagePreview from '../../components/image-preview/image-preview.vue'
 import addImagePreview from './api'
 
-ImagePreview.install = function (Vue) {
-  Vue.component(ImagePreview.name, ImagePreview)
-  addImagePreview(Vue, ImagePreview)
+ImagePreview.install = function (app) {
+  app.component(ImagePreview.name, ImagePreview)
+  addImagePreview(app, ImagePreview)
 }
 
 export default ImagePreview

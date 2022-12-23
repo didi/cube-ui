@@ -18,14 +18,14 @@
 <script>
   import CubeRateItem from './rate-item.vue'
   const COMPONENT_NAME = 'cube-rate'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   const EVENT_TYPE_MOUSE = 'mouse'
 
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: {
+      modelValue: {
         type: Number,
         default: 0
       },
@@ -44,7 +44,7 @@
     },
     data() {
       return {
-        tempValue: this.value
+        tempValue: this.modelValue
       }
     },
     created() {

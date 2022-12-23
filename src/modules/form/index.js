@@ -6,13 +6,13 @@ import Locale from '../../common/locale'
 import Validator from '../../components/validator/validator.vue'
 import { addRule, addMessage, addType } from '../../common/helpers/validator'
 
-Form.install = function (Vue) {
-  Vue.component(Form.name, Form)
-  Vue.component(FormGroup.name, FormGroup)
-  Vue.component(FormItem.name, FormItem)
-  Vue.component(Validator.name, Validator)
-  Locale.install(Vue)
-  Validator._base = Vue // get Vue.prototye when Validator.addMessage()
+Form.install = function (app) {
+  app.component(Form.name, Form)
+  app.component(FormGroup.name, FormGroup)
+  app.component(FormItem.name, FormItem)
+  app.component(Validator.name, Validator)
+  Locale.install(app)
+  Validator._base = app // get Vue.prototye when Validator.addMessage()
 }
 
 Form.Group = FormGroup
