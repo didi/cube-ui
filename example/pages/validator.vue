@@ -1,6 +1,6 @@
 <template>
   <cube-page type="validator-view" title="Validator" desc="">
-    <div slot="content">
+    <template v-slot:content>
       <div class="validator-item">
         <cube-input v-model="text1" placeholder="E-mail"></cube-input>
         <cube-validator ref="validator1" v-model="isValid[0]" :model="text1" :rules="rules1" :messages="messages1" :immediate="immediate"></cube-validator>
@@ -8,14 +8,14 @@
       <div class="validator-item">
         <cube-validator ref="validator2" v-model="isValid[1]" :model="text2" :rules="rules2" :messages="messages2" :immediate="immediate">
           <cube-input v-model="text2" placeholder="component name"></cube-input>
-          <div slot="message" class="custom-msg" slot-scope="props">
+          <template #message="props" class="custom-msg">
             <div v-if="(props.dirty || props.validated) && !isValid[1]">
               <i class="dd-cubeic-important"></i> {{ props.message }}
               <div>
                 <span v-for="(item, index) in Object.values(props.result)" :key="index" v-if="item.inValid">{{ item.message + ' ' }}</span>
               </div>
             </div>
-          </div>
+          </template>
         </cube-validator>
       </div>
       <div class="validator-item">
@@ -50,7 +50,7 @@
         </cube-validator>
       </div>
       <cube-button @click="submit">Submit</cube-button>
-    </div>
+    </template>
   </cube-page>
 </template>
 

@@ -34,7 +34,7 @@
     name: COMPONENT_NAME,
     mixins: [localeMixin],
     props: {
-      modelValue: {
+      model: {
         required: true
       },
       modelKey: {
@@ -53,7 +53,7 @@
           return {}
         }
       },
-      value: {},
+      modelValue: {},
       disabled: {
         type: Boolean,
         default: false
@@ -63,6 +63,7 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT, EVENT_VALIDATING, EVENT_VALIDATED, EVENT_MSG_CLICK],
     data() {
       return {
         valid: this.modelValue,
