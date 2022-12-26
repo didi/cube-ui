@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload-view-def" title="Upload">
-    <template slot="content">
+    <template v-slot:content>
       <p>Normal upload(File max size 1MB): </p>
       <div>
         <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" @files-added="filesAdded" />

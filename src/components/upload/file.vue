@@ -32,6 +32,7 @@
         required: true
       }
     },
+    emits: [EVENT_CLICK],
     computed: {
       fileCls() {
         return `cube-upload-file_${this.file.status}`
@@ -44,6 +45,7 @@
         }
       },
       fileStyle() {
+        console.log(this.file)
         const url = this.file.url || this.file.base64
         if (!url) {
           return

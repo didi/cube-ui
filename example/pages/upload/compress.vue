@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload-view-compress" title="Upload">
-    <template slot="content">
+    <template v-slot:content>
       <p>Compress&Base64 upload: </p>
       <div>
         <cube-upload

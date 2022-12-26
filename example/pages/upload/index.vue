@@ -1,13 +1,13 @@
 <template>
   <cube-page type="upload" title="Upload">
-    <div slot="content">
+    <template v-slot:content>
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('compress')">Compress</cube-button>
         <cube-button @click="goTo('custom')">Custom</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

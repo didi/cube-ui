@@ -15,7 +15,7 @@
   import btnMixin from './btn-mixin'
   import {
     processFiles,
-    newFile,
+    // newFile,
     URL,
     STATUS_READY,
     STATUS_UPLOADING,
@@ -24,7 +24,7 @@
   } from './util'
 
   const COMPONENT_NAME = 'cube-upload'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_ADDED = 'files-added'
   const EVENT_SUBMITTED = 'file-submitted'
   const EVENT_REMOVED = 'file-removed'
@@ -36,7 +36,7 @@
     name: COMPONENT_NAME,
     mixins: [btnMixin],
     props: {
-      value: {
+      modelValue: {
         type: Array,
         default() {
           return []
@@ -65,9 +65,10 @@
         }
       }
     },
+    emits: [EVENT_INPUT, EVENT_ADDED, EVENT_SUBMITTED, EVENT_REMOVED, EVENT_SUCCESS, EVENT_ERROR, EVENT_CLICK],
     data() {
       return {
-        files: this.value,
+        files: this.modelValue.slice(0),
         paused: !this.auto
       }
     },
@@ -87,7 +88,7 @@
       }
     },
     watch: {
-      value(newVal) {
+      modelValue(newVal) {
         this.files = newVal
       },
       files(newFiles) {
@@ -96,6 +97,7 @@
     },
     methods: {
       addFiles(files) {
+        console.log(files[0])
         this.$emit(EVENT_ADDED, files)
         const filesLen = this.files.length
         const newFiles = []
@@ -105,12 +107,13 @@
         while (newFiles.length < maxLen && file) {
           if (!file.ignore) {
             newFiles.push(file)
-            this.files.push(newFile())
+            // this.files.push(newFile())
           }
           file = files[++i]
         }
         processFiles(newFiles, this.processFile, (file, index) => {
-          this.$set(this.files, filesLen + index, file)
+          // this.$set(this.files, filesLen + index, file)
+          this.files.push(file)
           this.$emit(EVENT_SUBMITTED, file)
         }, () => {
           // waiting ui
