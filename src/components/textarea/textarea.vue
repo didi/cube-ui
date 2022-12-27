@@ -93,7 +93,7 @@
       }
     },
     watch: {
-      value(newValue) {
+      modelValue(newValue) {
         this.textareaValue = newValue
       },
       textareaValue(newValue) {

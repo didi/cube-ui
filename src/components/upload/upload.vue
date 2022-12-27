@@ -97,7 +97,6 @@
     },
     methods: {
       addFiles(files) {
-        console.log(files[0])
         this.$emit(EVENT_ADDED, files)
         const filesLen = this.files.length
         const newFiles = []

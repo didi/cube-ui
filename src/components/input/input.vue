@@ -124,7 +124,7 @@
       }
     },
     watch: {
-      value(newValue) {
+      modelValue(newValue) {
         this.inputValue = newValue
       },
       inputValue(newValue) {

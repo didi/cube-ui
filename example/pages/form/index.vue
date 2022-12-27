@@ -1,6 +1,6 @@
 <template>
   <cube-page type="form" title="Form">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('custom')">Custom</cube-button>
@@ -9,7 +9,7 @@
         <cube-button @click="goTo('questionnaire')">Questionnaire</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

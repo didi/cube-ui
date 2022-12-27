@@ -42,6 +42,7 @@
         default: false
       }
     },
+    emits: [EVENT_INPUT],
     data() {
       return {
         tempValue: this.modelValue
@@ -56,7 +57,7 @@
       }
     },
     watch: {
-      value(val) {
+      modelValue(val) {
         if (val !== this.tempValue) {
           this.tempValue = val
         }

@@ -105,7 +105,7 @@
       }
     },
     watch: {
-      value(newVal) {
+      modelValue(newVal) {
         this.valid = newVal
       },
       targetModel: {

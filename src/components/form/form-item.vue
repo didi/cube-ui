@@ -14,7 +14,7 @@
         :model-key="validatorModelKey"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
-        @input="validatorChangeHandler"
+        @update:modelValue="validatorChangeHandler"
         @validating="validatingHandler"
         @validated="validatedHandler"
         @msg-click="msgClick"
@@ -257,16 +257,18 @@
         this.pending = false
       },
       msgClick() {
+        console.log('error-msg')
         /* istanbul ignore if */
         if (this.form.layout !== LAYOUTS.STANDARD) {
+          // eslint-disable-next-line no-useless-return
           return
         }
         /* istanbul ignore next */
-        this.$createToast && this.$createToast({
-          type: 'warn',
-          txt: this.$refs.validator.msg,
-          time: 1000
-        }).show()
+        // this.$createToast && this.$createToast({
+        //   type: 'warn',
+        //   txt: this.$refs.validator.msg,
+        //   time: 1000
+        // }).show()
       }
     },
     beforeDestroy() {
