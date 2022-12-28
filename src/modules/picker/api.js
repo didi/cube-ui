@@ -8,5 +8,6 @@ export default function addPicker (Vue, Picker) {
   //     tip('Picker component can not be a singleton.')
   //   }
   // })
-  console.log(createAPI, tip)
+  console.log(Picker.name)
+  return { createAPI, tip }
 }

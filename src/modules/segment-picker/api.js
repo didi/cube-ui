@@ -8,5 +8,6 @@ export default function addSegmentPicker (Vue, SegmentPicker) {
   //     tip('SegmentPicker component can not be a singleton.')
   //   }
   // })
-  console.log(createAPI, tip)
+  console.log(SegmentPicker.name)
+  return { createAPI, tip }
 }

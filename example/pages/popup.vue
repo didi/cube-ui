@@ -1,20 +1,20 @@
 <template>
   <cube-page type="popup-view" title="popup">
-    <template slot="content">
+    <template #content>
       <div>
-        <cube-popup type="my-popup" v-model="visible1">My Popup Content 1</cube-popup>
+        <cube-popup type="my-popup" v-model:visible="visible1">My Popup Content 1</cube-popup>
         <cube-button @click="showPopup(1)">Show Popup</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" v-model="visible2" :mask="false">My Popup Content 2</cube-popup>
+        <cube-popup type="my-popup" v-model:visible="visible2" :mask="false">My Popup Content 2</cube-popup>
         <cube-button @click="showPopup(2)">Show Popup - no mask</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" v-model="visible3" :mask="false" content="<i>My Popup Content 3</i>" ref="myPopup3"></cube-popup>
+        <cube-popup type="my-popup" v-model:visible="visible3" :mask="false" content="<i>My Popup Content 3</i>" ref="myPopup3"></cube-popup>
         <cube-button @click="showPopup(3)">Show Popup - with content</cube-button>
       </div>
       <div>
-        <cube-popup type="my-popup" v-model="visible4" :position="position" :mask-closable="true" ref="myPopup4">My Popup Content 4</cube-popup>
+        <cube-popup type="my-popup" v-model:visible="visible4" :position="position" :mask-closable="true" ref="myPopup4">My Popup Content 4</cube-popup>
         <cube-button @click="showPopup(4)">top/right/bottom/left/center</cube-button>
       </div>
       <div>

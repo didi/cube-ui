@@ -8,5 +8,6 @@ export default function addDatePicker (Vue, DatePicker) {
   //     tip('DatePicker component can not be a singleton.')
   //   }
   // })
-  console.log(createAPI, tip)
+  console.log(DatePicker.name)
+  return { createAPI, tip }
 }

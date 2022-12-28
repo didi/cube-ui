@@ -8,5 +8,6 @@ export default function addTimePicker (Vue, TimePicker) {
   //     tip('TimePicker component can not be a singleton.')
   //   }
   // })
-  console.log(createAPI, tip)
+  console.log(TimePicker.name)
+  return { createAPI, tip }
 }

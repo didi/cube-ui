@@ -44,6 +44,7 @@
         default: ''
       }
     },
+    emits: [EVENT_MASK_CLICK],
     computed: {
       rootClass() {
         const cls = {

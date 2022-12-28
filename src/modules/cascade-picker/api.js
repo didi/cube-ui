@@ -8,5 +8,6 @@ export default function addCascadePicker (Vue, CascadePicker) {
   //     tip('CascadePicker component can not be a singleton.')
   //   }
   // })
-  console.log(createAPI, tip)
+  console.log(CascadePicker.name)
+  return { createAPI, tip }
 }

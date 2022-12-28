@@ -189,7 +189,6 @@
         })
       },
       _reset() {
-        console.log(this.fields)
         this.fields.forEach((fieldComponent) => {
           fieldComponent.reset()
         })
