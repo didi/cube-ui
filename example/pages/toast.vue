@@ -1,6 +1,6 @@
 <template>
   <cube-page type="toast-view" title="Toast">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showToastTime">Toast - time 1s</cube-button>
         <cube-button @click="showToastTime0">Toast - time 0</cube-button>
@@ -8,7 +8,7 @@
         <cube-button @click="showToastType">Toast - type</cube-button>
         <cube-button @click="showToastTxtOnly">Toast - txt only</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 
