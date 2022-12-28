@@ -117,19 +117,19 @@
       color: $toast-color
       background-color: $toast-bgc
       border-radius: 2px
-  .cube-toast-icon
-    width: 24px
-    height: 24px
-    font-size: $fontsize-large-xxx
-  .cube-toast-tip
-    line-height: 20px
-    font-size: $fontsize-medium
-    max-width: 12em
-    max-height: 40px
-    overflow: hidden
-  .cube-toast-icon, .cube-loading
-    ~ .cube-toast-tip
-      margin-left: 8px
+    .cube-toast-icon
+      width: 24px
+      height: 24px
+      font-size: $fontsize-large-xxx
+    .cube-toast-tip
+      line-height: 20px
+      font-size: $fontsize-medium
+      max-width: 12em
+      max-height: 40px
+      overflow: hidden
+    .cube-toast-icon, .cube-loading
+      ~ .cube-toast-tip
+        margin-left: 8px
 
   .cube-toast-fade-enter-active
     animation: toast-in .2s
