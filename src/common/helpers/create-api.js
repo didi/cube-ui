@@ -4,12 +4,17 @@ let seed = 0
 const instances = []
 
 const createComponent = (componentCtor, options, context = null) => {
+  // todo slots
   const container = document ? document.createElement('div') : null
   const id = 'cube_create_component_' + seed++
-  const vm = createVNode(componentCtor, {
-    ...options,
-    id
-  })
+  const vm = createVNode({
+    render() {
+      return createVNode(componentCtor, {
+        ...options,
+        ref: '$cre'
+      })
+    }
+  }, { id })
 
   if (context) {
     vm.appContext = context
@@ -21,8 +26,10 @@ const createComponent = (componentCtor, options, context = null) => {
     // mounted component
     render(vm, container)
 
+    console.log(vm.component)
+
     // add $remove
-    vm.component.proxy['$remove'] = function(cb) {
+    vm.component.proxy.$refs['$cre']['$remove'] = function(cb) {
       render(null, container)
       componentCtor._instance = null
       cb && cb()
@@ -38,31 +45,34 @@ const createComponent = (componentCtor, options, context = null) => {
       instances.splice(idx, 1)
     }
 
+    console.log(vm.component.proxy.$refs['$cre'])
+
     // add $updateProps
-    vm.component.proxy['$updateProps'] = function(props) {
+    vm.component.proxy.$refs['$cre']['$updateProps'] = function(props) {
       // reset default value
       Object.keys(componentCtor.props).forEach(key => {
-        vm.component.props[key] = componentCtor.props[key].default
+        vm.component.proxy.$refs['$cre']._.props[key] = componentCtor.props[key].default
       })
       // set new props
       Object.keys(props).forEach(key => {
-        vm.component.props[key] = props[key]
+        vm.component.proxy.$refs['$cre']._.props[key] = props[key]
       })
+      vm.component.proxy.$forceUpdate()
     }
 
     document.body.appendChild(container)
   }
 
-  return vm
+  return vm.component.proxy.$refs['$cre']
 }
 
 export default function createAPI(app, Component, events, single) {
   app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options) {
     if (single && Component._instance) {
       if (options) {
-        Component._instance.component.proxy.$updateProps(options)
+        Component._instance.$updateProps(options)
       }
-      return Component._instance.component.proxy
+      return Component._instance
     }
     const vm = Component._instance = createComponent(Component, options, this ? this._.appContext : null)
 
@@ -70,11 +80,11 @@ export default function createAPI(app, Component, events, single) {
     if (parentVnodeProps) {
       this._.vnode.props = mergeProps(parentVnodeProps || {}, {
         onVnodeBeforeUnmount() {
-          vm.component.proxy.$remove()
+          vm.$remove()
         }
       })
     }
 
-    return vm.component.proxy
+    return vm
   }
 }
