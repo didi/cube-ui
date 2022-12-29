@@ -21,9 +21,16 @@ const createComponent = (componentCtor, options) => {
     vm.component.proxy['$remove'] = function(cb) {
       render(null, container)
       cb && cb()
+
       if (container && document.body.contains(container)) {
         document.body.removeChild(container)
       }
+
+      const idx = instances.findIndex(item => {
+        const { id: _id } = item.props
+        return id === _id
+      })
+      instances.splice(idx, 1)
     }
 
     // add $updateProps
