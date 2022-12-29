@@ -22,14 +22,16 @@ const createComponent = (componentCtor, options, context = null) => {
 
   instances.push(vm)
 
+  let $cre
+
   if (container) {
     // mounted component
     render(vm, container)
 
-    console.log(vm.component)
+    $cre = vm.component.proxy.$refs['$cre']
 
     // add $remove
-    vm.component.proxy.$refs['$cre']['$remove'] = function(cb) {
+    $cre['$remove'] = function(cb) {
       render(null, container)
       componentCtor._instance = null
       cb && cb()
@@ -45,17 +47,15 @@ const createComponent = (componentCtor, options, context = null) => {
       instances.splice(idx, 1)
     }
 
-    console.log(vm.component.proxy.$refs['$cre'])
-
     // add $updateProps
-    vm.component.proxy.$refs['$cre']['$updateProps'] = function(props) {
+    $cre['$updateProps'] = function(props) {
       // reset default value
       Object.keys(componentCtor.props).forEach(key => {
-        vm.component.proxy.$refs['$cre']._.props[key] = componentCtor.props[key].default
+        $cre._.props[key] = componentCtor.props[key].default
       })
       // set new props
       Object.keys(props).forEach(key => {
-        vm.component.proxy.$refs['$cre']._.props[key] = props[key]
+        $cre._.props[key] = props[key]
       })
       vm.component.proxy.$forceUpdate()
     }
@@ -63,7 +63,7 @@ const createComponent = (componentCtor, options, context = null) => {
     document.body.appendChild(container)
   }
 
-  return vm.component.proxy.$refs['$cre']
+  return $cre
 }
 
 export default function createAPI(app, Component, events, single) {
