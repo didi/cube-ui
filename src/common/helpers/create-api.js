@@ -3,13 +3,17 @@ import { render, createVNode, mergeProps } from 'vue'
 let seed = 0
 const instances = []
 
-const createComponent = (componentCtor, options) => {
+const createComponent = (componentCtor, options, context = null) => {
   const container = document ? document.createElement('div') : null
   const id = 'cube_create_component_' + seed++
   const vm = createVNode(componentCtor, {
     ...options,
     id
   })
+
+  if (context) {
+    vm.appContext = context
+  }
 
   instances.push(vm)
 
@@ -20,6 +24,7 @@ const createComponent = (componentCtor, options) => {
     // add remove vm
     vm.component.proxy['$remove'] = function(cb) {
       render(null, container)
+      componentCtor._instance = null
       cb && cb()
 
       if (container && document.body.contains(container)) {
@@ -59,7 +64,7 @@ export default function createAPI(app, Component, events, single) {
       }
       return Component._instance.component.proxy
     }
-    const vm = Component._instance = createComponent(Component, options)
+    const vm = Component._instance = createComponent(Component, options, this ? this._.appContext : null)
 
     const parentVnodeProps = this ? this._.vnode.props : null
     if (parentVnodeProps) {

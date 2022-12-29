@@ -101,7 +101,7 @@
     width: 100%
     height: 100%
 
-  .cube-drawer-move-enter, .cube-drawer-move-leave-to
+  .cube-drawer-move-enter-from, .cube-drawer-move-leave-to
     transform: translate(67px, 0)
   .cube-drawer-move-enter-active, .cube-drawer-move-leave-active
     transition: transform .3s ease-in-out

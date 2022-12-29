@@ -1,6 +1,6 @@
 <template>
   <cube-page type="picker-view" title="Picker" desc="">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showPicker">Picker</cube-button>
         <cube-button @click="showMutiPicker">Multi-column Picker</cube-button>
@@ -8,7 +8,7 @@
         <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
         <cube-button @click="showSubtitlePicker">Use subtitle</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 

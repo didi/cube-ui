@@ -277,7 +277,7 @@
 <style lang="stylus" >
   @require "../../common/stylus/variable.styl"
 
-  .cube-image-preview-fade-enter, .cube-image-preview-fade-leave-active
+  .cube-image-preview-fade-enter-from, .cube-image-preview-fade-leave-to
     opacity: 0
   .cube-image-preview-fade-enter-active, .cube-image-preview-fade-leave-active
     transition: all .3s ease-in-out

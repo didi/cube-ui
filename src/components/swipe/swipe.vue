@@ -88,7 +88,7 @@
     .cube-swipe-item-inner
       transition: all 0.3s
 
-  .cube-swipe-enter, .cube-swipe-leave-to
+  .cube-swipe-enter-from, .cube-swipe-leave-to
     .cube-swipe-item-inner
       height: 0
 </style>

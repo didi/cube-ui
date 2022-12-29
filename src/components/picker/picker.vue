@@ -66,6 +66,7 @@
         default: false
       }
     },
+    emits: [EVENT_SELECT, EVENT_VALUE_CHANGE, EVENT_CANCEL, EVENT_CHANGE],
     data() {
       return {
         finalData: this.data.slice()
@@ -299,7 +300,7 @@
 
   $picker-lr-padding = 16px
 
-  .cube-picker-fade-enter, .cube-picker-fade-leave-active
+  .cube-picker-fade-enter-from, .cube-picker-fade-leave-to
     opacity: 0
 
   .cube-picker-fade-enter-active, .cube-picker-fade-leave-active
@@ -311,7 +312,7 @@
     font-size: $fontsize-medium
     background: $picker-bgc
 
-  .cube-picker-move-enter, .cube-picker-move-leave-active
+  .cube-picker-move-enter-from, .cube-picker-move-leave-to
     transform: translate3d(0, 100%, 0)
 
   .cube-picker-move-enter-active, .cube-picker-move-leave-active

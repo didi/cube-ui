@@ -209,7 +209,7 @@
     top: 0
     left: 0
     right: 0
-  .cube-sticky-fixed-fade-enter, .cube-sticky-fixed-fade-leave-active
+  .cube-sticky-fixed-fade-enter-from, .cube-sticky-fixed-fade-leave-to
     opacity: 0
   .cube-sticky-fixed-fade-enter-active, .cube-sticky-fixed-fade-leave-active
     transition: all .2s ease-in-out
