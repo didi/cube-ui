@@ -1,4 +1,4 @@
-import { render, createVNode, mergeProps } from 'vue'
+import { render, createVNode, mergeProps, camelize } from 'vue'
 
 let seed = 0
 const instances = []
@@ -21,7 +21,7 @@ const createComponent = (componentCtor, options, context = null) => {
     // mounted component
     render(vm, container)
 
-    // add remove vm
+    // add $remove
     vm.component.proxy['$remove'] = function(cb) {
       render(null, container)
       componentCtor._instance = null
@@ -57,7 +57,7 @@ const createComponent = (componentCtor, options, context = null) => {
 }
 
 export default function createAPI(app, Component, events, single) {
-  app.config.globalProperties[`$create${Component.name.replace('cube-', '').replace(/^\w/, ($) => $.toUpperCase())}`] = function(options) {
+  app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options) {
     if (single && Component._instance) {
       if (options) {
         Component._instance.component.proxy.$updateProps(options)

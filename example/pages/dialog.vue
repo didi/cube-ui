@@ -1,6 +1,6 @@
 <template>
   <cube-page type="dialog-view" title="Dialog">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showAlert">Dialog - alert</cube-button>
         <cube-button @click="showPrompt">Dialog - prompt</cube-button>
@@ -8,7 +8,7 @@
         <cube-button @click="showClose">Dialog - show close</cube-button>
         <cube-button @click="showSlot">Dialog - slot</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 
@@ -102,28 +102,27 @@
             text: '我知道了',
             active: true
           }
-        }, (createElement) => {
-          return [
-            createElement('div', {
+        }, (h) => {
+          return {
+            title: () => h('div', {
               'class': {
                 'my-title': true
-              },
-              slot: 'title'
+              }
             }, [
-              createElement('div', {
+              h('div', {
                 'class': {
                   'my-title-img': true
                 }
               }),
-              createElement('p', '附近车少,优选出租车将来接您')
+              h('p', '附近车少,优选出租车将来接您')
             ]),
-            createElement('p', {
+            content: () => h('p', {
               'class': {
                 'my-content': true
               },
               slot: 'content'
             }, '价格仍按快车计算')
-          ]
+          }
         })
         this.dialog.show()
       }

@@ -1,5 +1,5 @@
 import createAPI from '../../common/helpers/create-api'
 
-export default function addActionSheet (Vue, ActionSheet) {
-  createAPI(Vue, ActionSheet, ['select', 'cancel'], true)
+export default function addActionSheet (app, ActionSheet) {
+  createAPI(app, ActionSheet, ['select', 'cancel'], true)
 }

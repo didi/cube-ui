@@ -122,6 +122,7 @@
         }
       }
     },
+    emits: [EVENT_CONFIRM, EVENT_CANCEL, EVENT_CLOSE],
     data() {
       return {
         defHref,

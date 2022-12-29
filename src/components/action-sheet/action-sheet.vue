@@ -74,6 +74,7 @@
         default: ''
       }
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL],
     computed: {
       _cancelTxt () {
         return this.cancelTxt || this.$t('cancel')
