@@ -1,6 +1,6 @@
 <template>
   <cube-page type="validator-view" title="Validator" desc="">
-    <template v-slot:content>
+    <template #content>
       <div class="validator-item">
         <cube-input v-model="text1" placeholder="E-mail"></cube-input>
         <cube-validator ref="validator1" v-model="isValid[0]" :model="text1" :rules="rules1" :messages="messages1" :immediate="immediate"></cube-validator>

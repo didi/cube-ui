@@ -1,6 +1,6 @@
 <template>
   <cube-page type="button-view" title="Select">
-    <template v-slot:content>
+    <template #content>
       <cube-select
         v-model="value"
         :title="title"

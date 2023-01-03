@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload-view-custom" title="Upload">
-    <template v-slot:content>
+    <template #content>
       <p>Use slots: </p>
       <div class="upload-view-custom-main">
         <cube-upload

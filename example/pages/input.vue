@@ -3,7 +3,7 @@
     type="input-view"
     title="Input"
     class="option-demo">
-    <template v-slot:content>
+    <template #content>
       <cube-input
         :type="type"
         placeholder="please type here..."

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tabs" title="Tab Demos">
-    <template v-slot:content>
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('tab-bar')">TabBar Demos</cube-button>
         <cube-button @click="goTo('tab')">Tab Demos</cube-button>

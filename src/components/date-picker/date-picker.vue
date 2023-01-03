@@ -1,6 +1,6 @@
 <template>
   <cube-cascade-picker
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="data"
     :selected-index="selectedIndex"
     :title="title"
@@ -107,6 +107,7 @@
         }
       }
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     computed: {
       formatConfig() {
         const formatConfig = Object.assign({}, DEFAULT_FORMAT)

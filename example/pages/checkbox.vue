@@ -1,6 +1,6 @@
 <template>
   <cube-page type="checkbox-view" title="Checkbox">
-    <template v-slot:content>
+    <template #content>
       <cube-checkbox v-model="checked">Checkbox</cube-checkbox>
       <p>checked value: {{checked}}</p>
       <cube-checkbox v-model="checked" position="right" shape="square" :hollow-style="true">Styled Checkbox</cube-checkbox>

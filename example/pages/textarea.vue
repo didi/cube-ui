@@ -1,6 +1,6 @@
 <template>
   <cube-page type="textarea-view" title="Textarea" class="option-demo">
-    <template v-slot:content>
+    <template #content>
       <div class="textarea-wrapper">
         <cube-textarea
           v-model="text"

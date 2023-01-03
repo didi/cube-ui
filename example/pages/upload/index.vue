@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload" title="Upload">
-    <template v-slot:content>
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('compress')">Compress</cube-button>

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="loading-view" title="Loading">
-    <template v-slot:content>
+    <template #content>
       <cube-loading></cube-loading>
       <cube-loading :size="28"></cube-loading>
       <cube-loading :size="40"></cube-loading>

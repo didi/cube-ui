@@ -1,6 +1,6 @@
 <template>
   <cube-page type="checker-view" title="Checker">
-    <template v-slot:content>
+    <template #content>
       <p>default usage</p>
       <br>
       <cube-checker

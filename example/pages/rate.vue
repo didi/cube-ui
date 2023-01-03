@@ -3,7 +3,7 @@
     type="rate-view"
     title="Rate"
     class="option-demo">
-    <template v-slot:content>
+    <template #content>
       <div class="rate-wrapper">
         <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify">
           <cube-rate-item v-for="n in max" :key="n" :value="value" :index="n">

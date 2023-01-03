@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tip-view" title="Tip">
-    <template v-slot:content>
+    <template #content>
       <p class="tip-eg">
         <cube-button
           :inline="true"

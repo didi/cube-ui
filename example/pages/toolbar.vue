@@ -1,6 +1,6 @@
 <template>
   <cube-page type="toolbar" title="Toolbar" class="option-demo">
-    <template v-slot:content>
+    <template #content>
       <div class="options">
         <div class="option-list">
           <div class="group">

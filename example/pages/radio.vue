@@ -1,6 +1,6 @@
 <template>
   <cube-page type="radio-view" title="Radio">
-    <template v-slot:content>
+    <template #content>
       <cube-radio-group v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
       <cube-radio-group v-model="selected2" :options="options2" position="right" :hollow-style="true" />

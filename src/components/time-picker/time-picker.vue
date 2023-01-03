@@ -1,7 +1,7 @@
 <template>
   <cube-cascade-picker
     ref="picker"
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="cascadeData"
     :selected-index="selectedIndex"
     :title="_title"
@@ -95,6 +95,7 @@
         default: null
       }
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     data() {
       return {
         now: new Date(),

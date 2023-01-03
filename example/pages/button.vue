@@ -1,6 +1,6 @@
 <template>
   <cube-page type="button-view" title="Button">
-    <template v-slot:content>
+    <template #content>
       <form action="/">
         <cube-button-group>
           <cube-button>Button</cube-button>

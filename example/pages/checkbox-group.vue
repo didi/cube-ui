@@ -1,6 +1,6 @@
 <template>
   <cube-page type="checkbox-group-view" title="CheckboxGroup">
-    <template v-slot:content>
+    <template #content>
       <cube-checkbox-group v-model="checkList" :options="options" />
       <p>checkList value : {{checkList}}</p>
       <br>

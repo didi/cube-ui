@@ -22,7 +22,8 @@
     mixins: [ localeMixin ],
     data() {
       return {
-        active: false
+        active: false,
+        picker: null
       }
     },
     props: {

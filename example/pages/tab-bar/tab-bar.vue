@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tab-bar-view" title="TabBar">
-    <template v-slot:content>
+    <template #content>
       <!-- default -->
       <div class="section">
         <cube-tab-bar

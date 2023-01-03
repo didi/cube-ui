@@ -1,6 +1,6 @@
 <template>
   <cube-page type="time-picker-view" title="TimePicker（时间选择器）">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showTimePicker">TimePicker</cube-button>
         <cube-button @click="showConfigDayPicker">Config day options</cube-button>
@@ -10,7 +10,7 @@
         <cube-button @click="showMaxPicker">Config max</cube-button>
         <cube-button @click="showSetTimePiker">Use setTime</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 

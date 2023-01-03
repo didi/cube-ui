@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-tab-view" title="ScrollTab">
-    <template v-slot:content>
+    <template #content>
       <div class="left-panel">
         <cube-scroll>
           <cube-tab-bar v-model="selectedLabel" :data="tabs" @change="changeHandler"></cube-tab-bar>
