@@ -96,6 +96,7 @@
         required: true
       }
     },
+    emits: [EVENT_SCROLL, EVENT_RESIZE],
     computed: {
       visibleItems() {
         return this.items.slice(Math.max(0, this.startIndex - this.size), Math.min(this.items.length, this.startIndex + this.size))

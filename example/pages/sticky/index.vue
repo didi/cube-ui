@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky" title="Sticky">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('scroll')">Scroll</cube-button>
         <cube-button @click="goTo('native')">Native Scroll</cube-button>
@@ -8,7 +8,7 @@
         <cube-button @click="goTo('complex')">Complex</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

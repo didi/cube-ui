@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-nav-bar" title="ScrollNavBar">
-    <template slot="content">
+    <template #content>
       <cube-scroll-nav-bar :current="current" :labels="labels" @change="changeHandler" />
       <div class="side-container">
         <cube-scroll-nav-bar

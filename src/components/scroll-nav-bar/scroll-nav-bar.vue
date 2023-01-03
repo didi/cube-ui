@@ -60,10 +60,10 @@
       },
       txts: {
         type: Array,
-        default() {
-          this._defaultTxts = true
+        default(props) {
+          props._defaultTxts = true
           /* istanbul ignore next */
-          return this.labels
+          return props.labels
         }
       },
       current: {
@@ -71,6 +71,7 @@
         default: ''
       }
     },
+    emits: [EVENT_CHANGE],
     data() {
       return {
         active: this.current,

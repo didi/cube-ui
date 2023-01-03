@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-scroll" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky :pos="scrollY">
           <cube-scroll

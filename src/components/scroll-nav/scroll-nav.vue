@@ -77,6 +77,7 @@
         default: ''
       }
     },
+    emits: [EVENT_CHANGE, EVENT_STICKY_CHANGE],
     data() {
       return {
         scrollEvents: ['scroll', 'scroll-end'],

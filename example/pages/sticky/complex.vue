@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-complex" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky ref="sticky" :pos="scrollY" :offset="offsetTop" @diff-change="diffChange">
           <cube-scroll

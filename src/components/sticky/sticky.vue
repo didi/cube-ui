@@ -44,8 +44,8 @@
       },
       fixedShowAni: {
         type: String,
-        default() {
-          return this.checkTop ? '' : 'cube-sticky-fixed-fade'
+        default(props) {
+          return props.checkTop ? '' : 'cube-sticky-fixed-fade'
         }
       },
       offset: {
@@ -53,6 +53,7 @@
         default: 0
       }
     },
+    emits: [EVENT_CHANGE, EVENT_DIFF_CHANGE],
     data() {
       return {
         diff: 0,

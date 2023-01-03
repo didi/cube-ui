@@ -1,12 +1,12 @@
 <template>
   <cube-page type="scroll-nav" title="ScrollNav">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('side')">Side Style</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

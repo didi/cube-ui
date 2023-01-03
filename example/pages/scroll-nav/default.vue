@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-nav-def" title="ScrollNav">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-scroll-nav @change="changeHandler">
           <cube-scroll-nav-panel
@@ -18,7 +18,7 @@
           </cube-scroll-nav-panel>
         </cube-scroll-nav>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

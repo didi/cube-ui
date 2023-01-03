@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-native" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky :pos="scrollY" :check-top="checkTop">
           <div class="scroll-ele" @scroll="scrollHandler">
