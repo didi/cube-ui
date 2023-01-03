@@ -1,6 +1,6 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div ref="slideWrapper" class="slide-container">
         <cube-slide
             ref="slide"
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

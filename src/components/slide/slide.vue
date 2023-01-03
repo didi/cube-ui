@@ -103,6 +103,7 @@
         default: true
       }
     },
+    emits: [EVENT_CHANGE, EVENT_SELECT, EVENT_SCROLL_END, EVENT_SCROLL],
     data() {
       return {
         dots: 0,

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div class="slide-container-v">
         <cube-slide
           :data="items"
@@ -10,7 +10,7 @@
           @change="change">
         </cube-slide>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
