@@ -1,7 +1,7 @@
 <template>
   <cube-picker
     ref="picker"
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="pickerData"
     :selected-index="pickerSelectedIndex"
     :pending="pending"

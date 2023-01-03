@@ -192,7 +192,8 @@
         let dist = 0
         if (scroll && wheel) {
           let oldData = this.finalData[index]
-          this.$set(this.finalData, index, data)
+          // this.$set(this.finalData, index, data)
+          this.finalData[index] = data
           let selectedIndex = wheel.getSelectedIndex()
           if (oldData.length) {
             let oldValue = oldData[selectedIndex][this.valueKey]

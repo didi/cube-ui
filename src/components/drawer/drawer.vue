@@ -118,13 +118,15 @@
         }
       },
       refill(panelIndex, data, index) {
-        this.$set(this.data, panelIndex, data)
+        // this.$set(this.data, panelIndex, data)
+        this.data[panelIndex] = data
         this.index = panelIndex
         this.selected = this.selected.slice(0, panelIndex)
         this.selectedVal = this.selectedVal.slice(0, panelIndex)
         this.selectedText = this.selectedText.slice(0, panelIndex)
         if (index >= 0) {
-          this.$set(this.selected, panelIndex, index)
+          // this.$set(this.selected, panelIndex, index)
+          this.selected[panelIndex] = index
           this.changeHandler(panelIndex, this.data[panelIndex][index], index)
         }
       },
@@ -169,7 +171,8 @@
           this.selectedVal[panelIndex] = item.value
           this.selectedText[panelIndex] = item.text
         }
-        this.$set(this.selected, panelIndex, index)
+        // this.$set(this.selected, panelIndex, index)
+        this.selected[panelIndex] = index
         if (panelIndex === (this.data.length - 1)) {
           // last column
           this.$emit(EVENT_SELECT, this.selectedVal, this.selected, this.selectedText)
