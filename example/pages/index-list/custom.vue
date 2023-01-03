@@ -1,6 +1,6 @@
 <template>
   <cube-page type="index-list" title="IndexList">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <div class="index-list-wrapper custom">
           <cube-index-list :data="singerData">
@@ -16,7 +16,7 @@
           </cube-index-list>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

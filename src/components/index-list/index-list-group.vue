@@ -25,6 +25,7 @@
         }
       }
     },
+    emits: [EVENT_SELECT],
     methods: {
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)

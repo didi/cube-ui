@@ -33,6 +33,7 @@
         }
       }
     },
+    emits: [EVENT_SELECT],
     computed: {
       itemClass() {
         return this.item.active ? ACTIVE_CLS : ''

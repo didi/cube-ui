@@ -19,13 +19,13 @@
           </slot>
         </ul>
       </div>
-      <!-- <template v-if="$slots.pullup || $scopedSlots.pullup" slot="pullup" slot-scope="props">
+      <template v-if="$slots.pullup" #pullup="props">
         <slot name="pullup"
           :pullUpLoad="props.pullUpLoad"
           :isPullUpLoad="props.isPullUpLoad">
         </slot>
       </template>
-      <template v-if="$slots.pulldown || $scopedSlots.pulldown" slot="pulldown" slot-scope="props">
+      <template v-if="$slots.pulldown" #pulldown="props">
         <slot name="pulldown"
           :pullDownRefresh="props.pullDownRefresh"
           :pullDownStyle="props.pullDownStyle"
@@ -33,7 +33,7 @@
           :isPullingDown="props.isPullingDown"
           :bubbleY="props.bubbleY">
         </slot>
-      </template> -->
+      </template>
     </cube-scroll>
     <div v-if="navbar" class="cube-index-list-nav" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul class="cube-index-list-nav-list">
@@ -116,6 +116,7 @@
         }
       }
     },
+    emits: [EVENT_SELECT, EVENT_TITLE_CLICK, EVENT_PULLING_UP, EVENT_PULLING_DOWN],
     data() {
       return {
         scrollEvents: ['scroll'],
