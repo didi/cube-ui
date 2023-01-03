@@ -40,6 +40,7 @@
         default: false
       }
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     data () {
       return {
         cascadeData: this.data.slice(),

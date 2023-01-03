@@ -212,13 +212,20 @@
         })
       },
       setItem(index, data) {
-        this.$set(this.items, index, {
+        // this.$set(this.items, index, {
+        //   data: data || {},
+        //   height: 0,
+        //   top: -1000,
+        //   isTombstone: !data,
+        //   loaded: data ? 1 : 0
+        // })
+        this.items[index] = {
           data: data || {},
           height: 0,
           top: -1000,
           isTombstone: !data,
           loaded: data ? 1 : 0
-        })
+        }
       },
       updateItemHeight(index) {
         // update item height

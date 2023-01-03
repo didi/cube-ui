@@ -96,8 +96,8 @@
       },
       value: {
         type: [Date, Array],
-        default() {
-          return this.min
+        default(props) {
+          return props.min
         }
       },
       columnOrder: {

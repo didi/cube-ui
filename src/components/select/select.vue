@@ -59,6 +59,7 @@
         default: ''
       }
     },
+    emits: [EVENT_CHANGE, EVENT_INPUT, EVENT_PICKER_SHOW, EVENT_PICKER_HIDE],
     computed: {
       adaptOptions() {
         return [this.options.map(item => {
@@ -100,20 +101,16 @@
       }
     },
     created() {
-      // this.picker = this.$createPicker({
-      //   $props: {
-      //     title: '_title',
-      //     data: 'adaptOptions',
-      //     selectedIndex: 'selectedIndex',
-      //     cancelTxt: '_cancelTxt',
-      //     confirmTxt: '_confirmTxt'
-      //   },
-      //   $events: {
-      //     select: 'selectHandler',
-      //     cancel: this.hided
-      //   }
-      // })
-      // this.autoPop && this.showPicker()
+      this.picker = this.$createPicker({
+        title: this._title,
+        data: this.adaptOptions,
+        selectedIndex: this.selectedIndex,
+        cancelTxt: this._cancelTxt,
+        confirmTxt: this._confirmTxt,
+        onSelect: this.selectHandler,
+        onCancel: this.hided
+      })
+      this.autoPop && this.showPicker()
     },
     methods: {
       showPicker() {
