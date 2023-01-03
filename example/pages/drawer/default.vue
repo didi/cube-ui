@@ -1,6 +1,6 @@
 <template>
   <cube-page type="drawer-def" title="Drawer">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
         <cube-drawer
@@ -12,7 +12,7 @@
           @select="selectHandler"
           @cancel="cancelHandler"></cube-drawer>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

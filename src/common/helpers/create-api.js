@@ -1,18 +1,20 @@
-import { render, createVNode, mergeProps, camelize } from 'vue'
+import { render, createVNode, mergeProps, camelize, h } from 'vue'
 
 let seed = 0
 const instances = []
 
-const createComponent = (componentCtor, options, context = null) => {
+const createComponent = (componentCtor, options, slots = null, context = null) => {
+  let _options = options
+  let _slots = slots ? slots(h) : null
   // todo slots
   const container = document ? document.createElement('div') : null
   const id = 'cube_create_component_' + seed++
   const vm = createVNode({
     render() {
       return createVNode(componentCtor, {
-        ...options,
+        ..._options,
         ref: '$cre'
-      })
+      }, _slots)
     }
   }, { id })
 
@@ -48,15 +50,9 @@ const createComponent = (componentCtor, options, context = null) => {
     }
 
     // add $updateProps
-    $cre['$updateProps'] = function(props) {
-      // reset default value
-      Object.keys(componentCtor.props).forEach(key => {
-        $cre._.props[key] = componentCtor.props[key].default
-      })
-      // set new props
-      Object.keys(props).forEach(key => {
-        $cre._.props[key] = props[key]
-      })
+    $cre['$updateProps'] = function(props, slots) {
+      _options = {..._options, ...props}
+      _slots = slots ? {...(_slots || {}), ...slots(h)} : null
       vm.component.proxy.$forceUpdate()
     }
 
@@ -67,14 +63,14 @@ const createComponent = (componentCtor, options, context = null) => {
 }
 
 export default function createAPI(app, Component, events, single) {
-  app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options) {
+  app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options, slots = null) {
     if (single && Component._instance) {
       if (options) {
-        Component._instance.$updateProps(options)
+        Component._instance.$updateProps(options, slots)
       }
       return Component._instance
     }
-    const vm = Component._instance = createComponent(Component, options, this ? this._.appContext : null)
+    const vm = Component._instance = createComponent(Component, options, slots, this ? this._.appContext : null)
 
     const parentVnodeProps = this ? this._.vnode.props : null
     if (parentVnodeProps) {

@@ -32,7 +32,7 @@
     },
     methods: {
       clickItem(item) {
-        this.$parent.$parent.itemClickHandler(item, this.index)
+        this.$parent.$parent.$parent.itemClickHandler(item, this.index)
       }
     }
   }

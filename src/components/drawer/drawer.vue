@@ -53,6 +53,7 @@
         }
       }
     },
+    emits: [EVENT_CHANGE, EVENT_SELECT, EVENT_CANCEL],
     data() {
       return {
         index: -1,
