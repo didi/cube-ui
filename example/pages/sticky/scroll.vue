@@ -35,7 +35,7 @@
               <li v-for="item in items3">{{item}}</li>
             </ul>
           </cube-scroll>
-          <template slot="fixed" slot-scope="props">
+          <template #fixed="props">
             <ul class="sticky-header">
               <li>{{props.current}}</li>
             </ul>

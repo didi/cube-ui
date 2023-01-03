@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll" title="Scroll">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('default')"><span class="scroll-example">1. Default</span></cube-button>
         <cube-button @click="goTo('horizontal')"><span class="scroll-example">2. Horizontal</span></cube-button>
@@ -12,7 +12,7 @@
         <!-- <cube-button @click="goTo('textarea')"><span class="scroll-example">8. Textarea</span></cube-button> -->
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

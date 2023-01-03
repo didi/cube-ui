@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-nav-bar" title="ScrollNavBar">
-    <div slot="content">
+    <template slot="content">
       <cube-scroll-nav-bar :current="current" :labels="labels" @change="changeHandler" />
       <div class="side-container">
         <cube-scroll-nav-bar
@@ -9,10 +9,12 @@
           :labels="labels"
           :txts="txts"
           @change="changeHandler">
-          <i slot-scope="props">{{props.txt}}</i>
+          <template #default="props">
+            <i>{{props.txt}}</i>
+          </template>
         </cube-scroll-nav-bar>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

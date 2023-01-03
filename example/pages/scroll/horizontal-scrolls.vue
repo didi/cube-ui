@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="option-demo">
-    <div slot="content" class="scroll-wrapper">
+    <template #content class="scroll-wrapper">
       <div class="demo">
         <cube-scroll
           ref="scroll"
@@ -24,7 +24,7 @@
           </ul>
         </cube-scroll>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

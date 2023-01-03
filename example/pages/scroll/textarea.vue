@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-textarea" title="Scroll">
-    <template slot="content">
+    <template #content>
       <div class="scroll-wrap" @touchstart.stop>
         <cube-scroll
           ref="scrollOuter"
@@ -156,7 +156,7 @@ export default {
   padding: 10px
   margin-bottom: 30px
   line-height: 1.2
-  text-align: left 
+  text-align: left
   color: #323233
   letter-spacing: 0
   border-top: 1px solid grey

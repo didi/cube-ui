@@ -14,7 +14,7 @@
             :options="options"
             @change="changePage"
             @click="clickPage">
-          <template v-if="dotsSlot" slot="dots" slot-scope="props">
+          <template v-if="dotsSlot" #dots="props">
             <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots">{{index + 1}}</span>
           </template>
         </cube-slide>

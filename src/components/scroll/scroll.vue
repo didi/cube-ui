@@ -144,6 +144,7 @@
         default: NEST_MODE_NONE
       }
     },
+    emits: [EVENT_CLICK, EVENT_PULLING_DOWN, EVENT_PULLING_UP, EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END],
     data() {
       return {
         beforePullDown: true,
@@ -197,10 +198,13 @@
       }
     },
     watch: {
-      data() {
-        setTimeout(() => {
-          this.forceUpdate(true)
-        }, this.refreshDelay)
+      data: {
+        handler() {
+          setTimeout(() => {
+            this.forceUpdate(true)
+          }, this.refreshDelay)
+        },
+        deep: true
       },
       pullDownRefresh: {
         handler(newVal, oldVal) {
@@ -501,7 +505,7 @@
         if (!pulldown) {
           return
         }
-        pulldown = pulldown.firstChild
+        pulldown = pulldown.children[0]
         this.pullDownHeight = getRect(pulldown).height
 
         this.beforePullDown = false

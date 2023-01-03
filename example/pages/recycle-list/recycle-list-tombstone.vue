@@ -3,7 +3,7 @@
     <div slot="content">
       <div class="view-wrapper">
         <cube-recycle-list class="list" :infinite="infinite" :size="size" :on-fetch="onFetch">
-          <template slot="tombstone" slot-scope="props">
+          <template #tombstone="props">
             <div class="item tombstone">
               <div class="avatar"></div>
               <div class="bubble">
@@ -16,7 +16,7 @@
               </div>
             </div>
           </template>
-          <template slot="item" slot-scope="{ data }">
+          <template #item="{ data }">
             <div :id="data.id" class="item" @click="handleClick(data)">
               <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
               <div class="bubble">

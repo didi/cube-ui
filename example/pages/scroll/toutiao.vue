@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="toutiao">
-    <template slot="content">
+    <template #content>
       <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/0K9-YvWB-Q/toutiao_header2.png"></header>
       <div class="nav-scroll-list-wrap">
         <cube-scroll ref="navScroll" direction="horizontal">
@@ -25,7 +25,7 @@
                 <img :src="item.url" @load="onImgLoad">
               </li>
             </ul>
-            <template slot="pulldown" slot-scope="props">
+            <template #pulldown="props">
               <div v-if="props.pullDownRefresh"
                 class="cube-pulldown-wrapper"
                 :style="props.pullDownStyle">
