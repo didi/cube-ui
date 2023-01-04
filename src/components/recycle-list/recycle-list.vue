@@ -26,7 +26,8 @@
         <div class="cube-recycle-list-pool">
           <div
             class="cube-recycle-list-item cube-recycle-list-invisible"
-            v-if="item && !item.isTombstone && !item.height"
+            v-if="preload"
+            v-show="item && !item.isTombstone && !item.height"
             :ref="'preloads'+index"
             v-for="(item, index) in items"
           >
@@ -75,7 +76,8 @@
         heights: 0,
         startIndex: 0,
         loadings: [],
-        noMore: false
+        noMore: false,
+        preload: false
       }
     },
     props: {
@@ -147,6 +149,7 @@
         const promiseFetch = this.onFetch()
         this.loadings.push('pending')
         this.promiseStack.push(promiseFetch)
+        this.preload = true
         promiseFetch.then((res) => {
           this.loadings.pop()
           /* istanbul ignore if */
@@ -159,6 +162,11 @@
               this.stopScroll(index)
             }
           }
+
+          // wait for preload items calculate height
+          setTimeout(() => {
+            this.preload = false
+          }, 0)
         })
       },
       removeUnusedTombs(copy, index) {

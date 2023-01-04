@@ -87,7 +87,7 @@
 
         const currentKey = (newEle && newEle.eleKey !== undefined) ? newEle.eleKey : newIndex === -1 ? '' : newIndex
         const fixedEle = this.$refs.fixedEle
-        const fixedSlot = this.$slots.fixed || this.$scopedSlots.fixed
+        const fixedSlot = this.$slots.fixed
 
         this.$nextTick(() => {
           if (fixedSlot) {

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="drawer-def" title="Drawer">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
         <cube-drawer
@@ -10,7 +10,9 @@
           @change="changeHandler"
           @select="selectHandler"
           @cancel="cancelHandler">
-          <span slot="title">{{province.text}}</span>
+          <template #title>
+            <span>{{province.text}}</span>
+          </template>
           <cube-drawer-panel
             v-for="(panel, index) in data"
             :key="index"
@@ -24,7 +26,7 @@
           </cube-drawer-panel>
         </cube-drawer>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 

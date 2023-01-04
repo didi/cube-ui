@@ -22,9 +22,9 @@
       },
       title: {
         type: [String, Number],
-        default() {
+        default(props) {
           /* istanbul ignore next */
-          return this.label
+          return props.label
         }
       }
     },
