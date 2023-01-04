@@ -24,13 +24,13 @@
               <cube-scroll
                 ref="items"
                 :options="scrollOptions"
-                @dblclick.native="dblclickHandler(index, $event)"
+                @dblclick="dblclickHandler(index, $event)"
               >
                 <img class="cube-image-preview-img" :src="img" @load="imgLoad(index)">
               </cube-scroll>
             </div>
           </cube-slide-item>
-          <template slot="dots"><i></i></template>
+          <template #dots><i></i></template>
         </cube-slide>
         <div class="cube-image-preview-footer">
           <slot name="footer" :current="currentPageIndex">
@@ -83,6 +83,7 @@
         default: true
       }
     },
+    emits: [EVENT_CHANGE, EVENT_HIDE],
     data() {
       return {
         currentPageIndex: this.initialIndex,

@@ -27,7 +27,7 @@
             <div class="cube-scroll-nav-panels">
               <slot></slot>
             </div>
-            <template slot="fixed" v-if="!side">
+            <template #fixed v-if="!side">
               <div></div>
             </template>
           </cube-sticky>

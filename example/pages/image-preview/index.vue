@@ -1,6 +1,6 @@
 <template>
   <cube-page type="image-preview-def" title="ImagePreview">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-button-group>
           <cube-button @click="showImagePreview">Show ImagePreview</cube-button>
@@ -9,7 +9,7 @@
         </cube-button-group>
       </div>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 

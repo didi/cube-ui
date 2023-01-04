@@ -1,13 +1,13 @@
 <template>
   <cube-page type="multi-images-preview" title="MultiImagesPreview">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <div class="tips">Click Image</div>
         <div class="imgs-container">
           <img :src="img" v-for="(img, index) in imgs" :key="img" @click="handleImgsClick(index)">
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
@@ -29,15 +29,11 @@
       handleImgsClick(index) {
         this.initialIndex = index
         const params = {
-          $props: {
-            imgs: this.imgs,
-            initialIndex: 'initialIndex',
-            loop: false
-          },
-          $events: {
-            change: (i) => {
-              this.initialIndex = i
-            }
+          imgs: this.imgs,
+          initialIndex: 'initialIndex',
+          loop: false,
+          onChange: (i) => {
+            this.initialIndex = i
           }
         }
         this.$createImagePreview({ ...params }).show()

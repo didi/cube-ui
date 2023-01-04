@@ -115,6 +115,7 @@
       const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this._dataWatchers.push(this.$watch(key, () => {
+          console.log(key)
           // To fix the render bug when add items since loop.
           if (key === 'data') {
             this._destroy()
@@ -124,7 +125,7 @@
           this.$nextTick(() => {
             this.refresh()
           })
-        }))
+        }, { deep: true }))
       })
     },
     watch: {
