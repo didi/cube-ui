@@ -1,4 +1,4 @@
-import { render, createVNode, mergeProps, camelize, h } from 'vue'
+import { render, createVNode, mergeProps, camelize, h, isVNode } from 'vue'
 
 let seed = 0
 const instances = []
@@ -46,7 +46,7 @@ const createComponent = (componentCtor, options, slots = null, context = null) =
         const { id: _id } = item.props
         return id === _id
       })
-      instances.splice(idx, 1)
+      ~idx && instances.splice(idx, 1)
     }
 
     // add $updateProps
@@ -72,8 +72,11 @@ export default function createAPI(app, Component, events, single) {
     }
     const vm = Component._instance = createComponent(Component, options, slots, this ? this._.appContext : null)
 
-    const parentVnodeProps = this ? this._.vnode.props : null
-    if (parentVnodeProps) {
+    const hasParent = !!this && !!this._ && isVNode(this._.vnode)
+
+    if (hasParent) {
+      const parentVnodeProps = this && this._ && isVNode(this._.vnode) ? this._.vnode.props : null
+
       this._.vnode.props = mergeProps(parentVnodeProps || {}, {
         onVnodeBeforeUnmount() {
           vm.$remove()
