@@ -1,7 +1,9 @@
 <template>
-  <transition name="page-move">
-    <router-view class="cube-view"></router-view>
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition name="page-move">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>
