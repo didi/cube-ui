@@ -62,12 +62,29 @@ const createComponent = (componentCtor, options, slots = null, context = null) =
   return $cre
 }
 
+function removeFromParent(vm) {
+  const hasParent = !!this && !!this._ && isVNode(this._.vnode)
+
+  if (hasParent) {
+    const parentVnodeProps = this && this._ && isVNode(this._.vnode) ? this._.vnode.props : null
+
+    this._.vnode.props = mergeProps(parentVnodeProps || {}, {
+      onVnodeBeforeUnmount() {
+        vm.$remove()
+      }
+    })
+  }
+}
+
 export default function createAPI(app, Component, events, single) {
   app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options, slots = null) {
     if (single && Component._instance) {
       if (options) {
         Component._instance.$updateProps(options, slots)
       }
+
+      removeFromParent.call(this, Component._instance)
+
       return Component._instance
     }
     const vm = Component._instance = createComponent(Component, options, slots, this ? this._.appContext : null)
@@ -83,6 +100,8 @@ export default function createAPI(app, Component, events, single) {
         }
       })
     }
+
+    removeFromParent.call(this, vm)
 
     return vm
   }
