@@ -212,7 +212,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-scroll-nav
     position: relative
     height: 100%

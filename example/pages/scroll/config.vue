@@ -207,7 +207,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .scroll-wrapper
   .cube-pulldown-wrapper
     .before-trigger

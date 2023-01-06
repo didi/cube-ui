@@ -167,7 +167,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .validator-item
     box-sizing: border-box
     min-height: 70px

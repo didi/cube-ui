@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .slide-view
   .slide-container-v
     height: 265px

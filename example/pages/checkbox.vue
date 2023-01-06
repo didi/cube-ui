@@ -39,7 +39,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .checkbox-view
     .content
       >

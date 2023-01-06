@@ -57,7 +57,7 @@ export default {
 </script>
 
 
-<style lang="stylus" >
+<style lang="stylus">
   #app
     width: 100%
     height: 100%

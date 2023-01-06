@@ -275,7 +275,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   .cube-image-preview-fade-enter-from, .cube-image-preview-fade-leave-to

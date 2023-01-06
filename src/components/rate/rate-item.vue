@@ -19,7 +19,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/mixin.styl"
 
   .cube-rate-item

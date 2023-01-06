@@ -44,7 +44,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../../src/common/stylus/variable.styl"
 
   .view-wrapper

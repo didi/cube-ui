@@ -116,7 +116,7 @@ __注：__ 以上组件都是基于 create-api 实现，所以在使用之前，
       }
     }
   </script>
-  <style lang="stylus" >
+  <style lang="stylus">
     .cube-extend-popup
       .cube-extend-popup-content
         padding: 20px

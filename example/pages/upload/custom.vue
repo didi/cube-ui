@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .upload-view-custom
     .content
       >

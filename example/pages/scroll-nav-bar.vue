@@ -62,7 +62,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .side-container
   height: 300px
   margin-top: 20px

@@ -29,5 +29,5 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 </style>

@@ -164,7 +164,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .scroll-list-wrap {
   height: 350px;
   border: 1px solid rgba(0, 0, 0, 0.1);

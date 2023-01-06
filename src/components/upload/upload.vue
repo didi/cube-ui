@@ -185,7 +185,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-upload
     position: relative

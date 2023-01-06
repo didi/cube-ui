@@ -35,7 +35,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-sticky-ele
     position: relative
 </style>

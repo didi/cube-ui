@@ -84,7 +84,7 @@
 </script>
 
 
-<style lang="stylus" >
+<style lang="stylus">
   .textarea-wrapper
     margin: 30px 0
   .component-desc

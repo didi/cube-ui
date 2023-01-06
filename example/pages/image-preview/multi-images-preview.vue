@@ -45,7 +45,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .view-wrapper
     position: fixed
     top: 54px

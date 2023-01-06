@@ -45,7 +45,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .scroll-nav-def
     background-color: #fff
     .view-wrapper

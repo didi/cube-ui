@@ -130,7 +130,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .radio-view
     .content
       >

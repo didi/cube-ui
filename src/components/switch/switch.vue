@@ -40,7 +40,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   $switch-width = 48px

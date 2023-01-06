@@ -29,7 +29,7 @@
   }
 </script>
 
-<style scoped lang="stylus" >
+<style scoped lang="stylus">
   @import "../../src/common/stylus/variable.styl"
 
   .input-option

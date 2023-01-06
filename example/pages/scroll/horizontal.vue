@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .horizontal-scroll-list-wrap
   border: 1px solid rgba(0, 0, 0, 0.1)
   border-radius: 5px

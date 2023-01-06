@@ -142,7 +142,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .form-custom
     .cube-form-item
       .cube-btn

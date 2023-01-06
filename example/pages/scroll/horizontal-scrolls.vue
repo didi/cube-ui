@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .inner-horizontal-scroll
   vertical-align: top
   width: 200px

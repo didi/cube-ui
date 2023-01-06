@@ -199,7 +199,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-sticky
     position: relative
     height: 100%

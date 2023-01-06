@@ -87,7 +87,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .orange
     color: #fc9153
 </style>

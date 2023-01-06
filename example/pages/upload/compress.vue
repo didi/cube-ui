@@ -51,7 +51,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .upload-view-compress
     .content
       >

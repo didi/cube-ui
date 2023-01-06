@@ -13,7 +13,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-btn-group
     > button
       margin: 10px 0

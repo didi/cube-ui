@@ -24,7 +24,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-slide-item
     float: left
     box-sizing: border-box

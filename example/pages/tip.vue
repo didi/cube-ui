@@ -77,7 +77,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .tip-view
     .tip-eg
       position: relative

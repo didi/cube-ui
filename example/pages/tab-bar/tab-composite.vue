@@ -133,7 +133,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   /* 覆盖样式 */
   .cube-page
     &.tab-composite-view

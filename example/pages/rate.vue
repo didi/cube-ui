@@ -78,7 +78,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .rate-wrapper
     margin: 30px 0
     .rate-text

@@ -66,7 +66,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .popup-view
     .content
       >

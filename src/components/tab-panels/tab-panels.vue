@@ -69,7 +69,7 @@
     components: { TabPanel }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   .cube-tab-panels
     position: relative
     overflow: hidden

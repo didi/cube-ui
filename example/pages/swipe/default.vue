@@ -48,7 +48,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .swipe-view
     .swipe-wrapper
       position: fixed

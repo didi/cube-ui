@@ -68,7 +68,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
 .scroll-tab-view
   .cube-tab-bar
     flex-wrap: wrap

@@ -90,7 +90,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
 
   .tab-bar-view
     .section

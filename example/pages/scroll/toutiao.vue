@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .toutiao
   .content
     margin: 0 !important

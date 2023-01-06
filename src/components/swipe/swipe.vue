@@ -79,7 +79,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-swipe
     overflow: hidden
 

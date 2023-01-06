@@ -218,7 +218,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .sticky-view-complex
     .content
       >

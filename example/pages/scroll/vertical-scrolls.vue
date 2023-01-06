@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .scroll-list-outer-wrap
 .scroll-list-inner-wrap
   border: 1px solid rgba(0, 0, 0, 0.1)

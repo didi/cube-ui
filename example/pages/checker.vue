@@ -129,7 +129,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .checker-group-view
     .content
       >

@@ -206,7 +206,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   html, body, #app
     height: 100%
 

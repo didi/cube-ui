@@ -74,7 +74,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

@@ -163,7 +163,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .slide-container
     height: 75px
     margin-bottom: 15px

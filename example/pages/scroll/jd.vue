@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 .jd
   .content
     margin: 0 !important

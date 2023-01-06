@@ -44,7 +44,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   .tabs-basic-view
     .cube-tab-bar
       background-color: #fff

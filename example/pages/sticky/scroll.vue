@@ -87,7 +87,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .sticky-view-scroll
     .content
       >

@@ -80,7 +80,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .sticky-view-native
     .content
       >

@@ -35,7 +35,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .scroll-example
     display: inline-block
     width: 100px

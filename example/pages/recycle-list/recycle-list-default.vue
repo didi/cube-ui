@@ -69,7 +69,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .view-wrapper
     position: absolute
     top: 54px

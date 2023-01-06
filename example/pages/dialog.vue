@@ -134,7 +134,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .my-title-img
     height: 120px
     margin-bottom: 16px

@@ -137,7 +137,7 @@ __Notice:__ All the components above used create-api, so you should read [create
       }
     }
   </script>
-  <style lang="stylus" >
+  <style lang="stylus">
     .cube-extend-popup
       .cube-extend-popup-content
         padding: 20px

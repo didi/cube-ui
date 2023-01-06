@@ -25,7 +25,7 @@
     }
   }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   .cube-extend-popup
     .cube-extend-popup-content
       padding: 20px

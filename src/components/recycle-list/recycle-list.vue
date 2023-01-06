@@ -337,7 +337,7 @@
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   .cube-recycle-list
     position: relative
     height: 100%

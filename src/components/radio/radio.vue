@@ -111,7 +111,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" >
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   $ui-width = 1.42em
