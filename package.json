@@ -38,6 +38,9 @@
     "types",
     "vetur"
   ],
+  "sideEffects": [
+    "*.css"
+  ],
   "vetur": {
     "tags": "vetur/tags.json",
     "attributes": "vetur/attributes.json"
