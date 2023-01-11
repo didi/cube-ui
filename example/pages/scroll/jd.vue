@@ -171,7 +171,7 @@ export default {
     img
       height: 100%
       width: 100%
-  .surprise-page-enter, .surprise-page-leave-to
+  .surprise-page-enter-from, .surprise-page-leave-to
     transform: translateY(-100%)
   .surprise-page-enter-active, .surprise-page-leave-active
     transition: transform .3s

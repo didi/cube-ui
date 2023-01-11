@@ -11,7 +11,7 @@ import { camelize } from '../../../src/common/lang/string'
 export default {
   props: {
     // v-model 值
-    value: null,
+    modelValue: null,
     // 图标
     icon: String,
     // 配置项
@@ -46,14 +46,14 @@ export default {
       this.modelMap[newV.value] = newV.text
       // value 发生了变化
       // @arg value select结果
-      this.$emit('input', newV.value)
+      this.$emit('update:modelValue', newV.value)
     }
   },
   beforeCreate() {
     this.modelMap = {}
   },
   methods: {
-    _formatValue(value = this.value) {
+    _formatValue(value = this.modelValue) {
       if (value === Object(value)) {
         return value
       }

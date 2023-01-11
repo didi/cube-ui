@@ -82,7 +82,7 @@
           transition: all .3s
           .item-inner
             transition: all .3s
-        &.swipe-enter, &.swipe-leave-to
+        &.swipe-enter-from, &.swipe-leave-to
           .item-inner
             height: 0
       .item-inner

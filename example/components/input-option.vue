@@ -9,6 +9,7 @@
   const COMPONENT_NAME = 'input-option'
   export default {
     name: COMPONENT_NAME,
+    emits: ['update:value'],
     props: {
       name: {
         type: String

@@ -11,6 +11,7 @@
   const COMPONENT_NAME = 'switch-option'
   export default {
     name: COMPONENT_NAME,
+    emits: ['update:value'],
     props: {
       name: {
         type: String

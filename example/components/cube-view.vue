@@ -11,7 +11,7 @@
 </script>
 
 <style lang="stylus">
-  .page-move-enter, .page-move-leave-active
+  .page-move-enter-from, .page-move-leave-to
     transform: translate(100%, 0)
   .page-move-enter-active, .page-move-leave-active
     transition: transform .3s

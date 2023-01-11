@@ -16,6 +16,7 @@
 import transform from './transform'
 
 export default {
+  emits: ['validity', 'submit'],
   props: {
     tip: String,
     questions: {

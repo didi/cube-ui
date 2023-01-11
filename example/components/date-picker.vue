@@ -16,6 +16,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_CANCEL, EVENT_SELECT],
     props: {
       min: {
         type: Array,

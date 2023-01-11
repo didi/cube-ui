@@ -112,7 +112,7 @@
       .cube-sticky-ele
         margin-top: -60px
         margin-bottom: 4px
-      .sticky-fixed-show-enter, .sticky-fixed-show-leave-active
+      .sticky-fixed-show-enter-from, .sticky-fixed-show-leave-to
         transform: translate(0, -100%)
       .sticky-fixed-show-enter-active, .sticky-fixed-show-leave-active
         transition: all .5s ease-in-out

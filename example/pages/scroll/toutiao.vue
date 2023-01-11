@@ -205,8 +205,8 @@ export default {
         margin: auto
   .success-enter-active, .success-leave-active
     transition: width .5s
-  .success-enter, .success-leave-to
+  .success-enter-from, .success-leave-to
     width: 70%
-  .success-enter-to, .success-leave
+  .success-enter-active, .success-leave-active
     width: 100%
 </style>

@@ -9,6 +9,7 @@
   const COMPONENT_NAME = 'select-option'
   export default {
     name: COMPONENT_NAME,
+    emits: ['update:value'],
     props: {
       name: {
         type: String
@@ -29,16 +30,16 @@
       }
     },
     mounted() {
-      // const self = this
-      // this.picker = this.$createPicker({
-      //   title: `Choose ${this.name}`,
-      //   data: [this.options],
-      //   cancelTxt: 'cancel',
-      //   confirmTxt: 'confirm',
-      //   onValueChange(selectedVal) {
-      //     self.selected = selectedVal[0]
-      //   }
-      // })
+      const self = this
+      this.picker = this.$createPicker({
+        title: `Choose ${this.name}`,
+        data: [this.options],
+        cancelTxt: 'cancel',
+        confirmTxt: 'confirm',
+        onValueChange(selectedVal) {
+          self.selected = selectedVal[0]
+        }
+      })
     },
     methods: {
       showPicker() {

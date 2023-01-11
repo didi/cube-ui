@@ -9,6 +9,7 @@
   const COMPONENT_NAME = 'cube-extend-popup'
   export default {
     name: COMPONENT_NAME,
+    emits: ['hide'],
     props: {
       content: {
         type: String
