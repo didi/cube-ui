@@ -50,8 +50,8 @@ const createComponent = (componentCtor, options, slots = null, context = null) =
     }
 
     // add $updateProps
-    $cre['$updateProps'] = function(props, slots) {
-      _options = {..._options, ...props}
+    $cre['$updateProps'] = function(props, slots, inherit = true) {
+      _options = {...(inherit ? _options : {}), ...props}
       _slots = slots ? {...(_slots || {}), ...slots(h)} : null
       vm.component.proxy.$forceUpdate()
     }
@@ -80,7 +80,7 @@ export default function createAPI(app, Component, events, single) {
   Component.$create = app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options, slots = null) {
     if (single && Component._instance) {
       if (options) {
-        Component._instance.$updateProps(options, slots)
+        Component._instance.$updateProps(options, slots, false)
       }
 
       removeFromParent.call(this, Component._instance)

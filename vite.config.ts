@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 export default defineConfig({
+  root: 'example',
   resolve: {
     alias: {
       'example/': `${resolve(__dirname, 'example')}/`,
@@ -11,8 +12,8 @@ export default defineConfig({
   },
   plugins: [
     vue()
-  ],
-  server: {
-    open: '/example/index.html'
-  }
+  ]
+  // server: {
+  //   open: '/example/index.html'
+  // }
 })
