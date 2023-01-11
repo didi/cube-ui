@@ -1,6 +1,6 @@
 <template>
   <cube-page type="form-def" title="Form 表单">
-    <div slot="content">
+    <template #content>
       <cube-form
         :model="model"
         :schema="schema"
@@ -11,7 +11,7 @@
         @reset="resetHandler"></cube-form>
       <json-view title="model" :data="model" />
       <json-view title="validity" :data="validity" />
-    </div>
+    </template>
   </cube-page>
 </template>
 

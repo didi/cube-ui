@@ -14,7 +14,9 @@
             </div>
           </cube-index-list-item>
         </cube-index-list-group>
-        <!-- <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span> -->
+        <template #nav-item="props">
+          <span class="custom-nav-item">{{props.item}}</span>
+        </template>
       </cube-index-list>
     </section>
     <cube-view></cube-view>

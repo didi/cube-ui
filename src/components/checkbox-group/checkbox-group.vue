@@ -23,6 +23,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [groupCol],
+    emits: [EVENT_INPUT],
     props: {
       modelValue: {
         type: Array
@@ -58,7 +59,6 @@
         default: Infinity
       }
     },
-    emits: [EVENT_INPUT],
     data () {
       return {
         _value: [],

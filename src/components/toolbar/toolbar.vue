@@ -32,6 +32,7 @@
     components: {
       CubeToolbarItem
     },
+    emits: [EVENT_CLICK, EVENT_MORE_CLICK],
     props: {
       actions: {
         type: Array,
@@ -44,7 +45,6 @@
         type: Array
       }
     },
-    emits: [EVENT_CLICK, EVENT_MORE_CLICK],
     data() {
       return {
         showMore: false

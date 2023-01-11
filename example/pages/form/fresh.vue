@@ -1,17 +1,19 @@
 <template>
   <cube-page type="form-def" title="Form 表单">
-    <div slot="content">
-      <cube-form
-        :model="model"
-        :schema="schema"
-        :immediate-validate="false"
-        :options="options"
-        @validate="validateHandler"
-        @submit="submitHandler"
-        @reset="resetHandler"></cube-form>
-      <json-view title="model" :data="model" />
-      <json-view title="validity" :data="validity" />
-    </div>
+    <template #content>
+      <div>
+        <cube-form
+          :model="model"
+          :schema="schema"
+          :immediate-validate="false"
+          :options="options"
+          @validate="validateHandler"
+          @submit="submitHandler"
+          @reset="resetHandler"></cube-form>
+        <json-view title="model" :data="model" />
+        <json-view title="validity" :data="validity" />
+      </div>
+    </template>
   </cube-page>
 </template>
 

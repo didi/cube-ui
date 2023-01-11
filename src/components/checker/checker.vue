@@ -15,6 +15,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_INPUT],
     props: {
       modelValue: [String, Number, Array],
       options: {
@@ -39,7 +40,6 @@
         }
       }
     },
-    emits: [EVENT_INPUT],
     data () {
       return {
         currentValue: this.modelValue

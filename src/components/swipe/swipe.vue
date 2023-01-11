@@ -28,6 +28,7 @@
         swipe: this
       }
     },
+    emits: [EVENT_ITEM_CLICK, EVENT_BTN_CLICK],
     props: {
       data: {
         type: Array,

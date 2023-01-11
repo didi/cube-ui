@@ -25,6 +25,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_SELECT],
     props: {
       item: {
         type: Object,
@@ -33,7 +34,6 @@
         }
       }
     },
-    emits: [EVENT_SELECT],
     computed: {
       itemClass() {
         return this.item.active ? ACTIVE_CLS : ''

@@ -17,6 +17,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_SELECT],
     props: {
       group: {
         type: Object,
@@ -25,7 +26,6 @@
         }
       }
     },
-    emits: [EVENT_SELECT],
     methods: {
       selectItem(item) {
         this.$emit(EVENT_SELECT, item)

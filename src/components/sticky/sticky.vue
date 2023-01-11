@@ -33,6 +33,7 @@
         sticky: this
       }
     },
+    emits: [EVENT_CHANGE, EVENT_DIFF_CHANGE],
     props: {
       pos: {
         type: Number,
@@ -53,7 +54,6 @@
         default: 0
       }
     },
-    emits: [EVENT_CHANGE, EVENT_DIFF_CHANGE],
     data() {
       return {
         diff: 0,

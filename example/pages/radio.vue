@@ -18,7 +18,7 @@
       <p>selected img: {{selected4}}</p>
       <hr>
       <cube-input placeholder="Input column number" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
+        <template #prepend><div style="paddingLeft: 10px"> Column number:</div></template>
       </cube-input>
       <cube-radio-group v-model="selected5" :options="options5" :col-num="Math.floor(colNum)" />
     </template>

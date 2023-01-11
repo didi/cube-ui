@@ -36,36 +36,34 @@
 
   export default {
     mounted() {
-      Promise.resolve().then(() => {
-        this.cascadePicker = this.$createCascadePicker({
-          title: 'Cascade Picker',
-          data: cascadeData,
-          selectedIndex: [0, 1, 0],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
-        this.addressPicker = this.$createCascadePicker({
-          title: 'City Picker',
-          data: addressData,
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+      this.cascadePicker = this.$createCascadePicker({
+        title: 'Cascade Picker',
+        data: cascadeData,
+        selectedIndex: [0, 1, 0],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
+      this.addressPicker = this.$createCascadePicker({
+        title: 'City Picker',
+        data: addressData,
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
 
-        this.setDataPicker = this.$createCascadePicker({
-          title: 'Set Data',
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+      this.setDataPicker = this.$createCascadePicker({
+        title: 'Set Data',
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
 
-        this.asyncPicker = this.$createCascadePicker({
-          title: 'Async Load Data',
-          async: true,
-          data: asyncData,
-          selectedIndex: asyncSelectedIndex.slice(),
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-          onChange: this.asyncChangeHandle
-        })
+      this.asyncPicker = this.$createCascadePicker({
+        title: 'Async Load Data',
+        async: true,
+        data: asyncData,
+        selectedIndex: asyncSelectedIndex.slice(),
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle,
+        onChange: this.asyncChangeHandle
       })
     },
     methods: {

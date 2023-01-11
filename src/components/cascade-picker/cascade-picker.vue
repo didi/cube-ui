@@ -34,13 +34,13 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       async: {
         type: Boolean,
         default: false
       }
     },
-    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     data () {
       return {
         cascadeData: this.data.slice(),

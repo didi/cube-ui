@@ -27,6 +27,7 @@
         radioGroup: this
       }
     },
+    emits: [EVENT_INPUT],
     props: {
       modelValue: [String, Number],
       options: {
@@ -48,7 +49,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT],
     data() {
       return {
         radioValue: this.modelValue

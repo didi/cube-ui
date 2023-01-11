@@ -28,7 +28,9 @@
             </div>
           </template>
           <!-- <div slot="spinner">Loading Data</div> -->
-          <div slot="noMore">没有更多数据了</div>
+          <template #noMore>
+            <div>没有更多数据了</div>
+          </template>
         </cube-recycle-list>
       </div>
     </template>

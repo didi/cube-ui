@@ -39,6 +39,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [inputMixin],
+    emits: [EVENT_INPUT, EVENT_BLUR, EVENT_FOCUS],
     props: {
       modelValue: [String, Number],
       type: {
@@ -82,7 +83,6 @@
         default: false
       }
     },
-    emits: ['change', EVENT_INPUT, EVENT_BLUR, EVENT_FOCUS],
     data() {
       return {
         inputValue: this.modelValue,

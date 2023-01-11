@@ -20,12 +20,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [ localeMixin ],
-    data() {
-      return {
-        active: false,
-        picker: null
-      }
-    },
+    emits: [EVENT_CHANGE, EVENT_INPUT, EVENT_PICKER_SHOW, EVENT_PICKER_HIDE],
     props: {
       options: {
         type: Array,
@@ -60,7 +55,12 @@
         default: ''
       }
     },
-    emits: [EVENT_CHANGE, EVENT_INPUT, EVENT_PICKER_SHOW, EVENT_PICKER_HIDE],
+    data() {
+      return {
+        active: false,
+        picker: null
+      }
+    },
     computed: {
       adaptOptions() {
         return [this.options.map(item => {

@@ -22,6 +22,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_MASK_CLICK],
     props: {
       type: {
         type: String,
@@ -44,7 +45,6 @@
         default: ''
       }
     },
-    emits: [EVENT_MASK_CLICK],
     computed: {
       rootClass() {
         const cls = {

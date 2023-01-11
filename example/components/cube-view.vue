@@ -1,5 +1,5 @@
 <template>
-  <router-view v-slot="{ Component }">
+  <router-view #default="{ Component }">
     <transition name="page-move">
       <component :is="Component" />
     </transition>

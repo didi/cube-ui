@@ -26,6 +26,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_TIMEOUT],
     props: {
       type: {
         type: String,

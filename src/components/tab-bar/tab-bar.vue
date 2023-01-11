@@ -31,6 +31,7 @@
     components: {
       CubeTab
     },
+    emits: [EVENT_INPUT, EVENT_CHANGE, EVENT_CLICK],
     props: {
       modelValue: {
         type: [String, Number],
@@ -55,7 +56,6 @@
         default: true
       }
     },
-    emits: [EVENT_INPUT, EVENT_CHANGE, EVENT_CLICK],
     watch: {
       modelValue () {
         this._updateSliderStyle()

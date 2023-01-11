@@ -33,6 +33,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_CHANGE, EVENT_SELECT, EVENT_CANCEL],
     props: {
       title: {
         type: String,
@@ -53,7 +54,6 @@
         }
       }
     },
-    emits: [EVENT_CHANGE, EVENT_SELECT, EVENT_CANCEL],
     data() {
       return {
         index: -1,

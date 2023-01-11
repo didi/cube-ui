@@ -75,6 +75,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, localeMixin],
+    emits: [EVENT_CONFIRM, EVENT_CANCEL, EVENT_CLOSE],
     props: {
       type: {
         type: String,
@@ -122,7 +123,6 @@
         }
       }
     },
-    emits: [EVENT_CONFIRM, EVENT_CANCEL, EVENT_CLOSE],
     data() {
       return {
         defHref,

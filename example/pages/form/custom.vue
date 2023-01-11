@@ -1,6 +1,6 @@
 <template>
   <cube-page type="form-custom" title="Form 表单">
-    <div slot="content">
+    <template #content>
       <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
         <cube-form-group>
           <cube-form-item :field="fields[0]"></cube-form-item>
@@ -16,7 +16,7 @@
       </cube-form>
       <json-view title="model" :data="model" />
       <json-view title="validity" :data="validity" />
-    </div>
+    </template>
   </cube-page>
 </template>
 

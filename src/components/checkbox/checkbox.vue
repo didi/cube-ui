@@ -20,6 +20,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_INPUT],
     props: {
       modelValue: {
         type: [Boolean, String]
@@ -52,7 +53,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT],
     data () {
       const parent = this.$parent
       const isInGroup = !!parent && parent.$data._checkboxGroup

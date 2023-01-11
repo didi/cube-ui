@@ -29,6 +29,7 @@ export default {
       default: null
     }
   },
+  emits: [EVENT_INPUT],
   props: {
     modelValue: [String, Number],
     option: {
@@ -44,7 +45,6 @@ export default {
       default: false
     }
   },
-  emits: [EVENT_INPUT],
   data() {
     return {
       radioValue: this.modelValue

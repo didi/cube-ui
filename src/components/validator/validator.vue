@@ -33,6 +33,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [localeMixin],
+    emits: [EVENT_INPUT, EVENT_VALIDATING, EVENT_VALIDATED, EVENT_MSG_CLICK],
     props: {
       model: {
         required: true
@@ -63,7 +64,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT, EVENT_VALIDATING, EVENT_VALIDATED, EVENT_MSG_CLICK],
     data() {
       return {
         valid: this.modelValue,
@@ -119,7 +119,7 @@
 
           this.validate()
         },
-        sync: true
+        flush: 'sync'
       },
       rules() {
         this.validate()

@@ -24,6 +24,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_INPUT],
     props: {
       modelValue: {
         type: Number,
@@ -42,7 +43,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT],
     data() {
       return {
         tempValue: this.modelValue

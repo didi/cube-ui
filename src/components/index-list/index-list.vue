@@ -82,6 +82,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [scrollMixin, deprecatedMixin],
+    emits: [EVENT_SELECT, EVENT_TITLE_CLICK, EVENT_PULLING_UP, EVENT_PULLING_DOWN],
     props: {
       title: {
         type: String,
@@ -116,7 +117,6 @@
         }
       }
     },
-    emits: [EVENT_SELECT, EVENT_TITLE_CLICK, EVENT_PULLING_UP, EVENT_PULLING_DOWN],
     data() {
       return {
         scrollEvents: ['scroll'],

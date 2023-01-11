@@ -35,6 +35,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [btnMixin],
+    emits: [EVENT_INPUT, EVENT_ADDED, EVENT_SUBMITTED, EVENT_REMOVED, EVENT_SUCCESS, EVENT_ERROR, EVENT_CLICK],
     props: {
       modelValue: {
         type: Array,
@@ -65,10 +66,9 @@
         }
       }
     },
-    emits: [EVENT_INPUT, EVENT_ADDED, EVENT_SUBMITTED, EVENT_REMOVED, EVENT_SUCCESS, EVENT_ERROR, EVENT_CLICK],
     data() {
       return {
-        files: this.modelValue.slice(0),
+        files: this.modelValue,
         paused: !this.auto
       }
     },

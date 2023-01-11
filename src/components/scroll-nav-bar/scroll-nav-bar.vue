@@ -43,6 +43,7 @@
       }
     },
     mixins: [scrollMixin],
+    emits: [EVENT_CHANGE],
     props: {
       direction: {
         type: String,
@@ -71,7 +72,6 @@
         default: ''
       }
     },
-    emits: [EVENT_CHANGE],
     data() {
       return {
         active: this.current,

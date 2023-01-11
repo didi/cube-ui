@@ -123,7 +123,7 @@
           this.form.model[this.fieldValue.modelKey] = newModel
           this.updateValidatorModel()
         },
-        sync: true
+        flush: 'sync'
       },
       originValid(newVal) {
         this.lastOriginValid = newVal

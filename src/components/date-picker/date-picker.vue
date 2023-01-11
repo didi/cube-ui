@@ -65,6 +65,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       min: {
         type: [Date, Array],
@@ -107,7 +108,6 @@
         }
       }
     },
-    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     computed: {
       formatConfig() {
         const formatConfig = Object.assign({}, DEFAULT_FORMAT)

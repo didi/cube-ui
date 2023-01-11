@@ -2,9 +2,9 @@
   <li class="cube-toolbar-item border-right-1px">
     <cube-button :icon="action.icon">
       <cube-checkbox
+        v-if="action.type == 'checkbox'"
         class="cube-toolbar-chb"
         v-model="action.checked"
-        v-if="action.type == 'checkbox'"
         :label="action.text">
       </cube-checkbox>
       <span v-else v-html="action.text"></span>

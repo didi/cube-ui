@@ -57,6 +57,7 @@
     components: {
       CubeCascadePicker
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       title: {
         type: String,
@@ -95,7 +96,6 @@
         default: null
       }
     },
-    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     data() {
       return {
         now: new Date(),

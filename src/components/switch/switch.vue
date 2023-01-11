@@ -13,6 +13,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_INPUT],
     props: {
       modelValue: {
         type: Boolean,
@@ -23,7 +24,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT],
     data() {
       return {
         checkboxValue: this.modelValue

@@ -60,13 +60,13 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_VALUE_CHANGE, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       pending: {
         type: Boolean,
         default: false
       }
     },
-    emits: [EVENT_SELECT, EVENT_VALUE_CHANGE, EVENT_CANCEL, EVENT_CHANGE],
     data() {
       return {
         finalData: this.data.slice()

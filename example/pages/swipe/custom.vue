@@ -1,6 +1,6 @@
 <template>
   <cube-page type="swipe-view" title="Swipe">
-    <template slot="content">
+    <template #content>
       <div class="swipe-wrapper">
         <cube-scroll>
           <cube-swipe>

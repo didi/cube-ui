@@ -58,6 +58,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_CHANGE, EVENT_HIDE],
     props: {
       initialIndex: {
         type: Number,
@@ -83,7 +84,6 @@
         default: true
       }
     },
-    emits: [EVENT_CHANGE, EVENT_HIDE],
     data() {
       return {
         currentPageIndex: this.initialIndex,

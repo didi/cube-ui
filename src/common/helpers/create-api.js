@@ -12,8 +12,8 @@ const createComponent = (componentCtor, options, slots = null, context = null) =
   const vm = createVNode({
     render() {
       return createVNode(componentCtor, {
-        ..._options,
-        ref: '$cre'
+        ..._options
+        // ref: '$cre'
       }, _slots)
     }
   }, { id })
@@ -30,7 +30,7 @@ const createComponent = (componentCtor, options, slots = null, context = null) =
     // mounted component
     render(vm, container)
 
-    $cre = vm.component.proxy.$refs['$cre']
+    $cre = vm.component.subTree.component.proxy
 
     // add $remove
     $cre['$remove'] = function(cb) {

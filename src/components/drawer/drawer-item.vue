@@ -27,7 +27,7 @@
     },
     computed: {
       itemClass() {
-        return this.$parent.$parent.selectedIndex === this.index ? 'cube-drawer-item_active' : ''
+        return this.$parent.$parent.$parent.selectedIndex === this.index ? 'cube-drawer-item_active' : ''
       }
     },
     methods: {

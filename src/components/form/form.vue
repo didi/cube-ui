@@ -27,6 +27,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [mixin],
+    emits: ['EVENT_SUBMIT', 'EVENT_RESET', 'EVENT_VALIDATE', 'EVENT_VALID', 'EVENT_INVALID'],
     props: {
       action: String,
       model: {

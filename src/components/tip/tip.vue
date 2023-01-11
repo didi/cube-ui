@@ -19,6 +19,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin],
+    emits: [EVENT_CLICK, EVENT_CLOSE],
     props: {
       direction: {
         type: String,
@@ -41,7 +42,6 @@
         default: 0
       }
     },
-    emits: [EVENT_CLICK, EVENT_CLOSE],
     mounted() {
       this.$nextTick(() => {
         let angleEleStyle = this.$refs.angle.style

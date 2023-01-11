@@ -1,7 +1,9 @@
 <template>
   <div class="demo-select" @click="clickHandler">
     <cube-input ref="input" v-model="modelText" v-bind="$attrs">
-      <i :class="icon" slot="append" v-if="icon"></i>
+      <template #append>
+        <i v-if="icon" :class="icon"></i>
+      </template>
     </cube-input>
   </div>
 </template>

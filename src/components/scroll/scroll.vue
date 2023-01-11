@@ -98,6 +98,7 @@
         default: null
       }
     },
+    emits: [EVENT_CLICK, EVENT_PULLING_DOWN, EVENT_PULLING_UP, EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END],
     props: {
       data: {
         type: Array,
@@ -144,7 +145,6 @@
         default: NEST_MODE_NONE
       }
     },
-    emits: [EVENT_CLICK, EVENT_PULLING_DOWN, EVENT_PULLING_UP, EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END],
     data() {
       return {
         beforePullDown: true,

@@ -13,6 +13,7 @@
   const COMPONENT_NAME = 'cube-button'
   export default {
     name: COMPONENT_NAME,
+    emits: ['click'],
     props: {
       icon: {
         type: String,
@@ -47,7 +48,6 @@
         default: 'button'
       }
     },
-    emits: ['click'],
     computed: {
       btnClass() {
         return {

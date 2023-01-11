@@ -14,7 +14,7 @@
       </cube-checkbox-group>
       <br>
       <cube-input placeholder="Input column number" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
+        <template #prepend><div style="paddingLeft: 10px"> Column number:</div></template>
       </cube-input>
       <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="Math.floor(colNum)" />
       <br>

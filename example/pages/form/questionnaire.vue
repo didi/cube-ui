@@ -1,12 +1,13 @@
 <template>
   <cube-page class="page-questionnaire" title="Questionnaire">
-    <demo-questionnaire
-      slot="content"
-      :tip="tip"
-      :questions="questions"
-      :submit="submit"
-      @submit="submitHandler"
-    />
+    <template #content>
+      <demo-questionnaire
+        :tip="tip"
+        :questions="questions"
+        :submit="submit"
+        @submit="submitHandler"
+      />
+    </template>
   </cube-page>
 </template>
 

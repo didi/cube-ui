@@ -37,6 +37,7 @@
         isFocus: false
       }
     },
+    emits: [EVENT_INPUT, 'focus', 'blur', 'change'],
     props: {
       modelValue: {
         type: String,
@@ -72,7 +73,6 @@
         default: false
       }
     },
-    emits: [EVENT_INPUT, 'focus', 'blur', 'change'],
     computed: {
       indicatorConf() {
         let indicator = this.indicator
