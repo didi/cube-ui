@@ -25,8 +25,8 @@
         <!-- preloads item for get its height, remove it after caculating height-->
         <div class="cube-recycle-list-pool">
           <div
+            v-if="!infinite && preload"
             class="cube-recycle-list-item cube-recycle-list-invisible"
-            v-if="preload"
             v-show="item && !item.isTombstone && !item.height"
             :ref="'preloads'+index"
             v-for="(item, index) in items"

@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import { h, markRaw } from 'vue'
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import DatePicker from 'example/components/date-picker.vue'
@@ -34,7 +35,7 @@
       city.children = areaList[city.value]
     })
   })
-  const PCA = {
+  const PCA = markRaw({
     props: {
       value: {
         type: Array,
@@ -48,11 +49,9 @@
         selected: []
       }
     },
-    render(createElement) {
-      return createElement('cube-button', {
-        on: {
-          click: this.showPicker
-        }
+    render() {
+      return h('cube-button', {
+        onClick: this.showPicker
       }, this.selected.length ? this.selected.join(' ') : 'placeholder')
     },
     mounted() {
@@ -72,7 +71,7 @@
         this.$emit('input', selectedVal)
       }
     }
-  }
+  })
 
   export default {
     data() {

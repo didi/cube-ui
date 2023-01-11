@@ -77,7 +77,7 @@ function removeFromParent(vm) {
 }
 
 export default function createAPI(app, Component, events, single) {
-  app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options, slots = null) {
+  Component.$create = app.config.globalProperties[`$create${camelize(Component.name.replace('cube-', '')).replace(/^\w/, ($) => $.toUpperCase())}`] = function(options, slots = null) {
     if (single && Component._instance) {
       if (options) {
         Component._instance.$updateProps(options, slots)
@@ -88,18 +88,6 @@ export default function createAPI(app, Component, events, single) {
       return Component._instance
     }
     const vm = Component._instance = createComponent(Component, options, slots, this ? this._.appContext : null)
-
-    const hasParent = !!this && !!this._ && isVNode(this._.vnode)
-
-    if (hasParent) {
-      const parentVnodeProps = this && this._ && isVNode(this._.vnode) ? this._.vnode.props : null
-
-      this._.vnode.props = mergeProps(parentVnodeProps || {}, {
-        onVnodeBeforeUnmount() {
-          vm.$remove()
-        }
-      })
-    }
 
     removeFromParent.call(this, vm)
 

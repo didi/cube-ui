@@ -71,10 +71,11 @@ export default {
     showComponent() {
       if (!this.actionComponent) {
         const component = this.actionComponent = this.action ? this.action(this) : this.defaultAction(this)
-        component.$on('select', this.onSelect)
-        component.$on('hide', this.onHide)
-        component.$on('cancel', this.onHide)
-        component.$on('close', this.onHide)
+        console.log(component)
+        // component.$on('select', this.onSelect)
+        // component.$on('hide', this.onHide)
+        // component.$on('cancel', this.onHide)
+        // component.$on('close', this.onHide)
       }
       this.actionComponent.show()
       this.isActive = true

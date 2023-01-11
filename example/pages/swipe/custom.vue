@@ -23,8 +23,7 @@
                 </cube-swipe-item>
               </li>
             </transition-group>
-          </cube-swipe
-              >
+          </cube-swipe>
         </cube-scroll>
       </div>
     </template>

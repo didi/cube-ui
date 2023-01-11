@@ -92,7 +92,6 @@
       this.$nextTick(() => {
         this.refresh()
       })
-      // this.$on(EVENT_SCROLL, this._handleBtns)
     },
     methods: {
       _initCachedBtns() {
@@ -244,6 +243,7 @@
           let x = this.state === STATE_SHRINK ? 0 : this._getComputedPositionX()
           this._translate(x)
           this.$emit(EVENT_SCROLL, this.x)
+          this._handleBtns()
         }
       },
       onTouchStart(e) {
@@ -317,6 +317,7 @@
         }
 
         this.$emit(EVENT_SCROLL, this.x)
+        this._handleBtns()
       },
       onTouchEnd() {
         if (!this.moved) {
