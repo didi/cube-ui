@@ -35,7 +35,7 @@
     beforeCreate() {
       this.form = this.$parent.form
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.form = null
     },
     components: {

@@ -283,7 +283,7 @@
         return selectedIndex
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.wheels && this.wheels.forEach((wheel) => {
         wheel.destroy()
       })

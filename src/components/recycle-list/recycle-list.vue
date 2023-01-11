@@ -120,7 +120,7 @@
       window.addEventListener(EVENT_RESIZE, this._onResize)
       this.load()
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.$el.removeEventListener(EVENT_SCROLL, this._onScroll)
       window.removeEventListener(EVENT_RESIZE, this._onResize)
     },

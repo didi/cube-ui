@@ -76,7 +76,7 @@
       /* istanbul ignore next */
       this._cleanUp()
     },
-    beforeDestroy () {
+    beforeUnmount() {
       /* istanbul ignore next */
       this._cleanUp()
     },

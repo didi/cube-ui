@@ -256,7 +256,7 @@
         this.initScroll()
       })
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.destroy()
     },
     methods: {

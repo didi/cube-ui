@@ -56,7 +56,7 @@
     mounted() {
       this.$parent.addPanel(this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.$parent.removePanel(this)
     },
     methods: {

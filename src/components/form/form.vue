@@ -325,7 +325,7 @@
         modelKey && this.setValidity(modelKey)
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.form = null
       this.firstInvalidField = null
     },

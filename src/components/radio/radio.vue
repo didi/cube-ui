@@ -64,7 +64,7 @@ export default {
       )
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this._cancelWatchGroup && this._cancelWatchGroup()
     this._cancelWatchGroup = null
   },

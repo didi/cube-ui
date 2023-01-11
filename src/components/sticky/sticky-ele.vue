@@ -29,7 +29,7 @@
         }
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.sticky.removeEle(this)
     }
   }

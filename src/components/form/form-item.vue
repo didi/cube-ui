@@ -270,7 +270,7 @@
         }).show()
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.removeFocusEvents()
       this.form.destroyField(this)
       this.form = null

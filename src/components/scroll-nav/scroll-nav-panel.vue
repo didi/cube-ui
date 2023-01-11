@@ -31,7 +31,7 @@
     mounted() {
       this.scrollNav.addPanel(this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.scrollNav.removePanel(this)
     },
     components: {

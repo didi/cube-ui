@@ -342,7 +342,7 @@
         this._translate(this.x)
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.swipe.removeItem(this)
     }
   }

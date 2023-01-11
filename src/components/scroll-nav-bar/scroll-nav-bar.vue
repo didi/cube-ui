@@ -104,7 +104,7 @@
         })
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.scrollNav && this.scrollNav.setBar(null)
     },
     methods: {
