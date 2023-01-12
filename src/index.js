@@ -114,7 +114,7 @@ function install(app) {
 
 const Cube = {
   /* eslint-disable no-undef */
-  version: '0.0.1',
+  version: __VERSION__,
   install,
   BScroll: BetterScroll,
   createAPI
