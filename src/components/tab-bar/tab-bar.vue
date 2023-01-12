@@ -4,7 +4,7 @@
       <cube-tab
         v-for="(item, index) in data"
         :label="item.label"
-        :value="item.value"
+        :model-value="item.value"
         :icon="item.icon"
         :key="item.value || item.label">
       </cube-tab>
