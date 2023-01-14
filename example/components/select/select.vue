@@ -66,16 +66,17 @@ export default {
     },
     defaultAction() {
       const { component, options } = this.options
-      return this[camelize(`$create-${component}`)](options || {})
+      return this[camelize(`$create-${component}`)]({...options,
+        ...{
+          onSelect: this.onSelect,
+          onHide: this.onHide,
+          onCancel: this.onHide,
+          onClose: this.onHide
+        }} || {})
     },
     showComponent() {
       if (!this.actionComponent) {
-        const component = this.actionComponent = this.action ? this.action(this) : this.defaultAction(this)
-        console.log(component)
-        // component.$on('select', this.onSelect)
-        // component.$on('hide', this.onHide)
-        // component.$on('cancel', this.onHide)
-        // component.$on('close', this.onHide)
+        this.actionComponent = this.action ? this.action(this) : this.defaultAction(this)
       }
       this.actionComponent.show()
       this.isActive = true

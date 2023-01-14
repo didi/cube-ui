@@ -37,7 +37,7 @@
   })
   const PCA = markRaw({
     props: {
-      value: {
+      modelValue: {
         type: Array,
         default() {
           return []
@@ -68,7 +68,7 @@
       },
       selectHandler(selectedVal, selectedIndex, selectedTxt) {
         this.selected = selectedTxt
-        this.$emit('input', selectedVal)
+        this.$emit('update:modelValue', selectedVal)
       }
     }
   })

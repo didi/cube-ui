@@ -239,8 +239,7 @@
           sync = false
           // only async validate trigger validating
           this.$emit(EVENT_VALIDATING)
-          this.valid = undefined
-          this.$emit(EVENT_INPUT, this.valid)
+          this.emitValidChange(undefined)
         }
       },
       _updateModel(valid, result) {
@@ -254,8 +253,7 @@
         if (valid) {
           this.msg = ''
         }
-        this.valid = valid
-        this.$emit(EVENT_INPUT, this.valid)
+        this.emitValidChange(valid)
       },
       reset() {
         this._validateCount++
@@ -264,8 +262,15 @@
         this.result = {}
         this.msg = ''
         this.validated = false
-        this.valid = undefined
-        this.$emit(EVENT_INPUT, this.valid)
+        this.emitValidChange(undefined)
+      },
+      emitValidChange(valid) {
+        const _valid = this.valid
+        this.valid = valid
+        if (_valid === valid) {
+          return
+        }
+        this.$emit(EVENT_INPUT, valid)
       },
       msgClickHandler() {
         this.$emit(EVENT_MSG_CLICK)

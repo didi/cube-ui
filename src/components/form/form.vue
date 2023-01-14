@@ -135,8 +135,10 @@
       this.form = this
       this.fields = []
       this.validity = {}
+      this.isMounted = false
     },
     mounted() {
+      this.isMounted = true
       if (this.immediateValidate) {
         this.validate()
       }
@@ -296,7 +298,9 @@
         this.dirty = dirty
         this.originValid = valid
         this.setFirstInvalid(firstInvalidFieldKey)
-        this.validatedCount++
+        if (this.isMounted) {
+          this.validatedCount++
+        }
       },
       setFirstInvalid(key) {
         if (!key) {

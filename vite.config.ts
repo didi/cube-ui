@@ -16,8 +16,12 @@ export default defineConfig({
   },
   plugins: [
     vue()
-  ]
-  // server: {
-  //   open: '/example/index.html'
-  // }
+  ],
+  css: {
+    preprocessorOptions: {
+      stylus: {
+        'resolve url': true
+      }
+    }
+  }
 })

@@ -8,7 +8,6 @@ const TRANSLATION_ABSENT = `Translation is not registered correctly, ` +
 export default {
   computed: {
     $t () {
-      console.log(this)
       const lang = this.$cubeLang
       const messages = this.$cubeMessages[lang]
       if (isUndef(messages)) {
