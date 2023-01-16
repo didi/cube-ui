@@ -68,7 +68,7 @@
       },
       selectHandler(selectedVal, selectedIndex, selectedTxt) {
         this.selected = selectedTxt
-        this.$emit('update:modelValue', selectedVal.slice(0))
+        this.$emit('update:modelValue', selectedVal)
       }
     }
   })

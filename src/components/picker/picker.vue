@@ -69,7 +69,9 @@
     },
     data() {
       return {
-        finalData: this.data.slice()
+        finalData: this.data.slice(),
+        _values: [],
+        _indexes: []
       }
     },
     created() {
