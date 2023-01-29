@@ -119,7 +119,8 @@
 
           this.validate()
         },
-        flush: 'sync'
+        flush: 'sync',
+        deep: true
       },
       rules() {
         this.validate()
