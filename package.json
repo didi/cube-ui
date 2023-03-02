@@ -150,6 +150,7 @@
     "url-loader": "^0.5.8",
     "vconsole": "^2.5.2",
     "vite": "^4.0.1",
+    "vitest": "^0.29.2",
     "vue": "^3.2.45",
     "vue-lazyload": "^1.1.4",
     "vue-loader": "^12.1.0",
