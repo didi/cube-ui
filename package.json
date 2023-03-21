@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node build/build.js",
     "dev": "vite",
-    "doc-dev": "npm run dev & node build/document/dev-server.js",
+    "doc-dev": "vite -c vite.doc.config.ts",
     "doc-build": "node build/document/build.js",
     "demo-build": "node build/example/build.js",
     "doc-demo-build": "npm run doc-build && npm run demo-build",
@@ -65,10 +65,10 @@
   "license": "Apache",
   "dependencies": {
     "better-scroll": "~1.12.6",
-    "vue-create-api": "^0.2.3"
+    "mitt": "^3.0.0"
   },
   "peerDependencies": {
-    "vue": "^2.5.13"
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.2.0",
@@ -150,6 +150,7 @@
     "url-loader": "^0.5.8",
     "vconsole": "^2.5.2",
     "vite": "^4.0.1",
+    "vite-plugin-vue-markdown": "^0.22.4",
     "vitest": "^0.29.2",
     "vue": "^3.2.45",
     "vue-lazyload": "^1.1.4",

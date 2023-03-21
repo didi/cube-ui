@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createWebHashHistory, createRouter } from 'vue-router'
 import { getCurrentLang } from '../common/js/utils'
 import routes from './routes'
 import EnUSHome from '../components/home/en-US.vue'
@@ -9,8 +8,6 @@ import ZhCNIndex from '../components/index/zh-CN.vue'
 import Example from '../components/example/example.vue'
 // viewport chunk added to main chunk, not in dynamic docs chunks
 import '../components/viewport/viewport.vue'
-
-Vue.use(Router)
 
 const EnUSChildren = [
   {
@@ -22,6 +19,7 @@ const EnUSChildren = [
     component: Example
   }
 ].concat(routes['en-US'])
+
 const ZhCNChildren = [
   {
     path: '',
@@ -33,7 +31,8 @@ const ZhCNChildren = [
   }
 ].concat(routes['zh-CN'])
 
-export default new Router({
+const router = createRouter({
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
@@ -54,3 +53,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

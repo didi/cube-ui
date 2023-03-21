@@ -4,9 +4,9 @@ const routeMap = {}
 
 Object.keys(menuConfig).forEach((lang) => {
   const loadingNotify = (p) => {
-    eventHub.$emit('begin-loading')
+    eventHub.emit('begin-loading')
     return p.then((r) => {
-      eventHub.$emit('finish-loading')
+      eventHub.emit('finish-loading')
       return r
     })
   }

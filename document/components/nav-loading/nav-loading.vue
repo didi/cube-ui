@@ -27,12 +27,12 @@
     created() {
       let tid
       let startTime
-      eventHub.$on('begin-loading', () => {
+      eventHub.on('begin-loading', () => {
         startTime = Date.now()
         clearTimeout(tid)
         this.loading = true
       })
-      eventHub.$on('finish-loading', () => {
+      eventHub.on('finish-loading', () => {
         const time = Date.now() - startTime
         if (time > 500) {
           this.resetLoading()
@@ -54,7 +54,7 @@
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
 
   .nav-loading
     z-index: 10

@@ -41,8 +41,11 @@
         }
         root = this.seekRoot(navList, docPath)
         rootNav = root && navList[root]
-        this.$set(rootNav, 'isRootActive', true)
-        this.$set(rootNav, 'hasActived', true)
+
+        rootNav.isRootActive = true
+        rootNav.hasActived = true
+        // this.$set(rootNav, 'isRootActive', true)
+        // this.$set(rootNav, 'hasActived', true)
       }, {immediate: true})
     },
     methods: {
@@ -66,7 +69,7 @@
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
 
   .page-sidelist
     font-size: $fontsize-large

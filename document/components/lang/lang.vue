@@ -27,7 +27,7 @@
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
   .langs
     display: inline-block
     margin: 0 20px

@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import cookie from 'js-cookie'
+import mitt from 'mitt'
 
 export function setItem(k, v) {
   try {
@@ -32,8 +32,8 @@ export function getCurrentLang() {
   return defaultLang
 }
 
-const baseUrl = process.env.NODE_ENV === 'production' ? `${window.location.href.replace(/#.*$/, '')}example/#/` : `http://${window.location.hostname}:8081/#/`
+const baseUrl = import.meta.env.PROD ? `${window.location.href.replace(/#.*$/, '')}example/#/` : `http://${window.location.hostname}:8081/#/`
 
-const eventHub = new Vue()
+const eventHub = mitt()
 
 export { baseUrl, eventHub }
