@@ -13,7 +13,7 @@ Object.keys(menuConfig).forEach((lang) => {
   const docsChildrenRoute = []
   const docsRoute = {
     path: 'docs',
-    redirect: './docs/introduction',
+    redirect: `/${lang}/docs/introduction`,
     component: () => loadingNotify(import(`../components/docs/${lang}.vue`)),
     children: docsChildrenRoute
   }
