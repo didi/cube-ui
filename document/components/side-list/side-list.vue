@@ -42,8 +42,10 @@
         root = this.seekRoot(navList, docPath)
         rootNav = root && navList[root]
 
-        rootNav.isRootActive = true
-        rootNav.hasActived = true
+        if (rootNav) {
+          rootNav.isRootActive = true
+          rootNav.hasActived = true
+        }
         // this.$set(rootNav, 'isRootActive', true)
         // this.$set(rootNav, 'hasActived', true)
       }, {immediate: true})

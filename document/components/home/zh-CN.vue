@@ -1,10 +1,12 @@
 <template>
   <home>
-    <template slot="nav">
+    <template #nav>
       <router-link to="/zh-CN/docs" class="tab"><span>文档</span></router-link>
       <router-link to="/zh-CN/example" class="tab"><span>示例</span></router-link>
     </template>
-    <div slot="home">home</div>
+    <template #home>
+      <div>home</div>
+    </template>
   </home>
 </template>
 
