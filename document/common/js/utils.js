@@ -32,7 +32,7 @@ export function getCurrentLang() {
   return defaultLang
 }
 
-const baseUrl = import.meta.env.PROD ? `${window.location.href.replace(/#.*$/, '')}example/#/` : `http://${window.location.hostname}:8081/#/`
+const baseUrl = import.meta.env.PROD ? `${window.location.href.replace(/#.*$/, '')}example/#/` : `http://${window.location.hostname}:5173/#/`
 
 const eventHub = mitt()
 

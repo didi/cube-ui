@@ -1,4 +1,5 @@
 import defaultMessages from '../../locale/lang/zh-CN'
+import enMessages from '../../locale/lang/en-US'
 import { warn } from '../helpers/debug'
 import { isUndef, isNumber } from '../helpers/util'
 import { formatDate } from '../lang/date'
@@ -14,7 +15,7 @@ const locale = {
     proto = app.config.globalProperties
     // Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
     proto['$cubeLang'] = DEFAULT_LANG
-    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
+    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages, 'en-US': enMessages }
     locale.installed = true
   },
   use (lang, messages) {

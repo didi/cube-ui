@@ -1,0 +1,4 @@
+import{a as e,o,j as a}from"./index-9017f177.js";const d={class:"markdown-body"},i=a(`<h2>Loading</h2><p><code>Loading</code> provides loading animation which can has custom size.</p><h3>Example</h3><ul><li><p>The size of icon</p><p>Default is <code>24px</code> and can be configured by setting <code>size</code>.</p><pre><code class="language-html">&lt;cube-loading&gt;&lt;/cube-loading&gt;
+&lt;cube-loading :size=&quot;28&quot;&gt;&lt;/cube-loading&gt;
+&lt;cube-loading :size=&quot;40&quot;&gt;&lt;/cube-loading&gt;
+</code></pre></li></ul><h3>Props configuration</h3><table><thead><tr><th>Attribute</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>size</td><td>the size of loading icon, unit px</td><td>Number</td><td>24</td></tr></tbody></table>`,6),n=[i],u={__name:"loading",setup(c,{expose:t}){return t({frontmatter:{}}),(l,r)=>(o(),e("div",d,n))}};export{u as default};

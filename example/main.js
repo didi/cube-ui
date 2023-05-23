@@ -3,6 +3,7 @@ import Cube from '../src/index'
 import App from './App.vue'
 import router from './router'
 
+import '../src/common/stylus/index.styl'
 import '../src/common/icon/cube-icon.styl'
 
 createApp(App).use(Cube).use(router).mount('#app')

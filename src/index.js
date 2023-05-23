@@ -120,6 +120,9 @@ const Cube = {
   createAPI
 }
 
+const stylSymbol = Symbol('style')
+Cube[stylSymbol] = Style
+
 components.forEach((Component) => {
   const name = processComponentName(Component, {
     firstUpperCase: true
