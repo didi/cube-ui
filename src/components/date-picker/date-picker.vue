@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
@@ -245,6 +246,9 @@
         this._rangeCache[k] = arr
         return arr
       }
+    },
+    components: {
+      CubeCascadePicker,
     }
   }
 
