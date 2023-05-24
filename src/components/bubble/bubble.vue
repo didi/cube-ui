@@ -13,7 +13,8 @@
     data() {
       return {
         width: 50,
-        height: 80
+        height: 80,
+        ratio: 2
       }
     },
     computed: {

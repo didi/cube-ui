@@ -7,12 +7,12 @@
             <cube-index-list-group v-for="(group, index) in singerData" :key="index" :group="group">
               <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
                 <div class="custom-item">
-                  <img class="avatar" v-lazy="item.avatar">
+                  <img class="avatar">
                   <span class="name">{{item.name}}</span>
                 </div>
               </cube-index-list-item>
             </cube-index-list-group>
-            <template #nav-item="{props}">
+            <template #nav-item="props">
               <span class="custom-nav-item">{{props.item}}</span>
             </template>
           </cube-index-list>
