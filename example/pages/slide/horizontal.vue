@@ -1,6 +1,6 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div ref="slideWrapper" class="slide-container">
         <cube-slide
             ref="slide"
@@ -14,7 +14,7 @@
             :options="options"
             @change="changePage"
             @click="clickPage">
-          <template v-if="dotsSlot" slot="dots" slot-scope="props">
+          <template v-if="dotsSlot" #dots="props">
             <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots">{{index + 1}}</span>
           </template>
         </cube-slide>
@@ -57,14 +57,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
-  import SwitchOption from '../../components/switch-option'
-  import InputOption from '../../components/input-option'
+  import SwitchOption from '../../components/switch-option.vue'
+  import InputOption from '../../components/input-option.vue'
 
   const item3 = {
     url: 'http://www.didichuxing.com/',
@@ -163,7 +163,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .slide-container
     height: 75px
     margin-bottom: 15px

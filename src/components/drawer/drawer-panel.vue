@@ -14,7 +14,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
   import CubeScroll from '../scroll/scroll.vue'
   import CubeDrawerItem from './drawer-item.vue'
@@ -56,7 +56,7 @@
     mounted() {
       this.$parent.addPanel(this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.$parent.removePanel(this)
     },
     methods: {
@@ -78,7 +78,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 
@@ -101,7 +101,7 @@
     width: 100%
     height: 100%
 
-  .cube-drawer-move-enter, .cube-drawer-move-leave-to
+  .cube-drawer-move-enter-from, .cube-drawer-move-leave-to
     transform: translate(67px, 0)
   .cube-drawer-move-enter-active, .cube-drawer-move-leave-active
     transition: transform .3s ease-in-out

@@ -10,17 +10,17 @@
       :disabled="disabled"
       @focus="handleFocus"
       @blur="handleBlur"
-      @change="changeHander"
+      @change="changeHandler"
     >
     </textarea>
     <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-textarea'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   const DEFAULT_INDICATOR = {
     negative: true,
@@ -32,13 +32,14 @@
     mixins: [inputMixin],
     data() {
       return {
-        textareaValue: this.value,
-        expanded: this.autoExpand ? !!this.value : false,
+        textareaValue: this.modelValue,
+        expanded: this.autoExpand ? !!this.modelValue : false,
         isFocus: false
       }
     },
+    emits: [EVENT_INPUT, 'focus', 'blur', 'change'],
     props: {
-      value: {
+      modelValue: {
         type: String,
         default: ''
       },
@@ -92,7 +93,7 @@
       }
     },
     watch: {
-      value(newValue) {
+      modelValue(newValue) {
         this.textareaValue = newValue
       },
       textareaValue(newValue) {
@@ -119,7 +120,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

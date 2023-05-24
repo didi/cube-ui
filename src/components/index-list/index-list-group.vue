@@ -9,7 +9,7 @@
   </li>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeIndexListItem from './index-list-item.vue'
 
   const COMPONENT_NAME = 'cube-index-list-group'
@@ -17,6 +17,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_SELECT],
     props: {
       group: {
         type: Object,

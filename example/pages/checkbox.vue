@@ -1,6 +1,6 @@
 <template>
   <cube-page type="checkbox-view" title="Checkbox">
-    <template slot="content">
+    <template #content>
       <cube-checkbox v-model="checked">Checkbox</cube-checkbox>
       <p>checked value: {{checked}}</p>
       <cube-checkbox v-model="checked" position="right" shape="square" :hollow-style="true">Styled Checkbox</cube-checkbox>
@@ -18,7 +18,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
 
   export default {
@@ -39,7 +39,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .checkbox-view
     .content
       >

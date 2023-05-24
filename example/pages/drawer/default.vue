@@ -1,6 +1,6 @@
 <template>
   <cube-page type="drawer-def" title="Drawer">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-button @click="showDrawer">Show Drawer</cube-button>
         <cube-drawer
@@ -12,11 +12,11 @@
           @select="selectHandler"
           @cancel="cancelHandler"></cube-drawer>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import { provinceList, cityList, areaList } from '../../data/area'
 
@@ -66,7 +66,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .view-wrapper
     position: fixed
     top: 54px

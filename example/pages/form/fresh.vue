@@ -1,21 +1,23 @@
 <template>
   <cube-page type="form-def" title="Form 表单">
-    <div slot="content">
-      <cube-form
-        :model="model"
-        :schema="schema"
-        :immediate-validate="false"
-        :options="options"
-        @validate="validateHandler"
-        @submit="submitHandler"
-        @reset="resetHandler"></cube-form>
-      <json-view title="model" :data="model" />
-      <json-view title="validity" :data="validity" />
-    </div>
+    <template #content>
+      <div>
+        <cube-form
+          :model="model"
+          :schema="schema"
+          :immediate-validate="false"
+          :options="options"
+          @validate="validateHandler"
+          @submit="submitHandler"
+          @reset="resetHandler"></cube-form>
+        <json-view title="model" :data="model" />
+        <json-view title="validity" :data="validity" />
+      </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import CubeButtonGroup from '../../components/cube-button-group.vue'
   import JsonView from '../../components/json-view.vue'

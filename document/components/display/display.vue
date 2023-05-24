@@ -34,7 +34,7 @@
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
 
   .page-display
     position: relative

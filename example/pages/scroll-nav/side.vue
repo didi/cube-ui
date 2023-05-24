@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-nav-side" title="ScrollNav">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-scroll-nav
           :side="true"
@@ -8,11 +8,13 @@
           :current="current"
           @change="changeHandler"
           @sticky-change="stickyChangeHandler">
-          <ul class="prepend-header" slot="prepend">
-            <li>11</li>
-            <li>22</li>
-            <li>333</li>
-          </ul>
+          <template #prepend>
+            <ul class="prepend-header">
+              <li>11</li>
+              <li>22</li>
+              <li>333</li>
+            </ul>
+          </template>
           <cube-scroll-nav-panel
             v-for="item in data"
             :key="item.name"
@@ -29,11 +31,11 @@
           </cube-scroll-nav-panel>
         </cube-scroll-nav>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import goodsData from 'example/data/goods-list.json'
 
@@ -60,7 +62,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .scroll-nav-side
     background-color: #fff
     .view-wrapper

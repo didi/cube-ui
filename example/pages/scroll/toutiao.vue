@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="toutiao">
-    <template slot="content">
+    <template #content>
       <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/0K9-YvWB-Q/toutiao_header2.png"></header>
       <div class="nav-scroll-list-wrap">
         <cube-scroll ref="navScroll" direction="horizontal">
@@ -25,7 +25,7 @@
                 <img :src="item.url" @load="onImgLoad">
               </li>
             </ul>
-            <template slot="pulldown" slot-scope="props">
+            <template #pulldown="props">
               <div v-if="props.pullDownRefresh"
                 class="cube-pulldown-wrapper"
                 :style="props.pullDownStyle">
@@ -52,7 +52,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 const imgs = [
@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 .toutiao
   .content
     margin: 0 !important
@@ -121,7 +121,7 @@ export default {
     flex-flow: column
     >header
       line-height: 0
-      img 
+      img
         width: 100%
     footer
       line-height: 0
@@ -176,7 +176,7 @@ export default {
       overflow: hidden
       .imgs-wrapper
         .imgs-item
-          >img 
+          >img
             width: 100%
   .cube-pulldown-wrapper
     text-align: center
@@ -190,7 +190,7 @@ export default {
         transition: all 0.3s
         color: #666
         padding: 15px 0
-        &.rotate 
+        &.rotate
           transform: rotate(180deg)
     .after-trigger
       flex: 1
@@ -205,8 +205,8 @@ export default {
         margin: auto
   .success-enter-active, .success-leave-active
     transition: width .5s
-  .success-enter, .success-leave-to
+  .success-enter-from, .success-leave-to
     width: 70%
-  .success-enter-to, .success-leave
+  .success-enter-active, .success-leave-active
     width: 100%
 </style>

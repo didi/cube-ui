@@ -63,7 +63,8 @@
         const h = 48
         const opacity = y / h
         this.opacity1 = opacity >= 0.98
-        this.$refs.navigator.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`
+
+        this.$refs.navigator && (this.$refs.navigator.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`)
       }, 10, {
         leading: true
       })
@@ -88,7 +89,7 @@
   }
 </script>
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
 
   .home-view
     height: 100%

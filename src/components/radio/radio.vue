@@ -18,9 +18,9 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 const COMPONENT_NAME = 'cube-radio'
-const EVENT_INPUT = 'input'
+const EVENT_INPUT = 'update:modelValue'
 
 export default {
   name: COMPONENT_NAME,
@@ -29,8 +29,9 @@ export default {
       default: null
     }
   },
+  emits: [EVENT_INPUT],
   props: {
-    value: [String, Number],
+    modelValue: [String, Number],
     option: {
       type: [String, Object],
       required: true
@@ -46,7 +47,7 @@ export default {
   },
   data() {
     return {
-      radioValue: this.value
+      radioValue: this.modelValue
     }
   },
   created() {
@@ -63,16 +64,16 @@ export default {
       )
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this._cancelWatchGroup && this._cancelWatchGroup()
     this._cancelWatchGroup = null
   },
   watch: {
-    value(newV) {
+    modelValue(newV) {
       this.radioValue = newV
     },
     radioValue(newV) {
-      if (typeof this.value === 'number') {
+      if (typeof this.modelValue === 'number') {
         newV = Number(newV)
       }
       this.$emit(EVENT_INPUT, newV)
@@ -110,7 +111,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   $ui-width = 1.42em

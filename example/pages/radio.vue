@@ -1,6 +1,6 @@
 <template>
   <cube-page type="radio-view" title="Radio">
-    <template slot="content">
+    <template #content>
       <cube-radio-group v-model="selected" :options="options" />
       <p>selected value: {{selected}}</p>
       <cube-radio-group v-model="selected2" :options="options2" position="right" :hollow-style="true" />
@@ -18,14 +18,14 @@
       <p>selected img: {{selected4}}</p>
       <hr>
       <cube-input placeholder="Input column number" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
+        <template #prepend><div style="paddingLeft: 10px"> Column number:</div></template>
       </cube-input>
       <cube-radio-group v-model="selected5" :options="options5" :col-num="Math.floor(colNum)" />
     </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
 
   export default {
@@ -130,7 +130,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .radio-view
     .content
       >

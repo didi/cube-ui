@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload-view-compress" title="Upload">
-    <template slot="content">
+    <template #content>
       <p>Compress&Base64 upload: </p>
       <div>
         <cube-upload
@@ -14,7 +14,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import compress from '../../modules/image'
 
@@ -51,7 +51,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .upload-view-compress
     .content
       >

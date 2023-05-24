@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import scrollMixin from '../../common/mixins/scroll'
   import CubeScroll from '../scroll/scroll.vue'
 
@@ -43,6 +43,7 @@
       }
     },
     mixins: [scrollMixin],
+    emits: [EVENT_CHANGE],
     props: {
       direction: {
         type: String,
@@ -60,10 +61,10 @@
       },
       txts: {
         type: Array,
-        default() {
-          this._defaultTxts = true
+        default(props) {
+          props._defaultTxts = true
           /* istanbul ignore next */
-          return this.labels
+          return props.labels
         }
       },
       current: {
@@ -103,7 +104,7 @@
         })
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.scrollNav && this.scrollNav.setBar(null)
     },
     methods: {
@@ -151,7 +152,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   .cube-scroll-nav-bar

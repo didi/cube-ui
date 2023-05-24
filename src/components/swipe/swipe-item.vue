@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import {
     getRect,
     prefixStyle
@@ -92,7 +92,6 @@
       this.$nextTick(() => {
         this.refresh()
       })
-      this.$on(EVENT_SCROLL, this._handleBtns)
     },
     methods: {
       _initCachedBtns() {
@@ -244,6 +243,7 @@
           let x = this.state === STATE_SHRINK ? 0 : this._getComputedPositionX()
           this._translate(x)
           this.$emit(EVENT_SCROLL, this.x)
+          this._handleBtns()
         }
       },
       onTouchStart(e) {
@@ -317,6 +317,7 @@
         }
 
         this.$emit(EVENT_SCROLL, this.x)
+        this._handleBtns()
       },
       onTouchEnd() {
         if (!this.moved) {
@@ -341,13 +342,13 @@
         this._translate(this.x)
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.swipe.removeItem(this)
     }
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-swipe-item
     position: relative

@@ -31,14 +31,15 @@
     methods: {
       derail (item) {
         let nowActive = item.isRootActive
-        this.$set(item, 'isRootActive', !nowActive)
+        item.isRootActive = !nowActive
+        // this.$set(item, 'isRootActive', !nowActive)
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
   .nav-ul
     font-size: 100%
   .nav-li

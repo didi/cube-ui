@@ -1,6 +1,6 @@
 <template>
   <cube-page type="picker-view" title="Date Picker" desc="">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showDatePicker">Date Picker</cube-button>
         <cube-button @click="showChangeOrderPicker">Date Picker(Change order)</cube-button>
@@ -9,7 +9,7 @@
         <cube-button @click="showFormatPicker">Use format</cube-button>
         <cube-button @click="showUpdatePropsPicker">Use $updateProps</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 

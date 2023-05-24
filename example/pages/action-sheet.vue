@@ -1,16 +1,16 @@
 <template>
   <cube-page type="action-sheet-view" title="ActionSheet（操作列表）">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showDefault">ActionSheet</cube-button>
         <cube-button @click="showActive">ActionSheet - active</cube-button>
         <cube-button @click="showPickerStyle">ActionSheet - picker style</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
   import CubeButtonGroup from '../components/cube-button-group.vue'
 

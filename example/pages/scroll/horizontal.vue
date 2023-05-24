@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="option-demo">
-    <div slot="content" class="scroll-wrapper">
+    <template #content class="scroll-wrapper">
       <div class="demo">
         <div class="title">horizontal Demo</div>
         <cube-scroll
@@ -13,11 +13,11 @@
           </ul>
         </cube-scroll>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 const _data = [
@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 .horizontal-scroll-list-wrap
   border: 1px solid rgba(0, 0, 0, 0.1)
   border-radius: 5px

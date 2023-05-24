@@ -19,7 +19,7 @@
         this.current = this.current === 'zh-CN' ? 'en-US' : 'zh-CN'
         setItem(CUBE_LANGUAGE, this.current)
         this.$router.replace({
-          path: this.$router.currentRoute.path.replace(/\/(zh-CN|en-US)(?=\/?)/, `/${this.current}`)
+          path: this.$router.currentRoute.value.path.replace(/\/(zh-CN|en-US)(?=\/?)/, `/${this.current}`)
         })
       }
     }
@@ -27,7 +27,7 @@
 </script>
 
 <style lang="stylus">
-  @require "~@/common/stylus/variable.styl"
+  @require "../../../src/common/stylus/variable.styl"
   .langs
     display: inline-block
     margin: 0 20px

@@ -14,22 +14,22 @@
         :model-key="validatorModelKey"
         :rules="fieldValue.rules"
         :messages="fieldValue.messages"
-        @input="validatorChangeHandler"
+        @update:modelValue="validatorChangeHandler"
         @validating="validatingHandler"
         @validated="validatedHandler"
         @msg-click="msgClick"
       >
         <slot>
-          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events"></component>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events || {}"></component>
         </slot>
       </cube-validator>
       <div class="cube-form-field" v-else>
         <slot>
-          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events"></component>
+          <component :is="componentName" v-model="modelValue" v-bind="fieldValue.props" v-on="fieldValue.events || {}"></component>
         </slot>
       </div>
     </template>
-    <cube-button v-bind="fieldValue.props" v-on="fieldValue.events" v-else>{{fieldValue.label}}</cube-button>
+    <cube-button v-bind="fieldValue.props" v-on="fieldValue.events || {}" v-else>{{fieldValue.label}}</cube-button>
   </div>
 </template>
 
@@ -123,7 +123,7 @@
           this.form.model[this.fieldValue.modelKey] = newModel
           this.updateValidatorModel()
         },
-        sync: true
+        flush: 'sync'
       },
       originValid(newVal) {
         this.lastOriginValid = newVal
@@ -257,6 +257,7 @@
         this.pending = false
       },
       msgClick() {
+        console.log('error-msg')
         /* istanbul ignore if */
         if (this.form.layout !== LAYOUTS.STANDARD) {
           return
@@ -269,7 +270,7 @@
         }).show()
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.removeFocusEvents()
       this.form.destroyField(this)
       this.form = null
@@ -278,7 +279,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

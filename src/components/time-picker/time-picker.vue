@@ -1,7 +1,7 @@
 <template>
   <cube-cascade-picker
     ref="picker"
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="cascadeData"
     :selected-index="selectedIndex"
     :title="_title"
@@ -17,7 +17,7 @@
   </cube-cascade-picker>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import {
     pad,
     formatDate,
@@ -57,6 +57,7 @@
     components: {
       CubeCascadePicker
     },
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       title: {
         type: String,

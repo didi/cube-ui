@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeSlideItem from './slide-item.vue'
   import BScroll from 'better-scroll'
   import scrollMixin from '../../common/mixins/scroll'
@@ -43,6 +43,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [scrollMixin, deprecatedMixin],
+    emits: [EVENT_CHANGE, EVENT_SELECT, EVENT_SCROLL_END, EVENT_SCROLL],
     props: {
       data: {
         type: Array,
@@ -114,6 +115,7 @@
       const needRefreshProps = ['data', 'loop', 'autoPlay', 'options.eventPassthrough', 'threshold', 'speed', 'allowVertical']
       needRefreshProps.forEach((key) => {
         this._dataWatchers.push(this.$watch(key, () => {
+          console.log(key)
           // To fix the render bug when add items since loop.
           if (key === 'data') {
             this._destroy()
@@ -123,7 +125,7 @@
           this.$nextTick(() => {
             this.refresh()
           })
-        }))
+        }, { deep: true }))
       })
     },
     watch: {
@@ -324,7 +326,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-slide
     position: relative

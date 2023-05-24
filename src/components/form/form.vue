@@ -27,6 +27,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [mixin],
+    emits: [EVENT_SUBMIT, EVENT_RESET, EVENT_VALIDATE, EVENT_VALID, EVENT_INVALID],
     props: {
       action: String,
       model: {
@@ -134,8 +135,10 @@
       this.form = this
       this.fields = []
       this.validity = {}
+      this.isMounted = false
     },
     mounted() {
+      this.isMounted = true
       if (this.immediateValidate) {
         this.validate()
       }
@@ -295,7 +298,9 @@
         this.dirty = dirty
         this.originValid = valid
         this.setFirstInvalid(firstInvalidFieldKey)
-        this.validatedCount++
+        if (this.isMounted) {
+          this.validatedCount++
+        }
       },
       setFirstInvalid(key) {
         if (!key) {
@@ -324,7 +329,7 @@
         modelKey && this.setValidity(modelKey)
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.form = null
       this.firstInvalidField = null
     },
@@ -334,7 +339,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

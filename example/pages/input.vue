@@ -3,7 +3,7 @@
     type="input-view"
     title="Input"
     class="option-demo">
-    <div slot="content">
+    <template #content>
       <cube-input
         :type="type"
         placeholder="please type here..."
@@ -47,13 +47,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option'
+  import SwitchOption from '../components/switch-option.vue'
 
   export default {
     data() {

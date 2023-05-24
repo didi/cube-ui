@@ -13,7 +13,7 @@
   </li>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import {
     addClass,
     removeClass
@@ -25,6 +25,7 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_SELECT],
     props: {
       item: {
         type: Object,
@@ -52,7 +53,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

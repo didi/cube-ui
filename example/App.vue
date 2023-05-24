@@ -14,14 +14,16 @@
             </div>
           </cube-index-list-item>
         </cube-index-list-group>
-        <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span>
+        <template #nav-item="props">
+          <span class="custom-nav-item">{{props.item}}</span>
+        </template>
       </cube-index-list>
     </section>
     <cube-view></cube-view>
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeView from './components/cube-view.vue'
 
   export default {
@@ -206,7 +208,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   html, body, #app
     height: 100%
 

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-wechat" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky
           :pos="scrollY"
@@ -35,7 +35,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   const _data = [
@@ -84,7 +84,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .sticky-view-wechat
     .content
       >
@@ -112,7 +112,7 @@
       .cube-sticky-ele
         margin-top: -60px
         margin-bottom: 4px
-      .sticky-fixed-show-enter, .sticky-fixed-show-leave-active
+      .sticky-fixed-show-enter-from, .sticky-fixed-show-leave-to
         transform: translate(0, -100%)
       .sticky-fixed-show-enter-active, .sticky-fixed-show-leave-active
         transition: all .5s ease-in-out

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tabs-basic-view" title="tab-basic">
-    <div slot="content">
+    <template #content>
       <cube-tab-bar v-model="selectedLabel" show-slider>
         <cube-tab v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
       </cube-tab-bar>
@@ -13,11 +13,11 @@
           </ul>
         </cube-tab-panel>
       </cube-tab-panels>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   export default {
     data() {
@@ -44,7 +44,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .tabs-basic-view
     .cube-tab-bar
       background-color: #fff

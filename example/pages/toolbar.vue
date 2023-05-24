@@ -1,6 +1,6 @@
 <template>
   <cube-page type="toolbar" title="Toolbar" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div class="options">
         <div class="option-list">
           <div class="group">
@@ -14,11 +14,11 @@
         :more-actions="more ? moreActions : undefined"
         @click="clickHandler">
       </cube-toolbar>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from 'example/components/cube-page.vue'
   import SwitchOption from 'example/components/switch-option.vue'
 
@@ -87,7 +87,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .orange
     color: #fc9153
 </style>

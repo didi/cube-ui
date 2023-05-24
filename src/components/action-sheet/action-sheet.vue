@@ -33,7 +33,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
@@ -46,6 +46,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_CANCEL],
     props: {
       data: {
         type: Array,
@@ -98,11 +99,11 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/mixin.styl"
   @require "../../common/stylus/variable.styl"
 
-  .cube-action-sheet-fade-enter, .cube-action-sheet-fade-leave-active
+  .cube-action-sheet-fade-enter-from, .cube-action-sheet-fade-leave-to
     opacity: 0
   .cube-action-sheet-fade-enter-active, .cube-action-sheet-fade-leave-active
     transition: all .3s ease-in-out
@@ -111,7 +112,7 @@
     text-align: center
     font-size: $fontsize-medium
     background-color: $action-sheet-bgc
-  .cube-action-sheet-move-enter, .cube-action-sheet-move-leave-active
+  .cube-action-sheet-move-enter-from, .cube-action-sheet-move-leave-to
     transform: translate3d(0, 100%, 0)
   .cube-action-sheet-move-enter-active, .cube-action-sheet-move-leave-active
     transition: all .3s ease-in-out

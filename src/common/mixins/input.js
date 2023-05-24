@@ -1,8 +1,9 @@
 const EVENT_CHANGE = 'change'
 
 export default {
+  emits: [EVENT_CHANGE],
   methods: {
-    changeHander(e) {
+    changeHandler(e) {
       this.$emit(EVENT_CHANGE, e)
     },
     focus() {

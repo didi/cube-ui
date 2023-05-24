@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-complex" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky ref="sticky" :pos="scrollY" :offset="offsetTop" @diff-change="diffChange">
           <cube-scroll
@@ -37,7 +37,7 @@
               <li v-for="item in items3">{{item}}</li>
             </ul>
           </cube-scroll>
-          <template slot="fixed" slot-scope="props">
+          <template #fixed="props">
             <ul class="sticky-header">
               <li ref="stickyHeader">111</li>
             </ul>
@@ -55,7 +55,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 const _data = [
@@ -218,7 +218,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .sticky-view-complex
     .content
       >

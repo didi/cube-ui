@@ -1,0 +1,1 @@
+import{V as e}from"./viewport-b3420c41.js";import{_ as t,o as r,c as n,r as s}from"./index-9017f177.js";const c={components:{Viewport:e}};function p(a,_,i,m,f,l){const o=s("viewport");return r(),n(o,{lang:"zh-CN"})}const $=t(c,[["render",p]]);export{$ as default};

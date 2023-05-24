@@ -12,12 +12,12 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import CubeRadio from './radio.vue'
   import groupCol from '../../common/mixins/group-col'
   const COMPONENT_NAME = 'cube-radio-group'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   export default {
     name: COMPONENT_NAME,
@@ -27,8 +27,9 @@
         radioGroup: this
       }
     },
+    emits: [EVENT_INPUT],
     props: {
-      value: [String, Number],
+      modelValue: [String, Number],
       options: {
         type: Array,
         default() {
@@ -50,11 +51,11 @@
     },
     data() {
       return {
-        radioValue: this.value
+        radioValue: this.modelValue
       }
     },
     watch: {
-      value(newV) {
+      modelValue(newV) {
         this.radioValue = newV
       },
       radioValue(newV) {
@@ -73,7 +74,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

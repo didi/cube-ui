@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   const COMPONENT_NAME = 'cube-popup'
@@ -22,6 +22,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_MASK_CLICK],
     props: {
       type: {
         type: String,
@@ -80,7 +81,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-popup
     position: fixed

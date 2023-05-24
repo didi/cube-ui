@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import BScroll from 'better-scroll'
   import Loading from '../loading/loading.vue'
   import Bubble from '../bubble/bubble.vue'
@@ -98,6 +98,7 @@
         default: null
       }
     },
+    emits: [EVENT_CLICK, EVENT_PULLING_DOWN, EVENT_PULLING_UP, EVENT_SCROLL, EVENT_BEFORE_SCROLL_START, EVENT_SCROLL_END],
     props: {
       data: {
         type: Array,
@@ -197,10 +198,13 @@
       }
     },
     watch: {
-      data() {
-        setTimeout(() => {
-          this.forceUpdate(true)
-        }, this.refreshDelay)
+      data: {
+        handler() {
+          setTimeout(() => {
+            this.forceUpdate(true)
+          }, this.refreshDelay)
+        },
+        deep: true
       },
       pullDownRefresh: {
         handler(newVal, oldVal) {
@@ -252,7 +256,7 @@
         this.initScroll()
       })
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.destroy()
     },
     methods: {
@@ -501,7 +505,7 @@
         if (!pulldown) {
           return
         }
-        pulldown = pulldown.firstChild
+        pulldown = pulldown.children[0]
         this.pullDownHeight = getRect(pulldown).height
 
         this.beforePullDown = false
@@ -530,7 +534,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   .cube-scroll-wrapper

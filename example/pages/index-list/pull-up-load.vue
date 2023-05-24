@@ -1,6 +1,6 @@
 <template>
   <cube-page type="index-list" title="IndexList">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <div class="index-list-wrapper">
           <cube-index-list
@@ -14,11 +14,11 @@
           </cube-index-list>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import cityData from '../../data/index-list.json'
 
@@ -58,7 +58,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .view-wrapper
     position: fixed
     top: 54px

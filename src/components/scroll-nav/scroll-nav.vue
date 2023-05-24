@@ -27,7 +27,7 @@
             <div class="cube-scroll-nav-panels">
               <slot></slot>
             </div>
-            <template slot="fixed" v-if="!side">
+            <template #fixed v-if="!side">
               <div></div>
             </template>
           </cube-sticky>
@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import scrollMixin from '../../common/mixins/scroll'
 
   import CubeSticky from '../sticky/sticky.vue'
@@ -60,6 +60,7 @@
       }
     },
     mixins: [scrollMixin],
+    emits: [EVENT_CHANGE, EVENT_STICKY_CHANGE],
     props: {
       data: {
         type: Array
@@ -211,7 +212,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .cube-scroll-nav
     position: relative
     height: 100%

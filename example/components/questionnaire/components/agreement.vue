@@ -9,20 +9,21 @@
 
 <script>
 export default {
+  emits: ['update:modelValue'],
   props: {
-    value: Boolean,
+    modelValue: Boolean,
     desc: String,
     text: String,
     link: Object
   },
   data() {
     return {
-      checked: this.value
+      checked: this.modelValue
     }
   },
   watch: {
     checked(newV) {
-      this.$emit('input', newV)
+      this.$emit('update:modelValue', newV)
     }
   }
 }

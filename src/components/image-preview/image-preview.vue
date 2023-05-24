@@ -24,13 +24,13 @@
               <cube-scroll
                 ref="items"
                 :options="scrollOptions"
-                @dblclick.native="dblclickHandler(index, $event)"
+                @dblclick="dblclickHandler(index, $event)"
               >
                 <img class="cube-image-preview-img" :src="img" @load="imgLoad(index)">
               </cube-scroll>
             </div>
           </cube-slide-item>
-          <template slot="dots"><i></i></template>
+          <template #dots><i></i></template>
         </cube-slide>
         <div class="cube-image-preview-footer">
           <slot name="footer" :current="currentPageIndex">
@@ -41,7 +41,7 @@
     </cube-popup>
   </transition>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import CubePopup from '../popup/popup.vue'
   import CubeSlide from '../slide/slide.vue'
   import CubeSlideItem from '../slide/slide-item.vue'
@@ -58,6 +58,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_CHANGE, EVENT_HIDE],
     props: {
       initialIndex: {
         type: Number,
@@ -274,10 +275,10 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
-  .cube-image-preview-fade-enter, .cube-image-preview-fade-leave-active
+  .cube-image-preview-fade-enter-from, .cube-image-preview-fade-leave-to
     opacity: 0
   .cube-image-preview-fade-enter-active, .cube-image-preview-fade-leave-active
     transition: all .3s ease-in-out

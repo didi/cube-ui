@@ -20,6 +20,6 @@ export default {
     }
   },
   beforeCreate() {
-    locale.install(this.$root.constructor)
+    locale.install(this._.appContext.app)
   }
 }

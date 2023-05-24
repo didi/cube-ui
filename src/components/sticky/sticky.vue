@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import {
     getRect,
     prefixStyle,
@@ -33,6 +33,7 @@
         sticky: this
       }
     },
+    emits: [EVENT_CHANGE, EVENT_DIFF_CHANGE],
     props: {
       pos: {
         type: Number,
@@ -44,8 +45,8 @@
       },
       fixedShowAni: {
         type: String,
-        default() {
-          return this.checkTop ? '' : 'cube-sticky-fixed-fade'
+        default(props) {
+          return props.checkTop ? '' : 'cube-sticky-fixed-fade'
         }
       },
       offset: {
@@ -86,7 +87,7 @@
 
         const currentKey = (newEle && newEle.eleKey !== undefined) ? newEle.eleKey : newIndex === -1 ? '' : newIndex
         const fixedEle = this.$refs.fixedEle
-        const fixedSlot = this.$slots.fixed || this.$scopedSlots.fixed
+        const fixedSlot = this.$slots.fixed
 
         this.$nextTick(() => {
           if (fixedSlot) {
@@ -198,7 +199,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .cube-sticky
     position: relative
     height: 100%
@@ -209,7 +210,7 @@
     top: 0
     left: 0
     right: 0
-  .cube-sticky-fixed-fade-enter, .cube-sticky-fixed-fade-leave-active
+  .cube-sticky-fixed-fade-enter-from, .cube-sticky-fixed-fade-leave-to
     opacity: 0
   .cube-sticky-fixed-fade-enter-active, .cube-sticky-fixed-fade-leave-active
     transition: all .2s ease-in-out

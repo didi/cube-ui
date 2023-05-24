@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeSwipeItem from './swipe-item.vue'
 
   const COMPONENT_NAME = 'cube-swipe'
@@ -28,6 +28,7 @@
         swipe: this
       }
     },
+    emits: [EVENT_ITEM_CLICK, EVENT_BTN_CLICK],
     props: {
       data: {
         type: Array,
@@ -79,7 +80,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .cube-swipe
     overflow: hidden
 
@@ -88,7 +89,7 @@
     .cube-swipe-item-inner
       transition: all 0.3s
 
-  .cube-swipe-enter, .cube-swipe-leave-to
+  .cube-swipe-enter-from, .cube-swipe-leave-to
     .cube-swipe-item-inner
       height: 0
 </style>

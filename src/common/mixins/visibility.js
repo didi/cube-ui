@@ -1,10 +1,6 @@
-const EVENT_TOGGLE = 'toggle'
+const EVENT_TOGGLE = 'update:visible'
 
 export default {
-  model: {
-    prop: 'visible',
-    event: EVENT_TOGGLE
-  },
   props: {
     visible: {
       type: Boolean,
@@ -18,6 +14,7 @@ export default {
       isVisible: false
     }
   },
+  emits: [EVENT_TOGGLE],
   watch: {
     isVisible(newVal) {
       this.$emit(EVENT_TOGGLE, newVal)
@@ -27,6 +24,7 @@ export default {
     this.$watch('visible', (newVal, oldVal) => {
       if (newVal) {
         this.show()
+        // todo createAPI
       } else if (oldVal && !this._createAPI_reuse) {
         this.hide()
       }

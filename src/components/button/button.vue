@@ -13,6 +13,7 @@
   const COMPONENT_NAME = 'cube-button'
   export default {
     name: COMPONENT_NAME,
+    emits: ['click'],
     props: {
       icon: {
         type: String,
@@ -73,7 +74,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
   btn-active($bg, $border = null)

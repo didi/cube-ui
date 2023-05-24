@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="option-demo">
-    <div slot="content" class="scroll-wrapper">
+    <template #content class="scroll-wrapper">
       <div class="demo">
         <cube-scroll
           ref="scroll"
@@ -24,11 +24,11 @@
           </ul>
         </cube-scroll>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 const _data1 = [
@@ -60,8 +60,8 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-.inner-horizontal-scroll  
+<style lang="stylus">
+.inner-horizontal-scroll
   vertical-align: top
   width: 200px
 .outer-horizontal-scroll

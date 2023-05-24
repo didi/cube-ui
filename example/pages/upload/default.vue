@@ -1,6 +1,6 @@
 <template>
   <cube-page type="upload-view-def" title="Upload">
-    <template slot="content">
+    <template #content>
       <p>Normal upload(File max size 1MB): </p>
       <div>
         <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" @files-added="filesAdded" />
@@ -12,7 +12,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   export default {
@@ -57,7 +57,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .upload-view-def
     .content
       >

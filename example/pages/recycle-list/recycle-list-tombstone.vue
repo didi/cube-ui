@@ -1,9 +1,9 @@
 <template>
   <cube-page type="recycle-list" title="RecycleList">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <cube-recycle-list class="list" :infinite="infinite" :size="size" :on-fetch="onFetch">
-          <template slot="tombstone" slot-scope="props">
+          <template #tombstone="props">
             <div class="item tombstone">
               <div class="avatar"></div>
               <div class="bubble">
@@ -16,7 +16,7 @@
               </div>
             </div>
           </template>
-          <template slot="item" slot-scope="{ data }">
+          <template #item="{ data }">
             <div :id="data.id" class="item" @click="handleClick(data)">
               <div class="avatar" :style="{backgroundImage: 'url(' + (data.avatar || '') + ')'}"></div>
               <div class="bubble">
@@ -28,16 +28,20 @@
             </div>
           </template>
           <!-- <div slot="spinner">Loading Data</div> -->
-          <div slot="noMore">没有更多数据了</div>
+          <template #noMore>
+            <div>没有更多数据了</div>
+          </template>
         </cube-recycle-list>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import Mock from '../../data/messages.js'
+
+  const getUrl = (name) => new URL(`./avatar${name}.png`, import.meta.url).href
 
   const AVATAR_LENGTH = 6
   export default {
@@ -59,7 +63,7 @@
         const msg = Mock.messages[Math.floor(Math.random() * Mock.messages.length)]
         return {
           id,
-          avatar: require(`./avatar${avatar}.png`),
+          avatar: getUrl(avatar),
           msg: msg,
           time: new Date(Math.floor(this.initTime + id * this.size * 1000 + Math.random() * this.size * 1000)).toString()
         }
@@ -82,7 +86,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .view-wrapper
     position: fixed
     top: 54px

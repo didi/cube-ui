@@ -64,8 +64,8 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  @require "~@/common/stylus/variable.styl"
+<style lang="stylus">
+  @require "../../../src/common/stylus/variable.styl"
 
   .docs-view
     display: flex

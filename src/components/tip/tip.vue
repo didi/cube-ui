@@ -9,7 +9,7 @@
     </div>
   </transition>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import visibilityMixin from '../../common/mixins/visibility'
 
   const COMPONENT_NAME = 'cube-tip'
@@ -19,6 +19,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin],
+    emits: [EVENT_CLICK, EVENT_CLOSE],
     props: {
       direction: {
         type: String,
@@ -107,7 +108,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

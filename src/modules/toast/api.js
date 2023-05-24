@@ -1,5 +1,5 @@
 import createAPI from '../../common/helpers/create-api'
 
-export default function addToast (Vue, Toast) {
-  createAPI(Vue, Toast, ['timeout'], true)
+export default function addToast (app, Toast) {
+  createAPI(app, Toast, ['timeout'], true)
 }

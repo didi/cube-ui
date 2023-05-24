@@ -2,7 +2,7 @@ import { deepAssign } from '../util'
 
 function addMessage (...args) {
   const NAMESPACE = 'validator'
-  const vueProto = this._base.prototype
+  const vueProto = this._base.config.globalProperties
   const lang = vueProto.$cubeLang
   const baseMessages = vueProto.$cubeMessages[lang][NAMESPACE]
 

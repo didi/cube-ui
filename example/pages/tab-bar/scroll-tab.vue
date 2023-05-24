@@ -1,6 +1,6 @@
 <template>
   <cube-page type="scroll-tab-view" title="ScrollTab">
-    <div slot="content">
+    <template #content>
       <div class="left-panel">
         <cube-scroll>
           <cube-tab-bar v-model="selectedLabel" :data="tabs" @change="changeHandler"></cube-tab-bar>
@@ -16,11 +16,11 @@
           </ul>
         </cube-scroll>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import * as DATAS from '../../data/tab-bar'
 
@@ -68,7 +68,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 .scroll-tab-view
   .cube-tab-bar
     flex-wrap: wrap

@@ -6,15 +6,16 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   const COMPONENT_NAME = 'cube-switch'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_INPUT],
     props: {
-      value: {
+      modelValue: {
         type: Boolean,
         default: false
       },
@@ -25,11 +26,11 @@
     },
     data() {
       return {
-        checkboxValue: this.value
+        checkboxValue: this.modelValue
       }
     },
     watch: {
-      value (newVal) {
+      modelValue (newVal) {
         this.checkboxValue = newVal
       },
       checkboxValue (newVal) {
@@ -39,7 +40,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   $switch-width = 48px

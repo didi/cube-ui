@@ -1,6 +1,6 @@
 <template>
   <cube-page type="switch-view" title="Switch">
-    <template slot="content">
+    <template #content>
       <cube-switch v-model="values[0]">Switch</cube-switch>
       <p>switch value: {{values[0]}}</p>
       <cube-switch v-model="values[1]">Switch</cube-switch>
@@ -13,7 +13,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
 
   export default {
@@ -29,7 +29,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .switch-view
     .content
       >

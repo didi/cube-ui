@@ -6,14 +6,14 @@
       :mask="mask"
       v-show="isVisible"
       @mask-click="maskClick"
-      >
+    >
       <i v-if="!isLoading && iconClass.length" class="cube-toast-icon" :class="iconClass"></i>
       <cube-loading v-if="isLoading"></cube-loading>
       <div v-show="txt" class="cube-toast-tip" v-html="txt"></div>
     </cube-popup>
   </transition>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import CubeLoading from '../loading/loading.vue'
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
@@ -26,6 +26,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin],
+    emits: [EVENT_TIMEOUT],
     props: {
       type: {
         type: String,
@@ -105,7 +106,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-toast
     &.cube-popup
@@ -117,19 +118,19 @@
       color: $toast-color
       background-color: $toast-bgc
       border-radius: 2px
-  .cube-toast-icon
-    width: 24px
-    height: 24px
-    font-size: $fontsize-large-xxx
-  .cube-toast-tip
-    line-height: 20px
-    font-size: $fontsize-medium
-    max-width: 12em
-    max-height: 40px
-    overflow: hidden
-  .cube-toast-icon, .cube-loading
-    ~ .cube-toast-tip
-      margin-left: 8px
+    .cube-toast-icon
+      width: 24px
+      height: 24px
+      font-size: $fontsize-large-xxx
+    .cube-toast-tip
+      line-height: 20px
+      font-size: $fontsize-medium
+      max-width: 12em
+      max-height: 40px
+      overflow: hidden
+    .cube-toast-icon, .cube-loading
+      ~ .cube-toast-tip
+        margin-left: 8px
 
   .cube-toast-fade-enter-active
     animation: toast-in .2s

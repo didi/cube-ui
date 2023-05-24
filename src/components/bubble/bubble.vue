@@ -2,7 +2,7 @@
   <canvas ref="bubble" :width="width" :height="height" :style="style"></canvas>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   export default {
     props: {
       y: {
@@ -13,7 +13,8 @@
     data() {
       return {
         width: 50,
-        height: 80
+        height: 80,
+        ratio: 2
       }
     },
     computed: {

@@ -6,14 +6,14 @@ import addCascadePicker from '../cascade-picker/api'
 import addPicker from '../picker/api'
 import Locale from '../../common/locale'
 
-DatePicker.install = function (Vue) {
-  Vue.component(Picker.name, Picker)
-  Vue.component(CascadePicker.name, CascadePicker)
-  Vue.component(DatePicker.name, DatePicker)
-  Locale.install(Vue)
-  addPicker(Vue, Picker)
-  addCascadePicker(Vue, CascadePicker)
-  addDatePicker(Vue, DatePicker)
+DatePicker.install = function (app) {
+  app.component(Picker.name, Picker)
+  app.component(CascadePicker.name, CascadePicker)
+  app.component(DatePicker.name, DatePicker)
+  Locale.install(app)
+  addPicker(app, Picker)
+  addCascadePicker(app, CascadePicker)
+  addDatePicker(app, DatePicker)
 }
 
 DatePicker.Picker = Picker

@@ -8,14 +8,14 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import UploadBtn from './btn.vue'
   import UploadFile from './file.vue'
   import ajaxUpload from './ajax'
   import btnMixin from './btn-mixin'
   import {
     processFiles,
-    newFile,
+    // newFile,
     URL,
     STATUS_READY,
     STATUS_UPLOADING,
@@ -24,7 +24,7 @@
   } from './util'
 
   const COMPONENT_NAME = 'cube-upload'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_ADDED = 'files-added'
   const EVENT_SUBMITTED = 'file-submitted'
   const EVENT_REMOVED = 'file-removed'
@@ -35,8 +35,9 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [btnMixin],
+    emits: [EVENT_INPUT, EVENT_ADDED, EVENT_SUBMITTED, EVENT_REMOVED, EVENT_SUCCESS, EVENT_ERROR, EVENT_CLICK],
     props: {
-      value: {
+      modelValue: {
         type: Array,
         default() {
           return []
@@ -67,7 +68,7 @@
     },
     data() {
       return {
-        files: this.value,
+        files: this.modelValue,
         paused: !this.auto
       }
     },
@@ -87,7 +88,7 @@
       }
     },
     watch: {
-      value(newVal) {
+      modelValue(newVal) {
         this.files = newVal
       },
       files(newFiles) {
@@ -105,12 +106,13 @@
         while (newFiles.length < maxLen && file) {
           if (!file.ignore) {
             newFiles.push(file)
-            this.files.push(newFile())
+            // this.files.push(newFile())
           }
           file = files[++i]
         }
         processFiles(newFiles, this.processFile, (file, index) => {
-          this.$set(this.files, filesLen + index, file)
+          // this.$set(this.files, filesLen + index, file)
+          this.files.push(file)
           this.$emit(EVENT_SUBMITTED, file)
         }, () => {
           // waiting ui
@@ -183,7 +185,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   .cube-upload
     position: relative

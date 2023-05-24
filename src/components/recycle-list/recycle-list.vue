@@ -25,8 +25,9 @@
         <!-- preloads item for get its height, remove it after caculating height-->
         <div class="cube-recycle-list-pool">
           <div
+            v-if="!infinite && preload"
             class="cube-recycle-list-item cube-recycle-list-invisible"
-            v-if="item && !item.isTombstone && !item.height"
+            v-show="item && !item.isTombstone && !item.height"
             :ref="'preloads'+index"
             v-for="(item, index) in items"
           >
@@ -69,13 +70,15 @@
 
   export default {
     name: COMPONENT_NAME,
+    emits: [EVENT_SCROLL, EVENT_RESIZE],
     data() {
       return {
         items: [],
         heights: 0,
         startIndex: 0,
         loadings: [],
-        noMore: false
+        noMore: false,
+        preload: false
       }
     },
     props: {
@@ -117,7 +120,7 @@
       window.addEventListener(EVENT_RESIZE, this._onResize)
       this.load()
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.$el.removeEventListener(EVENT_SCROLL, this._onScroll)
       window.removeEventListener(EVENT_RESIZE, this._onResize)
     },
@@ -146,6 +149,7 @@
         const promiseFetch = this.onFetch()
         this.loadings.push('pending')
         this.promiseStack.push(promiseFetch)
+        this.preload = true
         promiseFetch.then((res) => {
           this.loadings.pop()
           /* istanbul ignore if */
@@ -158,6 +162,11 @@
               this.stopScroll(index)
             }
           }
+
+          // wait for preload items calculate height
+          setTimeout(() => {
+            this.preload = false
+          }, 0)
         })
       },
       removeUnusedTombs(copy, index) {
@@ -212,13 +221,20 @@
         })
       },
       setItem(index, data) {
-        this.$set(this.items, index, {
+        // this.$set(this.items, index, {
+        //   data: data || {},
+        //   height: 0,
+        //   top: -1000,
+        //   isTombstone: !data,
+        //   loaded: data ? 1 : 0
+        // })
+        this.items[index] = {
           data: data || {},
           height: 0,
           top: -1000,
           isTombstone: !data,
           loaded: data ? 1 : 0
-        })
+        }
       },
       updateItemHeight(index) {
         // update item height
@@ -321,7 +337,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .cube-recycle-list
     position: relative
     height: 100%

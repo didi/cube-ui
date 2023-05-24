@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tab-bar-view" title="TabBar">
-    <div slot="content">
+    <template #content>
       <!-- default -->
       <div class="section">
         <cube-tab-bar
@@ -43,11 +43,11 @@
           </cube-tab>
         </cube-tab-bar>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   export default {
@@ -90,8 +90,8 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style lang="stylus">
+
   .tab-bar-view
     .section
       margin-bottom: 10px

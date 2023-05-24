@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeStickyEle from '../sticky/sticky-ele.vue'
 
   const COMPONENT_NAME = 'cube-scroll-nav-panel'
@@ -22,16 +22,16 @@
       },
       title: {
         type: [String, Number],
-        default() {
+        default(props) {
           /* istanbul ignore next */
-          return this.label
+          return props.label
         }
       }
     },
     mounted() {
       this.scrollNav.addPanel(this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.scrollNav.removePanel(this)
     },
     components: {

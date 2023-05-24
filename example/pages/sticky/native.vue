@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-native" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky :pos="scrollY" :check-top="checkTop">
           <div class="scroll-ele" @scroll="scrollHandler">
@@ -39,7 +39,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   const _data = [
@@ -80,7 +80,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .sticky-view-native
     .content
       >

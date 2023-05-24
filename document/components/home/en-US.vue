@@ -1,10 +1,12 @@
 <template>
   <home>
-    <template slot="nav">
+    <template #nav>
       <router-link to="/en-US/docs" class="tab"><span>Docs</span></router-link>
       <router-link to="/en-US/example" class="tab"><span>Example</span></router-link>
     </template>
-    <div slot="home">home</div>
+    <template #home>
+      <div>home</div>
+    </template>
   </home>
 </template>
 

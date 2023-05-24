@@ -1,6 +1,6 @@
 <template>
   <cube-page type="index-list" title="IndexList">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="goTo('default')">Default</cube-button>
         <cube-button @click="goTo('custom')">Custom</cube-button>
@@ -8,11 +8,11 @@
         <cube-button @click="goTo('pull-down-refresh')">Pull Down Refresh</cube-button>
       </cube-button-group>
       <cube-view></cube-view>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import CubeView from 'example/components/cube-view.vue'
@@ -31,5 +31,5 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 </style>

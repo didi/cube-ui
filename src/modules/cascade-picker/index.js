@@ -4,12 +4,12 @@ import addCascadePicker from './api'
 import addPicker from '../picker/api'
 import Locale from '../../common/locale'
 
-CascadePicker.install = function (Vue) {
-  Vue.component(Picker.name, Picker)
-  Vue.component(CascadePicker.name, CascadePicker)
-  Locale.install(Vue)
-  addPicker(Vue, Picker)
-  addCascadePicker(Vue, CascadePicker)
+CascadePicker.install = function (app) {
+  app.component(Picker.name, Picker)
+  app.component(CascadePicker.name, CascadePicker)
+  Locale.install(app)
+  addPicker(app, Picker)
+  addCascadePicker(app, CascadePicker)
 }
 
 CascadePicker.Picker = Picker

@@ -15,7 +15,7 @@
       :autofocus="autofocus"
       @focus="handleFocus"
       @blur="handleBlur"
-      @change="changeHander"
+      @change="changeHandler"
     >
     <div class="cube-input-append" v-if="$slots.append || _showClear || _showPwdEye">
       <div class="cube-input-clear" v-if="_showClear" @touchend="handleClear">
@@ -29,18 +29,19 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import inputMixin from '../../common/mixins/input'
   const COMPONENT_NAME = 'cube-input'
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_BLUR = 'blur'
   const EVENT_FOCUS = 'focus'
 
   export default {
     name: COMPONENT_NAME,
     mixins: [inputMixin],
+    emits: [EVENT_INPUT, EVENT_BLUR, EVENT_FOCUS],
     props: {
-      value: [String, Number],
+      modelValue: [String, Number],
       type: {
         type: String,
         default: 'text'
@@ -84,7 +85,7 @@
     },
     data() {
       return {
-        inputValue: this.value,
+        inputValue: this.modelValue,
         isFocus: false,
         formatedClearable: {
           visible: false,
@@ -123,7 +124,7 @@
       }
     },
     watch: {
-      value(newValue) {
+      modelValue(newValue) {
         this.inputValue = newValue
       },
       inputValue(newValue) {
@@ -177,7 +178,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

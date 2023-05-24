@@ -1,6 +1,6 @@
 <template>
   <cube-page type="swipe-view" title="Swipe">
-    <template slot="content">
+    <template #content>
       <div class="swipe-wrapper">
         <cube-scroll>
           <cube-swipe
@@ -14,7 +14,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import { defaultData } from '../../data/swipe'
   export default {
@@ -48,7 +48,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .swipe-view
     .swipe-wrapper
       position: fixed

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="textarea-view" title="Textarea" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div class="textarea-wrapper">
         <cube-textarea
           v-model="text"
@@ -30,15 +30,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import CubePage from '../components/cube-page.vue'
-  import SwitchOption from '../components/switch-option'
-  import InputOption from '../components/input-option'
+  import SwitchOption from '../components/switch-option.vue'
+  import InputOption from '../components/input-option.vue'
 
   export default {
     data() {
@@ -84,7 +84,7 @@
 </script>
 
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .textarea-wrapper
     margin: 30px 0
   .component-desc

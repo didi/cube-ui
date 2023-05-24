@@ -1,6 +1,6 @@
 <template>
   <cube-page type="tip-view" title="Tip">
-    <div slot="content">
+    <template #content>
       <p class="tip-eg">
         <cube-button
           :inline="true"
@@ -28,11 +28,11 @@
       <cube-button @click="showTip('top')">bottom</cube-button>
       <cube-button @click="showTip('right')">left</cube-button>
       <cube-button @click="showTip('left')">right</cube-button>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubeButtonGroup from '../components/cube-button-group.vue'
   import CubePage from '../components/cube-page.vue'
 
@@ -77,7 +77,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .tip-view
     .tip-eg
       position: relative

@@ -1,6 +1,6 @@
 <template>
   <cube-cascade-picker
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="data"
     :selected-index="selectedIndex"
     :title="title"
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
   import pickerMixin from '../../common/mixins/picker'
@@ -65,6 +66,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       min: {
         type: [Date, Array],
@@ -96,8 +98,8 @@
       },
       value: {
         type: [Date, Array],
-        default() {
-          return this.min
+        default(props) {
+          return props.min
         }
       },
       columnOrder: {
@@ -244,6 +246,9 @@
         this._rangeCache[k] = arr
         return arr
       }
+    },
+    components: {
+      CubeCascadePicker,
     }
   }
 

@@ -5,10 +5,11 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   const COMPONENT_NAME = 'input-option'
   export default {
     name: COMPONENT_NAME,
+    emits: ['update:value'],
     props: {
       name: {
         type: String
@@ -29,8 +30,8 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "~@/common/stylus/variable.styl"
+<style scoped lang="stylus">
+  @import "../../src/common/stylus/variable.styl"
 
   .input-option
     display: flex

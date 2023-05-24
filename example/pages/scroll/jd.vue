@@ -1,45 +1,47 @@
 <template>
   <cube-page type="scroll-view" title="Scroll" class="jd">
-    <div slot="content" class="scroll-list-wrap">
-      <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/_tEw0ofPJ9/jd_header2.png"></header>
-      <cube-scroll
-        ref="scroll"
-        :data="[]"
-        :scroll-events="['scroll']"
-        :options="options"
-        @scroll="onScrollHandle"
-        @pulling-down="onPullingDown">
-        <img src="https://dpubstatic.udache.com/static/dpubimg/RWEjWgWJ4x/jd_content.JPG" @load="onImgLoad">
-        <img class="ghostly-img" src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png" @load="onImgLoad">
-        <template slot="pulldown" slot-scope="props">
-          <div
-              v-if="props.pullDownRefresh"
-              class="cube-pulldown-wrapper"
-              :style="pullDownStyle">
-            <div class="pulldown-content">
-              <img src="https://dpubstatic.udache.com/static/dpubimg/7d895941-251f-471f-abc4-3eca25762465.jpg" @load="onImgLoad">
-              <span v-if="props.beforePullDown">{{ pullDownTip }}</span>
-              <template v-else>
-                <span v-if="props.isPullingDown">正在更新...</span>
-                <span v-else>更新成功</span>
-              </template>
+    <template #content>
+      <div class="scroll-list-wrap">
+        <header ref="topHeader"><img src="https://dpubstatic.udache.com/static/dpubimg/_tEw0ofPJ9/jd_header2.png" style="width: 100%;"></header>
+        <cube-scroll
+          ref="scroll"
+          :data="[]"
+          :scroll-events="['scroll']"
+          :options="options"
+          @scroll="onScrollHandle"
+          @pulling-down="onPullingDown">
+          <img src="https://dpubstatic.udache.com/static/dpubimg/RWEjWgWJ4x/jd_content.JPG" @load="onImgLoad">
+          <img class="ghostly-img" src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png" @load="onImgLoad">
+          <template #pulldown="props">
+            <div
+                v-if="props.pullDownRefresh"
+                class="cube-pulldown-wrapper"
+                :style="pullDownStyle">
+              <div class="pulldown-content">
+                <img src="https://dpubstatic.udache.com/static/dpubimg/7d895941-251f-471f-abc4-3eca25762465.jpg" @load="onImgLoad">
+                <span v-if="props.beforePullDown">{{ pullDownTip }}</span>
+                <template v-else>
+                  <span v-if="props.isPullingDown">正在更新...</span>
+                  <span v-else>更新成功</span>
+                </template>
+              </div>
             </div>
+          </template>
+        </cube-scroll>
+        <footer><img src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png"></footer>
+        <transition name="surprise-page">
+          <div v-if="triggerSurprise"
+            @click="surpriseHandle"
+            class="surprise-page">
+            <img src="https://dpubstatic.udache.com/static/dpubimg/42DhMSHmIY/ad_fullpage2.jpg">
           </div>
-        </template>
-      </cube-scroll>
-      <footer><img src="https://dpubstatic.udache.com/static/dpubimg/cVujBAH2sp/jd_footer2.png"></footer>
-      <transition name="surprise-page">
-        <div v-if="triggerSurprise"
-          @click="surpriseHandle"
-          class="surprise-page">
-          <img src="https://dpubstatic.udache.com/static/dpubimg/42DhMSHmIY/ad_fullpage2.jpg">
-        </div>
-      </transition>
-    </div>
+        </transition>
+      </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import CubePage from '../../components/cube-page.vue'
 
 let imagesCount = 3
@@ -115,7 +117,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 .jd
   .content
     margin: 0 !important
@@ -166,10 +168,10 @@ export default {
     left: 0
     z-index: 33
     line-height: 0
-    img 
+    img
       height: 100%
       width: 100%
-  .surprise-page-enter, .surprise-page-leave-to
+  .surprise-page-enter-from, .surprise-page-leave-to
     transform: translateY(-100%)
   .surprise-page-enter-active, .surprise-page-leave-active
     transition: transform .3s

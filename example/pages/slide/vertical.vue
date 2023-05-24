@@ -1,6 +1,6 @@
 <template>
   <cube-page type="slide-view" title="Slide" class="option-demo">
-    <div slot="content">
+    <template #content>
       <div class="slide-container-v">
         <cube-slide
           :data="items"
@@ -10,11 +10,11 @@
           @change="change">
         </cube-slide>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   export default {
@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
 .slide-view
   .slide-container-v
     height: 265px

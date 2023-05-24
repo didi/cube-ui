@@ -1,7 +1,9 @@
 <template>
   <div class="demo-select" @click="clickHandler">
     <cube-input ref="input" v-model="modelText" v-bind="$attrs">
-      <i :class="icon" slot="append" v-if="icon"></i>
+      <template #append>
+        <i v-if="icon" :class="icon"></i>
+      </template>
     </cube-input>
   </div>
 </template>
@@ -11,7 +13,7 @@ import { camelize } from '../../../src/common/lang/string'
 export default {
   props: {
     // v-model 值
-    value: null,
+    modelValue: null,
     // 图标
     icon: String,
     // 配置项
@@ -46,14 +48,14 @@ export default {
       this.modelMap[newV.value] = newV.text
       // value 发生了变化
       // @arg value select结果
-      this.$emit('input', newV.value)
+      this.$emit('update:modelValue', newV.value)
     }
   },
   beforeCreate() {
     this.modelMap = {}
   },
   methods: {
-    _formatValue(value = this.value) {
+    _formatValue(value = this.modelValue) {
       if (value === Object(value)) {
         return value
       }
@@ -64,15 +66,17 @@ export default {
     },
     defaultAction() {
       const { component, options } = this.options
-      return this[camelize(`$create-${component}`)](options || {})
+      return this[camelize(`$create-${component}`)]({...options,
+        ...{
+          onSelect: this.onSelect,
+          onHide: this.onHide,
+          onCancel: this.onHide,
+          onClose: this.onHide
+        }} || {})
     },
     showComponent() {
       if (!this.actionComponent) {
-        const component = this.actionComponent = this.action ? this.action(this) : this.defaultAction(this)
-        component.$on('select', this.onSelect)
-        component.$on('hide', this.onHide)
-        component.$on('cancel', this.onHide)
-        component.$on('close', this.onHide)
+        this.actionComponent = this.action ? this.action(this) : this.defaultAction(this)
       }
       this.actionComponent.show()
       this.isActive = true

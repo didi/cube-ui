@@ -41,7 +41,7 @@
   </transition>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import BScroll from 'better-scroll'
   import CubePopup from '../popup/popup.vue'
   import visibilityMixin from '../../common/mixins/visibility'
@@ -60,6 +60,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_VALUE_CHANGE, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       pending: {
         type: Boolean,
@@ -68,7 +69,9 @@
     },
     data() {
       return {
-        finalData: this.data.slice()
+        finalData: this.data.slice(),
+        _values: [],
+        _indexes: []
       }
     },
     created() {
@@ -191,7 +194,8 @@
         let dist = 0
         if (scroll && wheel) {
           let oldData = this.finalData[index]
-          this.$set(this.finalData, index, data)
+          // this.$set(this.finalData, index, data)
+          this.finalData[index] = data
           let selectedIndex = wheel.getSelectedIndex()
           if (oldData.length) {
             let oldValue = oldData[selectedIndex][this.valueKey]
@@ -281,7 +285,7 @@
         return selectedIndex
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.wheels && this.wheels.forEach((wheel) => {
         wheel.destroy()
       })
@@ -293,13 +297,13 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/mixin.styl"
   @require "../../common/stylus/variable.styl"
 
   $picker-lr-padding = 16px
 
-  .cube-picker-fade-enter, .cube-picker-fade-leave-active
+  .cube-picker-fade-enter-from, .cube-picker-fade-leave-to
     opacity: 0
 
   .cube-picker-fade-enter-active, .cube-picker-fade-leave-active
@@ -311,7 +315,7 @@
     font-size: $fontsize-medium
     background: $picker-bgc
 
-  .cube-picker-move-enter, .cube-picker-move-leave-active
+  .cube-picker-move-enter-from, .cube-picker-move-leave-to
     transform: translate3d(0, 100%, 0)
 
   .cube-picker-move-enter-active, .cube-picker-move-leave-active

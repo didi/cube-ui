@@ -39,6 +39,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
+    emits: [EVENT_NEXT, EVENT_PREV, EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       data: {
         type: Array,

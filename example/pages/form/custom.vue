@@ -1,6 +1,6 @@
 <template>
   <cube-page type="form-custom" title="Form 表单">
-    <div slot="content">
+    <template #content>
       <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
         <cube-form-group>
           <cube-form-item :field="fields[0]"></cube-form-item>
@@ -16,11 +16,12 @@
       </cube-form>
       <json-view title="model" :data="model" />
       <json-view title="validity" :data="validity" />
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+  import { h, markRaw } from 'vue'
   import CubePage from 'example/components/cube-page.vue'
   import CubeButtonGroup from 'example/components/cube-button-group.vue'
   import DatePicker from 'example/components/date-picker.vue'
@@ -34,9 +35,9 @@
       city.children = areaList[city.value]
     })
   })
-  const PCA = {
+  const PCA = markRaw({
     props: {
-      value: {
+      modelValue: {
         type: Array,
         default() {
           return []
@@ -48,11 +49,9 @@
         selected: []
       }
     },
-    render(createElement) {
-      return createElement('cube-button', {
-        on: {
-          click: this.showPicker
-        }
+    render() {
+      return h('cube-button', {
+        onClick: this.showPicker
       }, this.selected.length ? this.selected.join(' ') : 'placeholder')
     },
     mounted() {
@@ -69,10 +68,10 @@
       },
       selectHandler(selectedVal, selectedIndex, selectedTxt) {
         this.selected = selectedTxt
-        this.$emit('input', selectedVal)
+        this.$emit('update:modelValue', selectedVal)
       }
     }
-  }
+  })
 
   export default {
     data() {
@@ -142,7 +141,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .form-custom
     .cube-form-item
       .cube-btn

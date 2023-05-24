@@ -11,7 +11,7 @@
     </slot>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
   const COMPONENT_NAME = 'cube-tab'
 
   export default {
@@ -21,10 +21,10 @@
         type: [String, Number],
         required: true
       },
-      value: {
+      modelValue: {
         type: [String, Number],
-        default() {
-          return this.label
+        default(props) {
+          return props.label
         }
       },
       icon: {
@@ -40,17 +40,17 @@
     },
     computed: {
       isActive () {
-        return this.$parent.value === this.value
+        return this.$parent.modelValue === this.modelValue
       }
     },
     methods: {
       handleClick (item) {
-        this.$parent.trigger(this.value)
+        this.$parent.trigger(this.modelValue)
       }
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   .cube-tab

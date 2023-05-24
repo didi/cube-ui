@@ -10,7 +10,7 @@
   </li>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   const COMPONENT_NAME = 'cube-drawer-item'
 
   export default {
@@ -27,17 +27,17 @@
     },
     computed: {
       itemClass() {
-        return this.$parent.$parent.selectedIndex === this.index ? 'cube-drawer-item_active' : ''
+        return this.$parent.$parent.$parent.selectedIndex === this.index ? 'cube-drawer-item_active' : ''
       }
     },
     methods: {
       clickItem(item) {
-        this.$parent.$parent.itemClickHandler(item, this.index)
+        this.$parent.$parent.$parent.itemClickHandler(item, this.index)
       }
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
   @require "../../common/stylus/mixin.styl"
 

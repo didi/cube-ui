@@ -1,7 +1,7 @@
 <template>
   <cube-picker
     ref="picker"
-    v-model="isVisible"
+    v-model:visible="isVisible"
     :data="pickerData"
     :selected-index="pickerSelectedIndex"
     :pending="pending"
@@ -18,7 +18,7 @@
   </cube-picker>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePicker from '../picker/picker.vue'
   import visibilityMixin from '../../common/mixins/visibility'
   import popupMixin from '../../common/mixins/popup'
@@ -34,6 +34,7 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, basicPickerMixin, pickerMixin, localeMixin],
+    emits: [EVENT_SELECT, EVENT_CANCEL, EVENT_CHANGE],
     props: {
       async: {
         type: Boolean,

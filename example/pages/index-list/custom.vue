@@ -1,26 +1,28 @@
 <template>
   <cube-page type="index-list" title="IndexList">
-    <div slot="content">
+    <template #content>
       <div class="view-wrapper">
         <div class="index-list-wrapper custom">
           <cube-index-list :data="singerData">
             <cube-index-list-group v-for="(group, index) in singerData" :key="index" :group="group">
               <cube-index-list-item v-for="(item, index) in group.items" :key="index" :item="item" @select="selectItem">
                 <div class="custom-item">
-                  <img class="avatar" v-lazy="item.avatar">
+                  <img class="avatar">
                   <span class="name">{{item.name}}</span>
                 </div>
               </cube-index-list-item>
             </cube-index-list-group>
-            <span class="custom-nav-item" slot="nav-item" slot-scope="props">{{props.item}}</span>
+            <template #nav-item="props">
+              <span class="custom-nav-item">{{props.item}}</span>
+            </template>
           </cube-index-list>
         </div>
       </div>
-    </div>
+    </template>
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
   import singerData from '../../data/singer.json'
 
@@ -44,7 +46,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../../src/common/stylus/variable.styl"
 
   .view-wrapper

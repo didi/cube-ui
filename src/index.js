@@ -98,7 +98,7 @@ const components = [
   RecycleList
 ]
 
-function install(Vue) {
+function install(app) {
   if (install.installed) {
     return
   }
@@ -108,7 +108,7 @@ function install(Vue) {
     if (Component === Radio) {
       return
     }
-    Component.install(Vue)
+    Component.install(app)
   })
 }
 
@@ -119,6 +119,9 @@ const Cube = {
   BScroll: BetterScroll,
   createAPI
 }
+
+const stylSymbol = Symbol('style')
+Cube[stylSymbol] = Style
 
 components.forEach((Component) => {
   const name = processComponentName(Component, {

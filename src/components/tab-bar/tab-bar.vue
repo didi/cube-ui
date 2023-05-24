@@ -4,7 +4,7 @@
       <cube-tab
         v-for="(item, index) in data"
         :label="item.label"
-        :value="item.value"
+        :model-value="item.value"
         :icon="item.icon"
         :key="item.value || item.label">
       </cube-tab>
@@ -12,14 +12,14 @@
     <div v-if="showSlider" ref="slider" class="cube-tab-bar-slider"></div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import { prefixStyle } from '../../common/helpers/dom'
   import { findIndex } from '../../common/helpers/util'
   import CubeTab from './tab.vue'
 
   const COMPONENT_NAME = 'cube-tab-bar'
 
-  const EVENT_INPUT = 'input'
+  const EVENT_INPUT = 'update:modelValue'
   const EVENT_CHANGE = 'change'
   const EVENT_CLICK = 'click'
 
@@ -31,8 +31,9 @@
     components: {
       CubeTab
     },
+    emits: [EVENT_INPUT, EVENT_CHANGE, EVENT_CLICK],
     props: {
-      value: {
+      modelValue: {
         type: [String, Number],
         required: true
       },
@@ -56,7 +57,7 @@
       }
     },
     watch: {
-      value () {
+      modelValue () {
         this._updateSliderStyle()
       }
     },
@@ -75,7 +76,7 @@
       /* istanbul ignore next */
       this._cleanUp()
     },
-    beforeDestroy () {
+    beforeUnmount() {
       /* istanbul ignore next */
       this._cleanUp()
     },
@@ -91,7 +92,7 @@
         // emit click event as long as tab is clicked
         this.$emit(EVENT_CLICK, value)
         // only when value changed, emit change & input event
-        if (value !== this.value) {
+        if (value !== this.modelValue) {
           const changedEvents = [EVENT_INPUT, EVENT_CHANGE]
           changedEvents.forEach((eventType) => {
             this.$emit(eventType, value)
@@ -122,7 +123,7 @@
         let width = 0
         let index = 0
         if (this.tabs.length > 0) {
-          index = findIndex(this.tabs, (tab) => tab.value === this.value)
+          index = findIndex(this.tabs, (tab) => tab.modelValue === this.modelValue)
           width = this.tabs[index].$el.clientWidth
         }
         return {
@@ -146,7 +147,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   @require "../../common/stylus/variable.styl"
 
   .cube-tab-bar

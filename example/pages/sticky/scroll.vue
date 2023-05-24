@@ -1,6 +1,6 @@
 <template>
   <cube-page type="sticky-view-scroll" title="Sticky">
-    <template slot="content">
+    <template #content>
       <div class="sticky-view-container">
         <cube-sticky :pos="scrollY">
           <cube-scroll
@@ -35,7 +35,7 @@
               <li v-for="item in items3">{{item}}</li>
             </ul>
           </cube-scroll>
-          <template slot="fixed" slot-scope="props">
+          <template #fixed="props">
             <ul class="sticky-header">
               <li>{{props.current}}</li>
             </ul>
@@ -46,7 +46,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../../components/cube-page.vue'
 
   const _data = [
@@ -87,7 +87,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .sticky-view-scroll
     .content
       >

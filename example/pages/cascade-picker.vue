@@ -1,13 +1,13 @@
 <template>
   <cube-page type="picker-view" title="Cascade Picker" desc="">
-    <div slot="content">
+    <template #content>
       <cube-button-group>
         <cube-button @click="showCascadePicker">Cascade Picker</cube-button>
         <cube-button @click="showAddressPicker">Address Picker</cube-button>
         <cube-button @click="showSetDataPicker">Set Data</cube-button>
         <cube-button @click="showAsyncPicker">Async Load Data</cube-button>
       </cube-button-group>
-    </div>
+    </template>
   </cube-page>
 </template>
 
@@ -43,7 +43,6 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
-
       this.addressPicker = this.$createCascadePicker({
         title: 'City Picker',
         data: addressData,

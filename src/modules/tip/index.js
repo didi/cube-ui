@@ -1,7 +1,7 @@
 import Tip from '../../components/tip/tip.vue'
 
-Tip.install = function (Vue) {
-  Vue.component(Tip.name, Tip)
+Tip.install = function (app) {
+  app.component(Tip.name, Tip)
 }
 
 export default Tip

@@ -1,6 +1,6 @@
 <template>
   <cube-page type="checkbox-group-view" title="CheckboxGroup">
-    <template slot="content">
+    <template #content>
       <cube-checkbox-group v-model="checkList" :options="options" />
       <p>checkList value : {{checkList}}</p>
       <br>
@@ -14,7 +14,7 @@
       </cube-checkbox-group>
       <br>
       <cube-input placeholder="Input column number" v-model="colNum">
-        <div slot="prepend" style="paddingLeft: 10px"> Column number:</div>
+        <template #prepend><div style="paddingLeft: 10px"> Column number:</div></template>
       </cube-input>
       <cube-checkbox-group v-model="colCheckList" :options="colOptions" :col-num="Math.floor(colNum)" />
       <br>
@@ -22,7 +22,7 @@
   </cube-page>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import CubePage from '../components/cube-page.vue'
 
   export default {
@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus">
   .checkbox-group-view
     .content
       >

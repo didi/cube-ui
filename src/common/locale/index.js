@@ -1,4 +1,5 @@
 import defaultMessages from '../../locale/lang/zh-CN'
+import enMessages from '../../locale/lang/en-US'
 import { warn } from '../helpers/debug'
 import { isUndef, isNumber } from '../helpers/util'
 import { formatDate } from '../lang/date'
@@ -9,11 +10,12 @@ const DEFAULT_LANG = 'zh-CN'
 
 const locale = {
   name: 'locale',
-  install (Vue) {
+  install (app) {
     if (locale.installed) return
-    proto = Vue.prototype
-    Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
-    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages }
+    proto = app.config.globalProperties
+    // Vue.util.defineReactive(proto, '$cubeLang', DEFAULT_LANG)
+    proto['$cubeLang'] = DEFAULT_LANG
+    proto['$cubeMessages'] = { [DEFAULT_LANG]: defaultMessages, 'en-US': enMessages }
     locale.installed = true
   },
   use (lang, messages) {

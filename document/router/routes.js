@@ -4,16 +4,16 @@ const routeMap = {}
 
 Object.keys(menuConfig).forEach((lang) => {
   const loadingNotify = (p) => {
-    eventHub.$emit('begin-loading')
+    eventHub.emit('begin-loading')
     return p.then((r) => {
-      eventHub.$emit('finish-loading')
+      eventHub.emit('finish-loading')
       return r
     })
   }
   const docsChildrenRoute = []
   const docsRoute = {
     path: 'docs',
-    redirect: './docs/introduction',
+    redirect: `/${lang}/docs/introduction`,
     component: () => loadingNotify(import(`../components/docs/${lang}.vue`)),
     children: docsChildrenRoute
   }
