@@ -23,6 +23,7 @@
   import localeMixin from '../../common/mixins/locale'
   import { deepAssign, findIndex } from '../../common/helpers/util'
   import { computeNatureMaxDay, formatType } from '../../common/lang/date'
+  import CubeCascadePicker from '../cascade-picker/cascade-picker.vue'
 
   const COMPONENT_NAME = 'cube-date-picker'
   const EVENT_SELECT = 'select'
@@ -65,6 +66,9 @@
   export default {
     name: COMPONENT_NAME,
     mixins: [visibilityMixin, popupMixin, pickerMixin, localeMixin],
+    components: {
+      CubeCascadePicker
+    },
     props: {
       min: {
         type: [Date, Array],
