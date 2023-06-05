@@ -39,10 +39,12 @@ export default defineConfig({
         renderChunk(code, chunk) {
           moduleDepsChunk.set(chunk.fileName, chunk.moduleIds);
           if (chunk.isEntry) {
+            code = 'import "./css.mjs"\n\n' + code
             entryStyleChunk.set(chunk.fileName, [
-              ...chunk.moduleIds,
               ...chunk.imports,
+              ...chunk.moduleIds,
             ]);
+            return code
           }
         },
         generateBundle(options, bundle) {
