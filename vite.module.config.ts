@@ -65,7 +65,7 @@ export default defineConfig({
             this.emitFile({
               type: "asset",
               fileName: `${key}.css`,
-              source: value.replace(/\s/g, ""),
+              source: value,
             });
           });
         },
