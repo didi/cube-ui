@@ -75,10 +75,10 @@ export default defineConfig({
   ],
   css: {},
   build: {
-    outDir: 'lib',
+    outDir: resolve(__dirname, './lib'),
     emptyOutDir: false,
     lib: {
-      entry: entries,
+      entry: entries[Number(process.argv[process.argv.length - 1])],
       formats: ["es"],
     },
     rollupOptions: {

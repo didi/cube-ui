@@ -134,4 +134,5 @@ if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(install)
 }
 
+export * from './module'
 export default Cube

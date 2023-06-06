@@ -1,22 +1,19 @@
 {
   "name": "cube-ui",
-  "version": "2.0.0-alpha",
+  "version": "2.0.0-alpha.0",
   "description": "A fantastic mobile ui lib implement by Vue",
-  "main": "./lib/cube.mjs",
-  "module": "./lib/cube.esm.mjs",
+  "main": "./lib/cube.umd.js",
+  "module": "./lib/cube.mjs",
   "unpkg": "./lib/cube.umd.js",
   "typings": "types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/cube.esm.mjs",
+      "import": "./lib/cube.mjs",
       "require": "./lib/cube.umd.js"
-    },
-    "./cube": {
-      "import": "./lib/cube.mjs"
     }
   },
   "scripts": {
-    "build": "vite build -c vite.umd.config.ts && vite build -c vite.esm.config.ts && vite build -c vite.module.config.ts",
+    "build": "vite build -c vite.umd.config.ts && tsx scripts/build-components.ts",
     "dev": "vite",
     "doc-dev": "vite -c vite.doc.config.ts",
     "doc-build": "vite build -c vite.doc.config.ts",
