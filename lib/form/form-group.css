@@ -1,0 +1,8 @@
+.cube-form-group {
+  overflow: hidden;
+}
+.cube-form-group-legend {
+  font-size: 14px;
+  color: #999;
+  background-color: #f3f4f5;
+}

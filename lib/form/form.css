@@ -1,0 +1,166 @@
+.cube-form {
+  position: relative;
+  font-size: 16px;
+  line-height: 1.429;
+  color: #666;
+  background-color: #fff;
+}
+.cube-form_groups .cube-form-group-legend {
+  padding: 10px 15px;
+}
+.cube-form_groups .cube-form-group-legend:empty {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.cube-form_standard .cube-form-item {
+  min-height: 46px;
+}
+.cube-form_standard .cube-form-field {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  font-size: 14px;
+}
+.cube-form_standard .cube-validator {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  position: relative;
+}
+.cube-form_standard .cube-validator_invalid {
+  color: #e64340;
+}
+.cube-form_standard .cube-validator-content {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.cube-form_standard .cube-validator-msg-def {
+  font-size: 0;
+}
+.cube-form_standard .cube-validator_invalid .cube-validator-msg::before {
+  content: "\e614";
+  padding-left: 5px;
+  font-family: "cube-icon" !important;
+  font-size: 20px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cube-form_standard .cube-form-label {
+  width: 100px;
+  padding-right: 10px;
+}
+.cube-form_standard .cube-checkbox-group::before,
+.cube-form_standard .cube-radio-group::before,
+.cube-form_standard .cube-checkbox-group::after,
+.cube-form_standard .cube-radio-group::after {
+  display: none;
+}
+.cube-form_standard .cube-input input {
+  padding: 13px 0;
+  background-color: transparent;
+}
+.cube-form_standard .cube-input::after {
+  display: none;
+}
+.cube-form_standard .cube-textarea-wrapper {
+  padding: 13px 0;
+  height: 20px;
+}
+.cube-form_standard .cube-textarea-wrapper.cube-textarea_expanded {
+  height: 60px;
+  padding-bottom: 20px;
+}
+.cube-form_standard .cube-textarea-wrapper.cube-textarea_expanded .cube-textarea-indicator {
+  bottom: 2px;
+}
+.cube-form_standard .cube-textarea-wrapper .cube-textarea {
+  padding: 0;
+  background-color: transparent;
+}
+.cube-form_standard .cube-textarea-wrapper::after {
+  display: none;
+}
+.cube-form_standard .cube-select {
+  padding-left: 0;
+  background-color: transparent;
+}
+.cube-form_standard .cube-select::after {
+  display: none;
+}
+.cube-form_standard .cube-upload-def {
+  padding: 5px 0;
+}
+.cube-form_standard .cube-upload-def .cube-upload-btn,
+.cube-form_standard .cube-upload-def .cube-upload-file {
+  margin: 5px 10px 5px 0;
+}
+.cube-form_classic .cube-form-item {
+  display: block;
+  padding: 15px;
+}
+.cube-form_classic .cube-form-item:last-child {
+  padding-bottom: 30px;
+}
+.cube-form_classic .cube-form-item::after {
+  display: none;
+}
+.cube-form_classic .cube-form-item .cube-validator-msg {
+  position: absolute;
+  margin-top: 3px;
+}
+.cube-form_classic .cube-form-item .cube-validator-msg::before {
+  display: none;
+}
+.cube-form_classic .cube-form-item .cube-validator-msg-def {
+  font-size: 12px;
+}
+.cube-form_classic .cube-form-item_btn {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.cube-form_classic .cube-form-item_btn:last-child {
+  padding-bottom: 0;
+}
+.cube-form_classic .cube-form-label {
+  padding-bottom: 15px;
+}
+.cube-form_fresh .cube-form-item {
+  display: block;
+  padding: 2em 15px 10px;
+}
+.cube-form_fresh .cube-form-item::after {
+  display: none;
+}
+.cube-form_fresh .cube-form-item .cube-validator-msg {
+  position: absolute;
+  top: 1em;
+  right: 15px;
+  bottom: auto;
+  margin-top: -0.4em;
+  font-size: 12px;
+}
+.cube-form_fresh .cube-form-item .cube-validator-msg::before {
+  display: none;
+}
+.cube-form_fresh .cube-form-item .cube-validator-msg-def {
+  font-size: 100%;
+}
+.cube-form_fresh .cube-form-item_btn {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.cube-form_fresh .cube-form-item_btn:last-child {
+  padding-bottom: 0;
+}
+.cube-form_fresh .cube-form-label {
+  position: absolute;
+  top: 1em;
+  margin-top: -0.4em;
+  font-size: 12px;
+}

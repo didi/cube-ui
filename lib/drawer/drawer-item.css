@@ -1,0 +1,20 @@
+.cube-drawer-item {
+  padding: 0 20px;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 15px;
+}
+.cube-drawer-item::after {
+  left: 20px;
+}
+.cube-drawer-item:last-child::after {
+  display: none;
+}
+.cube-drawer-item:first-child::after {
+  display: block;
+}
+.cube-drawer-item_active {
+  background: rgba(0,0,0,0.04);
+}

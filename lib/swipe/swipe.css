@@ -1,0 +1,17 @@
+.cube-swipe {
+  overflow: hidden;
+}
+.cube-swipe-enter-active,
+.cube-swipe-leave-active {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.cube-swipe-enter-active .cube-swipe-item-inner,
+.cube-swipe-leave-active .cube-swipe-item-inner {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.cube-swipe-enter-from .cube-swipe-item-inner,
+.cube-swipe-leave-to .cube-swipe-item-inner {
+  height: 0;
+}

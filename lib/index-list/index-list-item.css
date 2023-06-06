@@ -1,0 +1,17 @@
+.cube-index-list-item-def {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #333;
+}
+.cube-index-list-item-def:last-child::before {
+  display: none;
+}
+.cube-index-list-item-def:last-child::after {
+  display: none;
+}
+.cube-index-list-item_active {
+  background: rgba(0,0,0,0.04);
+}

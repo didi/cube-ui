@@ -1,0 +1,45 @@
+.cube-recycle-list {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cube-recycle-list-main {
+  min-height: 100%;
+}
+.cube-recycle-list-fake {
+  height: 1px;
+}
+.cube-recycle-list-invisible {
+  top: -1000px;
+  visibility: hidden;
+}
+.cube-recycle-list-item {
+  width: 100%;
+  position: absolute;
+  box-sizing: border-box;
+}
+.cube-recycle-list-transition {
+  position: absolute;
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
+}
+.cube-recycle-list-loading {
+  overflow: hidden;
+}
+.cube-recycle-list-loading-content {
+  text-align: center;
+}
+.cube-recycle-list-spinner {
+  margin: 10px auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}

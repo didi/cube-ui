@@ -1,0 +1,37 @@
+.cube-scroll-nav {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.cube-scroll-nav .cube-sticky-content {
+  height: 100%;
+}
+.cube-scroll-nav-main {
+  overflow: hidden;
+}
+.cube-scroll-nav-main > .cube-sticky {
+  position: static;
+}
+.cube-scroll-nav_side > .cube-sticky {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.cube-scroll-nav_side > .cube-sticky > .cube-scroll-wrapper {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.cube-scroll-nav_side > .cube-sticky > .cube-sticky-fixed {
+  position: relative;
+  height: 100%;
+  -webkit-box-ordinal-group: 0;
+  -webkit-order: -1;
+          order: -1;
+}
+.cube-scroll-nav_side .cube-scroll-nav-main > .cube-sticky-ele {
+  float: left;
+}
+.cube-scroll-nav_side .cube-scroll-nav-main > .cube-sticky {
+  overflow: hidden;
+}

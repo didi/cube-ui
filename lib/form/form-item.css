@@ -1,0 +1,45 @@
+.cube-form-item {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 0 15px;
+}
+.cube-form-item:last-child::after {
+  display: none;
+}
+.cube-form-item .cube-checkbox-group,
+.cube-form-item .cube-radio-group {
+  background-color: transparent;
+}
+.cube-form-item .cube-checkbox,
+.cube-form-item .cube-radio {
+  padding-left: 0;
+  padding-right: 0;
+}
+.cube-form-item_btn {
+  margin: 15px 0;
+}
+.cube-form-item_btn::after {
+  display: none;
+}
+.cube-form-label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+.cube-form-item_required .cube-form-label::before {
+  content: "*";
+  display: block;
+  margin-top: 1px;
+  margin-right: 0.3em;
+  color: #e64340;
+}

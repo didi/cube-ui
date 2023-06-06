@@ -1,0 +1,47 @@
+.cube-scroll-nav-bar {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #666;
+  background-color: #fff;
+}
+.cube-scroll-nav-bar_horizontal {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.cube-scroll-nav-bar_horizontal .cube-scroll-wrapper {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
+}
+.cube-scroll-nav-bar_horizontal .cube-scroll-content {
+  display: inline-block;
+  vertical-align: top;
+}
+.cube-scroll-nav-bar_horizontal .cube-scroll-nav-bar-items {
+  white-space: nowrap;
+}
+.cube-scroll-nav-bar_vertical {
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  text-align: center;
+}
+.cube-scroll-nav-bar_vertical .cube-scroll-nav-bar-item {
+  display: block;
+}
+.cube-scroll-nav-bar-items {
+  font-size: 14px;
+}
+.cube-scroll-nav-bar-item {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px 15px;
+}
+.cube-scroll-nav-bar-item_active {
+  color: #fc9153;
+}

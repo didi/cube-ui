@@ -6,6 +6,7 @@
       "subList": {
         "introduction": "Introduction",
         "quick-start": "QuickStart",
+        "migration": "Migrate from cube-ui @1.x",
         "post-compile": "PostCompile",
         "theme": "Theme",
         "singleton": "Singleton",
@@ -91,6 +92,7 @@
       "subList": {
         "introduction": "介绍",
         "quick-start": "快速上手",
+        "migration": "从 cube-ui @1.x 迁移",
         "post-compile": "后编译",
         "theme": "主题",
         "singleton": "单例模式",

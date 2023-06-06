@@ -1,203 +1,59 @@
 ## Quick start
 
-- [Application Guide](https://github.com/cube-ui/cube-application-guide)
-- Have problems? See [QA](https://github.com/cube-ui/question-answer/issues)
-- In nuxt application, see [demo repo](https://github.com/cube-ui/cube-nuxt-demo)
+> You are currently reading the documentation for cube-ui for Vue 3!
 
-### CLI
+Before using cube-ui, it is assumed that you have knowledge of Vue 3. We recommend using Vite to start your Vue 3 project to get the best development experience, along with Volar.
 
-
-#### vue-cli >= 3
-
-If you are using vue-cli@3, you can use [vue-cli-plugin-cube-ui](https://github.com/cube-ui/vue-cli-plugin-cube-ui) plugin. After you inited your project, just run `vue add cube-ui`. About options, see [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki).
-
-Then you can see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
-
-#### vue-cli < 3
-
-If you are going to create a new project with cube-ui, use the [cli tools](https://github.com/cube-ui/cube-template) base on [vue-cli](https://github.com/vuejs/vue-cli) to init the config and base code, then you can ignore the <a href="#cube-Install-anchor" class="anchor">Install</a> steps and see the <a href="#cube-Usage-anchor" class="anchor">Usage</a> part directly.
-
-```shell
-$ vue init cube-ui/cube-template projectname
-```
-
-About cube-template special options: [cube-template WIKI](https://github.com/cube-ui/cube-template/wiki).
-
-If you are going to use cube-ui in an existing project, see the <a href="#cube-Install-anchor" class="anchor">Install</a> part first.
+- [Vue3](https://cn.vuejs.org/guide/introduction.html)
+- [Vite](https://cn.vitejs.dev/guide/)
+- [Volar](https://marketplace.visualstudio.com/items?itemName=vue.volar)
 
 ### Install
-
-> This section only used in the case of vue-cli < 3
 
 #### NPM
 
 ```shell
-$ npm install cube-ui --save
+$ npm install cube-ui@alpha --save
 ```
-
-Since cube-ui support two compile ways such as [post-compile] (#/en-US/docs/post-compile) and normal compile with webpack 2+(by default using post-compile), you need to modify your application's dependencies and configuration before using it.
-
-- post-compile
-
-  1. Modify package.json and install the dependencies
-
-    ```json
-    {
-      // webpack-transform-modules-plugin depends on transformModules
-      "transformModules": {
-        "cube-ui": {
-          "transform": "cube-ui/src/modules/${member}",
-          "kebabCase": true
-        }
-      },
-      "devDependencies": {
-        // add stylus dependencies
-        "stylus": "^0.54.5",
-        "stylus-loader": "^2.1.1",
-        "webpack-post-compile-plugin": "^1.0.0",
-        "webpack-transform-modules-plugin": "^0.4.3"
-      }
-    }
-    ```
-
-  2. Modify webpack.base.conf.js
-
-    ```js
-    var PostCompilePlugin = require('webpack-post-compile-plugin')
-    var TransformModulesPlugin = require('webpack-transform-modules-plugin')
-    module.exports = {
-      // ...
-      plugins: [
-        // ...
-        new PostCompilePlugin(),
-        new TransformModulesPlugin()
-      ]
-      // ...
-    }
-    ```
-
-  3. Modify `exports.cssLoaders` function in build/utils.js
-
-    ```js
-    exports.cssLoaders = function (options) {
-      // ...
-      const stylusOptions = {
-        'resolve url': true
-      }
-      // https://vue-loader.vuejs.org/en/configurations/extract-css.html
-      return {
-        css: generateLoaders(),
-        postcss: generateLoaders(),
-        less: generateLoaders('less'),
-        sass: generateLoaders('sass', { indentedSyntax: true }),
-        scss: generateLoaders('sass'),
-        stylus: generateLoaders('stylus', stylusOptions),
-        styl: generateLoaders('stylus', stylusOptions)
-      }
-    }
-    ```
-  4. Modify vue-loader.conf.js
-
-    ```javascript
-    module.exports = {
-      loaders: utils.cssLoaders({
-        sourceMap: sourceMapEnabled,
-        extract: false
-      }),
-      // ...
-    }
-
-    ```
-
-    See [https://github.com/vuejs-templates/webpack/pull/970/files](https://github.com/vuejs-templates/webpack/pull/970/files)
-
-- Normal compile
-
-  1. Modify package.json and install the dependencies
-
-    ```json
-    {
-      // webpack-transform-modules-plugin depends on transformModules
-      "transformModules": {
-        "cube-ui": {
-          "transform": "cube-ui/lib/${member}",
-          "kebabCase": true,
-          "style": {
-            "ignore": ["create-api", "better-scroll", "locale"]
-          }
-        }
-      },
-      "devDependencies": {
-        "webpack-transform-modules-plugin": "^0.4.3"
-      }
-    }
-    ```
-
-  2. Modify webpack config
-
-    ```js
-    // webpack.config.js
-    var TransformModulesPlugin = require('webpack-transform-modules-plugin')
-    module.exports = {
-      // ...
-      resolve: {
-        // ...
-        alias: {
-          // ...
-          'cube-ui': 'cube-ui/lib'
-          // ...
-        }
-        // ...
-      }
-      // ...
-      plugins: [
-        // ...
-        new TransformModulesPlugin()
-      ]
-      // ...
-    }
-    ```
 
 #### CDN
 
 ```html
-<script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
+<script src="https://unpkg.com/cube-ui/lib/cube.umd.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
 ```
 
 ### Usage
 
-#### Fully import
+#### Import on demand(recommended)
+
+Importing Cube UI components in your component:
+
+```javascript
+import { Button } from 'cube-ui'
+```
+
+You can also register Cube UI components globally:
+
+```js
+// 全局注册
+createApp().use(Button)
+// ...
+```
+
+#### Fully import(not recommended)
 
 Commonly in the entry file:
 
 ```javascript
-import Vue from 'vue'
-import Cube from 'cube-ui'
+// main.ts
+import { createApp } from 'vue'
+import Cube from 'cube-ui/cube'
 
-Vue.use(Cube)
+createApp().use(Cube)
 ```
 
-#### Import on demand
-
-```javascript
-import {
-  /* eslint-disable no-unused-vars */
-  Style,
-  Button
-} from 'cube-ui'
-```
-
-**Notice:** In this case, you also need to import [style module](#/en-US/docs/style).
-
-Then register globally:
-
-```js
-// register globally
-Vue.use(Button)
-// ...
-```
-All the components and modules that can be imported on demand are listed below:
+#### All the components and modules that can be imported on demand are listed below
 
 ```js
 import {

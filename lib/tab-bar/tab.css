@@ -1,0 +1,11 @@
+.cube-tab {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  padding: 7px 0;
+  color: #666;
+  text-align: center;
+}
+.cube-tab_active {
+  color: #e8864c;
+}

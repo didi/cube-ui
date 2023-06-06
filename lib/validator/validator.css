@@ -1,0 +1,17 @@
+.cube-validator .cube-checkbox,
+.cube-validator .cube-radio {
+  color: inherit;
+}
+.cube-validator .cube-input input {
+  color: inherit;
+}
+.cube-validator .cube-textarea {
+  color: inherit;
+}
+.cube-validator .cube-select {
+  color: inherit;
+}
+.cube-validator-msg-def {
+  font-size: 14px;
+  color: #e64340;
+}

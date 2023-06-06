@@ -1,0 +1,11 @@
+.cube-upload {
+  position: relative;
+}
+.cube-upload-def {
+  margin-right: -10px;
+}
+.cube-upload-def .cube-upload-btn,
+.cube-upload-def .cube-upload-file {
+  float: left;
+  margin: 0 10px 10px 0;
+}

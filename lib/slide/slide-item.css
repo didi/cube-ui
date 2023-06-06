@@ -1,0 +1,16 @@
+.cube-slide-item {
+  float: left;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.cube-slide-item > a {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+}
+.cube-slide-item > a > img {
+  display: block;
+  height: 100%;
+}

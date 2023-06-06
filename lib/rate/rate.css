@@ -1,0 +1,16 @@
+.cube-rate {
+  list-style: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  vertical-align: top;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  max-width: 100%;
+}
+.cube-rate-justify {
+  width: 100%;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}

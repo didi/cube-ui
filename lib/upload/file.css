@@ -1,0 +1,98 @@
+.cube-upload-file {
+  position: relative;
+}
+.cube-upload-file-def {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  background: #fff no-repeat center;
+  background-size: cover;
+  border-radius: 2px;
+}
+.cube-upload-file-def > .cubeic-wrong {
+  position: absolute;
+  z-index: 2;
+  top: -2px;
+  right: -2px;
+  color: rgba(0,0,0,0.8);
+  font-size: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.cube-upload-file-def > .cubeic-wrong::before {
+  display: inline-block;
+  -webkit-transform: scale(1.625);
+          transform: scale(1.625);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+}
+.cube-upload-file-state {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  background-color: rgba(37,38,45,0.4);
+  border-radius: 2px;
+  -webkit-transition: opacity 0.1s;
+  transition: opacity 0.1s;
+}
+.cube-upload-file-state::before {
+  content: ".";
+  position: relative;
+  left: -50%;
+  display: block;
+  width: 1px;
+  height: 1px;
+  margin-left: -1px;
+  background-color: rgba(0,0,0,0.1);
+}
+.cube-upload-file_stat {
+  opacity: 1;
+}
+.cube-upload-file-status {
+  position: relative;
+  z-index: 1;
+  font-size: 30px;
+  display: none;
+}
+.cube-upload-file-status.cubeic-right {
+  display: block;
+  color: #fc9153;
+}
+.cube-upload-file-status.cubeic-warn {
+  display: block;
+  color: #f43530;
+}
+.cube-upload-file-status.cubeic-right::after,
+.cube-upload-file-status.cubeic-warn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.56em;
+  height: 0.56em;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.cube-upload-file-status.cubeic-right + .cube-upload-file-progress,
+.cube-upload-file-status.cubeic-warn + .cube-upload-file-progress {
+  display: none;
+}
+.cube-upload-file-progress {
+  color: #fff;
+  font-size: 20px;
+}

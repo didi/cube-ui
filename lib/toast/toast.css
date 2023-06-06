@@ -1,0 +1,71 @@
+.cube-toast.cube-popup {
+  z-index: 900;
+}
+.cube-toast .cube-popup-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 13px 16px;
+  color: #ccc;
+  background-color: rgba(37,38,45,0.9);
+  border-radius: 2px;
+}
+.cube-toast .cube-toast-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+.cube-toast .cube-toast-tip {
+  line-height: 20px;
+  font-size: 14px;
+  max-width: 12em;
+  max-height: 40px;
+  overflow: hidden;
+}
+.cube-toast .cube-toast-icon ~ .cube-toast-tip,
+.cube-toast .cube-loading ~ .cube-toast-tip {
+  margin-left: 8px;
+}
+.cube-toast-fade-enter-active {
+  -webkit-animation: toast-in 0.2s;
+          animation: toast-in 0.2s;
+}
+.cube-toast-fade-leave-active {
+  -webkit-animation: toast-out 0.2s;
+          animation: toast-out 0.2s;
+}
+@-webkit-keyframes toast-in {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@keyframes toast-in {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@-webkit-keyframes toast-out {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+@keyframes toast-out {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}

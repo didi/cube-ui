@@ -1,0 +1,67 @@
+.cube-toolbar-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-flex-basis: 1e-9px;
+          flex-basis: 1e-9px;
+  width: 1%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #fcfcfc;
+/* reset cube-checkbox style */
+/* reset cube-btn style */
+}
+.cube-toolbar-item:last-child {
+  position: static;
+}
+.cube-toolbar-item:last-child::after {
+  display: none;
+}
+.cube-toolbar-item:active {
+  background-color: #e8e8e8;
+}
+.cube-toolbar-item:active::after {
+  border-color: transparent;
+}
+.cube-toolbar-item .cube-toolbar-chb {
+  height: 44px;
+  padding: 0;
+  font-size: 12px;
+  background-color: transparent;
+}
+.cube-toolbar-item .cube-toolbar-chb .cube-checkbox-wrap {
+  padding: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.cube-toolbar-item .cube-toolbar-chb .cube-checkbox-wrap .cube-checkbox-ui {
+  position: relative;
+  left: auto;
+  margin-right: 0.42em;
+}
+.cube-toolbar-item .cube-btn {
+  position: relative;
+  padding: 0 5px;
+  background-color: transparent;
+  border: 0 none;
+  color: #666;
+  font-size: 12px;
+}
+.cube-toolbar-item .cube-btn:active {
+  background-color: transparent;
+}
+.cube-toolbar-item .cube-btn:active::after {
+  display: none;
+}
+.cube-toolbar-item .cube-btn i {
+  margin-right: 0;
+}
+.cube-toolbar-item .cube-btn i.cubeic-more {
+  color: #999;
+  font-size: 16px;
+}

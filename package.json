@@ -1,13 +1,22 @@
 {
   "name": "cube-ui",
-  "version": "1.12.47",
+  "version": "2.0.0-alpha",
   "description": "A fantastic mobile ui lib implement by Vue",
-  "main": "lib/index.js",
-  "module": "src/index.js",
+  "main": "./lib/cube.mjs",
+  "module": "./lib/cube.esm.mjs",
+  "unpkg": "./lib/cube.umd.js",
   "typings": "types/index.d.ts",
-  "postCompile": true,
+  "exports": {
+    ".": {
+      "import": "./lib/cube.esm.mjs",
+      "require": "./lib/cube.umd.js"
+    },
+    "./cube": {
+      "import": "./lib/cube.mjs"
+    }
+  },
   "scripts": {
-    "build": "vite build -c vite.lib.config.ts && vite build -c vite.module.config.ts",
+    "build": "vite build -c vite.umd.config.ts && vite build -c vite.esm.config.ts && vite build -c vite.module.config.ts",
     "dev": "vite",
     "doc-dev": "vite -c vite.doc.config.ts",
     "doc-build": "vite build -c vite.doc.config.ts",
@@ -25,16 +34,11 @@
   "files": [
     "src",
     "lib",
-    "types",
-    "vetur"
+    "types"
   ],
   "sideEffects": [
     "*.css"
   ],
-  "vetur": {
-    "tags": "vetur/tags.json",
-    "attributes": "vetur/attributes.json"
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },

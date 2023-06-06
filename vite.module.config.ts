@@ -11,6 +11,7 @@ const entries = klawSync(resolve(__dirname, "./src/modules"), {
 export default defineConfig({
   define: {
     __VERSION__: JSON.stringify(pkg.version),
+    'process.env.NODE_ENV': JSON.stringify('production')
   },
   resolve: {
     alias: {
@@ -74,6 +75,7 @@ export default defineConfig({
   ],
   css: {},
   build: {
+    outDir: 'lib',
     emptyOutDir: false,
     lib: {
       entry: entries,

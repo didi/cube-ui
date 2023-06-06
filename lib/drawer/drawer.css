@@ -1,0 +1,49 @@
+.cube-drawer {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  color: #333;
+}
+.cube-drawer-main {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  bottom: 0;
+  max-width: 90%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  box-shadow: -2px 0 2px rgba(0,0,0,0.2);
+}
+.cube-drawer-title {
+  position: relative;
+  padding: 0 20px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  background-color: #fff;
+}
+.cube-drawer-panels {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
