@@ -7,12 +7,6 @@
   "unpkg": "./lib/cube.umd.js",
   "typings": "types/index.d.ts",
   "postCompile": true,
-  "exports": {
-    ".": {
-      "import": "./lib/cube.mjs",
-      "require": "./lib/cube.umd.js"
-    }
-  },
   "scripts": {
     "build": "vite build -c vite.umd.config.ts && tsx scripts/build-components.ts",
     "dev": "vite",
