@@ -135,4 +135,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export * from './module'
+
 export default Cube

@@ -27,11 +27,19 @@ $ npm install cube-ui@alpha --save
 
 #### Import on demand(recommended)
 
+Commonly in the entry file:
+
+```javascript
+import 'cube/cube.min.css'
+```
+
 Importing Cube UI components in your component:
 
 ```javascript
 import { Button } from 'cube-ui'
 ```
+
+Note: Importing CSS on demand needs to be implemented with plugins like `babel-import`
 
 You can also register Cube UI components globally:
 
@@ -48,7 +56,9 @@ Commonly in the entry file:
 ```javascript
 // main.ts
 import { createApp } from 'vue'
-import Cube from 'cube-ui/cube'
+import Cube from 'cube-ui'
+
+import 'cube/cube.min.css'
 
 createApp().use(Cube)
 ```

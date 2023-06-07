@@ -27,11 +27,19 @@ $ npm install cube-ui@alpha --save
 
 #### 按需引入（推荐）
 
+一般在入口文件中：
+
+```javascript
+import 'cube/cube.min.css'
+```
+
 在组件中导入 cube-ui 组件：
 
 ```javascript
 import { Button } from 'cube-ui'
 ```
+
+注：按需引入 css 需要配合类似 `babel-import` 的插件来实现
 
 也可以直接全局注册：
 
@@ -48,7 +56,9 @@ createApp().use(Button)
 ```javascript
 // main.ts
 import { createApp } from 'vue'
-import Cube from 'cube-ui/cube'
+import Cube from 'cube-ui'
+
+import 'cube/cube.min.css'
 
 createApp().use(Cube)
 ```

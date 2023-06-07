@@ -2,10 +2,11 @@
   "name": "cube-ui",
   "version": "2.0.0-alpha.0",
   "description": "A fantastic mobile ui lib implement by Vue",
-  "main": "./lib/cube.umd.js",
-  "module": "./lib/cube.mjs",
+  "main": "./lib/cube.mjs",
+  "module": "./src/index.js",
   "unpkg": "./lib/cube.umd.js",
   "typings": "types/index.d.ts",
+  "postCompile": true,
   "exports": {
     ".": {
       "import": "./lib/cube.mjs",
