@@ -40,8 +40,8 @@
       background-size: 100%
       background-repeat: no-repeat
       background-position: center
-      bg-image("evaluation_icon_star_gray")
+      bg-image("./evaluation_icon_star_gray")
   .cube-rate-item_active
     .cube-rate-item-def
-      bg-image("evaluation_icon_star")
+      bg-image("./evaluation_icon_star")
 </style>
