@@ -20,7 +20,10 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @require "../../common/stylus/mixin.styl"
+  bg-image($url, $ext = ".png")
+    background-image: url($url + "@2x" + $ext)
+    @media (min-resolution: 3dppx)
+      background-image: url($url + "@3x" + $ext)
 
   .cube-rate-item
     position: relative
@@ -40,8 +43,8 @@
       background-size: 100%
       background-repeat: no-repeat
       background-position: center
-      bg-image("./evaluation_icon_star_gray")
+      bg-image("evaluation_icon_star_gray")
   .cube-rate-item_active
     .cube-rate-item-def
-      bg-image("./evaluation_icon_star")
+      bg-image("evaluation_icon_star")
 </style>
