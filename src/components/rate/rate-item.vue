@@ -20,10 +20,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  bg-image($url, $ext = ".png")
-    background-image: url($url + "@2x" + $ext)
-    @media (min-resolution: 3dppx)
-      background-image: url($url + "@3x" + $ext)
+  @require "../../common/stylus/mixin.styl"
 
   .cube-rate-item
     position: relative
