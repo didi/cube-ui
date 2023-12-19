@@ -1,6 +1,6 @@
-import { CreateElement, VNode } from 'vue'
+import { createVNode, VNode } from 'vue'
 
-export type IRenderFn = (createElement: CreateElement) => VNode|VNode[]
+export type IRenderFn = (h: typeof createVNode) => VNode|VNode[]
 export interface CreateAPIFn<O, V> {
   (options: O, single?: boolean):V
   (options: O, renderFn?: IRenderFn,):V

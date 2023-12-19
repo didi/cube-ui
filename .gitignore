@@ -9,6 +9,7 @@ test/e2e/reports
 selenium-debug.log
 
 dist/
+lib/
 
 # Test publish files
 cube-ui-*.tgz

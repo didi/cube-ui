@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import Cube from '../src/index'
+import Cube from '../lib/cube.mjs'
 import App from './App.vue'
 import router from './router'
 

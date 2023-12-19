@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { CubeUIComponent } from './component'
 import {
   // basic
@@ -50,20 +49,6 @@ import {
 export type Component = CubeUIComponent
 
 /**
- * 版本
- *
- * The version of cube-ui
- */
-export const version: string
-
-/**
- * 需通过 `Vue.use(Cube)` 来安装
- *
- * Call `Vue.use(Cube)` to install
- */
-export function install (vue: typeof Vue): void
-
-/**
  * BetterScroll, https://github.com/ustbhuangyi/better-scroll
  */
 export class BScroll {}
@@ -75,11 +60,11 @@ export class BScroll {}
  * You use it to create your own API component
  * more details: https://didi.github.io/cube-ui/#/en-US/docs/create-api
  */
-export function createAPI (vue: typeof Vue, Component: CubeUIComponent, events?: string[], single?: boolean) : object
+export function createAPI (app: any, Component: CubeUIComponent, events?: string[], single?: boolean) : object
 
 /** Local Module */
 export class Locale {
-  install (vue: typeof Vue): void
+  install (app: any): void
   use (lang: string, messages: object): void
 }
 
@@ -216,29 +201,3 @@ export class ScrollNavBar extends CubeScrollNavBar {}
 export class ScrollNav extends CubeScrollNav {}
 /** RecycleList Component */
 export class RecycleList extends CubeRecycleList {}
-
-// Vue prototype $createXx
-declare module 'vue/types/vue' {
-  interface Vue {
-    /** create Popup instance */
-    $createPopup: CreateAPIFn<IPopup, Popup>
-    /** create Toast instance */
-    $createToast: CreateAPIFn<IToast, Toast>
-    /** create Picker instance */
-    $createPicker: CreateAPIFn<IPicker, Picker>
-    /** create CascadePicker instance */
-    $createCascadePicker: CreateAPIFn<ICascadePicker, CascadePicker>
-    /** create DatePicker instance */
-    $createDatePicker: CreateAPIFn<IDatePicker, DatePicker>
-    /** create TimePicker instance */
-    $createTimePicker: CreateAPIFn<ITimePicker, TimePicker>
-    /** create SegmentPicker instance */
-    $createSegmentPicker: CreateAPIFn<ISegmentPicker, SegmentPicker>
-    /** create Dialog instance */
-    $createDialog: CreateAPIFn<IDialog, Dialog>
-    /** create ActionSheet instance */
-    $createActionSheet: CreateAPIFn<IActionSheet, ActionSheet> 
-    /** create ImagePreview instance */
-    $createImagePreview: CreateAPIFn<IImagePreview, ImagePreview>
-  }
-}
