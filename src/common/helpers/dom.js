@@ -33,10 +33,10 @@ export function getData(el, name) {
 
 export function getRect(el) {
   return {
-    top: el.offsetTop,
-    left: el.offsetLeft,
-    width: el.offsetWidth,
-    height: el.offsetHeight
+    top: el.offsetTop || 0,
+    left: el.offsetLeft || 0,
+    width: el.offsetWidth || 0,
+    height: el.offsetHeight || 0
   }
 }
 
