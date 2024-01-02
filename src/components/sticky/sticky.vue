@@ -192,7 +192,7 @@
           this.positions[i] = top
           this.heights[i] = height
         })
-        this.fixedEleHeight = this.$refs.fixedEle.offsetHeight
+        this.fixedEleHeight = this.$refs.fixedEle.offsetHeight || 0
       }
     }
   }
