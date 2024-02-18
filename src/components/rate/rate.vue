@@ -50,7 +50,7 @@
     },
     data() {
       return {
-        tempValue: this.value
+        tempValue: 0
       }
     },
     created() {
@@ -62,9 +62,12 @@
       }
     },
     watch: {
-      value(val) {
-        if (val !== this.tempValue) {
-          this.tempValue = val
+      value: {
+        immediate: true,
+        handler(val) {
+          if (val !== this.tempValue) {
+            this.tempValue = this.handleNum(val)
+          }
         }
       }
     },
@@ -102,15 +105,18 @@
           this.$emit(EVENT_INPUT, this.tempValue)
         }
       },
-      computeTempValue(touch) {
-        // let leftAmount = Math.ceil((touch.clientX - this.left) / this.containerWidth * this.max)
-        let num = (touch.clientX - this.left) / this.containerWidth * this.max
+      handleNum(num) {
         if (this.allowHalf) {
           const baseNum = Math.ceil(num) - 0.5
-          num = num < baseNum ? baseNum : baseNum + 0.5
+          num = num <= baseNum ? baseNum : baseNum + 0.5
         } else {
           num = Math.ceil(num)
         }
+        return num
+      },
+      computeTempValue(touch) {
+        let num = (touch.clientX - this.left) / this.containerWidth * this.max
+        num = this.handleNum(num)
         if (num > 0 && num <= this.max) {
           this.tempValue = num
         } else if (num <= 0) {
