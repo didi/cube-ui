@@ -1,5 +1,8 @@
 <template>
-  <li class="cube-rate-item" :class="{ 'cube-rate-item_active': index <= $parent.tempValue }">
+  <li class="cube-rate-item" :class="{
+    'cube-rate-item_active': index <= $parent.tempValue,
+    'cube-rate-item_half_active': index === $parent.tempValue + 0.5
+  }">
     <slot>
       <div class="cube-rate-item-def"></div>
     </slot>
@@ -44,4 +47,7 @@
   .cube-rate-item_active
     .cube-rate-item-def
       bg-image("evaluation_icon_star")
+  .cube-rate-item_half_active
+    .cube-rate-item-def
+      bg-image("evaluation_icon_half")
 </style>

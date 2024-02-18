@@ -1,18 +1,18 @@
 <template>
   <!-- the preventDefault of touchmove is to prevent any default action caused by any touchmove event associated with the same active touch point, such as scrolling. -->
   <ul ref="rateContainer"
-      class="cube-rate"
-      :class="rateClass"
-      @touchstart.stop="handleStart"
-      @touchmove.stop.prevent="handleMove"
-      @touchend.stop="handleEnd"
-      @mousedown.stop="handleStart"
-      @mousemove.stop="handleMove"
-      @mouseup.stop="handleEnd">
-      <slot>
-        <cube-rate-item v-for="n in max" :key="n" :index="n"></cube-rate-item>
-      </slot>
-    </ul>
+    class="cube-rate"
+    :class="rateClass"
+    @touchstart.stop="handleStart"
+    @touchmove.stop.prevent="handleMove"
+    @touchend.stop="handleEnd"
+    @mousedown.stop="handleStart"
+    @mousemove.stop="handleMove"
+    @mouseup.stop="handleEnd">
+    <slot>
+      <cube-rate-item v-for="n in max" :key="n" :index="n"></cube-rate-item>
+    </slot>
+  </ul>
 </template>
 
 <script type="text/ecmascript-6">
@@ -21,7 +21,9 @@
   const EVENT_INPUT = 'input'
 
   const EVENT_TYPE_MOUSE = 'mouse'
-
+  function isMouseEvent(e) {
+    return e.type.indexOf(EVENT_TYPE_MOUSE) > -1
+  }
   export default {
     name: COMPONENT_NAME,
     props: {
@@ -38,6 +40,10 @@
         default: false
       },
       justify: {
+        type: Boolean,
+        default: false
+      },
+      allowHalf: {
         type: Boolean,
         default: false
       }
@@ -65,7 +71,7 @@
     methods: {
       handleStart(e) {
         if (!this.disabled) {
-          if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
+          if (isMouseEvent(e)) {
             this.mousePressed = true
             document.addEventListener('mouseup', this.handleEnd)
             document.addEventListener('mousemove', this.handleMove)
@@ -76,26 +82,38 @@
         }
       },
       handleMove(e) {
-        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
-          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) === -1 ? e.touches[0] : e)
+        if (this.disabled) return
+
+        if (!isMouseEvent(e)) {
+          this.computeTempValue(e.touches[0])
+        } else if (this.mousePressed) {
+          this.computeTempValue(e)
         }
       },
       handleEnd(e) {
-        if (!this.disabled && (e.type.indexOf(EVENT_TYPE_MOUSE) === -1 || this.mousePressed)) {
-          if (e.type.indexOf(EVENT_TYPE_MOUSE) > -1) {
+        if (this.disabled) return
+        if ((!isMouseEvent(e) || this.mousePressed)) {
+          if (isMouseEvent(e)) {
             this.mousePressed = false
             document.removeEventListener('mouseup', this.handleEnd)
             document.removeEventListener('mousemove', this.handleMove)
           }
-          this.computeTempValue(e.type.indexOf(EVENT_TYPE_MOUSE) > -1 ? e : e.changedTouches[0])
+          this.computeTempValue(isMouseEvent(e) ? e : e.changedTouches[0])
           this.$emit(EVENT_INPUT, this.tempValue)
         }
       },
       computeTempValue(touch) {
-        let leftAmount = Math.ceil((touch.clientX - this.left) / this.containerWidth * this.max)
-        if (leftAmount > 0 && leftAmount <= this.max) {
-          this.tempValue = leftAmount
-        } else if (leftAmount <= 0) {
+        // let leftAmount = Math.ceil((touch.clientX - this.left) / this.containerWidth * this.max)
+        let num = (touch.clientX - this.left) / this.containerWidth * this.max
+        if (this.allowHalf) {
+          const baseNum = Math.ceil(num) - 0.5
+          num = num < baseNum ? baseNum : baseNum + 0.5
+        } else {
+          num = Math.ceil(num)
+        }
+        if (num > 0 && num <= this.max) {
+          this.tempValue = num
+        } else if (num <= 0) {
           this.tempValue = 0
         } else {
           this.tempValue = this.max
