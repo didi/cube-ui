@@ -16,27 +16,52 @@ describe('Rate.vue', () => {
     expect(Vue.component(Rate.name))
       .to.be.a('function')
   })
-  it('should render correct contents', (done) => {
+  it('should render correct contents', async () => {
     vm = createRate()
     const el = vm.$el
     expect(el.className)
       .to.equal('cube-rate')
-    const actives = el.querySelectorAll('.cube-rate-item_active')
+    let actives = el.querySelectorAll('.cube-rate-item_active')
     expect(actives.length)
       .to.equal(vm.value)
     const stars = el.querySelectorAll('.cube-rate-item')
     expect(stars.length)
       .to.equal(vm.max)
-    vm.$parent.value = 4
-    vm.$parent.justify = true
-    setTimeout(() => {
-      expect(el.className)
-        .to.equal('cube-rate cube-rate-justify')
-      const actives = el.querySelectorAll('.cube-rate-item_active')
-      expect(actives.length)
-        .to.equal(vm.value)
-      done()
+
+    await new Promise(resolve => {
+      vm.$parent.value = 4
+      vm.$parent.justify = true
+      setTimeout(resolve)
     })
+    expect(el.className)
+      .to.equal('cube-rate cube-rate-justify')
+    actives = el.querySelectorAll('.cube-rate-item_active')
+    expect(actives.length)
+      .to.equal(vm.value)
+
+    await new Promise(resolve => {
+      vm.$parent.allowHalf = true
+      vm.$parent.value = 3.2
+      setTimeout(resolve)
+    })
+    actives = el.querySelectorAll('.cube-rate-item_active')
+    expect(actives.length) // 3
+      .to.equal(getNumStatus(vm.tempValue).full) // 3
+    let halfActives = el.querySelectorAll('.cube-rate-item_half_active')
+    expect(halfActives.length) // 1
+      .to.equal(getNumStatus(vm.tempValue).half) // 1
+
+    await new Promise(resolve => {
+      vm.$parent.allowHalf = false
+      vm.$parent.value = 4.1
+      setTimeout(resolve)
+    })
+    actives = el.querySelectorAll('.cube-rate-item_active')
+    expect(actives.length) // 5
+      .to.equal(getNumStatus(vm.tempValue).full) // 5
+    halfActives = el.querySelectorAll('.cube-rate-item_half_active')
+    expect(halfActives.length) // 0
+      .to.equal(getNumStatus(vm.tempValue).half) // 0
   })
   it('should trigger change event', function (done) {
     this.timeout(10000)
@@ -95,17 +120,33 @@ describe('Rate.vue', () => {
   })
 })
 
-function createRate (changeHanlder) {
+function getNumStatus(num) {
+  const str = num + ''
+  let full = num
+  let half = 0
+  if (str.includes('.5')) {
+    full = num - 0.5
+    half = 1
+  }
+  return {
+    full,
+    half
+  }
+}
+
+function createRate (changeHanlder, props = {}) {
+  const data = Object.assign({}, {
+    disabled: false,
+    value: 3,
+    max: 5,
+    justify: false,
+    allowHalf: false
+  }, props)
   const vm = createVue({
     template: `
-    <cube-rate v-model="value" :disabled="disabled" :justify="justify" :max="max"></cube-rate>
+    <cube-rate v-model="value" :disabled="disabled" :justify="justify" :max="max" :allowHalf="allowHalf"></cube-rate>
     `,
-    data: {
-      disabled: false,
-      value: 3,
-      max: 5,
-      justify: false
-    },
+    data,
     watch: {
       value(newVal) {
         changeHanlder && changeHanlder.call(vm, newVal)
