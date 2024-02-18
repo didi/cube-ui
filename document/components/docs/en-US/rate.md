@@ -87,7 +87,7 @@ Rate component. You can customize the rating star numbers, and disable the inter
 | max | max star number | Number | - | 5 |
 | disabled | disabled status | Boolean | true/false | false |
 | justify | auto justify container's width | Boolean | true/false | false |
-| allowHalf<sup>1.12.21</sup> | whether to allow half star | Boolean | true/false | false |
+| allowHalf<sup>1.12.52</sup> | whether to allow half star | Boolean | true/false | false |
 
 ### slot
 
