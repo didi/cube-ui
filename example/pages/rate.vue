@@ -5,7 +5,7 @@
     class="option-demo">
     <div slot="content">
       <div class="rate-wrapper">
-        <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify">
+        <cube-rate v-model="value" :disabled="disabled" :max="max" :justify="justify" :allowHalf="allowHalf">
           <cube-rate-item v-for="n in max" :key="n" :value="value" :index="n">
             <div class="rate-item" v-if="customStar"></div>
           </cube-rate-item>
@@ -22,6 +22,8 @@
                             @update:value="updateJustify"></switch-option>
           <switch-option class="item" name="customStar" :value="customStar"
                             @update:value="updateRateItem"></switch-option>
+          <switch-option class="item" name="allowHalf" :value="allowHalf"
+                            @update:value="updateAllowHalf"></switch-option>
         </div>
       </div>
     </div>
@@ -52,7 +54,8 @@
             text: '10',
             value: 10
           }
-        ]
+        ],
+        allowHalf: false
       }
     },
     methods: {
@@ -67,6 +70,9 @@
       },
       updateRateItem(val) {
         this.customStar = val
+      },
+      updateAllowHalf(val) {
+        this.allowHalf = val
       }
     },
     components: {
