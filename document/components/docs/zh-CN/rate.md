@@ -87,6 +87,7 @@
 | max | 星星个数 | Number | - | 5 |
 | disabled | 禁用状态 | Boolean | true/false | false |
 | justify | 是否自适应容器宽度（通过在星星之间增加空隙） | Boolean | true/false | false |
+| allowHalf<sup>1.12.52</sup> | 是否支持半选 | Boolean | true/false | false |
 
 ### 插槽
 
