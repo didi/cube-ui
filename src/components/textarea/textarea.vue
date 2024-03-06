@@ -13,7 +13,9 @@
       @change="changeHander"
     >
     </textarea>
-    <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
+    <slot name="indicator" :remain="remain" :count="count">
+      <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
+    </slot>
   </div>
 </template>
 
@@ -33,7 +35,7 @@
     data() {
       return {
         textareaValue: this.value,
-        expanded: this.autoExpand ? !!this.value : false,
+        expanded: this.forceExpand ? true : (this.autoExpand ? !!this.value : false),
         isFocus: false
       }
     },
@@ -70,6 +72,10 @@
       autoExpand: {
         type: Boolean,
         default: false
+      },
+      forceExpand: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -97,7 +103,7 @@
       },
       textareaValue(newValue) {
         this.$emit(EVENT_INPUT, newValue)
-        if (!this.isFocus && this.expanded) {
+        if (!this.forceExpand && !this.isFocus && this.expanded) {
           this.expanded = false
         }
       }
@@ -110,7 +116,7 @@
       },
       handleBlur(e) {
         this.$emit('blur', e)
-        if (this.textareaValue.length === 0) {
+        if (!this.forceExpand && this.textareaValue.length === 0) {
           this.expanded = false
         }
         this.isFocus = false

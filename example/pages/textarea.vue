@@ -30,6 +30,17 @@
           </div>
         </div>
       </div>
+      <div class="title">named slot indicator & forceExpand: true</div>
+      <div class="textarea-wrapper">
+        <cube-textarea
+          v-model="text"
+          :force-expand="true"
+          :maxlength="+maxlength || 60"
+          :indicator="false"
+          :width="width || '300px'">
+          <span slot="indicator" slot-scope="{ remain }" class="cube-textarea-indicator">{{remain}}/{{maxlength || 60}}</span>
+        </cube-textarea>
+      </div>
     </div>
   </cube-page>
 </template>

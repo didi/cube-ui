@@ -48,6 +48,23 @@ Multi-line input box components. You can use the `v-model` directive to create t
   If `indicator` is `true`, the config equals `{remain: true, negative: true}`.
 
   If `indicator` is an object, you can use `remain` and `negative` to control whether show the remaining count(if `remain` is `false` means show the textarea value length) and whether allow remaining number is negative.
+  
+  Starting from version 1.12.53, named scoped slot `indicator` is supported for custom count indicators. It provides the remaining characters `remain` and the current input count `count`:
+
+  ```html
+  <cube-textarea
+    v-model="text"
+    placeholder="请您至少输入8个字（必填）"
+    :maxlength="300"
+    :auto-expand="true"
+  >
+    <span slot="indicator" slot-scope="{ remain }" class="cube-textarea-indicator">{{remain}}/300</span>
+    <!-- 或者 vue2.6以上 -->
+    <!-- <template #indicator="childValue">
+      <span class="cube-textarea-indicator">{{childValue.remain}}/300</span>
+    </template> -->
+  </cube-textarea>
+  ```
 
 - Multiple configurations
 
@@ -90,6 +107,7 @@ Multi-line input box components. You can use the `v-model` directive to create t
 | autofocus | autofocus status | Boolean | true/false | false |
 | indicator<sup>1.10.0</sup> | indicator config | Boolean/Object | true/false/{} | true |
 | autoExpand<sup>1.12.0</sup> | If `autoExpand` is true and have initial value, the textarea will be auto expanded | Boolean | true/false | false |
+| forceExpand<sup>1.12.53</sup> | If `forceExpand` is true, the textarea will remain expanded at all times. | Boolean | true/false | false |
 
 - indicator sub configuration
 
