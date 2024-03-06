@@ -13,7 +13,9 @@
       @change="changeHander"
     >
     </textarea>
-    <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
+    <slot name="indicator" :remain="remain" :count="count">
+      <span v-if="indicator" v-show="expanded" class="cube-textarea-indicator">{{indicatorConf.remain ? remain : count}}</span>
+    </slot>
   </div>
 </template>
 

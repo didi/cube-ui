@@ -43,6 +43,23 @@
   ```
 
   如果 `indicator` 的值为 `false`，则不显示计数标识，如果为 `true`，则等同于 `{remain: true, negative: true}`，而如果是对象，则可通过 `remain` 和 `negative` 分别控制是否显示剩余字数（如果为 `false` 则显示输入字数）和是否允许负值。
+  
+  从1.12.53开始也支持具名作用域插槽 `indicator` 自定义计数标识，提供了剩余可输入字数 `remain`，和当前已输入字数 `count`：
+
+  ```html
+  <cube-textarea
+    v-model="text"
+    placeholder="请您至少输入8个字（必填）"
+    :maxlength="300"
+    :auto-expand="true"
+  >
+    <span slot="indicator" slot-scope="{ remain }" class="cube-textarea-indicator">{{remain}}/300</span>
+    <!-- 或者 vue2.6以上 -->
+    <!-- <template #indicator="childValue">
+      <span class="cube-textarea-indicator">{{childValue.remain}}/300</span>
+    </template> -->
+  </cube-textarea>
+  ```
 
 - 多项配置
 
@@ -94,6 +111,12 @@
   | - | - | - | - | - |
   | remain | 是否控制显示剩余字数，如果为 `false` 则代表显示输入字数 | Boolean | true/false | true |
   | negative | 当 `remain` 为 true 时有效，是否允许出现负值 | Boolean | true/false | true |
+
+### 插槽
+
+  | 名称 | 说明 |
+  | - | - |
+  | indicator<sup>1.12.53</sup>  | 自定义右下角计数标识 |
 
 ### 事件
 
