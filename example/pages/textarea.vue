@@ -30,10 +30,11 @@
           </div>
         </div>
       </div>
-      <div class="title">具名作用域插槽自定义indicator</div>
+      <div class="title">named slot indicator & forceExpand: true</div>
       <div class="textarea-wrapper">
         <cube-textarea
           v-model="text"
+          :force-expand="true"
           :maxlength="+maxlength || 60"
           :indicator="false"
           :width="width || '300px'">

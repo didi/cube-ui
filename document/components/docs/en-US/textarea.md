@@ -107,6 +107,7 @@ Multi-line input box components. You can use the `v-model` directive to create t
 | autofocus | autofocus status | Boolean | true/false | false |
 | indicator<sup>1.10.0</sup> | indicator config | Boolean/Object | true/false/{} | true |
 | autoExpand<sup>1.12.0</sup> | If `autoExpand` is true and have initial value, the textarea will be auto expanded | Boolean | true/false | false |
+| forceExpand<sup>1.12.53</sup> | If `forceExpand` is true, the textarea will remain expanded at all times. | Boolean | true/false | false |
 
 - indicator sub configuration
 

@@ -102,6 +102,7 @@
 | autofocus | 自动对焦 | Boolean | true/false | false |
 | indicator<sup>1.10.0</sup> | 计数标识配置 | Boolean/Object | true/false/{} | true |
 | autoExpand<sup>1.12.0</sup> | 如果为 true 且默认有内容的话，会默认展开 | Boolean | true/false | false |
+| forceExpand<sup>1.12.53</sup> | 如果为 true , 会始终保持展开 | Boolean | true/false | false |
 
 - indicator 子配置项
 
