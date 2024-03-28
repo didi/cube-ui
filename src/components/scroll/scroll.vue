@@ -482,7 +482,7 @@
         const {stopTime = DEFAULT_STOP_TIME} = this.pullDownRefresh
         return new Promise(resolve => {
           setTimeout(() => {
-            this.scroll.finishPullDown()
+            this.scroll && this.scroll.finishPullDown()
             resolve()
           }, stopTime)
         })
@@ -493,7 +493,7 @@
             this.pullDownStyle = `top: -${this.pullDownHeight}px`
             this.beforePullDown = true
             resolve()
-          }, this.scroll.options.bounceTime)
+          }, this.scroll && this.scroll.options.bounceTime)
         })
       },
       _getPullDownEleHeight() {
