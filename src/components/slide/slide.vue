@@ -252,7 +252,7 @@
       _play() {
         clearTimeout(this._timer)
         this._timer = setTimeout(() => {
-          this.slide.next()
+          this.slide && this.slide.next()
         }, this.interval)
       },
       _deactivated() {
