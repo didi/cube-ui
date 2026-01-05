@@ -1,6 +1,6 @@
 {
   "name": "cube-ui",
-  "version": "1.12.55",
+  "version": "1.12.56",
   "description": "A fantastic mobile ui lib implement by Vue",
   "main": "lib/index.js",
   "module": "src/index.js",
