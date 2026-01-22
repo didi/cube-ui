@@ -235,7 +235,11 @@
             observeDOM: false,
             useTransition: USE_TRANSITION
           })
+          this.$nextTick(() => {
+            this._updateItemClass(wheel)
+          })
           wheel.on('scrollEnd', () => {
+            this._updateItemClass(wheel)
             this.$emit(EVENT_CHANGE, i, this._getSelectIndex(wheel))
           })
         } else {
@@ -279,6 +283,18 @@
           }
         }
         return selectedIndex
+      },
+      _updateItemClass(wheel) {
+        const items = Array.from(wheel.items)
+        const selectedIndex = this._getSelectIndex(wheel)
+        items.forEach((item, index) => {
+          item.classList.remove('is-active', 'is-near')
+          if (index === selectedIndex) {
+            item.classList.add('is-active')
+          } else if (index === selectedIndex - 1 || index === selectedIndex + 1) {
+            item.classList.add('is-near')
+          }
+        })
       }
     },
     beforeDestroy() {
