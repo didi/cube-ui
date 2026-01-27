@@ -288,11 +288,13 @@
         const items = Array.from(wheel.items)
         const selectedIndex = this._getSelectIndex(wheel)
         items.forEach((item, index) => {
-          item.classList.remove('is-active', 'is-near')
+          item.classList.remove('cube-picker-is-active', 'cube-picker-is-near-top', 'cube-picker-is-near-bottom')
           if (index === selectedIndex) {
-            item.classList.add('is-active')
-          } else if (index === selectedIndex - 1 || index === selectedIndex + 1) {
-            item.classList.add('is-near')
+            item.classList.add('cube-picker-is-active')
+          } else if (index === selectedIndex - 1) {
+            item.classList.add('cube-picker-is-near-top')
+          } else if (index === selectedIndex + 1) {
+            item.classList.add('cube-picker-is-near-bottom')
           }
         })
       }
